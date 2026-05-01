@@ -3041,8 +3041,7 @@ article.markdown-section {
 }
 
 #arxiv-search-panel.is-conference-tab .dpr-display-card,
-#arxiv-search-panel.is-conference-tab .dpr-input-card,
-#arxiv-search-panel.is-conference-tab .dpr-conference-card {
+#arxiv-search-panel.is-conference-tab .dpr-input-card {
   background: #ffffff;
 }
 
@@ -3245,39 +3244,6 @@ article.markdown-section {
 .dpr-conference-subtitle {
   color: #6b7280;
   font-size: 12px;
-}
-
-.dpr-conference-card {
-  border: 1px solid #e5e7eb;
-  border-radius: 8px;
-  padding: 12px;
-  background: #fff;
-}
-
-.dpr-conference-card-title {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-weight: 600;
-  color: #111827;
-}
-
-.dpr-conference-chip {
-  display: inline-flex;
-  align-items: center;
-  border-radius: 999px;
-  padding: 1px 8px;
-  background: rgba(21, 101, 192, 0.08);
-  color: #1565c0;
-  font-size: 11px;
-  font-weight: 600;
-}
-
-.dpr-conference-card-meta {
-  margin-top: 8px;
-  color: #4b5563;
-  font-size: 12px;
-  line-height: 1.6;
 }
 
 .dpr-conference-note {

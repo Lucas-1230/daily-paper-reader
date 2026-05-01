@@ -75,16 +75,8 @@ window.SubscriptionsManager = (function () {
   ].join('\n');
 
   const QUICK_RUN_CONFERENCES = [
-    'ACL',
-    'AAAI',
-    'COLING',
-    'EMNLP',
-    'ICCV',
-    'ICLR',
-    'ICML',
-    'IJCAI',
     'NeurIPS',
-    'SIGIR',
+    'ICML',
   ];
 
   const normalizeText = (v) => String(v || '').trim();
@@ -374,7 +366,7 @@ window.SubscriptionsManager = (function () {
     if (yearSelectEl && !yearSelectEl._dprQuickRunOptionsFilled) {
       yearSelectEl._dprQuickRunOptionsFilled = true;
       const currentYear = new Date().getFullYear();
-      for (let y = currentYear; y >= currentYear - 8; y -= 1) {
+      for (let y = currentYear; y >= currentYear - 2; y -= 1) {
         const opt = document.createElement('option');
         opt.value = String(y);
         opt.textContent = String(y);
@@ -816,30 +808,19 @@ window.SubscriptionsManager = (function () {
               <div class="dpr-conference-title">会议论文拉取</div>
               <div class="dpr-conference-subtitle">独立维护会议论文数据源，不参与每日论文抓取。</div>
 
-              <div class="dpr-conference-card">
-                <div class="dpr-conference-card-title">
-                  <span>ICML</span>
-                  <span class="dpr-conference-chip">OpenReview</span>
-                </div>
-                <div class="dpr-conference-card-meta">
-                  默认写入 <code>icml_openreview_papers</code>，使用已有 Supabase 表和检索 RPC。
-                </div>
-              </div>
-
               <div class="dpr-conference-note">
                 会议论文任务暂未接入前端触发；后续可在这里接入公开状态检查与上传。
               </div>
 
               <div class="chat-quick-run-row">
-                <label for="arxiv-admin-quick-run-year-select">年份</label>
-                <select id="arxiv-admin-quick-run-year-select">
-                  <option value="">选择年份</option>
+                <label for="arxiv-admin-quick-run-conference-select">会议</label>
+                <select id="arxiv-admin-quick-run-conference-select">
+                  <option value="">选择会议</option>
                 </select>
               </div>
               <div class="chat-quick-run-row">
-                <label for="arxiv-admin-quick-run-conference-select">会议名</label>
-                <select id="arxiv-admin-quick-run-conference-select">
-                  <option value="">选择会议名</option>
+                <label for="arxiv-admin-quick-run-year-select">年份</label>
+                <select id="arxiv-admin-quick-run-year-select" multiple size="3">
                 </select>
               </div>
               <button
@@ -1075,7 +1056,10 @@ window.SubscriptionsManager = (function () {
     }
     fillQuickRunOptions(quickRunYearSelect, quickRunConferenceSelect);
     if (quickRunYearSelect && !quickRunYearSelect.value) {
-      quickRunYearSelect.value = String(new Date().getFullYear());
+      const currentYear = String(new Date().getFullYear());
+      Array.from(quickRunYearSelect.options || []).forEach((opt) => {
+        opt.selected = opt.value === currentYear;
+      });
     }
     if (quickRunConferenceSelect && !quickRunConferenceSelect.value) {
       quickRunConferenceSelect.value = 'ICML';
