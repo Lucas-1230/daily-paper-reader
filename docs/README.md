@@ -6,74 +6,79 @@
 </div>
 
 ## 每次日报
-- 最新运行日期：2026-05-06 ~ 2026-06-04
-- 运行时间：2026-06-04 11:45:57 UTC
+- 最新运行日期：2026-06-04
+- 运行时间：2026-06-04 21:44:05 UTC
 - 运行状态：成功
-- 本次总论文数：17
-- 精读区：0
-- 速读区：17
+- 本次总论文数：19
+- 精读区：8
+- 速读区：11
 
 ### 今日简报（AI）
-1) 今日速读三篇满分的网安前沿论文，聚焦用大语言模型（LLM）驱动自动化攻击与红队测试。
-2) 最值得关注的方向是：多 LLM 如何协同发动隐蔽式网络入侵，以及如何构建专门数据集来训练和评估网络安全 AI。
-3) 建议开发者与安全团队跟进“多智能体攻击协同”带来的新型威胁，并可将 CAI 数据集用作防御模型的训练起点。
-- 详情：[/20260506-20260604/README](/20260506-20260604/README)
+今日精读两篇满分的LLM安全论文，揭示了AI渗透测试的不稳定性与AI蠕虫的自适应能力。  
+速读中，工具使用信任不对称与检索增强推理成本攻击成为两大亮点，颠覆了对AI安全边界的认知。  
+建议安全从业者优先关注AI代理中的持久化控制与跨渠道信任度量，这两个方向将定义下一代防御策略。
+- 详情：[/202606/04/README](/202606/04/README)
 
 ### 精读区论文标签
-- 本次无精读推荐。
+1. [How Reliable Are AI Attackers Against a Fixed Vulnerable Target? A 400-Run Empirical Study of LLM Penetration Testing Consistency](/202606/04/2605.30096v1-how-reliable-are-ai-attackers-against-a-fixed-vulnerable-target-a-400-run-empirical-study-of-llm-penetration-testing-consistency)  
+   标签：评分：10.0/10、query:ca
+   evidence：直接测量LLM在400次渗透测试中的一致性，以量化攻击型网络作战能力边界。
+2. [AI Agents Enable Adaptive Computer Worms](/202606/04/2606.03811v1-ai-agents-enable-adaptive-computer-worms)  
+   标签：评分：10.0/10、query:ca
+   evidence：展示AI智能体催生使用大模型进行定制攻击的自适应蠕虫
+3. [CyberGym-E2E: Scalable Real-World Benchmark for AI Agents' End-to-End Cybersecurity Capabilities](/202606/04/2606.04460v1-cybergym-e2e-scalable-real-world-benchmark-for-ai-agents-end-to-end-cybersecurity-capabilities)  
+   标签：评分：10.0/10、query:ca
+   evidence：基准测试AI智能体全周期网络安全能力，直接定义大模型进攻性网络操作边界
+4. [Cybersecurity AI (CAI) Dataset](/202606/04/2605.28146v1-cybersecurity-ai-cai-dataset)  
+   标签：评分：9.0/10、query:ca
+   evidence：最大规模的LLM驱动黑客行为轨迹数据集，支持研究大模型在攻击性网络操作中的能力
+5. [Towards Cybersecurity SuperIntelligence (CSI): What's the best harness for cybersecurity?](/202606/04/2605.28334v2-towards-cybersecurity-superintelligence-csi-whats-the-best-harness-for-cybersecurity)  
+   标签：评分：9.0/10、query:ca
+   evidence：元脚手架，用于在攻击性任务上基准测试LLM驱动的网络安全智能体
+6. [Provably Secure Agent Guardrail](/202606/04/2605.29251v1-provably-secure-agent-guardrail)  
+   标签：评分：9.0/10、query:ca
+   evidence：提出基于逻辑推理局限的大模型智能体可证明安全护栏，应对失控风险
+7. [Benign Inputs, Harmful Outputs: Cross-Modal Jailbreaking via Distributed Semantic Recomposition](/202606/04/2606.01837v1-benign-inputs-harmful-outputs-cross-modal-jailbreaking-via-distributed-semantic-recomposition)  
+   标签：评分：9.0/10、query:ca
+   evidence：针对多模态大模型的跨模态越狱攻击，绕过安全护栏
+8. [A New Framework for Cybersecurity Refusals in AI Agents](/202606/04/2606.02644v1-a-new-framework-for-cybersecurity-refusals-in-ai-agents)  
+   标签：评分：9.0/10、query:ca
+   evidence：为攻击性网络安全AI智能体建立拒绝边界框架
 
 ### 速读区论文标签
-1. [Autonomous Adversary: Red-Teaming in the age of LLM](/20260506-20260604/2605.06486v1-autonomous-adversary-red-teaming-in-the-age-of-llm)  
-   标签：评分：10.0/10、query:ca
-   evidence：通过对手模拟评估大模型智能体在横向移动等进攻性网络功能中的优势与局限。
-2. [When LLMs Team Up: A Coordinated Attack Framework for Automated Cyber Intrusions](/20260506-20260604/2605.08763v1-when-llms-team-up-a-coordinated-attack-framework-for-automated-cyber-intrusions)  
-   标签：评分：10.0/10、query:ca
-   evidence：CAESAR：用于入侵任务的LLM多智能体协同框架。
-3. [Cybersecurity AI (CAI) Dataset](/20260506-20260604/2605.28146v1-cybersecurity-ai-cai-dataset)  
-   标签：评分：10.0/10、query:ca
-   evidence：最大规模的LLM驱动黑客轨迹语料库，直接支持LLM网络犯罪能力与局限性分析
-4. [CyBiasBench: Benchmarking Bias in LLM Agents for Cyber-Attack Scenarios](/20260506-20260604/2605.07830v1-cybiasbench-benchmarking-bias-in-llm-agents-for-cyber-attack-scenarios)  
-   标签：评分：9.0/10、query:ca
-   evidence：基准测试LLM智能体的攻击选择偏向，揭示不同智能体在进攻性网络安全中的行为模式差异
-5. [MATRA: Modeling the Attack Surface of Agentic AI Systems -- OpenClaw Case Study](/20260506-20260604/2605.10763v1-matra-modeling-the-attack-surface-of-agentic-ai-systems----openclaw-case-study)  
-   标签：评分：9.0/10、query:ca
-   evidence：面向智能体AI系统的威胁建模框架，评估LLM威胁在部署中的风险。
-6. [Quantifying LLM Safety Degradation Under Repeated Attacks Using Survival Analysis](/20260506-20260604/2605.12869v1-quantifying-llm-safety-degradation-under-repeated-attacks-using-survival-analysis)  
-   标签：评分：9.0/10、query:ca
-   evidence：应用生存分析将大模型越狱漏洞建模为时间至事件的结果，量化安全退化风险
-7. [A Red Teaming Framework for Evaluating Robustness of AI-enabled Security Orchestration, Automation, and Response Systems](/20260506-20260604/2605.17075v1-a-red-teaming-framework-for-evaluating-robustness-of-ai-enabled-security-orchestration-automation-and-response-systems)  
-   标签：评分：9.0/10、query:ca
-   evidence：基于LLM规划器和RL控制器的红队框架模拟自适应多阶段攻击，建模攻击性网络行为。
-8. [A Large Language Model Approach to Generating Bypass Rules for Malware Evasion in Analysis Sandbox](/20260506-20260604/2605.21821v1-a-large-language-model-approach-to-generating-bypass-rules-for-malware-evasion-in-analysis-sandbox)  
-   标签：评分：9.0/10、query:ca
-   evidence：LLM自动生成用于规避恶意软件沙箱的YARA绕过规则。
-9. [Detecting Offensive Cyber Agents: A Detection-in-Depth Approach](/20260506-20260604/2605.21956v1-detecting-offensive-cyber-agents-a-detection-in-depth-approach)  
-   标签：评分：9.0/10、query:ca
-   evidence：AI智能体能够策划网络攻击，增加了速度、规模和自主性，亟需检测手段。
-10. [Agent-ToM: Learning to Monitor Autonomous LLM Agents via Theory-of-Mind Reasoning](/20260506-20260604/2605.24216v1-agent-tom-learning-to-monitor-autonomous-llm-agents-via-theory-of-mind-reasoning)  
-   标签：评分：9.0/10、query:ca
-   evidence：提出学习监控框架检测LLM智能体隐蔽恶意行为，支撑网络犯罪智能体模拟
-11. [Poisoning the Watchtower: Prompt Injection Attacks Against LLM-Augmented Security Operations Through Adversarial Log Content](/20260506-20260604/2605.24421v1-poisoning-the-watchtower-prompt-injection-attacks-against-llm-augmented-security-operations-through-adversarial-log-content)  
-   标签：评分：9.0/10、query:ca
-   evidence：识别提示注入作为大模型增强SOC的结构性漏洞，是网络安全部署风险。
-12. [APT-Agent: Automated Penetration Testing using Large Language Models](/20260506-20260604/2605.24949v1-apt-agent-automated-penetration-testing-using-large-language-models)  
-   标签：评分：9.0/10、query:ca
-   evidence：使用大模型实现全自动渗透测试，包括侦查、利用和数据窃取
-13. [SEC-bench Pro: Can Language Models Solve Long-Horizon Software Security Tasks?](/20260506-20260604/2605.26548v1-sec-bench-pro-can-language-models-solve-long-horizon-software-security-tasks)  
-   标签：评分：9.0/10、query:ca
-   evidence：评估LLMAgent在漏洞发现与PoC生成上的能力。
-14. [Stateful Online Monitoring Catches Distributed Agent Attacks](/20260506-20260604/2605.31593v1-stateful-online-monitoring-catches-distributed-agent-attacks)  
-   标签：评分：9.0/10、query:ca
-   evidence：构建首个分布式智能体攻击，利用多智能体脚手架将恶意目标分散到子智能体以规避安全监控
-15. [SoK: Robustness in Large Language Models against Jailbreak Attacks](/20260506-20260604/2605.05058v1-sok-robustness-in-large-language-models-against-jailbreak-attacks)  
+1. [From Prompt Injection to Persistent Control: Defending Agentic Harness Against Trojan Backdoors](/202606/04/2605.31042v1-from-prompt-injection-to-persistent-control-defending-agentic-harness-against-trojan-backdoors)  
    标签：评分：8.0/10、query:ca
-   evidence：系统化的越狱攻击与防御分类法，引入多维安全评估框架Security Cube
-16. [Adversarial Reframing: A Framework for Targeted Generation in Language Models](/20260506-20260604/2605.21674v1-adversarial-reframing-a-framework-for-targeted-generation-in-language-models)  
+   evidence：揭示大模型代理中提示注入可导致特洛伊后门持久控制的安全漏洞
+2. [Same Payload, Different Channel: Measuring Trust Asymmetry in Tool-Using Language Models](/202606/04/2606.00566v1-same-payload-different-channel-measuring-trust-asymmetry-in-tool-using-language-models)  
    标签：评分：8.0/10、query:ca
-   evidence：提出多LLM越狱框架，实现恶意生成，展示网络犯罪使能
-17. [Investigating and Alleviating Harm Amplification in LLM Interactions](/20260506-20260604/2606.02423v1-investigating-and-alleviating-harm-amplification-in-llm-interactions)  
+   evidence：量化了大模型对不同通道传输的对抗内容的敏感性差异，暴露安全盲点
+3. [Inference Cost Attacks for Retrieval-Augmented Large Language Models](/202606/04/2606.02643v1-inference-cost-attacks-for-retrieval-augmented-large-language-models)  
    标签：评分：8.0/10、query:ca
-   evidence：研究LLM交互中的危害放大效应，使用户能实施超越自身能力的恶意行为
+   evidence：提出通过污染外部知识库增加RAG大模型系统推理成本的新型攻击
+4. [Agentic Relationship Harm: Benchmarking and Gating Relational Manipulation in AI Agents](/202606/04/2606.03271v1-agentic-relationship-harm-benchmarking-and-gating-relational-manipulation-in-ai-agents)  
+   标签：评分：8.0/10、query:ca
+   evidence：针对AI智能体用于关系操纵等网络危害行为建立基准测试
+5. [Towards Cybersecurity SuperIntelligence (CSI): What's the best harness for cybersecurity?](/202606/04/2605.28334v1-towards-cybersecurity-superintelligence-csi-whats-the-best-harness-for-cybersecurity)  
+   标签：评分：7.0/10、query:ca
+   evidence：在攻防挑战上基准测试LLM驱动的网络安全智能体，直接评估能力边界。
+6. [Automatically Attacking Software Reverse Engineering AI Agents](/202606/04/2605.30667v1-automatically-attacking-software-reverse-engineering-ai-agents)  
+   标签：评分：7.0/10、query:ca
+   evidence：展示对LLM驱动逆向工程工具的对抗攻击，暴露LLM使能恶意软件混淆的风险。
+7. [Defending LLM-based Multi-Agent Systems Against Cooperative Attacks with Sentence-Level Rectification](/202606/04/2605.28104v1-defending-llm-based-multi-agent-systems-against-cooperative-attacks-with-sentence-level-rectification)  
+   标签：评分：6.0/10、query:ca
+   evidence：模拟大模型多智能体系统中的协同攻击，可迁移至网络犯罪模拟
+8. [Evolving Skill-Structured Attack Memory Enhances LLM Jailbreaking](/202606/04/2605.29237v1-evolving-skill-structured-attack-memory-enhances-llm-jailbreaking)  
+   标签：评分：6.0/10、query:ca
+   evidence：提出MemoAttack越狱方法用于LLM安全评估，可用于评估恶意提示下的LLM脆弱性风险。
+9. [COMPASS: Cognitive MCTS-Guided Process Alignment for Safe Search Agents](/202606/04/2605.30838v1-compass-cognitive-mcts-guided-process-alignment-for-safe-search-agents)  
+   标签：评分：6.0/10、query:ca
+   evidence：COMPASS框架解决LLM搜索代理的检索引发安全退化，为恶意使用场景下的脆弱性评估和缓解提供方法。
+10. [MaskForge: Structure-Aware Adaptive Attacks for Jailbreaking Diffusion Large Language Models](/202606/04/2606.04027v1-maskforge-structure-aware-adaptive-attacks-for-jailbreaking-diffusion-large-language-models)  
+   标签：评分：6.0/10、query:ca
+   evidence：MaskForge针对扩散大语言模型进行结构感知自适应攻击，作为评估新型LLM架构风险的红队测试工具。
+11. [SMAC-Talk: A Natural Language Extension of the StarCraft Multi-Agent Challenge for Large Language Models](/202606/04/2606.04202v1-smac-talk-a-natural-language-extension-of-the-starcraft-multi-agent-challenge-for-large-language-models)  
+   标签：评分：6.0/10、query:ca
+   evidence：提供具有自然语言通信的多智能体大模型环境，可迁移用于网络犯罪模拟
 
 
 <div class="dpr-home-promo-card">
