@@ -1,0 +1,673 @@
+{
+  "mode": "skims",
+  "generated_at": "2026-06-04T11:31:13.816796+00:00",
+  "stats": {
+    "mode": "skims",
+    "forced_all_quick": true,
+    "min_score": 8.0,
+    "deep_divecandidates": 17,
+    "deep_cap": null,
+    "deep_selected": 0,
+    "quick_candidates": 17,
+    "quick_skim_target": null,
+    "quick_selected": 17
+  },
+  "deep_dive": [],
+  "quick_skim": [
+    {
+      "id": "2605.06486v1",
+      "source": "arxiv",
+      "title": "Autonomous Adversary: Red-Teaming in the age of LLM",
+      "abstract": "Language Model Agents (LMAs) are emerging as a powerful primitive for augmenting red-team operations. They can support attack planning, adversary emulation, and the orchestration of multi-step activity such as lateral movement, a core enabling capability of advanced persistent threat (APT) campaigns. Using frameworks such as MITRE ATT&CK, we analyze where these agents intersect with core offensive functions and assess current strengths and limitations of LMAs with an emphasis on governance and realistic evaluation. We benchmark LMAs across two lateral-movement scenarios in a controlled adversary-emulation environment, where LMAs interact with instrumented cyber agents, observe execution artifacts, and iteratively adapt based on environmental feedback. Each scenario is formalized as an ordered task chain with explicit validation predicates, leveraging an LLM-as-a-Judge paradigm to ensure deterministic outcome verification.   We compare three operational modalities: fully autonomous execution, self-scaffolded planning, and expert-defined action plans. Preliminary findings indicate that expert-defined action plans yield higher task-completion rates relative to other operational modes. However, failure remains frequent across all modalities, largely attributable to brittle command invocation, environmental and deployment instability, and recurring errors in credential management and state handling.",
+      "authors": [
+        "Mohammad Mamun",
+        "Mohamed Gaber",
+        "Scott Buffett",
+        "Sherif Saad"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR"
+      ],
+      "published": "2026-05-07T16:07:41+00:00",
+      "link": "https://arxiv.org/pdf/2605.06486v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 10.0,
+      "llm_evidence_en": "Assesses strengths and limitations of LLM agents in offensive cyber functions like lateral movement via adversary emulation.",
+      "llm_evidence_cn": "通过对手模拟评估大模型智能体在横向移动等进攻性网络功能中的优势与局限。",
+      "llm_evidence": "通过对手模拟评估大模型智能体在横向移动等进攻性网络功能中的优势与局限。",
+      "canonical_evidence": "通过对手模拟评估大模型智能体在横向移动等进攻性网络功能中的优势与局限。",
+      "llm_tldr_en": "Benchmarks LLM agents in lateral movement scenarios to assess their capability boundaries in offensive cyber operations, providing insights for governance and realistic evaluation.",
+      "llm_tldr_cn": "在受控对手模拟环境中对大模型智能体进行横向移动基准测试，评估其在进攻性网络行动中的能力边界。研究发现当前智能体在自主攻击规划和执行中仍存局限，为治理和现实评估提供依据。",
+      "llm_tldr": "在受控对手模拟环境中对大模型智能体进行横向移动基准测试，评估其在进攻性网络行动中的能力边界。研究发现当前智能体在自主攻击规划和执行中仍存局限，为治理和现实评估提供依据。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "defining the capability boundaries of large language models in offensive cyber operations",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2605.08763v1",
+      "source": "arxiv",
+      "title": "When LLMs Team Up: A Coordinated Attack Framework for Automated Cyber Intrusions",
+      "abstract": "Automated intrusion-style workflows require LLM agents to reason over partial observations, tool outputs, and executable artifacts under bounded budgets. A single LLM instance often compresses evidence extraction, planning, execution, and validation into one context, which increases the risk of context drift and error propagation. Existing LLM-based multi-agent systems support general collaboration, but they do not explicitly model the role boundaries, artifact provenance, and cost constraints that characterize multi-stage intrusion workflows.   This paper presents CAESAR, a coordinated multi-agent framework for controlled analysis of LLM-agent behavior in intrusion-style tasks. CAESAR decomposes the workflow into five typed roles and coordinates them through a bounded round protocol with a persistent knowledge base, a per-round workspace, validator-gated knowledge promotion, and capability-token write isolation. We evaluate CAESAR on 25 CTF tasks across five categories and four LLM backends. Compared with a single-agent baseline under matched budgets and tool access, CAESAR improves task success and reduces performance variance, with larger gains on tasks requiring multi-step exploit composition. A secondary simulated interactional-security study suggests that the role structure can transfer beyond code-native surfaces. The results indicate that role transitions, artifact provenance, and knowledge-promotion events provide useful structural signals for monitoring coordinated LLM-agent behavior beyond individual prompt and output inspection. The dataset, implementation, and evaluation logs are released at https://github.com/Xu-Qiu/CMAS.",
+      "authors": [
+        "Minfeng Qi",
+        "Tianqing Zhu",
+        "Zijie Xu",
+        "Congcong Zhu",
+        "Qin Wang",
+        "Wanlei Zhou"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR"
+      ],
+      "published": "2026-05-09T07:47:42+00:00",
+      "link": "https://arxiv.org/pdf/2605.08763v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 10.0,
+      "llm_evidence_en": "CAESAR: coordinated multi-agent framework for LLM agents in intrusion tasks.",
+      "llm_evidence_cn": "CAESAR：用于入侵任务的LLM多智能体协同框架。",
+      "llm_evidence": "CAESAR：用于入侵任务的LLM多智能体协同框架。",
+      "canonical_evidence": "CAESAR：用于入侵任务的LLM多智能体协同框架。",
+      "llm_tldr_en": "CAESAR decomposes intrusion workflows into five typed roles for LLM agents, enabling controlled analysis of automated cyber attacks with explicit role boundaries and cost constraints.",
+      "llm_tldr_cn": "针对单LLM实例在自动化入侵工作流中易出现上下文漂移和错误传播的问题，CAESAR将入侵任务分解为五种类型化角色的协同框架，明晰角色边界与成本约束，为评估LLM Agent在攻击模拟中的能力与限制提供了可控实验平台。",
+      "llm_tldr": "针对单LLM实例在自动化入侵工作流中易出现上下文漂移和错误传播的问题，CAESAR将入侵任务分解为五种类型化角色的协同框架，明晰角色边界与成本约束，为评估LLM Agent在攻击模拟中的能力与限制提供了可控实验平台。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "multi-agent systems for simulating cybercrime with large language models",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2605.28146v1",
+      "source": "arxiv",
+      "title": "Cybersecurity AI (CAI) Dataset",
+      "abstract": "We present CAI Dataset, a fourteen-month corpus of cybersecurity LLM trajectories collected through the open-source CAI agent framework, built in response to PentestGPT's finding that expert operator trajectories, not base-model capability, are the bottleneck for cybersecurity LLM performance. CAI Dataset aggregates 230,935 session logs and 26,027,742 user prompts from 16,768 source IPs across 123 countries, exercising 4,187 unique LLM identifiers against 23,147 target domains over 18.07 TB of durable storage. The mix is hands-on (36.4% offensive, 20.1% attacker-intent, 27.5% business / integration, 4.4% defensive), making CAI Dataset, to the best of our knowledge, the largest described corpus of LLM-driven hacker trajectories. It is released to partner organisations and selected customers as an audience-size series (CAI Dataset10, CAI Dataset1k, CAI Dataset200k). Read longitudinally, the corpus is a record of cybersecurity itself turning automated: operators routinely paste live credentials, production hostnames and bearer tokens into prompts knowing their inputs are logged, a trade-off they accept to stay competitive. Aggregated across the industry, this concentrates a substantial fraction of the world's offensive and defensive operator context inside a handful of frontier-model API providers, a single failure surface whose breach or politically motivated repurposing could cascade into nation- and enterprise-scale disruption. The only configuration that preserves both the productivity advantage and operator-side confidentiality is an on-premise, privately-hosted cybersecurity-specialised LLM served inside the operator's trust boundary, which CAI Dataset is shaped to make practical.",
+      "authors": [
+        "Víctor Mayoral-Vilches"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR"
+      ],
+      "published": "2026-05-27T08:29:28+00:00",
+      "link": "https://arxiv.org/pdf/2605.28146v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 10.0,
+      "llm_evidence_en": "Largest corpus of LLM-driven hacker trajectories, directly supporting analysis of LLM cybercrime capabilities and limitations",
+      "llm_evidence_cn": "最大规模的LLM驱动黑客轨迹语料库，直接支持LLM网络犯罪能力与局限性分析",
+      "llm_evidence": "最大规模的LLM驱动黑客轨迹语料库，直接支持LLM网络犯罪能力与局限性分析",
+      "canonical_evidence": "最大规模的LLM驱动黑客轨迹语料库，直接支持LLM网络犯罪能力与局限性分析",
+      "llm_tldr_en": "CAI Dataset aggregates 230K+ session logs of LLM-driven offensive security operations, providing the largest corpus for studying hacker trajectories; it fuels research on LLM capabilities, risk assessment, and agent-based simulation of cybercrime.",
+      "llm_tldr_cn": "CAI数据集收集23万多条LLM驱动的攻击轨迹会话日志，涵盖进攻性、攻击意图等类别，为研究网络犯罪中大模型能力边界、智能体模拟和风险评估提供最大规模的实际操作数据，是探索LLM在恶意网络活动中作用的核心资源。",
+      "llm_tldr": "CAI数据集收集23万多条LLM驱动的攻击轨迹会话日志，涵盖进攻性、攻击意图等类别，为研究网络犯罪中大模型能力边界、智能体模拟和风险评估提供最大规模的实际操作数据，是探索LLM在恶意网络活动中作用的核心资源。",
+      "llm_tags": [
+        "query:ca:composite"
+      ],
+      "matched_query_tag": "query:ca:composite",
+      "matched_query_text": "Papers central to 探究网络犯罪中大模型的能力边界，类似风险评估、智能体模拟、多智能体, especially work that connects or combines: capabilities and limitations of large language models in cybercrime scenarios; cybercrime activities enabled by large language models; risk assessment of large language models for malicious cyber activities; agent-based modeling of cybercriminal behavior using AI agents; multi-agent systems for simulating cybercrime with large language models; defining the capability boundaries of large language models in offensive cyber operations; What are the capability limits of large language models when used for cybercrime?; How can agent based modeling and multi agent systems simulate cybercriminal activities with large language models?; What are the risks and vulnerabilities of deploying large language models in cybersecurity contexts?.",
+      "matched_requirement_id": "req-composite-ca",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2605.07830v1",
+      "source": "arxiv",
+      "title": "CyBiasBench: Benchmarking Bias in LLM Agents for Cyber-Attack Scenarios",
+      "abstract": "Large language models (LLMs) are increasingly deployed as autonomous agents in offensive cybersecurity. In this paper, we reveal an interesting phenomenon: different agents exhibit distinct attack patterns. Specifically, each agent exhibits an attack-selection bias, disproportionately concentrating its efforts on a narrow subset of attack families regardless of prompt variations. To systematically quantify this behavior, we introduce CyBiasBench, a comprehensive 630-session benchmark that evaluates five agents on three targets and four prompt conditions with ten attack families. We identify explicit bias across agents, with different dominant attack families and varying entropy levels in their attack-family allocation distributions. Such bias is better characterized as a trait of the agents, rather than a factor associated with the attack success rate. Furthermore, our experiments reveal a bias momentum effect, where agents resist explicit steering toward attack families that conflict with their bias. This forced distribution shift does not yield measurable improvements in attack performance. To ensure reproducibility and facilitate future research, we release an interactive result dashboard at https://trustworthyai.co.kr/CyBiasBench/ and a reproducibility artifact with aggregated session-level statistics and full evaluation scripts at https://github.com/Harry24k/CyBiasBench.",
+      "authors": [
+        "Taein Lim",
+        "Seongyong Ju",
+        "Munhyeok Kim",
+        "Hyunjun Kim",
+        "Hoki Kim"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI"
+      ],
+      "published": "2026-05-08T14:57:53+00:00",
+      "link": "https://arxiv.org/pdf/2605.07830v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "Benchmarking LLM agents in offensive cybersecurity reveals distinct attack-selection biases across agents",
+      "llm_evidence_cn": "基准测试LLM智能体的攻击选择偏向，揭示不同智能体在进攻性网络安全中的行为模式差异",
+      "llm_evidence": "基准测试LLM智能体的攻击选择偏向，揭示不同智能体在进攻性网络安全中的行为模式差异",
+      "canonical_evidence": "基准测试LLM智能体的攻击选择偏向，揭示不同智能体在进攻性网络安全中的行为模式差异",
+      "llm_tldr_en": "CyBiasBench quantifies the attack-selection bias in LLM agents, showing that agents concentrate on narrow attack families, providing a framework for modeling cybercriminal behavior patterns.",
+      "llm_tldr_cn": "CyBiasBench提出一个包含630次会话的基准，评估五个大语言模型智能体在多个目标和提示条件下的攻击家族选择偏向，发现智能体有显著的攻击模式集中现象，这种偏向性有助于理解AI智能体模拟网络犯罪行为的固有习性，并可为风险评估提供参考。",
+      "llm_tldr": "CyBiasBench提出一个包含630次会话的基准，评估五个大语言模型智能体在多个目标和提示条件下的攻击家族选择偏向，发现智能体有显著的攻击模式集中现象，这种偏向性有助于理解AI智能体模拟网络犯罪行为的固有习性，并可为风险评估提供参考。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "agent-based modeling of cybercriminal behavior using AI agents",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2605.10763v1",
+      "source": "arxiv",
+      "title": "MATRA: Modeling the Attack Surface of Agentic AI Systems -- OpenClaw Case Study",
+      "abstract": "LLMs are increasingly deployed as autonomous agents with access to tools, databases, and external services, yet practitioners (across different sectors) lack systematic methods to assess how known threat classes translate into concrete risks within a specific agentic deployment. We present MATRA, a pragmatic threat modeling framework for agentic AI systems that adapts established risk assessment methodology to systematically assess how known LLM threats translate into deployment-specific risks. MATRA begins with an asset-based impact assessment and utilizes attack trees to determine the likelihood of these impacts occurring within the system architecture. We demonstrate MATRA on a personal AI agent deployment using OpenClaw, quantifying how architectural controls such as network sandboxing and least-privilege access reduce risk by limiting the blast radius of successful injections.",
+      "authors": [
+        "Tim Van hamme",
+        "Thomas Vissers",
+        "Javier Carnerero-Cano",
+        "Mario Fritz",
+        "Emil C. Lupu",
+        "Lieven Desmet",
+        "Dinil Mon Divakaran"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI",
+        "cs.CR"
+      ],
+      "published": "2026-05-11T15:58:37+00:00",
+      "link": "https://arxiv.org/pdf/2605.10763v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "Threat modeling framework for agentic AI systems, assessing risks from LLM threats in deployment.",
+      "llm_evidence_cn": "面向智能体AI系统的威胁建模框架，评估LLM威胁在部署中的风险。",
+      "llm_evidence": "面向智能体AI系统的威胁建模框架，评估LLM威胁在部署中的风险。",
+      "canonical_evidence": "面向智能体AI系统的威胁建模框架，评估LLM威胁在部署中的风险。",
+      "llm_tldr_en": "Presents MATRA, a framework adapting risk assessment to quantify how known LLM threats translate into concrete risks in agentic AI deployments, demonstrated on OpenClaw.",
+      "llm_tldr_cn": "当大模型以自主智能体形式部署时，缺乏系统方法评估已知威胁到具体风险的转化。本文提出MATRA框架，基于资产影响评估和攻击树，系统量化智能体系统中的风险，并在个人AI智能体案例中演示，为智能体AI安全风险评估提供了实用工具。",
+      "llm_tldr": "当大模型以自主智能体形式部署时，缺乏系统方法评估已知威胁到具体风险的转化。本文提出MATRA框架，基于资产影响评估和攻击树，系统量化智能体系统中的风险，并在个人AI智能体案例中演示，为智能体AI安全风险评估提供了实用工具。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "risk assessment of large language models for malicious cyber activities",
+      "matched_requirement_id": "req-3",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2605.12869v1",
+      "source": "arxiv",
+      "title": "Quantifying LLM Safety Degradation Under Repeated Attacks Using Survival Analysis",
+      "abstract": "Large language models (LLMs) are increasingly deployed in a wide range of applications, yet remain vulnerable to adversarial jailbreak attacks that circumvent their safety guardrails. Existing evaluation frameworks typically report binary success/failure metrics, failing to capture the temporal dynamics of how attacks succeed under persistent adversarial pressure. This preliminary work proposes a novel evaluation framework that applies survival analysis techniques to characterize LLM jailbreak vuln`erability. Our approach models the time-to-jailbreak as a survival outcome, enabling estimation of hazard functions, survival curves, and risk factors associated with successful attacks. We evaluate three LLMs against a subset of prompts from the HarmBench dataset spanning three attack categories. Our analysis reveals that models exhibit distinct vulnerability profiles: while one model demonstrates rapid degradation under iterative attacks, the two other models show consistent moderate vulnerability. Our framework provides actionable insights for model and LLM application developers and establishes survival analysis as a rigorous methodology for LLM safety evaluation.",
+      "authors": [
+        "Zvi Topol"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI"
+      ],
+      "published": "2026-05-13T01:26:06+00:00",
+      "link": "https://arxiv.org/pdf/2605.12869v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "Applies survival analysis to model LLM jailbreak vulnerability as a time-to-event outcome, quantifying risk of safety degradation",
+      "llm_evidence_cn": "应用生存分析将大模型越狱漏洞建模为时间至事件的结果，量化安全退化风险",
+      "llm_evidence": "应用生存分析将大模型越狱漏洞建模为时间至事件的结果，量化安全退化风险",
+      "canonical_evidence": "应用生存分析将大模型越狱漏洞建模为时间至事件的结果，量化安全退化风险",
+      "llm_tldr_en": "This work introduces a survival analysis framework to quantify LLM jailbreak vulnerability, estimating hazard functions and risk factors to capture temporal dynamics of attacks under persistent adversarial pressure.",
+      "llm_tldr_cn": "该初步研究针对大语言模型在持续越狱攻击下的安全退化，提出基于生存分析的新评估框架，将越狱时间建模为生存结局，估计风险函数和生存曲线，揭示不同模型随时间变化的脆弱性动态，为风险评估提供时间敏感的量化指标。",
+      "llm_tldr": "该初步研究针对大语言模型在持续越狱攻击下的安全退化，提出基于生存分析的新评估框架，将越狱时间建模为生存结局，估计风险函数和生存曲线，揭示不同模型随时间变化的脆弱性动态，为风险评估提供时间敏感的量化指标。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "risk assessment of large language models for malicious cyber activities",
+      "matched_requirement_id": "req-3",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2605.17075v1",
+      "source": "arxiv",
+      "title": "A Red Teaming Framework for Evaluating Robustness of AI-enabled Security Orchestration, Automation, and Response Systems",
+      "abstract": "AI-enabled Security Orchestration, Automation, and Response (SOAR) systems increasingly employ autonomous agents for cyber defense, yet their resilience to adaptive adversaries is underexplored. We introduce an autonomous red teaming framework that integrates large language models (LLMs) with reinforcement learning (RL) to generate adaptive, multi-stage attack campaigns against autonomous defenders in enterprise networks. A hierarchical design combines an LLM-based planner for strategic intent with an RL controller for tactical execution, supported by reward shaping aligned with kill-chain progression. Evaluation in a high-fidelity enterprise simulation demonstrates the effectiveness of the proposed approach, while also showing that standalone LLM agents fail to sustain multi-stage attack campaigns and that domain-specific cybersecurity models achieve only limited levels of compromise, highlighting the necessity for hybrid LLM-RL approaches to red teaming.",
+      "authors": [
+        "Ayan Javeed Shaikh",
+        "Nathaniel D. Bastian",
+        "Ankit Shah"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR"
+      ],
+      "published": "2026-05-16T16:46:06+00:00",
+      "link": "https://arxiv.org/pdf/2605.17075v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "Red teaming framework with LLM-based planner and RL controller simulates adaptive multi-stage attacks, modeling offensive cyber behavior.",
+      "llm_evidence_cn": "基于LLM规划器和RL控制器的红队框架模拟自适应多阶段攻击，建模攻击性网络行为。",
+      "llm_evidence": "基于LLM规划器和RL控制器的红队框架模拟自适应多阶段攻击，建模攻击性网络行为。",
+      "canonical_evidence": "基于LLM规划器和RL控制器的红队框架模拟自适应多阶段攻击，建模攻击性网络行为。",
+      "llm_tldr_en": "Proposes an autonomous red teaming framework combining LLMs and RL to generate adaptive attack campaigns against AI-enabled SOAR systems, evaluating defender robustness.",
+      "llm_tldr_cn": "当前AI驱动的安全编排系统缺乏对自适应对手的鲁棒性评估。本文提出将大模型与强化学习结合的红队框架，以分层设计模拟多阶段攻击，在仿真环境中验证了其有效性，为评估AI防御系统提供了新方法。",
+      "llm_tldr": "当前AI驱动的安全编排系统缺乏对自适应对手的鲁棒性评估。本文提出将大模型与强化学习结合的红队框架，以分层设计模拟多阶段攻击，在仿真环境中验证了其有效性，为评估AI防御系统提供了新方法。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "agent-based modeling of cybercriminal behavior using AI agents",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2605.21821v1",
+      "source": "arxiv",
+      "title": "A Large Language Model Approach to Generating Bypass Rules for Malware Evasion in Analysis Sandbox",
+      "abstract": "Sandbox evasion remains a critical challenge for automated malware analysis, as modern malware employs environment checks to detect analysis platforms and suppress malicious behavior. Existing approaches rely on manually crafted bypass rules that require deep reverse engineering of each evasion mechanism -an approach that cannot scale against rapidly evolving evasion techniques. In this paper, we leverage large language models (LLMs) to automatically generate YARA rules that bypass evasion checks in sandbox environments. We propose ABLE, which analyzes execution traces from malware terminated due to potentially evasive behavior and employs multiple reasoning strategies to generate targeted bypass rules. To address syntactic errors and improve the efficacy of the bypass rules in the LLM outputs, we introduce an auto-sanitization pipeline and feedback-driven iterative refinement. We evaluate ABLE on 334 real-world malware samples across four open-weight LLMs. ABLE achieves a 79% bypass success rate, with iterative refinement contributing 29.5% of successful cases. Compared to existing analysis platforms, ABLE identifies 47% more malware family classifications and exposes previously hidden behaviors.",
+      "authors": [
+        "Zhiyong Sui",
+        "Lamine Noureddine",
+        "Mst Eshita Khatun",
+        "Sideeq Bello",
+        "Justin Woodring",
+        "Aisha Ali-Gombe"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR"
+      ],
+      "published": "2026-05-20T23:43:02+00:00",
+      "link": "https://arxiv.org/pdf/2605.21821v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "LLM automatically generates YARA bypass rules for malware sandbox evasion.",
+      "llm_evidence_cn": "LLM自动生成用于规避恶意软件沙箱的YARA绕过规则。",
+      "llm_evidence": "LLM自动生成用于规避恶意软件沙箱的YARA绕过规则。",
+      "canonical_evidence": "LLM自动生成用于规避恶意软件沙箱的YARA绕过规则。",
+      "llm_tldr_en": "ABLE uses LLMs to analyze execution traces and generate YARA rules that bypass sandbox evasion checks, automating a task previously requiring manual reverse engineering.",
+      "llm_tldr_cn": "面对恶意软件不断演进的沙箱逃逸，手动编写绕过规则难以扩展，ABLE利用LLM分析执行痕迹、采用多种推理策略自动生成目标YARA绕过规则，显著提升了恶意软件分析中逃逸对抗的自动化水平，展示了LLM在增强恶意软件隐蔽性方面的潜力。",
+      "llm_tldr": "面对恶意软件不断演进的沙箱逃逸，手动编写绕过规则难以扩展，ABLE利用LLM分析执行痕迹、采用多种推理策略自动生成目标YARA绕过规则，显著提升了恶意软件分析中逃逸对抗的自动化水平，展示了LLM在增强恶意软件隐蔽性方面的潜力。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "cybercrime activities enabled by large language models",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2605.21956v1",
+      "source": "arxiv",
+      "title": "Detecting Offensive Cyber Agents: A Detection-in-Depth Approach",
+      "abstract": "Artificial Intelligence (AI) agents can now orchestrate cyberattacks. This development is already increasing the speed and scale of cyber attacks, decreasing attack costs, and improving the operational autonomy of cyber capabilities. To defend against these emerging threats, actors must first develop the capability to detect them. This report frames the offensive cyber agent detection challenge by outlining the coming detection gap between offensive cyber agents and traditional cyber capabilities; introducing detection-in-depth, a strategic framework to guide policymakers and defenders responding to this detection gap; and presents five actionable detection mechanisms to support policymakers, industry, and defenders when putting this strategic framework into practice. These include (1) Agent Identifiers for Critical Infrastructure,(2) Agent Honeypots; (3) AI-Automated Alert Analysis and Triage: systems that use AI to filter, prioritize, and interpret the growing volume of detection signals expected from autonomous cyber operations; (4) An Agentic Security Alert Standard: A reporting standard model that providers can use to communicate agentic threats, improving the speed, consistency, and actionability of reports; (5) An Agentic Cybersecurity Exchange (ACE): an institution modeled on the Global Signal Exchange that brings together model and cloud providers to detect offensive cyber agent threats at their origin point and coordinate ecosystem-wide agentic threat disruption.",
+      "authors": [
+        "Matt Mittelsteadt",
+        "Jam Kraprayoon",
+        "Robin Staes-Polet",
+        "Oskar Galeev",
+        "Jan Wehner",
+        "Christopher Covino",
+        "Shaun Ee"
+      ],
+      "primary_category": "cs.CY",
+      "categories": [
+        "cs.CY"
+      ],
+      "published": "2026-05-21T03:44:02+00:00",
+      "link": "https://arxiv.org/pdf/2605.21956v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "AI agents can orchestrate cyberattacks, increasing speed, scale, and autonomy, driving need for detection.",
+      "llm_evidence_cn": "AI智能体能够策划网络攻击，增加了速度、规模和自主性，亟需检测手段。",
+      "llm_evidence": "AI智能体能够策划网络攻击，增加了速度、规模和自主性，亟需检测手段。",
+      "canonical_evidence": "AI智能体能够策划网络攻击，增加了速度、规模和自主性，亟需检测手段。",
+      "llm_tldr_en": "Proposes a detection-in-depth framework and five mechanisms to detect AI agents orchestrating cyberattacks, addressing the emerging offensive cyber agent threat.",
+      "llm_tldr_cn": "针对AI智能体在攻击策划与执行中日益增长的威胁，提出深度检测框架和五种可行检测机制。该框架帮助防御者识别并应对进攻性网络智能体，为政策制定和防御实践提供战略指导。",
+      "llm_tldr": "针对AI智能体在攻击策划与执行中日益增长的威胁，提出深度检测框架和五种可行检测机制。该框架帮助防御者识别并应对进攻性网络智能体，为政策制定和防御实践提供战略指导。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "cybercrime activities enabled by large language models",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2605.24216v1",
+      "source": "arxiv",
+      "title": "Agent-ToM: Learning to Monitor Autonomous LLM Agents via Theory-of-Mind Reasoning",
+      "abstract": "Monitoring autonomous large language model (LLM) agents for covert malicious behavior is challenging due to delayed, context-dependent, and long-horizon attack patterns. Agents may pursue hidden objectives while maintaining superficially benign behavior, making detection difficult even with full trajectory access. Prior monitoring approaches improve scaffolding or ensemble aggregation, but treat each trajectory independently and do not learn from prior monitoring experience. Moreover, standard reasoning methods explain observed behavior without explicitly reasoning about agent beliefs, intentions, and goal alignment required to distinguish benign task execution from covert deviation.   We propose \\textbf{Agent-ToM}, a learning-to-monitor framework grounded in Theory-of-Mind (ToM) reasoning for security analysis of autonomous agents. Agent-ToM performs structured full-trajectory analysis by inferring beliefs, intent hypotheses with calibrated confidence, expected actions, and deviations from task-consistent behavioral baselines. At inference time, it employs a \\textit{Reason-Verify-Refine} pipeline to construct and validate monitoring decisions. At training time, Agent-ToM distills critique signals into a persistent \\textit{semantic guardrail memory}, enabling reusable belief- and intent-conditioned constraints across episodes. We evaluate Agent-ToM on adversarial agent monitoring benchmarks (SHADE-Arena and CUA-SHADE-Arena). Agent-ToM achieves strong precision-recall balance and outperforms state-of-the-art monitoring baselines, including ensemble methods, while using a coherent two-call reasoning pipeline. These results demonstrate that learning at the monitoring layer, combined with structured ToM reasoning and verification, provides an effective and deployable foundation for securing autonomous LLM agents.",
+      "authors": [
+        "Nesreen K. Ahmed",
+        "Nima Nafisi"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG",
+        "cs.AI",
+        "cs.CL",
+        "cs.CR"
+      ],
+      "published": "2026-05-22T20:57:20+00:00",
+      "link": "https://arxiv.org/pdf/2605.24216v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "Proposes learning-to-monitor framework to detect covert malicious behavior in LLM agents, supporting cybercriminal behavior simulation",
+      "llm_evidence_cn": "提出学习监控框架检测LLM智能体隐蔽恶意行为，支撑网络犯罪智能体模拟",
+      "llm_evidence": "提出学习监控框架检测LLM智能体隐蔽恶意行为，支撑网络犯罪智能体模拟",
+      "canonical_evidence": "提出学习监控框架检测LLM智能体隐蔽恶意行为，支撑网络犯罪智能体模拟",
+      "llm_tldr_en": "Agent-ToM learns to monitor autonomous LLM agents via theory-of-mind reasoning, improving detection of covert malicious behavior; it directly enables studying and simulating cybercriminal agent activities.",
+      "llm_tldr_cn": "Agent-ToM利用心理理论推理学习监控LLM智能体的隐蔽恶意行为，通过建模智能体信念与意图区分正常执行与秘密偏离，在检测延迟攻击上优于基线，为模拟和分析网络犯罪智能体行为提供关键技术。",
+      "llm_tldr": "Agent-ToM利用心理理论推理学习监控LLM智能体的隐蔽恶意行为，通过建模智能体信念与意图区分正常执行与秘密偏离，在检测延迟攻击上优于基线，为模拟和分析网络犯罪智能体行为提供关键技术。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "agent-based modeling of cybercriminal behavior using AI agents",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2605.24421v1",
+      "source": "arxiv",
+      "title": "Poisoning the Watchtower: Prompt Injection Attacks Against LLM-Augmented Security Operations Through Adversarial Log Content",
+      "abstract": "Large language models (LLMs) are increasingly used as analyst assistants in security operations centers (SOCs), where they ingest log and alert data to produce triage labels, incident summaries, or remediation advice. We study a structural failure mode of this design: many log fields are attacker controlled. User agents, URLs, payloads, DNS queries, and attempted usernames can therefore carry instructions to the model alongside evidence of the intrusion. We call this setting \\emph{log-substrate prompt injection}. We introduce a four-class taxonomy of log-substrate attacks: direct override (S1), persona hijack (S2), context manipulation (S3), and obfuscated payloads (S4). We evaluate 48 strategy-defense-task combinations using \\texttt{gpt-4o-mini} as the analyst. Three findings stand out. First, direct overrides are ineffective in our setting: all S1 classification attacks achieve 0\\% suppression. In contrast, persona hijacks suppress 68\\% of malicious logs under a naive classifier and remain effective under stronger defenses. Second, summarization is the highest-risk task: context manipulation reaches 96\\% injection success without defenses and 38\\% even with constrained output. Third, defenses reduce but do not eliminate the attack surface: average injection success falls from 26.6\\% under naive prompting to 11.8\\% under our strongest defense. We also compare empirical results to a deterministic mock analyst and find that simulation substantially mispredicts current model behavior, especially for direct overrides. These results suggest that SOC copilots should treat raw log content as adversarial input rather than ordinary analyst context.",
+      "authors": [
+        "Rohan Pandey",
+        "Archit Bhujang"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.LG"
+      ],
+      "published": "2026-05-23T06:21:10+00:00",
+      "link": "https://arxiv.org/pdf/2605.24421v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "Identifies prompt injection as structural vulnerability in LLM-augmented SOCs, a deployment risk in cybersecurity.",
+      "llm_evidence_cn": "识别提示注入作为大模型增强SOC的结构性漏洞，是网络安全部署风险。",
+      "llm_evidence": "识别提示注入作为大模型增强SOC的结构性漏洞，是网络安全部署风险。",
+      "canonical_evidence": "识别提示注入作为大模型增强SOC的结构性漏洞，是网络安全部署风险。",
+      "llm_tldr_en": "Studies prompt injection attacks through attacker-controlled log fields in LLM-based security operations, proposing a taxonomy and evaluating attack strategies.",
+      "llm_tldr_cn": "大模型正在被用于安全运营中心分析日志，但攻击者可操纵日志字段携带恶意指令。本研究系统研究此类日志基底提示注入攻击，提出四类攻击分类法并在多种策略组合下评估其有效性，揭示了大模型集成到安全运营中的严重风险。",
+      "llm_tldr": "大模型正在被用于安全运营中心分析日志，但攻击者可操纵日志字段携带恶意指令。本研究系统研究此类日志基底提示注入攻击，提出四类攻击分类法并在多种策略组合下评估其有效性，揭示了大模型集成到安全运营中的严重风险。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "What are the risks and vulnerabilities of deploying large language models in cybersecurity contexts?",
+      "matched_requirement_id": "req-9",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2605.24949v1",
+      "source": "arxiv",
+      "title": "APT-Agent: Automated Penetration Testing using Large Language Models",
+      "abstract": "Penetration testing is essential to securing modern web infrastructures, yet traditional manual methods struggle to keep pace with their scale and complexity. Large Language Models (LLMs) offer new opportunities for automating these tasks, but existing approaches face two persistent challenges: hallucination of technical entities and insufficient long-term contextual memory. To address these issues, we present APT-Agent, a fully automated LLM-driven penetration testing framework that systematically orchestrates reconnaissance, exploitation, and exfiltration. APT-Agent introduces a hybrid rectification module to recover hallucinated commands and a command-specific memory architecture to preserve operational context across multi-step attack sequences. We evaluate our APT-Agent on Metasploitable 2 against seven vulnerable services spanning web, database, and network protocols. APT-Agent achieves an 84.29% end-to-end exploitation success rate, compared to 48.57% (Script Kiddie) and 18.57% (PentestGPT) under matched conditions. By reducing cognitive burden and minimizing reliance on human intervention, APT-Agent represents a step toward scalable, reliable, and cognitively efficient automation for penetration testing.",
+      "authors": [
+        "William Guanting Li",
+        "Alsharif Abuadbba",
+        "Kristen Moore",
+        "Dan Dongseong Kim"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI"
+      ],
+      "published": "2026-05-24T08:54:33+00:00",
+      "link": "https://arxiv.org/pdf/2605.24949v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "Fully automated LLM-driven penetration testing framework performing reconnaissance, exploitation, and exfiltration",
+      "llm_evidence_cn": "使用大模型实现全自动渗透测试，包括侦查、利用和数据窃取",
+      "llm_evidence": "使用大模型实现全自动渗透测试，包括侦查、利用和数据窃取",
+      "canonical_evidence": "使用大模型实现全自动渗透测试，包括侦查、利用和数据窃取",
+      "llm_tldr_en": "APT-Agent is an LLM-based framework that automates penetration testing by orchestrating multi-step attacks, addressing hallucination and memory challenges to enable reliable offensive operations.",
+      "llm_tldr_cn": "APT-Agent提出一种基于大语言模型的全自动渗透测试框架，通过混合纠错模块和命令记忆架构解决幻觉和上下文遗忘问题，能够系统化地执行侦查、漏洞利用和数据窃取，展示了大模型在攻击性网络安全任务中的能力提升及其边界。",
+      "llm_tldr": "APT-Agent提出一种基于大语言模型的全自动渗透测试框架，通过混合纠错模块和命令记忆架构解决幻觉和上下文遗忘问题，能够系统化地执行侦查、漏洞利用和数据窃取，展示了大模型在攻击性网络安全任务中的能力提升及其边界。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "cybercrime activities enabled by large language models",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2605.26548v1",
+      "source": "arxiv",
+      "title": "SEC-bench Pro: Can Language Models Solve Long-Horizon Software Security Tasks?",
+      "abstract": "Large language models (LLMs) now support automated software security tasks, including vulnerability discovery and proof-of-concept (PoC) generation. Existing benchmarks do not faithfully evaluate LLMs in real-world bug hunting scenarios because they rely on fuzzing harnesses, target-specific descriptions, or vulnerability-reproduction tasks. We present SEC-bench Pro, a benchmark for measuring agent bug hunting on critical, high-complexity software systems. This work discloses reports with concrete PoC inputs and links fixes into reproducible tasks through a three-phase pipeline for vulnerability collection, environment reconstruction, and oracle-based validation. We instantiate SEC-bench Pro with 183 validated vulnerabilities across V8 and SpiderMonkey, including a V8 subset with more than $1.5 million in cumulative Google Vulnerability Reward Program awards. These instances span memory-safety, sandbox, JIT, and race-condition bugs under browser-grade and runtime-grade execution conditions. Our evaluation shows that coding agents with frontier models remain below 40% success on both evaluated engines. The open-weight Kimi-K2.6 baseline reaches 11.7% on V8, while the strongest frontier configuration reaches 32.0% on V8 and 38.8% on SpiderMonkey. ClaudeCode and Codex solve complementary instance sets, and their two-agent union reaches 37.9% on V8 and 48.8% on SpiderMonkey. SEC-bench Pro provides robust environments for assessing LLM-based security agents and exposes limitations in long-horizon bug hunting tasks.",
+      "authors": [
+        "Hwiwon Lee",
+        "Jiawei Liu",
+        "Dongjun Kim",
+        "Ziqi Zhang",
+        "Chunqiu Steven Xia",
+        "Lingming Zhang"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.LG"
+      ],
+      "published": "2026-05-26T04:59:49+00:00",
+      "link": "https://arxiv.org/pdf/2605.26548v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "Benchmarks LLM agents on vulnerability discovery and PoC generation for bug hunting.",
+      "llm_evidence_cn": "评估LLMAgent在漏洞发现与PoC生成上的能力。",
+      "llm_evidence": "评估LLMAgent在漏洞发现与PoC生成上的能力。",
+      "canonical_evidence": "评估LLMAgent在漏洞发现与PoC生成上的能力。",
+      "llm_tldr_en": "SEC-bench Pro evaluates LLM agents on real-world bug hunting tasks, using 183 vulnerabilities in V8 and SpiderMonkey to measure performance on long-horizon software security.",
+      "llm_tldr_cn": "现有基准无法忠实评估LLM在真实漏洞挖掘场景中的表现，SEC-bench Pro通过可复现的三阶段流水线构建了包含183个高复杂性漏洞的测试集，用于衡量Agent在关键软件系统上的漏洞发现与概念验证生成能力，为理解LLM在进攻性安全中的能力边界提供了重要工具。",
+      "llm_tldr": "现有基准无法忠实评估LLM在真实漏洞挖掘场景中的表现，SEC-bench Pro通过可复现的三阶段流水线构建了包含183个高复杂性漏洞的测试集，用于衡量Agent在关键软件系统上的漏洞发现与概念验证生成能力，为理解LLM在进攻性安全中的能力边界提供了重要工具。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "defining the capability boundaries of large language models in offensive cyber operations",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2605.31593v1",
+      "source": "arxiv",
+      "title": "Stateful Online Monitoring Catches Distributed Agent Attacks",
+      "abstract": "Language models can find thousands of severe software vulnerabilities, and agents are increasingly being misused for cyberattacks. To avoid detection, attackers frequently distribute their misuse, splitting a harmful task across many user accounts so each individual transcript looks benign. Because safety monitors score only one agent context at a time, they are structurally blind to misuse that is only visible in aggregate, across many accounts. We show this gap is real by building, to our knowledge, the first distributed agent attack, a multi-agent scaffold that completes hard cybersecurity tasks while hiding the harmful objective across subagents with limited contexts, evading a standard monitor that catches it only a fifth as often as prior agent attacks. Towards a defense, we develop an online stateful monitor that uses real-time clustering to collect weak suspiciousness signals across many agent transcripts, and escalates only rarely to a language model that flags misuse across user accounts. In evaluations with large-scale simulated datacenter traffic, our monitor Pareto dominates standard monitors, catching distributed attacks 30% earlier and flagging cyber misuse before it reaches the most harmful stages. Crucially, this comes at negligible additional latency for ~99% of user traffic. This detection advantage persists but narrows as the benign background traffic grows very large. After an extensive red-teaming exercise, we improve the defense and surprisingly also find that it catches standard jailbreaks, since adaptive attackers reuse attack variants across accounts. Our results point toward a new class of safety monitors which reason over groups of users rather than isolated transcripts.",
+      "authors": [
+        "Davis Brown",
+        "Samarth Bhargav",
+        "Arav Santhanam",
+        "Kasper Hong",
+        "Ivan Zhang",
+        "Matan Shtepel",
+        "Steffi Chern",
+        "Alexander Robey",
+        "Eric Wong",
+        "Hamed Hassani"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI"
+      ],
+      "published": "2026-05-29T17:57:00+00:00",
+      "link": "https://arxiv.org/pdf/2605.31593v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "Constructs the first distributed agent attack using a multi-agent scaffold that splits harmful objectives across subagents to evade safety monitors",
+      "llm_evidence_cn": "构建首个分布式智能体攻击，利用多智能体脚手架将恶意目标分散到子智能体以规避安全监控",
+      "llm_evidence": "构建首个分布式智能体攻击，利用多智能体脚手架将恶意目标分散到子智能体以规避安全监控",
+      "canonical_evidence": "构建首个分布式智能体攻击，利用多智能体脚手架将恶意目标分散到子智能体以规避安全监控",
+      "llm_tldr_en": "The paper presents a distributed multi-agent attack that hides harmful intent by partitioning tasks, demonstrating how LLM agents can be misused for cyberattacks while evading online monitoring.",
+      "llm_tldr_cn": "该工作针对安全监控仅观察单个智能体上下文的盲点，构建首个分布式多智能体攻击系统，将网络攻击任务拆分到多个具有受限上下文的子智能体中，使全局恶意目标隐蔽化。实验表明，该方法能大幅降低被标准监控捕获的概率，突显了多智能体系统在模拟和检测隐蔽网络犯罪中的重要挑战。",
+      "llm_tldr": "该工作针对安全监控仅观察单个智能体上下文的盲点，构建首个分布式多智能体攻击系统，将网络攻击任务拆分到多个具有受限上下文的子智能体中，使全局恶意目标隐蔽化。实验表明，该方法能大幅降低被标准监控捕获的概率，突显了多智能体系统在模拟和检测隐蔽网络犯罪中的重要挑战。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "multi-agent systems for simulating cybercrime with large language models",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2605.05058v1",
+      "source": "arxiv",
+      "title": "SoK: Robustness in Large Language Models against Jailbreak Attacks",
+      "abstract": "Large Language Models (LLMs) have achieved remarkable success but remain highly susceptible to jailbreak attacks, in which adversarial prompts coerce models into generating harmful, unethical, or policy-violating outputs. Such attacks pose real-world risks, eroding safety, trust, and regulatory compliance in high-stakes applications. Although a variety of attack and defense methods have been proposed, existing evaluation practices are inadequate, often relying on narrow metrics like attack success rate that fail to capture the multidimensional nature of LLM security. In this paper, we present a systematic taxonomy of jailbreak attacks and defenses and introduce Security Cube, a unified, multi-dimensional framework for comprehensive evaluation of these techniques. We provide detailed comparison tables of existing attacks and defenses, highlighting key insights and open challenges across the literature. Leveraging Security Cube, we conduct benchmark studies on 13 representative attacks and 5 defenses, establishing a clear view of the current landscape encompassing jailbreak attacks, defenses, automated judges, and LLM vulnerabilities. Based on these evaluations, we distill critical findings, identify unresolved problems, and outline promising research directions for enhancing LLM robustness against jailbreak attacks. Our analysis aims to pave the way towards more robust, interpretable, and trustworthy LLM systems. Our code is available at Code.",
+      "authors": [
+        "Feiyue Xu",
+        "Hongsheng Hu",
+        "Chaoxiang He",
+        "Sheng Hang",
+        "Hanqing Hu",
+        "Xiuming Liu",
+        "Yubo Zhao",
+        "Zhengyan Zhou",
+        "Bin Benjamin Zhu",
+        "Shi-Feng Sun",
+        "Dawu Gu",
+        "Shuo Wang"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI"
+      ],
+      "published": "2026-05-06T15:53:17+00:00",
+      "link": "https://arxiv.org/pdf/2605.05058v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Systematic taxonomy of jailbreak attacks and defenses, introducing Security Cube framework for multi-dimensional LLM security evaluation",
+      "llm_evidence_cn": "系统化的越狱攻击与防御分类法，引入多维安全评估框架Security Cube",
+      "llm_evidence": "系统化的越狱攻击与防御分类法，引入多维安全评估框架Security Cube",
+      "canonical_evidence": "系统化的越狱攻击与防御分类法，引入多维安全评估框架Security Cube",
+      "llm_tldr_en": "This SoK paper surveys jailbreak attacks on LLMs, proposes a taxonomy, and introduces Security Cube, a multi-dimensional evaluation framework that moves beyond binary success rates to assess robustness.",
+      "llm_tldr_cn": "该篇系统化综述梳理了针对大语言模型的越狱攻击及防御技术，提出分类体系，并设计Security Cube框架，从多维度评估攻击与防御效果，超越传统的攻击成功率单一指标，为全面理解LLM安全脆弱性和鲁棒性提供结构化工具。",
+      "llm_tldr": "该篇系统化综述梳理了针对大语言模型的越狱攻击及防御技术，提出分类体系，并设计Security Cube框架，从多维度评估攻击与防御效果，超越传统的攻击成功率单一指标，为全面理解LLM安全脆弱性和鲁棒性提供结构化工具。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "What are the risks and vulnerabilities of deploying large language models in cybersecurity contexts?",
+      "matched_requirement_id": "req-9",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2605.21674v1",
+      "source": "arxiv",
+      "title": "Adversarial Reframing: A Framework for Targeted Generation in Language Models",
+      "abstract": "Large Language Models (LLMs) are widely deployed in diverse real-world settings, yet remain vulnerable to jailbreaking, where prompt-based attacks bypass safety filters. We present THREAT (Targeted Harmful generation via Reframing and Exploitation of Adversarial Tactics), a reasoning-driven framework that coordinates multiple LLMs in an iterative search loop to find textual jailbreak prompts. We formulate prompt discovery as a nonconvex optimization problem and provide an efficient solution that lowers runtime and improves attack effectiveness. Across diverse datasets and model architectures, THREAT delivers higher attack success rates with lower computational cost than prior methods. The crafted prompts were flagged as harmful in fewer than 1% of cases, compared with about 50% refusals for the corresponding unmodified prompts. These findings reveal previously undetected vulnerabilities in aligned LLMs and position THREAT as a practical tool for proactively strengthening the safety of foundation models.",
+      "authors": [
+        "Shahnewaz Karim Sakib",
+        "Swati Kar",
+        "Anindya Bijoy Das"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR"
+      ],
+      "published": "2026-05-20T19:31:07+00:00",
+      "link": "https://arxiv.org/pdf/2605.21674v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Presents a multi-LLM jailbreak framework, enabling malicious generation and showing cybercrime enablement",
+      "llm_evidence_cn": "提出多LLM越狱框架，实现恶意生成，展示网络犯罪使能",
+      "llm_evidence": "提出多LLM越狱框架，实现恶意生成，展示网络犯罪使能",
+      "canonical_evidence": "提出多LLM越狱框架，实现恶意生成，展示网络犯罪使能",
+      "llm_tldr_en": "THREAT coordinates multiple LLMs in an iterative search to efficiently generate jailbreak prompts with high success, demonstrating how LLMs can be weaponized for harmful content, a direct cybercrime enablement.",
+      "llm_tldr_cn": "THREAT通过多LLM协同迭代搜索生成越狱提示，以较低计算成本实现高攻击成功率，揭示LLM易被武器化用于恶意内容生成，凸显其网络犯罪滥用风险。",
+      "llm_tldr": "THREAT通过多LLM协同迭代搜索生成越狱提示，以较低计算成本实现高攻击成功率，揭示LLM易被武器化用于恶意内容生成，凸显其网络犯罪滥用风险。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "cybercrime activities enabled by large language models",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.02423v1",
+      "source": "arxiv",
+      "title": "Investigating and Alleviating Harm Amplification in LLM Interactions",
+      "abstract": "Large language models (LLMs) can serve as helpful assistants, yet they can equally function as harm amplifiers that enable malicious users to achieve harmful outcomes beyond their capabilities through extended interactions. This risk manifests along two axes, i.e., democratizing domain expertise that allows novices to produce specialized harmful content, and scaling harmful operations at volumes that manual effort cannot match. Existing works, however, often overlook how LLMs compound harm across multi-turn conversations. We introduce HarmAmp, a new benchmark for multi-turn harm amplification scenarios spanning twelve risk categories. Each scenario is grounded in real-world threats and satisfies rigorous criteria, i.e., substantive amplification, operational specificity, and multi-turn necessity. We further propose TrajSafe, a proactive monitor that anticipates harmful trajectories and intervenes through actions such as probing users' genuine intents and steering the models towards safer completion. Our extensive experiments demonstrate that TrajSafe significantly reduces the harmfulness incurred in multi-turn interactions while preserving a low over-refusal rate and the target model's general capabilities. Our work offers a promising paradigm to alleviate the nuanced safety risks in LLM interactions.",
+      "authors": [
+        "Ruohao Guo",
+        "Wei Xu",
+        "Alan Ritter"
+      ],
+      "primary_category": "cs.CL",
+      "categories": [
+        "cs.CL",
+        "cs.LG"
+      ],
+      "published": "2026-06-01T16:01:37+00:00",
+      "link": "https://arxiv.org/pdf/2606.02423v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Studies harm amplification in LLM interactions, enabling malicious outcomes beyond user capabilities",
+      "llm_evidence_cn": "研究LLM交互中的危害放大效应，使用户能实施超越自身能力的恶意行为",
+      "llm_evidence": "研究LLM交互中的危害放大效应，使用户能实施超越自身能力的恶意行为",
+      "canonical_evidence": "研究LLM交互中的危害放大效应，使用户能实施超越自身能力的恶意行为",
+      "llm_tldr_en": "Introduces HarmAmp benchmark covering 12 risk categories to evaluate how multi-turn LLM interactions amplify harm, revealing that novices produce specialized harmful content at scale, thus illuminating LLM capability boundaries in malicious scenarios.",
+      "llm_tldr_cn": "针对LLM交互中危害放大问题，构建多轮对话基准HarmAmp，涵盖12类风险场景，发现模型通过民主化领域专长和规模化操作使恶意行为更易实施，为理解LLM在恶意场景中的能力边界提供评估工具。",
+      "llm_tldr": "针对LLM交互中危害放大问题，构建多轮对话基准HarmAmp，涵盖12类风险场景，发现模型通过民主化领域专长和规模化操作使恶意行为更易实施，为理解LLM在恶意场景中的能力边界提供评估工具。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "capabilities and limitations of large language models in cybercrime scenarios",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    }
+  ]
+}
