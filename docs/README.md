@@ -6,79 +6,70 @@
 </div>
 
 ## 每次日报
-- 最新运行日期：2026-06-04
-- 运行时间：2026-06-04 21:44:05 UTC
+- 最新运行日期：2026-06-05
+- 运行时间：2026-06-05 22:07:16 UTC
 - 运行状态：成功
-- 本次总论文数：19
-- 精读区：8
-- 速读区：11
+- 本次总论文数：16
+- 精读区：6
+- 速读区：10
 
 ### 今日简报（AI）
-今日精读两篇满分的LLM安全论文，揭示了AI渗透测试的不稳定性与AI蠕虫的自适应能力。  
-速读中，工具使用信任不对称与检索增强推理成本攻击成为两大亮点，颠覆了对AI安全边界的认知。  
-建议安全从业者优先关注AI代理中的持久化控制与跨渠道信任度量，这两个方向将定义下一代防御策略。
-- 详情：[/202606/04/README](/202606/04/README)
+今日精读6篇安全方向论文，重点关注代码大模型的结构化剪枝防御与检索行为引发对齐失效的风险。  
+最值得关注的是用强化学习剪枝CodeLLM可保留对抗变异代码能力，以及网页检索会严重破坏智能体安全对齐。  
+如果想了解AI安全前沿，从检索如何腐蚀LLM护栏、轻量级集成防御这两条线入手会很有收获。
+- 详情：[/202606/05/README](/202606/05/README)
 
 ### 精读区论文标签
-1. [How Reliable Are AI Attackers Against a Fixed Vulnerable Target? A 400-Run Empirical Study of LLM Penetration Testing Consistency](/202606/04/2605.30096v1-how-reliable-are-ai-attackers-against-a-fixed-vulnerable-target-a-400-run-empirical-study-of-llm-penetration-testing-consistency)  
+1. [SecRL-Prune: Structured Reinforcement Learning-Based Pruning of CodeLLMs for Preserving Adversarial Code Mutation](/202606/05/2606.06254v1-secrl-prune-structured-reinforcement-learning-based-pruning-of-codellms-for-preserving-adversarial-code-mutation)  
    标签：评分：10.0/10、query:ca
-   evidence：直接测量LLM在400次渗透测试中的一致性，以量化攻击型网络作战能力边界。
-2. [AI Agents Enable Adaptive Computer Worms](/202606/04/2606.03811v1-ai-agents-enable-adaptive-computer-worms)  
-   标签：评分：10.0/10、query:ca
-   evidence：展示AI智能体催生使用大模型进行定制攻击的自适应蠕虫
-3. [CyberGym-E2E: Scalable Real-World Benchmark for AI Agents' End-to-End Cybersecurity Capabilities](/202606/04/2606.04460v1-cybergym-e2e-scalable-real-world-benchmark-for-ai-agents-end-to-end-cybersecurity-capabilities)  
-   标签：评分：10.0/10、query:ca
-   evidence：基准测试AI智能体全周期网络安全能力，直接定义大模型进攻性网络操作边界
-4. [Cybersecurity AI (CAI) Dataset](/202606/04/2605.28146v1-cybersecurity-ai-cai-dataset)  
-   标签：评分：9.0/10、query:ca
-   evidence：最大规模的LLM驱动黑客行为轨迹数据集，支持研究大模型在攻击性网络操作中的能力
-5. [Towards Cybersecurity SuperIntelligence (CSI): What's the best harness for cybersecurity?](/202606/04/2605.28334v2-towards-cybersecurity-superintelligence-csi-whats-the-best-harness-for-cybersecurity)  
-   标签：评分：9.0/10、query:ca
-   evidence：元脚手架，用于在攻击性任务上基准测试LLM驱动的网络安全智能体
-6. [Provably Secure Agent Guardrail](/202606/04/2605.29251v1-provably-secure-agent-guardrail)  
-   标签：评分：9.0/10、query:ca
-   evidence：提出基于逻辑推理局限的大模型智能体可证明安全护栏，应对失控风险
-7. [Benign Inputs, Harmful Outputs: Cross-Modal Jailbreaking via Distributed Semantic Recomposition](/202606/04/2606.01837v1-benign-inputs-harmful-outputs-cross-modal-jailbreaking-via-distributed-semantic-recomposition)  
-   标签：评分：9.0/10、query:ca
-   evidence：针对多模态大模型的跨模态越狱攻击，绕过安全护栏
-8. [A New Framework for Cybersecurity Refusals in AI Agents](/202606/04/2606.02644v1-a-new-framework-for-cybersecurity-refusals-in-ai-agents)  
-   标签：评分：9.0/10、query:ca
-   evidence：为攻击性网络安全AI智能体建立拒绝边界框架
+   evidence：保留代码LLM的对抗性代码变异能力，直接关联恶意软件免杀
+2. [Relevance as a Vulnerability: How Web Retrieval Degrades Safety Alignment in LLM Agents](/202606/05/2605.29224v1-relevance-as-a-vulnerability-how-web-retrieval-degrades-safety-alignment-in-llm-agents)  
+   标签：评分：8.0/10、query:ca
+   evidence：LLM Agent集成Web检索会放大对有害请求的遵从，揭示了严重的安全退化。
+3. [Hijacking Agent Memory: Stealthy Trojan Attacks Through Conversational Interaction](/202606/05/2605.29960v1-hijacking-agent-memory-stealthy-trojan-attacks-through-conversational-interaction)  
+   标签：评分：8.0/10、query:ca
+   evidence：针对LLM智能体的记忆中毒攻击暴露可被恶意网络活动利用的漏洞
+4. [Audio Jailbreaks in Large Audio-Language Models: Taxonomy, Attack-Defense Analysis, and Cost-Aware Evaluation](/202606/05/2605.30031v1-audio-jailbreaks-in-large-audio-language-models-taxonomy-attack-defense-analysis-and-cost-aware-evaluation)  
+   标签：评分：8.0/10、query:ca
+   evidence：对大音频语言模型的音频越狱攻击进行系统分类与评估，分析攻击实用性与防御效能。
+5. [Patcher: Post-Hoc Patching of Backdoored Large Language Models](/202606/05/2606.02995v1-patcher-post-hoc-patching-of-backdoored-large-language-models)  
+   标签：评分：8.0/10、query:ca
+   evidence：后验式修补存在后门的LLM，修复越狱后门攻击
+6. [What If Prompt Injection Never Left? Exploring Cross-Session Stored Prompt Injection in Agentic Systems](/202606/05/2606.04425v1-what-if-prompt-injection-never-left-exploring-cross-session-stored-prompt-injection-in-agentic-systems)  
+   标签：评分：8.0/10、query:ca
+   evidence：探索跨会话存储提示注入，面向有状态LLM代理系统的新风险
 
 ### 速读区论文标签
-1. [From Prompt Injection to Persistent Control: Defending Agentic Harness Against Trojan Backdoors](/202606/04/2605.31042v1-from-prompt-injection-to-persistent-control-defending-agentic-harness-against-trojan-backdoors)  
+1. [GuardNet: Ensemble Strategies of Shallow Neural Networks for Robust Prompt Injection and Jailbreak Detection](/202606/05/2606.05566v1-guardnet-ensemble-strategies-of-shallow-neural-networks-for-robust-prompt-injection-and-jailbreak-detection)  
    标签：评分：8.0/10、query:ca
-   evidence：揭示大模型代理中提示注入可导致特洛伊后门持久控制的安全漏洞
-2. [Same Payload, Different Channel: Measuring Trust Asymmetry in Tool-Using Language Models](/202606/04/2606.00566v1-same-payload-different-channel-measuring-trust-asymmetry-in-tool-using-language-models)  
-   标签：评分：8.0/10、query:ca
-   evidence：量化了大模型对不同通道传输的对抗内容的敏感性差异，暴露安全盲点
-3. [Inference Cost Attacks for Retrieval-Augmented Large Language Models](/202606/04/2606.02643v1-inference-cost-attacks-for-retrieval-augmented-large-language-models)  
-   标签：评分：8.0/10、query:ca
-   evidence：提出通过污染外部知识库增加RAG大模型系统推理成本的新型攻击
-4. [Agentic Relationship Harm: Benchmarking and Gating Relational Manipulation in AI Agents](/202606/04/2606.03271v1-agentic-relationship-harm-benchmarking-and-gating-relational-manipulation-in-ai-agents)  
-   标签：评分：8.0/10、query:ca
-   evidence：针对AI智能体用于关系操纵等网络危害行为建立基准测试
-5. [Towards Cybersecurity SuperIntelligence (CSI): What's the best harness for cybersecurity?](/202606/04/2605.28334v1-towards-cybersecurity-superintelligence-csi-whats-the-best-harness-for-cybersecurity)  
+   evidence：使用浅层神经网络集成检测提示注入和越狱攻击
+2. [EvoDefense: Co-Evolving Black-Box Defense with Large Language Models](/202606/05/2605.31140v1-evodefense-co-evolving-black-box-defense-with-large-language-models)  
    标签：评分：7.0/10、query:ca
-   evidence：在攻防挑战上基准测试LLM驱动的网络安全智能体，直接评估能力边界。
-6. [Automatically Attacking Software Reverse Engineering AI Agents](/202606/04/2605.30667v1-automatically-attacking-software-reverse-engineering-ai-agents)  
+   evidence：协同进化防御保护大语言模型免受恶意查询
+3. [BraveGuard: From Open-World Threats to Safer Computer-Use Agents](/202606/05/2606.01166v1-braveguard-from-open-world-threats-to-safer-computer-use-agents)  
    标签：评分：7.0/10、query:ca
-   evidence：展示对LLM驱动逆向工程工具的对抗攻击，暴露LLM使能恶意软件混淆的风险。
-7. [Defending LLM-based Multi-Agent Systems Against Cooperative Attacks with Sentence-Level Rectification](/202606/04/2605.28104v1-defending-llm-based-multi-agent-systems-against-cooperative-attacks-with-sentence-level-rectification)  
+   evidence：自演化防护模型，缓解计算机使用代理的新兴安全风险
+4. [BraveGuard: From Open-World Threats to Safer Computer-Use Agents](/202606/05/2606.01166v2-braveguard-from-open-world-threats-to-safer-computer-use-agents)  
+   标签：评分：7.0/10、query:ca
+   evidence：通过挖掘开放世界威胁构建更安全的计算机使用智能体的防御框架
+5. [An Embarrassingly Simple Detector for Model Extraction Attacks in Large Language Model API Traffic](/202606/05/2606.05725v1-an-embarrassingly-simple-detector-for-model-extraction-attacks-in-large-language-model-api-traffic)  
+   标签：评分：7.0/10、query:ca
+   evidence：检测大模型API上的模型窃取攻击，直指模型服务的网络威胁
+6. [SpeechJBB: Probing Safety Alignment and Comprehension in Large Audio Language Models under Code-Switched Speech](/202606/05/2606.06037v1-speechjbb-probing-safety-alignment-and-comprehension-in-large-audio-language-models-under-code-switched-speech)  
+   标签：评分：7.0/10、query:ca
+   evidence：语码混合语音攻击暴露音频语言模型严重的安全弱点。
+7. [AgentDoG 1.5: A Lightweight and Scalable Alignment Framework for AI Agent Safety and Security](/202606/05/2605.29801v1-agentdog-15-a-lightweight-and-scalable-alignment-framework-for-ai-agent-safety-and-security)  
    标签：评分：6.0/10、query:ca
-   evidence：模拟大模型多智能体系统中的协同攻击，可迁移至网络犯罪模拟
-8. [Evolving Skill-Structured Attack Memory Enhances LLM Jailbreaking](/202606/04/2605.29237v1-evolving-skill-structured-attack-memory-enhances-llm-jailbreaking)  
+   evidence：通过分类学引导数据引擎轻量级安全对齐AI智能体
+8. [Triaging Threats to Specialized Guardrails](/202606/05/2605.30693v1-triaging-threats-to-specialized-guardrails)  
    标签：评分：6.0/10、query:ca
-   evidence：提出MemoAttack越狱方法用于LLM安全评估，可用于评估恶意提示下的LLM脆弱性风险。
-9. [COMPASS: Cognitive MCTS-Guided Process Alignment for Safe Search Agents](/202606/04/2605.30838v1-compass-cognitive-mcts-guided-process-alignment-for-safe-search-agents)  
+   evidence：推出GuardZoo基准，包含32,460样本涵盖15类不安全内容，威胁分诊护栏
+9. [Benchmarking Security Risk Detection and Verification in Open Agentic Skill Ecosystems](/202606/05/2606.00925v1-benchmarking-security-risk-detection-and-verification-in-open-agentic-skill-ecosystems)  
    标签：评分：6.0/10、query:ca
-   evidence：COMPASS框架解决LLM搜索代理的检索引发安全退化，为恶意使用场景下的脆弱性评估和缓解提供方法。
-10. [MaskForge: Structure-Aware Adaptive Attacks for Jailbreaking Diffusion Large Language Models](/202606/04/2606.04027v1-maskforge-structure-aware-adaptive-attacks-for-jailbreaking-diffusion-large-language-models)  
+   evidence：为开放智能体技能生态系统中的恶意意图检测建立基准，评估供应链风险
+10. [THRD: A Training-Free Multi-Turn Defense Framework for Jailbreak Attacks on Large Language Models](/202606/05/2606.01738v1-thrd-a-training-free-multi-turn-defense-framework-for-jailbreak-attacks-on-large-language-models)  
    标签：评分：6.0/10、query:ca
-   evidence：MaskForge针对扩散大语言模型进行结构感知自适应攻击，作为评估新型LLM架构风险的红队测试工具。
-11. [SMAC-Talk: A Natural Language Extension of the StarCraft Multi-Agent Challenge for Large Language Models](/202606/04/2606.04202v1-smac-talk-a-natural-language-extension-of-the-starcraft-multi-agent-challenge-for-large-language-models)  
-   标签：评分：6.0/10、query:ca
-   evidence：提供具有自然语言通信的多智能体大模型环境，可迁移用于网络犯罪模拟
+   evidence：针对多轮越狱攻击的防御机制通过建模对话轨迹中的风险累积来提升安全性。
 
 
 <div class="dpr-home-promo-card">

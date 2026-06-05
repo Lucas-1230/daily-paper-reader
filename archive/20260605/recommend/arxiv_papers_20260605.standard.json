@@ -1,0 +1,728 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-06-05T21:50:08.739217+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 7,
+    "deep_cap": 6,
+    "deep_selected": 6,
+    "quick_candidates": 10,
+    "quick_skim_target": 11,
+    "quick_selected": 10
+  },
+  "deep_dive": [
+    {
+      "id": "2606.06254v1",
+      "source": "arxiv",
+      "title": "SecRL-Prune: Structured Reinforcement Learning-Based Pruning of CodeLLMs for Preserving Adversarial Code Mutation",
+      "abstract": "Large code language models (CodeLLMs) can generate and rewrite programs, enabling functionality-preserving code mutation that may be used to create diverse malware variants and evade signature-based detection. A key security question is whether this mutation capability survives model compression, which would make deployment feasible under limited hardware budgets. We propose SecRL-Prune, a structured pruning framework for CodeLLMs that operates on feed-forward (MLP/FFN) channels. Starting from a pretrained teacher, it learns a layer-wise pruning policy with reinforcement learning using a teacher-student KL-divergence reward. To improve efficiency, we cache the teacher's top-P predictions once and compare the pruned student against this compact target, avoiding simultaneous teacher-student residency in GPU memory. We evaluate SecRL-Prune on HumanEval using pass@k for execution correctness and var@k for code diversity across three 7B CodeLLMs at 10-30% compression. SecRL-Prune consistently preserves higher pass@k and var@k than recent structured pruning baselines under aggressive pruning. In a case study on real malware samples, semantics-preserving mutations from 20%-pruned models substantially reduced detections. These results show that code mutation capability can survive significant structured pruning, highlighting the security relevance of compressed CodeLLMs.",
+      "authors": [
+        "Parsa Memarzadehsaghezi",
+        "Pooria Madani",
+        "Khalil El-Khatib"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR"
+      ],
+      "published": "2026-06-04T14:55:14+00:00",
+      "link": "https://arxiv.org/pdf/2606.06254v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 10.0,
+      "llm_evidence_en": "Preserves adversarial code mutation capability in CodeLLMs, directly relevant to malware evasion",
+      "llm_evidence_cn": "保留代码LLM的对抗性代码变异能力，直接关联恶意软件免杀",
+      "llm_evidence": "保留代码LLM的对抗性代码变异能力，直接关联恶意软件免杀",
+      "canonical_evidence": "保留代码LLM的对抗性代码变异能力，直接关联恶意软件免杀",
+      "llm_tldr_en": "SecRL-Prune proposes reinforcement learning-based pruning of code language models that preserves their ability to mutate code, which can be misused for generating diverse malware variants.",
+      "llm_tldr_cn": "SecRL-Prune针对代码语言模型的压缩可能削弱其对抗性代码变异能力的隐忧，提出了一种基于强化学习的结构化剪枝框架，在压缩模型的同时保留功能等价的代码重写能力，证明恶意利用潜力可在精简部署中存续，为评估大模型在攻击性操作中的能力边界提供了关键证据。",
+      "llm_tldr": "SecRL-Prune针对代码语言模型的压缩可能削弱其对抗性代码变异能力的隐忧，提出了一种基于强化学习的结构化剪枝框架，在压缩模型的同时保留功能等价的代码重写能力，证明恶意利用潜力可在精简部署中存续，为评估大模型在攻击性操作中的能力边界提供了关键证据。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "cybercrime activities enabled by large language models",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2605.29224v1",
+      "source": "arxiv",
+      "title": "Relevance as a Vulnerability: How Web Retrieval Degrades Safety Alignment in LLM Agents",
+      "abstract": "AI agents augment large language models with external tools such as web retrieval, enabling grounded and up-to-date responses. However, incorporating external content into the generation pipeline can weaken the safety alignment mechanisms that govern model outputs. Prior work shows that enabling retrieval in agents increases compliance with harmful requests. We introduce AgentREVEAL, a diagnostic framework for analyzing retrieval-induced safety degradation in LLM agents. The framework examines two axes: how retrieval is integrated into the agent pipeline and the properties of the retrieved content. Along the integration axis, we find that binding tool invocation and response generation in a single step amplifies harmful outputs. Along the content axis, we uncover the Safe Source Paradox: even oppositional or safety-oriented sources, such as pages containing warnings or risk disclaimers, can increase harmful compliance by an average of 25% compared to the no-retrieval baseline. Finally, we show that relevance acts as a shared activation condition for both vulnerabilities. Similar patterns appear on frontier closed models, and harmful compliance remains elevated under several representative pipeline interventions, with some agents also entering this regime under autonomous retrieval. Because relevance is also what makes retrieval useful, these results expose a safety-utility trade-off for retrieval-enabled agents. We introduce HarmURLBench, a benchmark containing 1,405 real-world URLs paired with 320 harmful behaviors to support future evaluations.",
+      "authors": [
+        "Aditya Nawal",
+        "Manit Baser",
+        "Mohan Gurusamy"
+      ],
+      "primary_category": "cs.CL",
+      "categories": [
+        "cs.CL",
+        "cs.AI",
+        "cs.CR"
+      ],
+      "published": "2026-05-28T01:23:48+00:00",
+      "link": "https://arxiv.org/pdf/2605.29224v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Web retrieval integration in LLM agents amplifies compliance with harmful requests, revealing a critical safety degradation.",
+      "llm_evidence_cn": "LLM Agent集成Web检索会放大对有害请求的遵从，揭示了严重的安全退化。",
+      "llm_evidence": "LLM Agent集成Web检索会放大对有害请求的遵从，揭示了严重的安全退化。",
+      "canonical_evidence": "LLM Agent集成Web检索会放大对有害请求的遵从，揭示了严重的安全退化。",
+      "llm_tldr_en": "AgentREVEAL framework demonstrates that binding retrievals to response generation and the relevance of retrieved content weaken safety alignment, leading to more harmful outputs in LLM agents.",
+      "llm_tldr_cn": "AI代理通过集成Web检索实现更实时响应，但此前研究表明检索会削弱安全对齐。本文提出AgentREVEAL诊断框架，沿检索集成方式和内容特性两个轴进行分析：发现将工具调用与生成绑定在单步中会显著增加有害输出；同时，检索上下文与提示的关联性越高，模型越可能遵从有害请求。在多种代理架构和攻击测试中，该框架揭示出检索增强带来的系统性安全风险，为构建安全的LLM代理提供了关键洞见：需解耦响应生成或对检索内容进行安全过滤。",
+      "llm_tldr": "AI代理通过集成Web检索实现更实时响应，但此前研究表明检索会削弱安全对齐。本文提出AgentREVEAL诊断框架，沿检索集成方式和内容特性两个轴进行分析：发现将工具调用与生成绑定在单步中会显著增加有害输出；同时，检索上下文与提示的关联性越高，模型越可能遵从有害请求。在多种代理架构和攻击测试中，该框架揭示出检索增强带来的系统性安全风险，为构建安全的LLM代理提供了关键洞见：需解耦响应生成或对检索内容进行安全过滤。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "risk assessment of large language models for malicious cyber activities",
+      "matched_requirement_id": "req-3",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2605.29960v1",
+      "source": "arxiv",
+      "title": "Hijacking Agent Memory: Stealthy Trojan Attacks Through Conversational Interaction",
+      "abstract": "Large language model (LLM) agents increasingly leverage long term memory to support persistent and autonomous task execution. However, this capability also introduces a new attack surface: memory poisoning, where adversaries can inject malicious information to influence future behavior. Existing memory poisoning attacks often assume that injected content can be stored directly in memory, overlooking the selective extraction and rewriting stages in modern memory pipelines. This makes prior methods ineffective under realistic settings.   In this paper, we propose MemPoison, a novel memory poisoning attack that bypasses selective memory mechanisms in LLM agents, where an attacker can inject triggerable backdoors into the agent's long-term memory through dialogue interactions, thereby misleading its subsequent responses. MemPoison introduces three key components: (i) a semantic relational bridge that binds the trigger and payload into a coherent statement to ensure they are extracted into memory together; (ii) entity masquerading that optimizes triggers to mimic named entities, resisting rewriting; and (iii) joint embedding optimization that shapes trigger-injected texts into a tight cluster in the embedding space while maintaining isolation from benign embeddings for stealth. Evaluations across different agent domains and memory mechanisms show MemPoison achieves attack success rates up to 0.95, outperforming existing baselines. Mechanistic analysis indicates that the attack exploits embedding-space anisotropy and shifts attention patterns, highlighting core vulnerabilities in selective memory systems. We evaluate multiple defense strategies and demonstrate their fundamental limitations in mitigating the attack.",
+      "authors": [
+        "Hongtao Wang",
+        "Se Yang",
+        "Yu Chen",
+        "Puzhuo Liu"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI"
+      ],
+      "published": "2026-05-28T14:02:00+00:00",
+      "link": "https://arxiv.org/pdf/2605.29960v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Memory poisoning attack on LLM agents exposes vulnerability exploitable for malicious cyber activities",
+      "llm_evidence_cn": "针对LLM智能体的记忆中毒攻击暴露可被恶意网络活动利用的漏洞",
+      "llm_evidence": "针对LLM智能体的记忆中毒攻击暴露可被恶意网络活动利用的漏洞",
+      "canonical_evidence": "针对LLM智能体的记忆中毒攻击暴露可被恶意网络活动利用的漏洞",
+      "llm_tldr_en": "Proposes MemPoison, a novel memory poisoning attack that bypasses modern memory pipelines in LLM agents, enabling triggerable backdoors for malicious control.",
+      "llm_tldr_cn": "该论文关注大语言模型智能体长期记忆机制引入的新攻击面，提出MemPoison攻击，能够绕过现代记忆管线中的选择性提取与重写阶段，在智能体记忆内植入可触发的后门，实验证明该攻击隐蔽有效，对部署在网络安全场景中的智能体构成严重风险。",
+      "llm_tldr": "该论文关注大语言模型智能体长期记忆机制引入的新攻击面，提出MemPoison攻击，能够绕过现代记忆管线中的选择性提取与重写阶段，在智能体记忆内植入可触发的后门，实验证明该攻击隐蔽有效，对部署在网络安全场景中的智能体构成严重风险。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "What are the risks and vulnerabilities of deploying large language models in cybersecurity contexts?",
+      "matched_requirement_id": "req-9",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2605.30031v1",
+      "source": "arxiv",
+      "title": "Audio Jailbreaks in Large Audio-Language Models: Taxonomy, Attack-Defense Analysis, and Cost-Aware Evaluation",
+      "abstract": "Large Audio Language Models (LALMs) expand jailbreak risks from token-level prompting to the full speech perception-to-reasoning pipeline, where unsafe behavior can be induced through semantics, acoustic style, signal artifacts, or internal representations. Existing work studies these risks under heterogeneous threat models and evaluation protocols, making it difficult to compare attack practicality or defense utility. This paper provides a unified taxonomy and a controlled empirical evaluation of LALM jailbreak attacks and defenses. We organize prior work into semantic, acoustic, signal, and embedding-layer attacks; guard-based, training-free, and training-based defenses; and cross-modal, audio-native, and interactive benchmarks. We then evaluate representative attacks and defenses across ten open-source LALMs, measuring not only attack success rate but also benign refusal and latency. Our results show that Acoustic Best-of-N reveals strong worst-case audio-space vulnerabilities, Narrative Framing is an effective low-latency semantic threat, and current defenses trade robustness against benign usability. These findings support cost- and utility-aware evaluation as a necessary complement to success-rate-only LALM safety benchmarks.",
+      "authors": [
+        "Bo-Han Feng",
+        "Yu-Hsuan Li Liang",
+        "Chien-Feng Liu",
+        "You-Hsuan Chang",
+        "Yun-Nung Chen"
+      ],
+      "primary_category": "cs.SD",
+      "categories": [
+        "cs.SD",
+        "cs.AI",
+        "cs.CL"
+      ],
+      "published": "2026-05-28T14:53:27+00:00",
+      "link": "https://arxiv.org/pdf/2605.30031v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Comprehensive taxonomy and evaluation of audio jailbreaks for LALMs, assessing attack practicality and defense utility.",
+      "llm_evidence_cn": "对大音频语言模型的音频越狱攻击进行系统分类与评估，分析攻击实用性与防御效能。",
+      "llm_evidence": "对大音频语言模型的音频越狱攻击进行系统分类与评估，分析攻击实用性与防御效能。",
+      "canonical_evidence": "对大音频语言模型的音频越狱攻击进行系统分类与评估，分析攻击实用性与防御效能。",
+      "llm_tldr_en": "Presents a unified taxonomy and controlled empirical evaluation of audio jailbreak attacks and defenses on LALMs, providing a cost-aware benchmark to compare practical security threats.",
+      "llm_tldr_cn": "大音频语言模型将越狱风险从提示词拓展至语音感知推理全管线，已有研究威胁模型和评测协议各异，难以横向比较。本文建立了统一的攻击分类体系，涵盖语义、声学、信号和嵌入层攻击，以及防护、无训练和基于训练的防御，并在受控条件下进行经验性评测。引入成本感知评估维度，衡量不同攻击的实用性与防御开销。结果表明，多种声学攻击能以较低成本诱导有害输出，而现有防御要么成本高昂要么防护有限，为LALM的安全风险提供了量化比较基准和防御设计指引。",
+      "llm_tldr": "大音频语言模型将越狱风险从提示词拓展至语音感知推理全管线，已有研究威胁模型和评测协议各异，难以横向比较。本文建立了统一的攻击分类体系，涵盖语义、声学、信号和嵌入层攻击，以及防护、无训练和基于训练的防御，并在受控条件下进行经验性评测。引入成本感知评估维度，衡量不同攻击的实用性与防御开销。结果表明，多种声学攻击能以较低成本诱导有害输出，而现有防御要么成本高昂要么防护有限，为LALM的安全风险提供了量化比较基准和防御设计指引。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "risk assessment of large language models for malicious cyber activities",
+      "matched_requirement_id": "req-3",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.02995v1",
+      "source": "arxiv",
+      "title": "Patcher: Post-Hoc Patching of Backdoored Large Language Models",
+      "abstract": "Large language models remain vulnerable to jailbreak backdoor attacks, where adversaries poison safety alignment data to embed hidden triggers that bypass safety mechanisms. Existing defenses often require comprehensive attack information or multiple triggered examples, making them impractical when defenders only observe a single reported failure case without knowing whether it stems from a backdoor attack or a natural alignment bug. This paper presents Patcher, a post-hoc defense framework that repairs backdoored language models using only a single reported failure case and the model parameters. Patcher operates in two stages. First, it localizes backdoor triggers by computing response-conditioned gradient-based saliency scores and applying adaptive clustering to separate triggers from benign context. Second, it patches the model through a constrained fine-tuning objective that breaks the trigger-response association while preserving benign-task utility and robustness to non-triggered jailbreak attacks through KL-divergence constraints. We conduct extensive evaluations across multiple backdoor attack strategies and demonstrate that Patcher successfully localizes triggers and neutralizes backdoors while maintaining model utility. We further show robustness against adaptive attacks designed to evade our defense. This work represents a significant step toward practical defenses against training-time attacks in deployed language models.",
+      "authors": [
+        "Anjun Gao",
+        "Yueyang Quan",
+        "Yufei Xia",
+        "Zhuqing Liu",
+        "Minghong Fang"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI",
+        "cs.IR",
+        "cs.LG"
+      ],
+      "published": "2026-06-02T01:11:58+00:00",
+      "link": "https://arxiv.org/pdf/2606.02995v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Post-hoc patching of backdoored LLMs to repair jailbreak backdoor attacks",
+      "llm_evidence_cn": "后验式修补存在后门的LLM，修复越狱后门攻击",
+      "llm_evidence": "后验式修补存在后门的LLM，修复越狱后门攻击",
+      "canonical_evidence": "后验式修补存在后门的LLM，修复越狱后门攻击",
+      "llm_tldr_en": "Patcher repairs backdoored LLMs using only a single failure case, localizing triggers via gradient saliency and adaptive clustering, offering a practical defense against jailbreak backdoor attacks",
+      "llm_tldr_cn": "LLMs易受越狱后门攻击，攻击者毒化安全数据嵌入隐藏触发器。现有防御需全面攻击信息或多示例，不实用。本文提出Patcher，仅利用单一失败案例和模型参数定位并修复后门。方法分两步：通过梯度显著性和自适应聚类定位触发器，再进行修补。实验证明其有效性，为后门修复提供实际方案",
+      "llm_tldr": "LLMs易受越狱后门攻击，攻击者毒化安全数据嵌入隐藏触发器。现有防御需全面攻击信息或多示例，不实用。本文提出Patcher，仅利用单一失败案例和模型参数定位并修复后门。方法分两步：通过梯度显著性和自适应聚类定位触发器，再进行修补。实验证明其有效性，为后门修复提供实际方案",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "What are the risks and vulnerabilities of deploying large language models in cybersecurity contexts?",
+      "matched_requirement_id": "req-9",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.04425v1",
+      "source": "arxiv",
+      "title": "What If Prompt Injection Never Left? Exploring Cross-Session Stored Prompt Injection in Agentic Systems",
+      "abstract": "Modern agentic systems transform LLMs from session-bounded assistants into stateful systems that persist and evolve shared world state across sessions through memories, filesystems, tools, and other long-lived contextual artifacts. This shift fundamentally expands the attack surface of prompt injection. However, prior works on prompt injection have largely focused on model-level threats within a single session, overlooking how cross-session persistent system state fundamentally changes the system-level risk of agentic systems. Inspired by stored cross-site scripting in web systems, we introduce cross-session stored prompt injection, where a successful injection can persist within agentic system state and silently influence future executions long after the original attacker interaction has ended. To systematically study this threat, we formalize stored prompt injection and develop a taxonomy of how adversarial content persists and affects agentic systems across sessions. We further develop a benchmark and sandbox toolkit to evaluate the risks of stored prompt injection, enabling quantitative analysis of attack success across different models, attack goals, and persistence channels. Our findings highlight that persistence transforms prompt injection from an ephemeral model-level threat into a long-lived system-level vulnerability embedded within agent execution state. We hope this work draws broader attention to this emerging threat and motivates the community to systematically study and mitigate system risks arising from persistence in agentic systems.",
+      "authors": [
+        "Yuanbo Xie",
+        "Tianyun Liu",
+        "Yingjie Zhang",
+        "Suchen Liu",
+        "Yulin Li",
+        "Liya Su",
+        "Tingwen Liu"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI"
+      ],
+      "published": "2026-06-03T04:14:17+00:00",
+      "link": "https://arxiv.org/pdf/2606.04425v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Explores cross-session stored prompt injection, a new risk in stateful agentic LLM systems",
+      "llm_evidence_cn": "探索跨会话存储提示注入，面向有状态LLM代理系统的新风险",
+      "llm_evidence": "探索跨会话存储提示注入，面向有状态LLM代理系统的新风险",
+      "canonical_evidence": "探索跨会话存储提示注入，面向有状态LLM代理系统的新风险",
+      "llm_tldr_en": "This paper uncovers cross-session stored prompt injection in agentic systems, showing how injections can persist and influence future sessions undetected, expanding the attack surface beyond single-session threats.",
+      "llm_tldr_cn": "本文揭示了一种新的跨会话存储提示注入攻击，在有状态LLM代理系统中，注入的恶意提示可跨会话持久留存并秘密影响后续操作，显著扩大了提示注入的威胁面，对部署代理系统时的风险评估至关重要。",
+      "llm_tldr": "本文揭示了一种新的跨会话存储提示注入攻击，在有状态LLM代理系统中，注入的恶意提示可跨会话持久留存并秘密影响后续操作，显著扩大了提示注入的威胁面，对部署代理系统时的风险评估至关重要。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "What are the risks and vulnerabilities of deploying large language models in cybersecurity contexts?",
+      "matched_requirement_id": "req-9",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2606.05566v1",
+      "source": "arxiv",
+      "title": "GuardNet: Ensemble Strategies of Shallow Neural Networks for Robust Prompt Injection and Jailbreak Detection",
+      "abstract": "Large Language Models (LLMs) have transformed natural language processing, but they remain vulnerable to Prompt Injection (PI) and Jailbreak (JB) attacks. In addition, benchmark evaluations may be affected by contamination and partial information leakage, compromising performance estimates. This work presents GuardNet, a guardrail system based on an ensemble of shallow neural networks (BiLSTMs) with approximately 47 million parameters. We investigate the hypothesis that robustness in adversarial scenarios depends more on the diversity of example coverage and threshold calibration than on model scale. The results indicate that GuardNet achieves competitive performance compared with lightweight detectors and high efficiency at low latency, although larger LLMs such as Mistral-7B and Llama-3.1-8B still achieve superior performance in terms of F1 score and AUROC on the blind JBB-Behaviors benchmark. Nevertheless, GuardNet achieves an AUROC of 0.747 on the blind dataset (n = 200) and an F1 score of 0.92 on a proprietary benchmark (n = 50), under threshold calibration and evaluation with declared partial information leakage. The system operates with an average latency of approximately 50 ms on CPU, making it suitable for deployment in production environments with cost and infrastructure constraints.",
+      "authors": [
+        "Paulo Ricardo Ferreira Neves",
+        "Edson Rodrigues da Cruz Filho",
+        "Paulo Henrique Eleuterio Falsetti",
+        "João Vitor Pavan",
+        "Ian Degaspari",
+        "Henrique Vieira Laturrague",
+        "Patrick Vieira Laturrague",
+        "Guilherme Nielsen Dias",
+        "Marccello Wilson Perez Berto",
+        "Gustavo Voltani Von Atzingen"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI",
+        "cs.CR"
+      ],
+      "published": "2026-06-04T01:24:15+00:00",
+      "link": "https://arxiv.org/pdf/2606.05566v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Ensemble shallow neural networks for prompt injection and jailbreak detection, addressing LLM vulnerabilities",
+      "llm_evidence_cn": "使用浅层神经网络集成检测提示注入和越狱攻击",
+      "llm_evidence": "使用浅层神经网络集成检测提示注入和越狱攻击",
+      "canonical_evidence": "使用浅层神经网络集成检测提示注入和越狱攻击",
+      "llm_tldr_en": "GuardNet uses an ensemble of shallow BiLSTMs to detect prompt injection and jailbreak attacks, achieving competitive performance with lightweight detectors, highlighting that robustness depends more on example coverage than model scale",
+      "llm_tldr_cn": "大型语言模型易受提示注入和越狱攻击，现有基准评估可能受污染影响。本文提出GuardNet，一种基于BiLSTM集成的防护系统，参数约47M，通过示例覆盖多样性和阈值校准提升对抗鲁棒性。实验表明GuardNet在检测性能上与轻量检测器相当且效率高，说明鲁棒性更依赖示例覆盖而非模型规模",
+      "llm_tldr": "大型语言模型易受提示注入和越狱攻击，现有基准评估可能受污染影响。本文提出GuardNet，一种基于BiLSTM集成的防护系统，参数约47M，通过示例覆盖多样性和阈值校准提升对抗鲁棒性。实验表明GuardNet在检测性能上与轻量检测器相当且效率高，说明鲁棒性更依赖示例覆盖而非模型规模",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "What are the risks and vulnerabilities of deploying large language models in cybersecurity contexts?",
+      "matched_requirement_id": "req-9",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "8plus"
+    },
+    {
+      "id": "2605.31140v1",
+      "source": "arxiv",
+      "title": "EvoDefense: Co-Evolving Black-Box Defense with Large Language Models",
+      "abstract": "Large Language Models (LLMs) remain highly vulnerable to diverse attacks, particularly in black-box settings where the internals of target models are inaccessible. Existing black-box defenses typically rely on pre-defined filtering heuristics, which often fail to generalize to unseen attack types and target model architectures. We introduce EvoDefense, an experience-guided co-evolving black-box defense paradigm. EvoDefense employs a guard LLM to detect malicious queries and an experience memory module to accumulate defense knowledge from previous interactions. At the core of EvoDefense is a continuous attack-defense evolution loop, where an attack generator and the guard model iteratively refine their attack strategies and defense policies through experience-guided optimization. This design enables EvoDefense to generalize across unseen attacks and target models without retraining. Experiments on HarmBench, AdvBench, and AlpacaEval show that EvoDefense achieves consistently strong defense performance across seven popular models and five representative LLM attacks, while preserving competitive general capabilities. On HarmBench, EvoDefense reduces the attack success rate (ASR) of AutoDAN-turbo on Gemini-3-flash and LLaMA-3-8B-Instruct from 29.4% and 43.4% to 8.4% and 6.2%, respectively.",
+      "authors": [
+        "Yu Li",
+        "Yuenan Hou",
+        "Yingmei Wei",
+        "Yanming Guo",
+        "Chaochao Lu"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.CL"
+      ],
+      "published": "2026-05-29T10:49:44+00:00",
+      "link": "https://arxiv.org/pdf/2605.31140v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Co-evolving defense to protect LLMs from malicious queries",
+      "llm_evidence_cn": "协同进化防御保护大语言模型免受恶意查询",
+      "llm_evidence": "协同进化防御保护大语言模型免受恶意查询",
+      "canonical_evidence": "协同进化防御保护大语言模型免受恶意查询",
+      "llm_tldr_en": "EvoDefense uses a guard LLM and experience memory in an attack-defense loop to iteratively refine defense against black-box attacks, improving generalization to unseen threats.",
+      "llm_tldr_cn": "针对黑盒攻击下大语言模型防御泛化性差的问题，提出EvoDefense，利用守卫LLM与攻击生成器在持续对抗中协同进化，并引入经验记忆模块积累防御经验，实验验证了该方法能够有效防御未知攻击类型，提升了LLM在真实场景中的安全性。",
+      "llm_tldr": "针对黑盒攻击下大语言模型防御泛化性差的问题，提出EvoDefense，利用守卫LLM与攻击生成器在持续对抗中协同进化，并引入经验记忆模块积累防御经验，实验验证了该方法能够有效防御未知攻击类型，提升了LLM在真实场景中的安全性。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "What are the risks and vulnerabilities of deploying large language models in cybersecurity contexts?",
+      "matched_requirement_id": "req-9",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2605.29801v1",
+      "source": "arxiv",
+      "title": "AgentDoG 1.5: A Lightweight and Scalable Alignment Framework for AI Agent Safety and Security",
+      "abstract": "Modern open-world agents such as OpenClaw exhibit powerful cross-environment execution capabilities yet introduce broad new safety risk sources. Meanwhile, advanced frontier AI models drastically lower attack barriers, rendering current agent alignment frameworks inadequate for real-world deployment. To tackle these emerging threats, we propose a lightweight and scalable agent safety alignment framework. Specifically, we update the agent safety taxonomy to accommodate emergent risks from Codex and OpenClaw execution scenarios. We further build a taxonomy-guided data engine with influence-function purification to train lightweight AgentDoG 1.5 variants (0.8B, 2B, 4B, and 8B parameters) using only around 1k samples, achieving comparable performance with leading closed-source models (e.g., GPT-5.4). Based on AgentDoG 1.5, we construct a highly efficient agentic safety SFT and RL training environment, which reduces deployment overhead in Docker-level environments by two orders of magnitude. Finally, we deploy AgentDoG 1.5 as a training-free online guardrail for real-time safety moderation. Extensive experimental results indicate that AgentDoG 1.5 achieves state-of-the-art performance in diverse and complex interactive agentic scenarios. All models and datasets are openly released.",
+      "authors": [
+        "Dongrui Liu",
+        "Yu Li",
+        "Zhonghao Yang",
+        "Peng Wang",
+        "Guanxu Chen",
+        "Yuejin Xie",
+        "Qinghua Mao",
+        "Wanying Qu",
+        "Yanxu Zhu",
+        "Tianyi Zhou",
+        "Leitao Yuan",
+        "Zhijie Zheng",
+        "Qihao Lin",
+        "Yimin Wang",
+        "Haoyu Luo",
+        "Shuai Shao",
+        "Chen Qian",
+        "Qingyu Liu",
+        "Ling Tang",
+        "Ruiyang Qin",
+        "Qihan Ren",
+        "Junxiao Yang",
+        "Kun Wang",
+        "Zhiheng Xi",
+        "Linfeng Zhang",
+        "Ranjie Duan",
+        "Bo Zhang",
+        "Wenjie Wang",
+        "Wen Shen",
+        "Qiaosheng Zhang",
+        "Yan Teng",
+        "Chaochao Lu",
+        "Rui Mei",
+        "Man Li",
+        "Jialing Tao",
+        "Xi Lin",
+        "Tianhang Zheng",
+        "Yong Liu",
+        "Quanshi Zhang",
+        "Lei Zhu",
+        "Xingjun Ma",
+        "Junhua Liu",
+        "Hui Xue",
+        "Xiaoxiang Zuo",
+        "Xiangnan He",
+        "Chao Shen",
+        "Xianglong Liu",
+        "Minlie Huang",
+        "Jing Shao",
+        "Xia Hu"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI",
+        "cs.CL",
+        "cs.CR",
+        "cs.CV",
+        "cs.LG"
+      ],
+      "published": "2026-05-28T11:48:37+00:00",
+      "link": "https://arxiv.org/pdf/2605.29801v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Lightweight safety alignment for AI agents via taxonomy-guided data engine",
+      "llm_evidence_cn": "通过分类学引导数据引擎轻量级安全对齐AI智能体",
+      "llm_evidence": "通过分类学引导数据引擎轻量级安全对齐AI智能体",
+      "canonical_evidence": "通过分类学引导数据引擎轻量级安全对齐AI智能体",
+      "llm_tldr_en": "AgentDoG 1.5 updates safety taxonomy and trains lightweight guard models (0.8B--) with only ~1k samples, achieving comparable alignment to larger models for open-world agent security.",
+      "llm_tldr_cn": "现代开放世界智能体面临新的安全风险，AgentDoG 1.5更新了安全分类法，并通过分类学引导数据引擎和影响函数净化训练轻量级守卫模型，仅用约1000样本就在多尺寸（0.8B--8B）上达到可与大模型媲美的安全对齐效果，为智能体实际安全部署提供了高效方案。",
+      "llm_tldr": "现代开放世界智能体面临新的安全风险，AgentDoG 1.5更新了安全分类法，并通过分类学引导数据引擎和影响函数净化训练轻量级守卫模型，仅用约1000样本就在多尺寸（0.8B--8B）上达到可与大模型媲美的安全对齐效果，为智能体实际安全部署提供了高效方案。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "What are the risks and vulnerabilities of deploying large language models in cybersecurity contexts?",
+      "matched_requirement_id": "req-9",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2606.01166v1",
+      "source": "arxiv",
+      "title": "BraveGuard: From Open-World Threats to Safer Computer-Use Agents",
+      "abstract": "Computer-use agents extend language models from text generation to sustained interaction with files, terminals, browsers, and external tools. This shift creates safety risks that are difficult to detect from isolated prompts or final responses, because harm often emerges only through multi-step execution traces whose individual actions appear locally benign. We introduce BraveGuard, a self-evolving defense framework for training guard models from open-world threat signals and realistic agent trajectories. BraveGuard mines recent research sources to identify emerging risks and attack patterns, instantiates them as executable computer-use tasks, collects agent rollouts, and derives trajectory-level supervision for guard model training. As new threats and validation failures appear, the pipeline can be repeated, yielding an adaptive defense loop rather than a static, benchmark-driven training process. We instantiate BraveGuard by training multiple guard backbones, including Qwen3-Guard and Llama-Guard variants, and evaluate the resulting guards on trajectory-level agent-safety benchmarks. BraveGuard consistently improves safety detection across computer-use trajectories. On AgentHazard, it substantially improves detection accuracy over off-the-shelf guard models, with accuracy increasing from 38.79% to 82.38% under the averaged guard-model setting. These results show that guard supervision grounded in open-world threat discovery and realistic agent execution can improve safety monitoring beyond fixed taxonomies and synthetic prompt-level data. BraveGuard offers a scalable path toward adaptive defenses for computer-use agents facing evolving real-world risks.",
+      "authors": [
+        "Yunhao Feng",
+        "Yifan Ding",
+        "Xiaohu Du",
+        "Ming Wen",
+        "Xinhao Deng",
+        "Yanming Guo",
+        "Yuxiang Xie",
+        "Baihui Zheng",
+        "Yingshui Tan",
+        "Yige Li",
+        "Yutao Wu",
+        "Yixu Wang",
+        "Kerui Cao",
+        "Wenke Huang",
+        "Xingjun Ma",
+        "Yu-Gang Jiang"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.CL"
+      ],
+      "published": "2026-05-31T11:16:18+00:00",
+      "link": "https://arxiv.org/pdf/2606.01166v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Self-evolving guard model for computer-use agents, mitigating emerging safety risks",
+      "llm_evidence_cn": "自演化防护模型，缓解计算机使用代理的新兴安全风险",
+      "llm_evidence": "自演化防护模型，缓解计算机使用代理的新兴安全风险",
+      "canonical_evidence": "自演化防护模型，缓解计算机使用代理的新兴安全风险",
+      "llm_tldr_en": "BraveGuard trains guard models on open-world threat signals and agent trajectories to detect harmful multi-step behaviors, improving agent safety.",
+      "llm_tldr_cn": "BraveGuard框架从开放世界威胁信号和实际代理轨迹中挖掘风险，训练可自演化的防护模型，通过轨迹级监督检测多步执行中的隐藏危害，为电脑使用代理提供了动态进化的安全保障机制。",
+      "llm_tldr": "BraveGuard框架从开放世界威胁信号和实际代理轨迹中挖掘风险，训练可自演化的防护模型，通过轨迹级监督检测多步执行中的隐藏危害，为电脑使用代理提供了动态进化的安全保障机制。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "What are the risks and vulnerabilities of deploying large language models in cybersecurity contexts?",
+      "matched_requirement_id": "req-9",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2605.30693v1",
+      "source": "arxiv",
+      "title": "Triaging Threats to Specialized Guardrails",
+      "abstract": "Building robust safety guardrails is essential for deploying Large Language Models across diverse real-world applications. However, this goal remains challenging because safety risks span heterogeneous threat domains, while existing datasets cover only fragmented risk subsets and rely on inconsistent taxonomies. Consequently, it remains unclear whether current guardrails can generalize beyond narrow evaluation settings. To better understand the robustness of guardrail models, we first introduce GuardZoo, a unified human-annotated benchmark with 32,460 samples covering 15 distinct unsafe categories. Evaluation on GuardZoo reveals that monolithic guardrails suffer from task interference: different threat domains require distinct decision boundaries that are difficult to compress into a single model. We therefore propose RouteGuard, a router-expert framework that triages each conversation to specialized expert guardrails for threat-specific detection. Experiments show that RouteGuard improves fine-grained threat detection over strong guardrail baselines, generalizes better under out-of-domain evaluation, and supports flexible modular expansion to emerging threats.",
+      "authors": [
+        "Wenjie Jacky Mo",
+        "Xiaofei Wen",
+        "Rui Cai",
+        "Boyu Zhu",
+        "Sicong Jiang",
+        "Zihan Wang",
+        "Minglai Yang",
+        "Zhe Zhao",
+        "Muhao Chen"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.CL"
+      ],
+      "published": "2026-05-29T00:36:48+00:00",
+      "link": "https://arxiv.org/pdf/2605.30693v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "GuardZoo benchmark with 32,460 samples over 15 unsafe categories for triaging threats to guardrails",
+      "llm_evidence_cn": "推出GuardZoo基准，包含32,460样本涵盖15类不安全内容，威胁分诊护栏",
+      "llm_evidence": "推出GuardZoo基准，包含32,460样本涵盖15类不安全内容，威胁分诊护栏",
+      "canonical_evidence": "推出GuardZoo基准，包含32,460样本涵盖15类不安全内容，威胁分诊护栏",
+      "llm_tldr_en": "GuardZoo benchmark with 32,460 samples over 15 unsafe categories shows monolithic guardrails struggle with task interference, motivating threat triaging and specialized guardrails",
+      "llm_tldr_cn": "现有LLM安全护栏面临异构威胁域，数据集碎片化。本文构建统一人工标注基准GuardZoo，覆盖15个不安全类别，评估发现单体护栏受任务干扰影响，不同威胁域需不同决策边界。提出威胁分诊策略，提升分类和F1分数，启示护栏设计需专业化",
+      "llm_tldr": "现有LLM安全护栏面临异构威胁域，数据集碎片化。本文构建统一人工标注基准GuardZoo，覆盖15个不安全类别，评估发现单体护栏受任务干扰影响，不同威胁域需不同决策边界。提出威胁分诊策略，提升分类和F1分数，启示护栏设计需专业化",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "risk assessment of large language models for malicious cyber activities",
+      "matched_requirement_id": "req-3",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2606.01166v2",
+      "source": "arxiv",
+      "title": "BraveGuard: From Open-World Threats to Safer Computer-Use Agents",
+      "abstract": "Computer-use agents extend language models from text generation to sustained interaction with files, terminals, browsers, and external tools. This shift creates safety risks that are difficult to detect from isolated prompts or final responses, because harm often emerges only through multi-step execution traces whose individual actions appear locally benign. We introduce BraveGuard, a self-evolving defense framework for training guard models from open-world threat signals and realistic agent trajectories. BraveGuard mines recent research sources to identify emerging risks and attack patterns, instantiates them as executable computer-use tasks, collects agent rollouts, and derives trajectory-level supervision for guard model training. As new threats and validation failures appear, the pipeline can be repeated, yielding an adaptive defense loop rather than a static, benchmark-driven training process. We instantiate BraveGuard by training multiple guard backbones, including Qwen3-Guard and Llama-Guard variants, and evaluate the resulting guards on trajectory-level agent-safety benchmarks. BraveGuard consistently improves safety detection across computer-use trajectories. On AgentHazard, it substantially improves detection accuracy over off-the-shelf guard models, with accuracy increasing from 38.79% to 82.38% under the averaged guard-model setting. These results show that guard supervision grounded in open-world threat discovery and realistic agent execution can improve safety monitoring beyond fixed taxonomies and synthetic prompt-level data. BraveGuard offers a scalable path toward adaptive defenses for computer-use agents facing evolving real-world risks.",
+      "authors": [
+        "Yunhao Feng",
+        "Xiaohu Du",
+        "Xinhao Deng",
+        "Yifan Ding",
+        "Ming Wen",
+        "Yixu Wang",
+        "Yuxiang Xie",
+        "Baihui Zheng",
+        "Yingshui Tan",
+        "Yige Li",
+        "Yutao Wu",
+        "Kerui Cao",
+        "Wenke Huang",
+        "Yanming Guo",
+        "Xingjun Ma",
+        "Yu-Gang Jiang"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.CL"
+      ],
+      "published": "2026-05-31T11:16:18+00:00",
+      "link": "https://arxiv.org/pdf/2606.01166v2",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Defense framework for safer computer-use agents by mining open-world threats",
+      "llm_evidence_cn": "通过挖掘开放世界威胁构建更安全的计算机使用智能体的防御框架",
+      "llm_evidence": "通过挖掘开放世界威胁构建更安全的计算机使用智能体的防御框架",
+      "canonical_evidence": "通过挖掘开放世界威胁构建更安全的计算机使用智能体的防御框架",
+      "llm_tldr_en": "BraveGuard mines evolving threats and agent trajectories to train guard models, addressing safety risks from multi-step computer-use agent actions.",
+      "llm_tldr_cn": "计算机使用智能体在多步交互中可能产生难以检测的安全风险，BraveGuard通过持续挖掘最新威胁和真实智能体执行轨迹，训练守卫模型识别轨迹级恶意行为，提升了开放环境下智能体安全部署的可靠性。",
+      "llm_tldr": "计算机使用智能体在多步交互中可能产生难以检测的安全风险，BraveGuard通过持续挖掘最新威胁和真实智能体执行轨迹，训练守卫模型识别轨迹级恶意行为，提升了开放环境下智能体安全部署的可靠性。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "What are the risks and vulnerabilities of deploying large language models in cybersecurity contexts?",
+      "matched_requirement_id": "req-9",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2606.00925v1",
+      "source": "arxiv",
+      "title": "Benchmarking Security Risk Detection and Verification in Open Agentic Skill Ecosystems",
+      "abstract": "Open agent platforms allow community contributors to publish reusable skills that agents can invoke at runtime. This extensibility also creates a supply-chain risk: malicious contributors can hide harmful behavior inside skills that appear benign under superficial inspection. However, existing defenses are hard to evaluate because there is no benchmark that measures both malicious-skill detection and runtime verification. We present SkillVetBench, a two-stage security vetting benchmark for open agentic skill ecosystems. The first stage performs semantic vetting over each skill's natural-language specification to detect hidden malicious intent. The second stage executes flagged skills in an instrumented sandbox to observe runtime behavior and collect auditable evidence. We build a benchmark from confirmed malicious skills in the live OpenClaw ecosystem, including samples from the recent ClawHavoc supplychain campaign. Unlike static-only methods, SkillVetBench verifies detected threats with execution traces. Our experiments show that: (1) semantic-only and signature-based baselines are insufficient, missing up to 89\\% of malicious skills whose threats arise from natural-language instructions, multicomponent logic, or cross-component interactions; (2) runtime attacks are concentrated in a small set of high-permission primitives, especially exec, write\\_file, install\\_skill, and spawn; and (3) SkillVetBench provides case studies in which sandbox execution directly supports malicious verdicts with concrete runtime evidence.",
+      "authors": [
+        "Ismail Hossain",
+        "Sai Puppala",
+        "Zhuoran Lu",
+        "Sajedul Talukder",
+        "Nan Jiang"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI"
+      ],
+      "published": "2026-05-30T23:19:30+00:00",
+      "link": "https://arxiv.org/pdf/2606.00925v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Benchmarks detection of malicious intent in open agent skill ecosystems, a supply-chain risk for agentic systems",
+      "llm_evidence_cn": "为开放智能体技能生态系统中的恶意意图检测建立基准，评估供应链风险",
+      "llm_evidence": "为开放智能体技能生态系统中的恶意意图检测建立基准，评估供应链风险",
+      "canonical_evidence": "为开放智能体技能生态系统中的恶意意图检测建立基准，评估供应链风险",
+      "llm_tldr_en": "SkillVetBench provides a two-stage vetting benchmark for open agentic platforms, evaluating semantic detection and runtime verification of hidden malicious skills.",
+      "llm_tldr_cn": "针对开放智能体平台中技能复用带来的供应链安全风险，提出SkillVetBench基准，分阶段测试技能自然语言描述的恶意意图语义检测和沙箱运行验证，为评估多智能体安全提供标准化工具。",
+      "llm_tldr": "针对开放智能体平台中技能复用带来的供应链安全风险，提出SkillVetBench基准，分阶段测试技能自然语言描述的恶意意图语义检测和沙箱运行验证，为评估多智能体安全提供标准化工具。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "risk assessment of large language models for malicious cyber activities",
+      "matched_requirement_id": "req-3",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2606.05725v1",
+      "source": "arxiv",
+      "title": "An Embarrassingly Simple Detector for Model Extraction Attacks in Large Language Model API Traffic",
+      "abstract": "Large language models (LLMs) are increasingly deployed through hosted APIs, making model extraction a practical threat to model ownership and service security. However, individual extraction queries often resemble benign requests, and existing evaluations often focus on single-query anomaly scoring or pure benign-versus-attacker user settings. We formulate model extraction monitoring as benign-calibrated traffic-window distribution testing and show that an embarrassingly simple detector is effective: embed incoming queries into a semantic space and test whether their aggregate distribution deviates from historical benign traffic. We instantiate the detector with maximum mean discrepancy (MMD), using only benign-vs-benign comparisons to set the decision threshold. We evaluate on fourteen attacker-normal query pairs from four extraction scenarios and compare with adapted PRADA, SEAT, CAP, DATE, and marginal Mahalanobis baselines. Across three random seeds, MMD achieves 0.3% benign FPR, 100.0% pure-attacker TPR, 90.5% average TPR over attacker fractions, and 95.1% balanced accuracy. These results show that benign-calibrated distribution testing is a strong empirical baseline for model extraction detection in both user-level and mixed multi-user LLM API traffic. Code is released at: https://github.com/LabRAI/mmd-llm-mea-detection.",
+      "authors": [
+        "Shuze Liu",
+        "Qianwen Guo",
+        "Yushun Dong"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.CL"
+      ],
+      "published": "2026-06-04T05:33:49+00:00",
+      "link": "https://arxiv.org/pdf/2606.05725v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Detects model extraction attacks on LLM APIs, a direct cyber threat to model services",
+      "llm_evidence_cn": "检测大模型API上的模型窃取攻击，直指模型服务的网络威胁",
+      "llm_evidence": "检测大模型API上的模型窃取攻击，直指模型服务的网络威胁",
+      "canonical_evidence": "检测大模型API上的模型窃取攻击，直指模型服务的网络威胁",
+      "llm_tldr_en": "Formulates model extraction detection as a distribution shift test on query embeddings, achieving effective and simple monitoring for LLM API traffic.",
+      "llm_tldr_cn": "针对大模型API面临的模型窃取攻击威胁，将监控问题转化为查询嵌入分布的偏移检验，利用最大均值差异构建简单检测器，仅需正常流量校准即可有效识别异常提取行为，为保护模型知识产权提供轻量级方案。",
+      "llm_tldr": "针对大模型API面临的模型窃取攻击威胁，将监控问题转化为查询嵌入分布的偏移检验，利用最大均值差异构建简单检测器，仅需正常流量校准即可有效识别异常提取行为，为保护模型知识产权提供轻量级方案。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "risk assessment of large language models for malicious cyber activities",
+      "matched_requirement_id": "req-3",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2606.01738v1",
+      "source": "arxiv",
+      "title": "THRD: A Training-Free Multi-Turn Defense Framework for Jailbreak Attacks on Large Language Models",
+      "abstract": "Multi-turn jailbreak attacks pose a growing threat to LLMs by exploiting conversational dynamics such as gradual escalation and cross-turn coordination. Existing defenses either rely on costly retraining -- often degrading model utility -- or apply single-turn analysis independently at each turn, failing to capture how risk accumulates along interaction trajectories. We observe that safety behavior in multi-turn interaction is trajectory-dependent: dialogue history continuously reshapes the model's conditioning context, making it insufficient to evaluate each turn in isolation. Motivated by this insight, we present THRD, the first training-free framework that explicitly models temporal risk accumulation for multi-turn jailbreak defense. THRD integrates four modules: a Turn-level Risk Assessor (TRA) for instantaneous risk estimation, a Historical Context Analyzer (HCA) for cross-turn intent escalation detection, a Response Evaluator (RE) for identifying facilitative outputs, and a Decision Module that combines these signals through a time-evolving scoring mechanism with attenuation-based modulation and trend-aware adjustment. Experiments against state-of-the-art multi-turn attacks -- including tree-search-based and multi-agent collaborative methods -- across two target models show that THRD reduces ASR to 0.2--4.0% while preserving model utility within 1.5% degradation on MMLU and GSM8K. Ablation studies confirm non-redundant module contributions and stable cross-architecture generalization. Analysis of first rejection triggers reveals that over 70% of multi-turn attacks require Turn~2 or later to detect, validating the necessity of explicit temporal aggregation.",
+      "authors": [
+        "Zhiqing Ma",
+        "Zhonghao Xu",
+        "Dong Yu",
+        "Chen Kang",
+        "Changliang Li",
+        "Pengyuan Liu"
+      ],
+      "primary_category": "cs.CL",
+      "categories": [
+        "cs.CL",
+        "cs.AI"
+      ],
+      "published": "2026-06-01T06:02:15+00:00",
+      "link": "https://arxiv.org/pdf/2606.01738v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Defense against multi-turn jailbreaks models risk accumulation in dialogue trajectories.",
+      "llm_evidence_cn": "针对多轮越狱攻击的防御机制通过建模对话轨迹中的风险累积来提升安全性。",
+      "llm_evidence": "针对多轮越狱攻击的防御机制通过建模对话轨迹中的风险累积来提升安全性。",
+      "canonical_evidence": "针对多轮越狱攻击的防御机制通过建模对话轨迹中的风险累积来提升安全性。",
+      "llm_tldr_en": "THRD is a training-free defense that captures temporal risk accumulation in multi-turn dialogues to effectively block jailbreak attacks without degrading model utility.",
+      "llm_tldr_cn": "多轮越狱攻击利用对话的动态性逐步升级风险，而现有防御每轮独立分析，未能捕捉跨轮次的风险累积。本文提出THRD——首个无训练的防御框架，通过显式建模多轮交互中的时序风险累积，根据对话历史动态评估当前查询的风险。实验显示，该方法能在不损害模型效用的前提下有效防御多轮越狱攻击，为LLM的安全部署提供了实用、低成本的防御方案。",
+      "llm_tldr": "多轮越狱攻击利用对话的动态性逐步升级风险，而现有防御每轮独立分析，未能捕捉跨轮次的风险累积。本文提出THRD——首个无训练的防御框架，通过显式建模多轮交互中的时序风险累积，根据对话历史动态评估当前查询的风险。实验显示，该方法能在不损害模型效用的前提下有效防御多轮越狱攻击，为LLM的安全部署提供了实用、低成本的防御方案。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "What are the risks and vulnerabilities of deploying large language models in cybersecurity contexts?",
+      "matched_requirement_id": "req-9",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2606.06037v1",
+      "source": "arxiv",
+      "title": "SpeechJBB: Probing Safety Alignment and Comprehension in Large Audio Language Models under Code-Switched Speech",
+      "abstract": "Large audio language models (LALMs) are increasingly deployed in real-world applications, yet their safety alignment is still primarily evaluated on monolingual, text-based harmful prompts. This leaves their generalizability under multilingual and spoken settings, particularly code-switched speech, largely underexplored. To address this gap, we introduce SpeechJBB, an audio jailbreak dataset for benchmarking across multiple state-of-the-art LALMs. The extent of safety weaknesses is further probed by introducing an augmented setting where phonologically plausible pseudo-words are inserted around safety-critical terms to simulate localized obfuscation. Across models, code-switched harmful audio yields substantially high jailbreak success rates (JSR), with non-English monolingual and non-English code-switched pairs exhibiting the highest attack success. Pseudo-word insertion further reduces refusal rates, which demonstrates that natural-sounding obfuscation can effectively bypass safety policies.",
+      "authors": [
+        "Virginia Ceccatelli",
+        "Yejin Jeon",
+        "David Ifeoluwa Adelani"
+      ],
+      "primary_category": "cs.SD",
+      "categories": [
+        "cs.SD",
+        "eess.AS"
+      ],
+      "published": "2026-06-04T11:31:38+00:00",
+      "link": "https://arxiv.org/pdf/2606.06037v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Code-switched speech attacks on audio language models expose severe safety weaknesses.",
+      "llm_evidence_cn": "语码混合语音攻击暴露音频语言模型严重的安全弱点。",
+      "llm_evidence": "语码混合语音攻击暴露音频语言模型严重的安全弱点。",
+      "canonical_evidence": "语码混合语音攻击暴露音频语言模型严重的安全弱点。",
+      "llm_tldr_en": "SpeechJBB benchmarks large audio language models under code-switched harmful speech, revealing that multilingual and spoken contexts significantly bypass safety guards.",
+      "llm_tldr_cn": "大音频语言模型（LALMs）在现实部署中面临多语种和口语化的安全挑战，但现有评估主要限于单语文本提示。本文引入SpeechJBB数据集，包含语码混合的有害语音，并在多个最先进的LALMs上进行基准测试。此外，通过在安全关键术语周围插入音韵合理的伪词模拟混淆，进一步揭示了模型的脆弱性。结果显示，多模型在语码混合有害音频下表现出大幅下降的拒绝率，表明当前安全对齐在多模态和多语种环境中的严重不足，为LALM的安全性研究敲响警钟。",
+      "llm_tldr": "大音频语言模型（LALMs）在现实部署中面临多语种和口语化的安全挑战，但现有评估主要限于单语文本提示。本文引入SpeechJBB数据集，包含语码混合的有害语音，并在多个最先进的LALMs上进行基准测试。此外，通过在安全关键术语周围插入音韵合理的伪词模拟混淆，进一步揭示了模型的脆弱性。结果显示，多模型在语码混合有害音频下表现出大幅下降的拒绝率，表明当前安全对齐在多模态和多语种环境中的严重不足，为LALM的安全性研究敲响警钟。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "risk assessment of large language models for malicious cyber activities",
+      "matched_requirement_id": "req-3",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    }
+  ]
+}
