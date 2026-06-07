@@ -1,0 +1,54 @@
+{
+  "label": "2026-06-07",
+  "date": "2026-06-07",
+  "generated_at": "2026-06-07T20:43:19",
+  "count": 3,
+  "papers": [
+    {
+      "paper_id": "202606/07/2606.00914v1-adversarial-feeds-steer-llm-agent-decisions-against-their-defaults",
+      "section": "deep",
+      "title_en": "Adversarial Feeds Steer LLM Agent Decisions Against Their Defaults",
+      "authors": "Rana Muhammad Usman",
+      "date": "2026-05-30",
+      "pdf": "https://arxiv.org/pdf/2606.00914v1",
+      "score": "8.0",
+      "evidence": "模拟对抗性信息流影响大语言模型智能体决策，揭示可利用的操控机制",
+      "tldr": "大型语言模型(LLM)智能体在行动前常消费排序过的外部信息流（如社交推送、搜索结果），但现有安全评估通常忽略上游排序对决策的影响。本研究通过受控实验，固定模型、角色与决策提示，仅操纵十轮浏览阶段的信息流组成与顺序，在四个开源LLM的2785次决策中测量因果效应。结果发现：对抗性信息流可使不确定决策从5%确定性翻转为100%，Fisher p值低至3e-10，但不能动摇已稳固的默认；效果呈剂量-反应关系且泛化至安全关键选择（如移除部署批准门）。更换生成器排除写作风格假象，简单防御措施可部分缓解。这表明信息流排序层是对LLM智能体进行实际控制的界面，强调智能体评估必须审计信息流层。",
+      "tags": "query:ca",
+      "abstract_en": "LLM agents increasingly act after consuming ranked external information streams such as social feeds, search results, retrieval contexts, and email queues, yet safety evaluations almost always test the model or the user prompt in isolation, never the upstream ranker that decides what the agent reads just before it acts. We introduce a controlled protocol that holds the model, persona, topic, and final decision prompt fixed and varies only the composition and ordering of the posts an agent encounters during a preceding ten-turn \"scrolling\" phase, isolating the causal effect of feed curation on a downstream decision. Across 2,785 decision rollouts on four modern open instruct LLMs from three independent labs, we identify three response regimes: adversarial capitulation, default saturation, and a default-direction asymmetry in which a one-sided feed tips a decision the model was genuinely uncertain about (in the clearest cases from 5% to 100%; Fisher p as low as 3 x 10^-10) but cannot dislodge one it already favors or holds firmly. The effect follows a dose-response curve, survives a generator swap that rules out a writing-style artifact, generalizes across several decision domains including security-relevant choices such as removing a deployment approval gate or relaxing access controls, and is partly mitigated by two simple feed-level defenses; a frontier model retains its default. We characterize the recommender as a practical, default-bounded control surface for LLM agents, and argue that agent evaluations must audit the feed layer rather than the final prompt alone.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202606/07/2606.01441v1-dive-into-ambiguity-a-inspired-multi-agents-commonsense-obfuscation-attack-on-llm-prompts",
+      "section": "deep",
+      "title_en": "Dive into Ambiguity: A*-Inspired Multi-Agents Commonsense Obfuscation Attack on LLM Prompts",
+      "authors": "Boxuan Wang, Zhuoyun Li, Xiaowei Huang, Yi Dong",
+      "date": "2026-05-31",
+      "pdf": "https://arxiv.org/pdf/2606.01441v1",
+      "score": "8.0",
+      "evidence": "利用多智能体协同生成混淆提示攻击大语言模型",
+      "tldr": "大语言模型在安全关键应用中易受常识混淆攻击，现有方法效率与适应策略不足。本文提出A*启发式多智能体常识混淆框架，通过分层重写与动态语义分散系数γ（遵循逆向模拟退火）平衡保守与激进改写。引入可解释对抗机制进行逆向优化。实验表明，该方法在多种模型上以更少尝试次数实现更高攻击成功率，并理论证明重写驱动语义塌陷。",
+      "tags": "query:ca",
+      "abstract_en": "Large language models (LLMs) excel in reasoning and knowledge-intensive tasks but remain vulnerable to prompt-level adversarial attacks that preserve intent while triggering commonsense hallucinations. This vulnerability is urgent, as LLMs are rapidly integrated into safety-critical domains where factual reliability is non-negotiable. Existing attack methods either lack efficiency or fail to capture the adaptive strategies of real-world adversaries. We propose an A*-inspired Factual Error Induction Framework, a framework for generating semantically aligned yet obfuscated prompts. At its core is a Hierarchical Rewrite Strategy guided by a dynamic semantic dispersion coefficient $γ$ that balances conservative edits early with aggressive obfuscations later, following a reverse simulated annealing schedule. To enhance interpretability, we further introduce Agentic Mechanism Labeling, which discovers and refines adversarial mechanisms, offering interpretable reverse optimization. Theoretically, we prove that prompt rewriting follows a contractive recurrence, leading to semantic collapse as $γ$ decreases. Empirically, across diverse LLMs, our method achieves higher attack success rates than exhaustive exploration while requiring fewer attempts, demonstrating both efficiency and effectiveness.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202606/07/2606.02282v1-poirot-interrogating-agents-for-failure-detection-in-multi-agent-systems",
+      "section": "quick",
+      "title_en": "POIROT: Interrogating Agents for Failure Detection in Multi-Agent Systems",
+      "authors": "Iñaki Dellibarda Varela, R. Sendra-Arranz, Pablo Romero-Sorozabal, J. M. Valverde-García, Annemarie F. Laudanski, Álvaro Gutiérrez, Eduardo Rocon, Manuel Cebrian",
+      "date": "2026-06-01",
+      "pdf": "https://arxiv.org/pdf/2606.02282v1",
+      "score": "7.0",
+      "evidence": "适用于LLM多智能体系统的故障检测协议，可用于评估模拟",
+      "tldr": "多智能体系统因难以定位的涌现故障与幻觉阻碍其在安全关键领域部署，现有评估范式依赖中心化判断，易成单点故障。POIROT协议提出复用系统自有智能体作为诊断层，挖掘其认知多样性实现自我审计。实验表明，POIROT检测性能显著超越单LLM基线，优势随任务复杂度、智能体数量和故障维度增加而扩大，且在复合故障下仍稳定。该结果证实安全监督无需外部化，内部智能体集体智能足以胜任审计，并发布开源POIROT库及BLAME故障归因基准。",
+      "tags": "query:ca",
+      "abstract_en": "Orchestrating Large Language Models into Multi-Agent Systems (LLM-MAS) has unlocked remarkable reasoning capabilities, yet emergent failures and hallucinations that resist characterisation block their deployment in safety-critical domains -- a gap made legally untenable by emerging AI regulation. Existing evaluation paradigms share a common flaw: centralised judgment creates single points of failure and demands domain-specific expertise. Here we present POIROT, a protocol that repurposes a system's own agents as its diagnostic layer, leveraging the epistemic diversity already present in the architecture. Across evaluated settings, POIROT outperforms single-LLM evaluator baselines, with gains that scale with problem complexity (OR = 1.60, $p = 0.008$), agent count, and fault dimensionality, persisting under compound fault conditions. These results demonstrate that safety oversight need not be externalised: the agents executing a role carry sufficient collective intelligence to audit it. We release POIROT as an open-source library alongside BLAME, a benchmark for fault attribution in safety-critical multi-agent systems.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}
