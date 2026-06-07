@@ -1,0 +1,60 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-06-07T07:18:36.713396+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 0,
+    "deep_cap": 6,
+    "deep_selected": 0,
+    "quick_candidates": 1,
+    "quick_skim_target": 11,
+    "quick_selected": 1
+  },
+  "deep_dive": [],
+  "quick_skim": [
+    {
+      "id": "2606.02867v1",
+      "source": "arxiv",
+      "title": "The Epi-LLM Framework: probing LLM behavioral priors through epidemiological agent-based models",
+      "abstract": "Human behaviour during epidemics affects infectious disease dynamics, but quantifying this remains deeply challenging. Here we introduce the Epi-LLM framework: a novel integration of agent-based modelling, real-life epigames, and large language models (LLMs) in which a synthetic society of agents reasons and adapts dynamically over an outbreak contact network. Comparing synthetic agent behaviour against a no-intervention SEIR baseline and human participant data from the AUIB epigame study, we find that LLM agents across four different architectures reduced peak active infections, with quarantine compliance peaking at 58-65% on day six of the 15-day simulation. A binomial generalised linear model showed that perceived health severity was the strongest predictor of quarantine behaviour ($β= 0.33, p = 0.002$), yielding a pseudo-$R^2$ of 0.055, comparable to the 0.072 observed in the human trial. LLM architecture is a key determinant of epidemic dynamics: low-variance architectures offer greater internal validity for testing behavioural rules, while high-variance models may better represent real-world decision-making. Geographic labels alone do not induce culturally differentiated behaviour; explicit attitudinal parameterisation is required. This proof-of-principle work lays the groundwork for deploying the Epi-LLM framework as a scalable, risk-free simulation environment for pandemic preparedness research.",
+      "authors": [
+        "Petra Ferenz",
+        "Ava Keeling",
+        "Tobias O'Keefe",
+        "Lorenzo Stigliano",
+        "Francesco Di Lauro",
+        "Andres Colubri",
+        "Jasmina Panovska-Griffiths"
+      ],
+      "primary_category": "cs.MA",
+      "categories": [
+        "cs.MA",
+        "cs.AI",
+        "q-bio.PE"
+      ],
+      "published": "2026-06-01T20:31:06+00:00",
+      "link": "https://arxiv.org/pdf/2606.02867v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "agent-based modelling with LLMs for epidemiological simulation, transferable method to cybercrime simulation",
+      "llm_evidence_cn": "使用大语言模型的智能体建模方法可迁移至网络犯罪模拟",
+      "llm_evidence": "使用大语言模型的智能体建模方法可迁移至网络犯罪模拟",
+      "canonical_evidence": "使用大语言模型的智能体建模方法可迁移至网络犯罪模拟",
+      "llm_tldr_en": "Epi-LLM integrates LLMs into agent-based modeling for epidemics, showing LLM agents reduce peak infections with 58-65% quarantine compliance; this method can inspire LLM-based simulation of cybercriminal behavior.",
+      "llm_tldr_cn": "针对量化疫情中人类行为对疾病动态影响的难题，提出Epi-LLM框架，将大语言模型融入智能体建模，构建了一个在接触网络中动态推理和适应的合成社会。在15天模拟中，LLM智能体显著降低了峰值活跃感染人数，隔离遵守率达58-65%，且感知健康严重性是驱动行为的关键因素。该框架展示了LLM在智能体模拟中的潜力，为利用LLM驱动的智能体建模模拟网络犯罪活动提供了方法论借鉴。",
+      "llm_tldr": "针对量化疫情中人类行为对疾病动态影响的难题，提出Epi-LLM框架，将大语言模型融入智能体建模，构建了一个在接触网络中动态推理和适应的合成社会。在15天模拟中，LLM智能体显著降低了峰值活跃感染人数，隔离遵守率达58-65%，且感知健康严重性是驱动行为的关键因素。该框架展示了LLM在智能体模拟中的潜力，为利用LLM驱动的智能体建模模拟网络犯罪活动提供了方法论借鉴。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "How can agent based modeling and multi agent systems simulate cybercriminal activities with large language models?",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    }
+  ]
+}

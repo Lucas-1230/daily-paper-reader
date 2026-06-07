@@ -1,6 +1,9 @@
 * <a class="dpr-sidebar-root-link" href="#/">首页</a>
 * <a class="dpr-sidebar-root-link dpr-sidebar-noactive-link" href="javascript:void(0)" data-dpr-hash="#/tutorial/README">使用教程</a>
 * Daily Papers
+  * 2026-05-29 ~ 2026-06-07 <!--dpr-date:20260529-20260607-->
+    * 速读区
+      * <a class="dpr-sidebar-item-link dpr-sidebar-item-structured" href="#/20260529-20260607/2606.02867v1-the-epi-llm-framework-probing-llm-behavioral-priors-through-epidemiological-agent-based-models" data-sidebar-item="{&quot;title&quot;: &quot;The Epi-LLM Framework: probing LLM behavioral priors through epidemiological agent-based models&quot;, &quot;link&quot;: &quot;https://arxiv.org/abs/2606.02867v1-the-epi-llm-framework-probing-llm-behavioral-priors-through-epidemiological-agent-based-models&quot;, &quot;score&quot;: &quot;7.0&quot;, &quot;tags&quot;: [{&quot;kind&quot;: &quot;query&quot;, &quot;label&quot;: &quot;ca&quot;}], &quot;evidence&quot;: &quot;使用大语言模型的智能体建模方法可迁移至网络犯罪模拟&quot;}">The Epi-LLM Framework: probing LLM behavioral priors through epidemiological agent-based models</a>
   * 2026-06-06 <!--dpr-date:20260606-->
     * 精读区
       * <a class="dpr-sidebar-item-link dpr-sidebar-item-structured" href="#/202606/06/2605.30604v1-an-organization-scoped-llm-agent-runtime-architecture-for-regulated-cybersecurity-operations" data-sidebar-item="{&quot;title&quot;: &quot;An Organization-Scoped LLM Agent Runtime Architecture for Regulated Cybersecurity Operations&quot;, &quot;link&quot;: &quot;https://arxiv.org/abs/2605.30604v1-an-organization-scoped-llm-agent-runtime-architecture-for-regulated-cybersecurity-operations&quot;, &quot;score&quot;: &quot;9.0&quot;, &quot;tags&quot;: [{&quot;kind&quot;: &quot;query&quot;, &quot;label&quot;: &quot;ca&quot;}], &quot;evidence&quot;: &quot;提出面向安全运营中心与合规的可审计LLM智能体平台，直接解决网络安全环境下的安全部署问题&quot;}">An Organization-Scoped LLM Agent Runtime Architecture for Regulated Cybersecurity Operations</a>

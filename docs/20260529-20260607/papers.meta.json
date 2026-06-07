@@ -1,0 +1,24 @@
+{
+  "label": "2026-05-29 ~ 2026-06-07",
+  "date": "2026-05-29 ~ 2026-06-07",
+  "generated_at": "2026-06-07T07:20:06",
+  "count": 1,
+  "papers": [
+    {
+      "paper_id": "20260529-20260607/2606.02867v1-the-epi-llm-framework-probing-llm-behavioral-priors-through-epidemiological-agent-based-models",
+      "section": "quick",
+      "title_en": "The Epi-LLM Framework: probing LLM behavioral priors through epidemiological agent-based models",
+      "authors": "Petra Ferenz, Ava Keeling, Tobias O'Keefe, Lorenzo Stigliano, Francesco Di Lauro, Andres Colubri, Jasmina Panovska-Griffiths",
+      "date": "2026-06-01",
+      "pdf": "https://arxiv.org/pdf/2606.02867v1",
+      "score": "7.0",
+      "evidence": "使用大语言模型的智能体建模方法可迁移至网络犯罪模拟",
+      "tldr": "人类行为深刻影响传染病动态，但量化困难重重。本研究提出Epi-LLM框架，通过智能体建模、真实疫情博弈（AUIB epigame）与大语言模型（LLM）的整合，构建可在接触网络中动态推理与适应的合成社会。四种LLM架构的智能体均降低了高峰活跃感染数，隔离依从性在第六天达到58-65%。广义线性模型显示，感知健康严重性是隔离行为最强预测因子（β=0.33, p=0.002），模型伪R²为0.055，与人类试验的0.072相当。LLM架构显著影响疫情动态，低方差架构利于检验行为规则，高方差模型更贴近现实决策。地理标签不诱导文化差异，需态度参数化。该原则性验证为部署可扩展、无风险的模拟环境用于流行病防范研究奠定了基础。",
+      "tags": "query:ca",
+      "abstract_en": "Human behaviour during epidemics affects infectious disease dynamics, but quantifying this remains deeply challenging. Here we introduce the Epi-LLM framework: a novel integration of agent-based modelling, real-life epigames, and large language models (LLMs) in which a synthetic society of agents reasons and adapts dynamically over an outbreak contact network. Comparing synthetic agent behaviour against a no-intervention SEIR baseline and human participant data from the AUIB epigame study, we find that LLM agents across four different architectures reduced peak active infections, with quarantine compliance peaking at 58-65% on day six of the 15-day simulation. A binomial generalised linear model showed that perceived health severity was the strongest predictor of quarantine behaviour ($β= 0.33, p = 0.002$), yielding a pseudo-$R^2$ of 0.055, comparable to the 0.072 observed in the human trial. LLM architecture is a key determinant of epidemic dynamics: low-variance architectures offer greater internal validity for testing behavioural rules, while high-variance models may better represent real-world decision-making. Geographic labels alone do not induce culturally differentiated behaviour; explicit attitudinal parameterisation is required. This proof-of-principle work lays the groundwork for deploying the Epi-LLM framework as a scalable, risk-free simulation environment for pandemic preparedness research.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}
