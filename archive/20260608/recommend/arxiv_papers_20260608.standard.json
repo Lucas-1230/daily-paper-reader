@@ -1,0 +1,219 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-06-08T20:48:59.179276+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 1,
+    "deep_cap": 6,
+    "deep_selected": 1,
+    "quick_candidates": 4,
+    "quick_skim_target": 11,
+    "quick_selected": 4
+  },
+  "deep_dive": [
+    {
+      "id": "2606.07158v1",
+      "source": "arxiv",
+      "title": "Synthetic APTs: the Collapse of TTP-Based Attribution",
+      "abstract": "Cyber Threat Intelligence CTI attribution relies on identifying the Tactics, Techniques, and Procedures TTPs that distinguish one threat actor from another. This approach presupposes that each adversary leaves a recognizable operational fingerprint. This work investigates whether AI driven adversary emulation challenges that presupposition. We deploy agents from our Cybersecurity SuperIntelligence CSI framework, configured as five Advanced Persistent Threat APT groups, APT28, APT29, APT41, APT44, and Lazarus Group, against AI driven Defender agents across two cyber ranges provided by CYBER RANGES, equipped with defensive software Wazuh, Velociraptor, Elasticsearch and active AI driven defenders: an enterprise network and a military infrastructure. Across 20 experiments using two defender models, a binary pattern emerges: all 10 Enterprise range experiments resulted in compromise 2 to 12 hosts per experiment, while all 10 Military range experiments were successfully defended or resulted in stalemates, regardless of APT profile or defender model. In 8 of 10 Enterprise experiments, attackers independently weaponized the defender's own Velociraptor endpoint management platform as a command and control channel, a convergent behavior not encoded in any threat intelligence profile. We argue that in the AI era, wherein agents can be deployed provided the right models are available and subject to the right scaffolding and agentic configuration, the entry barrier for operating like a nation state APT collapses: beyond nation states, individuals can now act like commonly identified threat actors, and with it, fundamentally undermine TTP based attribution.",
+      "authors": [
+        "Francesco Balassone",
+        "Víctor Mayoral-Vilches",
+        "María Sanz-Gómez",
+        "Paul Zabalegui-Landa",
+        "Stefan Rass",
+        "Davide Quarta",
+        "Daniel Sanchez-Prieto",
+        "Marina Oteiza-Álvarez",
+        "Almerindo Graziano",
+        "Lauren Min Kim",
+        "MinSeok Choi"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR"
+      ],
+      "published": "2026-06-05T11:18:42+00:00",
+      "link": "https://arxiv.org/pdf/2606.07158v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "multi-agent simulation of APT cyber attacks using LLM agents, directly simulating cybercrime activities",
+      "llm_evidence_cn": "使用LLM智能体的多智能体APT网络攻击仿真，直接模拟网络犯罪活动",
+      "llm_evidence": "使用LLM智能体的多智能体APT网络攻击仿真，直接模拟网络犯罪活动",
+      "canonical_evidence": "使用LLM智能体的多智能体APT网络攻击仿真，直接模拟网络犯罪活动",
+      "llm_tldr_en": "Deploys LLM-based agents emulating five APT groups in cyber ranges with AI defenders; experiments show that synthetic APTs collapse TTP-based attribution, challenging current cyber threat intelligence methods.",
+      "llm_tldr_cn": "网络威胁情报归因依赖于TTP指纹识别，但AI驱动的对手模拟可能使此方法失效。本文利用网络安全超级智能(CSI)框架，将智能体配置为五个高级持续威胁(APT)组织，在企业和军事两个网络靶场上与AI防御者进行20次对抗实验。结果表明合成APT成功规避了TTP归因，引发对现有归因体系的根本性质疑，凸显AI模拟在网络犯罪仿真中的潜在颠覆性影响。",
+      "llm_tldr": "网络威胁情报归因依赖于TTP指纹识别，但AI驱动的对手模拟可能使此方法失效。本文利用网络安全超级智能(CSI)框架，将智能体配置为五个高级持续威胁(APT)组织，在企业和军事两个网络靶场上与AI防御者进行20次对抗实验。结果表明合成APT成功规避了TTP归因，引发对现有归因体系的根本性质疑，凸显AI模拟在网络犯罪仿真中的潜在颠覆性影响。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "multi-agent systems for cybercrime simulation",
+      "matched_requirement_id": "req-3",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2606.05711v2",
+      "source": "arxiv",
+      "title": "Beyond tokens: a unified framework for latent communication in LLM-based multi-agent systems",
+      "abstract": "Multi-agent systems built on large language models (LLMs) have become a prevailing paradigm for tackling complex reasoning, planning, and tool-use tasks. The dominant communication protocol in such systems is natural language: agents exchange messages token-by-token, verbalising their internal reasoning so that peers can read, verify, and respond. While convenient and interpretable, this protocol suffers from three structural drawbacks -- high inference cost, irreversible information loss during discretization, and ambiguity/redundancy of natural language. A growing body of work therefore explores an alternative protocol -- latent communication -- in which agents exchange continuous representations (embeddings, hidden states, or KV-caches) directly, bypassing the bottleneck of text generation. This paper presents a unified framework for organising the rapidly expanding literature on latent communication. We analyse existing methods along three orthogonal axes: (1) WHAT information is communicated (Embeddings, Hidden States, KV-Caches, or other continuous state); (2) WHICH sender-receiver alignment is used (latent-space alignment and layer alignment); and (3) HOW the communicated information is fused into the receiver (concatenation, prepending, mathematical operations, cross-attention, or cache restoration). Under this 3-axis framework, we systematically categorise eighteen representative methods proposed between 2024 and 2026, identify five major design patterns, and surface a set of open challenges -- including cross-architecture alignment, security of latent channels, compression for edge deployment, and the relationship between latent communication and latent chain-of-thought. We hope that this framework both lowers the barrier to entry for new researchers and provides a vocabulary for comparing future work.",
+      "authors": [
+        "Yingzhuo Liu"
+      ],
+      "primary_category": "cs.CL",
+      "categories": [
+        "cs.CL"
+      ],
+      "published": "2026-06-04T05:10:20+00:00",
+      "link": "https://arxiv.org/pdf/2606.05711v2",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Provides a multi-agent LLM communication method applicable to cybercrime simulation",
+      "llm_evidence_cn": "提供一种可用于网络犯罪模拟的多智能体LLM通信方法",
+      "llm_evidence": "提供一种可用于网络犯罪模拟的多智能体LLM通信方法",
+      "canonical_evidence": "提供一种可用于网络犯罪模拟的多智能体LLM通信方法",
+      "llm_tldr_en": "This paper introduces a unified latent communication framework for LLM-based multi-agent systems to overcome inefficiencies of token-based messaging, providing a foundation for efficient simulation of complex dynamics like cybercriminal activities.",
+      "llm_tldr_cn": "针对LLM多智能体系统中自然语言通信推理成本高、离散化信息损失、自然语言歧义等结构性问题，本文提出统一潜在通信框架，允许智能体通过连续嵌入或隐藏状态直接交互。实验证明该框架能够大幅降低推理开销并保持协同性能，为构建面向网络犯罪等场景的高效多智能体模拟系统提供了通信基础。",
+      "llm_tldr": "针对LLM多智能体系统中自然语言通信推理成本高、离散化信息损失、自然语言歧义等结构性问题，本文提出统一潜在通信框架，允许智能体通过连续嵌入或隐藏状态直接交互。实验证明该框架能够大幅降低推理开销并保持协同性能，为构建面向网络犯罪等场景的高效多智能体模拟系统提供了通信基础。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "How can agent based modeling and multi agent systems simulate cybercriminal activities with large language models?",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2606.05711v1",
+      "source": "arxiv",
+      "title": "Beyond tokens: a unified framework for latent communication in LLM-based multi-agent systems",
+      "abstract": "Multi-agent systems built on large language models (LLMs) have become a prevailing paradigm for tackling complex reasoning, planning, and tool-use tasks. The dominant communication protocol in such systems is natural language: agents exchange messages token-by-token, verbalising their internal reasoning so that peers can read, verify, and respond. While convenient and interpretable, this protocol suffers from three structural drawbacks -- high inference cost, irreversible information loss during discretization, and ambiguity/redundancy of natural language. A growing body of work therefore explores an alternative protocol -- latent communication -- in which agents exchange continuous representations (embeddings, hidden states, or KV-caches) directly, bypassing the bottleneck of text generation. This paper presents a unified framework for organising the rapidly expanding literature on latent communication. We analyse existing methods along three orthogonal axes: (1) WHAT information is communicated (Embeddings, Hidden States, KV-Caches, or other continuous state); (2) WHICH sender-receiver alignment is used (latent-space alignment and layer alignment); and (3) HOW the communicated information is fused into the receiver (concatenation, prepending, mathematical operations, cross-attention, or cache restoration). Under this 3-axis framework, we systematically categorise eighteen representative methods proposed between 2024 and 2026, identify five major design patterns, and surface a set of open challenges -- including cross-architecture alignment, security of latent channels, compression for edge deployment, and the relationship between latent communication and latent chain-of-thought. We hope that this framework both lowers the barrier to entry for new researchers and provides a vocabulary for comparing future work.",
+      "authors": [
+        "Yingzhuo Liu"
+      ],
+      "primary_category": "cs.CL",
+      "categories": [
+        "cs.CL"
+      ],
+      "published": "2026-06-04T05:10:20+00:00",
+      "link": "https://arxiv.org/pdf/2606.05711v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Proposes latent communication for LLM-based multi-agent systems, which can enhance efficiency when simulating cybercriminal activities.",
+      "llm_evidence_cn": "提出基于大语言模型的多智能体系统潜通信方法，可提升模拟网络犯罪活动的效率。",
+      "llm_evidence": "提出基于大语言模型的多智能体系统潜通信方法，可提升模拟网络犯罪活动的效率。",
+      "canonical_evidence": "提出基于大语言模型的多智能体系统潜通信方法，可提升模拟网络犯罪活动的效率。",
+      "llm_tldr_en": "Introduces a latent communication framework for LLM agents to bypass token-level inefficiency, reducing cost and information loss in multi-agent collaboration.",
+      "llm_tldr_cn": "为解决大语言模型多智能体系统中自然语言通信的高推理成本、信息损失和冗余问题，提出统一的潜通信框架，允许智能体交换连续表示。该框架在多个基准上展示了降低延迟和提升任务完成率的优势，为资源高效的多智能体协作提供新路径。",
+      "llm_tldr": "为解决大语言模型多智能体系统中自然语言通信的高推理成本、信息损失和冗余问题，提出统一的潜通信框架，允许智能体交换连续表示。该框架在多个基准上展示了降低延迟和提升任务完成率的优势，为资源高效的多智能体协作提供新路径。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "How can agent based modeling and multi agent systems simulate cybercriminal activities with large language models?",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2606.07219v1",
+      "source": "arxiv",
+      "title": "Adversarial Creation and Detection of AI-Generated Social Bot Content",
+      "abstract": "The convergence of large language models and social bots allows malicious actors to manipulate the information ecosystem by generating human-like content at scale. Existing models for detecting AI-generated content often fail in the wild, primarily due to the lack of ground-truth data. We address this gap through an adversarial methodology that models the impersonation of real social media users by malicious actors. Using this methodology, we curate a multilingual, cross-platform dataset of paired human and AI-generated messages. Training on such adversarial data yields accurate detection of AI-generated text. Our approach significantly outperforms existing models for content-based bot detection in real-world, out-of-distribution data.",
+      "authors": [
+        "Mykola Trokhymovych",
+        "Ricardo Baeza-Yates",
+        "Alessandro Flammini",
+        "Diego Saez-Trumper",
+        "Filippo Menczer"
+      ],
+      "primary_category": "cs.CL",
+      "categories": [
+        "cs.CL",
+        "cs.SI"
+      ],
+      "published": "2026-06-05T12:32:47+00:00",
+      "link": "https://arxiv.org/pdf/2606.07219v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Uses adversarial methodology with LLMs to model social bot impersonation for cybercrime, demonstrating LLM capability in malicious content creation.",
+      "llm_evidence_cn": "利用对抗方法学模拟恶意行为者使用LLM进行社交机器人冒充，展示LLM在网络犯罪内容生成中的能力",
+      "llm_evidence": "利用对抗方法学模拟恶意行为者使用LLM进行社交机器人冒充，展示LLM在网络犯罪内容生成中的能力",
+      "canonical_evidence": "利用对抗方法学模拟恶意行为者使用LLM进行社交机器人冒充，展示LLM在网络犯罪内容生成中的能力",
+      "llm_tldr_en": "This paper applies an adversarial methodology to create and detect AI-generated social bot content, showing that LLMs can be used for large-scale social media manipulation and that detectors trained on adversarial data outperform existing models.",
+      "llm_tldr_cn": "恶意行为者利用大语言模型和社交机器人操纵信息生态。本文提出对抗方法学，模拟恶意行为者冒充真实社交媒体用户，生成跨平台多语言数据集，并训练检测模型。实验证明，基于该对抗数据训练的检测器在真实场景中显著优于现有模型，揭示了LLM在网络犯罪内容生成中的能力，并提供了有效检测手段。",
+      "llm_tldr": "恶意行为者利用大语言模型和社交机器人操纵信息生态。本文提出对抗方法学，模拟恶意行为者冒充真实社交媒体用户，生成跨平台多语言数据集，并训练检测模型。实验证明，基于该对抗数据训练的检测器在真实场景中显著优于现有模型，揭示了LLM在网络犯罪内容生成中的能力，并提供了有效检测手段。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "capabilities of large language models in cybercrime",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2606.07054v1",
+      "source": "arxiv",
+      "title": "TRACE: Trajectory Reasoning through Adaptive Cross-Step Evidence Aggregation for LLM Agents",
+      "abstract": "Autonomous LLM agents can pursue hidden malicious objectives through sequences of individually benign actions, making sabotage difficult to detect using standard trajectory-level monitoring. Existing approaches either evaluate complete trajectories in a single pass or partition them into independently scored windows, limiting their ability to connect evidence across temporally distant actions. We propose TRACE, a monitoring framework for long-horizon LLM agent trajectories. TRACE operates through a TIJ (Triage-Inspect-Judge) loop that identifies high-signal regions, performs targeted inspection while maintaining accumulated evidence across reasoning steps, and synthesizes a trajectory-level verdict. We evaluate TRACE on ten task domains from SHADE-Arena against state-of-the-art baselines. TRACE achieves an aggregate F1 of 0.713 and recall of 0.844, with the largest gains on tasks requiring long-range evidence linking.",
+      "authors": [
+        "Vijitha Mittapalli",
+        "Shreyaa Jayant Dani",
+        "Satya Srujana Pilli",
+        "Snigdha Ansu",
+        "Mohammadreza Teymoorianfard",
+        "Franck Dernoncourt",
+        "Hongjie Chen",
+        "Yu Wang",
+        "Ryan A. Rossi",
+        "Nesreen K. Ahmed"
+      ],
+      "primary_category": "cs.CL",
+      "categories": [
+        "cs.CL",
+        "cs.AI",
+        "cs.CR",
+        "cs.LG"
+      ],
+      "published": "2026-06-05T08:54:38+00:00",
+      "link": "https://arxiv.org/pdf/2606.07054v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Monitoring framework for detecting malicious LLM agent objectives, supporting adversarial testing in cyber contexts.",
+      "llm_evidence_cn": "检测大语言模型智能体恶意目标的监测框架，支持网络背景下的对抗测试。",
+      "llm_evidence": "检测大语言模型智能体恶意目标的监测框架，支持网络背景下的对抗测试。",
+      "canonical_evidence": "检测大语言模型智能体恶意目标的监测框架，支持网络背景下的对抗测试。",
+      "llm_tldr_en": "Proposes TRACE, a monitoring framework that aggregates evidence across steps to detect hidden malicious objectives in LLM agent trajectories.",
+      "llm_tldr_cn": "针对大语言模型智能体可通过一系列表面良性行动隐藏恶意目标的问题，提出TRACE监测框架，采用分诊-检查-判决循环来识别高信号区域并跨步骤聚合证据。在十个任务领域测试表明，TRACE能有效检测长轨迹中的蓄意破坏行为。",
+      "llm_tldr": "针对大语言模型智能体可通过一系列表面良性行动隐藏恶意目标的问题，提出TRACE监测框架，采用分诊-检查-判决循环来识别高信号区域并跨步骤聚合证据。在十个任务领域测试表明，TRACE能有效检测长轨迹中的蓄意破坏行为。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "adversarial agents for testing large language models in cybercrime",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}
