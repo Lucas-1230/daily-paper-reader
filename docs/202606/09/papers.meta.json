@@ -1,0 +1,39 @@
+{
+  "label": "2026-06-09",
+  "date": "2026-06-09",
+  "generated_at": "2026-06-09T22:01:43",
+  "count": 2,
+  "papers": [
+    {
+      "paper_id": "202606/09/2606.07706v1-mlingualfc-evaluating-jailbreak-vulnerabilities-in-multilingual-vision-language-models",
+      "section": "quick",
+      "title_en": "MLingualFC: Evaluating Jailbreak Vulnerabilities in Multilingual Vision-Language Models",
+      "authors": "Rishabh Makwana, Mamta, Deeksha Varshney, Oana Cocarascu",
+      "date": "2026-06-05",
+      "pdf": "https://arxiv.org/pdf/2606.07706v1",
+      "score": "7.0",
+      "evidence": "多语言VLM越狱基准，探查适用于网络犯罪的安全边界",
+      "tldr": "视觉语言模型在多模态任务中表现优异，但安全鲁棒性不足，现有流程图越狱攻击研究多局限于英语环境。为此，本文提出多语言多模态基准MLingualFC，将有害指令编码为流程图图像，覆盖印地语、旁遮普语等五种语言。实验发现，拉丁语系语言下攻击成功率极高，视觉编码可绕过安全对齐；非拉丁语（如旁遮普语）成功率低，疑因视觉文本识别受限而非安全更强。该工作揭示当前多语言安全鸿沟，强调需关注跨语言多模态防御。",
+      "tags": "query:ca",
+      "abstract_en": "Vision-Language Models (VLMs) have demonstrated strong performance across multimodal tasks, yet their safety robustness remains an open challenge. While prior work has shown that structured visual prompts such as flowcharts can effectively jailbreak VLMs, existing studies are largely limited to English-centric settings. In this paper, we introduce MLingualFC, a multilingual multimodal benchmark designed to evaluate jailbreak vulnerabilities of VLMs across diverse languages using structured flowchart representations. MLingualFC encodes harmful instructions into flowchart images across five languages (Hindi, Punjabi, Spanish, Romanian, and German). We evaluate state-of-the-art multilingual VLMs, including Qwen2.5-VL, Gemma-4, and Pangea, under a black-box threat model. Our results reveal significant multilingual safety gaps. Flowchart-based attacks achieve high attack success rates (ASR) in case of Latin script languages, demonstrating that visual encoding of harmful content effectively bypasses safety alignment across languages. In contrast, non-Latin script languages such as Punjabi exhibit substantially lower ASR, suggesting potential limitations in visual text recognition rather than stronger safety alignment. These findings highlight that current VLM safety mechanisms fail to generalize across languages and modalities. Resources are available at https://github.com/Rishabhpm23/MLingualFC",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202606/09/2606.06212v1-evaluating-agentic-configuration-repair-for-computer-networks",
+      "section": "quick",
+      "title_en": "Evaluating Agentic Configuration Repair for Computer Networks",
+      "authors": "Rufat Asadli, Benjamin Hoffman, Ioannis Protogeros, Laurent Vanbever",
+      "date": "2026-06-04",
+      "pdf": "https://arxiv.org/pdf/2606.06212v1",
+      "score": "6.0",
+      "evidence": "基准测试智能体LLM在计算机网络配置修复中的能力，属于网络安全任务",
+      "tldr": "网络配置错误是导致重大互联网中断的主要根源，大语言模型（LLM）虽被用于自动化修复，但最先进模型在大规模复杂场景中仍会失败并引入新错误。本研究对开源与闭源LLM进行基准测试，集成形式化网络验证与上下文检索工具，构建智能体架构。结果表明，该架构的修复效能平均提升12%，安全性提升17%，得益于动态管理上下文和迭代验证配置修复的能力。该工作展示了智能体方法在提升网络配置修复可靠性与安全性方面的潜力。",
+      "tags": "query:ca",
+      "abstract_en": "Misconfigurations in computer networks remain a major source of critical Internet outages. Research is turning to Large Language Models (LLMs) to automate the complex, error-prone task of network configuration. However, even state-of-the-art models fail to resolve misconfigurations in large-scale, complex scenarios and often introduce new errors. In this work, we benchmark open- and closed-source LLMs augmented with formal network verification and context retrieval tools. We demonstrate that agentic architectures outperform base LLMs in repair efficacy (by 12% on average) and safety (by 17% on average), enabled by the ability to dynamically manage context and iteratively validate configuration repairs.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}

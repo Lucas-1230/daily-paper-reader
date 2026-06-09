@@ -1,0 +1,94 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-06-09T21:40:18.902754+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 0,
+    "deep_cap": 6,
+    "deep_selected": 0,
+    "quick_candidates": 2,
+    "quick_skim_target": 11,
+    "quick_selected": 2
+  },
+  "deep_dive": [],
+  "quick_skim": [
+    {
+      "id": "2606.07706v1",
+      "source": "arxiv",
+      "title": "MLingualFC: Evaluating Jailbreak Vulnerabilities in Multilingual Vision-Language Models",
+      "abstract": "Vision-Language Models (VLMs) have demonstrated strong performance across multimodal tasks, yet their safety robustness remains an open challenge. While prior work has shown that structured visual prompts such as flowcharts can effectively jailbreak VLMs, existing studies are largely limited to English-centric settings. In this paper, we introduce MLingualFC, a multilingual multimodal benchmark designed to evaluate jailbreak vulnerabilities of VLMs across diverse languages using structured flowchart representations. MLingualFC encodes harmful instructions into flowchart images across five languages (Hindi, Punjabi, Spanish, Romanian, and German). We evaluate state-of-the-art multilingual VLMs, including Qwen2.5-VL, Gemma-4, and Pangea, under a black-box threat model. Our results reveal significant multilingual safety gaps. Flowchart-based attacks achieve high attack success rates (ASR) in case of Latin script languages, demonstrating that visual encoding of harmful content effectively bypasses safety alignment across languages. In contrast, non-Latin script languages such as Punjabi exhibit substantially lower ASR, suggesting potential limitations in visual text recognition rather than stronger safety alignment. These findings highlight that current VLM safety mechanisms fail to generalize across languages and modalities. Resources are available at https://github.com/Rishabhpm23/MLingualFC",
+      "authors": [
+        "Rishabh Makwana",
+        "Mamta",
+        "Deeksha Varshney",
+        "Oana Cocarascu"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI"
+      ],
+      "published": "2026-06-05T10:10:53+00:00",
+      "link": "https://arxiv.org/pdf/2606.07706v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Multilingual jailbreak benchmark for VLMs, probing security limits applicable to cybercrime",
+      "llm_evidence_cn": "多语言VLM越狱基准，探查适用于网络犯罪的安全边界",
+      "llm_evidence": "多语言VLM越狱基准，探查适用于网络犯罪的安全边界",
+      "canonical_evidence": "多语言VLM越狱基准，探查适用于网络犯罪的安全边界",
+      "llm_tldr_en": "MLingualFC evaluates jailbreak vulnerabilities in multilingual VLMs using flowchart prompts, revealing limitations relevant to cybercrime misuse.",
+      "llm_tldr_cn": "发现视觉语言模型在多语言环境下存在越狱漏洞，为此提出MLingualFC基准，将有害指令编码为流程图图像，在五种语言上对主流VLM进行测试；结果表明语言多样性使安全风险普遍化，为评估大模型在跨语言网络犯罪场景中的滥用边界提供了新视角。",
+      "llm_tldr": "发现视觉语言模型在多语言环境下存在越狱漏洞，为此提出MLingualFC基准，将有害指令编码为流程图图像，在五种语言上对主流VLM进行测试；结果表明语言多样性使安全风险普遍化，为评估大模型在跨语言网络犯罪场景中的滥用边界提供了新视角。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "evaluating the limits of large language models in cybercrime scenarios",
+      "matched_requirement_id": "req-9",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2606.06212v1",
+      "source": "arxiv",
+      "title": "Evaluating Agentic Configuration Repair for Computer Networks",
+      "abstract": "Misconfigurations in computer networks remain a major source of critical Internet outages. Research is turning to Large Language Models (LLMs) to automate the complex, error-prone task of network configuration. However, even state-of-the-art models fail to resolve misconfigurations in large-scale, complex scenarios and often introduce new errors. In this work, we benchmark open- and closed-source LLMs augmented with formal network verification and context retrieval tools. We demonstrate that agentic architectures outperform base LLMs in repair efficacy (by 12% on average) and safety (by 17% on average), enabled by the ability to dynamically manage context and iteratively validate configuration repairs.",
+      "authors": [
+        "Rufat Asadli",
+        "Benjamin Hoffman",
+        "Ioannis Protogeros",
+        "Laurent Vanbever"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-06-04T14:20:25+00:00",
+      "link": "https://arxiv.org/pdf/2606.06212v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "benchmarks agentic LLMs for computer network configuration repair, a cyber security task",
+      "llm_evidence_cn": "基准测试智能体LLM在计算机网络配置修复中的能力，属于网络安全任务",
+      "llm_evidence": "基准测试智能体LLM在计算机网络配置修复中的能力，属于网络安全任务",
+      "canonical_evidence": "基准测试智能体LLM在计算机网络配置修复中的能力，属于网络安全任务",
+      "llm_tldr_en": "This paper evaluates agentic architectures of LLMs augmented with formal verification tools for repairing network misconfigurations, demonstrating improved repair efficacy and safety over base models.",
+      "llm_tldr_cn": "网络配置错误是导致重大网络故障的关键因素。本文针对现有LLM在复杂网络场景下修复配置易出错的问题，将LLM与形式化验证和上下文检索工具结合，构建智能体架构。通过迭代验证机制，智能体在修复有效性和安全性上均显著优于基础模型，平均修复率提升12%，安全性提升17%。该工作为利用智能体LLM解决网络运维任务提供了有效路径，也间接探索了大模型在网络环境中的能力边界。",
+      "llm_tldr": "网络配置错误是导致重大网络故障的关键因素。本文针对现有LLM在复杂网络场景下修复配置易出错的问题，将LLM与形式化验证和上下文检索工具结合，构建智能体架构。通过迭代验证机制，智能体在修复有效性和安全性上均显著优于基础模型，平均修复率提升12%，安全性提升17%。该工作为利用智能体LLM解决网络运维任务提供了有效路径，也间接探索了大模型在网络环境中的能力边界。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "exploring the capability boundaries of large language models in cyber contexts",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}
