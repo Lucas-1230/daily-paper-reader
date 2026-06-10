@@ -6,29 +6,40 @@
 </div>
 
 ## 每次日报
-- 最新运行日期：2026-06-09
-- 运行时间：2026-06-09 21:51:32 UTC
+- 最新运行日期：2026-06-10
+- 运行时间：2026-06-10 22:05:41 UTC
 - 运行状态：成功
-- 本次总论文数：2
-- 精读区：0
-- 速读区：2
+- 本次总论文数：6
+- 精读区：5
+- 速读区：1
 
 ### 今日简报（AI）
-- 今日共生成 2 篇推荐（精读 0 篇，速读 2 篇）
-- 速读：《MLingualFC: Evaluating Jailbreak Vulnerabilities in Multilingual Vision-Language Models》（7.0/10）, 《Evaluating Agentic Configuration Repair for Computer Networks》（6.0/10）
-- 这些结果覆盖了当下较热的方向，建议先看精读区论文的关键问题与方法。
-- 详情：[/202606/09/README](/202606/09/README)
+今日聚焦对抗攻击的前沿探索，从声学伪造到智能体提示注入，揭示模型漏洞的两面性。  
+最值得关注：语言模型先验可无声操控语音识别系统，而评测框架首次系统性暴露了智能体面对提示注入时的脆弱性。  
+建议读者从这两篇入手，理解安全对抗如何从传统领域渗入多模态与自主代理场景。
+- 详情：[/202606/10/README](/202606/10/README)
 
 ### 精读区论文标签
-- 本次无精读推荐。
+1. [Hearing the Unspoken: Language Model Priors for Acoustic Adversarial Attacks](/202606/10/2606.06833v1-hearing-the-unspoken-language-model-priors-for-acoustic-adversarial-attacks)  
+   标签：评分：9.0/10、query:ca
+   evidence：大型语言模型驱动的声学对抗攻击
+2. [Assessing Automated Prompt Injection Attacks in Agentic Environments](/202606/10/2606.10525v1-assessing-automated-prompt-injection-attacks-in-agentic-environments)  
+   标签：评分：9.0/10、query:ca
+   evidence：对LLM智能体的自动化提示注入攻击，展示网络攻击能力
+3. [Context-Based Adversarial Attacks on AI Code Generators: Vulnerability Analysis and Implications](/202606/10/2606.10945v1-context-based-adversarial-attacks-on-ai-code-generators-vulnerability-analysis-and-implications)  
+   标签：评分：9.0/10、query:ca
+   evidence：系统评估大语言模型在对抗环境下生成易受攻击代码的能力（网络犯罪场景）
+4. [AgentCanary: A Security Evaluation Framework for Autonomous AI Agents in Real Executable Environments](/202606/10/2606.10484v1-agentcanary-a-security-evaluation-framework-for-autonomous-ai-agents-in-real-executable-environments)  
+   标签：评分：8.0/10、query:ca
+   evidence：全面的自主AI智能体安全评估框架，探测网络能力边界
+5. [Toward Secure LLM Agents: Threat Surfaces, Attacks, Defenses, and Evaluation](/202606/10/2606.10749v1-toward-secure-llm-agents-threat-surfaces-attacks-defenses-and-evaluation)  
+   标签：评分：8.0/10、query:ca
+   evidence：系统调查分析了LLM智能体的攻击面和威胁模型，揭示了在对抗性网络环境中的能力边界
 
 ### 速读区论文标签
-1. [MLingualFC: Evaluating Jailbreak Vulnerabilities in Multilingual Vision-Language Models](/202606/09/2606.07706v1-mlingualfc-evaluating-jailbreak-vulnerabilities-in-multilingual-vision-language-models)  
-   标签：评分：7.0/10、query:ca
-   evidence：多语言VLM越狱基准，探查适用于网络犯罪的安全边界
-2. [Evaluating Agentic Configuration Repair for Computer Networks](/202606/09/2606.06212v1-evaluating-agentic-configuration-repair-for-computer-networks)  
+1. [Online Agent-as-a-Judge: Situation-Generating Evaluation for Interactive Agents](/202606/10/2606.08200v1-online-agent-as-a-judge-situation-generating-evaluation-for-interactive-agents)  
    标签：评分：6.0/10、query:ca
-   evidence：基准测试智能体LLM在计算机网络配置修复中的能力，属于网络安全任务
+   evidence：通过情境生成评估交互式智能体的框架
 
 
 <div class="dpr-home-promo-card">

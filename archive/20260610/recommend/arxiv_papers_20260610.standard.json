@@ -1,0 +1,255 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-06-10T21:58:36.051765+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 5,
+    "deep_cap": 6,
+    "deep_selected": 5,
+    "quick_candidates": 1,
+    "quick_skim_target": 11,
+    "quick_selected": 1
+  },
+  "deep_dive": [
+    {
+      "id": "2606.06833v1",
+      "source": "arxiv",
+      "title": "Hearing the Unspoken: Language Model Priors for Acoustic Adversarial Attacks",
+      "abstract": "Automatic Speech Recognition (ASR) systems operating in real-time settings must process acoustic input under strict temporal constraints, where transcription decisions are inherently made on incomplete information. This causal constraint serves as an information bottleneck on attackers, significantly limiting attack performance. Our new Semantic Gambit attack breaks this causal limitation by augmenting the adversary with predictive context derived from a Large Language Model in real-time. Our experiments show that this form of augmentation can elevate the corpus-level Word Error Rate to 35.6% -- a three-fold increase over the current state-of-the-art. Ultimately, this work reveals how common, low-latency LLM tooling can be exploited to systematically subvert real-time ASR pipelines.",
+      "authors": [
+        "Jiani Xie",
+        "Andrew C. Cullen",
+        "Paul Montague",
+        "Benjamin I. P. Rubinstein"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG",
+        "cs.AI",
+        "cs.CR"
+      ],
+      "published": "2026-06-05T02:18:23+00:00",
+      "link": "https://arxiv.org/pdf/2606.06833v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "LLM-powered acoustic adversarial attack",
+      "llm_evidence_cn": "大型语言模型驱动的声学对抗攻击",
+      "llm_evidence": "大型语言模型驱动的声学对抗攻击",
+      "canonical_evidence": "大型语言模型驱动的声学对抗攻击",
+      "llm_tldr_en": "Proposes Semantic Gambit, an LLM-augmented acoustic adversarial attack that breaks causal constraints of real-time ASR by injecting predictive linguistic context, tripling the attack's word error rate.",
+      "llm_tldr_cn": "该文提出Semantic Gambit攻击，利用大型语言模型实时生成预测性语言上下文，打破自动语音识别系统因果推理的信息瓶颈，显著提升对抗攻击效力。实验将词错误率提高至35.6%，较现有最优攻击提高三倍。该研究揭示常见低延迟LLM工具可被系统性地武器化，展示了语言模型在声学网络攻击中的强大辅助能力，为评估LLM在网络犯罪中的潜在危险提供了新视角。",
+      "llm_tldr": "该文提出Semantic Gambit攻击，利用大型语言模型实时生成预测性语言上下文，打破自动语音识别系统因果推理的信息瓶颈，显著提升对抗攻击效力。实验将词错误率提高至35.6%，较现有最优攻击提高三倍。该研究揭示常见低延迟LLM工具可被系统性地武器化，展示了语言模型在声学网络攻击中的强大辅助能力，为评估LLM在网络犯罪中的潜在危险提供了新视角。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "capabilities of large language models in cybercrime",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.10525v1",
+      "source": "arxiv",
+      "title": "Assessing Automated Prompt Injection Attacks in Agentic Environments",
+      "abstract": "Indirect prompt injection poses a critical threat to LLM agents that interact with untrusted external data, yet automated attack methods--proven effective for jailbreaking--remain underexplored in realistic agentic settings. We present a comprehensive empirical evaluation of automated prompt injection attacks against LLM agents, adapting both white-box (GCG) and black-box (TAP) methods to the agentic setting within the AgentDojo framework. We evaluate across 80 task pairs spanning four domains and multiple models, and find that black-box optimization substantially outperforms gradient-based methods, a gap we attribute to GCG's optimization instability under reasonable compute budgets. We also find that TAP's effectiveness depends on the attacker model, as both general capability and safety tuning affect attack success--stronger models produce more effective injections, while safety-tuned attackers can refuse to generate adversarial prompts. Task-universal attacks transfer effectively to unseen tasks and out-of-distribution domains, but attacks optimized on smaller open-source models do not transfer to frontier models like GPT-5. These findings highlight automated prompt injection as a credible but model-dependent threat, with significant barriers remaining for model-agnostic exploitation.",
+      "authors": [
+        "David Hofer",
+        "Edoardo Debenedetti",
+        "Florian Tramèr"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI"
+      ],
+      "published": "2026-06-09T07:54:58+00:00",
+      "link": "https://arxiv.org/pdf/2606.10525v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "automated prompt injection attacks on LLM agents demonstrate cyber-attack capabilities",
+      "llm_evidence_cn": "对LLM智能体的自动化提示注入攻击，展示网络攻击能力",
+      "llm_evidence": "对LLM智能体的自动化提示注入攻击，展示网络攻击能力",
+      "canonical_evidence": "对LLM智能体的自动化提示注入攻击，展示网络攻击能力",
+      "llm_tldr_en": "This paper empirically evaluates automated prompt injection attacks against LLM agents, finding that black-box optimization outperforms white-box methods, highlighting the vulnerability of agents to cyber attacks.",
+      "llm_tldr_cn": "本文对LLM智能体面临的自动化提示注入攻击进行了实证评估，发现黑盒优化方法在真实智能体环境中比白盒方法更有效。该研究揭示了智能体在应对间接提示注入时的脆弱性，为评估大模型在网络攻击中的能力边界提供了实证依据。",
+      "llm_tldr": "本文对LLM智能体面临的自动化提示注入攻击进行了实证评估，发现黑盒优化方法在真实智能体环境中比白盒方法更有效。该研究揭示了智能体在应对间接提示注入时的脆弱性，为评估大模型在网络攻击中的能力边界提供了实证依据。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "capabilities of large language models in cybercrime",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.10945v1",
+      "source": "arxiv",
+      "title": "Context-Based Adversarial Attacks on AI Code Generators: Vulnerability Analysis and Implications",
+      "abstract": "AI-powered code generation systems have transformed software development but introduce critical inference-time security vulnerabilities. This research presents a systematic investigation of context-based adversarial attacks, where strategically crafted contextual inputs, including comments, documentation, variable names, bias large language models toward generating exploitable code. Through 2,800 controlled experiments across CodeT5+, CodeLlama, GPT-3.5-Turbo, and GPT-4, we quantify attack effectiveness and defense mechanisms. Results demonstrate that adversarial conditions increase vulnerability generation 10.7x (from 3.5% to 37.4%), with direct instruction attacks achieving 100% success on GPT-3.5-Turbo. Cross-model transferability reaches 60-100%, indicating systemic architectural vulnerabilities rather than model-specific flaws. Our dual-layer defense framework achieves 89.1% detection rate with 0.3% false positives and 520ms latency, demonstrating practical feasibility for real-time deployment in development environments.",
+      "authors": [
+        "Walther A. Del Orbe",
+        "John D. Hastings",
+        "Varghese Vaidyan"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.SE"
+      ],
+      "published": "2026-06-09T14:51:59+00:00",
+      "link": "https://arxiv.org/pdf/2606.10945v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "Systematic evaluation of LLM capability to generate vulnerable code under adversarial context, a cybercrime scenario",
+      "llm_evidence_cn": "系统评估大语言模型在对抗环境下生成易受攻击代码的能力（网络犯罪场景）",
+      "llm_evidence": "系统评估大语言模型在对抗环境下生成易受攻击代码的能力（网络犯罪场景）",
+      "canonical_evidence": "系统评估大语言模型在对抗环境下生成易受攻击代码的能力（网络犯罪场景）",
+      "llm_tldr_en": "Systematic evaluation of adversarial context attacks on AI code generators reveals a 10.7x increase in vulnerability generation, with GPT-3.5-Turbo reaching 100% success under direct instructions.",
+      "llm_tldr_cn": "本研究系统分析了基于上下文的对抗攻击如何诱导AI代码生成器产生可利用的安全漏洞。通过在注释、文档和变量名中注入恶意上下文，在2800次受控实验中测试了多种主流模型。结果发现，对抗条件平均使漏洞生成率从3.5%飙升至37.4%，提升10.7倍；在直接指令攻击下，GPT-3.5-Turbo的成功率甚至达到100%。研究还揭示了跨模型迁移性，说明现有防御措施不足，为理解大语言模型在代码安全领域的边界提供了重要证据。",
+      "llm_tldr": "本研究系统分析了基于上下文的对抗攻击如何诱导AI代码生成器产生可利用的安全漏洞。通过在注释、文档和变量名中注入恶意上下文，在2800次受控实验中测试了多种主流模型。结果发现，对抗条件平均使漏洞生成率从3.5%飙升至37.4%，提升10.7倍；在直接指令攻击下，GPT-3.5-Turbo的成功率甚至达到100%。研究还揭示了跨模型迁移性，说明现有防御措施不足，为理解大语言模型在代码安全领域的边界提供了重要证据。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "capabilities of large language models in cybercrime",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.10484v1",
+      "source": "arxiv",
+      "title": "AgentCanary: A Security Evaluation Framework for Autonomous AI Agents in Real Executable Environments",
+      "abstract": "Autonomous AI agents have driven the transition from conversation to task execution, shifting security failures from textual deception to system compromise. Although security evaluation is crucial for proactive risk prevention, prior work is constrained by fundamental bottlenecks, including fragmented risk coverage, static or low-fidelity execution environments, and single-dimensional and coarse-grained assessment metrics. To address these challenges, we propose AgentCanary, a comprehensive security evaluation framework for autonomous AI agents. AgentCanary provides a systematic solution along three contributions. First, comprehensive risk coverage: we introduce an orthogonal Entry $\\times$ Impact risk taxonomy that decouples how adversarial influence enters the agent from what harm it ultimately causes, and instantiate it as a scenario-aligned task suite spanning realistic deployment workflows. Second, a high-fidelity real executable environment: rather than static Q&A or mocked tool responses, agents interact with real tools against dynamically provisioned task artifacts, with persistent state across multi-step interactions that naturally supports long-horizon attack evaluation. Third, trajectory-grounded multi-dimensional evaluation: evaluation consumes the full agent trajectory rather than the reply text or a single tool call, enabling decomposed scoring along three orthogonal dimensions, Outcome Safety, Security Awareness, and Task Utility. We evaluate a broad set of frontier models on AgentCanary against multiple established adversarial attack methods across three agent frameworks. The results reveal that current agents often fail to recognize the attacks they face, particularly under compromised skills, persistent state, and long-horizon execution attacks, and provide a systematic baseline for developing more reliable and secure agent systems.",
+      "authors": [
+        "Peiyang Li",
+        "Songping Wang",
+        "Yi Huang",
+        "Yanhua Shi",
+        "Chenhao Zhang",
+        "Qi Li",
+        "Yueming Lyu",
+        "Caifeng Shan",
+        "Fengting Li",
+        "Chao Feng",
+        "Chuanqun Zhu",
+        "Liang Chen"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR"
+      ],
+      "published": "2026-06-09T06:55:37+00:00",
+      "link": "https://arxiv.org/pdf/2606.10484v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "comprehensive security evaluation framework for autonomous AI agents probing cyber capability boundaries",
+      "llm_evidence_cn": "全面的自主AI智能体安全评估框架，探测网络能力边界",
+      "llm_evidence": "全面的自主AI智能体安全评估框架，探测网络能力边界",
+      "canonical_evidence": "全面的自主AI智能体安全评估框架，探测网络能力边界",
+      "llm_tldr_en": "AgentCanary proposes a comprehensive security evaluation framework for autonomous AI agents with a risk taxonomy and real-execution environments, enabling assessment of their cyber capabilities and security boundaries.",
+      "llm_tldr_cn": "AgentCanary提出了一个全面的自主AI智能体安全评估框架，包含风险分类法和真实执行环境，能够评估其网络能力和安全边界。该框架解决了现有安全评估中风险覆盖碎片化、静态环境及单一评估指标等瓶颈问题，通过系统化的解决方案为AI智能体的安全性提供了更全面的衡量。",
+      "llm_tldr": "AgentCanary提出了一个全面的自主AI智能体安全评估框架，包含风险分类法和真实执行环境，能够评估其网络能力和安全边界。该框架解决了现有安全评估中风险覆盖碎片化、静态环境及单一评估指标等瓶颈问题，通过系统化的解决方案为AI智能体的安全性提供了更全面的衡量。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "exploring the capability boundaries of large language models in cyber contexts",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.10749v1",
+      "source": "arxiv",
+      "title": "Toward Secure LLM Agents: Threat Surfaces, Attacks, Defenses, and Evaluation",
+      "abstract": "Large language model (LLM) agents are rapidly moving from conversational interfaces to software components that plan, invoke tools, maintain memory, and act on external environments. This transition changes the nature of security risk. In agentic settings, failures are no longer limited to unsafe text generation. Untrusted content may redirect control flow, misuse tool privileges, corrupt persistent state, leak sensitive information, or trigger harmful external actions. At the same time, research on LLM agent security is expanding quickly but remains fragmented across attack families, defense layers, application domains, and evaluation settings. This paper synthesizes 247 papers through a lifecycle-based, systems-oriented framework that models agent security around the interaction of information flow, delegated authority, and persistent state. We organize the literature around four questions: how LLM agent security should be modeled, which threat surfaces and attack families dominate, what defenses have been proposed and with what tradeoffs, and how security claims are evaluated. We find that prompt injection and tool-mediated control-flow hijacking still dominate the field, while persistent state corruption and multi-agent propagation are becoming central emerging concerns. We further find that current defenses provide useful building blocks but remain weakly compositional, and that existing benchmarks still underrepresent long-horizon, stateful, and deployment-sensitive risks. We argue that secure LLM agents require explicit trust boundaries, principled privilege control, provenance-aware state management, and evaluation practices aligned with realistic operational settings.",
+      "authors": [
+        "Yuchen Ling",
+        "Shengcheng Yu",
+        "Zhenyu Chen",
+        "Chunrong Fang"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI"
+      ],
+      "published": "2026-06-09T12:01:07+00:00",
+      "link": "https://arxiv.org/pdf/2606.10749v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "survey systematically analyzes attack surfaces and threat model of LLM agents, revealing capability boundaries in adversarial cyber contexts",
+      "llm_evidence_cn": "系统调查分析了LLM智能体的攻击面和威胁模型，揭示了在对抗性网络环境中的能力边界",
+      "llm_evidence": "系统调查分析了LLM智能体的攻击面和威胁模型，揭示了在对抗性网络环境中的能力边界",
+      "canonical_evidence": "系统调查分析了LLM智能体的攻击面和威胁模型，揭示了在对抗性网络环境中的能力边界",
+      "llm_tldr_en": "This survey synthesizes 247 papers to provide a unified security framework for LLM agents, covering threat surfaces, attacks, defenses, and evaluation, thus mapping the capability boundaries and risks in cyber contexts.",
+      "llm_tldr_cn": "这篇综述综合了247篇论文，为LLM智能体提供了一个统一的威胁、攻击、防御和评估框架。它通过生命周期视角，系统分析了智能体面临的新安全风险，如工具滥用、状态污染等，为理解大语言模型在网络环境中的能力边界和潜在恶意用途提供了重要参考，有助于指导未来安全评估和防御设计。",
+      "llm_tldr": "这篇综述综合了247篇论文，为LLM智能体提供了一个统一的威胁、攻击、防御和评估框架。它通过生命周期视角，系统分析了智能体面临的新安全风险，如工具滥用、状态污染等，为理解大语言模型在网络环境中的能力边界和潜在恶意用途提供了重要参考，有助于指导未来安全评估和防御设计。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "exploring the capability boundaries of large language models in cyber contexts",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2606.08200v1",
+      "source": "arxiv",
+      "title": "Online Agent-as-a-Judge: Situation-Generating Evaluation for Interactive Agents",
+      "abstract": "Evaluating LLM-powered interactive social agents is challenging because socially relevant behaviors depend not only on isolated outputs, but also on prior interactions, social roles, and downstream actions. Existing methods typically allow a target agent to act freely in an environment and then score the resulting trajectory. However, this passive setup can miss capabilities that only become observable under specific social circumstances; for example, conflict handling may remain untested if no disagreement arises. We propose Online Agent-as-a-Judge, a situation-generating evaluation framework for interactive social agents. Online Agent-as-a-Judge deploys an in-world evaluator agent that interacts with the target agent through the environment's native dialogue and action protocol, actively eliciting situations relevant to the evaluation criteria. The resulting trajectories provide evidence for assessing both immediate responses and subsequent behavior. In a life-simulation environment with $32$ designer-authored social criteria, Online Agent-as-a-Judge improves criteria coverage and agreement with human labels, yielding more reliable evidence-grounded evaluations of behaviors that passive methods can leave unobserved.",
+      "authors": [
+        "Hyogon Ryu",
+        "Jeonghwan Kim",
+        "Yewon Lim",
+        "Chaeun Lee",
+        "Jeongwook Kim",
+        "Donghoon Ham"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI",
+        "cs.LG"
+      ],
+      "published": "2026-06-06T14:37:33+00:00",
+      "link": "https://arxiv.org/pdf/2606.08200v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Situation-generating evaluation framework for interactive LLM agents",
+      "llm_evidence_cn": "通过情境生成评估交互式智能体的框架",
+      "llm_evidence": "通过情境生成评估交互式智能体的框架",
+      "canonical_evidence": "通过情境生成评估交互式智能体的框架",
+      "llm_tldr_en": "Introduces Online Agent-as-a-Judge, a situation-generating evaluation framework for interactive LLM agents that creates specific social circumstances to uncover unobservable capabilities, potentially applicable to cybercrime simulation.",
+      "llm_tldr_cn": "针对现有被动式LLM社交智能体评估方法无法暴露仅在特定社会情境下才显现的能力（如冲突处理）这一问题，本文提出Online Agent-as-a-Judge。该框架在仿真世界中植入评估智能体，它与目标智能体通过环境交互，动态生成针对性情境以全面测量其社交行为。在多种场景下的实验表明，该方法可有效揭示传统评估遗漏的智能体弱点，为将语言模型用于网络犯罪及其他对抗性社交模拟的测试提供了通用且可扩展的解决方案。",
+      "llm_tldr": "针对现有被动式LLM社交智能体评估方法无法暴露仅在特定社会情境下才显现的能力（如冲突处理）这一问题，本文提出Online Agent-as-a-Judge。该框架在仿真世界中植入评估智能体，它与目标智能体通过环境交互，动态生成针对性情境以全面测量其社交行为。在多种场景下的实验表明，该方法可有效揭示传统评估遗漏的智能体弱点，为将语言模型用于网络犯罪及其他对抗性社交模拟的测试提供了通用且可扩展的解决方案。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "Agent based simulation of cybercrime to evaluate large language model performance",
+      "matched_requirement_id": "req-10",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}
