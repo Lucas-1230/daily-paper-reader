@@ -1,0 +1,245 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-06-11T21:00:38.619362+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 3,
+    "deep_cap": 6,
+    "deep_selected": 3,
+    "quick_candidates": 3,
+    "quick_skim_target": 11,
+    "quick_selected": 3
+  },
+  "deep_dive": [
+    {
+      "id": "2606.11672v1",
+      "source": "arxiv",
+      "title": "Can Open-Source LLM Agents Replace Static Application Security Testing Tools? An Empirical Assessment",
+      "abstract": "This paper explores the value of agentic AI tools for cybersecurity purposes. We evaluate the efficacy of a general-purpose GenAI Large Language Model- (GenAI-) based agent when powered by three different Ollama-hosted general-purpose open source models. We assess each agent's performance using precision, recall, false positive count, and a calculated composite score based upon the interplay of the captured metrics, against the baseline performance of an existing, vetted Static Application Security Testing (SAST) tool, Bandit. Our findings refute the notion that a modern open-source GenAI LLM-based agent is currently suitable for the specialized task of SAST scanning under realistic conditions.",
+      "authors": [
+        "Derek Yohn",
+        "Luke Flancher",
+        "Mirajul Islam",
+        "Khaled Slhoub"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI"
+      ],
+      "published": "2026-06-10T05:31:24+00:00",
+      "link": "https://arxiv.org/pdf/2606.11672v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "evaluates LLM agents for application security testing, a cyber capability assessment",
+      "llm_evidence_cn": "评估大模型智能体在应用安全测试中的能力，属于网络能力边界探索",
+      "llm_evidence": "评估大模型智能体在应用安全测试中的能力，属于网络能力边界探索",
+      "canonical_evidence": "评估大模型智能体在应用安全测试中的能力，属于网络能力边界探索",
+      "llm_tldr_en": "Empirically evaluates whether open-source LLM agents can replace static application security testing tools; finds they are currently unsuitable, highlighting capability limits in realistic cyber tasks.",
+      "llm_tldr_cn": "针对通用大模型智能体能否胜任专业静态应用安全测试的问题，在三种开源模型上进行了实证评估。以Bandit工具为基线，使用精确率、召回率等指标比较，结果清楚表明现阶段开源大模型智能体尚不适合此类网络安全任务。该研究为探索大模型在网络安全领域的能力边界提供了具体案例和实证依据。",
+      "llm_tldr": "针对通用大模型智能体能否胜任专业静态应用安全测试的问题，在三种开源模型上进行了实证评估。以Bandit工具为基线，使用精确率、召回率等指标比较，结果清楚表明现阶段开源大模型智能体尚不适合此类网络安全任务。该研究为探索大模型在网络安全领域的能力边界提供了具体案例和实证依据。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "exploring the capability boundaries of large language models in cyber contexts",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.08539v1",
+      "source": "arxiv",
+      "title": "AgentTrust: A Self-Improving Trust Layer for AI-Agent Actions",
+      "abstract": "AI agents increasingly take consequential actions -- shell commands, cloud operations, and arbitrary tool-calls -- so a trust layer must decide, per action, whether to allow, warn, block, or escalate. We argue that the right way to reason about such a layer is by threat type. Lexical (fixed-signature) threats, where danger lives in a stable token, are decidable by deterministic rules; semantic (intent-dependent) threats, where a benign and a malicious action share the same surface, are out of reach for rules by construction. We make this concrete with a negative proof: a determined, hand-authored cloud rule pack lifts held-out accuracy only 48 to 56% overall and moves the semantic categories by 0pp (data_db 29 to 29, observability 59 to 59, supply_chain 50 to 50), while a strong LLM judge carries exactly those categories. We give the judge a self-learning capability: on a corpus that is mainly semantic attacks it nearly doubles rule accuracy (48% to 83.6-85.2%) with near-zero false-blocks, and this holds across two model providers. We turn this into a self-improving dual-store system: the judge distills a growing deterministic rule floor on lexical threats (cheaper over time) and feeds a guarded RAG memory on semantic threats (a verdict-cache fails -- surface-twins collapse to ~58% -- so a corroboration guard lifts semantic accuracy +13pp, 70 to 84). The result is what sets AgentTrust v2 apart from its static v1 predecessor: a trust layer that self-evolves from its own stream of decisions -- cheaper on the lexical class (it distils its own rules) and smarter on the semantic class (it accrues guarded precedent), while never hard-blocking a benign action. An end-to-end online replay shows the judge-call rate falling (50% to 44%) and judge-domain accuracy rising (71% to 80%), with 0 benign hard-blocks across 45,000 actions.",
+      "authors": [
+        "Chenglin Yang"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-06-07T09:39:20+00:00",
+      "link": "https://arxiv.org/pdf/2606.08539v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Trust layer for AI agent actions distinguishes lexical vs semantic threats, directly addressing LLM agent security in cyber contexts.",
+      "llm_evidence_cn": "为AI智能体行为设计的信任层区分词汇与语义威胁，直接应对LLM智能体的安全问题。",
+      "llm_evidence": "为AI智能体行为设计的信任层区分词汇与语义威胁，直接应对LLM智能体的安全问题。",
+      "canonical_evidence": "为AI智能体行为设计的信任层区分词汇与语义威胁，直接应对LLM智能体的安全问题。",
+      "llm_tldr_en": "Proposes AgentTrust, a self-improving trust layer that per-action decides allow, warn, block, or escalate by threat type; shows deterministic rules fail on intent-dependent semantic threats, highlighting the challenge of evaluating LLM agent actions.",
+      "llm_tldr_cn": "针对AI智能体执行shell命令、云操作等高风险行为，提出AgentTrust自改进信任层，按威胁类型（词汇与语义）决定允许、警告、阻断或升级；实验表明确定性规则对意图依赖型语义威胁无效，仅达29%准确率，而基于大语言模型的方案可提升至86%，揭示了智能体行为语义安全评估的重要性。",
+      "llm_tldr": "针对AI智能体执行shell命令、云操作等高风险行为，提出AgentTrust自改进信任层，按威胁类型（词汇与语义）决定允许、警告、阻断或升级；实验表明确定性规则对意图依赖型语义威胁无效，仅达29%准确率，而基于大语言模型的方案可提升至86%，揭示了智能体行为语义安全评估的重要性。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "adversarial agents for testing large language models in cybercrime",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.08649v1",
+      "source": "arxiv",
+      "title": "Sample-Efficient LLM-Based Detection of Malicious Web Server Logs with Forensically Explainable Reasoning",
+      "abstract": "Forensic analysis of web server logs demands both accurate detection and human-readable explanations that can satisfy legal requirements. We present CEF-Log, a context-enhanced few-shot chain-of-thought prompting strategy for Large Language Models that addresses this dual requirement. CEF-Log embeds expert investigative methodology through a structured five-step reasoning template, enabling the model to learn \\textit{how} to analyze logs rather than \\textit{what} patterns to memorize. Experimental evaluation demonstrates that CEF-Log achieves an F1-score of 0.99 on the CSIC 2010 dataset using only four examples while providing a $10\\times$ improvement in sample efficiency compared to other prompting-based methods. We also introduce ForenWebLog, a new dataset that incorporates real-world attacks and multi-step attack sequences for comprehensive evaluation. Qualitative analysis confirms that CEF-Log generates traceable, accurate explanations suitable for forensic documentation, addressing the critical \"black-box\" limitation of traditional machine learning approaches.",
+      "authors": [
+        "Bernhard Kneip",
+        "Nhien-An Le-Khac",
+        "Hong-Hanh Nguyen-Le"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI"
+      ],
+      "published": "2026-06-07T14:28:11+00:00",
+      "link": "https://arxiv.org/pdf/2606.08649v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "LLM-based forensic detection of malicious logs with high accuracy, illustrating LLM cyber capability",
+      "llm_evidence_cn": "基于大模型的高精度恶意日志检测，展示网络取证能力",
+      "llm_evidence": "基于大模型的高精度恶意日志检测，展示网络取证能力",
+      "canonical_evidence": "基于大模型的高精度恶意日志检测，展示网络取证能力",
+      "llm_tldr_en": "Proposes CEF-Log, a few-shot prompting strategy for LLM-based forensic log analysis, achieving F1=0.99 on CSIC 2010 with high sample efficiency and explainable reasoning; highlights LLM potential in cyber defense tasks.",
+      "llm_tldr_cn": "针对网络服务器日志取证需要高准确率和法律可解释性的双重需求，提出CEF-Log策略，通过结构化五步推理模板引导大模型学习如何分析日志。在CSIC 2010数据集上仅用4个样本即达到0.99的F1分数，样本效率提升10倍，且能提供符合取证要求的解释。该工作证明了大语言模型在网络犯罪取证场景中的强大能力。",
+      "llm_tldr": "针对网络服务器日志取证需要高准确率和法律可解释性的双重需求，提出CEF-Log策略，通过结构化五步推理模板引导大模型学习如何分析日志。在CSIC 2010数据集上仅用4个样本即达到0.99的F1分数，样本效率提升10倍，且能提供符合取证要求的解释。该工作证明了大语言模型在网络犯罪取证场景中的强大能力。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "capabilities of large language models in cybercrime",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2606.08531v1",
+      "source": "arxiv",
+      "title": "VESTA: A Fully Automated Scenario Generation and Safety Evaluation Framework for LLM Agents",
+      "abstract": "Large language models (LLMs) are increasingly evolving from simple text-based interaction systems into LLM agents that can maintain memory, use tools, access external environments, and execute tasks. As their capabilities and autonomy expand, the safety risks they face also become more diverse. Existing evaluations often rely on manually written scenarios, static prompts, or final-output judgments, making it difficult to capture the diverse risks that agents may face during task execution. We introduce VESTA, a fully automated scenario generation and safety evaluation framework for LLM agents. Based on five risk dimensions, VESTA instantiaes abstract and diverse safety risks in real-world task execution into 1,072 measurable evaluation scenarios. Using the automated evaluation pipeline, 12 LLM agents are evaluated under two authority contexts. The results show that current agents still face substantial behavioral safety risks during task execution, with an average ASR of 47.1% and several models exceeding 70%. These findings demonstrate the importance of executable, process-level evaluation for understanding and improving LLM agent safety.",
+      "authors": [
+        "Lu Jia",
+        "Haibo Tong",
+        "Feifei Zhao",
+        "Jindong Li",
+        "Dongqi Liang",
+        "Ping Wu",
+        "Qian Zhang",
+        "Yi Zeng"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-06-07T09:23:38+00:00",
+      "link": "https://arxiv.org/pdf/2606.08531v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Automates generation of diverse safety risk scenarios for LLM agents, which can be adapted to cybercrime scenario testing",
+      "llm_evidence_cn": "自动化生成LLM智能体的多样化安全风险场景，可适配用于网络犯罪场景测试",
+      "llm_evidence": "自动化生成LLM智能体的多样化安全风险场景，可适配用于网络犯罪场景测试",
+      "canonical_evidence": "自动化生成LLM智能体的多样化安全风险场景，可适配用于网络犯罪场景测试",
+      "llm_tldr_en": "VESTA is an automated framework that instantiates five risk dimensions into 1,072 evaluation scenarios for LLM agents; it can be repurposed to generate cybercrime scenarios for capability boundary testing.",
+      "llm_tldr_cn": "该论文针对现有LLM智能体安全评估依赖手工编写场景的局限，提出全自动场景生成框架VESTA，基于五个风险维度实例化出1072个可测评场景；实验表明其能有效暴露智能体执行任务时的安全风险，该工具可迁移用于生成网络犯罪模拟场景以探究大模型能力边界。",
+      "llm_tldr": "该论文针对现有LLM智能体安全评估依赖手工编写场景的局限，提出全自动场景生成框架VESTA，基于五个风险维度实例化出1072个可测评场景；实验表明其能有效暴露智能体执行任务时的安全风险，该工具可迁移用于生成网络犯罪模拟场景以探究大模型能力边界。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "evaluating the limits of large language models in cybercrime scenarios",
+      "matched_requirement_id": "req-9",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2606.09122v1",
+      "source": "arxiv",
+      "title": "Autonomous Incident Resolution at Hyperscale: An Agentic AI Architecture for Network Operations",
+      "abstract": "Cloud network infrastructure at hyperscale presents unique operational challenges where traditional human-driven incident response cannot keep pace with the volume, velocity, and complexity of failures. This paper presents an agentic AI architecture for autonomous incident resolution in large-scale network operations. Our system employs a multi-agent orchestration framework where specialized AI agents collaborate to detect, diagnose, and remediate network incidents without human intervention. We describe the architectural principles, including hierarchical agent decomposition, skills-based tool invocation via standardized protocols, structured knowledge encoding from operational runbooks, progressive autonomy with safety boundaries, and closed-loop verification. The architecture has been deployed in production at a major cloud provider, demonstrating that agentic AI systems can achieve autonomous resolution rates exceeding 90% for common incident categories while maintaining safety guarantees through layered authorization and rollback mechanisms. We discuss design tradeoffs, failure modes, and lessons learned from operating autonomous AI agents at scale.",
+      "authors": [
+        "Arun Malik"
+      ],
+      "primary_category": "cs.SE",
+      "categories": [
+        "cs.SE",
+        "cs.AI",
+        "cs.ET",
+        "cs.MA",
+        "cs.NI"
+      ],
+      "published": "2026-06-08T07:15:53+00:00",
+      "link": "https://arxiv.org/pdf/2606.09122v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Multi-agent orchestration for autonomous network incident resolution, relevant to multi-agent systems for cyber operations.",
+      "llm_evidence_cn": "用于自主网络事件处理的多智能体编排，与多智能体网络操作相关。",
+      "llm_evidence": "用于自主网络事件处理的多智能体编排，与多智能体网络操作相关。",
+      "canonical_evidence": "用于自主网络事件处理的多智能体编排，与多智能体网络操作相关。",
+      "llm_tldr_en": "Presents an agentic AI architecture with a multi-agent orchestration framework for autonomous network incident detection, diagnosis, and remediation; although focused on operations, its multi-agent design is potentially useful for simulating cyber activities.",
+      "llm_tldr_cn": "提出面向超大规模网络运营的自主事件处理智能体架构，采用多智能体编排框架，由专门智能体协同检测、诊断和修复网络事件；虽聚焦于运维，但其多智能体设计可迁移用于网络犯罪模拟。",
+      "llm_tldr": "提出面向超大规模网络运营的自主事件处理智能体架构，采用多智能体编排框架，由专门智能体协同检测、诊断和修复网络事件；虽聚焦于运维，但其多智能体设计可迁移用于网络犯罪模拟。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "multi-agent systems for cybercrime simulation",
+      "matched_requirement_id": "req-3",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2606.10662v1",
+      "source": "arxiv",
+      "title": "Decentralized Multi-Agent Systems with Shared Context",
+      "abstract": "Multi-agent systems (MAS) can scale large language model reasoning at test time by decomposing complex problems into parallel subtasks. However, most existing MAS rely on centralized orchestration, where a main agent assigns work, collects outputs, and merges results. As the number of subtasks grows, this controller becomes a communication and integration bottleneck. We propose Decentralized Language Models (DeLM), a MAS framework that decentralizes coordination through parallel agents, a shared verified context, and a task queue. Agents asynchronously claim subtasks, read accumulated progress, perform local reasoning, and write back compact verified updates. The shared context acts as a common communication substrate, enabling agents to build on one another's verified progress without routing every update through a central controller. Empirically, DeLM improves both software-engineering test-time scaling and long-context reasoning. On SWE-bench Verified, DeLM achieves the best performance across Avg.@1, Pass@2, and Pass@4, with gains of up to 10.5 percentage points over the strongest baseline, while reducing cost per task by roughly 50%. On LongBench-v2 Multi-Doc QA, DeLM achieves the highest average accuracy across four frontier model families, improving over the strongest baseline by up to 5.7 percentage points. The code is available on our project website at https://yuzhenmao.github.io/DeLM/.",
+      "authors": [
+        "Yuzhen Mao",
+        "Azalia Mirhoseini"
+      ],
+      "primary_category": "cs.MA",
+      "categories": [
+        "cs.MA",
+        "cs.AI"
+      ],
+      "published": "2026-06-09T10:13:07+00:00",
+      "link": "https://arxiv.org/pdf/2606.10662v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Proposes a decentralized multi-agent framework that can serve as architecture for simulating cybercriminal activities",
+      "llm_evidence_cn": "提出一个可用于模拟网络犯罪活动的去中心化多智能体框架",
+      "llm_evidence": "提出一个可用于模拟网络犯罪活动的去中心化多智能体框架",
+      "canonical_evidence": "提出一个可用于模拟网络犯罪活动的去中心化多智能体框架",
+      "llm_tldr_en": "The paper presents DeLM, a decentralized multi-agent system with shared context, addressing communication bottlenecks; it could be applied to simulate cybercrime scenarios using LLM agents.",
+      "llm_tldr_cn": "该论文针对现有多智能体系统集中编排的通信瓶颈，提出去中心化语言模型框架DeLM，利用共享验证上下文和异步任务队列实现并行协作；实验表明该架构在推理任务上高效扩展，其设计可作为用大语言模型智能体模拟网络犯罪活动的技术基础。",
+      "llm_tldr": "该论文针对现有多智能体系统集中编排的通信瓶颈，提出去中心化语言模型框架DeLM，利用共享验证上下文和异步任务队列实现并行协作；实验表明该架构在推理任务上高效扩展，其设计可作为用大语言模型智能体模拟网络犯罪活动的技术基础。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "multi-agent systems for cybercrime simulation",
+      "matched_requirement_id": "req-3",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}
