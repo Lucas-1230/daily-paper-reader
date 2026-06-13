@@ -1,0 +1,312 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-06-13T20:13:15.341730+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 3,
+    "deep_cap": 6,
+    "deep_selected": 3,
+    "quick_candidates": 4,
+    "quick_skim_target": 11,
+    "quick_selected": 4
+  },
+  "deep_dive": [
+    {
+      "id": "2606.07131v1",
+      "source": "arxiv",
+      "title": "MalSkillBench: A Runtime-Verified Benchmark of Malicious Agent Skills",
+      "abstract": "AI coding agents such as Claude Code and Gemini CLI increasingly extend themselves with third-party skills: markdown packages bundling natural-language instructions, executable scripts, and tool permissions. Because a skill is at once code and agent-facing instruction, it introduces a supply chain dependency whose risk is neither pure code nor pure prompt. Detection tools have never been measured against verified ground truth spanning this hybrid space, leaving their effectiveness unknown and wild-only evaluations biased.   We present MalSkillBench, the first runtime-verified benchmark of malicious agent skills: 3,944 malicious skills labeled along a three-dimensional taxonomy of 108 cells. Of these, 3,214 come from a closed-loop Generate-Verify-Feedback pipeline admitting only samples whose malicious behavior fires inside a Docker sandbox under system-call monitoring and an LLM judge; we add 703 in-the-wild and 4,000 matched benign skills. Our measurements are consistent: code injection reaches 94.5% verification yield but prompt injection only 75.8%, the same fragility that later makes it hard to detect; the wild sample is narrow, dominated by one cryptocurrency-theft campaign (86.6% one behavior, 81% from two accounts) with a small but architecturally new tail attacking the agent control plane; the strongest skill-specific detector reaches 98.4% recall on code injection yet collapses on prompt-injection and agent-control attacks, and wild-only scoring swings the ranking by up to 66 recall points; supply-chain scanners and prompt-injection defenses each see only half of a skill, and no combination recovers the code-instruction relationship. Detecting malicious skills therefore requires reasoning jointly over task intent, code, and instructions. We release the dataset, pipeline, baselines, and results.",
+      "authors": [
+        "Wenbo Guo",
+        "Wei Zeng",
+        "Chengwei Liu",
+        "Xiaojun Jia",
+        "Yijia Xu",
+        "Lei Tang",
+        "Yong Fang",
+        "Yang Liu"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.SE"
+      ],
+      "published": "2026-06-05T10:43:19+00:00",
+      "link": "https://arxiv.org/pdf/2606.07131v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "benchmark for malicious agent skills used to evaluate LLM agent security in cyber contexts",
+      "llm_evidence_cn": "用于评估网络环境中LLM智能体安全性的恶意技能基准",
+      "llm_evidence": "用于评估网络环境中LLM智能体安全性的恶意技能基准",
+      "canonical_evidence": "用于评估网络环境中LLM智能体安全性的恶意技能基准",
+      "llm_tldr_en": "Provides the first runtime-verified benchmark of 3,944 malicious agent skills, enabling systematic evaluation of detection tools against hybrid code-instruction threats in LLM agents.",
+      "llm_tldr_cn": "提供首个运行时验证的恶意智能体技能基准，包含3944个恶意技能，通过闭环生成-验证-反馈过程构建，能够系统评估对LLM智能体中代码与指令混合威胁的检测工具。",
+      "llm_tldr": "提供首个运行时验证的恶意智能体技能基准，包含3944个恶意技能，通过闭环生成-验证-反馈过程构建，能够系统评估对LLM智能体中代码与指令混合威胁的检测工具。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "evaluating the limits of large language models in cybercrime scenarios",
+      "matched_requirement_id": "req-9",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.07131v2",
+      "source": "arxiv",
+      "title": "MalSkillBench: A Runtime-Verified Benchmark of Malicious Agent Skills",
+      "abstract": "AI coding agents such as Claude Code and Gemini CLI increasingly extend themselves with third-party skills: markdown packages bundling natural-language instructions, executable scripts, and tool permissions. Because a skill is at once code and agent-facing instruction, it introduces a supply chain dependency whose risk is neither pure code nor pure prompt. Detection tools have never been measured against verified ground truth spanning this hybrid space, leaving their effectiveness unknown and wild-only evaluations biased.   We present MalSkillBench, the first runtime-verified benchmark of malicious agent skills: 3,944 malicious skills labeled along a three-dimensional taxonomy of 108 cells. Of these, 3,214 come from a closed-loop Generate-Verify-Feedback pipeline admitting only samples whose malicious behavior fires inside a Docker sandbox under system-call monitoring and an LLM judge; we add 703 in-the-wild and 4,000 matched benign skills. Our measurements are consistent: code injection reaches 94.5% verification yield but prompt injection only 75.8%, the same fragility that later makes it hard to detect; the wild sample is narrow, dominated by one cryptocurrency-theft campaign (86.6% one behavior, 81% from two accounts) with a small but architecturally new tail attacking the agent control plane; the strongest skill-specific detector reaches 98.4% recall on code injection yet collapses on prompt-injection and agent-control attacks, and wild-only scoring swings the ranking by up to 66 recall points; supply-chain scanners and prompt-injection defenses each see only half of a skill, and no combination recovers the code-instruction relationship. Detecting malicious skills therefore requires reasoning jointly over task intent, code, and instructions. We release the dataset, pipeline, baselines, and results.",
+      "authors": [
+        "Wenbo Guo",
+        "Wei Zeng",
+        "Chengwei Liu",
+        "Xiaojun Jia",
+        "Yijia Xu",
+        "Lei Tang",
+        "Yong Fang",
+        "Yang Liu"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.SE"
+      ],
+      "published": "2026-06-05T10:43:19+00:00",
+      "link": "https://arxiv.org/pdf/2606.07131v2",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "a benchmark of malicious agent skills for LLM-powered coding agents, directly measuring cybercriminal capabilities",
+      "llm_evidence_cn": "恶意智能体技能基准，直接测量大模型驱动的编程智能体网络犯罪能力",
+      "llm_evidence": "恶意智能体技能基准，直接测量大模型驱动的编程智能体网络犯罪能力",
+      "canonical_evidence": "恶意智能体技能基准，直接测量大模型驱动的编程智能体网络犯罪能力",
+      "llm_tldr_en": "MalSkillBench provides the first runtime-verified benchmark of 3,944 malicious skills for AI coding agents, covering a three-dimensional taxonomy, enabling robust evaluation of LLM-based agents' malicious capabilities.",
+      "llm_tldr_cn": "该文针对现有检测工具缺乏标准化恶意技能基准的问题，提出MalSkillBench，首次通过运行时验证构建包含3944个恶意技能的数据集，覆盖三维分类体系。该基准可用于评估大语言模型驱动的编程智能体执行恶意操作的能力，为衡量大模型在网络犯罪中的潜在危害提供了标准化工具，对理解大模型能力边界具有重要意义。",
+      "llm_tldr": "该文针对现有检测工具缺乏标准化恶意技能基准的问题，提出MalSkillBench，首次通过运行时验证构建包含3944个恶意技能的数据集，覆盖三维分类体系。该基准可用于评估大语言模型驱动的编程智能体执行恶意操作的能力，为衡量大模型在网络犯罪中的潜在危害提供了标准化工具，对理解大模型能力边界具有重要意义。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "capabilities of large language models in cybercrime",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.09700v1",
+      "source": "arxiv",
+      "title": "What the Eyes See, the LLMs Miss: Exploiting Human Perception for Adversarial Text Attacks",
+      "abstract": "Large language model (LLM)-powered content moderation systems have become a critical defense against harmful online content. However, these systems primarily operate on tokenized text and largely ignore the visual cues that humans naturally rely on when interpreting content. We show that this discrepancy creates a fundamental perceptual mismatch: content that is readily recognized as harmful by humans can become effectively invisible to automated moderation systems. To study this vulnerability, we introduce a class of Human-Perceptible Adversarial Attacks (HPAA), in which harmful expressions are embedded into otherwise benign text through visually salient typographic manipulations. Our key insight is that typographic features, including spacing, visual emphasis, and spatial arrangement, can be strategically combined to preserve human recognition of harmful content while substantially reducing machine detectability. Operating in black-box settings with only a small query budget, our attack automatically generates evasive content without requiring model access or gradient information. We evaluate the attack across multiple datasets and ten deployed moderation systems, including commercial APIs and state-of-the-art open-source guardrails. Results reveal a striking gap between human and machine perception: with only three detector queries, generated attacks achieve over 86\\% human recognition while maintaining detection rates below 1\\% across the evaluated systems. We further conduct ablation studies to identify the typographic factors driving successful evasion, analyze why current moderation architectures fail to capture these signals, and discuss practical defenses. Our findings expose a fundamental blind spot in today's LLM-based moderation ecosystem and highlight need for moderation systems that reason about content in a manner more consistent with human perceptual understanding.",
+      "authors": [
+        "Qin Yang",
+        "Lu Malloy",
+        "Joshua Lee",
+        "Xiaohan Chang",
+        "Meisam Mohammady",
+        "Doowon Kim",
+        "Yuan Hong"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.HC",
+        "cs.LG"
+      ],
+      "published": "2026-06-08T16:21:34+00:00",
+      "link": "https://arxiv.org/pdf/2606.09700v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "introduces human-perceptible adversarial attacks that exploit LLM perception gaps, demonstrating a cybercrime-relevant capability boundary",
+      "llm_evidence_cn": "提出利用LLM感知差距的人类可感知对抗攻击，展示了与网络犯罪相关的能力边界",
+      "llm_evidence": "提出利用LLM感知差距的人类可感知对抗攻击，展示了与网络犯罪相关的能力边界",
+      "canonical_evidence": "提出利用LLM感知差距的人类可感知对抗攻击，展示了与网络犯罪相关的能力边界",
+      "llm_tldr_en": "Shows that typographically manipulated harmful text can bypass LLM-based content moderation while obvious to humans, revealing a critical perceptual mismatch that threatens online safety.",
+      "llm_tldr_cn": "发现通过印刷排版手法嵌入的恶意文本能被LLM内容审核忽略，但人类一眼可辨，揭示了利用LLM感知弱点实施网络犯罪的攻击向量。",
+      "llm_tldr": "发现通过印刷排版手法嵌入的恶意文本能被LLM内容审核忽略，但人类一眼可辨，揭示了利用LLM感知弱点实施网络犯罪的攻击向量。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "exploring the capability boundaries of large language models in cyber contexts",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2606.07335v1",
+      "source": "arxiv",
+      "title": "Defending Jailbreak Attacks on Large Language Models via Manifold Trajectory Kinetics",
+      "abstract": "Jailbreak prompts can bypass alignment guardrails in large language models (LLMs) and elicit unsafe outputs, making reliable deployment-time detection critical. Prior detection approaches largely rely on a fixed metric space, e.g., raw inputs, gradients, or hidden features, in which benign and jailbreak prompts are linearly separable. We show this assumption breaks under (i) pseudo-malicious prompts that are benign by intent but contain safety-related keywords, and (ii) adaptive attacks that explicitly optimize against the deployed detector. To overcome this limitation, we shift our focus from identifying a universal metric space to analyzing the more robust neighborhood structure of the underlying data manifold. We present Manifold Trajectory Kinetics (MTK), which treats an LLM as a kinetic system transforming inputs into outputs and detects jailbreaks by tracking how a prompt's neighborhood structure evolves across layers. Benign prompts remain close to benign neighborhoods throughout inference, whereas jailbreak prompts exhibit a characteristic trajectory that begins near malicious seeds and later strategically shifts toward benign neighborhoods to evade refusal.Across four LLMs and ten jailbreak attacks, MTK achieves strong robustness to both failure modes: on pseudo-malicious prompts, it attains a jailbreak true positive rate of 95% at a false positive rate of 5% on benign prompts and 2% on pseudo-malicious prompts, and under adaptive attacks, it maintains a true positive rate of 85%. We further demonstrate the superior performance of MTK for jailbreak detection in vision-language models. Our code is available at https://github.com/Rookie143/mtk.",
+      "authors": [
+        "Hangtao Zhang",
+        "Yucheng Zhao",
+        "Sishun Liu",
+        "Ziqi Zhou",
+        "Zeyu Ye",
+        "Wei Wan",
+        "Minghui Li",
+        "Shengshan Hu",
+        "Yanjun Zhang",
+        "Yi Liu",
+        "Leo Yu Zhang"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR"
+      ],
+      "published": "2026-06-05T14:49:26+00:00",
+      "link": "https://arxiv.org/pdf/2606.07335v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "defending jailbreak attacks on LLMs, revealing and defending against techniques that push LLM capability boundaries",
+      "llm_evidence_cn": "防御大语言模型越狱攻击，揭示并防御突破能力边界的技术",
+      "llm_evidence": "防御大语言模型越狱攻击，揭示并防御突破能力边界的技术",
+      "canonical_evidence": "防御大语言模型越狱攻击，揭示并防御突破能力边界的技术",
+      "llm_tldr_en": "Proposes Manifold Trajectory Kinetics, a detection method analyzing neighborhood structure of data manifold, to defend against adaptive jailbreak attacks that bypass LLM safety guardrails, thus evaluating LLM robustness.",
+      "llm_tldr_cn": "针对现有越狱检测方法在伪恶意提示和自适应攻击下失效的问题，该文提出基于流形轨迹动力学的方法，通过分析数据流形的邻域结构实现鲁棒检测。实验表明该方法能有效应对自适应攻击，为评估大语言模型在对抗压力下的安全边界提供了新工具，有助于探索大模型在网络安全场景中的能力极限。",
+      "llm_tldr": "针对现有越狱检测方法在伪恶意提示和自适应攻击下失效的问题，该文提出基于流形轨迹动力学的方法，通过分析数据流形的邻域结构实现鲁棒检测。实验表明该方法能有效应对自适应攻击，为评估大语言模型在对抗压力下的安全边界提供了新工具，有助于探索大模型在网络安全场景中的能力极限。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "exploring the capability boundaries of large language models in cyber contexts",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2606.09032v1",
+      "source": "arxiv",
+      "title": "Bridging the Agent-World Gap: Text World Models for LLM-based Agents",
+      "abstract": "Large language model (LLM)-based agents are increasingly used in interactive textual environments, from web navigation and code editing to tool use and long-horizon dialogue. Yet many remain largely reactive, mapping observations to actions without an explicit model of how these environments are structured and evolve. This motivates text world models (TWMs): transition models over textual states that, given a state and a candidate action, predict the resulting webpage, terminal output, API response, or user reply, thereby supporting planning, efficient learning, and principled evaluation. We systematically review text world models for LLM-based agents, organized around a formal framework and the agent lifecycle: (1) Foundations, defining text world models and characterizing them by state representation and grounding domain; (2) Construction, taxonomizing LLM-as-WM and code-as-WM paradigms and reviewing methods for building them; (3) Application, examining how world models support agents at training time through experience synthesis and at inference time through planning, verification, and adaptation; and (4) Evaluation, covering both evaluation of the world model itself and its use as an evaluation environment for agents. We aim to consolidate this rapidly developing area, clarify its design space, and highlight open challenges for future research.",
+      "authors": [
+        "Yixia Li",
+        "Hongru Wang",
+        "Peng Lai",
+        "Zhiwen Ruan",
+        "He Zhu",
+        "Youxin Zhu",
+        "Ganlong Zhao",
+        "Minda Hu",
+        "Yun Chen",
+        "Sibei Yang",
+        "Peng Li",
+        "Jeff Z. Pan",
+        "Jia Pan",
+        "Guanhua Chen",
+        "Yang Liu",
+        "Guanbin Li"
+      ],
+      "primary_category": "cs.CL",
+      "categories": [
+        "cs.CL"
+      ],
+      "published": "2026-06-08T04:58:52+00:00",
+      "link": "https://arxiv.org/pdf/2606.09032v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Systematic review of text world models for LLM agents, useful for simulating environments including cybercrime settings.",
+      "llm_evidence_cn": "系统综述LLM智能体的文本世界模型，可用于构建包括网络犯罪场景的模拟环境。",
+      "llm_evidence": "系统综述LLM智能体的文本世界模型，可用于构建包括网络犯罪场景的模拟环境。",
+      "canonical_evidence": "系统综述LLM智能体的文本世界模型，可用于构建包括网络犯罪场景的模拟环境。",
+      "llm_tldr_en": "This survey reviews text world models for LLM agents, covering methods for predicting textual environment dynamics to support planning, learning, and evaluation.",
+      "llm_tldr_cn": "LLM智能体在交互文本环境中日益增长，但大多缺乏对环境结构和演化的显式建模。本文系统综述了文本世界模型，即给定状态和动作预测文本环境结果的模型，以支持规划、高效学习和评估。文章围绕智能体生命周期组织方法，涵盖基础、构建和应用，为利用LLM进行环境模拟提供参考。",
+      "llm_tldr": "LLM智能体在交互文本环境中日益增长，但大多缺乏对环境结构和演化的显式建模。本文系统综述了文本世界模型，即给定状态和动作预测文本环境结果的模型，以支持规划、高效学习和评估。文章围绕智能体生命周期组织方法，涵盖基础、构建和应用，为利用LLM进行环境模拟提供参考。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "How can agent based modeling and multi agent systems simulate cybercriminal activities with large language models?",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2606.07992v1",
+      "source": "arxiv",
+      "title": "VATS: Exploiting Implicit Authority in Error-Path Injection via Systematic Mutation",
+      "abstract": "As the Model Context Protocol (MCP) standardizes tool-calling for autonomous agents, it introduces a critical, unexamined attack surface: the error-handling loop. We hypothesize that tool error messages possess implicit authority, triggering corrective reasoning modes that bypass standard safety heuristics. We introduce VATS (Vulnerability Analysis of Tool Streams), a mutation-driven framework that systematically evolves adversarial payloads across seven structural and linguistic dimensions. Our evaluation across four frontier models, Gemini 3.1 Pro, GPT-5.5, GLM-5.1, and Qwen3-Coder, demonstrates that error-path injection triples the success rate of standard indirect prompt injection (IPI), achieving up to 100% compliance in controlled evaluations. We isolate structural positioning (sandwiching instructions within error context) as the most effective exploit vector across all tested models. While we find that production framework guardrails can mitigate these vulnerabilities, the inherent susceptibility of the model layer poses a systemic risk to bespoke agentic workflows.",
+      "authors": [
+        "Harshil Patel",
+        "Kunal Pai"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI",
+        "cs.CR",
+        "cs.SE"
+      ],
+      "published": "2026-06-06T06:07:52+00:00",
+      "link": "https://arxiv.org/pdf/2606.07992v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Explores LLM agent vulnerability through error-path injection, revealing capability boundaries in cyber contexts.",
+      "llm_evidence_cn": "通过错误路径注入探索大模型智能体漏洞，揭示网络上下文中的能力边界。",
+      "llm_evidence": "通过错误路径注入探索大模型智能体漏洞，揭示网络上下文中的能力边界。",
+      "canonical_evidence": "通过错误路径注入探索大模型智能体漏洞，揭示网络上下文中的能力边界。",
+      "llm_tldr_en": "This paper uncovers a critical attack surface in LLM-based autonomous agents: error messages in tool-calling carry implicit authority, leading agents to bypass safety heuristics. The VATS framework systematically mutates adversarial payloads across seven dimensions, and experiments show that error-path injection triples the success rate of indirect prompt injection on frontier models, exposing severe limitations in LLM agent security.",
+      "llm_tldr_cn": "该论文揭示了基于大模型的自主体在工具调用中面临的关键安全风险：错误消息拥有隐含权威，可诱导模型绕过安全限制。作者开发了VATS变异驱动框架，系统生成对抗性注入，在Gemini、GPT等前沿模型上的实验表明，错误路径注入可将间接提示注入成功率提高三倍，甚至达到完全合规。这一发现明确界定了当前语言模型在网络安全场景下的能力缺陷，为智能体安全性评估提供了新方法。",
+      "llm_tldr": "该论文揭示了基于大模型的自主体在工具调用中面临的关键安全风险：错误消息拥有隐含权威，可诱导模型绕过安全限制。作者开发了VATS变异驱动框架，系统生成对抗性注入，在Gemini、GPT等前沿模型上的实验表明，错误路径注入可将间接提示注入成功率提高三倍，甚至达到完全合规。这一发现明确界定了当前语言模型在网络安全场景下的能力缺陷，为智能体安全性评估提供了新方法。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "exploring the capability boundaries of large language models in cyber contexts",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2606.10323v1",
+      "source": "arxiv",
+      "title": "Semantic Multi-Agent Intrusion Detection for IoT:Zero-Day and Adversarial Threats with Risk-Aware Reasoning",
+      "abstract": "The rapid proliferation of Internet of Things (IoT) devices has enabled unprecedented automation and connectivity, but it has also substantially increased the attack surface, exposing networks to sophisticated cyber threats, including zero-day and adversarial intrusions. Traditional Intrusion Detection Systems (IDS) struggle to generalize to unseen attacks, often require substantial computational resources, and lack interpretability, particularly in resource-constrained and heterogeneous IoT networks. Recent advances, including Deep Learning (DL), open-set detection, and Large Language Model (LLM)-based semantic reasoning, address some of these challenges but typically focus on zero-day and adversarial threats and rarely combine semantic reasoning with multi-agent systems. To overcome these limitations, we propose a semantic multi-agent ID that integrates four specialized agents (e.g., Scout, Mutator, Auditor, and Arbiter) that leverage semantic embeddings and multi-stage probabilistic decision fusion. The Scout induces structured hypotheses from semantic embeddings; the Mutator generates adversarially constrained variants; the Auditor evaluates consistency and filters unreliable outputs; and the Arbiter produces interpretable, risk-aware alerts. Extensive experiments across multiple real-world IoT datasets demonstrate that the proposed system achieves 95.9% overall detection accuracy, reduces false-positive rates to 6.8%, improves zero-day detection to 87.9%, and maintains computational efficiency suitable for edge deployment.",
+      "authors": [
+        "Saeid Jamshidi"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR"
+      ],
+      "published": "2026-06-09T02:18:50+00:00",
+      "link": "https://arxiv.org/pdf/2606.10323v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Explores LLM capabilities in cyber contexts via intrusion detection",
+      "llm_evidence_cn": "通过入侵检测探索网络安全情境下的大模型能力",
+      "llm_evidence": "通过入侵检测探索网络安全情境下的大模型能力",
+      "canonical_evidence": "通过入侵检测探索网络安全情境下的大模型能力",
+      "llm_tldr_en": "Proposes a semantic multi-agent intrusion detection system using LLMs for zero-day threat detection in IoT, showcasing LLM reasoning in cybersecurity.",
+      "llm_tldr_cn": "针对物联网资源受限环境下传统入侵检测系统难以泛化零日攻击的问题，本文提出一种结合大语言模型语义推理与多智能体合作的检测方法。系统利用多个智能化代理分别处理网络行为语义理解、风险感知和协同决策，在多个IoT数据集上验证了对未知攻击的检测能力。实验表明该方法显著提升了零日威胁检测率和解释性，为探索大模型在网络安全情境中的能力边界提供了实证依据。",
+      "llm_tldr": "针对物联网资源受限环境下传统入侵检测系统难以泛化零日攻击的问题，本文提出一种结合大语言模型语义推理与多智能体合作的检测方法。系统利用多个智能化代理分别处理网络行为语义理解、风险感知和协同决策，在多个IoT数据集上验证了对未知攻击的检测能力。实验表明该方法显著提升了零日威胁检测率和解释性，为探索大模型在网络安全情境中的能力边界提供了实证依据。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "exploring the capability boundaries of large language models in cyber contexts",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}
