@@ -1,0 +1,275 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-06-14T21:24:12.362518+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 4,
+    "deep_cap": 6,
+    "deep_selected": 4,
+    "quick_candidates": 2,
+    "quick_skim_target": 11,
+    "quick_selected": 2
+  },
+  "deep_dive": [
+    {
+      "id": "2606.13079v1",
+      "source": "arxiv",
+      "title": "The Emergence of Autonomous Penetration Capabilities in Large Language Model-Powered AI Systems",
+      "abstract": "Nowadays, the autonomous execution of cyberattacks capable of causing substantial real-world harm is widely regarded as one of the critical red lines that frontier AI systems must not cross. Within this broader red-line scenario, autonomous penetration represents a core enabling capability and subtask: the ability of LLM-powered AI systems to independently conduct adversarial operations against a target server without human intervention, identify and exploit vulnerabilities, and obtain unauthorized access or control. A growing body of work has sought to assess the autonomous penetration capabilities of AI systems. However, existing evaluations often employ opaque methodologies, rely on unrealistic or overly simplified penetration-testing scenarios, or provide LLMs with excessive prior knowledge and task-specific guidance, and cannot accurately capture the extent to which modern AI systems can autonomously perform this core capability within broader high-impact cyberattack scenarios.   To address these limitations, we construct a new autonomous penetration evaluation framework consisting of two components: target servers and agent scaffolding. Specifically, on the target-server side, we design two levels of target environments based on the number of secure services without known vulnerabilities deployed alongside a vulnerable service: Tier~1 (one secure service) and Tier~2 (three secure services), resulting in a total of 300 target servers. Meanwhile, the agent scaffolding adopts a general-purpose agent architecture equipped with a set of general-purpose cybersecurity tools, without any target-specific prior knowledge. We evaluate 19 open-weight and proprietary LLMs, and find that current models achieve penetration success rates ranging from 10.7% to 69.3%. Moreover, we observe that autonomous penetration capability continues to improve alongside advances in overall model capability.",
+      "authors": [
+        "Jiaqi Luo",
+        "Jiarun Dai",
+        "Zhile Chen",
+        "Jia Xu",
+        "Weibing Wang",
+        "Yawen Duan",
+        "Brian Tse",
+        "Geng Hong",
+        "Xudong Pan",
+        "Yuan Zhang",
+        "Min Yang"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI"
+      ],
+      "published": "2026-06-11T09:02:14+00:00",
+      "link": "https://arxiv.org/pdf/2606.13079v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 10.0,
+      "llm_evidence_en": "Directly assesses autonomous penetration capabilities of LLM-powered AI systems, a core cybercrime subtask.",
+      "llm_evidence_cn": "直接评估LLM驱动AI系统的自主渗透能力，这是网络犯罪的核心子任务。",
+      "llm_evidence": "直接评估LLM驱动AI系统的自主渗透能力，这是网络犯罪的核心子任务。",
+      "canonical_evidence": "直接评估LLM驱动AI系统的自主渗透能力，这是网络犯罪的核心子任务。",
+      "llm_tldr_en": "This paper focuses on evaluating the autonomous penetration capabilities of LLM-powered AI systems, identifying and exploiting vulnerabilities without human intervention, to define capability boundaries and red lines for frontier AI safety.",
+      "llm_tldr_cn": "本文专注于评估由大语言模型驱动的AI系统在自主渗透测试方面的能力，即在无人干预下识别并利用漏洞获取未授权访问，通过建立标准化评估框架明确当前模型的能力边界，为前沿AI系统的安全红线划定提供实证依据。",
+      "llm_tldr": "本文专注于评估由大语言模型驱动的AI系统在自主渗透测试方面的能力，即在无人干预下识别并利用漏洞获取未授权访问，通过建立标准化评估框架明确当前模型的能力边界，为前沿AI系统的安全红线划定提供实证依据。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "capabilities of large language models in cybercrime",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.12709v1",
+      "source": "arxiv",
+      "title": "Smarter Saboteurs, Better Fixers: Scaling & Security in Linear Multi-Agent Workflows",
+      "abstract": "As LLM-based multi-agent systems (MAS) are deployed in the wild, the resilience of their collaboration structures against adversarial compromise becomes a critical safety concern. Attackers may leverage prompt-injection or jailbreaking to sabotage individual agents within MAS workflows, but the interaction between model scaling and system-level resilience remains poorly understood. This paper investigates how model scale affects the security of linear multi-agent workflows. Our experiments across scales of two open-weight model families on the HumanEval benchmark reveal a compliance-correction symmetry: larger models are far more likely to faithfully execute malicious instructions, with the control-to-malicious performance drop reaching 53.7pp at 27B in uncorrected pipelines. However, appending a lightweight terminal Fixer stage collapses this to 0.6pp and restores statistical parity with control-level performance, demonstrating that strictly linear collaboration structures can be viable and resilient to adversaries at this scale, and suggesting that the brittleness previously attributed to linear topology may stem from a lack of correction.",
+      "authors": [
+        "Timothy McAllister",
+        "Sina Abdidizaji",
+        "Ivan Garibay",
+        "Ozlem Ozmen Garibay"
+      ],
+      "primary_category": "cs.MA",
+      "categories": [
+        "cs.MA",
+        "cs.CR",
+        "cs.LG"
+      ],
+      "published": "2026-06-10T21:55:24+00:00",
+      "link": "https://arxiv.org/pdf/2606.12709v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "Shows larger LLMs are better at following malicious instructions in multi-agent workflows, a direct cybercrime capability.",
+      "llm_evidence_cn": "表明更大模型更擅长遵循多智能体工作流中的恶意指令，直接体现网络犯罪能力。",
+      "llm_evidence": "表明更大模型更擅长遵循多智能体工作流中的恶意指令，直接体现网络犯罪能力。",
+      "canonical_evidence": "表明更大模型更擅长遵循多智能体工作流中的恶意指令，直接体现网络犯罪能力。",
+      "llm_tldr_en": "This paper studies how scaling LLMs affects security in multi-agent systems, finding that larger models more faithfully execute malicious instructions, increasing sabotage success, and evaluates system-level resilience, highlighting critical capability boundaries for cybercrime use.",
+      "llm_tldr_cn": "针对LLM多智能体系统在安全攻击下的脆弱性，该论文研究了模型规模对安全性的影响，发现更大模型更可能忠实地执行恶意指令，导致性能下降达5-10%，并揭示了合规-纠正对称性，这直接展示了大语言模型在网络犯罪活动中的能力边界，对评估和防范恶意使用具有重要价值。",
+      "llm_tldr": "针对LLM多智能体系统在安全攻击下的脆弱性，该论文研究了模型规模对安全性的影响，发现更大模型更可能忠实地执行恶意指令，导致性能下降达5-10%，并揭示了合规-纠正对称性，这直接展示了大语言模型在网络犯罪活动中的能力边界，对评估和防范恶意使用具有重要价值。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "capabilities of large language models in cybercrime",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.12918v1",
+      "source": "arxiv",
+      "title": "MAStrike: Shapley-Guided Collusive Red-Teaming on Multi-Agent Systems",
+      "abstract": "Hierarchical multi-agent systems (MAS) are rapidly being deployed in high-stakes workflows across domains such as finance and software engineering. In these systems, safety and security are inherently distributed across role-specialized agents, significantly expanding the attack surface, particularly under coordinated adversarial behaviors such as privilege escalation and cross-agent collusion. Existing red-teaming approaches for MAS remain limited: they rely on heuristic selection of target agents and perturb isolated message streams, leaving critical questions unanswered as which agents are most responsible for system safety, and how compromised agents can coordinate to bypass defenses. We propose MAStrike, a closed-loop framework for collusive red-teaming in hierarchical MAS. We propose the first agent-level Shapley value analysis for MAS, quantifying each agent's marginal contribution to system robustness under task-specific distributions. GGuided by this attribution, MAStrike identifies vulnerable agent coalitions and generates coordinated, role-aware adversarial manipulations. These attacks are iteratively refined through structured causal diagnosis, attributing failure cases to uncompromised agents that block adversarial attempts. We further build a comprehensive MAS red-teaming benchmark and controllable environments spanning diverse hierarchical topologies and domains, including finance, software engineering, and CRM. Extensive experiments across MAS built on multiple frontier models show that MAStrike substantially outperforms heuristic baselines. Our analysis further uncovers non-trivial Shapley value distributions and higher-order interaction structures among agents, revealing critical vulnerabilities and coordination patterns that are overlooked by prior single-agent or template-based methods.",
+      "authors": [
+        "Chejian Xu",
+        "Zhaorun Chen",
+        "Jingyang Zhang",
+        "Freddy Lecue",
+        "Avni Kothari",
+        "Sarah Tan",
+        "Wenbo Guo",
+        "Bo Li"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI"
+      ],
+      "published": "2026-06-11T05:21:39+00:00",
+      "link": "https://arxiv.org/pdf/2606.12918v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "collusive red-teaming of multi-agent systems using Shapley-guided attack strategies",
+      "llm_evidence_cn": "基于Shapley值引导的合谋红队测试多智能体系统",
+      "llm_evidence": "基于Shapley值引导的合谋红队测试多智能体系统",
+      "canonical_evidence": "基于Shapley值引导的合谋红队测试多智能体系统",
+      "llm_tldr_en": "MAStrike proposes a collusive red-teaming framework that uses Shapley values to target critical agents in multi-agent systems, evaluating their resilience to coordinated attacks; it directly tests LLM agents in adversarial collaborative cyber scenarios.",
+      "llm_tldr_cn": "现有多智能体系统红队测试多采用启发式选择，忽视智能体合谋威胁。MAStrike提出闭环式合谋红队框架，利用Shapley值量化智能体对系统安全性的贡献，识别关键目标并生成协同攻击策略。在金融和软件工程领域的实验显示合谋可大幅提升攻击成功率，暴露防御弱点。该工作为探索大模型在多智能体网络犯罪场景中的能力极限提供了系统测试方法。",
+      "llm_tldr": "现有多智能体系统红队测试多采用启发式选择，忽视智能体合谋威胁。MAStrike提出闭环式合谋红队框架，利用Shapley值量化智能体对系统安全性的贡献，识别关键目标并生成协同攻击策略。在金融和软件工程领域的实验显示合谋可大幅提升攻击成功率，暴露防御弱点。该工作为探索大模型在多智能体网络犯罪场景中的能力极限提供了系统测试方法。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "adversarial agents for testing large language models in cybercrime",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.12737v1",
+      "source": "arxiv",
+      "title": "PI-Hunter: Automated Red-Teaming for Exposing and Localizing Prompt Injections",
+      "abstract": "Large Language Models (LLMs) are rapidly evolving into agentic systems that interact with external tools and environments, introducing new security risks such as indirect prompt injection attacks through untrusted external sources. Existing defenses mainly focus on blocking malicious content at inference time, and current red-teaming methods primarily optimize attack success. As a result, developers have limited visibility into how latent prompt injections emerge and propagate through agents. We propose PI-Hunter, an automated agentic auditing framework for proactive vulnerability exposure in LLM agents. PI-Hunter constructs realistic source-aware test cases and iteratively evolves them through feedback-driven exploration to induce agents to retrieve and reveal latent malicious instructions embedded within external environments. Extensive experiments across multiple benchmarks, agent architectures, attacks, and defenses demonstrate that PI-Hunter substantially improves vulnerability exposure and attack-surface coverage over strong automated red-teaming baselines, while remaining effective under existing prompt injection defenses.",
+      "authors": [
+        "Pengfei He",
+        "Lesly Miculicich",
+        "Vishesh Sharma",
+        "Ash Fox",
+        "George Lee",
+        "Jiliang Tang",
+        "Tomas Pfister",
+        "Long T. Le"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI"
+      ],
+      "published": "2026-06-10T22:57:02+00:00",
+      "link": "https://arxiv.org/pdf/2606.12737v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "An automated agentic red-teaming framework to test LLM agents against prompt injection attacks.",
+      "llm_evidence_cn": "自动化智能体红队框架，测试LLM智能体对抗提示注入攻击。",
+      "llm_evidence": "自动化智能体红队框架，测试LLM智能体对抗提示注入攻击。",
+      "canonical_evidence": "自动化智能体红队框架，测试LLM智能体对抗提示注入攻击。",
+      "llm_tldr_en": "PI-Hunter is an automated red-teaming framework that generates realistic test cases for prompt injection vulnerabilities in LLM agents, iteratively evolving them to uncover latent threats, improving proactive security auditing in cyber contexts.",
+      "llm_tldr_cn": "针对LLM智能体面临间接提示注入攻击的安全风险，PI-Hunter提出了一种自动化的代理审计框架，通过构建真实源感知测试用例并反馈驱动迭代进化，主动暴露和定位潜在漏洞，实验表明能有效发现并定位多种提示注入威胁，为网络环境中LLM智能体的安全性评估提供了重要工具。该工作强调了从被动防御转向主动漏洞探索的重要性，对利用对抗智能体测试LLM在网络犯罪中的能力边界具有直接贡献。",
+      "llm_tldr": "针对LLM智能体面临间接提示注入攻击的安全风险，PI-Hunter提出了一种自动化的代理审计框架，通过构建真实源感知测试用例并反馈驱动迭代进化，主动暴露和定位潜在漏洞，实验表明能有效发现并定位多种提示注入威胁，为网络环境中LLM智能体的安全性评估提供了重要工具。该工作强调了从被动防御转向主动漏洞探索的重要性，对利用对抗智能体测试LLM在网络犯罪中的能力边界具有直接贡献。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "adversarial agents for testing large language models in cybercrime",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2606.13385v1",
+      "source": "arxiv",
+      "title": "Who Pays the Price? Stakeholder-Centric Prompt Injection Benchmarking for Real-world Web Agents",
+      "abstract": "Web agents driven by large language models (LLMs) are increasingly deployed in real-world environments, where they operate over untrusted web content and execute actions with direct consequences. This makes them vulnerable to prompt-injection attacks, in which seemingly benign content embeds adversarial instructions that manipulate agent behaviour. Existing security benchmarks adopt an \\textit{attack-centric} perspective, focusing on the technical feasibility of injections while overlooking the nuanced distribution of resulting harms. In practice, however, prompt-injection risk is victim-dependent: a single exploit can produce asymmetric consequences for different stakeholders, and the same attack pattern may exhibit substantially different effectiveness depending on whom it targets. To capture these properties, we introduce \\textbf{\\sysname}, a \\textit{stakeholder-centric} benchmark to systematically categorize and attribute harm in real-world web agent systems. It distinguishes between affected entities (e.g., user, seller, platform), decomposes the attacks into concrete objectives, and evaluates each case with complementary outcome- and process-level metrics. Our results reveal substantial and heterogeneous vulnerabilities: not a single attack objective is reliably resisted by current agents, and failures distribute across qualitatively distinct modes ranging from \\emph{stealthy parasitism} (attack succeeds without disrupting the user's delegated task) to \\emph{misaligned disruption} (task disrupted without attack success) and \\emph{compounded failure} (both adversarial objective and task integrity simultaneously violated). These patterns are missed by conventional evaluation, highlighting the need for stakeholder-aware assessment of LLM-based agents in real-world deployments. Benchmark is available at https://github.com/StakeBench/SBC.",
+      "authors": [
+        "Zihao Wang",
+        "Yiming Li",
+        "Yutong Wu",
+        "Zheyu Liu",
+        "Kangjie Chen",
+        "Fok Kar Wai",
+        "Pin-Yu Chen",
+        "Vrizlynn L. L. Thing",
+        "Bo Li",
+        "Dacheng Tao",
+        "Tianwei Zhang"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI",
+        "cs.CY",
+        "cs.HC",
+        "cs.MM"
+      ],
+      "published": "2026-06-11T14:12:43+00:00",
+      "link": "https://arxiv.org/pdf/2606.13385v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "adversarial prompt injection testing of LLM web agents in cybercrime context",
+      "llm_evidence_cn": "在网络犯罪场景中对LLM智能体进行对抗性提示注入测试",
+      "llm_evidence": "在网络犯罪场景中对LLM智能体进行对抗性提示注入测试",
+      "canonical_evidence": "在网络犯罪场景中对LLM智能体进行对抗性提示注入测试",
+      "llm_tldr_en": "Benchmarks prompt injection attacks on LLM-based web agents, focusing on stakeholder harms, directly evaluating LLM behavior under adversarial cyber conditions.",
+      "llm_tldr_cn": "针对真实环境中LLM驱动的网络智能体面临提示注入攻击的风险，提出以利益相关者为中心的基准测试，揭示了不同受害者角色下攻击危害的差异性分布，为评估LLM在网络犯罪场景中的脆弱性与能力边界提供了实证依据，方法可直接用于测试LLM在对抗性网络环境中的表现。",
+      "llm_tldr": "针对真实环境中LLM驱动的网络智能体面临提示注入攻击的风险，提出以利益相关者为中心的基准测试，揭示了不同受害者角色下攻击危害的差异性分布，为评估LLM在网络犯罪场景中的脆弱性与能力边界提供了实证依据，方法可直接用于测试LLM在对抗性网络环境中的表现。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "adversarial agents for testing large language models in cybercrime",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2606.12586v1",
+      "source": "arxiv",
+      "title": "Beyond Attack Success Rate: Examining Trigger Leakage in Vision-Language Agentic Systems",
+      "abstract": "Vision-Language Agentic Systems (VLAS) connect visual perception to planning, tool use, and physical actions. This means backdoor-type triggers can propagate through both decision pipelines and their connected interfaces, thus making visual backdoors a system-level threat. Current evaluations on such backdoors focus on clean accuracy and attack success rate (ASR), metrics that capture whether a trigger works, but not whether an attack is actually \"precise\" -- i.e. whether it triggers hidden behaviors only when intended. In this work, we formalize the failure of trigger precision as \"trigger leakage\": inputs that are visually or semantically close to the intended trigger and therefore inadvertently activate the attacker-specified behavior. To quantify this leakage, we introduce Neighbor Leakage Rate (NLR). Our experiments show that at a 3% poisoning ratio, icon and text triggers remain robust to common visual transformations, but their neighboring variants leak heavily, with NLR reaching 0.996 (icon) and 0.944 (text). Using textual triggers as a controlled probe, we show that standard fine-tuning learns a broad activation region rather than an exact trigger condition, causing neighboring strings to invoke the malicious behavior even when the exact trigger is absent. Adding edit-distance-one hard-negative samples during training substantially narrows this activation region and reduces leakage, including in image-editing and embodied-manipulation workflows, where leaked triggers can propagate into executable programs and action sequences.",
+      "authors": [
+        "Jiamin Chang",
+        "Salil Kanhere",
+        "Piotr Koniusz",
+        "Jason",
+        "Xue",
+        "Hammond Pearce"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR"
+      ],
+      "published": "2026-06-10T18:33:52+00:00",
+      "link": "https://arxiv.org/pdf/2606.12586v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "adversarial attacks on vision-language agents, evaluating trigger precision",
+      "llm_evidence_cn": "对视觉语言代理进行对抗攻击，评估触发器精度",
+      "llm_evidence": "对视觉语言代理进行对抗攻击，评估触发器精度",
+      "canonical_evidence": "对视觉语言代理进行对抗攻击，评估触发器精度",
+      "llm_tldr_en": "Formalizes trigger leakage in backdoor attacks on vision-language agentic systems, showing inadvertent activation and proposing more precise evaluation, advancing understanding of adversarial risks in cyber contexts.",
+      "llm_tldr_cn": "本文形式化定义了视觉语言代理系统中后门攻击的触发器泄漏问题，指出触发器可能意外激活，并提出更精确的评估指标，推进了对代理式人工智能在网络安全应用中对抗风险的理解。",
+      "llm_tldr": "本文形式化定义了视觉语言代理系统中后门攻击的触发器泄漏问题，指出触发器可能意外激活，并提出更精确的评估指标，推进了对代理式人工智能在网络安全应用中对抗风险的理解。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "exploring the capability boundaries of large language models in cyber contexts",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}

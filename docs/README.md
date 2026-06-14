@@ -6,43 +6,38 @@
 </div>
 
 ## 每次日报
-- 最新运行日期：2026-06-13
-- 运行时间：2026-06-13 20:20:12 UTC
+- 最新运行日期：2026-06-14
+- 运行时间：2026-06-14 21:29:31 UTC
 - 运行状态：成功
-- 本次总论文数：7
-- 精读区：3
-- 速读区：4
+- 本次总论文数：6
+- 精读区：4
+- 速读区：2
 
 ### 今日简报（AI）
-今日精读恶意代理技能基准研究，速览越狱防御与系统漏洞等4篇前沿安全论文  
-最值得关注：MalSkillBench构建了运行时验证的恶意技能基准，为AI代理安全评测提供新标尺；流形轨迹动力学方法或更有效抵御越狱攻击  
-建议从业者关注AI安全评测工具及防越狱技术，及时跟进恶意行为演化趋势
-- 详情：[/202606/13/README](/202606/13/README)
+今日深度聚焦AI系统安全前沿：精读揭示大语言模型已涌现自主渗透能力，多智能体协作链路的安全扩展同样亮起红灯。最值得关注的是最高分论文警告LLM驱动的AI系统能自主执行网络渗透，以及线性多智能体工作流中破坏者与修复者的攻防升级。建议读者紧跟这两个方向，思考自主化攻击给现实世界代理应用带来的责任归属与防御挑战。
+- 详情：[/202606/14/README](/202606/14/README)
 
 ### 精读区论文标签
-1. [MalSkillBench: A Runtime-Verified Benchmark of Malicious Agent Skills](/202606/13/2606.07131v1-malskillbench-a-runtime-verified-benchmark-of-malicious-agent-skills)  
+1. [The Emergence of Autonomous Penetration Capabilities in Large Language Model-Powered AI Systems](/202606/14/2606.13079v1-the-emergence-of-autonomous-penetration-capabilities-in-large-language-model-powered-ai-systems)  
+   标签：评分：10.0/10、query:ca
+   evidence：直接评估LLM驱动AI系统的自主渗透能力，这是网络犯罪的核心子任务。
+2. [Smarter Saboteurs, Better Fixers: Scaling & Security in Linear Multi-Agent Workflows](/202606/14/2606.12709v1-smarter-saboteurs-better-fixers-scaling--security-in-linear-multi-agent-workflows)  
    标签：评分：9.0/10、query:ca
-   evidence：用于评估网络环境中LLM智能体安全性的恶意技能基准
-2. [MalSkillBench: A Runtime-Verified Benchmark of Malicious Agent Skills](/202606/13/2606.07131v2-malskillbench-a-runtime-verified-benchmark-of-malicious-agent-skills)  
+   evidence：表明更大模型更擅长遵循多智能体工作流中的恶意指令，直接体现网络犯罪能力。
+3. [MAStrike: Shapley-Guided Collusive Red-Teaming on Multi-Agent Systems](/202606/14/2606.12918v1-mastrike-shapley-guided-collusive-red-teaming-on-multi-agent-systems)  
    标签：评分：9.0/10、query:ca
-   evidence：恶意智能体技能基准，直接测量大模型驱动的编程智能体网络犯罪能力
-3. [What the Eyes See, the LLMs Miss: Exploiting Human Perception for Adversarial Text Attacks](/202606/13/2606.09700v1-what-the-eyes-see-the-llms-miss-exploiting-human-perception-for-adversarial-text-attacks)  
-   标签：评分：9.0/10、query:ca
-   evidence：提出利用LLM感知差距的人类可感知对抗攻击，展示了与网络犯罪相关的能力边界
+   evidence：基于Shapley值引导的合谋红队测试多智能体系统
+4. [PI-Hunter: Automated Red-Teaming for Exposing and Localizing Prompt Injections](/202606/14/2606.12737v1-pi-hunter-automated-red-teaming-for-exposing-and-localizing-prompt-injections)  
+   标签：评分：8.0/10、query:ca
+   evidence：自动化智能体红队框架，测试LLM智能体对抗提示注入攻击。
 
 ### 速读区论文标签
-1. [Defending Jailbreak Attacks on Large Language Models via Manifold Trajectory Kinetics](/202606/13/2606.07335v1-defending-jailbreak-attacks-on-large-language-models-via-manifold-trajectory-kinetics)  
+1. [Who Pays the Price? Stakeholder-Centric Prompt Injection Benchmarking for Real-world Web Agents](/202606/14/2606.13385v1-who-pays-the-price-stakeholder-centric-prompt-injection-benchmarking-for-real-world-web-agents)  
    标签：评分：7.0/10、query:ca
-   evidence：防御大语言模型越狱攻击，揭示并防御突破能力边界的技术
-2. [VATS: Exploiting Implicit Authority in Error-Path Injection via Systematic Mutation](/202606/13/2606.07992v1-vats-exploiting-implicit-authority-in-error-path-injection-via-systematic-mutation)  
-   标签：评分：7.0/10、query:ca
-   evidence：通过错误路径注入探索大模型智能体漏洞，揭示网络上下文中的能力边界。
-3. [Bridging the Agent-World Gap: Text World Models for LLM-based Agents](/202606/13/2606.09032v1-bridging-the-agent-world-gap-text-world-models-for-llm-based-agents)  
+   evidence：在网络犯罪场景中对LLM智能体进行对抗性提示注入测试
+2. [Beyond Attack Success Rate: Examining Trigger Leakage in Vision-Language Agentic Systems](/202606/14/2606.12586v1-beyond-attack-success-rate-examining-trigger-leakage-in-vision-language-agentic-systems)  
    标签：评分：6.0/10、query:ca
-   evidence：系统综述LLM智能体的文本世界模型，可用于构建包括网络犯罪场景的模拟环境。
-4. [Semantic Multi-Agent Intrusion Detection for IoT:Zero-Day and Adversarial Threats with Risk-Aware Reasoning](/202606/13/2606.10323v1-semantic-multi-agent-intrusion-detection-for-iotzero-day-and-adversarial-threats-with-risk-aware-reasoning)  
-   标签：评分：6.0/10、query:ca
-   evidence：通过入侵检测探索网络安全情境下的大模型能力
+   evidence：对视觉语言代理进行对抗攻击，评估触发器精度
 
 
 <div class="dpr-home-promo-card">
