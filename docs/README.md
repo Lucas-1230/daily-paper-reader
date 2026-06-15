@@ -6,38 +6,49 @@
 </div>
 
 ## 每次日报
-- 最新运行日期：2026-06-14
-- 运行时间：2026-06-14 21:29:31 UTC
+- 最新运行日期：2026-06-15
+- 运行时间：2026-06-15 22:50:00 UTC
 - 运行状态：成功
-- 本次总论文数：6
-- 精读区：4
-- 速读区：2
+- 本次总论文数：9
+- 精读区：5
+- 速读区：4
 
 ### 今日简报（AI）
-今日深度聚焦AI系统安全前沿：精读揭示大语言模型已涌现自主渗透能力，多智能体协作链路的安全扩展同样亮起红灯。最值得关注的是最高分论文警告LLM驱动的AI系统能自主执行网络渗透，以及线性多智能体工作流中破坏者与修复者的攻防升级。建议读者紧跟这两个方向，思考自主化攻击给现实世界代理应用带来的责任归属与防御挑战。
-- 详情：[/202606/14/README](/202606/14/README)
+今日聚焦大模型安全攻防：发现语法约束解码可被越狱生成恶意代码，并探索了多智能体合谋红队测试方法。
+最值得关注的是，限制性解码并非安全“护栏”，反而可能被逆向利用；多智能体系统的协作攻击也需用Shapley值引导的红队策略主动暴露脆弱点。
+建议开发者重新审视模型输出的结构性约束，并为多智能体环境引入动态、对抗性的安全审计与记忆审计机制。
+- 详情：[/202606/15/README](/202606/15/README)
 
 ### 精读区论文标签
-1. [The Emergence of Autonomous Penetration Capabilities in Large Language Model-Powered AI Systems](/202606/14/2606.13079v1-the-emergence-of-autonomous-penetration-capabilities-in-large-language-model-powered-ai-systems)  
-   标签：评分：10.0/10、query:ca
-   evidence：直接评估LLM驱动AI系统的自主渗透能力，这是网络犯罪的核心子任务。
-2. [Smarter Saboteurs, Better Fixers: Scaling & Security in Linear Multi-Agent Workflows](/202606/14/2606.12709v1-smarter-saboteurs-better-fixers-scaling--security-in-linear-multi-agent-workflows)  
+1. [Grammar-Constrained Decoding Can Jailbreak LLMs into Generating Malicious Code](/202606/15/2606.11817v1-grammar-constrained-decoding-can-jailbreak-llms-into-generating-malicious-code)  
    标签：评分：9.0/10、query:ca
-   evidence：表明更大模型更擅长遵循多智能体工作流中的恶意指令，直接体现网络犯罪能力。
-3. [MAStrike: Shapley-Guided Collusive Red-Teaming on Multi-Agent Systems](/202606/14/2606.12918v1-mastrike-shapley-guided-collusive-red-teaming-on-multi-agent-systems)  
+   evidence：展示利用语法约束解码进行越狱攻击诱导LLM生成恶意代码，直接探测LLM网络犯罪能力
+2. [MAStrike: Shapley-Guided Collusive Red-Teaming on Multi-Agent Systems](/202606/15/2606.12918v2-mastrike-shapley-guided-collusive-red-teaming-on-multi-agent-systems)  
    标签：评分：9.0/10、query:ca
-   evidence：基于Shapley值引导的合谋红队测试多智能体系统
-4. [PI-Hunter: Automated Red-Teaming for Exposing and Localizing Prompt Injections](/202606/14/2606.12737v1-pi-hunter-automated-red-teaming-for-exposing-and-localizing-prompt-injections)  
+   evidence：多智能体系统的红队框架，直接测试合谋对抗行为，类似网络犯罪场景
+3. [SEVRA-BENCH: Social Engineering of Vulnerabilities in Review Agents](/202606/15/2606.13757v1-sevra-bench-social-engineering-of-vulnerabilities-in-review-agents)  
+   标签：评分：9.0/10、query:ca
+   evidence：基准测试LLM审查者对社会工程攻击的脆弱性，衡量其批准恶意代码的频率
+4. [AgentCyberRange: Benchmarking Frontier AI Systems in Realistic Cyber Ranges](/202606/15/2606.14295v1-agentcyberrange-benchmarking-frontier-ai-systems-in-realistic-cyber-ranges)  
+   标签：评分：9.0/10、query:ca
+   evidence：在真实网络攻击场景中测试大模型以评估其进攻能力
+5. [SkillMutator: Benchmarking and Defending Language-and-Code Cross-modal Attacks on LLM Agent Skills](/202606/15/2606.14154v1-skillmutator-benchmarking-and-defending-language-and-code-cross-modal-attacks-on-llm-agent-skills)  
    标签：评分：8.0/10、query:ca
-   evidence：自动化智能体红队框架，测试LLM智能体对抗提示注入攻击。
+   evidence：通过LLM智能体技能的跨模态攻击实现数据窃取，一种网络犯罪能力。
 
 ### 速读区论文标签
-1. [Who Pays the Price? Stakeholder-Centric Prompt Injection Benchmarking for Real-world Web Agents](/202606/14/2606.13385v1-who-pays-the-price-stakeholder-centric-prompt-injection-benchmarking-for-real-world-web-agents)  
+1. [ConMem: Structured Memory-Guided Adaptation in Training-Free Multi-Agent Systems](/202606/15/2606.08702v1-conmem-structured-memory-guided-adaptation-in-training-free-multi-agent-systems)  
    标签：评分：7.0/10、query:ca
-   evidence：在网络犯罪场景中对LLM智能体进行对抗性提示注入测试
-2. [Beyond Attack Success Rate: Examining Trigger Leakage in Vision-Language Agentic Systems](/202606/14/2606.12586v1-beyond-attack-success-rate-examining-trigger-leakage-in-vision-language-agentic-systems)  
+   evidence：提出多智能体系统的记忆引导自适应方法，可用于犯罪模拟
+2. [Runtime Skill Audit: Targeted Runtime Probing for Agent Skill Security](/202606/15/2606.11671v1-runtime-skill-audit-targeted-runtime-probing-for-agent-skill-security)  
+   标签：评分：7.0/10、query:ca
+   evidence：运行时探测检测恶意LLM智能体技能，评估网络犯罪能力的方法。
+3. [SkillHone: A Harness for Continual Agent Skill Evolution Through Persistent Decision History](/202606/15/2606.08671v1-skillhone-a-harness-for-continual-agent-skill-evolution-through-persistent-decision-history)  
    标签：评分：6.0/10、query:ca
-   evidence：对视觉语言代理进行对抗攻击，评估触发器精度
+   evidence：持续智能体技能演化框架，可用于模拟犯罪智能体的适应行为
+4. [A Generalized Hacker Dynamics Model with Nonlinear Incidence: Analysis and Positivity-Preserving Numerical Simulation](/202606/15/2606.14191v1-a-generalized-hacker-dynamics-model-with-nonlinear-incidence-analysis-and-positivity-preserving-numerical-simulation)  
+   标签：评分：6.0/10、query:ca
+   evidence：广义黑客动力学仓室模型，直接建模网络安全中犯罪活动传播
 
 
 <div class="dpr-home-promo-card">

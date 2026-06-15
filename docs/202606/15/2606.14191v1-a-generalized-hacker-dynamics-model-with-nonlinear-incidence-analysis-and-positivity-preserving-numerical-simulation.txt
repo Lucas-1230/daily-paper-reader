@@ -1,0 +1,1748 @@
+Title: A Generalized Hacker Dynamics Model with Nonlinear Incidence: Analysis and Positivity-Preserving Numerical Simulation
+
+URL Source: https://arxiv.org/pdf/2606.14191v1
+
+Published Time: Mon, 15 Jun 2026 00:35:52 GMT
+
+Number of Pages: 27
+
+Markdown Content:
+# A Generalized Hacker Dynamics Model with Nonlinear Incidence: Analysis and Positivity-Preserving Numerical Simulation 
+
+Manh Tuan Hoang ∗1, Hoai Thu Pham †2,3 , and Matthias Ehrhardt ‡ 41Department of Mathematics, FPT University, Hoa Lac Hi-Tech Park, Km29 Thang Long Blvd, Hanoi, Viet Nam 
+
+> 2
+
+People’s Security Academy, Hanoi, Viet Nam 
+
+> 3
+
+Graduate University of Science and Technology, Vietnam Academy of Science and Technology, Hanoi, Viet Nam 
+
+> 4
+
+IMACM, School of Mathematics and Natural Sciences, University of Wuppertal, Germany June 15, 2026 
+
+Abstract 
+
+We propose and analyze a generalized compartment model for hacker dynamics in cyberse-curity systems. This model is an extension of a recently introduced framework, replacing the bilinear interaction term with a broad class of nonlinear incidence functions. This provides greater modeling flexibility and allows for the description of a wider range of cyber-propagation and information-spreading processes. First, we investigate the qualitative dynamics of the model. We establish the positivity and boundedness of solutions, derive the basic reproduction number, and characterize the existence of hacker-free and hacker-present equilibria. We obtain local and global asymptotic stability results, yielding a complete description of the global dynamics in terms of the basic reproduction number. Next, we develop a second-order, positivity-preserving, nonstandard finite difference (NSFD) scheme for numerical simulations. Unlike many existing NSFD approaches, which are typically first-order accurate, the proposed method achieves second-order convergence while preserving positivity for arbitrary step sizes. Furthermore, the proposed method reproduces the asymptotic stability properties of the continuous model, making it suitable for long-time simulations. Numerical experiments validate the theoretical results and demonstrate the superior accuracy and qualitative performance of the proposed scheme compared to several first-order methods. 
+
+AMS classification: 34C60, 37N99, 65L05, 65Z05. 
+
+Keywords: Compartment epidemic models; Hacker dynamics; Cybersecurity systems; Nonstandard finite difference; Positivity-preserving; Second-order 
+
+# 1 Introduction 
+
+Compartment models have several useful applications in both theory and practice, particularly in mathematical epidemiology [1, 2, 6, 26, 27, 28, 31]. One of the earliest compartmental epidemic mod-els, often used to introduce the mathematical modeling of epidemiology, was proposed by Kermack 
+
+> ∗
+
+tuanhm16@fe.edu.vn 
+
+> †
+
+phamthuhvan@gmail.com 
+
+> ‡
+
+ehrhardt@uni-wuppertal.de (corresponding author) 
+
+1
+
+> arXiv:2606.14191v1 [math.NA] 12 Jun 2026
+
+and McKendrick in 1927 [26] (see, also, [31]). This model is represented by 
+
+dS (t)
+
+dt = −βS (t)I(t),dI (t)
+
+dt = βS (t)I(t) − αI (t),dR (t)
+
+dt = αR (t),
+
+(1.1) where S(t), I(t) and R(t) denote the number of individuals in the susceptible, infected and recov-ered compartments, respectively; β and α are called the transmission and recovery rate constants, respectively. Over the past several decades, epidemiological compartmental models have been widely used to study information and malware propagation. These models have become an effective approach with several useful applications in this field (see, for example, [12, 14, 15, 17, 18, 25, 38, 41, 42, 43, 44, 55] and references therein). Early studies analyzed and discussed the strong similarity between epidemic spreading and the propagation of information and malware [12, 15, 18, 38]. Subsequently, epidemiological models were developed to study issues related to the propagation of information and malware. Extended versions of the classical epidemic models [26, 27, 28] have been formulated to study the propagation of information and malware on the Internet [25, 41, 42, 43, 44, 55]. In a recent survey [20], Hoang and Ehrhardt presented developments in mathematical modeling and applications of differential equations to infectious diseases. They focused on mathematical models, qualitative analysis, numerical methods, and practical applications. They also mentioned and discussed the application of epidemiological models to the study of information and malware propagation. In this work, we revisit a compartment model of hacker behavior in cybersecurity systems, which was proposed in a recent work [19]. The model analyzes the influence of black hat hackers on Internet users. In the mathematical model, Internet users are classified into three classes defined as follows: 
+
+• Class C: This class consists of potential Internet users influenced by positive and negative factors related to Internet use. 
+
+• Class Hn (negative): This class represents black hat hackers involved in illegal Internet ac-tivities, including stealing personal information and bank account data, conducting cyber espionage, and attacking websites. 
+
+• Class Hb (benefit): These are white hat hackers who contribute positively to cyberspace by detecting vulnerabilities in websites and cooperating with the relevant authorities to enhance website security. Based on some hypotheses inspired by real-world applications (see [19, Fig. 1]), the following system of ordinary differential equations (ODEs) was proposed to model the hacker dynamics 
+
+dC (t)
+
+dt = Λ − βC (t)Hn(t) − αC (t) + γH n(t) − μC (t), C(0) > 0
+
+dH n(t)
+
+dt = βC (t)Hn(t) − γH n(t) − θH n(t) − μH n(t), Hn(0) ≥ 0
+
+dH b(t)
+
+dt = αC (t) + θH n(t) − μH b(t), Hb(0) ≥ 0,
+
+(1.2) where all the parameters are assumed to be positive. Their meanings were described in [19, Table 1]. 2A rigorous mathematical analysis of (1.2) was performed in [19]. Specifically, the invariant set, the basic reproduction number R0, the set of equilibrium points, and their local and global asymptotic stability were determined. Additionally, a sensitivity analysis of R0 and an optimal control problem were investigated. As we recall from [31], the function λ(t) := βI (t) in (1.1) is called the force of infection. There are several types of incidence depending on the assumptions about the form of the force of infection. One commonly used form is the mass action incidence βSI . This interaction term increases linearly with the number of infected individuals. However, Capasso and Serio [7] pointed out that the mass action incidence may not be realistic in real-world applications. For this reason, several studies (see, for instance, [9, 48, 49, 53, 54] and references therein), have considered nonlinear incidence functions to replace the mass action incidence. More precisely, the bilinear function f (S, I ) := βSI is replaced with nonlinear functions f (S, I ) that satisfy: 
+
+(P1) f : R2+ → R+ is a differentiable function with f (S, 0) = f (0 , I ) = 0 and f (S, I ) > 0 for all 
+
+S, I > 0.
+
+(P2) ∂f (S, I )
+
+∂S > 0 for all S ≥ 0 and I > 0.
+
+(P3) ∂f (S, I )
+
+∂I ≥ 0 for all S, I ≥ 0.
+
+(P4) I ∂f (S, I )
+
+∂I − f (S, I ) ≤ 0 for all S, I ≥ 0.
+
+(P5) There exists η > 0 such that f (S, I ) ≤ ηI for all S, I ≥ 0.It is worth noting that the class of functions f with properties (P1) –(P5) includes many well-known incidence functions, for example, 
+
+f (S, I ) = βSI 
+
+1 + κI , f (S, I ) = βSI 
+
+1 + κ1S + κ2I ,
+
+correspond to the saturated incidence [7] and the Beddington-DeAngelis response [4, 13, 54]. Non-linear functions with properties (P1) –(P5) were used in [9, 48], whereas those satisfying properties 
+
+(P1) –(P4) were considered in [49]. Also, a generalized hepatitis B epidemic model using a nonlinear incidence rate was proposed and analyzed in [21]. Inspired by the aforementioned studies that used nonlinear incidence functions, we generalize equation (1.2) by replacing the bilinear function CH n with a function f (C, H n) that satisfies (P1) –
+
+(P4) . More precisely, we propose the following compartment model: 
+
+dC dt = Λ − f (C, H n) − αC + γH n − μC, dH n
+
+dt = f (C, H n) − γH n − θH n − μH n,dH b
+
+dt = αC + θH n − μH b.
+
+(1.3) There are some practical considerations that justify replacing the bilinear incidence term βCH n
+
+with the nonlinear incidence f (C, H n). In real-world cyber environments, the influence of black-hat hackers does not always increase linearly with population size due to limited user interaction, increasing cybersecurity awareness, information overload, and network constraints. Furthermore, when the number of black-hat hackers is large enough, their overall influence may gradually saturate 3because the number of susceptible users is finite, and protective mechanisms become more effective. Therefore, a nonlinear incidence function provides a more realistic description of the propagation dynamics of malware and cyber activities. Conversely, introducing nonlinear incidence rates makes the generalized model more flexible, which is useful for parameter estimation problems with real data. Clearly, (1.3) is a generalization that is also more flexible than (1.2). Consequently, it can generate a broader spectrum of realistic scenarios. It can also be useful for modeling the spread of information on social networks. Readers are referred to [5, 12, 15, 18, 44] for compartmental epidemiological systems for modeling information spreading. From the perspective of information spreading, the model can be interpreted as follows: 
+
+• The compartment C can be interpreted as a group of neutral internet users, or users who do not have a clear opinion about a given piece of information. When information reaches individuals in this compartment, they may believe it and participate in disseminating it, thereby becoming members of compartment Hn. Alternatively, they may recognize the information’s falsehood, oppose or verify it, and consequently move to compartment Hb.
+
+• The compartment Hn represents individuals who spread positive or negative information. After some time, individuals in this compartment may stop spreading information and return to the neutral state C, or be convinced by reliable information and move to compartment Hb.
+
+• The compartment Hb includes individuals who disseminate reliable information and participate in fact-checking and information verification to reduce the spread of misinformation in online communities. Note that the parameter μ now represents the rate at which individuals leave the system from each compartment, while the parameter Λ represents the recruitment rate of new users into the online system. First, we examine the positivity and boundedness of the solutions, compute the basic reproduc-tion number, and determine the hacker-free (HFE) and hacker-present (HPE) equilibrium points. Then, we establish their local and global asymptotic stability (GAS) properties. Note that stabil-ity results for cascade-structured systems [45] are applied to examine the GAS problem. A recent study [23] used this approach to establish the GAS of a generalized epidemiological model for mal-ware propagation. Next, we analyze the GAS of the HFE using either the connection between the basic reproduction number and the disease-free equilibrium in epidemic models [8] or a quadratic Lyapunov function. We examine the GAS of the HPE based on the Poincaré-Bendixson theorem combined with the Bendixson-Dulac criterion for two-dimensional dynamical systems [1, 31]. As a result, the global dynamics of the generalized compartment model are fully characterized. Second, for the numerical simulation of (1.3), we construct a positivity-preserving nonstandard finite difference (NSFD) scheme [33, 34, 35, 36, 37]. The positivity of solutions is a fundamental prop-erty of mathematical models that describe real-world systems [1, 6, 31, 46], so it should be preserved by numerical methods [3, 24, 47]. The NSFD approach, developed by Mickens [33, 34, 35, 36, 37], provides an effective framework for constructing numerical schemes that preserve essential qualitative properties and other important features. Surveys on the development of NSFD methods and their applications can be found in [20, 39, 40]. Unlike the commonly used approaches in [11, 16, 51, 52] that generally yield first-order NSFD schemes, we adopt the approach recently proposed in [22] to derive a second-order, positivity-preserving NSFD scheme. This scheme does not impose the condi-tion that the right-hand side function vanish at any time step. Analysis and numerical simulations show that the derived NSFD scheme significantly improves the accuracy of well-known first-order 4NSFD schemes resulting from [11, 16, 51, 52]. Moreover, the scheme preserves the positivity and asymptotic stability properties of the continuous-time model. Thus, the second-order NSFD scheme is particularly useful for simulating the dynamics of continuous-time models over long time periods. Lastly, we conducted several numerical experiments to validate the theoretical findings and demonstrate the advantages of the implemented second-order NSFD scheme. The numerical results provide strong evidence in support of the theoretical assertions. This work is organized as follows. Section 2 investigates the dynamical properties of the proposed model (1.3). Section 3 constructs and analyzes the second-order positivity-preserving NSFD scheme. Section 4reports the results of the numerical experiments. The final section presents concluding remarks and discussions. 
+
+# 2 Dynamical Analysis of the Generalized Model 
+
+In this section, we analyze the dynamical properties of the proposed model (1.3). 
+
+2.1 Basic properties 
+
+First, we analyze some basic properties of the model (1.3). 
+
+Theorem 2.1. The following assertions hold for the compartment model (1.3) :(i) It admits the positive orthant of R3, R3+ = {(C, H n, H b) ∈ R3|C, H n, H b ≥ 0}, as a positive invariant set. (ii) If C(0) ≥ 0, H n(0) > 0, H b(0) ≥ 0, then C(t), H n(t), H b(t) > 0 for t > 0.(iii) The total population N (t) = C(t) + Hn(t) + Hb(t) (t ≥ 0) monotonically converges to N ∗ = Λ 
+
+> μ
+
+.(iv) All the solutions satisfy the following estimates 
+
+lim sup 
+
+> t→∞
+
+ C(t) + Hn(t) ≤ Λmin {α + μ, θ + μ} ,
+
+lim inf 
+
+> t→∞
+
+ C(t) + Hn(t) ≥ Λmax {α + μ, θ + μ} ,
+
+lim sup 
+
+> t→∞
+
+Hb(t) ≤ max {α, θ }
+
+μ
+
+Λmin {α + μ, θ + μ} ,
+
+lim inf  
+
+> t→∞
+
+Hb(t) ≥ min {α, θ }
+
+μ
+
+Λmax {α + μ, θ + μ} .
+
+(2.1) 
+
+Proof. Proof of Part (i). It follows from the system (1.3) that 
+
+dC dt C=0 
+
+= Λ + γH n > 0,dH n
+
+dt Hn=0 
+
+= 0 ,dH b
+
+dt Hb=0 
+
+= αC + θH n ≥ 0.
+
+Thus, we deduce from [46, Proposition B.7] that C(t), H n(t), H b(t) ≥ 0 for t > 0, whenever 
+
+C(0) , H n(0) , H b(0) ≥ 0. This completes this proof. 5Proof of Part (ii). Let  C(0) , H n(0) , H b(0)  be any initial data with C(0) ≥ 0, H n(0) > 0, and 
+
+Hb(0) ≥ 0. We define the function 
+
+ef (C, H n) = 
+
+
+
+f (C, H n)
+
+Hn
+
+if Hn > 0,∂f (C, 0) 
+
+∂H n
+
+if Hn = 0 .
+
+Then, f (C, H n) = Hn ef (C, H n) for Hn ≥ 0 and it follows from (P1) that ef is continuous. From the second equation of (1.3), we obtain 
+
+dH n
+
+Hn
+
+= ef (C, H n) − (γ + θ + μ),
+
+which implies that 
+
+Hn(t) = Hn(0) exp 
+
+nZ t
+
+> 0
+
+ ef (C(τ ), H n(τ )) − (γ + θ + μ)dτ 
+
+o
+
+.
+
+Thus, Hn(t) > 0 whenever Hn(0) > 0 and Hn(t) ≡ 0 if and only if Hn(0) = 0 .To prove C(t) > 0 for t > 0, we assume to the contrary that C(t) = 0 for some t > 0 and set 
+
+t∗ = min {t| C(t) = 0 }.
+
+At t = t∗, we have 
+
+dC dt t=t∗
+
+= Λ + γH n(t∗) > 0.
+
+From the continuity of C(t), there exists ϵ > 0 such that 
+
+C′(t) > 0, t ∈ (t∗ − ϵ, t ∗ + ϵ) ⊂ (0 , t ∗ + ϵ).
+
+Thus, for t∗ − ϵ < t < t ∗, we have 
+
+C(t) < C (t∗) = 0 .
+
+This is a contradiction to the conclusion in Part (i). Hence, we conclude that C(t) > 0 for t > 0.By similar arguments, we also obtain Hb(0) > 0. The proof is complete. 
+
+Proof of Part (iii). It is easy to verify that the total population N satisfies 
+
+dN dt = Λ − μN. 
+
+Thus, 
+
+N (t) = 
+
+
+
+N (0) − Λ
+
+μ
+
+
+
+e−μt + Λ
+
+μ , (2.2) which implies the monotone convergence of N (t).
+
+Proof of Part (iv). Adding side-by-side the first and second equations of (1.3) gives 
+
+Λ − max {α + μ, θ + μ}(C + Hn) ≤ d(C + Hn)
+
+dt = Λ − (α + μ)C − (θ + μ)Hn
+
+≤ Λ − min {α + μ, θ + μ}(C + Hn).
+
+Using the basic comparison theorem for ODEs [32] leads to the first and second estimates of (2.1). 6Next, it follows from the third equation of (1.3) that 
+
+min {α, θ }(C + Hn) − μH b ≤ dH b
+
+dt = αC + θH n − μH b ≤ max {α, θ }(C + Hn) − μH b.
+
+From the first and second estimates of (2.1), we have for t large enough 
+
+min {α, θ } Λmax {α + μ, θ + μ} − μH b ≤ dH b
+
+dt ≤ max {α, θ } Λmin {α + μ, θ + μ} − μH b.
+
+Then, the two last estimates of (2.1) are derived from the basic comparison theorem for ODEs [32]. The proof is complete. We now determine the equilibrium points of (1.3). 
+
+Lemma 2.2. There are two types of equilibrium points of (1.3) :(iii) A hacker-present equilibrium (HPE) point E∗ =  C∗, H ∗
+
+> n
+
+, H ∗
+
+> b
+
+ exists if and only if 
+
+∂f 
+
+ Λ
+
+α + μ , 0
+
+
+
+∂H n
+
+− (γ + θ + μ) > 0. (2.3) 
+
+When this is the case, E∗ is defined by 
+
+H∗ 
+
+> b
+
+= αC ∗ + θH ∗
+
+> n
+
+μ ,C∗ = Λ − (θ + μ)H∗
+
+> n
+
+α + μ ,
+
+(2.4) 
+
+where H∗ 
+
+> n
+
+is a unique positive solution, belonging to  0, Λ
+
+> θ+μ
+
+, of the equation 
+
+W (Hn) := 1
+
+Hn
+
+f
+
+ Λ − (θ + μ)Hn
+
+α + μ , H n
+
+
+
+− (γ + θ + μ) = 0 . (2.5) 
+
+(ii) A hacker-free equilibrium (HFE) point E0 always exists, where 
+
+E0 =  C0, H 0
+
+> n
+
+, H 0
+
+> b
+
+ =
+
+ Λ
+
+α + μ , 0, αΛ
+
+μ(α + μ)
+
+
+
+. (2.6) 
+
+Proof. Any equilibrium point is a solution to the system 
+
+0 = Λ − f (C, H n) − αC + γH n − μC, 
+
+0 = f (C, H n) − γH n − θH n − μH n,
+
+0 = αC + θH n − μH b.
+
+(2.7) From the third equation of (2.7), we obtain the first formula of (2.4). On the other hand, adding side-by-side the first and second equations of (2.7) gives 
+
+Λ − (α + μ)C − (θ + μ)Hn = 0 ,
+
+which leads to the second formula of (2.4). 7By substituting the formula of C∗ in the second formula of (2.4) into the the second equation of (2.7), we obtain an equation for Hn
+
+f
+
+ Λ − (θ + μ)Hn
+
+α + μ , H n
+
+
+
+− γH n − θH n − μH n,
+
+which is equivalent to HnW (Hn) = 0 , where W is defined as in (2.5) Thus, any HPE point must satisfy (2.5) and then, H∗ 
+
+> n
+
+∈  0, Λ
+
+> θ+μ
+
+. Therefore, we consider the function W on  0, Λ
+
+> θ+μ
+
+. On this interval, we have 
+
+W
+
+ Λ
+
+θ + μ
+
+
+
+= f
+
+
+
+0, Λ
+
+θ + μ
+
+
+
+− (γ + θ + μ) = −(γ + θ + μ) < 0,
+
+lim 
+
+> Hn→0
+
+ W (Hn) =
+
+∂f 
+
+ Λ
+
+α + μ , 0
+
+
+
+∂H n
+
+− (γ + θ + μ) > 0.
+
+(2.8) Note that the first estimate of (2.8) is derived from the property (P1) , whereas the second one is derived from (2.3). Furthermore, the first derivative of W (Hn) with Hn > 0 is given by 
+
+W ′(Hn) = 1
+
+H2
+
+> n
+
+
+
+Hn
+
+
+
+− θ + μα + μ
+
+ ∂f ∂C 
+
+ Λ − (θ + μ)Hn
+
+α + μ , H n
+
+
+
++ Hn
+
+∂f ∂H n
+
+ Λ − (θ + μ)Hn
+
+α + μ , H n
+
+
+
+− f
+
+ Λ − (θ + μ)Hn
+
+α + μ , H n
+
+ 
+
+.
+
+From (P2) and (P4) , we deduce that W ′(Hn) < 0 for Hn ∈  0, Λ
+
+> θ+μ
+
+. Combining this with (2.8), we conclude that the equation W (Hn) = 0 has a unique solution belonging to  0, Λ
+
+> θ+μ
+
+. Therefore, 
+
+E∗ is the only HPE point of (1.3). From the equation HnW (Hn) = 0 , we obtain the trivial solution H0 
+
+> n
+
+= 0 . Using (2.5) yields 
+
+H0 
+
+> b
+
+and C0, which are defined as in (2.6). Thus, E0 is an HFE point, which always exists for all parameter values. The proof is complete. Before concluding this subsection, we apply the method developed by van den Driessche and Watmough [50] to compute the basic reproduction number. To do so, we set X = ( Hn, H b, C ) and represent (1.3) in the vector form 
+
+dX dt = F(X) − V (x),
+
+where 
+
+F(X) = 
+
+
+
+f (C, H n)00
+
+ , V(X) = 
+
+
+
+(γ + θ + μ)Hn
+
+−αC − θH n + μH b
+
+−Λ + f (C, H n) + αC − γH n + μC 
+
+ .
+
+At the HFE point X0 = ( H0
+
+> n
+
+, H 0 
+
+> b
+
+, C 0), we have 
+
+DF(X0) = 
+
+
+
+∂f (C0, H 0
+
+> n
+
+)
+
+∂H n
+
+0 ∂f (C0, H 0
+
+> n
+
+)
+
+∂C 
+
+0 0 00 0 0
+
+ ,DV(X0) = 
+
+
+
+γ + θ + μ 0 0
+
+−θ μ −α∂f (C0, H 0
+
+> n
+
+)
+
+∂H n
+
+− γ 0 ∂f (C0, H 0
+
+> n
+
+)
+
+∂C + α + μ
+
+ .
+
+8Hence, the basic reproduction number R0 is computed as 
+
+R0 = 1
+
+γ + θ + μ∂f 
+
+ Λ
+
+α + μ , 0
+
+
+
+∂H n
+
+.
+
+From (2.3) in Lemma 2.2, we see that the HPE point exists if and only if R0 > 1. This characteristic is commonly observed in compartmental epidemic models [1, 6, 31]. As will be seen in the subsequent sections, the asymptotic stability of the equilibrium points also depends on the value of R0 relative to 1. 
+
+2.2 Local Asymptotic Stability 
+
+In this subsection, the local asymptotic stability (LAS) of the equilibrium points is analyzed. 
+
+Theorem 2.3 (LAS analysis of the HFE point) . The HFE point is locally asymptotically stable if 
+
+R0 < 1, and is unstable of R0 > 1.Proof. The Jacobian matrix of (1.3) evaluated at E0 is given by 
+
+J(E0) = 
+
+
+
+− ∂f (E0)
+
+∂C − (α + μ) − ∂f (E0)
+
+∂H n
+
++ γ 00 ∂f (E0)
+
+∂H n
+
+− (γ + θ + μ) 0
+
+α θ −μ
+
+ .
+
+Note that we have used ∂f (E0) 
+
+> ∂C
+
+= 0 , which is a direct consequence of the property (P1) . Conse-quently, J(E0) has three eigenvalues 
+
+λ1 = − ∂f (E0)
+
+∂C − (α + μ), λ2 = ∂f (E0)
+
+∂H n
+
+− (γ + θ + μ), λ3 = −μ. 
+
+It is clear that λ1 and λ3 are strictly negative. On the other hand, 
+
+λ2 = ( γ + θ + μ)( R0 − 1) .
+
+Hence, R0 < 1 implies that λ2 < 0. Consequently, J(E0) contains three strictly negative real numbers. According to Lyapunov’s indirect theorem (linearized method) [29, 47], E0 is locally asymptotically stable. If R0 > 1, then λ2 > 0. This implies that E0 is unstable. The proof is complete. 
+
+Theorem 2.4 (LAS analysis of the HPE point) . The HPE point E∗ of (1.3) is locally asymptotically stable whenever it exists. Proof. The Jacobian matrix of (1.3) evaluated at E0 reads 
+
+J(E∗) = 
+
+
+
+− ∂f (E∗)
+
+∂C − (α + μ) − ∂f (E∗)
+
+∂H n
+
++ γ 0
+
+∂f (E∗)
+
+∂C ∂f (E∗)
+
+∂H n
+
+− (γ + θ + μ) 0
+
+α θ −μ
+
+ .
+
+9Therefore, J(E∗) always has a strictly negative eigenvalue λ3 = −μ < 0, and the two remaining eigenvalues are exactly those associated with the submatrix 
+
+J∗ =
+
+
+
+− ∂f (E∗)
+
+∂C − (α + μ) − ∂f (E∗)
+
+∂H n
+
++ γ∂f (E∗)
+
+∂C ∂f (E∗)
+
+∂H n
+
+− (γ + θ + μ)
+
+ .
+
+The characteristic polynomial of J∗ is 
+
+PJ∗ (λ) = λ2 − tr( J∗)λ + det( J∗).
+
+We will show that 
+
+det( J∗) > 0, tr( J∗) < 0. (2.9) Indeed, since E∗ is the positive equilibrium point, it satisfies (2.7). Consequently, 
+
+f (C∗, H ∗
+
+> n
+
+)
+
+H∗
+
+> n
+
+= γ + θ + μ. 
+
+Using the property (P4) gives 
+
+∂f (C∗, H ∗
+
+> n
+
+)
+
+∂H n
+
+≤ f (C∗, H ∗
+
+> n
+
+)
+
+H∗
+
+> n
+
+= γ + θ + μ, (2.10) which immediately follows that tr( J∗) < 0.On the other hand, the determinant of J∗ is given by 
+
+det( J∗) = 
+
+
+
+− ∂f (E∗)
+
+∂C − (α + μ)
+
+ ∂f (E∗)
+
+∂H n
+
+− (γ + θ + μ)
+
+
+
+−
+
+
+
+− ∂f (E∗)
+
+∂H n
+
++ γ
+
+ ∂f (E∗)
+
+∂C 
+
+= ( μ + θ) ∂f (E∗)
+
+∂C + ( α + μ)
+
+
+
+γ + θ + μ − ∂f (E∗)
+
+∂H n
+
+
+
+.
+
+Thus, it follows from (P2) and (2.10) that det( J∗) > 0.Therefore, (2.9) has been shown. Using the Routh-Hurwitz criterion (see [1, Theorem 4.4]), we conclude that all the eigenvalues of J∗ have a negative real part. Consequently, using the linearized method [29, 47], E∗ is locally asymptotically stable. The proof is complete. 
+
+2.3 Global Asymptotic Stability Analysis of the HFE Point 
+
+In this subsection, we establish the GAS of the HFE point. To do so, we first consider a submodel, which is governed by the first two equations of (1.3) and is given by 
+
+dC dt = Λ − f (C, H n) − αC + γH n − μC := F1(C, H n),dH n
+
+dt = f (C, H n) − γH n − θH n − μH n := F2(C, H n).
+
+(2.11) The HFE and HPE points are then transformed to bE0 = ( C0, H 0
+
+> n
+
+) and bE∗ = ( C∗, H ∗
+
+> n
+
+), respectively. Note that Lemma 2.2 implies that all the solutions to (1.3) and (2.11) are bounded. The following theorem is proved based on the approach developed in [8]. 10 Theorem 2.5 (GAS analysis of the HFE point) . Assume that R0 < 1. Then, the HFE point E0 of 
+
+(1.3) is not only locally asymptotically stable, but also globally asymptotically stable, whenever 
+
+α ≤ θ. (2.12) 
+
+Proof. The proof of this theorem has two steps. 
+
+Step 1. bE0 = ( C0, H 0
+
+> n
+
+) is a globally asymptotically stable equilibrium point of (2.11). Since (2.12) holds, we deduce from Theorem 2.1 that 
+
+lim sup 
+
+> t→∞
+
+ C(t) + Hn(t) ≤ Λ
+
+α + μ = C0,
+
+lim inf 
+
+> t→∞
+
+ C(t) + Hn(t) ≥ Λ
+
+θ + μ .
+
+Thus, we can consider (2.11) in a feasible set defined by 
+
+Ω = 
+
+
+
+(C, H n) ∈ R2+
+
+Λ
+
+θ + μ ≤ C + Hn ≤ Λ
+
+α + μ
+
+
+
+. (2.13) Following the approach in [8], we set x = C and I = Hn and represent (2.11) in the form 
+
+dx dt = Λ − f (x, I) − αx + γI − μx := F (x, I),dI
+
+dt = f (x, I) − γI − θI − μI := G(x, I).
+
+(2.14) Then, the HFE point transforms to U0 = ( x∗, 0) =  C0, 0. We will verify that the conditions (H1) and (H2) in [8] hold for the system (2.14). Indeed, consider the equation 
+
+dx dt = F (x, 0) = Λ − αx − μx. 
+
+The exact solution to this system is given by 
+
+x(t) = 
+
+
+
+x(0) − Λ
+
+μ + α
+
+
+
+e−μt + Λ
+
+α + μ .
+
+This implies that x∗ is globally asymptotically stable. Thus, the condition (H1) in [8] holds. On the other hand, if R0 < 1 then 
+
+A := DIG(x∗, 0) = ∂f (x∗, 0) 
+
+∂I − (γ + θ + μ) < 0.
+
+Then, the second equation of (2.11) can be rewritten as follows: 
+
+dI
+
+dt = G(x, I) = AI − bG(x, I),
+
+where 
+
+bG(x, I) = I ∂f (x∗, 0) 
+
+∂I − f (x, I).
+
+We will show that bG(x, I) ≥ 0 for all (x, I) ∈ Ω. Indeed, it is clear that bG(x, I) = 0 if I = 0 .Consider the case I̸ = 0 . It follows from (P2) that 
+
+bG(x, I) ≥ I ∂f (x∗, 0) 
+
+∂I − f (C0, I) = I
+
+ ∂f (x∗, 0) 
+
+∂I − f (C0, I)
+
+I
+
+
+
+.
+
+11 Furthermore, we deduce from (P4) that the function f (C0,I) 
+
+> I
+
+is decreasing for I > 0. Consequently, 
+
+f (C0, I)
+
+I ≤ lim 
+
+> I→0
+
+f (C0, I)
+
+I = ∂f (C0, 0) 
+
+∂I .
+
+Thus, we conclude that 
+
+bG(x, I) ≥ I
+
+ ∂f (C0, 0) 
+
+∂I − f (C0, 0) 
+
+I
+
+
+
+≥ 0.
+
+Therefore, the conditions (H1) and (H2) in [8] hold. Using the results developed in [8], the GAS of 
+
+(x∗, 0) is obtained. 
+
+Step 2: E0 is a globally asymptotically stable equilibrium point of (1.3). Since (1.3) has the structure of a cascade system and bE0 is a globally asymptotically stable equilib-rium point of (2.11), we only need to consider the following equation 
+
+dH b
+
+dt = α Λ
+
+α + μ − μH b, (2.15) which is obtained by substituting C = C0 and H = H0 into the last equation of (1.3). Equation (2.15) has a unique equilibrium point HE0 
+
+> b
+
+= Λ
+
+μ(α + μ) . The exact solution of (2.15) is given by 
+
+Hb(t) = 
+
+
+
+Hb(0) − HE0
+
+> b
+
+
+
+e−μt + HE0 
+
+> b
+
+.
+
+We can therefore conclude that HE0 
+
+> b
+
+is a globally asymptotically stable equilibrium point of (2.15). Thus, sufficient conditions for the global stabilizability of two cascade-connected nonlinear sys-tems [45] imply that: E0 of (1.3) is globally asymptotically stable. The proof is complete. The following Theorem 2.6 establishes the GAS of the HFE point using LaSalle’s theorem [29, Theorem 4.4] with the help of a quadratic Lyapunov function. 
+
+Theorem 2.6 (GAS Analysis Based on LaSalle’s Theorem ) . If R0 < 1, then the HFE point of 
+
+(1.3) is globally asymptotically stable under the condition (2.12) .Proof. As in the proof of Theorem 2.5, we first prove that bE0 = ( C0, H 0
+
+> n
+
+) is a globally asymptotically stable equilibrium point of (2.11). To accomplish this, we consider (2.11) on its feasible set Ω defined in (2.13) and a Lyapunov function candidate given by 
+
+V (C, H n) = 12 H2
+
+> n
+
+. (2.16) The time derivative of V along with the solutions of (2.11) satisfies 
+
+dV dt = dV dH n
+
+dH n
+
+dt = Hn
+
+f (C, H n) − (α + γ + μ)Hn
+
+.
+
+Consequently, dV dH n = 0 whenever Hn = 0 and for Hn > 0, we have 
+
+dV dt = H2
+
+> n
+
+ f (C, H n)
+
+Hn
+
+− (α + γ + μ)
+
+
+
+.
+
+12 It follows from (P4) that the function f (C,H n) 
+
+> Hn
+
+is decreasing for Hn > 0. Combining this with (P2) 
+
+leads to the estimate 
+
+dV dt = H2
+
+> n
+
+ f (C, H n)
+
+Hn
+
+− (α + γ + μ)
+
+
+
+≤ H2
+
+> n
+
+ f (C0, H n)
+
+Hn
+
+− (α + γ + μ)
+
+
+
+≤ H2
+
+> n
+
+
+
+lim 
+
+> Hn→0
+
+f (C0, H n)
+
+Hn
+
+− (α + γ + μ)
+
+
+
+= H2
+
+> n
+
+ ∂f (C0, 0) 
+
+∂H n
+
+− (α + γ + μ)
+
+
+
+= ( α + γ + μ)( R0 − 1) H2
+
+> n
+
+.
+
+Assuming that R0 < 1, we can conclude that dV dH n ≤ 0 and dV dt = 0 if and only if Hn = 0 . Therefore, the largest invariant set in E := 
+
+n
+
+(C, H n) ∈ Ω| dV dt = 0 
+
+o
+
+is the set 
+
+M := {(C0, 0) } = { bE0}.
+
+According to LaSalle’s theorem [29, Theorem 4.4], we conclude that lim t→∞ (C(t), H n(t)) = bE0.This immediately implies the GAS of bE0. Finally, by repeating the arguments in Step 2 of the proof of Theorem 2.5, we obtain the desired conclusion. The proof is complete. 
+
+Remark 2.7 . Based on well-known global stability results of several epidemic models [1, 6, 31], we can make the following conjecture: The HFE point E0 of (1.3) is globally asymptotically stable provided that R0 < 1. This implies that the condition (2.12) may be imposed only for technical reasons. This conjecture is supported by numerical simulations conducted in Section 4. The condition (2.12) ( α ≤ θ) emphasizes the important role of converting black-hat hackers into white-hat hackers in mitigating malicious cyber activities. Although increasing α through education and awareness campaigns is beneficial, the results suggest that enhancing θ may have a more significant and immediate impact. Specifically, each successful conversion reduces the number of malicious actors and increases the number of defenders. Thus, an increase in θ has a dual influence on the system dynamics, whereas an increase in α only contributes to the growth of the white-hat population. This observation reveals the effectiveness of rehabilitation and conversion strategies in accelerating the reduction and eventual eradication of black-hat hackers from the system. 
+
+2.4 Global Stability Analysis of the HPE Point 
+
+Here, we derive the GAS of the HPE equilibrium point by combining the Poincaré-Bendixson theorem with the Bendixson-Dulac criterion for two-dimensional dynamical systems. 
+
+Theorem 2.8 (GAS Analysis of the HPE point) . If R0 > 1 and Hn(0) > 0, then the HPE point 
+
+E∗ is not only locally asymptotically stable but also globally asymptotically stable. Proof. As a consequence of Theorem 2.1, we only need to establish the GAS of E∗ with respect to the interior of R3+, i.e., the set int( R3+) = {(C, H n, H b)} = {(C, H n, H b) ∈ R3|C, H n, H b > 0}.The proof of this theorem consists of two steps, as follows. 
+
+Step 1. bE∗ = ( C∗, H ∗
+
+> n
+
+) is a globally asymptotically stable equilibrium point of (2.11) with respect to the set int( R3+).Consider the Dulac function candidate D : int( R3+) → R given by 
+
+D(C, H n) = 1
+
+Hn
+
+. (2.17) 13 Then, the function D satisfies 
+
+∂(DF 1)
+
+∂C + ∂(DF 2)
+
+∂H n
+
+= ∂∂C 
+
+ Λ
+
+Hn
+
+− f (C, H n)
+
+Hn
+
+− α CHn
+
++ γ − μ CHn
+
+
+
++ ∂∂H n
+
+ f (C, H n)
+
+Hn
+
+− (γ + θ + μ)
+
+
+
+= − 1
+
+Hn
+
+∂f (C, H n)
+
+∂C − α + μHn
+
++
+
+Hn
+
+∂f (C, H n)
+
+∂H n
+
+− f (C, H n)
+
+H2
+
+> n
+
+,
+
+where F1 and F2 are the right-hand side of (2.11). We deduce from (P4) that 
+
+∂(DF 1)
+
+∂C + ∂(DF 2)
+
+∂H n
+
+< 0
+
+for all (C, H n) ∈ int( R2+). According to the Dulac-Bendixson criterion ([31, Theorem 3.6]), we conclude that (2.11) has no periodic orbits or graphs in the first quadrant. Using the same arguments from the proof of [31, Theorem 3.8], we can show that the HFE equilibrium point bE0 does not belong to the omega limit set of  C(0) , H n(0)) . As a consequence, 
+
+lim 
+
+> t→∞
+
+ C(t), H n(t)) = bE∗.
+
+Combining this with the LAS of the HPE equilibrium point established in Theorem 2.4, we conclude that the GAS of bE∗ holds. 
+
+Step 2: E∗ is a globally asymptotically stable equilibrium point of (1.3). As a consequence of the conclusion in Step 1, we only need to consider the following equation 
+
+dH b
+
+dt = αC ∗ + θH ∗ 
+
+> n
+
+− μH b, (2.18) which is obtained by substituting C = C∗ and H = H∗ into the first two equations of (1.3). It is easy to see that (2.18) has a unique equilibrium point HE∗ 
+
+> b
+
+= αC ∗ + θH ∗
+
+> n
+
+μ = H∗ 
+
+> b
+
+. From the formula of the exact solution of (2.18) 
+
+Hb(t) = 
+
+
+
+Hb(0) − HE∗
+
+> b
+
+
+
+e−μt + HE∗ 
+
+> b
+
+,
+
+we conclude that HE∗ 
+
+> b
+
+is globally asymptotically stable. Using sufficient conditions for the global stabilizability of two cascade-connected nonlinear sys-tems [45], we conclude that E∗ of (1.3) is globally asymptotically stable. The proof is complete. 
+
+# 3 Construction of Second-Order Positivity-Preserving NSFD Scheme 
+
+In this section, we derive a second-order positivity-preserving NSFD scheme for (1.3) based on the approach proposed in [22]. To do so, we consider (1.3) on the finite interval [0 , T ] with strictly positive initial data C(0) , H n(0) , H b(0) > 0 and rewrite it in the form 
+
+dC dt = U1(C, H n, H b) − CV 1(C, H n, H b) := R1(C, H n, H b),dH n
+
+dt = U2(C, H n, H b) − HnV2(C, H n, H b) := R2(C, H n, H b),dH b
+
+dt = U3(C, H n, H b) − HbV3(C, H n, H b) := R3(C, H n, H b),
+
+(3.1) 14 where Ui, V i : int  R3+
+
+ → int  R+
+
+ are given by 
+
+U1(C, H n, H b) = Λ + γH n
+
+V1(C, H n, H b) = f (C, H n)
+
+C + α + μ, U2(C, H n, H b) = f (C, H n),V2(C, H n, H b) = γ + θ + μ, U3(C, H n, H b) = αC + θH n,V3(C, H n, H b) = μ. 
+
+(3.2) Following the approach in [11, 16, 51], we obtain a positivity-preserving NSFD scheme for (3.1): 
+
+Ck+1 − Ck
+
+ϕ(∆ t) = U1(Ck, H kn , H kb ) − Ck+1 V1(Ck, H kn , H kb ),Hk+1  
+
+> n
+
+− Hkn
+
+ϕ(∆ t) = U2(Ck, H kn , H kb ) − Hk+1  
+
+> n
+
+V2(Ck, H kn , H kb ),Hk+1  
+
+> b
+
+− Hkb
+
+ϕ(∆ t) = U3(Ck, H kn , H kb ) − Hk+1  
+
+> b
+
+V3(Ck, H kn , H kb ),
+
+(3.3) where ∆t = T /N with N ≥ 1 is the step size.  Ck, H kn , H kb
+
+⊤ with k ≥ 1 are the intended approximations for  C(tk), H n(tk), H b(tk) with tk = k∆t, respectively. ϕ(∆ t) satisfies ϕ(∆ t) = ∆t + O(∆ t2) as ∆t → 0 and is called a denominator function . Note that (3.3) is equivalent to 
+
+Ck+1 = Ck + ϕ(∆ t)U1(Ck, H kn , H kb )1 + ϕ(∆ t)V1(Ck, H kn , H kb ) ,Hk+1  
+
+> n
+
+= Hkn + ϕ(∆ t)U2(Ck, H kn , H kb )1 + ϕ(∆ t)V2(Ck, H kn , H kb ) ,Hk+1  
+
+> b
+
+= Hkb + ϕ(∆ t)U3(Ck, H kn , H kb )1 + ϕ(∆ t)V3(Ck, H kn , H kb ) ,
+
+which is explicit and satisfies Ck, H kn , H kb > 0 for k > 0 whenever C0, H 0
+
+> n
+
+, H 0 
+
+> b
+
+> 0. Therefore, (3.3) preserves the positivity of the solutions for all ∆t > 0. However, as mentioned in [11], the NSFD scheme of the form (3.3) is only convergent of order 1. Another first-order positivity-preserving scheme can be derived from the generalized NSFD method constructed by Wood and Kojouharov [52]. This scheme examines the sign of the right-hand side function of (1.3) at each iteration step and is only first-order convergent (see Table 4). Using the approach introduced in [22], we formulate another NSFD scheme for (3.1) in the form 
+
+Ck+1 − Ck
+
+Φ1(∆ t, C k, H kn , H kb ) = U1(Ck, H kn , H kb ) − Ck+1 V1(Ck, H kn , H kb )+ ∆t
+
+2 A1(Ck, H kn , H kb ) − ∆t
+
+2
+
+B1
+
+ Ck, H kn , H kb
+
+
+
+Ck ,Hk+1  
+
+> n
+
+− Hkn
+
+Φ2
+
+ ∆t, C k, H kn , H kb
+
+ = U2(Ck, H kn , H kb ) − Hk+1  
+
+> n
+
+V2(Ck, H kn , H kb ) (3.4) 
+
++ ∆t
+
+2 A2(Ck, H kn , H kb ) − ∆t
+
+2
+
+B2(Ck, H kn , H kb )
+
+Hkn
+
+,
+
+15 Hk+1  
+
+> b
+
+− Hkb
+
+Φ3
+
+ ∆t, C k, H kn , H kb
+
+ = U3(Ck, H kn , H kb ) − Hk+1  
+
+> b
+
+V3(Ck, H kn , H kb )+ ∆t
+
+2 A3(Ck, H kn , H kb ) − ∆t
+
+2
+
+B3(Ck, H kn , H kb )
+
+Hkn
+
+,
+
+where Ai, B i : int  R3+
+
+ → int  R+
+
+ are defined by 
+
+A1(C, H n, H b) = 
+
+ ∂f (C, H n)
+
+∂C + μ + α
+
+f (C, H n) + ( μ + α)C + f (C, H n)
+
+∂H n
+
+(γ + θ + μ)Hn + γf (C, H n),B1(C, H n, H b) = 
+
+ ∂f (C, H n)
+
+∂C + μ + α
+
+
+
+(Λ + γH n) + γ(γ + θ + μ)Hn + ∂f (C, H n)
+
+∂H n
+
+f (C, H n),A2(C, H n, H b) = ∂f (C, H n)
+
+∂C (Λ + γH n) + ∂f (C, H n)
+
+∂H n
+
+f (C, H n) + ( γ + θ + μ)2Hn, (3.5) 
+
+B2(C, H n, H b) = ∂f (C, H n)
+
+∂C 
+
+f (C, H n) + ( α + μ)C + ∂f (C, H n)
+
+∂H n
+
+(γ + θ + μ)Hn + ( γ + θ + μ)f (C, H n),A3(C, H n, H b) = α(Λ + γH n) + θf (C, H n) + μ2Hb,B3(C, H n, H b) = αf (C, H n) − (α + μ)C + θ(γ + θ + μ)H + μ(αC + θH ),
+
+and the denominator functions Φi(∆ t, C, H n) are given by 
+
+Φ1(∆ t, C, H n, H b) = e2V1(C,H n,H b)∆ t − 12V1(C, H n, H b) ,
+
+Φ2(∆ t, C, H n, H b) = e2V2(C,H n,H b)∆ t − 12V2(C, H n, H b) ,
+
+Φ3(∆ t, C, H n, H b) = e2V3(C,H n,H b)∆ t − 12V3(C, H n, H b) .
+
+(3.6) Note that the functions Ai, B i and Φi (i = 1 , 2, 3) satisfy 
+
+Ai(C, H n, H b) + Bi(C, H n, H b)= ∂R i(C, H n, H b)
+
+∂C R1(C, H n, H b) + ∂R i(C, H n, H b)
+
+∂H n
+
+R2(C, H n, H b) + ∂R i(C, H n, H b)
+
+∂H b
+
+R3(C, H n, H b),∂2Φi(∆ t, C, H n, H b)
+
+∂∆t2 ∆t=0 
+
+= Vi(C, H n, H b),
+
+where Ri(C, H n, H b) (i = 1 , 2, 3) are defined in (3.1)–(3.2), respectively. Furthermore, (3.3) can be transformed into the explicit form 
+
+Ck+1 =
+
+Ck + Φ 1(∆ t, C k, H kn , H kb )U1(Ck, H kn , H kb ) + ∆t
+
+2 Φ1(∆ t, C k, H kn , H kb )A1(Ck, H kn , H kb )1 + Φ 1(∆ t, C k, H kn , H kb )V1(Ck, H kn , H kb ) + ∆t
+
+2 Φ1(∆ t, C k, H kn , H kb ) B1(Ck, H kn , H kb )
+
+Ck
+
+,Hk+1  
+
+> n
+
+=
+
+Hkn + Φ 2(∆ t, C k, H kn , H kb )U2(Ck, H kn , H kb ) + ∆t
+
+2 Φ2(∆ t, C k, H kn , H kb )A2(Ck, H kn , H kb )1 + Φ 2(∆ t, C k, H kn , H kb )V2(Ck, H kn , H kb ) + ∆t
+
+2 Φ2(∆ t, C k, H kn , H kb ) B2(Ck, H kn , H kb )
+
+Hkn
+
+,
+
+(3.7) 16 Hk+1  
+
+> b
+
+=
+
+Hkb + Φ 3(∆ t, C k, H kn , H kb )U3(Ck, H kn , H kb ) + ∆t
+
+2 Φ3(∆ t, C k, H kn , H kb )A3(Ck, H kn , H kb )1 + Φ 3(∆ t, C k, H kn , H kb )V3(Ck, H kn , H kb ) + ∆t
+
+2 Φ3(∆ t, C k, H kn , H kb ) B3(Ck, H kn , H kb )
+
+Hkb
+
+,
+
+which is useful in computing and implementing (3.3). Based on [22, Theorems 1 and 2], we obtain the following result. 
+
+Theorem 3.1 (Second-Order Positivity-Preserving NSFD Scheme) . The following assertions hold for the NSFD scheme (3.3) :(i) It preserves the positivity of the solutions for all finite step size, i.e. for any ∆t > 0
+
+C0, H 0
+
+> n
+
+, H 0 
+
+> b
+
+> 0 = ⇒ Ck, H kn , H kb > 0, k > 0.
+
+(ii) It is convergent of order two. 
+
+In the next section, numerical experiments will be conducted using the second-order positivity-preserving NSFD scheme (3.3) to simulate the dynamical behaviour of the continuous-time model (1.3). The results suggest that the NSFD scheme preserves the positivity and asymptotic stability of (1.3). 
+
+# 4 Numerical Experiments 
+
+In this section, we perform numerical experiments to validate the theoretical findings. To this end, we consider the Beddington-DeAngelis response function [4, 13] 
+
+f (C, H n) = βCH n
+
+1 + κ1C + κ2Hn
+
+, β > 0, κi ≥ 0. (4.1) The basic reproduction number of (1.3) is computed by 
+
+R0 = 1
+
+γ + θ + μβΛ
+
+
+
+1 + κ1
+
+Λ
+
+α + μ
+
+
+
+(α + μ)
+
+.
+
+4.1 An Error Analysis of the NSFD Schemes 
+
+In this subsection, we provide an error analysis of the first- and second-order NSFD schemes formu-lated in Section 3. Finally, we consider (1.3) with the following parameters 
+
+Λ = 10 4, α = 0 .025 , γ = 0 .02 , μ = 0 .01 ,θ = 0 .025 , β = 10 −6, κ1 = 0 .01 , κ2 = 0 .02 ,
+
+and the initial data 
+
+C(0) = 10 4, Hn(0) = 10 3, Hb(0) = 10 3.
+
+To estimate errors and the rate of convergence (ROC), we use the numerical approximation obtained by employing an 11-stage, eighth-order Runge-Kutta method [10] with a step size ∆t = 10 −6 on the 17 interval [0 , 1] , as a reference solution. Then, we compute the errors as 
+
+ek := Ck − C(tk) + Hkn − Hn(tk) + Hkb − Hb(tk) , tk = k∆t, ∆t = 1
+
+N , 0 ≤ k ≤ N, 
+
+err max = max  
+
+> k
+
+ek,
+
+err final = eN ,
+
+err average =
+
+> N
+
+X
+
+> k=1
+
+ek
+
+N ,
+
+err relative = CN − C(tN )
+
+C(tN ) + HNn − Hn(tN )
+
+Hn(tN ) + HNb − Hb(tN )
+
+Hb(tN ) ,
+
+where  C(t), H n(t), H b(t) stands for the reference solution. Additionally, the ROC is approximated as (see [3]): 
+
+ROC := log  ∆t1
+
+∆t2
+
+ err final (∆ t1)err final (∆ t2)
+
+
+
+.
+
+The errors and ROC of the first- and second-order NSFD schemes (3.4) and (3.3), the Wood-Kojouharov’s scheme [52] and the standard explicit Euler scheme [3, 47], are reported in Tables 1–4, respectively. The results demonstrate that the second-order positivity-preserving NSFD scheme (3.4) signifi-cantly improves the accuracy of the remaining three first-order schemes. Furthermore, it preserves the positivity of the solutions regardless of the step size. As will be demonstrated in Subsection 4.2, (3.4) preserves not only the positivity but also the asymptotic stability properties of the continuous-time model. Therefore, it is particularly useful for simulating the dynamics of continuous-time models over long time periods.  
+
+> Table 1: The errors and ROC of the second-order positivity-preserving NSFD scheme (3.4).
+
+∆t err max err average err final err relative ROC 
+
+2 × 10 −1 1.2707 0.6465 1.2707 5.7179e-005 
+
+10 −1 0.3156 0.1609 0.3156 1.4176e-005 2.0096 
+
+5 × 10 −2 0.0786 0.0401 0.0786 3.5291e-006 2.0048 
+
+10 −2 0.0031 0.0016 0.0031 1.4069e-007 2.0017 
+
+5 × 10 −3 7.8397e-004 4.0036e-004 7.8397e-004 3.5158e-008 2.0005 
+
+10 −3 3.1358e-005 1.6015e-005 3.1358e-005 1.4066e-009 2.0000 
+
+5 × 10 −4 7.8647e-006 4.0169e-006 7.8647e-006 3.5372e-010 1.9954 
+
+10 −4 2.9680e-007 1.5147e-007 2.9680e-007 1.2775e-011 2.0362 
+
+4.2 Dynamics of the Continuous-Time model by the NSFD Scheme 
+
+In this subsection, we use the second-order positivity-preserving NSFD scheme (3.4) to simulate the dynamics of the continuous-time model (1.3). To do so, we consider (1.3) with the parameters given in Table 5. The numerical approximations, generated by implementing (3.4) with three different step sizes on the interval [0 , 10 3], are depicted in Figures 1–3. Each blue curve in these figures represents 18 Table 2: The errors and ROC of the first-order positivity-preserving NSFD scheme (3.3) using ϕ(∆ t) = ∆ t.
+
+∆t err max err average err final err relative ROC 
+
+2 × 10 −1 42.2252 21.2472 42.2252 0.0019 
+
+10 −1 21.1528 10.6524 21.1528 9.5738e-004 0.9973 
+
+5 × 10 −2 10.5865 5.3334 10.5865 4.7909e-004 0.9986 
+
+10 −2 2.1189 1.0678 2.1189 9.5884e-005 0.9995 
+
+5 × 10 −3 1.0596 0.5340 1.0596 4.7946e-005 0.9999 
+
+10 −3 0.2119 0.1068 0.2119 9.5899e-006 1.0000 
+
+5 × 10 −4 0.1060 0.0534 0.1060 4.7950e-006 1.0000 
+
+10 −4 0.0212 0.0107 0.0212 9.5900e-007 1.0000  
+
+> Table 3: The errors and ROC of the Wood-Kojouharov’s method [52] using ϕ(∆ t) = ∆ t.
+
+∆t err max err average err final err relative ROC 
+
+2 × 10 −1 38.7350 19.5973 38.7350 0.0015 
+
+10 −1 19.3212 9.7895 19.3212 7.3549e-004 1.0035 
+
+5 × 10 −2 9.6491 4.8925 9.6491 3.6733e-004 1.0017 
+
+10 −2 1.9280 0.9781 1.9280 7.3400e-005 1.0006 
+
+5 × 10 −3 0.9639 0.4890 0.9639 3.6696e-005 1.0002 
+
+10 −3 0.1928 0.0978 0.1928 7.3385e-006 1.0001 
+
+5 × 10 −4 0.0964 0.0489 0.0964 3.6692e-006 1.0000 
+
+10 −4 0.0193 0.0098 0.0193 7.3383e-007 1.0000 a solution trajectory in the phase space associated with a specific initial condition. The red circle marks the position of the globally asymptotically stable equilibrium (HFE or HPE), whereas the yellow arrows indicate the direction of the system evolution. The numerical results show that the qualitative behavior of the computed solutions aligns well with the theoretical analysis established in Section 2. Furthermore, (3.4) preserves the positivity of the solutions and the asymptotic stability properties of the continuous-time model (1.3). These find-ings further demonstrate the advantages of the second-order positivity-preserving NSFD approach. Note that (2.12) does not hold for the parameter set 2 in Table 5. However, the HFE point remains globally asymptotically stable as shown in Figure 2. This supports the conjecture given in Remark 2.7. 
+
+Remark 4.1 . The Beddington-DeAngelis response function (4.1) reduces to the bilinear incidence 
+
+> Table 4: The errors and ROC of the standard explicit Euler scheme.
+
+∆t err max err average err final err relative ROC 
+
+2 × 10 −1 38.7912 19.6238 38.7912 0.0015 
+
+10 −1 19.3399 9.7978 19.3399 7.3907e-004 1.0042 
+
+5 × 10 −2 9.6561 4.8954 9.6561 3.6891e-004 1.0021 
+
+10 −2 1.9290 0.9785 1.9290 7.3684e-005 1.0007 
+
+5 × 10 −3 0.9644 0.4892 0.9644 3.6836e-005 1.0002 
+
+10 −3 0.1929 0.0978 0.1929 7.3661e-006 1.0001 
+
+5 × 10 −4 0.0964 0.0489 0.0964 3.6830e-006 1.0000 
+
+10 −4 0.0193 0.0098 0.0193 7.3659e-007 1.0000 19 function and the saturated incidence function if κ1 = κ2 = 0 and κ1 = 0 , respectively. Therefore, (1.3) can provide a wider range of realistic scenarios. In particular, if f is considered as a control parameter, this feature is useful for parameter estimation problems. 
+
+> Table 5: The sets of the parameters used in numerical computation
+
+Set Λ α γ μ θ β κ1 κ2 R0
+
+1 10 4 0.025 0.02 0.01 0.03 5.5 × 10 −5 0.001 0.002 0.9135 2 10 5 0.02 0.025 0.02 0.01 10 −4 0.005 0.005 0.3636 3 10 6 0.02 0.025 0.02 0.01 10 −3 0.01 0.02 1.8182 Set GAS equilibrium point Remark 1 (2 .8571 × 10 5, 0, 7.1429 × 10 5) (2.12) holds 2 (25 × 10 5, 0, 25 × 10 5) (2.12) does not hold 3 (1 .9130 × 10 7, 7.8260 × 10 6, 2.3043 × 10 7) R0 > 1
+
+# 5 Concluding Remarks and Discussions 
+
+The first conclusion of this work is that we have proposed and analyzed a generalized compartment model representing hacker dynamics in cybersecurity systems. This model extends a recognized model formulated in [19]. The proposed model uses general nonlinear incidence rate functions in-stead of bilinear ones, which makes it more flexible and applicable to a wider range of scenarios. After proposing the generalized model, we investigated the positivity and boundedness of its solutions. We also computed the basic reproduction number and determined the hacker-free and hacker-persistent equilibrium points. Finally, we established their local and global asymptotic stability (GAS) prop-erties. Consequently, the global dynamics of the generalized compartment model have been fully characterized. The proposed framework is not limited to cybersecurity applications, but can also be used to study the spread of information on the internet and online social networks. Second, we adopted the approach introduced in [22] to derive a second-order positivity-preserving (NSFD) scheme for numerical simulations. Our analysis and numerical simulations showed that the derived NSFD scheme significantly improves the accuracy of first-order NSFD schemes. Moreover, the NSFD scheme preserves the positivity and asymptotic stability properties of the continuous-time model. Therefore, it is particularly appropriate for simulating the dynamics of continuous-time models over long time periods. Lastly, several numerical experiments were conducted to validate the theoretical findings and demonstrate the advantages of the implemented NSFD scheme. The numerical results strongly support the theoretical assertions. In the near future, we plan to explore the practical applications of these findings. Conversely, constructing higher-order numerical methods that preserve the dynamical properties of the general-ized continuous-time model will be a topic of interest. 20 (a) ∆t = 5 .0 (b) ∆t = 1 .0  
+
+> (c) ∆t= 10 −3
+
+Figure 1: The numerical solutions generated by the second-order positivity-preserving NSFD scheme (3.4) using parameter set 1 in Table 5. 
+
+21 (a) ∆t = 5 .0 (b) ∆t = 1 .0  
+
+> (c) ∆t= 10 −3
+
+Figure 2: The numerical solutions generated by the second-order positivity-preserving NSFD scheme (3.4) using parameter set 2 in Table 5. 
+
+22 (a) ∆t = 5 .0 (b) ∆t = 1 .0  
+
+> (c) ∆t= 10 −3
+
+Figure 3: The numerical solutions generated by the second-order positivity-preserving NSFD scheme (3.4) using parameter set 3 in Table 5. 
+
+23 Ethical Approval: Not applicable. 
+
+Availability of supporting data: The data supporting the findings of this study are available within the article [and/or] its supplementary materials. 
+
+Conflicts of Interest: The author declares no conflicts of interest to disclose. 
+
+Authors’ contributions: Manh Tuan Hoang and Matthias Ehrhardt: Writing review & edit-ing, Writing original draft, Visualization, Validation, Supervision, Software, Resources, Project ad-ministration, Methodology, Investigation, Formal analysis, Data curation, Conceptualization, Fund-ing acquisition. 
+
+Hoai Thu Pham: Writing review & editing, Writing original draft, Visualization, Validation, Soft-ware, Resources, Methodology, Investigation, Formal analysis, Data curation, Conceptualization. 
+
+Funding information: Not available. 
+
+# References 
+
+[1] L. J. S. Allen, An Introduction to Mathematical Biology, Prentice Hall, 2007. [2] C. N. Angstmann, A. M. Erickson, B. I. Henry, A. V. McGann, J. M. Murray, A. James, Fractional Order Compartment Models, SIAM J. Appl. Math. 77 (2017), 430–446. [3] U. M. Ascher, L. R. Petzold, Computer Methods for Ordinary Differential Equations and Differential-Algebraic Equations, SIAM, Philadelphia, 1998. [4] J. R. Beddington, Mutual Interference Between Parasites or Predators and its Effect on Search-ing Efficiency, J. Animal Ecol. 44 (1975), 331–340. [5] S. Bhattacharya, K. Gaurav, S. Ghosh, Viral marketing on social networks: An epidemiological perspective, Physica A 525 (2019), 478–490. [6] F. Brauer, Compartmental Models in Epidemiology, In: Brauer, F., van den Driessche, P., Wu, J. (eds.), Mathematical Epidemiology. Lecture Notes in Mathematics 1945. Springer, Berlin, Heidelberg. [7] V. Capasso, G. Serio, A generalization of the Kermack-McKendrick deterministic epidemic model, Math. Biosci. 42 (1978), 43–61. [8] C. Castillo-Chavez, Z. Feng, W. Huang, On the computation of R0 and its role in global stability, in: C. Castillo-Chavez, S. Blower, P. van den Driessche, D. Kirschner, A.-A. Yakubu (Eds.), Mathematical Approaches for Emerging and Reemerging Infectious Diseases: An Introduction, Springer, 2002, p. 229. [9] C. Connell McCluskey, Y. Yang, Global stability of a diffusive virus dynamics model with general incidence function and time delay, Nonlin. Anal. Real World Appl. 25 (2015), 64–78. [10] G. J. Cooper, J. H. Verner, Some Explicit Runge-Kutta Methods of High Order, SIAM J. Numer. Anal. 9 (1972), 389–405. [11] J. Cresson, F. Pierret, Non standard finite difference scheme preserving dynamical properties, J. Comput. Appl. Math. 303 (2016), 15–30. [12] D. J. Daley, D. G. Kendall, Epidemics and rumours, Nature 204(4963) (1964), 1118. 24 [13] D. L. DeAngelis, R. A. Goldstein, R. V. O’Neill, A Model for Tropic Interaction, Ecology 56 (1975), 881–892. [14] A. M. del Rey, Mathematical modeling of the propagation of malware: a review, Secur. Com-mun. Netw. 8 (2015), 2561–2579. [15] K. Dietz, Epidemics and Rumours: A Survey, J. Royal Stat. Soc. Ser. A (General) 130(4) (1967), 505–52. [16] D. T. Dimitrov and H. V. Kojouharov, Dynamically consistent numerical methods for general productive-destructive systems, J. Differ. Equ. Appl. 17 (2011) 1721–1736. [17] Y. Ding, L. Zhu, Turing instability analysis of a rumor propagation model with time delay on non-network and complex networks, Inform. Sci. 667 (2024), 120402. [18] W. Goffman, V. A. Newill, Generalization of Epidemic Theory: An Application to the Trans-mission of Ideas, Nature 204 (1964), 225–228. [19] H. Hassouni, A. E. Bhih, O. Balatif, Mathematical modeling, analysis, and optimal control of hacker behavior in cybersecurity systems, J. Appl. Math. Comput. 72(2026), 32. [20] M. T. Hoang, M. Ehrhardt, Differential equation models for infectious diseases: Mathematical modeling, qualitative analysis, numerical methods and applications, SeMA (2025). [21] M. T. Hoang, Dynamical analysis of a generalized hepatitis B epidemic model and its dynami-cally consistent discrete model, Math. Comput. Simul. 205 (2023), 291–314. [22] M. T. Hoang, M. Ehrhardt, A generalized second-order positivity-preserving numerical method for non-autonomous dynamical systems with applications, Appl. Math. Comput. 524 (2026), 130029. [23] M. T. Hoang, Mathematical analysis and numerical simulation of a generalized epidemiological model for malware propagation, Nonlin. Dynam. 114 (2026), 53. [24] Z. Horváth, On the positivity step size threshold of Runge-Kutta methods, Appl. Numer. Math. 53 (2005), 341–356. [25] K. Kawachi, Deterministic models for rumor transmission, Nonlin. Anal. Real World Appl. 9 (2008), 1989–2028. [26] W. O. Kermack, A. G. McKendrick, A contribution to the mathematical theory of epidemics, Proc. Royal Soc. London - Ser. A 115 (1927), 700–721. [27] W. O. Kermack, A. G. McKendrick, Contributions to the mathematical theory of epidemics. II. -The problem of endemicity, Proc. Royal Soc. London - Ser. A 138 (1932), 55–83. [28] W. O. Kermack, A. G. McKendrick, Contributions to the mathematical theory of epidemics. III. -Further studies of the problem of endemicity, Proc. Royal Soc. London - Ser. A 141 (1933), 94–122. [29] H. K. Khalil, Nonlinear systems, Third Edition, Prentice Hall, 2002. [30] J. Li, Z. Teng, Hopf bifurcation and stability for an SIRS epidemic model incorporating immune waning, logistic growth and saturated treatment, Math. Comput. Simul. 247 (2026), 758–784. 25 [31] M. Martcheva, An Introduction to Mathematical Epidemiology, Springer New York, NY, 2015. [32] A. McNabb, Comparison theorems for differential equations, J. Math. Anal. Appl. 119 (1986), 417–428. [33] R. E. Mickens, Nonstandard Finite Difference Models of Differential Equations, World Scientific, Singapore, 1994. [34] R. E. Mickens, Applications of Nonstandard Finite Difference Schemes, World Scientific, Sin-gapore, 2000. [35] R. E. Mickens, Dynamic consistency: a fundamental principle for constructing nonstandard finite difference schemes for differential equations, J. Differ. Eqs. Appl. 11 (2005), 645–653. [36] R. E. Mickens, Advances in the Applications of Nonstandard Finite Difference Schemes, World Scientific, Singapore, 2005. [37] R. E. Mickens, Nonstandard Finite Difference Schemes: Methodology and Applications, World Scientific, 2020. [38] W. H. Murray, The application of epidemiology to computer viruses, Comput. Secur. 7 (1988), 139–145. [39] K. C. Patidar, On the use of nonstandard finite difference methods, J. Differ. Eqs. Appl. 11 (2005), 735–758. [40] K. C. Patidar, Nonstandard finite difference methods: Recent trends and further developments, J. Differ. Eqs. Appl. 22 (2016), 817–849. [41] J. R. C. Piqueira, O. V, Araujo, A modified epidemiological model for computer viruses, Appl. Math. Comput. 213 (2009), 355–360. [42] J. R. C. Piqueira, A. A. de Vasconcelos, C. E. C. J. Gabriel, V. O. Araujo, Dynamic models for computer viruses, Comput. Secur. 27 (2008), 355-359. [43] J. R. C. Piqueira, M. A. M. Cabrera, C. M. Batistela, Malware propagation in clustered com-puter networks, Physica A 573 (2021), 125958. [44] J. R. C. Piqueira, M. Zilbovicius, C. M. Batistela, Daley-Kendal models in fake-news scenario, Physica A 548 (2020), 123406. [45] P. Seibert, R. Suarez, Global stabilization of nonlinear cascade systems, Syst. Contr. Lett. 14 (1990), 347–352. [46] H. L. Smith and P. Waltman, The Theory of the Chemostat: Dynamics of Microbial Competi-tion, Cambridge University Press, 2009. [47] A. Stuart, A. R. Humphries, Dynamical systems and numerical analysis, Cambridge University Press, 1998. [48] H. Sun, J. Wang, Dynamics of a diffusive virus model with general incidence function, cell-to-cell transmission and time delay, Comput. Math. Appl. 77 (2019), 284–301. [49] Y. Tian, X. Liu, Global dynamics of a virus dynamical model with general incidence rate and cure rate, Nonlin. Anal. Real World Appl. 16 (2014), 17–26. 26 [50] P. van den Driessche, J. Watmough, Reproduction numbers and sub-threshold endemic equi-libria for compartmental models of disease transmission, Math. Biosci. 180 (2002), 29–48. [51] D. T. Wood, D. T. Dimitrov, and H. V. Kojouharov, A nonstandard finite difference method for n-dimensional productive-destructive systems, J. Differ. Equ. Appl. 21 (2015), 240–254. [52] D. T. Wood and H. V. Kojouharov, A class of nonstandard numerical methods for autonomous dynamical systems, Appl. Math. Lett. 50 (2015), 78–82. [53] R. Xu, Z. Ma, An HBV model with diffusion and time delay, J. Theor. Biol. 257 (2009), 499–509. [54] Y. Zhang, Z. Xu, Dynamics of a diffusive HBV model with delayed Beddington-DeAngelis response, Nonlin. Anal. Real World Appl. 15 (2014), 118–139. [55] Q. Zhu, G. Zhang, X. Luo, C. Gan, An industrial virus propagation model based on SCADA system, Inform. Sci. 630 (2023), 546–566. 27

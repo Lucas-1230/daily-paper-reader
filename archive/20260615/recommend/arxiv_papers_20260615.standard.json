@@ -1,0 +1,373 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-06-15T22:42:05.928253+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 5,
+    "deep_cap": 6,
+    "deep_selected": 5,
+    "quick_candidates": 4,
+    "quick_skim_target": 11,
+    "quick_selected": 4
+  },
+  "deep_dive": [
+    {
+      "id": "2606.11817v1",
+      "source": "arxiv",
+      "title": "Grammar-Constrained Decoding Can Jailbreak LLMs into Generating Malicious Code",
+      "abstract": "Large Language Models (LLMs) are increasingly used for code generation, raising concerns that they may be misused to produce malicious code. Meanwhile, Grammar-Constrained Decoding (GCD) has been widely adopted to improve the reliability of LLM-generated code by enforcing syntactic validity. In this paper, we reveal a counterintuitive risk: this reliability-oriented technique can itself become an attack surface. We uncover a new jailbreak attack, termed CodeSpear, that exploits GCD to induce LLMs into generating malicious code. Our experiments show that simply applying a benign code grammar constraint can effectively jailbreak LLMs.   To address this vulnerability, we propose CodeShield, a safety alignment approach that robustly preserves safe behavior even under attacker-controlled grammar constraints. CodeShield aligns the model in the code modality by teaching it to generate honeypot code under GCD. Such code is semantically harmless, so it does not implement the malicious request, and structurally diverse, so it is difficult to suppress through grammar tightening. At the same time, CodeShield still preserves natural-language refusals when natural language is available. Experiments on 10 popular LLMs across 4 benchmarks show that CodeSpear outperforms representative jailbreak baselines and increases the attack success rate by more than 30 percentage points on average. CodeShield also restores safety under CodeSpear while preserving benign utility. Our findings reveal a fundamental risk of GCD and call for greater attention to its potential security implications.",
+      "authors": [
+        "Yitong Zhang",
+        "Shiteng Lu",
+        "Jia Li"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI",
+        "cs.CL",
+        "cs.SE"
+      ],
+      "published": "2026-06-10T08:50:59+00:00",
+      "link": "https://arxiv.org/pdf/2606.11817v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "Demonstrates a jailbreak attack using grammar-constrained decoding to make LLMs generate malicious code, directly probing LLM capabilities for cybercrime",
+      "llm_evidence_cn": "展示利用语法约束解码进行越狱攻击诱导LLM生成恶意代码，直接探测LLM网络犯罪能力",
+      "llm_evidence": "展示利用语法约束解码进行越狱攻击诱导LLM生成恶意代码，直接探测LLM网络犯罪能力",
+      "canonical_evidence": "展示利用语法约束解码进行越狱攻击诱导LLM生成恶意代码，直接探测LLM网络犯罪能力",
+      "llm_tldr_en": "The paper uncovers a new jailbreak attack, CodeSpear, that exploits grammar-constrained decoding to effectively induce LLMs into generating malicious code, revealing a vulnerability that expands the capability boundaries of LLMs in cybercrime, and proposes a defense, CodeShield.",
+      "llm_tldr_cn": "论文发现利用语法约束解码可实施名为CodeSpear的越狱攻击，尽管该方法本用于提高代码可靠性，但简单的良性语法约束即可有效诱导LLM生成恶意代码，这揭示了LLM在网络犯罪中的能力边界，并危及安全对齐，为此提出CodeShield防御方法以保持安全行为。",
+      "llm_tldr": "论文发现利用语法约束解码可实施名为CodeSpear的越狱攻击，尽管该方法本用于提高代码可靠性，但简单的良性语法约束即可有效诱导LLM生成恶意代码，这揭示了LLM在网络犯罪中的能力边界，并危及安全对齐，为此提出CodeShield防御方法以保持安全行为。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "capabilities of large language models in cybercrime",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.12918v2",
+      "source": "arxiv",
+      "title": "MAStrike: Shapley-Guided Collusive Red-Teaming on Multi-Agent Systems",
+      "abstract": "Hierarchical multi-agent systems (MAS) are rapidly being deployed in high-stakes workflows across domains such as finance and software engineering. In these systems, safety and security are inherently distributed across role-specialized agents, significantly expanding the attack surface, particularly under coordinated adversarial behaviors such as privilege escalation and cross-agent collusion. Existing red-teaming approaches for MAS remain limited: they rely on heuristic selection of target agents and perturb isolated message streams, leaving critical questions unanswered as which agents are most responsible for system safety, and how compromised agents can coordinate to bypass defenses. We propose MAStrike, a closed-loop framework for collusive red-teaming in hierarchical MAS. We propose the first agent-level Shapley value analysis for MAS, quantifying each agent's marginal contribution to system robustness under task-specific distributions. GGuided by this attribution, MAStrike identifies vulnerable agent coalitions and generates coordinated, role-aware adversarial manipulations. These attacks are iteratively refined through structured causal diagnosis, attributing failure cases to uncompromised agents that block adversarial attempts. We further build a comprehensive MAS red-teaming benchmark and controllable environments spanning diverse hierarchical topologies and domains, including finance, software engineering, and CRM. Extensive experiments across MAS built on multiple frontier models show that MAStrike substantially outperforms heuristic baselines. Our analysis further uncovers non-trivial Shapley value distributions and higher-order interaction structures among agents, revealing critical vulnerabilities and coordination patterns that are overlooked by prior single-agent or template-based methods.",
+      "authors": [
+        "Chejian Xu",
+        "Zhaorun Chen",
+        "Jingyang Zhang",
+        "Freddy Lecue",
+        "Avni Kothari",
+        "Sarah Tan",
+        "Wenbo Guo",
+        "Bo Li"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI"
+      ],
+      "published": "2026-06-11T05:21:39+00:00",
+      "link": "https://arxiv.org/pdf/2606.12918v2",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "red-teaming framework for multi-agent systems, directly tests adversarial coordination akin to cybercrime scenarios",
+      "llm_evidence_cn": "多智能体系统的红队框架，直接测试合谋对抗行为，类似网络犯罪场景",
+      "llm_evidence": "多智能体系统的红队框架，直接测试合谋对抗行为，类似网络犯罪场景",
+      "canonical_evidence": "多智能体系统的红队框架，直接测试合谋对抗行为，类似网络犯罪场景",
+      "llm_tldr_en": "MAStrike proposes a closed-loop red-teaming framework for multi-agent systems that identifies critical agents and guides collusive attacks, revealing vulnerabilities in hierarchical LLM-based systems.",
+      "llm_tldr_cn": "MAStrike提出针对分层多智能体系统的闭环合谋红队框架，利用Shapley值辨识安全关键智能体并生成协同攻击策略。该框架揭示了权限提升与跨智能体合谋的脆弱性，为评估LLM智能体在金融等高风险领域的网络安全能力提供方法支撑。",
+      "llm_tldr": "MAStrike提出针对分层多智能体系统的闭环合谋红队框架，利用Shapley值辨识安全关键智能体并生成协同攻击策略。该框架揭示了权限提升与跨智能体合谋的脆弱性，为评估LLM智能体在金融等高风险领域的网络安全能力提供方法支撑。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "adversarial agents for testing large language models in cybercrime",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.13757v1",
+      "source": "arxiv",
+      "title": "SEVRA-BENCH: Social Engineering of Vulnerabilities in Review Agents",
+      "abstract": "Large language model (LLM) reviewers are increasingly used in pull-request (PR) workflows, where their approvals help decide which code is merged into a repository. This raises a question that benchmarks for static vulnerability detection or code generation do not address: can an automated reviewer reject a malicious contribution when the attacker controls both the code change and the accompanying PR text? We introduce SEVRA-BENCH (Social Engineering of Vulnerabilities in Review Agents), a benchmark that measures how often an automated reviewer approves such adversarial pull requests. Each malicious PR in SEVRA-BENCH is built from a real project commit that previously fixed a vulnerability listed in the Common Vulnerabilities and Exposures (CVE) database. We automatically invert that fix to restore the original vulnerable code and submit it as a pull request wrapped in one of 15 social-engineering framings, which vary the claims made, the supporting evidence, the urgency conveyed, signals of prior approval, and appeals to authority. SEVRA-BENCH contains 1,062 malicious PRs drawn from Common Vulnerabilities and Exposures (CVE)-linked fixes across the top 10 entries of the 2025 Common Weakness Enumeration (CWE) Top 25. In a realistic setting, we evaluate 8 current LLMs as code review agents on PRs that introduce vulnerabilities previously reported in public disclosures. Our results reveal a sharp gap in security capabilities between closed- and open-source models. We hope SEVRA-BENCH will serve as a valuable resource for advancing open-source models and narrowing this gap.",
+      "authors": [
+        "Rui Melo",
+        "Riccardo Fogliato",
+        "Sean Zhou",
+        "Pratiksha Thaker",
+        "Zhiwei Steven Wu"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI"
+      ],
+      "published": "2026-06-11T16:35:56+00:00",
+      "link": "https://arxiv.org/pdf/2606.13757v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "benchmarks LLM reviewers' vulnerability to social engineering, measuring how often they approve malicious code",
+      "llm_evidence_cn": "基准测试LLM审查者对社会工程攻击的脆弱性，衡量其批准恶意代码的频率",
+      "llm_evidence": "基准测试LLM审查者对社会工程攻击的脆弱性，衡量其批准恶意代码的频率",
+      "canonical_evidence": "基准测试LLM审查者对社会工程攻击的脆弱性，衡量其批准恶意代码的频率",
+      "llm_tldr_en": "SEVRA-BENCH evaluates LLM code reviewers under adversarial pull requests where attackers control both code and text, revealing that LLMs are susceptible to social engineering and often approve vulnerable code.",
+      "llm_tldr_cn": "大型语言模型审查者正被广泛用于自动审批代码合并，但其抵御恶意拉取请求的能力未经充分测试。本文提出SEVRA-BENCH，一个基于真实CVE漏洞修复的对抗性拉取请求基准，攻击者同时控制代码变更和描述文本。实验表明，LLM审查者对社会工程攻击高度敏感，频繁批准引入已知漏洞的恶意代码。该基准揭示了LLM在安全审查场景下的严重局限性，为提升代码审查安全性提供了重要警示。",
+      "llm_tldr": "大型语言模型审查者正被广泛用于自动审批代码合并，但其抵御恶意拉取请求的能力未经充分测试。本文提出SEVRA-BENCH，一个基于真实CVE漏洞修复的对抗性拉取请求基准，攻击者同时控制代码变更和描述文本。实验表明，LLM审查者对社会工程攻击高度敏感，频繁批准引入已知漏洞的恶意代码。该基准揭示了LLM在安全审查场景下的严重局限性，为提升代码审查安全性提供了重要警示。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "evaluating the limits of large language models in cybercrime scenarios",
+      "matched_requirement_id": "req-9",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.14295v1",
+      "source": "arxiv",
+      "title": "AgentCyberRange: Benchmarking Frontier AI Systems in Realistic Cyber Ranges",
+      "abstract": "Frontier AI systems are increasingly capable of cybersecurity tasks, including codebase inspection, vulnerability detection, and exploitation. However, evaluating their offensive capabilities remains constrained by limited access to open, reproducible, multi-host cyber ranges. Existing public benchmarks capture isolated skills such as CTF solving, vulnerability reproduction, and exploit generation, but often abstract away realistic intrusion workflows: discovering exposed services, gaining a foothold, collecting internal information, and expanding compromise across hosts. This gap makes it difficult to observe emerging risks early, because frontier AI systems are rarely evaluated under realistic attack conditions.   We introduce AgentCyberRange, the first open, multi-range infrastructure for measuring autonomous cyber attack capability in realistic cyber ranges. It combines 110 vulnerabilities across 15 real web applications and 8 enterprise-like cyber ranges with 156 internal hosts, plus Cage, a toolchain for execution, orchestration, result collection, and verification. The benchmark covers two core stages: web exploitation, where agents explore exposed applications and validate vulnerabilities, and post exploitation, where agents turn an initial foothold into broader internal compromise. We evaluate six frontier AI systems under matched prompts and budgets. GPT-5.5 with Codex performs best, solving 16.1% of web exploitation tasks and 31.7% of post-exploitation tasks; with more concrete hints, these rates increase to 33.0% and 46.3%. We also observe out-of-benchmark findings, including unknown vulnerabilities in popular projects, and payload mutation that bypasses host defenses. These results show that open cyber-range evaluation is necessary for observing emerging offensive capabilities under realistic and reproducible conditions.",
+      "authors": [
+        "Fengyu Liu",
+        "Jiarun Dai",
+        "Yihe Fan",
+        "Wuyuao Mai",
+        "Ziao Li",
+        "Bofei Chen",
+        "Jie Zhang",
+        "Zheng Lou",
+        "Bocheng Xiang",
+        "Qiyi Zhang",
+        "Xudong Pan",
+        "Geng Hong",
+        "Yuan Zhang",
+        "Min Yang"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI",
+        "cs.LG"
+      ],
+      "published": "2026-06-12T09:29:58+00:00",
+      "link": "https://arxiv.org/pdf/2606.14295v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "Benchmarks LLMs in realistic cyber attack scenarios to evaluate offensive capabilities",
+      "llm_evidence_cn": "在真实网络攻击场景中测试大模型以评估其进攻能力",
+      "llm_evidence": "在真实网络攻击场景中测试大模型以评估其进攻能力",
+      "canonical_evidence": "在真实网络攻击场景中测试大模型以评估其进攻能力",
+      "llm_tldr_en": "AgentCyberRange provides a reproducible multi-host cyber range to benchmark frontier AI systems on realistic intrusion workflows, revealing capability gaps in current LLMs for offensive cybersecurity tasks.",
+      "llm_tldr_cn": "现有基准测试未能完全复现真实入侵工作流程，无法有效评估前沿AI系统的攻击能力。AgentCyberRange构建了一个可复现的多主机网络靶场，用真实的发现服务、获取立足点、横向移动等任务来测试大模型的表现，暴露了当前大模型在真实攻击场景中的能力局限，为早期风险监测提供了关键工具。",
+      "llm_tldr": "现有基准测试未能完全复现真实入侵工作流程，无法有效评估前沿AI系统的攻击能力。AgentCyberRange构建了一个可复现的多主机网络靶场，用真实的发现服务、获取立足点、横向移动等任务来测试大模型的表现，暴露了当前大模型在真实攻击场景中的能力局限，为早期风险监测提供了关键工具。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "evaluating the limits of large language models in cybercrime scenarios",
+      "matched_requirement_id": "req-9",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.14154v1",
+      "source": "arxiv",
+      "title": "SkillMutator: Benchmarking and Defending Language-and-Code Cross-modal Attacks on LLM Agent Skills",
+      "abstract": "Large language model (LLM) agents increasingly extend their capabilities at runtime by loading Agent Skills, which pair natural-language specifications (SKILL.md) with executable scripts and resources. Because a skill's behavior relies on both natural-language instructions and executable code, assessing its safety requires cross-modal reasoning, creating a new language-and-code attack surface. Attackers can present a benign workflow in SKILL.md while embedding implicit directives that steer the agent to exfiltrate sensitive files, even if the scripts appear harmless. This attack surface remains understudied; prior work treats skills merely as prompt-injection vectors or static code artifacts, leaving attacks emerging from cross-modal interactions largely unmeasured. In our evaluation, open-source and commercial skill scanners detect only 2%-8% and 9%-17% of such attacks, respectively. To address this gap, we introduce SkillMutator, the first benchmark for install-time detection of language-and-code cross-modal attacks on Agent Skills. It emulates an adversarial mutation process across 13 attack categories, iteratively refining malicious skills using scanner feedback to make injected behaviors indistinguishable from legitimate workflows. We further propose a four-phase reasoning-trajectory distillation framework to distill frontier-teacher traces into smaller open-weight models. This produces a locally deployable scanner avoiding third-party data exposure and excessive API costs. On the strongest SkillMutator subset (n=76), our distilled model (Qwen2.5-Coder-7B-Instruct) improves detection from 17.1% to 88.2%, surpassing GPT-4o-mini (23.7%) and GPT-5.4-mini (79.0%), and reaching frontier-level GPT-5.4 (86.8%). These results show practical defense against cross-modal attacks is feasible without relying on costly frontier models.",
+      "authors": [
+        "Youngduk Kim",
+        "Minkyoo Song",
+        "Seungwon Shin"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR"
+      ],
+      "published": "2026-06-12T06:27:12+00:00",
+      "link": "https://arxiv.org/pdf/2606.14154v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Cross-modal attacks enabling data exfiltration via LLM agent skills, a cybercrime capability.",
+      "llm_evidence_cn": "通过LLM智能体技能的跨模态攻击实现数据窃取，一种网络犯罪能力。",
+      "llm_evidence": "通过LLM智能体技能的跨模态攻击实现数据窃取，一种网络犯罪能力。",
+      "canonical_evidence": "通过LLM智能体技能的跨模态攻击实现数据窃取，一种网络犯罪能力。",
+      "llm_tldr_en": "Introduces SkillMutator, a benchmark for cross-modal attacks on LLM agent skills that combine natural-language and code. Attackers embed hidden directives in benign specs to exfiltrate files. Proposes defense methods, advancing understanding of LLM security in agentic contexts.",
+      "llm_tldr_cn": "本文提出SkillMutator，一个针对大模型智能体技能中语言与代码跨模态攻击的基准。攻击者可在看似无害的SKILL.md文档中嵌入隐性指令，引导智能体窃取敏感文件，以往工作未能充分研究此攻击面。该基准涵盖多种攻击策略，并探索了防御方案，为理解智能体技能在网络安全中的能力边界提供了重要参考。",
+      "llm_tldr": "本文提出SkillMutator，一个针对大模型智能体技能中语言与代码跨模态攻击的基准。攻击者可在看似无害的SKILL.md文档中嵌入隐性指令，引导智能体窃取敏感文件，以往工作未能充分研究此攻击面。该基准涵盖多种攻击策略，并探索了防御方案，为理解智能体技能在网络安全中的能力边界提供了重要参考。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "capabilities of large language models in cybercrime",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2606.08702v1",
+      "source": "arxiv",
+      "title": "ConMem: Structured Memory-Guided Adaptation in Training-Free Multi-Agent Systems",
+      "abstract": "Recent advances have improved the adaptive capabilities of LLM-based multi-agent systems (MAS) through memory-, skill-, and learning-based approaches, yet these approaches remain challenged by noisy trajectories, insufficient modeling of memory-skill relations, and reliance on additional training or high-quality supervision. To address these limitations, we propose ConMem, a relation-aware and training-free framework that enables efficient multi-agent adaptation through cross-experience coordination. Specifically, ConMem distills historical interaction trajectories into structured memory cards to capture reusable strategies and cues, organizing them into a relation-aware memory graph. At runtime, ConMem retrieves cards according to task needs and coordinates them through the card graph to resolve strategy conflicts and recover their dependencies. Combined, these modules yield structured and relation-aware guidance, enabling robust, lightweight adaptation in multi-agent systems without additional training. Extensive experiments across multiple benchmarks and mainstream MAS architectures show consistent gains over existing memory architectures, with improved inference-time efficiency through pruning more than 50% of expanded candidates and reducing planning overhead by over 80%. Our codes are available at https://anonymous.4open.science/r/ConMemCode",
+      "authors": [
+        "Zhixun Tan",
+        "Qiang Chen",
+        "Tairan Huang",
+        "Xiu Su",
+        "Yi Chen"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-06-07T15:59:15+00:00",
+      "link": "https://arxiv.org/pdf/2606.08702v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "proposes a memory-guided adaptation method for multi-agent systems, applicable to crime simulation",
+      "llm_evidence_cn": "提出多智能体系统的记忆引导自适应方法，可用于犯罪模拟",
+      "llm_evidence": "提出多智能体系统的记忆引导自适应方法，可用于犯罪模拟",
+      "canonical_evidence": "提出多智能体系统的记忆引导自适应方法，可用于犯罪模拟",
+      "llm_tldr_en": "ConMem uses structured memory cards and relation-aware graphs to improve multi-agent adaptation without training, which can enhance simulation fidelity in cybercrime multi-agent models.",
+      "llm_tldr_cn": "ConMem提出一种关系感知、免训练的多智能体自适应框架，通过将交互历史蒸馏为结构化记忆卡并构建关系图，实现基于任务需求的跨经验协调。其增强的环境适应能力可提升网络犯罪模拟中多智能体行为的真实性与协同性。",
+      "llm_tldr": "ConMem提出一种关系感知、免训练的多智能体自适应框架，通过将交互历史蒸馏为结构化记忆卡并构建关系图，实现基于任务需求的跨经验协调。其增强的环境适应能力可提升网络犯罪模拟中多智能体行为的真实性与协同性。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "multi-agent systems for cybercrime simulation",
+      "matched_requirement_id": "req-3",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2606.08671v1",
+      "source": "arxiv",
+      "title": "SkillHone: A Harness for Continual Agent Skill Evolution Through Persistent Decision History",
+      "abstract": "Agent skills extend language-model agents with task-specific procedures, scripts, and references, but the tasks and environments they target continually change. Existing methods improve skills in bounded runs and retain only the final artifact, discarding the decision history that later agents need to interpret prior revisions, evaluations, and rejected alternatives. We introduce SkillHone, a harness for continual agent skill evolution grounded in persistent decision history. SkillHone pairs skill revisions with evaluation-side evidence that supplies practice feedback, recording structured histories of diagnoses, revisions, evidence, and outcomes. Role-separated subagents run candidate skills on practice probes with redacted reporting and propose revisions informed by prior decisions, enabling cross-session refinement without rediscovering past rationale. We evaluate SkillHone on deep-research benchmarks in a raw open-web setting, where agents are not given an integrated search stack and must organize retrieval through portable skills. We compare against a deep-research agent backed by commercial retrieval services. With Qwen3.6-35B-A3B as the evaluation-time backbone, the resulting skills outperform the deep-research agent by 15.8 points on GAIA and 3.2 points on WebWalkerQA-EN, while also exceeding prior skill-evolution methods.",
+      "authors": [
+        "Zhiwei Li",
+        "Yong Hu"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG"
+      ],
+      "published": "2026-06-07T15:21:08+00:00",
+      "link": "https://arxiv.org/pdf/2606.08671v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "continual agent skill evolution harness, enabling modeling of adaptive criminal agents",
+      "llm_evidence_cn": "持续智能体技能演化框架，可用于模拟犯罪智能体的适应行为",
+      "llm_evidence": "持续智能体技能演化框架，可用于模拟犯罪智能体的适应行为",
+      "canonical_evidence": "持续智能体技能演化框架，可用于模拟犯罪智能体的适应行为",
+      "llm_tldr_en": "SkillHone records structured decision histories to support continual skill improvement in LLM agents, useful for simulating evolving cybercriminal tactics in agent-based models.",
+      "llm_tldr_cn": "SkillHone面向任务环境持续变化的需求，为LLM智能体提供基于持久决策历史的技能演化框架。通过记录诊断、修订、证据等结构化历史，代理能不断改进技能，此机制可用于构建具有自适应能力的网络犯罪主体模型，提升模拟的动态性与逼真度。",
+      "llm_tldr": "SkillHone面向任务环境持续变化的需求，为LLM智能体提供基于持久决策历史的技能演化框架。通过记录诊断、修订、证据等结构化历史，代理能不断改进技能，此机制可用于构建具有自适应能力的网络犯罪主体模型，提升模拟的动态性与逼真度。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "agent-based modeling of criminal activities",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2606.11671v1",
+      "source": "arxiv",
+      "title": "Runtime Skill Audit: Targeted Runtime Probing for Agent Skill Security",
+      "abstract": "Agent skills let LLM agents reuse instructions, resources, tools, and workflows, but they also create a new place for malicious behavior to hide. A skill may look benign in its documentation or code while becoming harmful only when it is invoked with particular user requests, local assets, persistent state, or multi-step tool interactions. This makes purely static vetting brittle. We present Runtime Skill Audit (RSA), a dynamic analysis method that audits skills by asking what the skill-mediated agent actually does under targeted runtime conditions. Instead of testing every skill with the same generic tasks, RSA profiles risk-relevant interfaces, prepares the execution context needed to exercise them, and assigns security labels from the resulting trace evidence. We instantiate RSA on OpenClaw and evaluate it on 100 skills against representative static baselines. RSA achieves 90.0\\% accuracy with an 88.0\\% true positive rate and an 8.0\\% false positive rate, improving accuracy by 13.0 percentage points over the best static baseline. Under self-evolving attacks, static detectors collapse after one or two rounds, while RSA continues to detect 19--20 out of 20 malicious skills across rounds.",
+      "authors": [
+        "Tu Lan",
+        "Chaowei Xiao"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI"
+      ],
+      "published": "2026-06-10T05:29:34+00:00",
+      "link": "https://arxiv.org/pdf/2606.11671v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Runtime probing detects malicious LLM agent skills, a method for assessing cybercrime capabilities.",
+      "llm_evidence_cn": "运行时探测检测恶意LLM智能体技能，评估网络犯罪能力的方法。",
+      "llm_evidence": "运行时探测检测恶意LLM智能体技能，评估网络犯罪能力的方法。",
+      "canonical_evidence": "运行时探测检测恶意LLM智能体技能，评估网络犯罪能力的方法。",
+      "llm_tldr_en": "Presents Runtime Skill Audit (RSA), a dynamic analysis method that audits agent skills under targeted runtime conditions. Unlike static vetting, RSA profiles risk-relevant interfaces and traces behaviors to uncover hidden maliciousness, improving detection of cyber threats in LLM agent skills.",
+      "llm_tldr_cn": "静态审核难以发现仅在特定运行时条件下触发的恶意智能体技能。本文提出运行时技能审计（RSA），通过分析技能在定向运行时条件下的实际行为，识别恶意数据窃取等威胁。该方法构建风险接口剖面，准备触发上下文，并根据行为轨迹分配安全标签，为检测大模型智能体在网络犯罪中的滥用能力提供了有效工具。",
+      "llm_tldr": "静态审核难以发现仅在特定运行时条件下触发的恶意智能体技能。本文提出运行时技能审计（RSA），通过分析技能在定向运行时条件下的实际行为，识别恶意数据窃取等威胁。该方法构建风险接口剖面，准备触发上下文，并根据行为轨迹分配安全标签，为检测大模型智能体在网络犯罪中的滥用能力提供了有效工具。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "capabilities of large language models in cybercrime",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2606.14191v1",
+      "source": "arxiv",
+      "title": "A Generalized Hacker Dynamics Model with Nonlinear Incidence: Analysis and Positivity-Preserving Numerical Simulation",
+      "abstract": "We propose and analyze a generalized compartment model for hacker dynamics in cybersecurity systems. This model is an extension of a recently introduced framework, replacing the bilinear interaction term with a broad class of nonlinear incidence functions. This provides greater modeling flexibility and allows for the description of a wider range of cyber-propagation and information-spreading processes.   First, we investigate the qualitative dynamics of the model. We establish the positivity and boundedness of solutions, derive the basic reproduction number, and characterize the existence of hacker-free and hacker-present equilibria. We obtain local and global asymptotic stability results, yielding a complete description of the global dynamics in terms of the basic reproduction number.   Next, we develop a second-order, positivity-preserving, nonstandard finite difference (NSFD) scheme for numerical simulations. Unlike many existing NSFD approaches, which are typically first-order accurate, the proposed method achieves second-order convergence while preserving positivity for arbitrary step sizes. Furthermore, the proposed method reproduces the asymptotic stability properties of the continuous model, making it suitable for long-time simulations.   Numerical experiments validate the theoretical results and demonstrate the superior accuracy and qualitative performance of the proposed scheme compared to several first-order methods.",
+      "authors": [
+        "Manh Tuan Hoang",
+        "Hoai Thu Pham",
+        "Matthias Ehrhardt"
+      ],
+      "primary_category": "math.NA",
+      "categories": [
+        "math.NA",
+        "math.DS"
+      ],
+      "published": "2026-06-12T07:19:31+00:00",
+      "link": "https://arxiv.org/pdf/2606.14191v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Generalized compartment model for hacker dynamics, directly models criminal activity propagation in cybersecurity",
+      "llm_evidence_cn": "广义黑客动力学仓室模型，直接建模网络安全中犯罪活动传播",
+      "llm_evidence": "广义黑客动力学仓室模型，直接建模网络安全中犯罪活动传播",
+      "canonical_evidence": "广义黑客动力学仓室模型，直接建模网络安全中犯罪活动传播",
+      "llm_tldr_en": "The paper proposes a generalized compartment model for hacker dynamics with nonlinear incidence, providing flexibility in modeling cyber-propagation processes, relevant to simulating cybercriminal activities.",
+      "llm_tldr_cn": "论文提出具有非线性发生率的广义仓室模型用于黑客动力学，扩展了现有的双线性框架，分析了平衡点稳定性并设计保正数值方法，为描述网络犯罪传播过程提供了灵活工具，虽非基于智能体，但对理解犯罪活动动力学有方法论价值。",
+      "llm_tldr": "论文提出具有非线性发生率的广义仓室模型用于黑客动力学，扩展了现有的双线性框架，分析了平衡点稳定性并设计保正数值方法，为描述网络犯罪传播过程提供了灵活工具，虽非基于智能体，但对理解犯罪活动动力学有方法论价值。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "agent-based modeling of criminal activities",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}
