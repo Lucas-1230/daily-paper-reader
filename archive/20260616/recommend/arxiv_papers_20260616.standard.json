@@ -1,0 +1,339 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-06-16T22:46:33.929377+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 4,
+    "deep_cap": 6,
+    "deep_selected": 4,
+    "quick_candidates": 4,
+    "quick_skim_target": 11,
+    "quick_selected": 4
+  },
+  "deep_dive": [
+    {
+      "id": "2606.15123v1",
+      "source": "arxiv",
+      "title": "Data-Centric Benchmarking of Exploit Generation in LLMs: Understanding the Impact of Fine-Tuning",
+      "abstract": "We study the task of CVE-conditioned exploit generation, where a model drafts proof-of-concept (PoC) exploits given software vulnerability context. We adopt a data-centric approach, constructing a high-quality dataset via multi-stage preprocessing and introducing a scalable evaluation framework with LLM-as-judge and fine-grained rubrics. Under this unified setup, we benchmark 17 large language models across 8 evaluation criteria, providing systematic insights into their zero-shot capabilities. We further show that a compact 8B open-weight model, when fine-tuned on curated data, achieves over 42.5% improvement in exploit quality and rivals some proprietary models when combined with simple test-time rejection strategies. Our results highlight the importance of data quality, structured supervision, and evaluation design for reliable exploit generation, suggesting that these factors can be as critical as model scale in adapting LLMs to cybersecurity tasks.",
+      "authors": [
+        "Yiwei Chen",
+        "Lichi Li",
+        "Kai Cheung",
+        "Vinny Parla",
+        "Ganesh Sundaram"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.LG"
+      ],
+      "published": "2026-06-13T05:28:20+00:00",
+      "link": "https://arxiv.org/pdf/2606.15123v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 10.0,
+      "llm_evidence_en": "Benchmarking LLMs on exploit generation, a direct cybercrime capability evaluation",
+      "llm_evidence_cn": "对LLM进行漏洞利用生成基准测试，直接评估其网络犯罪能力",
+      "llm_evidence": "对LLM进行漏洞利用生成基准测试，直接评估其网络犯罪能力",
+      "canonical_evidence": "对LLM进行漏洞利用生成基准测试，直接评估其网络犯罪能力",
+      "llm_tldr_en": "It constructs a high-quality dataset and benchmarks 17 LLMs on CVE-conditioned exploit generation, revealing zero-shot capabilities and fine-tuning improvements, providing key insights into LLMs' offensive cyber capabilities.",
+      "llm_tldr_cn": "该论文针对LLM在漏洞利用生成这一网络犯罪核心任务中的表现，构建了高质量数据集并引入细粒度评估体系，对17个大型语言模型进行了系统基准测试，发现通过精选数据微调可将8B小模型的漏洞利用质量提升42.5%以上，接近某些闭源模型，为理解LLM在网络攻击中的能力边界提供了实证基础。",
+      "llm_tldr": "该论文针对LLM在漏洞利用生成这一网络犯罪核心任务中的表现，构建了高质量数据集并引入细粒度评估体系，对17个大型语言模型进行了系统基准测试，发现通过精选数据微调可将8B小模型的漏洞利用质量提升42.5%以上，接近某些闭源模型，为理解LLM在网络攻击中的能力边界提供了实证基础。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "capabilities of large language models in cybercrime",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.15609v1",
+      "source": "arxiv",
+      "title": "FragFuse: Bypassing Access Control of Large Language Model Agents via Memory-Based Query Fragmentation and Fusion",
+      "abstract": "Large language model (LLM) agents increasingly rely on long-term memory to support complex task execution, user personalization, and domain adaptation. Meanwhile, emerging access-control mechanisms for LLM agents are being explored to block policy-violating requests and prevent misuse. We reveal a novel attack surface arising from agent memory operations: prohibited content that would trigger access control can be fragmented across interactions, stored in long-term memory in benign-appearing form, and later reconstructed through memory retrieval without appearing explicitly in the final user query. We propose FragFuse, the first attack that enables unprivileged users to bypass agent access control by exploiting this temporal channel introduced by long-term memory. FragFuse operates in three stages: (1) identifying rejection-responsive fragments via black-box adaptive querying with fragment masking; (2) injecting these fragments into memory using marker carrier queries; and (3) retrieving and fusing the stored fragments through a follow-up attack query. Although FragFuse can be instantiated manually for individual agents, we further develop a surrogate-based optimization scheme that tunes fusion instructions and marker designs, enabling automated attack generation without violating the attacker's threat-model assumptions. We evaluate FragFuse across four representative agent settings and task domains, covering three state-of-the-art agent access-control mechanisms. FragFuse achieves an average bypass success rate of 86.3% and an average end-to-end harmful task success rate of 41.1% across all settings, with only 4.4% average task-success degradation compared with configurations without access control. We also show that alternative defenses, including state-of-the-art prompt-injection detectors and perplexity detectors, do not effectively address this attack.",
+      "authors": [
+        "Zixin Rao",
+        "Wentian Zhu",
+        "Chan Aristella Lu",
+        "Zhaorun Chen",
+        "Wei Niu",
+        "Le Guan",
+        "Bo Li",
+        "Zhen Xiang"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI"
+      ],
+      "published": "2026-06-14T05:31:43+00:00",
+      "link": "https://arxiv.org/pdf/2606.15609v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "demonstrates a cybercrime method for LLM agents to bypass access control via memory fragmentation",
+      "llm_evidence_cn": "揭示 LLM 智能体通过记忆分片绕过访问控制的网络犯罪方法",
+      "llm_evidence": "揭示 LLM 智能体通过记忆分片绕过访问控制的网络犯罪方法",
+      "canonical_evidence": "揭示 LLM 智能体通过记忆分片绕过访问控制的网络犯罪方法",
+      "llm_tldr_en": "FragFuse introduces a novel attack where prohibited queries are split into benign memory fragments and later reconstructed, bypassing access controls in LLM agents, highlighting a critical vulnerability in agentic systems used for policy enforcement.",
+      "llm_tldr_cn": "LLM 智能体的记忆模块带来新的攻击面：被策略禁止的请求可拆分为无害片段存入记忆，随后通过检索重构，从而绕过访问控制。该论文提出 FragFuse 攻击，首次利用这一机制，系统评估多种模型下的攻击效果，证实了未经授权用户可成功绕过安全策略，揭示了 LLM 在潜在网络犯罪中的实际能力。",
+      "llm_tldr": "LLM 智能体的记忆模块带来新的攻击面：被策略禁止的请求可拆分为无害片段存入记忆，随后通过检索重构，从而绕过访问控制。该论文提出 FragFuse 攻击，首次利用这一机制，系统评估多种模型下的攻击效果，证实了未经授权用户可成功绕过安全策略，揭示了 LLM 在潜在网络犯罪中的实际能力。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "capabilities of large language models in cybercrime",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.15024v1",
+      "source": "arxiv",
+      "title": "Resilient Consensus in Agentic AI",
+      "abstract": "Large language model (LLM) agents are increasingly deployed in multi-agent systems where they must coordinate and agree on shared decisions. We ask whether classical resilient consensus theory, developed for deterministic agents, transfers to LLM agents that may behave adversarially. Framing LLM agreement as a Byzantine consensus game, we run controlled experiments on complete and general communication graphs. We find that prompted LLM agents fail to reach agreement that is achievable in principle: consensus can fail even in settings where classical theory guarantees that a convergent algorithm exists, and this failure persists across temperatures and horizons. At the same time, wrapping the agents with classical resilient consensus filters improves agreement. The benefit of filtering depends on how much robustness the underlying topology already provides. Our results suggest that classical resilient consensus theory is a useful lens for the safety of agentic AI.",
+      "authors": [
+        "Sribalaji C. Anand",
+        "George J. Pappas"
+      ],
+      "primary_category": "cs.MA",
+      "categories": [
+        "cs.MA",
+        "cs.AI",
+        "eess.SY"
+      ],
+      "published": "2026-06-12T23:41:53+00:00",
+      "link": "https://arxiv.org/pdf/2606.15024v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "explores adversarial LLM agent behavior in multi-agent consensus, providing a template for simulating malicious coordination in cybercrime contexts",
+      "llm_evidence_cn": "探索多智能体系统中对抗性 LLM 智能体的行为，为模拟网络犯罪中的恶意协调提供模板",
+      "llm_evidence": "探索多智能体系统中对抗性 LLM 智能体的行为，为模拟网络犯罪中的恶意协调提供模板",
+      "canonical_evidence": "探索多智能体系统中对抗性 LLM 智能体的行为，为模拟网络犯罪中的恶意协调提供模板",
+      "llm_tldr_en": "Framing LLM agent coordination as Byzantine consensus games, this paper shows that naive LLM agents fail to reach agreement under adversarial conditions, but wrapping them with consensus filters improves resilience, offering insights for simulating cybercriminal multi-agent systems.",
+      "llm_tldr_cn": "LLM 智能体在多智能体系统中需协调决策，但可能表现出对抗行为。该研究将 LLM 协议问题建模为拜占庭共识游戏，通过受控实验发现，简单提示的 LLM 代理难以达成理论可实现的共识，且这种现象在不同温度和轮次中持续。而加入经典弹性共识过滤器可提升一致性。这为运用多智能体系统模拟网络犯罪活动中的协同行为提供了方法论基础。",
+      "llm_tldr": "LLM 智能体在多智能体系统中需协调决策，但可能表现出对抗行为。该研究将 LLM 协议问题建模为拜占庭共识游戏，通过受控实验发现，简单提示的 LLM 代理难以达成理论可实现的共识，且这种现象在不同温度和轮次中持续。而加入经典弹性共识过滤器可提升一致性。这为运用多智能体系统模拟网络犯罪活动中的协同行为提供了方法论基础。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "How can agent based modeling and multi agent systems simulate cybercriminal activities with large language models?",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.16821v1",
+      "source": "arxiv",
+      "title": "How Much Can We Trust LLM Search Agents? Measuring Endorsement Vulnerability to Web Content Manipulation",
+      "abstract": "Large language model (LLM)-based search agents synthesize open-web content into actionable recommendations on behalf of users, creating a risk that attacker-published pages are transformed into endorsed claims. We introduce SearchGEO, a controlled evaluation framework for measuring endorsement corruption in LLM-based web-search agents, combining a web-evidence manipulation pipeline, a five-mode attack taxonomy, and multiple output-level metrics. We evaluate 13 LLM backends on 308 cases each. Results show that vulnerability patterns vary across backends: overall attack success rate (ASR) ranges from 0.0% on Claude-Sonnet-4.6 to 31.4% on Gemini-3-Flash, the strongest attack mode differs by model family, and the same deployment scaffold could amplify or decrease ASR on different backends. An auxiliary agent-skill probe, where endorsement becomes an install command, exposes a sharp split among otherwise robust backends: Claude over-rejects while GPT over-trusts. These findings argue for treating recommendation reliability under adversarial search content as a first-class dimension of backend safety evaluation.",
+      "authors": [
+        "Yimeng Chen",
+        "Zhe Ren",
+        "Firas Laakom",
+        "Yu Li",
+        "Dandan Guo",
+        "Jürgen Schmidhuber"
+      ],
+      "primary_category": "cs.CL",
+      "categories": [
+        "cs.CL",
+        "cs.CR",
+        "cs.CY",
+        "cs.IR"
+      ],
+      "published": "2026-06-15T15:05:25+00:00",
+      "link": "https://arxiv.org/pdf/2606.16821v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "measures LLM agents' susceptibility to endorsing attacker-controlled web content, a cybercrime relevant manipulation scenario",
+      "llm_evidence_cn": "评估 LLM 智能体对攻击者网页内容操控的认可脆弱性，涉及网络犯罪场景",
+      "llm_evidence": "评估 LLM 智能体对攻击者网页内容操控的认可脆弱性，涉及网络犯罪场景",
+      "canonical_evidence": "评估 LLM 智能体对攻击者网页内容操控的认可脆弱性，涉及网络犯罪场景",
+      "llm_tldr_en": "SearchGEO framework evaluates LLM search agents' vulnerability to endorsing manipulated web content, revealing varying attack success rates across models and deployment modes, underscoring risks in information manipulation.",
+      "llm_tldr_cn": "基于 LLM 的搜索智能体可能将攻击者发布的网页内容转化为被认可的建议，构成信息操纵风险。本研究提出 SearchGEO 评估框架，结合网页证据操控管线与五模式攻击分类法，测试 13 款 LLM 后端的认可脆弱性。结果显示攻击成功率差异显著，模型间、部署方式间均存在不同弱点，为理解 LLM 在网络犯罪情境下的能力提供了实证依据。",
+      "llm_tldr": "基于 LLM 的搜索智能体可能将攻击者发布的网页内容转化为被认可的建议，构成信息操纵风险。本研究提出 SearchGEO 评估框架，结合网页证据操控管线与五模式攻击分类法，测试 13 款 LLM 后端的认可脆弱性。结果显示攻击成功率差异显著，模型间、部署方式间均存在不同弱点，为理解 LLM 在网络犯罪情境下的能力提供了实证依据。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "capabilities of large language models in cybercrime",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2606.15008v1",
+      "source": "arxiv",
+      "title": "Security Engineering of OpenClaw: Analyzing Attack Surface Expansion and Trust-Boundary Violations",
+      "abstract": "Agentic large language model (LLM) systems can now execute actions, not only produce text. When model outputs trigger privileged operations such as shell commands, browser automation, or external tool calls, the security problem shifts from alignment alone to system configuration and structural design. We analyze OpenClaw, a self-hosted multi-agent system in which LLM outputs can execute commands and interact with tools and services. We measure compromise probability, boundary failures, privilege drift, and how these metrics change as attacker capability increases. With one agent, the compromise probability is 0.24. With seven agents, when the system executes an action, the compromise rises to 0.86 if any single agent proposes it. The models do not change; the increase comes from output aggregation. Prompt injection propagates instability across the system. Attack surface entropy increases from 0.42 to 0.71, indicating a broader distribution of exploit paths. The mean privilege drift increases from 0.03 to 0.21, indicating unintended authority gain. Positive escalation curvature of 0.08 indicates that privilege grows faster as attacker capability increases. Defensive controls, including policy gating and execution filtering, reduce compromise probability by 0.10, boundary failures by 0.10, and privilege drift by 0.02, all statistically significant at p < 0.0001. The system remains sensitive, but the mitigation impact is measurable. Injection mitigation success differs across models: 0.37 for GPT-5.2, 0.35 for Llama-4-Maverick, and 0.31 for DeepSeek-R1. When execution can be triggered by any single agent, the most vulnerable agent determines system exposure. Mitigations slightly reduce task utility from 0.93 to 0.89 and increase median latency from 420 ms to 468 ms.",
+      "authors": [
+        "Saeid Jamshidi",
+        "Arghavan Moradi Dakhel",
+        "Kawser Wazed Nafi",
+        "Foutse Khomh"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR"
+      ],
+      "published": "2026-06-12T23:00:42+00:00",
+      "link": "https://arxiv.org/pdf/2606.15008v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Measures compromise probability in a multi-agent LLM system as attacker capability grows, showing that with seven agents, any action leads to 0.86 compromise probability.",
+      "llm_evidence_cn": "测量在多智能体LLM系统中，随着攻击者能力增强，妥协概率上升；七个代理时，任何动作导致0.86的妥协概率。",
+      "llm_evidence": "测量在多智能体LLM系统中，随着攻击者能力增强，妥协概率上升；七个代理时，任何动作导致0.86的妥协概率。",
+      "canonical_evidence": "测量在多智能体LLM系统中，随着攻击者能力增强，妥协概率上升；七个代理时，任何动作导致0.86的妥协概率。",
+      "llm_tldr_en": "Analyzes the security of OpenClaw, a self-hosted multi-agent system where LLMs execute privileged commands, measuring how compromise probability escalates with number of agents and attacker sophistication.",
+      "llm_tldr_cn": "本文分析了自托管多智能体系统OpenClaw的安全性，其中LLM可执行特权命令。研究测量了妥协概率如何随代理数量和攻击者能力增加而急剧上升。单代理时妥协概率为0.24，七代理时任意动作即导致0.86的妥协概率，揭示了多智能体系统中的信任边界崩溃风险。",
+      "llm_tldr": "本文分析了自托管多智能体系统OpenClaw的安全性，其中LLM可执行特权命令。研究测量了妥协概率如何随代理数量和攻击者能力增加而急剧上升。单代理时妥协概率为0.24，七代理时任意动作即导致0.86的妥协概率，揭示了多智能体系统中的信任边界崩溃风险。",
+      "llm_tags": [
+        "query:ca:composite"
+      ],
+      "matched_query_tag": "query:ca:composite",
+      "matched_query_text": "Papers central to 探究网络犯罪中大模型的能力边界，类似智能体模拟、多智能体, especially work that connects or combines: capabilities of large language models in cybercrime; agent-based modeling of criminal activities; multi-agent systems for cybercrime simulation; exploring the capability boundaries of large language models in cyber contexts; simulating cybercrime using language models; adversarial agents for testing large language models in cybercrime; What are the capability limits of large language models when used for cybercrime?; How can agent based modeling and multi agent systems simulate cybercriminal activities with large language models?; evaluating the limits of large language models in cybercrime scenarios; Agent based simulation of cybercrime to evaluate large language model performance.",
+      "matched_requirement_id": "req-composite-ca",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2606.15788v1",
+      "source": "arxiv",
+      "title": "GAS-Leak-LLM: Genetic Algorithm-Based Suffix Optimization for Black-Box LLM Jailbreaking",
+      "abstract": "Large Language Models (LLMs) constitute pivotal components within the AI-dominated information technology ecosystem. To mitigate risks associated with harmful or policy-violating outputs, commercial systems employ advanced alignment strategies and multi-layered content moderation mechanisms. Despite these safeguards, recent research has demonstrated that LLMs remain vulnerable to adversarial manipulation, particularly through jailbreaking and prompt injection techniques. In this work, we propose GAS-Leak-LLM a novel jailbreaking attack based on a genetic algorithm that systematically evolves adversarial suffix to bypass safety constraints. Operating in a strict black-box setting, our method requires no access to model parameters or internals, thereby reflecting realistic threat scenarios in deployed systems. Through the iterative application of selection, mutation, and crossover heuristics, the framework systematically explores the discrete prompt space to identify high-fitness adversarial suffixes. Empirical findings reveal critical shortcomings in existing safety enforcement mechanisms and confirm the effectiveness and practical viability of the proposed attack.",
+      "authors": [
+        "Aman Anifer",
+        "Vignesh Kumar Kembu",
+        "Vishnu M",
+        "Antonino Nocera",
+        "Vinod P.",
+        "Amal Murali PK",
+        "Akshay S Rajan"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI"
+      ],
+      "published": "2026-06-14T12:41:21+00:00",
+      "link": "https://arxiv.org/pdf/2606.15788v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Genetic algorithm-based method to evolve adversarial suffixes for LLM jailbreaking, useful for testing LLM capability limits in cyber contexts.",
+      "llm_evidence_cn": "基于遗传算法演化对抗性后缀实现大模型越狱，可用于测试网络环境中大模型能力边界。",
+      "llm_evidence": "基于遗传算法演化对抗性后缀实现大模型越狱，可用于测试网络环境中大模型能力边界。",
+      "canonical_evidence": "基于遗传算法演化对抗性后缀实现大模型越狱，可用于测试网络环境中大模型能力边界。",
+      "llm_tldr_en": "GAS-Leak-LLM uses a genetic algorithm to optimize adversarial suffixes for black-box LLM jailbreaking, achieving high attack success rates without needing model parameters or internal information.",
+      "llm_tldr_cn": "现有越狱方法通常需要模型内部信息或大量查询。GAS-Leak-LLM提出了一种严格黑盒设置下的越狱攻击，采用遗传算法系统演化对抗性后缀来绕过安全约束。实验显示该方法能高效突破大模型的对齐机制，为测试真实场景下大模型的鲁棒性提供了轻量级工具，也可用于模拟网络犯罪中攻击者试探大模型边界的行为。",
+      "llm_tldr": "现有越狱方法通常需要模型内部信息或大量查询。GAS-Leak-LLM提出了一种严格黑盒设置下的越狱攻击，采用遗传算法系统演化对抗性后缀来绕过安全约束。实验显示该方法能高效突破大模型的对齐机制，为测试真实场景下大模型的鲁棒性提供了轻量级工具，也可用于模拟网络犯罪中攻击者试探大模型边界的行为。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "adversarial agents for testing large language models in cybercrime",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2606.16287v1",
+      "source": "arxiv",
+      "title": "Dynamic Malicious Skills in Agentic AI",
+      "abstract": "Skills are a key enabling component of agentic AI. While they enhance agents' capabilities, they also introduce new attack surfaces. In this work, we investigate one such attack surface by demonstrating dynamic malicious skills. By embedding malicious instructions in natural-language documentation (e.g., SKILL.md), an attacker can induce an agent to dynamically inject malicious logic into an otherwise benign skill during execution. We evaluate this attack across agentic frameworks such as OpenHands and Claude Code, showing that dynamic malicious skills can successfully introduce a range of malicious behaviors at runtime with non-trivial success rates. To mitigate this vulnerability, we propose a system-level defense that prevents dynamic modification of skills using operating system kernel-enforced read-only mounts. Our evaluation demonstrates that this defense effectively blocks dynamic malicious skills while preserving the functionality of benign skills.",
+      "authors": [
+        "Tianhao Chen",
+        "Zhengyuan Jiang",
+        "Yuepeng Hu",
+        "Yebei Gou",
+        "Neil Zhenqiang Gong"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR"
+      ],
+      "published": "2026-06-15T06:51:28+00:00",
+      "link": "https://arxiv.org/pdf/2606.16287v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Demonstrates that agentic AI can be induced to execute dynamic malicious skills via poisoned documentation, exploring attack surface and capability boundaries.",
+      "llm_evidence_cn": "展示了通过投毒文档诱导智能体AI执行动态恶意技能，探索攻击面和能力边界。",
+      "llm_evidence": "展示了通过投毒文档诱导智能体AI执行动态恶意技能，探索攻击面和能力边界。",
+      "canonical_evidence": "展示了通过投毒文档诱导智能体AI执行动态恶意技能，探索攻击面和能力边界。",
+      "llm_tldr_en": "This work investigates how embedding malicious instructions in skill documentation can cause LLM agents to dynamically execute malicious behaviors. Evaluations on OpenHands and Claude Code show high success rates, exposing a new attack surface in agentic AI systems.",
+      "llm_tldr_cn": "针对智能体AI的文档投毒攻击，本文揭示了攻击者可通过在技能文档中嵌入恶意指令，诱导代理在运行时动态注入恶意逻辑。在OpenHands和Claude Code上的实验显示，攻击成功率非平凡，暴露了智能体AI的新攻击面，并提出了基于操作系统的防御机制。该研究为评估大模型在恶意环境中的能力边界提供了重要参考。",
+      "llm_tldr": "针对智能体AI的文档投毒攻击，本文揭示了攻击者可通过在技能文档中嵌入恶意指令，诱导代理在运行时动态注入恶意逻辑。在OpenHands和Claude Code上的实验显示，攻击成功率非平凡，暴露了智能体AI的新攻击面，并提出了基于操作系统的防御机制。该研究为评估大模型在恶意环境中的能力边界提供了重要参考。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "exploring the capability boundaries of large language models in cyber contexts",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2606.16751v1",
+      "source": "arxiv",
+      "title": "Automated jailbreak attack targeting multiple defense strategies",
+      "abstract": "Large language models (LLMs) have demonstrated remarkable capabilities across a wide range of tasks. However, their safety remains a critical concern due to their susceptibility to adversarial prompt-based attacks. In this paper, we present UNIATTACK, an adversarial testing framework designed from a defense-oriented perspective to systematically construct effective black-box attack prompts. Unlike prior approaches that rely on static templates or iterative model-specific tuning, UNIATTACK extracts minimal but high-impact attack features from diverse existing attacks, optimizes them via a specialized attacker LLM, and composes them into flexible templates through automated refinement process. This feature-centric construction enables one-shot attacks that generalize across multiple models and safety categories, providing a practical tool for assessing LLM robustness. Our evaluation results shows that compared to the baselines, UNIATTACK achieves an average attack success rate (ASR) improvement of 64.63\\%-248.82\\% on models deployed with multi-layered defense mechanisms and it only takes 0.03\\%-4.96\\% cost of the baselines. UNIATTACK artifact is available at https://anonymous.4open.science/r/UniAttack-Artifact-30F1.",
+      "authors": [
+        "Qi Wang",
+        "Chengcheng Wan",
+        "Weijia He",
+        "Yanqing Li",
+        "Hanqi Sun",
+        "Xiaodong Gu",
+        "Jiangtao Wang"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI"
+      ],
+      "published": "2026-06-15T14:09:37+00:00",
+      "link": "https://arxiv.org/pdf/2606.16751v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Automated black-box jailbreak framework for testing LLM safety, applicable to adversarial cybercrime testing.",
+      "llm_evidence_cn": "自动化黑盒越狱框架，可应用于对抗性网络犯罪测试。",
+      "llm_evidence": "自动化黑盒越狱框架，可应用于对抗性网络犯罪测试。",
+      "canonical_evidence": "自动化黑盒越狱框架，可应用于对抗性网络犯罪测试。",
+      "llm_tldr_en": "UNIATTACK extracts minimal attack features, optimizes via an attacker LLM, and composes flexible templates for one-shot black-box jailbreak attacks that bypass defenses, showing high attack success rates.",
+      "llm_tldr_cn": "现有越狱攻击往往依赖静态模板或特定模型调优，泛化性不足。UNIATTACK框架从多种攻击中提取高影响特征，通过攻击者大模型优化并自动组合为灵活模板，生成一次性且通用的黑盒越狱攻击。实验表明该方法能绕过多种防御策略，成功率高，为评估大模型在对抗性场景下的安全性提供了系统化测试手段，间接适用于网络犯罪能力边界探测。",
+      "llm_tldr": "现有越狱攻击往往依赖静态模板或特定模型调优，泛化性不足。UNIATTACK框架从多种攻击中提取高影响特征，通过攻击者大模型优化并自动组合为灵活模板，生成一次性且通用的黑盒越狱攻击。实验表明该方法能绕过多种防御策略，成功率高，为评估大模型在对抗性场景下的安全性提供了系统化测试手段，间接适用于网络犯罪能力边界探测。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "adversarial agents for testing large language models in cybercrime",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}

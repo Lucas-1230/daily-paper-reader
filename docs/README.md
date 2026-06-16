@@ -6,49 +6,46 @@
 </div>
 
 ## 每次日报
-- 最新运行日期：2026-06-15
-- 运行时间：2026-06-15 22:50:00 UTC
+- 最新运行日期：2026-06-16
+- 运行时间：2026-06-16 22:53:35 UTC
 - 运行状态：成功
-- 本次总论文数：9
-- 精读区：5
+- 本次总论文数：8
+- 精读区：4
 - 速读区：4
 
 ### 今日简报（AI）
-今日聚焦大模型安全攻防：发现语法约束解码可被越狱生成恶意代码，并探索了多智能体合谋红队测试方法。
-最值得关注的是，限制性解码并非安全“护栏”，反而可能被逆向利用；多智能体系统的协作攻击也需用Shapley值引导的红队策略主动暴露脆弱点。
-建议开发者重新审视模型输出的结构性约束，并为多智能体环境引入动态、对抗性的安全审计与记忆审计机制。
-- 详情：[/202606/15/README](/202606/15/README)
+今日精读聚焦LLM安全：量化微调对漏洞利用生成的影响，并揭示代理内存碎片化访问控制的新威胁。
+最值得关注的是“数据驱动基准”证实微调可能放大攻击能力，而“FragFuse”展示了利用代理内部记忆绕过权限的隐蔽手法。
+建议普通读者留意：未来AI系统需在训练与记忆链路上强化安全检测，避免看似无害的微调埋下隐患。
+- 详情：[/202606/16/README](/202606/16/README)
 
 ### 精读区论文标签
-1. [Grammar-Constrained Decoding Can Jailbreak LLMs into Generating Malicious Code](/202606/15/2606.11817v1-grammar-constrained-decoding-can-jailbreak-llms-into-generating-malicious-code)  
+1. [Data-Centric Benchmarking of Exploit Generation in LLMs: Understanding the Impact of Fine-Tuning](/202606/16/2606.15123v1-data-centric-benchmarking-of-exploit-generation-in-llms-understanding-the-impact-of-fine-tuning)  
+   标签：评分：10.0/10、query:ca
+   evidence：对LLM进行漏洞利用生成基准测试，直接评估其网络犯罪能力
+2. [FragFuse: Bypassing Access Control of Large Language Model Agents via Memory-Based Query Fragmentation and Fusion](/202606/16/2606.15609v1-fragfuse-bypassing-access-control-of-large-language-model-agents-via-memory-based-query-fragmentation-and-fusion)  
    标签：评分：9.0/10、query:ca
-   evidence：展示利用语法约束解码进行越狱攻击诱导LLM生成恶意代码，直接探测LLM网络犯罪能力
-2. [MAStrike: Shapley-Guided Collusive Red-Teaming on Multi-Agent Systems](/202606/15/2606.12918v2-mastrike-shapley-guided-collusive-red-teaming-on-multi-agent-systems)  
-   标签：评分：9.0/10、query:ca
-   evidence：多智能体系统的红队框架，直接测试合谋对抗行为，类似网络犯罪场景
-3. [SEVRA-BENCH: Social Engineering of Vulnerabilities in Review Agents](/202606/15/2606.13757v1-sevra-bench-social-engineering-of-vulnerabilities-in-review-agents)  
-   标签：评分：9.0/10、query:ca
-   evidence：基准测试LLM审查者对社会工程攻击的脆弱性，衡量其批准恶意代码的频率
-4. [AgentCyberRange: Benchmarking Frontier AI Systems in Realistic Cyber Ranges](/202606/15/2606.14295v1-agentcyberrange-benchmarking-frontier-ai-systems-in-realistic-cyber-ranges)  
-   标签：评分：9.0/10、query:ca
-   evidence：在真实网络攻击场景中测试大模型以评估其进攻能力
-5. [SkillMutator: Benchmarking and Defending Language-and-Code Cross-modal Attacks on LLM Agent Skills](/202606/15/2606.14154v1-skillmutator-benchmarking-and-defending-language-and-code-cross-modal-attacks-on-llm-agent-skills)  
+   evidence：揭示 LLM 智能体通过记忆分片绕过访问控制的网络犯罪方法
+3. [Resilient Consensus in Agentic AI](/202606/16/2606.15024v1-resilient-consensus-in-agentic-ai)  
    标签：评分：8.0/10、query:ca
-   evidence：通过LLM智能体技能的跨模态攻击实现数据窃取，一种网络犯罪能力。
+   evidence：探索多智能体系统中对抗性 LLM 智能体的行为，为模拟网络犯罪中的恶意协调提供模板
+4. [How Much Can We Trust LLM Search Agents? Measuring Endorsement Vulnerability to Web Content Manipulation](/202606/16/2606.16821v1-how-much-can-we-trust-llm-search-agents-measuring-endorsement-vulnerability-to-web-content-manipulation)  
+   标签：评分：8.0/10、query:ca
+   evidence：评估 LLM 智能体对攻击者网页内容操控的认可脆弱性，涉及网络犯罪场景
 
 ### 速读区论文标签
-1. [ConMem: Structured Memory-Guided Adaptation in Training-Free Multi-Agent Systems](/202606/15/2606.08702v1-conmem-structured-memory-guided-adaptation-in-training-free-multi-agent-systems)  
+1. [Security Engineering of OpenClaw: Analyzing Attack Surface Expansion and Trust-Boundary Violations](/202606/16/2606.15008v1-security-engineering-of-openclaw-analyzing-attack-surface-expansion-and-trust-boundary-violations)  
    标签：评分：7.0/10、query:ca
-   evidence：提出多智能体系统的记忆引导自适应方法，可用于犯罪模拟
-2. [Runtime Skill Audit: Targeted Runtime Probing for Agent Skill Security](/202606/15/2606.11671v1-runtime-skill-audit-targeted-runtime-probing-for-agent-skill-security)  
+   evidence：测量在多智能体LLM系统中，随着攻击者能力增强，妥协概率上升；七个代理时，任何动作导致0.86的妥协概率。
+2. [Dynamic Malicious Skills in Agentic AI](/202606/16/2606.16287v1-dynamic-malicious-skills-in-agentic-ai)  
    标签：评分：7.0/10、query:ca
-   evidence：运行时探测检测恶意LLM智能体技能，评估网络犯罪能力的方法。
-3. [SkillHone: A Harness for Continual Agent Skill Evolution Through Persistent Decision History](/202606/15/2606.08671v1-skillhone-a-harness-for-continual-agent-skill-evolution-through-persistent-decision-history)  
+   evidence：展示了通过投毒文档诱导智能体AI执行动态恶意技能，探索攻击面和能力边界。
+3. [GAS-Leak-LLM: Genetic Algorithm-Based Suffix Optimization for Black-Box LLM Jailbreaking](/202606/16/2606.15788v1-gas-leak-llm-genetic-algorithm-based-suffix-optimization-for-black-box-llm-jailbreaking)  
    标签：评分：6.0/10、query:ca
-   evidence：持续智能体技能演化框架，可用于模拟犯罪智能体的适应行为
-4. [A Generalized Hacker Dynamics Model with Nonlinear Incidence: Analysis and Positivity-Preserving Numerical Simulation](/202606/15/2606.14191v1-a-generalized-hacker-dynamics-model-with-nonlinear-incidence-analysis-and-positivity-preserving-numerical-simulation)  
+   evidence：基于遗传算法演化对抗性后缀实现大模型越狱，可用于测试网络环境中大模型能力边界。
+4. [Automated jailbreak attack targeting multiple defense strategies](/202606/16/2606.16751v1-automated-jailbreak-attack-targeting-multiple-defense-strategies)  
    标签：评分：6.0/10、query:ca
-   evidence：广义黑客动力学仓室模型，直接建模网络安全中犯罪活动传播
+   evidence：自动化黑盒越狱框架，可应用于对抗性网络犯罪测试。
 
 
 <div class="dpr-home-promo-card">
