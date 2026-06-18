@@ -1,6 +1,9 @@
 * <a class="dpr-sidebar-root-link" href="#/">首页</a>
 * <a class="dpr-sidebar-root-link dpr-sidebar-noactive-link" href="javascript:void(0)" data-dpr-hash="#/tutorial/README">使用教程</a>
 * Daily Papers
+  * 2026-06-18 <!--dpr-date:20260618-->
+    * 精读区
+      * <a class="dpr-sidebar-item-link dpr-sidebar-item-structured" href="#/202606/18/2606.18356v1-safeclawbench-separating-semantic-audit-evidence-and-sandbox-harm-in-tool-using-llm-agents" data-sidebar-item="{&quot;title&quot;: &quot;SafeClawBench: Separating Semantic, Audit-Evidence, and Sandbox Harm in Tool-Using LLM Agents&quot;, &quot;link&quot;: &quot;https://arxiv.org/abs/2606.18356v1-safeclawbench-separating-semantic-audit-evidence-and-sandbox-harm-in-tool-using-llm-agents&quot;, &quot;score&quot;: &quot;10.0&quot;, &quot;tags&quot;: [{&quot;kind&quot;: &quot;query&quot;, &quot;label&quot;: &quot;ca&quot;}], &quot;evidence&quot;: &quot;面向工具使用型大模型代理的安全基准，模拟六类攻击以评估网络犯罪场景中的能力极限&quot;}">SafeClawBench: Separating Semantic, Audit-Evidence, and Sandbox Harm in Tool-Using LLM Agents</a>
   * 2026-06-17 <!--dpr-date:20260617-->
     * 精读区
       * <a class="dpr-sidebar-item-link dpr-sidebar-item-structured" href="#/202606/17/2606.14295v2-agentcyberrange-benchmarking-frontier-ai-systems-in-realistic-cyber-ranges" data-sidebar-item="{&quot;title&quot;: &quot;AgentCyberRange: Benchmarking Frontier AI Systems in Realistic Cyber Ranges&quot;, &quot;link&quot;: &quot;https://arxiv.org/abs/2606.14295v2-agentcyberrange-benchmarking-frontier-ai-systems-in-realistic-cyber-ranges&quot;, &quot;score&quot;: &quot;10.0&quot;, &quot;tags&quot;: [{&quot;kind&quot;: &quot;query&quot;, &quot;label&quot;: &quot;ca&quot;}], &quot;evidence&quot;: &quot;在仿真网络靶场中评估AI系统的攻击能力，覆盖从获取立足点到横向移动的入侵流程&quot;}">AgentCyberRange: Benchmarking Frontier AI Systems in Realistic Cyber Ranges</a>

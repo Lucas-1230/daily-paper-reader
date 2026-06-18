@@ -1,0 +1,59 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-06-18T21:52:21.295531+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 1,
+    "deep_cap": 6,
+    "deep_selected": 1,
+    "quick_candidates": 0,
+    "quick_skim_target": 11,
+    "quick_selected": 0
+  },
+  "deep_dive": [
+    {
+      "id": "2606.18356v1",
+      "source": "arxiv",
+      "title": "SafeClawBench: Separating Semantic, Audit-Evidence, and Sandbox Harm in Tool-Using LLM Agents",
+      "abstract": "Tool-using language-model agents introduce security failures that go beyond unsafe text: they can disclose protected objects, write persistent memory, send messages, modify databases, or trigger harmful code and tool effects. Existing evaluations often collapse these stages into a single attack success rate, making it difficult to tell whether a model merely agreed with an attacker or actually produced observable harm. We introduce SafeClawBench, a staged benchmark for tool-using agent security with 600 controlled adversarial tasks across six attack families: direct and indirect prompt injection, tool-return injection, memory poisoning, memory extraction, and ambiguity-driven unsafe inference. SafeClawBench reports three separate endpoints: semantic attack acceptance, audit-visible harm evidence, and sandbox-observed tool/state harm. Evaluating five agent endpoints under four prompt-level policies, we find that these endpoints capture different failure modes. Without additional prompt protection, semantic failure rates vary widely across models, from 9.0% to 44.2%. Audited harm evidence is narrower than semantic failure, and under a separate executable protocol some matched task identities produce sandbox harm despite passing the Semantic Core call: in a 12,000-row matched analysis, 291 of 347 observed sandbox harms occur in rows that pass the semantic check. Prompt policies change endpoint outcomes, but their effects depend on both model and protocol. SafeClawBench provides a reproducible framework for comparing agent models and prompt-policy conditions without conflating textual compliance, evidence-supported harm, and executable state changes. The open-source dataset is available at https://huggingface.co/datasets/sairights/safeclawbench.",
+      "authors": [
+        "Yuchuan Tian",
+        "Mengyu Zheng",
+        "Haocheng Mei",
+        "Ye Yuan",
+        "Chao Xu",
+        "Xinghao Chen",
+        "Hanting Chen",
+        "Yu Wang"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI"
+      ],
+      "published": "2026-06-16T18:04:45+00:00",
+      "link": "https://arxiv.org/pdf/2606.18356v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 10.0,
+      "llm_evidence_en": "benchmark for tool-using LLM agent security, simulating six attack families to evaluate limits in cybercrime scenarios",
+      "llm_evidence_cn": "面向工具使用型大模型代理的安全基准，模拟六类攻击以评估网络犯罪场景中的能力极限",
+      "llm_evidence": "面向工具使用型大模型代理的安全基准，模拟六类攻击以评估网络犯罪场景中的能力极限",
+      "canonical_evidence": "面向工具使用型大模型代理的安全基准，模拟六类攻击以评估网络犯罪场景中的能力极限",
+      "llm_tldr_en": "Introduces SafeClawBench, a 600-task benchmark separating semantic, audit-evidence, and sandbox harm for tool-using LLM agents, revealing gaps between intended and actual harm.",
+      "llm_tldr_cn": "SafeClawBench是一个包含600个对抗任务的基准，用于分离工具使用型大模型代理的语义、审计证据和沙盒危害。实验暴露了意图与实际行动之间的安全差距，为模拟网络犯罪并测试大模型提供了标准化平台。",
+      "llm_tldr": "SafeClawBench是一个包含600个对抗任务的基准，用于分离工具使用型大模型代理的语义、审计证据和沙盒危害。实验暴露了意图与实际行动之间的安全差距，为模拟网络犯罪并测试大模型提供了标准化平台。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "Agent based simulation of cybercrime to evaluate large language model performance",
+      "matched_requirement_id": "req-10",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": []
+}

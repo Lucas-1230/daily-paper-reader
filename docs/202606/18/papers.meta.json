@@ -1,0 +1,24 @@
+{
+  "label": "2026-06-18",
+  "date": "2026-06-18",
+  "generated_at": "2026-06-18T21:54:30",
+  "count": 1,
+  "papers": [
+    {
+      "paper_id": "202606/18/2606.18356v1-safeclawbench-separating-semantic-audit-evidence-and-sandbox-harm-in-tool-using-llm-agents",
+      "section": "deep",
+      "title_en": "SafeClawBench: Separating Semantic, Audit-Evidence, and Sandbox Harm in Tool-Using LLM Agents",
+      "authors": "Yuchuan Tian, Mengyu Zheng, Haocheng Mei, Ye Yuan, Chao Xu, Xinghao Chen, Hanting Chen, Yu Wang",
+      "date": "2026-06-16",
+      "pdf": "https://arxiv.org/pdf/2606.18356v1",
+      "score": "10.0",
+      "evidence": "面向工具使用型大模型代理的安全基准，模拟六类攻击以评估网络犯罪场景中的能力极限",
+      "tldr": "工具使用LLM代理的安全评估常混淆语义同意与实际危害，难以定位脆弱性。SafeClawBench将安全目标分离为语义接受度、审计证据与沙箱可执行危害三个终点，在600个对抗任务上评测多种模型。研究发现，模型语义失败率差异显著(9.0%-44.2%)，且在语义通过的案例中仍有大量沙箱危害(291/347次)出现，提示策略的效果高度依赖模型与协议。该基准为细粒度、可复现的代理安全比较提供了关键框架。",
+      "tags": "query:ca",
+      "abstract_en": "Tool-using language-model agents introduce security failures that go beyond unsafe text: they can disclose protected objects, write persistent memory, send messages, modify databases, or trigger harmful code and tool effects. Existing evaluations often collapse these stages into a single attack success rate, making it difficult to tell whether a model merely agreed with an attacker or actually produced observable harm. We introduce SafeClawBench, a staged benchmark for tool-using agent security with 600 controlled adversarial tasks across six attack families: direct and indirect prompt injection, tool-return injection, memory poisoning, memory extraction, and ambiguity-driven unsafe inference. SafeClawBench reports three separate endpoints: semantic attack acceptance, audit-visible harm evidence, and sandbox-observed tool/state harm. Evaluating five agent endpoints under four prompt-level policies, we find that these endpoints capture different failure modes. Without additional prompt protection, semantic failure rates vary widely across models, from 9.0% to 44.2%. Audited harm evidence is narrower than semantic failure, and under a separate executable protocol some matched task identities produce sandbox harm despite passing the Semantic Core call: in a 12,000-row matched analysis, 291 of 347 observed sandbox harms occur in rows that pass the semantic check. Prompt policies change endpoint outcomes, but their effects depend on both model and protocol. SafeClawBench provides a reproducible framework for comparing agent models and prompt-policy conditions without conflating textual compliance, evidence-supported harm, and executable state changes. The open-source dataset is available at https://huggingface.co/datasets/sairights/safeclawbench.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}
