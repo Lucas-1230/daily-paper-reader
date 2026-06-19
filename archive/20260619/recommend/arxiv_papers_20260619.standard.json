@@ -1,0 +1,135 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-06-19T20:31:41.731926+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 0,
+    "deep_cap": 6,
+    "deep_selected": 0,
+    "quick_candidates": 3,
+    "quick_skim_target": 11,
+    "quick_selected": 3
+  },
+  "deep_dive": [],
+  "quick_skim": [
+    {
+      "id": "2606.18166v1",
+      "source": "arxiv",
+      "title": "Evaluating Open-Source LLMs for Multi-Label ATT&CK Technique Classification on CTI Reports",
+      "abstract": "Classifying Cyber Threat Intelligence (CTI) using MITRE Adversarial Tactics, Techniques, and Common Knowledge (ATT&CK) is essential for proactive defense, but historically required extensive human effort. Pre-Large Language Model (LLM) automation sped up this process, but could not resolve the complex language and multi-step attack patterns found in unstructured CTI reports. LLMs addressed previous limitations by using contextual reasoning to understand unstructured text. However, current evaluations rely on simplified, single-technique sentences that ignore the complexity of real-world CTI reports, which often leads to inflated performance results. Consequently, the baseline performance of open-source LLMs on complex unstructured CTI reports remains unevaluated. To address this gap, we constructed a ground-truth dataset of 2,076 human-annotated sentences (1,281 technique-positive, 795 negative) from 83 complex unstructured CTI reports. These sentences were mapped to 114 unique ATT&CK techniques using a six-phase annotation process, achieving \\k{appa} = 0.68 inter-annotator agreement. Using this dataset, we evaluated seven open-source LLMs ranging from 8B to 236B parameters across prompt strategy and temperature configurations. The highest-performing LLM achieved a micro-averaged F1 score of 0.22, establishing the empirical baseline for multi-label ATT&CK classification on complex unstructured CTI. Parameter size showed a statistically significant positive correlation with F1 score. Prompt strategy and temperature produced no statistically significant gains across model configurations. These results indicate that current open-source LLMs are insufficient for production-grade ATT&CK classification. The dataset, benchmark, and findings provide a reproducible foundation for future CTI research.",
+      "authors": [
+        "Ahmed Ryan",
+        "Saad Sakib Noor",
+        "Md Erfan",
+        "Shaswata Mitra",
+        "Sudip Mittal",
+        "Md Rayhanur Rahman"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.LG"
+      ],
+      "published": "2026-06-16T17:04:15+00:00",
+      "link": "https://arxiv.org/pdf/2606.18166v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Evaluates LLMs on complex CTI reports for multi-label ATT&CK classification, revealing limits in realistic settings.",
+      "llm_evidence_cn": "评估大语言模型在真实威胁情报报告上的多标签ATT&CK分类能力，揭示其在复杂场景下的局限",
+      "llm_evidence": "评估大语言模型在真实威胁情报报告上的多标签ATT&CK分类能力，揭示其在复杂场景下的局限",
+      "canonical_evidence": "评估大语言模型在真实威胁情报报告上的多标签ATT&CK分类能力，揭示其在复杂场景下的局限",
+      "llm_tldr_en": "This paper evaluates open-source LLMs on multi-label ATT&CK technique classification using real CTI reports, showing that current simplified evaluations overestimate performance and that LLMs struggle with complex attack patterns.",
+      "llm_tldr_cn": "针对当前大语言模型在网络威胁情报分类中评估过于简化的问题，本文构建了真实复杂报告数据集并评估开源模型。实验发现模型在精细多标签ATT&CK分类中表现不佳，揭示了现有基准的虚高问题，为真实场景应用提供了更可靠的性能基线。",
+      "llm_tldr": "针对当前大语言模型在网络威胁情报分类中评估过于简化的问题，本文构建了真实复杂报告数据集并评估开源模型。实验发现模型在精细多标签ATT&CK分类中表现不佳，揭示了现有基准的虚高问题，为真实场景应用提供了更可靠的性能基线。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "exploring the capability boundaries of large language models in cyber contexts",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2606.18532v1",
+      "source": "arxiv",
+      "title": "AI Sandboxes: A Threat Model, Taxonomy, and Measurement Framework",
+      "abstract": "AI systems are increasingly evaluated in bounded environments that combine isolation, simulation, instrumentation, supervision, and evidence capture. For physical AI, AIoT, and cyber-physical systems, this shift is not a matter of terminology: the system under test may sense, decide, actuate, communicate, and fail through physical processes, networked devices, and human operators. This article develops an assurance-oriented account of AI sandboxes as controlled environments for testing, evaluation, verification, and validation across digital AI, embodied autonomy, and cyber-physical deployments. We formalize the sandbox boundary and a weakest-link rule for composing per-dimension evidence into a bounded deployment claim; separate major sandbox archetypes; define a cyber-physical threat model that includes attacks on the assurance apparatus itself; and introduce a measurement framework spanning fidelity, controllability, observability, containment, reproducibility, and governance artifacts, instantiated on three worked case studies of real sandboxes. The resulting threat model, taxonomy, and measurement framework clarify what a sandbox can validly test, which risks it can contain, and what forms of evidence it can support for safety, security, and regulatory assurance.",
+      "authors": [
+        "Inderjeet Singh",
+        "Haitham Mahmoud",
+        "Andrés Murillo"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI",
+        "cs.RO",
+        "cs.SE"
+      ],
+      "published": "2026-06-16T22:57:24+00:00",
+      "link": "https://arxiv.org/pdf/2606.18532v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Develops a framework for AI sandboxes as controlled testing environments, which can be used to simulate and evaluate LLMs in cybercrime scenarios",
+      "llm_evidence_cn": "提出AI沙盒作为受控测试环境的框架，可用于模拟和评估网络犯罪场景中的LLM",
+      "llm_evidence": "提出AI沙盒作为受控测试环境的框架，可用于模拟和评估网络犯罪场景中的LLM",
+      "canonical_evidence": "提出AI沙盒作为受控测试环境的框架，可用于模拟和评估网络犯罪场景中的LLM",
+      "llm_tldr_en": "Formalizes AI sandbox boundaries and evidence composition, providing a measurement framework for testing AI systems, including LLM agents, in bounded environments. This methodology supports simulating cybercrime scenarios to evaluate LLM performance.",
+      "llm_tldr_cn": "针对AI系统在受控环境中测试评估的需求，提出AI沙盒的威胁模型、分类法和度量框架，形式化沙盒边界和最弱链接规则。该框架适用于数字AI、具身自主和网络物理系统的测试，可为网络犯罪模拟中LLM的性能评估提供受控环境的设计基础。",
+      "llm_tldr": "针对AI系统在受控环境中测试评估的需求，提出AI沙盒的威胁模型、分类法和度量框架，形式化沙盒边界和最弱链接规则。该框架适用于数字AI、具身自主和网络物理系统的测试，可为网络犯罪模拟中LLM的性能评估提供受控环境的设计基础。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "Agent based simulation of cybercrime to evaluate large language model performance",
+      "matched_requirement_id": "req-10",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2606.20470v1",
+      "source": "arxiv",
+      "title": "Analyzing Defensive Misdirection Against Model-Guided Automated Attacks on Agentic AI Systems",
+      "abstract": "Agentic AI systems increasingly rely on language-model components to interpret instructions, process external data, invoke tools, and coordinate with other agents. These capabilities make prompt-injection and jailbreak attacks more consequential, especially as attackers adopt model-guided automation to scale probing, prompt refinement, and response evaluation. This work analyzes the resulting attack-defense setting through a probabilistic model of a target system, its defense mechanism, and the attacker's automated judge. Our analysis shows that conventional detect-and-block defenses can allow attacker success rate (ASR) to approach one as the query budget grows, since predictable refusals provide useful feedback to automated search. We then examine detect-and-misdirect, where detected malicious interactions receive controlled, non-operational responses designed to induce false-positive errors in the attacker's judge. This strategy reduces the positive predictive value of attacker-selected candidates and yields a bounded asymptotic ASR. We evaluate a proof-of-concept realization of this strategy through Contextual Misdirection via Progressive Engagement (CMPE), a lightweight conversational misdirection method designed to replace predictable refusal text with safe but strategically misleading responses in automated jailbreak settings. On jailbreak benchmarks, CMPE reduces estimated ASR upper bounds by up to two orders of magnitude and nearly eliminates verified attack success in end-to-end PAIR and GPTFuzz attack runs.",
+      "authors": [
+        "Reza Soosahabi",
+        "Vivek Namsani"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI"
+      ],
+      "published": "2026-06-18T16:50:28+00:00",
+      "link": "https://arxiv.org/pdf/2606.20470v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Analyzes defense against automated adversarial attacks on LLM agents, providing insights into security limits and attack-defense dynamics",
+      "llm_evidence_cn": "分析针对LLM代理的自动化对抗攻击的防御，为安全限制和攻防动态提供见解",
+      "llm_evidence": "分析针对LLM代理的自动化对抗攻击的防御，为安全限制和攻防动态提供见解",
+      "canonical_evidence": "分析针对LLM代理的自动化对抗攻击的防御，为安全限制和攻防动态提供见解",
+      "llm_tldr_en": "Probabilistic model of attack-defense in agentic AI systems with model-guided attacks, showing that conventional defenses may fail with enough query budget. This informs evaluation of LLM resilience in adversarial cyber contexts.",
+      "llm_tldr_cn": "针对代理AI系统中攻击者利用模型引导自动化扩大探测和精炼提示的问题，通过概率模型分析目标系统、防御机制和自动化法官的交互。分析表明，传统检测拦截防御随着查询预算增加，攻击成功率可趋近于1，因为可预测的拒绝为自动化搜索提供了反馈。这为评估LLM在网络犯罪对抗场景中的能力边界提供了理论基础。",
+      "llm_tldr": "针对代理AI系统中攻击者利用模型引导自动化扩大探测和精炼提示的问题，通过概率模型分析目标系统、防御机制和自动化法官的交互。分析表明，传统检测拦截防御随着查询预算增加，攻击成功率可趋近于1，因为可预测的拒绝为自动化搜索提供了反馈。这为评估LLM在网络犯罪对抗场景中的能力边界提供了理论基础。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "evaluating the limits of large language models in cybercrime scenarios",
+      "matched_requirement_id": "req-9",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}
