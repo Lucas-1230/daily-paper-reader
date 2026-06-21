@@ -1,0 +1,97 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-06-21T20:53:00.881086+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 0,
+    "deep_cap": 6,
+    "deep_selected": 0,
+    "quick_candidates": 2,
+    "quick_skim_target": 11,
+    "quick_selected": 2
+  },
+  "deep_dive": [],
+  "quick_skim": [
+    {
+      "id": "2606.15899v1",
+      "source": "arxiv",
+      "title": "SkillVetBench: LLM-as-Judge for Multi-Dimensional Security Risk Evaluation in Open-Source LLM Agent Skills",
+      "abstract": "Open-source LLM agent ecosystems are growing rapidly, yet the security of community-contributed skills - modular tool definitions that extend agent capabilities - remains largely unvetted. The gap we fill: existing scanners operate at the code layer and are structurally blind to instruction-layer and multi-agent risk - natural-language directives that hijack an agent, exfiltrate data through encoded side channels, or chain harm across pipelines - so what is needed is a semantic, multi-dimensional vetting system rather than another signature matcher. We present SKILLVETBENCH, a live public leaderboard on Hugging Face that uses an LLM-as-Judge to vet agent skills. What is new: SARS (Skill Agentic Risk Score), a five-dimensional agentic-risk metric with a principled weighted formula for instruction-following systems. What is integrated: full CVSS v4.0 vector decomposition and a ClawHub dual-view that places our LLM-generated review beside the official marketplace verdict. What is demonstrated: drawing on our companion benchmark paper [ 1], the LLM-as-Judge stage achieves zero false negatives across 78 confirmed-malicious skills and zero false positives across 22 benign controls, while the best static baseline (SKILLSIEVE) still misses 15%; for instruction-layer categories such as Prompt Injection and Memory Poisoning, conventional tools miss between 89% and 100% of threats (e.g., CODEBERT detects none of nine memory-poisoning skills). Detection rates vary from 35% to 95% across four LLM evaluators, motivating ensemble scoring in production deployments.",
+      "authors": [
+        "Ismail Hossain",
+        "Sai Puppala",
+        "Md Jahangir Alam",
+        "Tanzim Ahad",
+        "Sajedul Talukder"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI",
+        "cs.HC",
+        "cs.LG",
+        "cs.MA"
+      ],
+      "published": "2026-06-14T16:30:33+00:00",
+      "link": "https://arxiv.org/pdf/2606.15899v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "evaluates LLM agent skills for security risks including multi-agent harm, relevant to simulating cybercriminal activities",
+      "llm_evidence_cn": "评估LLM智能体技能的安全风险，包括多智能体危害，与模拟网络犯罪活动相关",
+      "llm_evidence": "评估LLM智能体技能的安全风险，包括多智能体危害，与模拟网络犯罪活动相关",
+      "canonical_evidence": "评估LLM智能体技能的安全风险，包括多智能体危害，与模拟网络犯罪活动相关",
+      "llm_tldr_en": "SkillVetBench introduces a benchmark and a multi-dimensional risk score to vet LLM agent skills for instruction-layer and multi-agent threats, aiding cybercrime simulation agent security assessment.",
+      "llm_tldr_cn": "SkillVetBench直面现有扫描器对自然语言指令级风险的盲区，通过构建SARS五维评分和公开排行榜，实现了对智能体技能语义级的多维度风险审查。该方法有效揭示了多智能体交互中潜在的数据窃取、代理劫持等高级威胁模式，为构建安全可信的智能体网络犯罪模拟平台提供了关键工具。",
+      "llm_tldr": "SkillVetBench直面现有扫描器对自然语言指令级风险的盲区，通过构建SARS五维评分和公开排行榜，实现了对智能体技能语义级的多维度风险审查。该方法有效揭示了多智能体交互中潜在的数据窃取、代理劫持等高级威胁模式，为构建安全可信的智能体网络犯罪模拟平台提供了关键工具。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "How can agent based modeling and multi agent systems simulate cybercriminal activities with large language models?",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2606.18193v1",
+      "source": "arxiv",
+      "title": "A Red-Team Study of Anthropic Fable 5 & Opus 4.8 Models",
+      "abstract": "We evaluate the adversarial robustness of two frontier large language models (LLMs) developed by Anthropic, Fable 5 and Opus 4.8, against four families of automated jailbreak attack across 7 826 harmful intents spanning a ten-category harm taxonomy. Using the HackAgent red-teaming framework, hundreds of thousands of adversarial attempts were generated and every apparent success was independently re-adjudicated by a panel of three judge models (majority vote). Both models resist the majority of attacks, but the residual surface is larger than aggregate framing suggests: it is dominated by adaptive iterative attacks, while static obfuscation is near-fully neutralised. The strongest adaptive search (tree-of-attacks) breaks Opus 4.8 on 11.5% of intents overall, whereas Fable 5 stays in the single digits (6.1% worst-case). Aggregate rates therefore should not be read as reassurance. Even in these hardened configurations, the two models produced 1 620 (Opus 4.8) and 702 (Fable 5) panel-confirmed harmful completions spanning every harm category, located automatically, cheaply, and within the first one or two refinement steps by an attacker model with no human expert in the loop. The reasonable conclusion is that even the best, most-tested frontier models remain reliably breakable under sustained automated pressure.",
+      "authors": [
+        "Nicola Franco"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI",
+        "cs.CL"
+      ],
+      "published": "2026-06-16T17:23:58+00:00",
+      "link": "https://arxiv.org/pdf/2606.18193v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Red-teaming study evaluates adversarial robustness of LLMs against harmful intents, exploring capability boundaries.",
+      "llm_evidence_cn": "红队研究评估大语言模型对有害意图的对抗鲁棒性，探索能力边界。",
+      "llm_evidence": "红队研究评估大语言模型对有害意图的对抗鲁棒性，探索能力边界。",
+      "canonical_evidence": "红队研究评估大语言模型对有害意图的对抗鲁棒性，探索能力边界。",
+      "llm_tldr_en": "This paper evaluates the adversarial robustness of two frontier LLMs using automated jailbreak attacks across 7,826 harmful intents. It finds that while basic attacks are resisted, adaptive iterative attacks still succeed, revealing residual vulnerability surfaces and capability boundaries.",
+      "llm_tldr_cn": "该研究针对两款前沿大语言模型，利用自动化越狱攻击框架（HackAgent）在涵盖十个类别、共7826个有害意图上评估其对抗鲁棒性。结果表明模型能抵御大部分攻击，但自适应迭代攻击仍可突破限制，尤其是树状搜索攻击在Opus 4.8上对11.5%的意图成功，揭示了大模型在有害场景下的能力边界和残余脆弱性。",
+      "llm_tldr": "该研究针对两款前沿大语言模型，利用自动化越狱攻击框架（HackAgent）在涵盖十个类别、共7826个有害意图上评估其对抗鲁棒性。结果表明模型能抵御大部分攻击，但自适应迭代攻击仍可突破限制，尤其是树状搜索攻击在Opus 4.8上对11.5%的意图成功，揭示了大模型在有害场景下的能力边界和残余脆弱性。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "exploring the capability boundaries of large language models in cyber contexts",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}
