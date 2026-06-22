@@ -6,29 +6,32 @@
 </div>
 
 ## 每次日报
-- 最新运行日期：2026-06-21
-- 运行时间：2026-06-21 20:54:16 UTC
+- 最新运行日期：2026-06-22
+- 运行时间：2026-06-22 22:35:21 UTC
 - 运行状态：成功
-- 本次总论文数：2
+- 本次总论文数：3
 - 精读区：0
-- 速读区：2
+- 速读区：3
 
 ### 今日简报（AI）
-今日聚焦AI安全实战，速读了两篇覆盖智能体技能风险与前沿模型攻防的新研究。  
-值得关注的是，一篇提出了用LLM-as-Judge自动评测开源智能体技能的多维安全隐患，另一篇则对Anthropic Fable 5和Opus 4.8模型进行了红队实战，暴露了其潜在脆弱性。  
-建议开发者可借鉴SkillVetBench的评测思路，对AI插件与工具集做一次快速安全自查，同时关注模型红队报告，提前收敛风险敞口。
-- 详情：[/202606/21/README](/202606/21/README)
+1) 今日速览三篇前沿研究，聚焦大模型智能体的安全隐患与博弈机制。
+2) 多轮对抗测试揭示AI助手极易被越狱，工具使用代理在真实场景中存在严重数据泄露风险。
+3) 建议开发者关注智能体安全评测新框架，普通用户慎向AI助手分享敏感信息。
+- 详情：[/202606/22/README](/202606/22/README)
 
 ### 精读区论文标签
 - 本次无精读推荐。
 
 ### 速读区论文标签
-1. [SkillVetBench: LLM-as-Judge for Multi-Dimensional Security Risk Evaluation in Open-Source LLM Agent Skills](/202606/21/2606.15899v1-skillvetbench-llm-as-judge-for-multi-dimensional-security-risk-evaluation-in-open-source-llm-agent-skills)  
+1. [LLM agent safety, multi-turn red-teaming, jailbreak benchmarks, adversarial robustness, safety-critical systems](/202606/22/2606.20408v1-llm-agent-safety-multi-turn-red-teaming-jailbreak-benchmarks-adversarial-robustness-safety-critical-systems)  
+   标签：评分：7.0/10、query:ca
+   evidence：LLM智能体鲁棒性的多轮红队测试基准
+2. [An Evaluation of Data Leakage Risks in Tool-Using LLM Agents in Realistic Scenarios](/202606/22/2606.17114v1-an-evaluation-of-data-leakage-risks-in-tool-using-llm-agents-in-realistic-scenarios)  
    标签：评分：6.0/10、query:ca
-   evidence：评估LLM智能体技能的安全风险，包括多智能体危害，与模拟网络犯罪活动相关
-2. [A Red-Team Study of Anthropic Fable 5 & Opus 4.8 Models](/202606/21/2606.18193v1-a-red-team-study-of-anthropic-fable-5--opus-48-models)  
+   evidence：评估工具使用型 LLM 智能体在现实企业场景中的数据泄露风险
+3. [A Variational Framework for LLM Generator-Regulator Games](/202606/22/2606.18424v1-a-variational-framework-for-llm-generator-regulator-games)  
    标签：评分：6.0/10、query:ca
-   evidence：红队研究评估大语言模型对有害意图的对抗鲁棒性，探索能力边界。
+   evidence：用于规范生成的变分框架，适用于网络犯罪中的钓鱼防御和对抗交互
 
 
 <div class="dpr-home-promo-card">

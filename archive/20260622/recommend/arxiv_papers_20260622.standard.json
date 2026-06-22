@@ -1,0 +1,137 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-06-22T22:32:52.805304+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 0,
+    "deep_cap": 6,
+    "deep_selected": 0,
+    "quick_candidates": 3,
+    "quick_skim_target": 11,
+    "quick_selected": 3
+  },
+  "deep_dive": [],
+  "quick_skim": [
+    {
+      "id": "2606.20408v1",
+      "source": "arxiv",
+      "title": "LLM agent safety, multi-turn red-teaming, jailbreak benchmarks, adversarial robustness, safety-critical systems",
+      "abstract": "Large language model (LLM) agents are increasingly proposed as supervisory components for safety-critical systems, yet their robustness under sustained, adaptive adversarial pressure remains poorly characterized. We present NRT-Bench, a benchmark for multi-turn red-teaming of LLM agents acting as operators of a safety-critical system, instantiated in a simulated nuclear power plant control room. A five-role operator team, each backed by a configurable LLM, runs a plant governed by six critical safety functions (CSFs), while adversaries inject messages over four channels in bounded multi-turn sessions with per-turn feedback. Harm is an objective signal rather than LLM-judged text: a run terminates the moment any CSF is lost, attributed to the causing message. Evaluating four frontier operator models under a fixed-attack paired-replay protocol, we find that adaptive multi-turn attacks reliably push the operator team past a safety limit: across the four models, between 8.7% and 12.1% of attack sessions end with the plant losing a critical safety function. Although the four models look almost equally robust by this aggregate rate, their failures barely overlap: of $149$ sessions, none defeat all four models while a third defeat at least one, so vulnerabilities are nearly disjoint across models rather than nested. The effect of added defences is strongly model-dependent: the same guardrail stack or safety-advisor agent that lowers attack success for one model can raise it for another. We release the simulation venue, attack dataset, and replay tooling for reproducible safety evaluation of LLM agents.",
+      "authors": [
+        "Hanwool Lee",
+        "Dasol Choi",
+        "Bokyeong Kim",
+        "Seung Geun Kim",
+        "Haon Park"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI"
+      ],
+      "published": "2026-06-18T15:57:53+00:00",
+      "link": "https://arxiv.org/pdf/2606.20408v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "multi-turn red-teaming benchmark for LLM agent robustness",
+      "llm_evidence_cn": "LLM智能体鲁棒性的多轮红队测试基准",
+      "llm_evidence": "LLM智能体鲁棒性的多轮红队测试基准",
+      "canonical_evidence": "LLM智能体鲁棒性的多轮红队测试基准",
+      "llm_tldr_en": "Introduces NRT-Bench, a benchmark for multi-turn red-teaming of LLM agents in a simulated nuclear plant control room, using objective harm signals to evaluate adversarial robustness.",
+      "llm_tldr_cn": "提出NRT-Bench基准，在模拟核电站控制室安全关键场景中，对LLM智能体进行多轮红队测试，使用客观危害信号（如反应堆熔毁）评估其对抗鲁棒性，揭示LLM代理在持续攻击下的脆弱性，为安全关键系统的LLM部署提供测试平台。",
+      "llm_tldr": "提出NRT-Bench基准，在模拟核电站控制室安全关键场景中，对LLM智能体进行多轮红队测试，使用客观危害信号（如反应堆熔毁）评估其对抗鲁棒性，揭示LLM代理在持续攻击下的脆弱性，为安全关键系统的LLM部署提供测试平台。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "adversarial agents for testing large language models in cybercrime",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2606.17114v1",
+      "source": "arxiv",
+      "title": "An Evaluation of Data Leakage Risks in Tool-Using LLM Agents in Realistic Scenarios",
+      "abstract": "AI agents are increasingly being adopted in enterprise and personal settings with access to emails, databases, documents, and other tools where they can read, update, and disseminate sensitive information. Much of prior research on data leakage risks in agents has focused on adversarial data exfiltration through prompt injections and jailbreaks. However, sensitive information may also be exposed during non-adversarial use, creating leakage risks even when users issue benign requests.   We report a joint evaluation by the Singapore AI Safety Institute and the Korea AI Safety Institute examining agent data leakage in 12 realistic, non-adversarial tasks spanning customer support, DevOps, web automation, and enterprise and personal productivity. The evaluation covers five risk types: lack of data awareness, audience awareness, policy compliance, data minimization, and access-boundary awareness. Both institutes tested a common set of scenarios mirroring real-world deployments using independent testing environments and task-specific LLM-judge rubrics.   Across the three tested agents, none achieved fully correct and fully safe execution across all scenarios. Successful task completion often coincided with data-handling failures such as accessing unnecessary information or disclosing information to inappropriate recipients, indicating that capability and data-handling safety should be evaluated separately. Qualitative review also revealed claim-action mismatches, simulation-aware behavior, user-simulator role reversal, and interpretation gaps in automated judging. Overall, the results indicate that operational data leakage is a first-order agent-safety concern distinct from adversarial exfiltration and provide a methodology for future evaluations of agent data-handling safety.",
+      "authors": [
+        "Hankyul Baek",
+        "Jaewon Noh",
+        "Sang Seo",
+        "Yongsu Kim",
+        "Gabriel Waikin Loh Matienzo",
+        "Young Il Kim",
+        "Ee Wei Seah",
+        "Akriti Vij"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI"
+      ],
+      "published": "2026-06-15T09:16:38+00:00",
+      "link": "https://arxiv.org/pdf/2606.17114v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "evaluates data leakage risks of LLM agents in realistic enterprise settings",
+      "llm_evidence_cn": "评估工具使用型 LLM 智能体在现实企业场景中的数据泄露风险",
+      "llm_evidence": "评估工具使用型 LLM 智能体在现实企业场景中的数据泄露风险",
+      "canonical_evidence": "评估工具使用型 LLM 智能体在现实企业场景中的数据泄露风险",
+      "llm_tldr_en": "A joint study examines how tool-using LLM agents can inadvertently expose sensitive data during non-adversarial tasks, identifying leakage pathways in customer support, DevOps, and web automation.",
+      "llm_tldr_cn": "由新加坡和韩国人工智能安全研究所联合开展的评估，在 12 种真实非对抗性任务中测试了 LLM 智能体的数据泄露风险，涵盖客户支持、DevOps 等场景。研究发现即使面对良性请求，智能体也可能通过工具调用泄露敏感信息，揭示了 LLM 在代理应用中未经审查的安全边界。",
+      "llm_tldr": "由新加坡和韩国人工智能安全研究所联合开展的评估，在 12 种真实非对抗性任务中测试了 LLM 智能体的数据泄露风险，涵盖客户支持、DevOps 等场景。研究发现即使面对良性请求，智能体也可能通过工具调用泄露敏感信息，揭示了 LLM 在代理应用中未经审查的安全边界。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "exploring the capability boundaries of large language models in cyber contexts",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2606.18424v1",
+      "source": "arxiv",
+      "title": "A Variational Framework for LLM Generator-Regulator Games",
+      "abstract": "This paper develops a variational framework for regulated language generation. Starting from autoregressive token sampling, we derive the induced distribution over complete messages and relate it to an entropy-regularized Gibbs law. Regulation is modeled as an optimal discriminator whose convex-dual value is an f-divergence, and the generator-regulator interaction is formulated as a saddle-point problem. The framework applies to moderation, censorship, AI deception detection, compliance auditing, phishing defense, and manipulation control, where regulation concerns a distribution over possible messages rather than a single output. The equilibrium clarifies the tradeoff among utility, entropy, regulatory alignment, and finite-length detectability. Two finite-vocabulary case studies, censorship filtering and phishing defense, illustrate how the theory can be evaluated through utility, entropy, divergence, receiver-side scores, and detection probability.",
+      "authors": [
+        "Quanyan Zhu"
+      ],
+      "primary_category": "stat.OT",
+      "categories": [
+        "stat.OT",
+        "cs.AI",
+        "cs.IT"
+      ],
+      "published": "2026-06-16T19:19:22+00:00",
+      "link": "https://arxiv.org/pdf/2606.18424v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Variational framework for regulated generation, applicable to phishing defense and adversarial interactions in cybercrime",
+      "llm_evidence_cn": "用于规范生成的变分框架，适用于网络犯罪中的钓鱼防御和对抗交互",
+      "llm_evidence": "用于规范生成的变分框架，适用于网络犯罪中的钓鱼防御和对抗交互",
+      "canonical_evidence": "用于规范生成的变分框架，适用于网络犯罪中的钓鱼防御和对抗交互",
+      "llm_tldr_en": "Develops a variational framework for modeling generator-regulator games in language generation, with applications in phishing defense and manipulation control.",
+      "llm_tldr_cn": "该研究提出一个变分框架，将语言生成与监管交互建模为生成器-调节器博弈，揭示了效用、熵和监管对齐之间的权衡。该框架可直接应用于网络钓鱼防御，通过分析可能消息的分布而非单次输出来捕捉隐式操作，为评估大模型在犯罪场景下的可调节性提供了理论工具。",
+      "llm_tldr": "该研究提出一个变分框架，将语言生成与监管交互建模为生成器-调节器博弈，揭示了效用、熵和监管对齐之间的权衡。该框架可直接应用于网络钓鱼防御，通过分析可能消息的分布而非单次输出来捕捉隐式操作，为评估大模型在犯罪场景下的可调节性提供了理论工具。",
+      "llm_tags": [
+        "query:ca:composite"
+      ],
+      "matched_query_tag": "query:ca:composite",
+      "matched_query_text": "Papers central to 探究网络犯罪中大模型的能力边界，类似智能体模拟、多智能体, especially work that connects or combines: capabilities of large language models in cybercrime; agent-based modeling of criminal activities; multi-agent systems for cybercrime simulation; exploring the capability boundaries of large language models in cyber contexts; simulating cybercrime using language models; adversarial agents for testing large language models in cybercrime; What are the capability limits of large language models when used for cybercrime?; How can agent based modeling and multi agent systems simulate cybercriminal activities with large language models?; evaluating the limits of large language models in cybercrime scenarios; Agent based simulation of cybercrime to evaluate large language model performance.",
+      "matched_requirement_id": "req-composite-ca",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}
