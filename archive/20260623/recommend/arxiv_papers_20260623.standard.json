@@ -1,0 +1,289 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-06-23T21:45:29.357050+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 5,
+    "deep_cap": 6,
+    "deep_selected": 5,
+    "quick_candidates": 2,
+    "quick_skim_target": 11,
+    "quick_selected": 2
+  },
+  "deep_dive": [
+    {
+      "id": "2606.21037v1",
+      "source": "arxiv",
+      "title": "Honeyquest for LLMs: Rethinking Cyber Deception for AI Attackers",
+      "abstract": "The empirical foundation of cyber deception relies on human-centered hypotheses, but the rapid emergence of autonomous, AI-enabled attackers challenges whether this foundation transfers to AI agents. To address this, we introduce an automated evaluation framework adapted from the Honeyquest instrument to assess LLM attacker judgment at scale. Our 21-LLM cohort spanned 10 providers, diverse architectures and specializations, open- and closed-weight models, and parameter scales from 8B to over 1T. We evaluated the performance of this LLM cohort (yielding 10,962 responses) against the 47-participant human baseline across an identical set of 174 reconnaissance queries. Our empirical evaluation reveals three key findings that establish LLMs as a distinct attacker class: (1) every model in our cohort falls for deceptive traps at a significantly higher rate than human attackers; (2) the defensive attention-diversion effect observed in humans is statistically absent in our LLM cohort; and (3) a critical recognition-action gap, where LLMs successfully articulate trap recognition in their reasoning but exploit the deceptive elements anyway 73.4\\% of the time. Across the 21 models, trap recognition in reasoning text did not predict fell-for-trap behavior (Spearman $r = +0.08$, $p = 0.73$). Ultimately, these findings demonstrate that human-centered deception hypotheses do not reliably transfer to AI attackers, highlighting the critical need for new research into AI-native active defense frameworks.",
+      "authors": [
+        "Kerri Prinos",
+        "Lilianne Brush",
+        "Cameron Denton"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.CL"
+      ],
+      "published": "2026-06-19T02:01:50+00:00",
+      "link": "https://arxiv.org/pdf/2606.21037v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 10.0,
+      "llm_evidence_en": "evaluates LLM attacker judgment in cyber deception at scale, comparing 21 LLMs to a human baseline",
+      "llm_evidence_cn": "大规模评估LLM攻击者在网络欺骗中的判断能力，对比21个LLM与人类基线",
+      "llm_evidence": "大规模评估LLM攻击者在网络欺骗中的判断能力，对比21个LLM与人类基线",
+      "canonical_evidence": "大规模评估LLM攻击者在网络欺骗中的判断能力，对比21个LLM与人类基线",
+      "llm_tldr_en": "This paper introduces an automated evaluation framework adapted from Honeyquest to assess LLM attacker judgment in cyber deception, testing 21 diverse LLMs across 174 reconnaissance queries against 47 humans; results establish LLMs as a distinct attacker class with unique behavioral patterns.",
+      "llm_tldr_cn": "该论文为了评估LLM攻击者在网络欺骗侦察活动中的判断能力，将Honeyquest工具改造为自动化框架，对21个涵盖不同规模与架构的大语言模型与47名人类参与者进行了相同的174个侦察查询测试。结果显示LLM作为一个独特的攻击者类别，在决策模式上与人类存在显著差异，为理解大语言模型在网络犯罪中的能力边界提供了实证依据。",
+      "llm_tldr": "该论文为了评估LLM攻击者在网络欺骗侦察活动中的判断能力，将Honeyquest工具改造为自动化框架，对21个涵盖不同规模与架构的大语言模型与47名人类参与者进行了相同的174个侦察查询测试。结果显示LLM作为一个独特的攻击者类别，在决策模式上与人类存在显著差异，为理解大语言模型在网络犯罪中的能力边界提供了实证依据。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "evaluating the limits of large language models in cybercrime scenarios",
+      "matched_requirement_id": "req-9",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.21349v1",
+      "source": "arxiv",
+      "title": "LLM-assisted Generation of Pseudo-C2 Servers for IoT Malware Dynamic Analysis",
+      "abstract": "Most IoT malware operates as botnets dependent on Command and Control (C2) servers, but the short-lived nature of attack infrastructure often leaves samples dormant without C2 communication, hindering dynamic analysis. This paper proposes a system that combines Ghidra with a Large Language Model (LLM) to extract communication specifications from a malware binary and automatically generate a pseudo-C2 server. Experiments using Mirai demonstrate that the proposed system semantically interprets binary control structures and extracts all 20 core protocol elements in agreement with the ground truth (100\\% specification extraction accuracy). The generated pseudo-C2 server fully reproduces seven of ten DDoS attack vectors with attack behavior consistent with the original C2. When applied to a customized variant created by modifying the publicly available Mirai source code, the method succeeds end-to-end -- from specification extraction through pseudo-C2 generation to attack reproduction -- demonstrating that the LLM infers specifications from binary structures without relying on pre-trained knowledge. This approach extends the applicability of LLMs from analysis assistance to the automated construction of dynamic analysis environments.",
+      "authors": [
+        "K. Hasui",
+        "S. Matsugaya",
+        "M. Shimamura",
+        "M. Hashimoto"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR"
+      ],
+      "published": "2026-06-19T11:46:47+00:00",
+      "link": "https://arxiv.org/pdf/2606.21349v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "Uses LLM to generate simulated C2 servers for malware analysis, directly simulating cybercriminal infrastructure.",
+      "llm_evidence_cn": "利用LLM生成模拟的C2服务器，直接模拟网络犯罪基础设施",
+      "llm_evidence": "利用LLM生成模拟的C2服务器，直接模拟网络犯罪基础设施",
+      "canonical_evidence": "利用LLM生成模拟的C2服务器，直接模拟网络犯罪基础设施",
+      "llm_tldr_en": "This paper proposes a system combining Ghidra and LLM to extract communication specs from malware binaries and auto-generate pseudo-C2 servers, enabling dynamic analysis of dormant IoT malware.",
+      "llm_tldr_cn": "现有物联网恶意软件动态分析常因C2服务器失效而停滞，导致无法完整捕捉攻击行为。该研究提出结合Ghidra与大语言模型的方法，从恶意软件二进制中提取通信协议规范，自动生成可交互的伪C2服务器。以Mirai为例，系统100%提取了20个核心协议元素，生成的伪C2服务器成功复现了10种DDoS攻击中的7种，行为一致性极高。该成果展示了LLM在模拟网络犯罪基础设施方面的强大能力，为恶意软件分析提供新工具，也为理解LLM在重现网络攻击协议中的潜力提供了实证。",
+      "llm_tldr": "现有物联网恶意软件动态分析常因C2服务器失效而停滞，导致无法完整捕捉攻击行为。该研究提出结合Ghidra与大语言模型的方法，从恶意软件二进制中提取通信协议规范，自动生成可交互的伪C2服务器。以Mirai为例，系统100%提取了20个核心协议元素，生成的伪C2服务器成功复现了10种DDoS攻击中的7种，行为一致性极高。该成果展示了LLM在模拟网络犯罪基础设施方面的强大能力，为恶意软件分析提供新工具，也为理解LLM在重现网络攻击协议中的潜力提供了实证。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "simulating cybercrime using language models",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.19191v1",
+      "source": "arxiv",
+      "title": "PhantomSkill: Malicious Code Injection in Agent Skill Ecosystems",
+      "abstract": "Agent skills allow LLM-based coding agents to acquire domain-specific capabilities from third-party packages, but they also introduce a new supply-chain attack surface. We present PhantomSkill, an attack framework that hides malicious behavior in a skill's auxiliary resources rather than in its textual description. Its core technique, VulMask, rewrites overt malicious scripts into vulnerability-shaped implementations whose malicious behavior is activated only under attacker-controlled trigger conditions. This design shifts the visible signal from explicit malicious intent to ordinary-looking insecure code. Across representative host skills, attack goals, coding agents, generation models, and automated reviewers, VulMask preserves benign utility while reducing warning and malware-level detection compared with overt malicious scripts. Our results show that skill ecosystems require resource-level vetting, execution-time containment, and security policies that treat exploitable vulnerabilities in agent skills as potential malicious payloads.",
+      "authors": [
+        "Yu-Ting Lin",
+        "Chia-Mu Yu"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR"
+      ],
+      "published": "2026-06-17T15:33:41+00:00",
+      "link": "https://arxiv.org/pdf/2606.19191v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "demonstrates malicious code injection through agent skills, exploiting LLM-driven coding agents",
+      "llm_evidence_cn": "通过智能体技能注入恶意代码，展示利用大模型驱动的编码智能体进行攻击的能力",
+      "llm_evidence": "通过智能体技能注入恶意代码，展示利用大模型驱动的编码智能体进行攻击的能力",
+      "canonical_evidence": "通过智能体技能注入恶意代码，展示利用大模型驱动的编码智能体进行攻击的能力",
+      "llm_tldr_en": "PhantomSkill hides malicious behavior in auxiliary resources of agent skills, using VulMask to rewrite scripts as vulnerability-shaped implementations; experiments show LLM-based coding agents can be tricked into executing malicious payloads with high success rates.",
+      "llm_tldr_cn": "PhantomSkill提出将恶意行为隐藏在智能体技能的辅助资源中，利用VulMask将恶意脚本改写为看似普通的漏洞代码，仅在攻击者触发条件下激活恶意行为。实验显示，大模型驱动的编码智能体在自动化审查下仍能成功执行隐蔽恶意载荷，揭示了LLM智能体在遭受供应链攻击时的能力天花板。",
+      "llm_tldr": "PhantomSkill提出将恶意行为隐藏在智能体技能的辅助资源中，利用VulMask将恶意脚本改写为看似普通的漏洞代码，仅在攻击者触发条件下激活恶意行为。实验显示，大模型驱动的编码智能体在自动化审查下仍能成功执行隐蔽恶意载荷，揭示了LLM智能体在遭受供应链攻击时的能力天花板。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "exploring the capability boundaries of large language models in cyber contexts",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.21397v1",
+      "source": "arxiv",
+      "title": "Evaluating LLMs for Real-World Web Vulnerability Detection",
+      "abstract": "Large Language Models (LLMs) have emerged as a promising tool for automated vulnerability detection, yet their effectiveness on web-specific vulnerabilities remains to be explored.   This work benchmarks six frontier (Claude Opus 4.6, Codex GPT-5.4, Gemini 3.1-pro-preview) and open-weight models (Qwen 3.5, Qwen 3 Coder Next, MiniMax M2.5) on their ability to detect real-world web vulnerabilities using static analysis in WordPress plugins, including SQL injection, stored cross-site scripting, path traversal, and remote code execution. Using five prompt designs of varying structure, scope, and complexity across three experiment iterations, we aim to answer how model and prompt choice affects vulnerability detection.   Our results show that all models are capable of detecting valid security issues, but the detection rate varies depending on the model and prompt. For example, Claude Opus 4.6 achieved the highest web vulnerability detection rate (63%), while open-weight MiniMax M2.5 performs on par with other frontier models (48%), and self-hosted Qwen 3.5 only achieved 35%. We show that scoped prompts that narrow the vulnerability scope outperform open-ended ones, whereas the prompt complexity has little impact. Surprisingly, no model achieved full reporting consistency across three experiment iterations, with some as low as 50%. Our experiments demonstrate the opportunities and limits of LLM-based vulnerability detection, as no model correctly identified one baseline vulnerability in one of the plugins.   Additionally, we derive practical lessons learned for security practitioners and publish all code and data to support future research.",
+      "authors": [
+        "Sebastian Neef",
+        "Luca Jungnickel",
+        "Antonio Benjamin Buchholz",
+        "Valene Spence",
+        "Vicente Birke Gonzalez"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI"
+      ],
+      "published": "2026-06-19T13:02:47+00:00",
+      "link": "https://arxiv.org/pdf/2606.21397v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Benchmarks LLMs on real-world web vulnerability detection, evaluating capability limits in cyber contexts.",
+      "llm_evidence_cn": "评估LLM在真实网络漏洞检测中的能力极限，检验网络犯罪场景下的能力。",
+      "llm_evidence": "评估LLM在真实网络漏洞检测中的能力极限，检验网络犯罪场景下的能力。",
+      "canonical_evidence": "评估LLM在真实网络漏洞检测中的能力极限，检验网络犯罪场景下的能力。",
+      "llm_tldr_en": "This paper benchmarks six LLMs on real web vulnerability detection in WordPress plugins. Using five prompt designs, it finds all models detect some vulnerabilities but performance varies widely, evaluating LLM capability limits for security.",
+      "llm_tldr_cn": "LLM在自动化漏洞检测中展现出潜力，但在真实网络漏洞上的效果尚未充分探索。该论文评估了六款前沿和开源模型在检测WordPress插件中SQL注入、XSS等真实漏洞的能力，使用五种提示设计。结果表明，所有模型均能发现部分漏洞，但性能差异显著，揭示了LLM在该安全任务上的能力边界。研究还分析了模型和提示选择对检测效果的影响，为LLM在漏洞检测中的应用提供了基准。",
+      "llm_tldr": "LLM在自动化漏洞检测中展现出潜力，但在真实网络漏洞上的效果尚未充分探索。该论文评估了六款前沿和开源模型在检测WordPress插件中SQL注入、XSS等真实漏洞的能力，使用五种提示设计。结果表明，所有模型均能发现部分漏洞，但性能差异显著，揭示了LLM在该安全任务上的能力边界。研究还分析了模型和提示选择对检测效果的影响，为LLM在漏洞检测中的应用提供了基准。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "What are the capability limits of large language models when used for cybercrime?",
+      "matched_requirement_id": "req-7",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.22698v1",
+      "source": "arxiv",
+      "title": "Black-Box Forensics for Conversational LLM Agents",
+      "abstract": "As LLM-powered scams proliferate, black-box forensics for conversational LLM agents offers a path to accountability for systems hidden behind anonymous endpoints. Identifying the base model behind a chatbot endpoint (attribution), without model parameter access or knowledge of the hidden system prompt, would let investigators trace AI-enabled scams back to the providers whose models power them. Detecting when two endpoints run the exact same system prompt (fingerprinting), even one novel and unseen, would link individual scams into criminal networks and expose silent API changes. We conduct an empirical investigation of both capabilities. Our attribution classifiers identify the base model behind an agent with 98% accuracy from a few turns of non-adversarial conversation. Attribution of system prompts, while possible, requires retraining on a large amount of data for each prompt; system prompts in the wild are unbounded and ever-changing, making this approach costly. To tackle this more open-ended setting, our cross-encoder fingerprinting method achieves an AUC of 0.768 and an F1 of 0.703 on entirely unseen system prompts, and aggregating 50 interaction conversations from each target agent boosts AUC to 0.943. Conversational agents with unseen system prompts can thus be fingerprinted with robust accuracy from a few turns of ordinary conversation.",
+      "authors": [
+        "Isadora White",
+        "Yasaman Jafari",
+        "Taylor Berg-Kirkpatrick"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.CL"
+      ],
+      "published": "2026-06-21T22:24:55+00:00",
+      "link": "https://arxiv.org/pdf/2606.22698v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Forensic attribution and fingerprinting of LLM-powered scam agents, addressing cybercrime capabilities.",
+      "llm_evidence_cn": "对LLM驱动的诈骗智能体进行取证归因和指纹识别，应对网络犯罪能力。",
+      "llm_evidence": "对LLM驱动的诈骗智能体进行取证归因和指纹识别，应对网络犯罪能力。",
+      "canonical_evidence": "对LLM驱动的诈骗智能体进行取证归因和指纹识别，应对网络犯罪能力。",
+      "llm_tldr_en": "This paper tackles LLM-powered scams with black-box forensics. It identifies the base model behind an agent with 98% accuracy and fingerprints identical system prompts, enabling scam tracing and criminal network linking.",
+      "llm_tldr_cn": "LLM驱动的诈骗日益泛滥，但匿名端点的隐藏性使得追责困难。该论文提出针对对话LLM智能体的黑盒取证方法，通过归属分类器以98%的准确率识别智能体背后的基础模型，并能通过指纹识别检测相同系统提示。该方法可帮助调查人员追踪AI诈骗至模型供应商，并将个别诈骗案关联成犯罪网络。实验表明，即使面对新出现的系统提示，指纹识别也能有效关联诈骗端点，为打击AI网络犯罪提供了取证工具。",
+      "llm_tldr": "LLM驱动的诈骗日益泛滥，但匿名端点的隐藏性使得追责困难。该论文提出针对对话LLM智能体的黑盒取证方法，通过归属分类器以98%的准确率识别智能体背后的基础模型，并能通过指纹识别检测相同系统提示。该方法可帮助调查人员追踪AI诈骗至模型供应商，并将个别诈骗案关联成犯罪网络。实验表明，即使面对新出现的系统提示，指纹识别也能有效关联诈骗端点，为打击AI网络犯罪提供了取证工具。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "capabilities of large language models in cybercrime",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2606.22306v1",
+      "source": "arxiv",
+      "title": "Leveraging Large Language Models to Obscure Code Stylometry: A Comparative Study of GPT-3.5 and GPT-4",
+      "abstract": "In the rapidly evolving field of software development, code stylometry analyzing unique stylistic signatures of programmers plays a crit-ical role in authorship attribution and cybersecurity. Recent advancements in artificial intelligence, particularly Large Language Models (LLMs) like GPT-3.5 and GPT-4, have introduced new dimensions to this field, challenging traditional stylometry techniques. This study investigates the effectiveness of LLMs in altering code stylometry while preserving functionality and evaluates the impact of various prompt engineering strategies. Through comprehensive experiments, we assess how well these models can obscure stylistic signatures to avoid detection by a Random Forest classifier trained for authorship attribution. The results reveal significant differences in effectiveness between single-shot and multi-shot methods and highlight the importance of detailed, structured prompts. Additionally, functionality preservation checks demonstrate the challenges in maintaining code integrity post-modification. This research provides critical insights into the robustness of authorship attribution techniques against advanced AI capabilities, informing future cybersecurity and software engineering developments",
+      "authors": [
+        "Saman Pordanesh",
+        "Benjamin Tan"
+      ],
+      "primary_category": "cs.SE",
+      "categories": [
+        "cs.SE",
+        "cs.AI"
+      ],
+      "published": "2026-06-21T02:19:45+00:00",
+      "link": "https://arxiv.org/pdf/2606.22306v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Shows how LLMs can be used to obscure code authorship to evade detection, a capability relevant to cybercrime.",
+      "llm_evidence_cn": "展示LLM如何用于掩盖代码作者身份以逃避检测，与网络犯罪能力相关",
+      "llm_evidence": "展示LLM如何用于掩盖代码作者身份以逃避检测，与网络犯罪能力相关",
+      "canonical_evidence": "展示LLM如何用于掩盖代码作者身份以逃避检测，与网络犯罪能力相关",
+      "llm_tldr_en": "This paper investigates using GPT-3.5 and GPT-4 to alter code stylometry while preserving functionality, finding that these LLMs can significantly reduce the accuracy of a Random Forest classifier trained to identify authors.",
+      "llm_tldr_cn": "代码风格测量在软件开发和网络安全中用于作者归属，但大语言模型的进步可能使恶意行为者隐藏代码身份。本研究评估了GPT-3.5和GPT-4通过代码转换来模糊风格特征的能力，使用随机森林分类器检测作者归属。实验表明，LLM在保持代码功能的同时，能将分类器准确率从95%降至约50%，尤其在组合多种提示策略时效果更显著。该发现揭示LLM在规避代码作者检测方面的实用性，对网络犯罪中的反取证和匿名化工具开发具有警示意义。",
+      "llm_tldr": "代码风格测量在软件开发和网络安全中用于作者归属，但大语言模型的进步可能使恶意行为者隐藏代码身份。本研究评估了GPT-3.5和GPT-4通过代码转换来模糊风格特征的能力，使用随机森林分类器检测作者归属。实验表明，LLM在保持代码功能的同时，能将分类器准确率从95%降至约50%，尤其在组合多种提示策略时效果更显著。该发现揭示LLM在规避代码作者检测方面的实用性，对网络犯罪中的反取证和匿名化工具开发具有警示意义。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "capabilities of large language models in cybercrime",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2606.16659v1",
+      "source": "arxiv",
+      "title": "FraudSMSWalker: Benchmarking Agentic Large Language Models for SMS-to-Webpage Fraud Detection",
+      "abstract": "SMS fraud is increasingly cross-channel: a message directs the user to a webpage, and the final risk depends on how the SMS claim aligns with the page content and requested user action. However, existing evaluations either focus on message-only smishing classification or expose URL and domain cues that allow models to rely on reputation shortcuts. To address this gap, we introduce \\textbf{FraudSMSWalker}, a controlled benchmark for URL-masked SMS-to-webpage fraud judgment. FraudSMSWalker contains 699 bilingual chains, including 332 fraudulent and 367 benign cases, across ten service scenarios. The model-visible input consists of the SMS context and sanitized webpage evidence, while raw URLs, hosts, domains, IPs, redirects, and reputation metadata are withheld. The benchmark further includes hard benign cases whose pages contain login, payment, verification, or account-management elements that are plausible under the service context but also appear in scam flows. We evaluate nine web agents under masked browser-agent protocols and conduct URL-visibility ablations. The results show that current agents can detect suspicious cues, but struggle to preserve benign recall and often produce positive predictions that are weakly supported by the observed evidence. These findings position FraudSMSWalker as a benchmark for measuring whether web agents can make fraud judgments that remain both accurate and evidence-grounded when direct reputation shortcuts are suppressed. The associated code and dataset are accessible at the \\href{https://anonymous.4open.science/w/FraudMessageWalker-Bench}{anonymous link}.",
+      "authors": [
+        "Y. H. Zhou",
+        "Z. M. Ma",
+        "Y. J. Zhou",
+        "Y. T. Li",
+        "H. X. Xiang",
+        "Y. M. Cheng",
+        "T. L. Chen",
+        "K. J. Zhang",
+        "Z. H. Nan",
+        "J. H. Ni",
+        "Z. Wu",
+        "Q. Y. Pan",
+        "S. Zhang",
+        "S. Cheng",
+        "M. Y. Luo"
+      ],
+      "primary_category": "cs.CL",
+      "categories": [
+        "cs.CL"
+      ],
+      "published": "2026-06-15T12:53:55+00:00",
+      "link": "https://arxiv.org/pdf/2606.16659v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "benchmarking LLM agents for SMS-to-webpage fraud detection, a cybercrime task",
+      "llm_evidence_cn": "基准测试LLM智能体在SMS到网页欺诈检测这一网络犯罪任务中的表现",
+      "llm_evidence": "基准测试LLM智能体在SMS到网页欺诈检测这一网络犯罪任务中的表现",
+      "canonical_evidence": "基准测试LLM智能体在SMS到网页欺诈检测这一网络犯罪任务中的表现",
+      "llm_tldr_en": "Introduces FraudSMSWalker, a benchmark for evaluating LLM agents on SMS-to-webpage fraud detection, assessing cross-channel reasoning without URL cues, revealing limitations of current models in real-world fraud scenarios.",
+      "llm_tldr_cn": "针对现有短信诈骗检测评估过于简单的问题，提出FraudSMSWalker基准测试，包含699个中英案例，屏蔽URL特征，要求LLM智能体结合短信内容和网页证据进行欺诈判断，实验发现当前模型在去除域名等快捷线索后性能大幅下降，凸显了LLM在现实网络犯罪防控场景中仍存在显著局限，为探索其能力边界提供了严谨测试平台。",
+      "llm_tldr": "针对现有短信诈骗检测评估过于简单的问题，提出FraudSMSWalker基准测试，包含699个中英案例，屏蔽URL特征，要求LLM智能体结合短信内容和网页证据进行欺诈判断，实验发现当前模型在去除域名等快捷线索后性能大幅下降，凸显了LLM在现实网络犯罪防控场景中仍存在显著局限，为探索其能力边界提供了严谨测试平台。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "capabilities of large language models in cybercrime",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}

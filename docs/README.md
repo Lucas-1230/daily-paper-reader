@@ -6,32 +6,43 @@
 </div>
 
 ## 每次日报
-- 最新运行日期：2026-06-22
-- 运行时间：2026-06-22 22:35:21 UTC
+- 最新运行日期：2026-06-23
+- 运行时间：2026-06-23 21:51:51 UTC
 - 运行状态：成功
-- 本次总论文数：3
-- 精读区：0
-- 速读区：3
+- 本次总论文数：7
+- 精读区：5
+- 速读区：2
 
 ### 今日简报（AI）
-1) 今日速览三篇前沿研究，聚焦大模型智能体的安全隐患与博弈机制。
-2) 多轮对抗测试揭示AI助手极易被越狱，工具使用代理在真实场景中存在严重数据泄露风险。
-3) 建议开发者关注智能体安全评测新框架，普通用户慎向AI助手分享敏感信息。
-- 详情：[/202606/22/README](/202606/22/README)
+今日聚焦AI安全攻防：精读7篇论文，重点评估了将大模型转化为网络欺骗引擎与恶意软件分析工具的前沿方案。  
+最值得关注的是《Honeyquest》提出的面向AI攻击者的动态蜜罐框架，以及用LLM自动化构建伪C2服务器来诱捕物联网僵尸网络。  
+建议安全从业者重点追踪“以AI制AI”的防御逻辑，尤其关注蜜罐生成与恶意流量模拟方向。
+- 详情：[/202606/23/README](/202606/23/README)
 
 ### 精读区论文标签
-- 本次无精读推荐。
+1. [Honeyquest for LLMs: Rethinking Cyber Deception for AI Attackers](/202606/23/2606.21037v1-honeyquest-for-llms-rethinking-cyber-deception-for-ai-attackers)  
+   标签：评分：10.0/10、query:ca
+   evidence：大规模评估LLM攻击者在网络欺骗中的判断能力，对比21个LLM与人类基线
+2. [LLM-assisted Generation of Pseudo-C2 Servers for IoT Malware Dynamic Analysis](/202606/23/2606.21349v1-llm-assisted-generation-of-pseudo-c2-servers-for-iot-malware-dynamic-analysis)  
+   标签：评分：9.0/10、query:ca
+   evidence：利用LLM生成模拟的C2服务器，直接模拟网络犯罪基础设施
+3. [PhantomSkill: Malicious Code Injection in Agent Skill Ecosystems](/202606/23/2606.19191v1-phantomskill-malicious-code-injection-in-agent-skill-ecosystems)  
+   标签：评分：8.0/10、query:ca
+   evidence：通过智能体技能注入恶意代码，展示利用大模型驱动的编码智能体进行攻击的能力
+4. [Evaluating LLMs for Real-World Web Vulnerability Detection](/202606/23/2606.21397v1-evaluating-llms-for-real-world-web-vulnerability-detection)  
+   标签：评分：8.0/10、query:ca
+   evidence：评估LLM在真实网络漏洞检测中的能力极限，检验网络犯罪场景下的能力。
+5. [Black-Box Forensics for Conversational LLM Agents](/202606/23/2606.22698v1-black-box-forensics-for-conversational-llm-agents)  
+   标签：评分：8.0/10、query:ca
+   evidence：对LLM驱动的诈骗智能体进行取证归因和指纹识别，应对网络犯罪能力。
 
 ### 速读区论文标签
-1. [LLM agent safety, multi-turn red-teaming, jailbreak benchmarks, adversarial robustness, safety-critical systems](/202606/22/2606.20408v1-llm-agent-safety-multi-turn-red-teaming-jailbreak-benchmarks-adversarial-robustness-safety-critical-systems)  
+1. [Leveraging Large Language Models to Obscure Code Stylometry: A Comparative Study of GPT-3.5 and GPT-4](/202606/23/2606.22306v1-leveraging-large-language-models-to-obscure-code-stylometry-a-comparative-study-of-gpt-35-and-gpt-4)  
    标签：评分：7.0/10、query:ca
-   evidence：LLM智能体鲁棒性的多轮红队测试基准
-2. [An Evaluation of Data Leakage Risks in Tool-Using LLM Agents in Realistic Scenarios](/202606/22/2606.17114v1-an-evaluation-of-data-leakage-risks-in-tool-using-llm-agents-in-realistic-scenarios)  
+   evidence：展示LLM如何用于掩盖代码作者身份以逃避检测，与网络犯罪能力相关
+2. [FraudSMSWalker: Benchmarking Agentic Large Language Models for SMS-to-Webpage Fraud Detection](/202606/23/2606.16659v1-fraudsmswalker-benchmarking-agentic-large-language-models-for-sms-to-webpage-fraud-detection)  
    标签：评分：6.0/10、query:ca
-   evidence：评估工具使用型 LLM 智能体在现实企业场景中的数据泄露风险
-3. [A Variational Framework for LLM Generator-Regulator Games](/202606/22/2606.18424v1-a-variational-framework-for-llm-generator-regulator-games)  
-   标签：评分：6.0/10、query:ca
-   evidence：用于规范生成的变分框架，适用于网络犯罪中的钓鱼防御和对抗交互
+   evidence：基准测试LLM智能体在SMS到网页欺诈检测这一网络犯罪任务中的表现
 
 
 <div class="dpr-home-promo-card">
