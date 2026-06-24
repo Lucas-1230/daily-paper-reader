@@ -1,0 +1,222 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-06-24T21:04:13.326961+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 1,
+    "deep_cap": 6,
+    "deep_selected": 1,
+    "quick_candidates": 4,
+    "quick_skim_target": 11,
+    "quick_selected": 4
+  },
+  "deep_dive": [
+    {
+      "id": "2606.23927v1",
+      "source": "arxiv",
+      "title": "RIFT-Bench: Dynamic Red-teaming For Agentic AI Systems",
+      "abstract": "Agentic AI systems powered by large language models (LLMs) are rapidly evolving into autonomous decision-making systems, exposing attack vectors beyond those of traditional LLM vulnerabilities. Existing security evaluations are often tied to specific implementations or domains, limiting unified comparison across heterogeneous systems. To address this gap, we introduce RIFT-Bench, a graph representation-driven methodology for dynamic red-teaming that enables unified evaluations across diverse agentic architectures. Building on a novel hierarchical representation, RIFT-Bench operates in two automated phases: Discovery, which extracts system structure, and Scanning, which deploys adaptive adversarial attacks and produces a comprehensive evaluation report. It evaluates the examined system itself, leveraging a broad set of dynamically adaptable adversarial probes across diverse attack vectors and objectives. We demonstrate the effectiveness of the proposed evaluation pipeline across 45 agentic systems spanning a diverse range of implementations, showing that the approach generalizes effectively to heterogeneous agentic architectures. Beyond systems and attacks, RIFT-Bench also supports direct evaluation of mitigation strategies. These key capabilities make RIFT-Bench a scalable foundation for security evaluation of agentic AI systems.",
+      "authors": [
+        "Yarin Yerushalmi Levi",
+        "Roy Betser",
+        "Amit Giloni",
+        "Lidor Erez",
+        "Itay Gershon",
+        "Oren Rachmil",
+        "Sindhu Padakandla",
+        "Roman Vainshtein"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-06-22T20:46:56+00:00",
+      "link": "https://arxiv.org/pdf/2606.23927v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "proposes dynamic red-teaming benchmark for agentic AI systems, testing adversarial vulnerabilities",
+      "llm_evidence_cn": "提出面向智能体AI系统的动态红队基准，测试对抗性漏洞",
+      "llm_evidence": "提出面向智能体AI系统的动态红队基准，测试对抗性漏洞",
+      "canonical_evidence": "提出面向智能体AI系统的动态红队基准，测试对抗性漏洞",
+      "llm_tldr_en": "Introduces RIFT-Bench, a graph-based dynamic red-teaming methodology for unified evaluation of security vulnerabilities across diverse agentic AI architectures.",
+      "llm_tldr_cn": "现有LLM安全评估多绑定特定实现或领域，难以统一比较异构智能体系统。本文提出RIFT-Bench，一种基于图表示的动态红队方法，通过自动发现系统结构并部署自适应对抗攻击，生成全面安全评估报告，实现了对多种智能体架构的统一漏洞评估，为测试LLM在网络安全场景中的能力极限提供了可扩展的基准。",
+      "llm_tldr": "现有LLM安全评估多绑定特定实现或领域，难以统一比较异构智能体系统。本文提出RIFT-Bench，一种基于图表示的动态红队方法，通过自动发现系统结构并部署自适应对抗攻击，生成全面安全评估报告，实现了对多种智能体架构的统一漏洞评估，为测试LLM在网络安全场景中的能力极限提供了可扩展的基准。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "adversarial agents for testing large language models in cybercrime",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2606.20717v1",
+      "source": "arxiv",
+      "title": "MIRAGE: Stealthy Visual Prompt Injection for Vulnerability Detection in Web Agents",
+      "abstract": "Multimodal Large Language Model (MLLM)-based web agents provide practical, high-precision solutions for visual browser automation; however, they inherently expand the attack surface, introducing novel vision-based vulnerabilities. Existing adversarial evaluations targeting these agents frequently rely on permissive threat models and visually conspicuous artifacts. In this paper, we investigate a constrained vulnerability detection setting: a trusted web platform where the evaluator acts solely as an unprivileged third party, such as a merchant or advertiser, controlling only a semantically legitimate, spatially constrained region, such as an ad slot, a sponsored card, or a localized widget. Operating under these realistic constraints, we propose MIRAGE, a novel visual indirect prompt injection framework for targeted next-action hijacking. Our approach leverages diffusion models to generate perceptually benign adversarial images strictly confined to the attacker-controlled boundaries permitted by the trusted service provider. To maximize attack efficacy within such a restrictive setting, we introduce a robust optimization technique combining curvature-aware adversarial diffusion guidance with sparse, dark-pixel residual perturbations. Comprehensive evaluations against prominent MLLM web agent frameworks, specifically SeeAct and OpenClaw, empirically demonstrate the potency, realism, and stealth of our proposed MIRAGE.",
+      "authors": [
+        "Xuelong Dai",
+        "Jianyu Ma",
+        "Boyang Ma",
+        "Biwei Yan",
+        "Yijun Yang",
+        "Yue Zhang"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.AI",
+        "cs.CR"
+      ],
+      "published": "2026-06-16T15:31:33+00:00",
+      "link": "https://arxiv.org/pdf/2606.20717v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "stealthy visual prompt injection for vulnerability detection in LLM web agents",
+      "llm_evidence_cn": "通过隐蔽视觉提示注入评估LLM Web智能体的漏洞",
+      "llm_evidence": "通过隐蔽视觉提示注入评估LLM Web智能体的漏洞",
+      "canonical_evidence": "通过隐蔽视觉提示注入评估LLM Web智能体的漏洞",
+      "llm_tldr_en": "Proposes MIRAGE, a stealthy visual prompt injection method to uncover vulnerabilities in multimodal LLM web agents under realistic constraints.",
+      "llm_tldr_cn": "针对多模态LLM Web智能体在视觉浏览器自动化中引入的新攻击面，提出MIRAGE方法，在受信任平台上以非特权第三方角色注入隐蔽视觉提示，检测智能体漏洞，实验表明现有模型存在可被隐蔽注入利用的缺陷，为安全评估提供现实测试框架。",
+      "llm_tldr": "针对多模态LLM Web智能体在视觉浏览器自动化中引入的新攻击面，提出MIRAGE方法，在受信任平台上以非特权第三方角色注入隐蔽视觉提示，检测智能体漏洞，实验表明现有模型存在可被隐蔽注入利用的缺陷，为安全评估提供现实测试框架。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "exploring the capability boundaries of large language models in cyber contexts",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2606.23416v1",
+      "source": "arxiv",
+      "title": "Detecting Malicious Agent Skills in the Wild using Attention",
+      "abstract": "LLM agents increasingly load skills, file-based packages of natural-language instructions written by third parties and distributed through marketplaces, that execute with the user's privileges. A single malicious skill can exfiltrate data, hijack the agent, or persist as a supply-chain foothold, which turns the skill marketplace into a new attack surface for agentic systems. Prompt-injection defenses do not carry over to this setting. They rely on a boundary between trusted instructions and untrusted data, whereas a skill is itself a body of instructions, so an injected command sits among many legitimate ones and inherits their authority. We present Locate-and-Judge, a two-stage detector designed for this regime. A lightweight locator scores the structural spans of a skill by the instruction-following attention each span draws and retains only the top-K. A judge then examines the retained spans in detail. Concentrating the costly judgment on a few high-attention spans lets the detector audit an entire marketplace instead of a sample. Compared to direct LLM-based scanning, this approach offers an order-of-magnitude cost reduction, dramatically increasing its scalability at a small cost to recall, and it dominates keyword and regex baselines at comparable expense. Deployed at marketplace scale and at negligible cost, Locate-and-Judge flags skills with high precision, the majority of which we manually confirmed as malicious, surfacing dozens of live malicious skills, including several disguised as benign functionality and many that SkillSpector and Cisco Skill Scanner fail to detect. We release the resulting labeled dataset.",
+      "authors": [
+        "Bacem Etteib",
+        "Daniele Lunghi",
+        "Tégawendé F. Bissyandé"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI"
+      ],
+      "published": "2026-06-22T14:41:06+00:00",
+      "link": "https://arxiv.org/pdf/2606.23416v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "detects malicious LLM agent skills as new attack surface, using attention-based locator",
+      "llm_evidence_cn": "检测LLM智能体技能市场中的恶意技能，作为新攻击面",
+      "llm_evidence": "检测LLM智能体技能市场中的恶意技能，作为新攻击面",
+      "canonical_evidence": "检测LLM智能体技能市场中的恶意技能，作为新攻击面",
+      "llm_tldr_en": "The paper proposes Locate-and-Judge, a two-stage detector that identifies malicious agent skills in LLM marketplaces using structural span scoring, addressing a new supply-chain attack vector.",
+      "llm_tldr_cn": "本文针对LLM智能体从市场加载第三方技能带来的供应链攻击风险，提出两阶段检测器Locate-and-Judge，先用轻量定位器评分结构跨度再用精炼判断，在真实恶意技能数据集上展现高精度，揭示了智能体系统的新安全挑战。",
+      "llm_tldr": "本文针对LLM智能体从市场加载第三方技能带来的供应链攻击风险，提出两阶段检测器Locate-and-Judge，先用轻量定位器评分结构跨度再用精炼判断，在真实恶意技能数据集上展现高精度，揭示了智能体系统的新安全挑战。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "adversarial agents for testing large language models in cybercrime",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2606.22673v1",
+      "source": "arxiv",
+      "title": "AgentLens: Interpretable Safety Steering via Mechanistic Subspaces for Multi-Turn Coding Agent",
+      "abstract": "Coding agents based on large language models (LLMs) demonstrate remarkable autonomous capabilities, but they also introduce significant safety and misuse risks during multi-turn interactions with external environments. Existing safety mechanisms mainly rely on external guardrails, which have a limited ability to perform fine-grained behavioral control during execution. Meanwhile, recent mechanistic interpretability methods for LLM safety are mostly confined to single-turn or jailbreak-style QA settings, limiting their ability to capture the evolving risk dynamics of multi-turn agent execution. In this paper, we investigate the safety of multi-turn coding agents from an internal perspective. We propose AgentLens (Mechanistic Subspace Intervention and Steering), a white-box defense framework that performs runtime safety detection and representation-level mitigation for coding agents. Unlike conventional agent guardrails, AgentLens detect harmful execution states from step-level hidden representations and mitigate unsafe behavior by intervening in a 10-dimensional subspace within a single layer. To support this research, we introduce the Mechanistic Agent Safety (MAS) benchmark, comprising comprehensively annotated multi-turn execution trajectories across 194 tasks using LLaMA-3.1-8B, Qwen-2.5-7B, and Gemma-2-9B. Extensive experiments show that AgentLens achieves strong safety detection performance, provides preliminary evidence for lookahead risk anticipation, and substantially reduces harmful actions of the coding agent, establishing a foundation for applying mechanistic interpretability to dynamic LLM agent safety. The code is available at: https://github.com/EddyLuo1232/AgentLens",
+      "authors": [
+        "Weidi Luo",
+        "Qiming Zhang",
+        "Yihao Quan",
+        "Mingyu Jin",
+        "Jie Cai",
+        "Chaowei Xiao",
+        "Jingcheng Niu",
+        "Zhen Xiang"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI",
+        "cs.SE"
+      ],
+      "published": "2026-06-21T21:13:55+00:00",
+      "link": "https://arxiv.org/pdf/2606.22673v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "investigates safety and misuse risks in multi-turn LLM coding agents, probing capability boundaries",
+      "llm_evidence_cn": "研究多轮LLM编码智能体的安全和滥用风险，探索能力边界",
+      "llm_evidence": "研究多轮LLM编码智能体的安全和滥用风险，探索能力边界",
+      "canonical_evidence": "研究多轮LLM编码智能体的安全和滥用风险，探索能力边界",
+      "llm_tldr_en": "Proposes AgentLens, a mechanistic interpretability method to steer safety in multi-turn coding agents, overcoming external guardrail limitations.",
+      "llm_tldr_cn": "针对多轮LLM编码智能体在外部交互中的安全与滥用风险，现有外部防护无法精细控制行为。本文提出AgentLens，利用机制可解释性从内部识别并引导安全相关子空间，实现执行过程中的细粒度行为控制，有效应对智能体执行中不断演变的风险动态，为LLM在网络安全上下文中的能力边界探索提供了新视角。",
+      "llm_tldr": "针对多轮LLM编码智能体在外部交互中的安全与滥用风险，现有外部防护无法精细控制行为。本文提出AgentLens，利用机制可解释性从内部识别并引导安全相关子空间，实现执行过程中的细粒度行为控制，有效应对智能体执行中不断演变的风险动态，为LLM在网络安全上下文中的能力边界探索提供了新视角。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "exploring the capability boundaries of large language models in cyber contexts",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2606.24523v1",
+      "source": "arxiv",
+      "title": "Poster: Exploring the Limits of Audio-Based Detection of Turkish Phone Call Scams",
+      "abstract": "Scam phone calls exploit vulnerable communities worldwide, yet research on detection has focused almost exclusively on English and other high-resource languages. In low-resource settings such as Turkish, detection is especially difficult, as annotated data is scarce and technological defenses remain limited. This research investigates how large language models (LLMs) can support scam detection in Turkish by introducing the first public multi-modal dataset of 100 aligned audio-transcript pairs of scam and benign conversations. We evaluate seven LLMs spanning three model families: Gemini 2.5 (Flash, Flash-Lite, Pro), GPT-4o, and Qwen (Max, Plus, Turbo), under three input conditions: raw audio, automatic speech-to-text transcripts, and transcripts refined by a native speaker. Our results suggest that transcript-based inputs consistently outperform direct audio processing, while human-corrected and uncorrected transcripts perform comparably. By centering a low-resource language and real world threat, this work highlights the urgent need for culturally and linguistically inclusive AI safety research and more robust multi-modal systems for fraud prevention.",
+      "authors": [
+        "Arda Eren",
+        "Micheal Cheung",
+        "Youqian Zhang",
+        "Grace Ngai",
+        "Eugene Yujun Fu"
+      ],
+      "primary_category": "cs.CL",
+      "categories": [
+        "cs.CL",
+        "cs.AI"
+      ],
+      "published": "2026-06-23T12:56:47+00:00",
+      "link": "https://arxiv.org/pdf/2606.24523v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Explores LLM capabilities for scam call detection in Turkish",
+      "llm_evidence_cn": "探索大语言模型在土耳其语诈骗电话检测中的能力",
+      "llm_evidence": "探索大语言模型在土耳其语诈骗电话检测中的能力",
+      "canonical_evidence": "探索大语言模型在土耳其语诈骗电话检测中的能力",
+      "llm_tldr_en": "This poster presents the first multi-modal dataset of Turkish scam calls and evaluates seven LLMs on audio-based detection, finding that GPT-4o achieves high accuracy, but challenges remain with audio input.",
+      "llm_tldr_cn": "针对低资源语言（土耳其语）诈骗电话检测难题，本文构建了首个包含100个对齐音频-转录对的土耳其语诈骗与正常对话多模态数据集，并在原始音频、自动转写文本及人工转写三种输入条件下评估了七个大型语言模型（如GPT-4o、Gemini等）的性能。结果显示GPT-4o在人工转写条件下达到0.94 F1分数，但音频直接输入时性能显著下降，尤其在小语种上，揭示了当前大模型在真实音频诈骗检测中的能力边界与鲁棒性不足。",
+      "llm_tldr": "针对低资源语言（土耳其语）诈骗电话检测难题，本文构建了首个包含100个对齐音频-转录对的土耳其语诈骗与正常对话多模态数据集，并在原始音频、自动转写文本及人工转写三种输入条件下评估了七个大型语言模型（如GPT-4o、Gemini等）的性能。结果显示GPT-4o在人工转写条件下达到0.94 F1分数，但音频直接输入时性能显著下降，尤其在小语种上，揭示了当前大模型在真实音频诈骗检测中的能力边界与鲁棒性不足。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "capabilities of large language models in cybercrime",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    }
+  ]
+}
