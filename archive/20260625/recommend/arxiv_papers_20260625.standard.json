@@ -1,0 +1,170 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-06-25T22:07:13.237314+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 3,
+    "deep_cap": 6,
+    "deep_selected": 3,
+    "quick_candidates": 1,
+    "quick_skim_target": 11,
+    "quick_selected": 1
+  },
+  "deep_dive": [
+    {
+      "id": "2606.25332v1",
+      "source": "arxiv",
+      "title": "Decoupling Reconnaissance and Exploitation: Measuring the Capability Boundaries of LLM-Based Web Penetration Testing",
+      "abstract": "Large Language Models (LLMs) have shown promise for automated penetration testing, yet existing end-to-end black-box evaluations are highly susceptible to error cascading: failures in early reconnaissance can mask an agent's actual ability to exploit vulnerabilities. To more accurately characterize these capabilities, we propose a two-stage decoupled evaluation framework that separates exploit execution from reconnaissance. Using ground-truth injection and knowledge-driven ablation across 70 high-fidelity web vulnerability testbeds, our framework isolates exploitation performance from reconnaissance noise. We empirically evaluate five open-source penetration-testing agents, covering multiagent, monolithic, and graph-driven architectures, on a strictly aligned subset of 50 representative vulnerabilities. The results reveal a substantial capability gap. With accurate vulnerability context, agents achieve a functional success rate of up to 90.0%, whereas autonomous reconnaissance, measured by targeted vulnerability recall, plateaus at approximately 50.0%, primarily due to failures in parsing unstructured telemetry. Cross-architectural analysis further reveals distinct capability niches: multi-agent isolation is more effective for long-sequence interactions such as de-serialization, while monolithic and graph-driven designs perform better on short-chain injections and cross-session access-control vulnerabilities, respectively. This decoupled evaluation work provides a fine-grained benchmarking protocol and an empirical basis for designing next-generation automated offensive security agents.",
+      "authors": [
+        "Liwei Yu",
+        "Shuo Li",
+        "Ming Zhou",
+        "Ge Chu",
+        "Yan Guo"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI"
+      ],
+      "published": "2026-06-24T02:51:58+00:00",
+      "link": "https://arxiv.org/pdf/2606.25332v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 10.0,
+      "llm_evidence_en": "Directly measures LLM capability boundaries in web penetration testing, a cyberattack context.",
+      "llm_evidence_cn": "直接衡量大语言模型在Web渗透测试中的能力边界，属于网络攻击场景。",
+      "llm_evidence": "直接衡量大语言模型在Web渗透测试中的能力边界，属于网络攻击场景。",
+      "canonical_evidence": "直接衡量大语言模型在Web渗透测试中的能力边界，属于网络攻击场景。",
+      "llm_tldr_en": "This paper proposes a decoupled evaluation framework to accurately measure LLM agents' exploitation capabilities in web penetration testing, isolating reconnaissance noise. It reveals that LLM-based agents can successfully exploit over 60% of vulnerabilities when provided with ground-truth reconnaissance, highlighting both potential and limitations.",
+      "llm_tldr_cn": "评估LLM在Web渗透测试中的真实能力时，端到端黑盒测试易因侦察失败而低估利用水平。本文通过解耦侦察与利用，在70个靶标上对五个开源智能体进行地面真值注入实验，发现LLM智能体能在获得正确侦察时成功利用超过60%的漏洞，从而更精准地描绘了能力边界，为网络安全智能化提供了基准。",
+      "llm_tldr": "评估LLM在Web渗透测试中的真实能力时，端到端黑盒测试易因侦察失败而低估利用水平。本文通过解耦侦察与利用，在70个靶标上对五个开源智能体进行地面真值注入实验，发现LLM智能体能在获得正确侦察时成功利用超过60%的漏洞，从而更精准地描绘了能力边界，为网络安全智能化提供了基准。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "exploring the capability boundaries of large language models in cyber contexts",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.21349v2",
+      "source": "arxiv",
+      "title": "LLM-assisted Generation of Pseudo-C2 Servers for IoT Malware Dynamic Analysis",
+      "abstract": "Most IoT malware operates as botnets dependent on Command and Control (C2) servers, but the short-lived nature of attack infrastructure often leaves samples dormant without C2 communication, hindering dynamic analysis. This paper proposes a system that combines Ghidra with a Large Language Model (LLM) to extract communication specifications from a malware binary and automatically generate a pseudo-C2 server. Experiments using Mirai demonstrate that the proposed system semantically interprets binary control structures and extracts all 20 core protocol elements in agreement with the ground truth (100\\% specification extraction accuracy). The generated pseudo-C2 server fully reproduces seven of ten DDoS attack vectors with attack behavior consistent with the original C2. When applied to a customized variant created by modifying the publicly available Mirai source code, the method succeeds end-to-end -- from specification extraction through pseudo-C2 generation to attack reproduction -- demonstrating that the LLM infers specifications from binary structures without relying on pre-trained knowledge. This approach extends the applicability of LLMs from analysis assistance to the automated construction of dynamic analysis environments.",
+      "authors": [
+        "K. Hasui",
+        "S. Matsugaya",
+        "M. Shimamura",
+        "M. Hashimoto"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR"
+      ],
+      "published": "2026-06-19T11:46:47+00:00",
+      "link": "https://arxiv.org/pdf/2606.21349v2",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "LLM simulates C2 server behavior for malware analysis, a type of cybercrime simulation",
+      "llm_evidence_cn": "LLM模拟C2服务器行为用于恶意软件分析，属于网络犯罪模拟",
+      "llm_evidence": "LLM模拟C2服务器行为用于恶意软件分析，属于网络犯罪模拟",
+      "canonical_evidence": "LLM模拟C2服务器行为用于恶意软件分析，属于网络犯罪模拟",
+      "llm_tldr_en": "Uses a large language model to extract communication specs from malware and auto-generate a pseudo-C2 server, successfully reproducing DDoS attack vectors, demonstrating LLM-assisted simulation of cybercrime infrastructure.",
+      "llm_tldr_cn": "针对物联网恶意软件动态分析中C2服务器短暂导致样本休眠的问题，提出结合Ghidra与LLM的系统，从恶意软件二进制中提取通信规范并自动生成伪C2服务器。在Mirai上实现100%协议元素提取，重现七种DDoS攻击载体。该工作展示了LLM在模拟网络犯罪基础设施方面的能力，为探索LLM在网络犯罪模拟中的应用提供了具体案例。",
+      "llm_tldr": "针对物联网恶意软件动态分析中C2服务器短暂导致样本休眠的问题，提出结合Ghidra与LLM的系统，从恶意软件二进制中提取通信规范并自动生成伪C2服务器。在Mirai上实现100%协议元素提取，重现七种DDoS攻击载体。该工作展示了LLM在模拟网络犯罪基础设施方面的能力，为探索LLM在网络犯罪模拟中的应用提供了具体案例。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "simulating cybercrime using language models",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.24496v1",
+      "source": "arxiv",
+      "title": "Red-Teaming the Agentic Red-Team",
+      "abstract": "The use of agentic systems to perform offensive security operations has moved from a theoretical possibility to a commoditized capability. However, while the community has focused on creating more and more capable agents, less attention has been allocated to assessing the security of those systems.   In this work, we present the first in-depth security analysis of the most widely used agentic systems for offensive security operations. We show that most of these tools share common design flaws that enable an active adversary to exfiltrate API keys, establish persistent footholds, and fully compromise the operator's machine, even when the agent operates inside a sandboxed container. To support our analysis, we introduce a full cyber kill chain for such agentic systems, capturing the progression from initial LLM manipulation to lateral movement, persistence, guardrail bypass, and sandbox escape.   Building on our security analysis, we derive a robust architecture for agentic offensive-security tools and propose actionable, broadly applicable design principles that mitigate the disclosed attack paths at the architectural level.",
+      "authors": [
+        "Dario Pasquini",
+        "Michal Bazyli",
+        "Taras Fedynyshyn",
+        "Artem Sorokin"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI"
+      ],
+      "published": "2026-06-23T12:27:58+00:00",
+      "link": "https://arxiv.org/pdf/2606.24496v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Provides a security analysis of agentic systems used for offensive security operations (simulating cybercrime).",
+      "llm_evidence_cn": "对用于进攻性安全操作（模拟网络犯罪）的智能体系统进行安全分析。",
+      "llm_evidence": "对用于进攻性安全操作（模拟网络犯罪）的智能体系统进行安全分析。",
+      "canonical_evidence": "对用于进攻性安全操作（模拟网络犯罪）的智能体系统进行安全分析。",
+      "llm_tldr_en": "This paper conducts the first in-depth security analysis of widely-used agentic systems for offensive security. It reveals design flaws that allow adversaries to exfiltrate API keys, establish persistence, and compromise the operator's machine, even within sandboxes, and introduces a cyber kill chain for such agent threats.",
+      "llm_tldr_cn": "针对日益商品化的进攻性安全智能体系统，本文首次深入分析其安全性。通过研究主流红队智能体工具，发现它们普遍存在设计缺陷，使主动攻击者能窃取API密钥、建立持久化后门并完全控制操作者机器，即使处于沙箱环境中。作者提出针对此类系统的网络杀伤链，揭示了红队代理自身的安全风险，强调了在利用智能体进行网络攻击模拟时必须兼顾防御的重要性。",
+      "llm_tldr": "针对日益商品化的进攻性安全智能体系统，本文首次深入分析其安全性。通过研究主流红队智能体工具，发现它们普遍存在设计缺陷，使主动攻击者能窃取API密钥、建立持久化后门并完全控制操作者机器，即使处于沙箱环境中。作者提出针对此类系统的网络杀伤链，揭示了红队代理自身的安全风险，强调了在利用智能体进行网络攻击模拟时必须兼顾防御的重要性。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "simulating cybercrime using language models",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2606.21732v1",
+      "source": "arxiv",
+      "title": "Safe to Check, Unsafe to Use: Relinking at the Compression Boundary of LLM Agents",
+      "abstract": "Summarization-based prompt compression is increasingly used by LLM agents to shorten long, distributed contexts, but it shifts the security boundary: filters inspect the pre-compression prompt while the backend acts on a newly generated compressed context. We identify relinking, a compression-boundary vulnerability where the compressor behaves as a confused deputy, summarizing distributed, locally benign fragments into a complete malicious instruction. Unlike prompt injection, relinking need not place an explicitly malicious payload in the source context. We show that relinking arises from summarization itself: attention makes separated fragments jointly available, pre-training makes compatible fragments plausible to connect, and post-training favors compact backend-actionable summaries. We formalize the attacker-induced form as adversarial relinking and present Relink, an automated DSL-based tool that splits malicious payloads into benign fragments while keeping the complete payload absent before compression. Across four long-context agent benchmarks, Relink achieves 86.9% Relink Rate and Backend Action Rate versus 17.0% for clean-split controls. Existing defenses fail to reliably capture adversarial relinking; our KBRA defense reduces residual Backend Action Rate to 0.0%.",
+      "authors": [
+        "Zesen Liu",
+        "Zihan Zhang",
+        "Dongdong She"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI"
+      ],
+      "published": "2026-06-19T20:43:14+00:00",
+      "link": "https://arxiv.org/pdf/2606.21732v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Discovers a new vulnerability (relinking) in LLM agent prompt compression, demonstrating how benign fragments can be combined into malicious instructions, revealing an attack surface from LLM capabilities.",
+      "llm_evidence_cn": "在LLM代理提示压缩中发现新漏洞（重链接），展示无害片段如何被组合成恶意指令，暴露LLM能力的攻击面。",
+      "llm_evidence": "在LLM代理提示压缩中发现新漏洞（重链接），展示无害片段如何被组合成恶意指令，暴露LLM能力的攻击面。",
+      "canonical_evidence": "在LLM代理提示压缩中发现新漏洞（重链接），展示无害片段如何被组合成恶意指令，暴露LLM能力的攻击面。",
+      "llm_tldr_en": "This paper identifies relinking, a compression-boundary vulnerability in LLM agents where distributed benign fragments are combined into malicious instructions, expanding the understanding of LLM capability boundaries in cyber contexts.",
+      "llm_tldr_cn": "LLM代理广泛采用压缩总结减少上下文长度，但压缩过程可能引入新的安全边界漏洞。本文发现重链接漏洞：压缩器将分布式无害片段合并为完整恶意指令，绕过前景检查器。该漏洞源于注意力机制使分离片段同时可用、预训练使片段可连接、后训练抑制缓解。实验证明重链接可普遍利用，揭示LLM能力在压缩边界的新风险，需在代理设计中予以应对。",
+      "llm_tldr": "LLM代理广泛采用压缩总结减少上下文长度，但压缩过程可能引入新的安全边界漏洞。本文发现重链接漏洞：压缩器将分布式无害片段合并为完整恶意指令，绕过前景检查器。该漏洞源于注意力机制使分离片段同时可用、预训练使片段可连接、后训练抑制缓解。实验证明重链接可普遍利用，揭示LLM能力在压缩边界的新风险，需在代理设计中予以应对。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "exploring the capability boundaries of large language models in cyber contexts",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    }
+  ]
+}

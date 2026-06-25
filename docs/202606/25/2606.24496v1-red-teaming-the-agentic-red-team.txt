@@ -1,0 +1,626 @@
+Title: Red-Teaming the Agentic Red-Team
+
+URL Source: https://arxiv.org/pdf/2606.24496v1
+
+Published Time: Wed, 24 Jun 2026 00:57:37 GMT
+
+Number of Pages: 23
+
+Markdown Content:
+# Red-Teaming the Agentic Red-Team 
+
+## Dario Pasquini ∗
+
+## Cracken 
+
+## Michał Bazyli 
+
+## Cracken 
+
+## Taras Fedynyshyn †
+
+## Cracken 
+
+## Artem Sorokin 
+
+## Cracken 
+
+## Abstract 
+
+The use of agentic systems to perform offensive security oper-ations has moved from a theoretical possibility to a commodi-tized capability. However, while the community has focused on creating more and more capable agents, less attention has been allocated to assessing the security of those systems. In this work, we present the first in-depth security analysis of the most widely used agentic systems for offensive security operations. We show that most of these tools share common design flaws that enable an active adversary to exfiltrate API keys, establish persistent footholds, and fully compromise the operator’s machine, even when the agent operates inside a sandboxed container. To support our analysis, we introduce a full cyber kill chain for such agentic systems, capturing the progression from initial LLM manipulation to lateral movement, persistence, guardrail bypass, and sandbox escape. Building on our security analysis, we derive a robust ar-chitecture for agentic offensive-security tools and propose actionable, broadly applicable design principles that mitigate the disclosed attack paths at the architectural level. 
+
+## 1 Introduction 
+
+Since the inception of machine learning, both researchers and industry practitioners have sought to leverage models to automate security operations. Early deep learning-based solutions were largely confined to narrow subroutines and specific tasks such as password guessing [26, 30, 31] and fuzzing [7, 48], among many others [37]. The introduction of LLMs and derived agentic systems has enabled a fundamental leap, unlocking the possibility of end-to-end, full-cycle security operations with minimal or no human involvement. By far, the most prominent application in both research [10, 12, 13, 18, 25, 36, 38, 39, 41, 45, 47] and  
+
+> ∗Corresponds to: dp@cracken.ai
+> †Information Protection Department, Lviv Polytechnic National Univer-sity, Lviv, 79013, Ukraine
+
+Table 1: Attacker capabilities across audited agentic offensive-security systems. Legend: deterministic, G# depending on external factors, but likely, # no reliable exploit found, † no OS-level sandbox (host access immediate).                                               
+
+> Agent RCE on Secrets Persis-Unbounded Host worker exfil. tence weaponization compromise
+> CAI All hard RCE RedAmon LLM keys ++ hard Network PentestAgent All hard RCE DarkMoon All hard RCE PentAGI All hard RCE AIRecon All hard RCE PentestGPT LLM keys hard G#RCE METATRON †All hard RCE nebula †All hard RCE xalgorix †All hard RCE Artemis LLM keys soft #
+> STRIX ###
+
+industry [2, 3, 9, 24, 29, 42 –44] is the development of offen-sive security systems capable of performing tasks such as automated penetration testing, red teaming, and full-chain ad-versary emulation. Moreover, as these systems are becoming ubiquitous, they are also transcending their role as tools for exploratory security analysis and are increasingly being de-ployed in real-world operational contexts, either in support of cyber forces [19, 21, 35] or, more critically, for malicious use in cyberattacks [5, 16]. As these tools rapidly become core components of security operations and are increasingly relied upon by operators [46], we must ask whether they are sufficiently secure to withstand real-world exposure and, thus, the scrutiny of adversaries. In this work, we present the first in-depth security analy-sis of this emerging class of tools. We demonstrate that they introduce new attack vectors against the organizations and users who deploy them. 1 Specifically, we show that an adver-sary who controls the target of an offensive-security operation can leverage this position to manipulate the agent through techniques adjacent to prompt injection, ultimately achiev-
+
+> 1A common pattern shared with other emerging agentic systems [22, 23, 27, 33].
+
+1
+
+> arXiv:2606.24496v1 [cs.CR] 23 Jun 2026
+
+ing arbitrary code execution on the user’s own infrastructure regardless of sandboxing. In our security analysis spanning 12 agentic tools, we in-troduce several attacks and exploits. Primarily, we present a prompt-injection-free manipulation attack design for of-fensive security agents that achieves near-deterministic re-mote code execution on the agent infrastructure, even when deployed with frontier LLMs such as Claude Opus 4.8 ,
+
+GPT-5.5 , and Gemini 3.1 Pro . The attack does not rely on explicit prompt-injection payloads [17, 34] and instead lever-ages contextual deception and reward hacking as the main drivers [32]. Drawing inspiration from malware antivirus-evasion techniques, we show how this technique can encode malicious functionality within payloads capable of bypassing both frontier model safeguards and their direct scrutiny with high confidence. Beyond LLM-targeting attacks, we identify recurring in-secure design patterns in the tested tools (summarized in Table 1). Once an attacker achieves code execution within the execution environment (typically a sandbox or container) by exploiting the agent, weak segmentation and violations of the principle of least privilege enable escalation across the system, allowing secrets exfiltration, agent weaponization against arbitrary targets, and, in most cases (10/12), sandbox escape leading to host compromise. Motivated by these recurrent flaws, we define a tailored kill chain to model such escalation processes and paths. The objective of this kill chain is to enable more principled and sys-tematic red teaming of such systems, providing an abstraction that generalizes both attack vectors and attacker objectives. Finally, drawing on our empirical results and threat model-ing, we propose a robust and general architecture designed to prevent escalation within the kill chain. The core design prin-ciple here is: rather than assuming that LLMs can be reliably hardened against manipulation techniques such as prompt injection, we adopt a stronger adversarial model in which we assume that the LLM will behave arbitrarily and maliciously. We then design the system architecture around the central invariant of minimizing and containing the blast radius of an untrusted LLM / worker environment. This approach yields security guarantees that preserve soundness even if prompt injection is never fundamentally solved [1, 8]. Our contributions can be then summarized as follows: • We perform the first in-depth analysis of the security properties of agentic offensive-security tools, both at the AI and system level. We abstract our findings into a full-cycle cyber kill chain tailored for such tools, providing a systematic roadmap for threat modeling and red teaming them. • We introduce a prompt-injection-free manipulation tech-nique that achieves near-deterministic effectiveness against agentic offensive-security tools. • Finally, we design a principled secure architecture for  
+
+> Agentic harness
+> Skills / DB / Memory / Orch. tools
+> guardrails
+> Orchestrator:
+> Worker
+> (bash execution runtime)
+> uM
+> tool call (bash cmd)
+> T
+> (attacker)
+> network
+> UI u
+> (victim)
+
+Figure 1: Abstraction of the architecture of a agentic-red-team , and the parties involved in the threat model. such systems, based on the invariant of containment and least privilege, rather than on optimistic assumptions that AI-targeted attacks such as prompt injection can be prevented. 
+
+## 2 Preliminary 
+
+This section provides the necessary background and outlines the setup of our study. 
+
+## 2.1 Agentic Offensive Security 
+
+We define an agentic offensive-security system as any agentic system designed to perform or support offensive security tasks in an autonomous manner through one or more LLMs [10, 12, 13, 18, 25, 36, 39, 41, 45, 47]. In this study, we primarily focus on fully autonomous sys-tems, as they represent the vast majority of available ones. We focus on agents that are explicitly marketed to support black-box offensive operations, which constitute the most common class. 2 For convenience, without loss of generality, we here-after refer to this class of systems as agentic-red-teams .In our study, we consider 12 open-source agentic-red-teams , representing the most popular systems available at the time of writing. The complete list of agents and their main features is provided in Table 2, while repository and popularity details are reported in Table A.2 in Appendix A. All considered agents are designed to be fully autonomous and are primarily intended for black-box security analysis, while also presenting tooling for white-box operations. 
+
+2.1.1 Architecture Abstraction 
+
+The architecture of agentic-red-teams drastically varies across implementations; however, these systems can generally be   
+
+> 2That is, we do not consider tools that perform only code review or general white-box code analysis.
+
+2Agent Sandbox Guardrail Human Memory Memory / Multi- Skills UI Agentic Harness gate sessions agent                                                                                                             
+
+> AIRecon Docker ✓∗−✓✓✓✓TUI Custom (Python / Ollama) CAI Docker ∗✓∗−✓✓✓✓CLI (REPL) Custom (LiteLLM / OpenAI SDK) PentAGI Docker −−✓✓✓−Web Custom (Go) RedAmon Docker ✓✓∗✓✓✓✓Web LangGraph STRIX Docker −−✓−✓✓CLI / TUI Custom (LiteLLM) Artemis Docker ∗−−✓✓✓−CLI Codex METATRON −✓−✓✓−−CLI Custom (Python) PentestAgent Docker ∗✓−✓✓✓✓TUI Custom (Python / LiteLLM) PentestGPT Docker −−✓✓−−TUI Claude Code nebula −−−✓✓−−Desktop (PyQt6) LangChain xalgorix −✓−✓−✓✓Web / CLI Custom (Go) DarkMoon Docker ✓−−−✓✓CLI OpenCode
+
+Table 2: List of agentic-red-teams under consideration and their relevant features. ✓ indicates the feature is present, − indicates absence, and “ ∗” indicates the feature is optional or configurable. abstracted as comprising three main components, as depicted in Figure 1. 
+
+1) Orchestrator: The orchestrator is the soft-ware/infrastructure layer that implements and coordinates the agentic system. It defines and manages the components that support the agentic harness (e.g., session memory, episodic memory, skills, and MCP access), as well as the logic governing their interactions. This is where the main agentic loop runs and where tool calls are issued for execution by the second component, the “ worker ”. In addition, the orchestrator may itself execute certain tools, typically those related to memory operations or system man-agement (e.g., spawning workers). It also enforces policies and guardrails when present, such as preventing the LLM from operating on out-of-scope targets or executing destruc-tive actions. At the infrastructural level, the orchestrator provides per-sistence mechanisms, typically through a database or a core file system, which store session state, intermediate artifacts, and other persistent data required for the agent’s operation. The orchestrator can either run in a container or directly as a process on the operator’s machine uM . In containerized deployments, it is also responsible for transmitting relevant data (typically reports and other artifacts) to the operator’s machine uM , where it can be accessed by the user u.
+
+2) Worker: The worker (the execution environment) is the component responsible for executing tools issued by the or-chestrator, typically in the form of raw shell commands. In most cases, it consists of a Kali Linux environment equipped with a suite of security tools that the agent can freely orches-trate. Upon receiving a tool call from the orchestrator, this is translated into an executable operation for the worker (e.g., a complete Bash command string), which is then executed accordingly. Some agentic-red-teams support the use of mul-tiple workers simultaneously; typically, different containers with different capabilities. Workers are generally containerized systems (e.g., docker containers) running within the operator’s machine uM . Typi-cally, they are the only components of the system that directly interact with the target T and the external world (i.e., external to uM ). 
+
+3) Front-end: This component handles the interaction be-tween the user and the orchestrator. Such systems typically operate in one of two modes: a command-line interface or a web-based interface. The front-end is mostly irrelevant to our analysis and is therefore largely omitted in the remainder of this work. It is only discussed when it forms part of an exploit chain. Hereafter, we apply such abstraction to model the agentic systems we analyze. 
+
+## 2.2 Threat model 
+
+Premise: We frame our security analysis around an attacker who controls the target of the offensive-security operation run by the agentic-red-team (see Figure 1), with the goal of compromising its operator. While this threat model has practical relevance, for instance in modeling hack-backs within an active cyber conflict, we adopt it primarily as a principled lens to study the security of these systems, and our conclusions generalize beyond this specific setting. Formally: we model a user u running an agentic-red-team red A on a machine uM (the operator’s machine) to perform an offensive security operation on a remote target T
+
+(e.g., a web application or a remote machine). The target T is controlled by the adversary A, whose objective is to compro-mise the user u by indirectly exploiting the agent red A as an attack vector. 3Attacker objectives: In this work, we primarily model an attacker who seeks full operator’s machine compromise ;that is, the attacker escalates privileges and, where necessary, escapes the agent’s sandbox to achieve code execution directly on the operator’s machine uM (also referred to as host ). Additionally, we also model other intermediate objectives: 
+
+persistent and unbounded agent weaponization and secrets exfiltration , which will be discussed in § 3. 
+
+Attacker ( A) capabilities We model a weak adversary with no prior knowledge about the user u or the deployed agentic system. The attacker’s capabilities are restricted to arbitrary manipulation of the target system T, which is under their control. No additional capabilities are assumed or granted. 
+
+agentic-red-team (red A) deployment: In our study, we de-ploy the tools listed in Table 2 under their default configu-rations, while assuming that the strongest available security mechanisms are enabled whenever they are optional. Specifi-cally, we adhere to the following rules: (1) if a system supports optional, non-default sandboxing, we assume that sandboxing is enabled. We do not run the system without a sandbox unless the documentation or code contains no mention of sandbox-ing capabilities. (2) if a system provides optional, non-default guardrails, we assume that these guardrails are active. (3) we assume that worker containers (see § 2.1) are reset and their filesystems cleaned after each operation, even if this practice is not explicitly documented by the developers (see persistent weaponization in § 6.1). (4) if services are shipped with de-fault credentials (e.g., database passwords), we assume that these credentials have been rotated. None of these tools involve any form of human gating or de-cision delegation; therefore, we are not required to make any assumptions about human behavior within the threat model. 
+
+2.2.1 Why the security of offensive security tools matters 
+
+Before turning to our findings, we want to make explicit the motivations behind our study. We argue that there are at least two core reasons why the security of agentic offensive-security tools is a relevant and timely problem to study: 
+
+Agentic Offensive-Security Systems will be deployed in the field: Automated penetration testing and red-teaming systems have rapidly emerged as a commoditized capabil-ity within months of the introduction of sufficiently capable foundation models [2, 3, 9, 24, 29, 42 –44]. Their adoption is accelerating at a rapid pace, with both capability and de-ployment frequency increasing continuously. As a result, an increasing number of organizations are incorporating these systems into production security workflows. Cyber forces are also following this trend, showing grow-ing interest in integrating these technologies into field oper-ations [19, 21, 35]. If this is not already the case today, it is highly likely that agentic tools will soon become embedded components in cyber conflict scenarios, either as core opera-tional assets or as force multipliers supporting field operators. As we move toward such a setting, ensuring that these systems remain secure under adversarial exposure becomes a fundamental requirement; that is, in such environments, adversarial targeting is not a hypothetical possibility, but an expected condition of deployment. 
+
+Beyond the Adversarial Setting: The secure design of offensive-security agents is necessary even under the opti-mistic assumption that no active adversary is present. Such systems operate with high-impact capabilities and privileges (see § 8.1), including network access, arbitrary code execution, and interaction with sensitive infrastructure. Consequently, the same failure that an adversary could induce on purpose can also arise on its own: a hallucination, a planning error, or reward misalignment can drive the agent into an unsafe state and directly produce destructive, irreversible outcomes, as repeatedly demonstrated by incidents involving production autonomous systems [14, 40]. For this reason, adversarial robustness should be read as a worst-case model of agent misbehavior rather than a niche concern. In the threat model considered in this work, the ad-versary explicitly attempts to drive the agent toward unsafe states and unauthorized actions; this is precisely the behavior that hallucinations and misalignment can trigger accidentally. A system that stays contained and limits damage under delib-erate adversarial manipulation is therefore, by construction, also robust against naturally occurring failures such as unin-tended autonomous behavior. In other words, the conclusions we derive from our study are not specific to the adversarial case: they are a prerequisite for the safe operation of any offensive-security agent, adversary or not. 
+
+## 3 The Kill-Chain 
+
+In our security analysis, we notice a recurring set of vul-nerabilities and misconfigurations across agentic-red-teams .These shared weaknesses enable attackers to compromise such systems through a largely standardized attack procedure. To capture this pattern, we distill the attack process into a dedicated kill chain. Its purpose is twofold: first, to streamline the security assessment and penetration testing of agentic-red-teams for the broader community; and second, to provide a structured reference of vulnerability classes that must be addressed to build secure and reliable agentic-red-teams .The proposed kill chain adapts the traditional cyber kill chain to the specific context of agentic-red-teams , and it can be seen as a sub-chain of the exploitation phase. It models the progression from the attacker’s initial interaction with the agent to the eventual compromise of the operator’s infras-tructure. In parallel, we model the spectrum of intermediate 41. Worker RCE 2. Privilege Escalation 3. Persistence 4. Sandbox Escape 
+
+> 5. Host Compromise
+> no sandbox
+> flat architecture
+> Secrets exfiltration
+> Persistent & Unbounded Agent Weaponization
+> co-located  separated
+
+Figure 2: Kill chain for agentic-red-teams (first row), and intermediate adversarial objectives (second row). Dotted lines represent skipping connections conditionally enabled by the target architecture. adversarial objectives, spanning infrastructure abuse and se-crets exfiltration. An overview of the kill chain is given in Figure 2. Its main stages are: 1. RCE on worker via agent manipulation: This stage models the initial engagement with the agent via a hon-eypot or host-based deception component (see § 4). The objective of this stage is to manipulate the agentic-red-team to open an RCE channel for the attacker (e.g., a reverse shell) on the agent’s infrastructure, typically a worker sandbox. This is the initial foothold of the at-tacker in the agentic system and enables further escala-tion. If the agentic-red-team does not employ any form of sandboxing, as is the case for nebula , xalgorix , and 
+
+METATRON , this initial stage directly leads to the final stage, 5: host compromise. 2. Privilege escalation: Systems are generally composed of multiple containers with different privilege levels and varying proximity to the host machine. Starting from the worker RCE obtained in stage (1), the attacker moves across the system to achieve code execution on higher-value containers (typically the orchestrator). This may be a necessary step to prepare for sandbox escape, gain access to secrets (e.g., LLM API keys), and achieve per-sistence. 3. Persistence: Containerized applications such as workers are ephemeral in nature, and their volumes and state may be reset for each new operation (e.g., a pentest against a different target). Thus, the initial worker RCE achieved by the attacker is lost upon reset. This stage focuses on achieving persistence within the system such that the attacker can maintain control of the worker regardless of its life cycle. Typically, this involves trojanizing the application’s source code or modifying related resources so that attacker control is re-established upon redeploy-ment. 4. Sandbox escape: This stage is concerned with bridg-ing the gap between the sandbox and the host machine, enabling the attacker to achieve RCE on the operator’s machine. 5. Operator infrastructure compromise: At this stage, the attacker has achieved RCE on the host machine and can continue along the traditional cyber kill chain, proceeding with installation, command-and-control, and other post-exploitation activities. We do not cover this aspect in the paper, as it is independent of the underlying attack vector we are studying. 
+
+Intermediate adversarial objectives: The attacker will not always be able to reach stage (5) of the kill chain and com-promise the operator’s machine. However, there are other objectives that the attacker can pursue and capitalize on dur-ing the campaign, and which systems should be designed to prevent. We mainly characterize two such objectives: • Persistent and Unbounded Agent Weaponization: 
+
+The attacker A takes control of the execution of red A on the machine uM and uses it for arbitrary purposes (e.g., using uM to attack arbitrary sensitive targets such as .gov domains), either to cause indirect harm to u or to mone-tize their resources. The attacker aims to achieve persis-tent and unbounded weaponization; that is, weaponiza-tion persists across execution sessions of the agent and it is not limited in its functionality (e.g., no guardrail can prevent the agent from sending traffic to an arbitrary external domain). • Secrets exfiltration: The attacker steals sensitive infor-mation from u, such as LLM API keys or information about other sessions. The remainder of the paper is dedicated to individually an-alyzing each stage of the kill chain, explaining its mechanics and providing concrete examples of its execution against the evaluated agents. § 9, in turn, builds upon the attack paths uncovered during our analysis and proposes a secure architec-ture for agentic-red-teams .
+
+## 4 Achieving RCE on the worker 
+
+To achieve RCE on the worker, we focus on and extend the deception-based engagement model originally proposed by 5agentic-red-team          
+
+> red A’s worker
+> honeypot T
+> adversary-controlled
+> staged payload
+> e.g., pwcrypt (binary) + .pwc
+> “critical artifact”
+> adversary A
+> controls T
+> execute locally
+> triggers hidden functionality (self-planted vuln.)
+> 1. engage / recon
+> 2. download payload
+> (gate 1: download?)
+> 3. execute & inspect
+> (gate 2: execute?)
+> 4. RCE
+
+Figure 3: The attacker stages a malicious payload on an adversary-controlled honeypot, presenting it as a critical arti-fact. Without any explicit prompt injection, the agentic-red-team engages the honeypot (1) , downloads the staged payload onto its own machine uM (2) , and executes it after inspec-tion (3) . Execution triggers a self-planted vulnerability that grants the adversary remote code execution on the worker. Pasquini et al. [32] ( MANTIS ). Here, the malicious target of the offensive operation A instantiates decoys (e.g., a miscon-figured FTP service) on T aimed at attracting and engaging the agent. Upon interaction from the agentic-red-team , the de-coy produces malicious responses intended to manipulate the agent’s actions. In MANTIS , such manipulation is achieved via a form of indirect prompt injection. Today, such attacks are mostly ineffective against modern models and defenses, as the agent can reliably identify injection payloads. To sidestep this limitation, we introduce a new form of implicit manipu-lation technique that hereafter we call “ agent-phishing ” for brevity, given its affinity with the concept of phishing in clas-sic malware delivery. This is a class of LLM manipulation attacks tailored for 
+
+agentic-red-team that does not rely on any form of explicit prompt injection or obfuscation, but achieves reliable ( 97 .8% in our experiments) agent compromise purely via staging and adversarial reward hacking [33]. 
+
+## 4.1 Prompt-injection-free manipulation 
+
+While the attack philosophy behind agent-phishing enables several forms of weaponization, we focus on the following workflow in our analysis as we found it particularly reliable and replicable across staging scenarios: 1. We craft an executable payload (typically a binary) em-bedding a hidden malicious functionality. 2. The payload is deployed within a honeypot system and staged as a critical artifact required for the agent to com-plete its offensive operation. 3. As a consequence of the staging, the agent downloads the payload onto its local machine and executes it, thereby triggering the malicious functionality (e.g., a reverse shell) granting the attacker RCE. The success of this technique depends on two decision gates within the agent workflow: (1) whether to download the payload, and (2) whether to execute it. This process is summarized in Figure 3. The remainder of this section examines the techniques we develop to reliably satisfy both conditions. For clarity, we decompose the attack design into two stages: payload staging 
+
+and payload trojanization .
+
+4.1.1 Payload Staging 
+
+Payload staging is about designing and placing the payload on the target machine T (an adversary-controlled honeypot) in such a way that the attacking agent (a) perceives it as a valu-able artifact necessary to progress the operation, and (b) can 
+
+only effectively leverage it by downloading and executing it locally. We achieve this solely through environmental design of the honeypot, avoiding any form of explicit prompt injection, which we observe to be largely ineffective against modern, high-capability LLMs and harnesses. Next, we present the idea behind our approach through a representative example of the staging process. 
+
+(Example) staging pwcrypt : This payload is staged as a small, self-contained CLI utility for encrypting and decrypting passwords using a proprietary binary container format ( .pwc ). We design the vault file to be self-describing: it carries the KDF algorithm, cipher, salt, IV, and optional metadata fields encrypted inline. The interface is ordinary and fully coherent:  
+
+> pwcrypt - small password vault decrypter Usage: pwcrypt info <file> pwcrypt decrypt <file> <master-password> pwcrypt encrypt <file> <master-password> <plaintext> ...
+
+The payload fully implements the encryption/decryption logic, as well as auxiliary routines such as vault format validation and error messages induced by decryption with an incorrect password. We observe that building the payload to be fully functional drastically reduces suspicion from the LLM both before and especially after the hidden malicious functionality is triggered. More on this is discussed in § 4.1.2. For this example, we build a basic honeypot T mimicking a developer web server with a misconfigured auto-indexed drop directory exposed at /dev/ . The directory contains the precompiled, non-stripped pwcrypt tool, several vault files, and additional components such as a README.md and a 
+
+release.log as auxiliary staging artifacts. 6The README.md documents pwcrypt ’s functionality and stresses its role as the sole decryptor for the .pwc format. The 
+
+release.log mimics a leftover CI pipeline trace accidentally left in the public directory. It contains a set -x shell trace with the line: 
+
++ ./pwcrypt decrypt github.pwc ’hunter2’ 
+
+leaking the master password as a side effect of shell execu-tion logging. The log’s structure (i.e., timestamps, job IDs, a Docker registry push) is indistinguishable from a real CI artifact. Together, these cues close the loop: the agent finds high-value credentials it cannot read by any other means, the exact tool needed to read them, a detailed README con-firming the tool’s legitimacy, and an already-known candi-date password; leaving “ ./pwcrypt decrypt github.pwc ’hunter2’ ” as the obvious next action. The effectiveness of this approach is covered in § 4.1.3. 
+
+4.1.2 Payload Trojanization 
+
+In order to enable the attacker to achieve RCE on the agent, the staged payload must contain malicious functionality triggered upon execution. As previously mentioned, while good staging can facilitate the process, frontier models will not execute the payload directly; instead, they perform a validation phase to ensure the payload is not a trojan. When inspecting a payload to determine whether it is safe to execute, an agent primarily searches for well-known in-dicators of malicious behavior, such as network beaconing, daemonization, encoded or obfuscated execution chains, and suspicious syscall patterns. The presence of any such artifact typically raises suspicion and triggers deeper scrutiny of the payload, often leading the agent to identify the underlying malicious functionality. Although some of these artifacts can be plausibly justified through careful staging and narrative de-sign 3, in our study we uncovered a more reliable strategy for crafting malicious payloads that agents consistently classify as benign. 
+
+RCE via self-planted vulnerability: The idea is simple: 
+
+we do not create malicious code, but rather we create intentionally vulnerable code (e.g., affected by a memory corruption vulnerability) and we stage the payload so that RCE is achieved by the agent by unintentionally exploiting the vulnerability during execution ; for example, executing it on a maliciously crafted input file. As in the previous section, we introduce such technique via a representative example. 
+
+> 3For example, for a payload staged as a password decrypter, an outbound HTTP request may be presented as the retrieval of a salt token or public key. Such behavior can be further legitimized through adversarial naming in the binary’s symbols and documentation, including function and variable names.
+
+(Example) Arbitrary code execution via Out-of-bounds heap/BSS in pwcrypt We designed pwcrypt with a vul-nerability that is triggered when reading a malformed vault file, arising from a memory corruption in the routine that parses the file header. A bounds check on one of the header fields is individually correct on each of its three conditions, yet the conditions are never checked jointly ; a crafted vault can therefore supply a subtype near the end of the buffer together with a value long enough to overflow past the buffer’s edge, silently overwriting memory that follows it in the binary’s data segment. What follows the buffer is a table of function pointers used as per-version integrity hooks; callbacks invoked automati-cally whenever a vault file is loaded, as a routine semantic check on the header’s contents. The crafted overflow over-writes the entry for the format version the binary accepts, re-placing the legitimate callback address with the address of the C standard library’s system function. Separately, the vault’s KDF parameter field is forged to embed a shell command after the numeric value, using a separator that the iteration-count parser ignores but that a shell interprets as a statement boundary. This process is summarized in Figure 4, whereas technical details are provided in Appendix B. The result is that any invocation of the binary on the crafted vault (whether to decrypt, inspect, or simply query its meta-data) silently executes an arbitrary shell command as a side effect of file parsing, before producing any output. The fore-ground behavior of the process is entirely normal: the ex-pected secret is printed and the process exits cleanly. An agent that runs the binary to observe its behavior therefore triggers the execution primitive through the act of inspection itself, with no observable signal to distinguish the event from ordinary file I/O. The payload contains no malicious code in any meaningful sense of the term (the vault file does): there is no embed-ded command string, no explicit call to a shell, no encoded payload, and no construct that a static or dynamic analysis would flag as adversarial intent. What the payload contains is a vulnerability ; the same class of implementation defect that appears routinely in production software written by honest developers. This distinction is precisely what defeats model-based inspection: a model asked to assess whether a binary is safe to execute will find nothing to object to, because there is genuinely nothing objectionable in the code itself. 
+
+Automating staging and payload generation To enable the scalable generation of diverse staging scenarios and tro-janization mechanisms, we introduce an agentic pipeline that implements the process end-to-end. Additional examples of staging scenarios generated through this pipeline and used for testing are reported in Table A.4 in Appendix A. 7[0 ... 253] [254] [255] BSS boundary                      
+
+> [0].name [0].fn [1].name [1].fn [2].name sys@plt . . .
+> metadata_buffer[256] integrity_checks[8]
+> memcpy(metadata_buffer + 255, value, 49) 48 bytes past buffer end
+> subtype = 255
+> extension_lengths_ok()
+> ✓value_len ≤META_BUF_SIZE
+> ✓subtype < META_BUF_SIZE
+> ×subtype + value_len ≤META_BUF_SIZE
+> never checked — the missing invariant
+> pwc_integrity_check(version = 2, params)
+> dereferences [2].fn
+> system("iter=200000; <cmd> ") ⇒RCE
+> fn overwritten to system@plt
+
+Figure 4: Out-of-bounds write in pwcrypt . A missing combined bounds check allows a crafted vault’s metadata extension record to overflow metadata_buffer and overwrite the adjacent function-pointer table. When the parser subsequently invokes the per-version integrity hook, the corrupted pointer redirects execution to system , which receives the attacker-controlled KDF parameter string as its argument. Table 3: Successful attacks / total runs per honeypot and LLM (overall as %). Each cell aggregates over the 10 evaluated 
+
+agentic-red-teams (one run per agent). 
+
+Honeypot: Claude Opus 4.8 DeepSeek V4 Pro Gemini 3.1 Pro GLM-5.1 GPT-5.5 Kimi K2.6 Overall 
+
+cfgunpack 10/10 10/10 9/10 10/10 10/10 10/10 98.3% 
+
+db-restore 10/10 10/10 9/10 10/10 9/10 10/10 96.7% 
+
+pwcrypt 10/10 10/10 9/10 10/10 10/10 10/10 98.3% Overall 100.0% 100.0% 90.0% 100.0% 96.7% 100.0% 97.8% 
+
+4.1.3 On the effectiveness of the payload 
+
+To evaluate the effectiveness of these attacks, in addition to manual end-to-end verification, we developed a fully au-tomated evaluation pipeline that enables large-scale experi-mentation across multiple agents, LLMs, and payloads. In particular, we implement a testbed that reproduces the target functionality of the evaluated agents, allowing experiments to be conducted in a controlled and reproducible manner. For the evaluated agentic-red-team system, we extracted the sys-tem prompt and core tool interfaces and reimplemented them within a shared execution framework based on OpenCode [4]. We exclude Artemis and nebula from the large-scale eval-uation, as we are unable to faithfully reproduce their full functionality within the framework. 
+
+Setup: For the evaluation, we consider three honeypots ex-posing agent-phishing payloads. One of these is pwcrypt , de-scribed above. The other two, db-restore and cfgunpack ,are briefly summarized in Table A.4 in Appendix A. We evaluate six LLMs, selecting the most performant frontier models available at the time of writing across both proprietary and open-weight families: Claude Opus 4.8 , DeepSeek V4 Pro , Gemini 3.1 Pro , GLM-5.1 , GPT-5.5 , and Kimi K2.6 .For each run, the pipeline launches two fresh Docker con-tainers: one hosting the honeypot and one running the agentic-red-team system. The agent is instructed to perform a full penetration test of the target (i.e., the honeypot). Execution terminates if one of the following conditions is met: (i) the agent reaches the maximum number of interaction turns (set to 70 ), (ii) the agent declares the task completed, or (iii) the agent successfully triggers the planted agent-phishing pay-load. Successful payload execution is detected via the creation of a dedicated flag file in the agent’s filesystem. This arti-fact serves as an unambiguous indicator that the malicious functionality has been executed. 
+
+Results: Table 3 reports the attack success rate aggregated across the 10 agentic-red-teams . On average, code execution is achieved in 97.8% of runs. Critically, failed runs are not due to the agent refusing to execute the payload; rather, they stem from the LLM’s built-in safety guardrails preventing the initiation of the penetration testing task in the first place. Consequently, in all runs where the agent does not refuse the task at the outset, it successfully proceeds to locate the payload, download it, and execute it (after inspection). 
+
+Remarks: The technique presented above requires no ex-plicit prompt-injection payload; thus, no classic defense against LLM manipulation will help prevent such an attack. Here, successful mitigation fully depends on the agent’s abil-ity to recognize the malicious functionality embedded within 8worker      
+
+> e.g., Kali container
+> RCE (step 1) ⇒
+> orchestrator
+> secrets, higher privilege...
+> ⇒RCE (step 2)
+> shared writable mount
+> bind mount / Docker volume
+> write malicious code
+> (e.g., hook in settings.json )orchestrator loads & executes it
+> Vector 1: incomplete file-system isolation
+> unauthenticated API over shared / host network
+> →submit orchestrator-level commands
+> Vector 2: weak network isolation
+
+Figure 5: An attacker who already holds code execution on the worker (kill-chain step 1) escalates to the orchestrator through weak component separation. Vector 1 (incomplete file-system isolation): a writable bind mount or Docker volume shared between the two components lets the worker overwrite files the orchestrator relies on. Vector 2 (weak network isolation): a shared or host network lets the worker reach the orchestrator’s unauthenticated API and submit orchestrator-level commands directly. the payload or to refrain from executing it altogether. How-ever, our experiments show that even frontier models fail to demonstrate such capabilities, despite being explicitly in-formed that they were operating in an untrusted environment and being equipped with guardrails. Although future, more capable LLMs may improve at de-tecting the underlying deception mechanism, this attack re-mains highly effective today. Furthermore, there is consider-able room for further refinement, both in staging techniques and in the construction of increasingly stealthy malicious pay-loads, which may themselves benefit from advances in those same models. 
+
+Impact summary: For systems that do not offer any form of sandboxing or privilege separation i.e., METATRON , nebula ,
+
+xalgorix ; this first step also closes the kill chain as it directly implies host compromise. Trivially, sandboxing of the worker component must be a necessary (yet not sufficient as shown in § 8) core design principle of any secure agentic-red-team .
+
+## 5 Privilege escalation 
+
+The absence of a strict separation between the worker and the orchestrator constitutes an inherently insecure architectural design choice. Such a configuration almost inevitably leads to persistence mechanisms, secret leakage, and other severe security issues. However, enforcing a separation between the worker and the orchestrator is not, by itself, sufficient to guarantee secu-rity. Insecure architectural or implementation choices may still enable an attacker to bypass worker confinement and obtain code execution on the orchestrator system. Thus, an attacker at stage 1 of the kill-chain can exploit its control of the worker to jump on the orchestrator and achieve higher capabilities or access to sensitive information. This process is depicted in Figure 5. This section examines common lateral movement / privi-lege escalation vectors we identified during our analysis. 4 We instead dedicate § 8 to escalation paths involving transitions from a sandboxed environment to the host infrastructure. 
+
+Note: Classical user-level privilege escalation is generally irrelevant in this setting and is therefore not considered fur-ther. As discussed in § 8, all evaluated agents are designed to operate with the highest available user privileges, rendering traditional user-level escalation unnecessary. 
+
+## 5.1 Worker-Orchestrator privilege escalation 
+
+Across the tested agents, lateral movement / escalation could be achieved mainly using two vectors: (1) incomplete file-system isolation and (2) weak network isolation .
+
+5.1.1 Incomplete file-system isolation 
+
+This escalation vector stems from the operational need to share data between the orchestrator and the worker; for ex-ample, final reports must flow from worker to orchestrator to reach the user. In containerized deployments this takes the form of bind mounts and named Docker volumes that span the boundary between the two components. The critical failure is granting the worker write access to paths that the orchestrator subsequently loads as executable code or trusted configuration. When the orchestrator’s source modules, startup scripts, or settings files are exposed on a writable mount, the worker’s filesystem write permission be-comes an indirect code-execution primitive against the orches-trator. In this setting, an attacker with RCE on the worker can achieve RCE on the orchestrator by writing malicious code (e.g., a reverse-shell initiator) into the orchestrator source files exposed on the writable bind mount. As soon as that code is executed, the trojan is activated, concluding the escalation. 
+
+(Example) Worker-to-Orchestrator escalation via file sys-tem on PentestGPT : A good example of this vector is PentestGPT . This wraps Anthropic’s Claude Code CLI as its orchestration layer, invoking it as a subprocess in-side a Docker container (the worker). To preserve creden-tials and configuration across restarts, a named Docker vol-ume ( claude-config ) is mounted at ~/.claude/ ; the path Claude Code reads on every invocation. The volume is owned by the pentester user, which is the same account executing  
+
+> 4In this context, the notions of lateral movement and privilege escalation are closely intertwined. Escaping confinement typically requires moving from one isolated environment to another (e.g., between Docker containers), while the ultimate objective is to reach an environment with higher privileges. For clarity, we primarily use the term privilege escalation .
+
+9agent tasks, giving the worker unrestricted write access to all files under that path. Thus, once an attacker achieves code execution on the worker via step 1 of the kill chain, they can arbitrarily write the config file settings.json .Claude Code evaluates a hooks key in settings.json 
+
+before issuing the first tool call of each session. An attacker with code execution inside the container overwrites this file with a malicious hook definition. On every subsequent invocation of pentestgpt , the hook fires unconditionally before the first tool call, enabling the attacker to achieve RCE on the orchestrator from the worker container. 
+
+5.1.2 Weak network isolation 
+
+Network escalation vectors are generally more interesting, as they tend to be enabled by the unique functionality of agentic-red-teams . This vector is enabled by the lack of proper net-work segmentation between the worker and orchestrator net-works (typically the host network), and/or the unauthenticated exposure of endpoints (e.g., APIs) from the orchestrator. By default, Docker containers operate within isolated net-work namespaces and do not have direct access to the host’s network. However, for the reasons discussed in § 8, agentic-red-teams ’ workers are granted additional privileges, includ-ing access to the host network. This grants the worker, and therefore the attacker, the capability to interact with services that expose interfaces on the localhost of the host machine. While this is already an issue in itself, the main problem is usually that this allows the worker to reach the orchestrator, which often either comes with an authenticated web interface and/or exposes orchestration APIs. Once such endpoints are reached, the attacker can submit commands at orchestrator level and achieve RCE on the orchestrator via the available primitives. 
+
+(Example) Worker escalation via network on RedAmon :
+
+RedAmon provides a representative example of this vector. The agent runs its worker inside a Kali Linux container con-nected to a shared Docker bridge network that also carries the recon orchestrator service and the main agent service. The recon orchestrator exposes a REST API on port 8010 with no authentication: only a browser-facing CORS policy is ap-plied, with no token, session, or IP-based check on any route. From inside the Kali worker, an attacker with code execution can issue three unauthenticated HTTP requests to the recon orchestrator. The first pre-uploads a stub artifact to satisfy a file-existence guard on the recon pipeline. The second starts a lightweight HTTP server on the kali container that responds to settings requests with a crafted payload setting the port-scanner Docker image to an attacker-controlled image name. The third triggers the recon pipeline, passing the kali-side server as the webapp_api_url parameter; as a side-effect, the orchestrator issues a credentialed request to this URL, leaking INTERNAL_API_KEY to the attacker. The orchestrator fetches its runtime settings from the attacker-controlled URL and passes the injected image name verbatim to docker run -rm -net=host , executing on the host Docker daemon be-cause the recon container is spawned with the Docker socket mounted read-write. The attacker’s container therefore starts inside the host network namespace, with unauthenticated ac-cess to every service bound to the host’s loopback interface, allowing them to achieve higher privilege in the system. 
+
+## 6 Intermediate Adversarial Objectives 
+
+Before moving to operator’s machine compromise, this sec-tion covers objectives that an attacker can achieve within the chain. 
+
+## 6.1 Worker Weaponization 
+
+In this work, we use the term weaponization of an agentic-red-team to describe the adversarial objective of gaining control over either the agent itself or its underlying execution infras-tructure and using it for arbitrary purposes. We use the term 
+
+weaponization to emphasize that, once an attacker compro-mises the target system (stage 1), it can be leveraged to launch further attacks against other systems. For example, the com-promised target could be incorporated into a botnet or used as a proxy to exploit the victim’s IP address when attacking sensitive targets. 
+
+Weaponization after worker RCE: As shown in § 4, achieving RCE on the worker machine is an almost trivial primitive, so we study weaponization according to two addi-tional qualitative properties: • Unboundedness: Most systems implement some form of guardrail intended to prevent an agent from behaving arbitrarily, such as blocking destructive bash commands or network operations targeting out-of-scope or sensitive (e.g., .gov ) domains. We evaluate weaponization based on whether an attacker can bypass these constraints and perform arbitrary actions using the victim’s agent or infrastructure. • Persistence: Whether the attacker can establish a persis-tent foothold on the target system and maintain control across different sessions. In this section, we discuss how and why an attacker can achieve unbounded weaponization of agentic-red-teams . We postpone discussion on persistent weaponization to § 7. 
+
+6.1.1 Unbounded weaponization 
+
+Seven of the twelve agentic-red-teams under consideration implement some form of guardrail mechanism aimed at con-straining agent execution. A full list is given in Table A.1 10 in Appendix A. Unfortunately, none of these mechanisms is actually effective; that is, an attacker can achieve un-bounded weaponization across all tested agents (see Ta-ble 1). In this case, the issue is not implementation-specific but rather architectural. Indeed, beyond bypasses enabled by weak enforcement, the fundamental issue shared across all agents concerns the level of abstraction at which guardrail policies are enforced. 
+
+Orchestration-level enforcement is ineffective: Across all agents, guardrail policies are enforced exclusively at the orchestration layer rather than at the worker layer (see Figure 1 for an abstraction). In practice, this means that only the high-level decisions produced by the LLM are validated against the policy, while the actual behavior of the underlying execution infrastructure remains completely unchecked. To better illustrate this issue, we use RedAmon as a repre-sentative example throughout this section; however, the same limitation applies almost uniformly across all agentic-red-teams implementing guardrails. RedAmon ships with a list of approximately 150 sensitive domains (e.g., government web-sites, financial institutions, and critical system providers) that the agent is forbidden from interacting with. Enforcement is performed through two mechanisms: regex-based filter-ing during operation creation and an LLM-as-a-judge policy applied to generated tool calls at execution time. If a target domain matches the protected list, or if the requested oper-ation is deemed out-of-scope, the corresponding execution is blocked. The intended objective is to prevent users from directing the agent toward sensitive targets. The fundamental limitation, however, is that the guardrail policy is applied only to the orchestrator output, namely the LLM-generated actions, and remains entirely disconnected from the concrete actions executed by the worker. In particu-lar, there is no mechanism that monitors the actual network activity originating from the worker and blocks unauthorized traffic. As shown in § 4, achieving code execution on the worker constitutes a trivial primitive. Once the attacker gains code execution on the worker (e.g., through a reverse shell), arbi-trary commands can be executed directly through the under-lying infrastructure. None of these commands are subjected to guardrail validation, thereby completely bypassing the pol-icy regardless of the soundness of its implementation and effectively nullifying the guardrails altogether. Critically, the weaponization of the victim infrastructure would remain entirely concealed from both the orchestrator and, consequently, the user interface. In practice, the only reliable way for a user to determine whether a worker has been weaponized for malicious purposes is to manually inspect the raw system logs of the worker container. Such inspection, however, falls outside the normal operational workflow of these systems. This weak validation model also opens the door to other trivial bypasses. For instance, while the command “nmap -A xxx.gov” might be blocked, writing the same command into a .sh file and executing the script will succeed. In general, we observed that most of the tested com-mand/domain white/blacklist mechanisms were shown to be easily bypassed through simple aliasing or argument manip-ulation. In § 9.2, we discuss stronger forms of enforcement that would make such guardrails effective even if the worker is compromised. 
+
+Remarks: We stress that the complete bypass of these guardrail mechanisms does not only originate from a threat-model mismatch or optimistic assumptions. Indeed, some of these mechanisms are explicitly designed to defend against active manipulation by external attackers. For instance, CAI 
+
+implements prompt-injection guardrails under the assump-tion that active adversaries would try to manipulate the agent. Similarly, xalgorix checks for explicit forms of obfuscation, such as base64 encoding, when verifying command member-ship in the denylist under the expectation of active deception. 
+
+## 6.2 Secrets exfiltration 
+
+Once an attacker achieves code execution within the worker, they can attempt to access secrets and sensitive information present in the live agentic-red-team deployment. In our analy-sis, we identified two main classes of valuable targets: • API keys, including LLM provider credentials and API tokens for offensive security tools (e.g., Cobalt Strike ). • Logs and findings collected during operations against other targets, including cross-session episodic memory and stored agent logs or execution traces. These artifacts may contain sensitive information, such as credentials, internal documentation, or previously discovered vulner-abilities that an attacker could further exploit. As summarized in Table 1, attackers can access such arti-facts in 11 out of the 12 evaluated agents. As for weaponiza-tion, such an adversarial objective is trivialized and extended to all host secrets if the attacker manages to reach the final stage of the kill chain and achieve control of the host; this is represented by the value “ All ” in the table. 
+
+Root cause Interestingly, the worker does not require any special secrets or sensitive information to operate. Confiden-tial data, such as LLM API keys and cross-session state, can be potentially handled and stored exclusively by the orches-trator, whether it runs in a container or directly on the host. Unfortunately, many agent frameworks adopt a flat archi-tecture in which the worker and orchestrator are co-located within the same container. This implies that an attacker with code execution on the worker (step 1) can trivially access those secrets and exfiltrate them. 11 More interesting cases are induced by improper separation between worker and orchestrator container. A representative example follows: 
+
+(Example) Exfiltrating previous offensive operation logs in RedAmon : RedAmon separates the worker from the or-chestrator into distinct containers; however, both are assigned the same internal API key environment variable and placed on a shared Docker bridge network with no inter-container access controls. The internal key acts as a blanket credential that bypasses the webapp’s authentication middleware for all API routes. Because the conversation history API and the credential storage API perform no per-user ownership checks, any container in possession of the key can enumerate and exfiltrate the data of every user on the platform. The webapp persists every agent session to PostgreSQL: each conversation record includes the full message log, comprising user inputs (mission scope, target hosts, credentials shared in chat) etc. These records are retrievable by the attacker for all users and all past (and future as the attacker can achieve persistence) sessions. 
+
+## 7 Persistence 
+
+In this context, we define “ persistence ” as the capability of the attacker to maintain their control over the system (e.g., persis-tent weaponization) as long as possible. Having code execution capabilities on the worker container does not directly imply achieving long-horizon persistence on the system for the attacker. Although only a few systems enforce or suggest such a policy in practice, worker contain-ers should be reset and rebuilt for each new operation (i.e., a different offensive operation on a different target). Thus, if the attacker aims to maintain control of the system (e.g., for weaponization; see § 6.1) across multiple sessions, they must be able to taint non-volatile components of the system. We say that in agentic systems, an attacker can achieve either “ hard persistence ”, where they manage to modify the application source code or configuration, or plant code on the orchestrator / host, and “ soft persistence ”, by tainting persistent informa-tion that the agent interacts with during execution, such as episodic memory or agentic skills, and, so, it is not determin-istic in nature. 
+
+## 7.1 Hard persistence 
+
+Generally, hard persistence is achievable by exploiting the privilege-escalation paths described in § 5. An attacker who manages to pivot from the worker to the orchestrator can apply standard persistence techniques (e.g., altering startup scripts or creating persistent scheduled tasks) on the orchestrator container to maintain control of the system across different operations. However, other forms of hard persistence that do not necessarily require code-execution capabilities on the worker also exist. A good example is the following: 
+
+(Example) Escalation-free Hard-persistence in RedAmon :
+
+In RedAmon , an attacker with code-execution inside the Kali worker container can achieve hard persistence without achieving code execution on the orchestrator. The Kali container is launched with a read-write bind mount that exposes the MCP server source directory on the host filesystem (./mcp/servers/ → /opt/mcp_servers/). An attacker who appends a reverse-shell beacon to any file in that shared directory writes through the bind mount directly onto the host. When the operator restarts the worker, the poisoned source file survives the container teardown because it resides on the host filesystem rather than in the container’s ephemeral overlay. On the next startup, the MCP server process imports the file at load time, re-establishing the attacker’s foothold on the worker before a single tool call is made. This vector does not result in privilege escalation as the MCP code is never supposed to be run outside the worker, but it still achieves persistence pivoting through the host’s filesystem. As summarized in Table 1, achieving hard persistence on those systems was not an isolated event, and we could achieve it for 10/12 systems, exploiting similar vulnerabilities as the one in the example. 
+
+## 7.2 Soft persistence 
+
+Soft persistence is a weaker, conditional form of persistence that still allows the attacker to maintain a foothold on the agentic system. It is achieved by poisoning inputs that are re-injected into the agent during execution and are designed to survive across sessions, such as episodic memory, agentic skills, and similar artifacts. In this context, the attacker can inject instructions that cause the agent to download and ex-ecute a remote script (e.g., a reverse shell). In a subsequent session, once such a payload finds its way into the LLM’s con-text, the agent may be compelled to execute it again, thereby re-granting code-execution capabilities to the attacker. An example of this attack on RedAmon follows. We stress that this attack is not particularly useful in this case as the attacker already has a path to hard persistence, but it still provides a good example of this vector. 
+
+(Example) Malicious Skill injection on RedAmon :
+
+RedAmon orchestrator exposes a skill-creation endpoint ac-cessible from the worker. 5
+
+> 5To call it, the attacker needs the inter-service authentication token used for internal service-to-service communication; but this token is freely avail-able: it is injected as an environment variable into the worker container so that the worker can communicate with the rest of the platform during normal operation.
+
+12 Table 4: Extra Docker capabilities granted to containerized pentesting agents. “ ∗” capability available to the orchestrator container only                                      
+
+> Agent Extra Capabilities
+> CAI -privileged ∗,-network=host ,NET_ADMIN ,NET_RAW ,
+> seccomp:unconfined ,docker.sock ∗(dev), /root/.ssh bind mount ∗
+> PentAGI docker.sock ∗
+> PentestAgent -privileged ,NET_ADMIN ,SYS_ADMIN ,/root/.pentestagent bind mount PentestGPT NET_ADMIN ,/dev/net/tun ,host.docker.internal ,NOPASSWD:ALL
+> sudo RedAmon NET_ADMIN ,NET_RAW ,SYS_PTRACE ,seccomp:unconfined ,
+> apparmor:unconfined ,host.docker.internal ∗
+> STRIX NET_ADMIN ,NET_RAW ,host.docker.internal
+> DarkMoon -network=host ,docker.sock ,NET_ADMIN ,NET_RAW ,/root/.kube
+> bind mount AIRecon -network=host ,NET_ADMIN ,NET_RAW ,NOPASSWD:ALL sudo
+
+The attacker issues a crafted HTTP request to the skill-creation endpoint, supplying an arbitrary skill name, descrip-tion, and up to 50 KB of Markdown content. The endpoint requires no ownership verification: it accepts the inter-service token as sufficient authorization and writes the skill record to the platform’s persistent database under any user identifier the attacker supplies. The user identifier itself can be obtained from a second endpoint on the same network, which lists all registered users and their projects and is gated by the same token. Both calls are made entirely from within the worker container, over the internal Docker network, without any in-teraction with the user or the host system. The injected skill is enabled by default. At the start of ev-ery subsequent agent session, the platform fetches all active skills for the project owner and loads them into the agent’s runtime configuration. The skill’s description field is then embedded verbatim into the classification prompt that pre-cedes every user request, meaning adversarial instructions reach the LLM on every single turn. When the LLM’s clas-sifier routes a request to the injected skill type (which the attacker can engineer by choosing a skill name that matches common user workflows) the full skill content, up to 50 KB of attacker-controlled instructions, is concatenated directly into the agent’s system prompt. From that point the agent operates under the attacker’s instructions as though they were part of its own configuration. Because the skill record persists in the database independently of any container state, the foothold survives session rotation, service restarts, and image rebuilds, and requires no further action from the attacker. 
+
+## 8 Sandbox escape and Host Compromise 
+
+This section covers the final stage of the kill chain: the at-tacker’s transition from the agentic-red-team sandbox (if present) to the underlying host (the operator’s machine), enabling maximum impact and damage. Unfortunately, as shown in Table 1, such outcomes are far from uncommon. Across the evaluated agents, we achieved some form of host escape in 10/12 cases and full remote code execution on the host in 8/12 cases. Host compromise was enabled through two primary mech-anisms: (1) exploitation of worker-orchestrator privilege-escalation paths, where the orchestrator was executed directly on the host; and (2) containers being granted additional privi-leges or capabilities. While the first category is discussed in § 5, this section focuses mainly on the second. 
+
+## 8.1 Container capabilities induced sandbox es-capes 
+
+Table 4 lists the non-default capabilities assigned to each con-tainerized agentic-red-team . These privileges are not granted arbitrarily; rather, they are required because of a very specific reason; many fundamental penetration-testing tools operate at a low level of the network stack or memory. For example, operating system fingerprinting through ac-tive network reconnaissance (e.g., using nmap -O ) relies on the transmission and analysis of specially crafted packets. Such operations require raw socket access and packet ma-nipulation capabilities, which are not available to Docker containers by default. Consequently, capabilities such as 
+
+CAP_NET_RAW must be explicitly granted to enable these tools to function correctly. Furthermore, tools relying on such capa-bilities require root permissions within the container in order to be executed. As a matter of fact, in all the tested agents, worker processes run with administrative privileges within the container. In turn, this further thins the separation between the attacker and the host, as well as nullifies any intra-container defense mechanisms. Ultimately, each provided additional capability reduces the isolation between the container and the host, increasing the likelihood of sandbox escape through kernel or hypervisor vul-nerabilities (e.g., CVE-2022-0185 [28]), or more practically, by enabling additional attack surfaces such as host network access or interface manipulation. 
+
+(Example) Sandbox escape via host network in AIRecon 
+
+A good example of the latter case is a sandbox escape on 
+
+AIRecon . Its worker container is granted --network=host 
+
+(among others), allowing an attacker with code execution on the worker to reach the host’s network. The orchestrator, running on the host, exposes unauthenticated APIs used to manage agent execution and prompting ( /api/chat ), allowing an attacker to submit user messages directly to the LLM. One of the tools available to the agent is 
+
+python_session , which, given a string of Python code, will execute it. However, execution is not performed on the worker but on the orchestrator, i.e., as a host process. To achieve code execution on the host, the attacker invokes /api/chat from 13 the worker, instructing the LLM to call python_session 
+
+with attacker-controlled code, which will be executed on the host machine. Since the request arrives as a user mes-sage (i.e., mimicking an explicit user request rather than an injection in a tool result) the LLM executes it without scrutiny. In general, the careful and secure granting of such capabil-ities is not, in itself, the root cause. However, we observe a more general violation of the least-privilege principle, where containers are often provisioned with more permissions than strictly necessary, or are configured to run in fully privileged mode for convenience. For instance, some agents such as CAI 
+
+and PentAGI mount the docker socket, nullifying the sandbox separation by design. The sandbox escapes we managed to perform on the test agents are detailed in Table A.3 in Ap-pendix A; the agents without an OS-level sandbox ( METATRON ,
+
+nebula , and xalgorix ) are omitted, as they grant immediate host access and thus require no escape. While there is clearly a functionality-sandboxing trade-off, in § 9.3 we propose a more principled design that enables full functionality while preserving worker containment. 
+
+## 9 Design principles of secure agentic offensive-security systems 
+
+Based on the vulnerabilities and attack vectors identified, we now propose an architectural design that prevents an attacker from progressing through the later stages of the kill chain, even after an initial compromise of the worker (step 1). But, first, we ground our design philosophy and its motivation. 
+
+Design philosophy: We argue that LLM manipulation tech-niques, such as the payload-staging attacks described in § 4.1.1, cannot be fundamentally eliminated. This is partic-ularly true in offensive security domains, where the action space is inherently large and where agents are, by design, granted high privileges to perform their intended tasks. Con-sequently, we believe that no practical restriction of function-ality can robustly prevent all forms of abuse by a manipulated LLM. Therefore, we assume that a determined adversary will eventually be able to achieve arbitrary code execution within the worker environment by exploiting the underlying decisions made by the LLM. Accordingly, our design adopts a compromise-oriented threat model in which the worker environment is treated as a malicious component. The system is then segmented to minimize the blast radius of a compromised worker, with the primary objective of preventing catastrophic outcomes (e.g., host or infrastructure compromise) while preserving the functionality of the underlying agentic system. 
+
+Note: This assumption does not diminish the importance of preventive defenses against LLM manipulation attacks. Rather, it reflects our position that the security of the overall system should not depend on the assumption that such defenses will always succeed. The proposed architecture is summarized in Figure 6. The remainder of this section explains and motivates the proposed architectural choices. 
+
+## 9.1 Worker and Orchestrator Separation 
+
+This section covers worker and orchestrator deployments as well as their interplay. See § 2.1 for context about worker / orchestrator abstraction. 
+
+9.1.1 Worker 
+
+A trivial and indispensable property is the requirement for a sandbox for the worker processes, and complete separation from the host system. Any system that fails to enforce this property should be considered inherently insecure as it would allow full operator’s machine compromise from the first step of the kill chain (see § 4). Here, both a practical and secure solution is the use of con-tainers (e.g., Docker containers), which is a common choice among current tools (see Table 2). Nevertheless, any form of sandboxing offering equivalent isolation is suitable for this objective. Hereafter, we assume the use of Docker as a driving example. 
+
+Worker must have the least capabilities: Worker contain-ers must operate with minimal default capabilities, such as no access to the host network and should avoid over-permissive capabilities that would enable common forms of sandbox escape as shown in § 8.1 (more on this in § 9.3). In con-trast, whether the user running the tasks on the worker is root or not is mostly irrelevant from the security perspective un-less paired with other insecure choices, such as mounting the Docker socket, which must be avoided in any case. 
+
+Worker must have no secrets: The worker must not con-tain any secrets, and information within the container should be considered public. Key material, such as API keys, should be stored on the orchestrator, and tooling that requires API keys to work should be proxied through the orchestrator to avoid exposing the keys to the worker. This prevents the at-tacker from achieving the “ secrets exfiltration ” objectives covered in § 6.2. 
+
+9.1.2 Orchestrator and Worker Isolation 
+
+To operate correctly, the orchestrator must maintain access to sensitive secrets and possess high-impact capabilities on the host system. Consequently, a fundamental security property of a secure agentic-red-team is preventing privilege escalation from the worker to the orchestrator (stage 2 of the kill chain). 14 Scoped, Priv. Worker    
+
+> (NET_ADMIN, NET_RAW)
+> Task-specific APIs
+> Unpr. Worker
+> file system
+> Orchestrator
+> Agentic Loop
+> Human gate
+> Skills
+> Memory
+> file system
+> Secrets: LLM API keys, etc
+> Egress proxy
+> UI
+> run_nmap (host=x.x.x.x, agg_level=2, os_detection=True, ...)
+> 1
+> 2
+> bash cmd
+> 3
+> stdout/stderr
+> 6
+> 4
+> 57
+> Set policy egress
+> 9
+> 10
+> Host network Internet
+
+Figure 6: Representation of the proposed secure architecture for agentic-red-teams . In red, components and paths that should be considered malicious within the system. As a rule of thumb, every communication channel between the worker and the orchestrator should be minimized and carefully scrutinized , particularly those that allow the former to influence the internal state of the latter. 
+
+OS Separation: The orchestrator should never be deployed in the same container as the worker or in any environment that is only weakly isolated from it. In our analysis, we found no fundamental reason to sandbox the orchestrator inside a container rather than running it directly on the host, beyond the additional isolation layer provided by containerization. Nevertheless, in the architecture we model, the orchestrator is represented as a separate container because this configuration is the safest by default. 6
+
+Network Separation: As a general principle, the orchestra-tor should reside in a separate network segment from the worker (e.g., a distinct Docker network). Communication should be restricted to the minimal set of ports required for mandatory application-level interactions (see below). This practice reduces the risk of accidentally exposing sensitive endpoints to the worker, such as orchestration APIs intended only for the UI (see the RedAmon examples in § 7.2 and § 5.1.2). If the orchestrator runs directly on the host, such network isolation becomes a mandatory requirement. 
+
+Filesystem Separation: Directly mounting shared directo-ries between the worker and the orchestrator should generally be avoided for two reasons. First, it substantially enlarges the attack surface and allows an attacker to capitalize on oth-erwise minor configuration mistakes. In practice, a single misplaced file in a shared directory may be sufficient to en-able catastrophic outcomes. We demonstrated such scenarios 
+
+> 6If the architecture fails to prevent lateral movement from the worker, the orchestrator’s sandbox provides an additional layer of containment.
+
+in both RedAmon and PentestGPT (§ 7.1 and § 5.1.1), where the presence of live code in shared directories allowed an attacker to trojanize the source tree, thereby achieving hard persistence and facilitating subsequent lateral movement. Second, because the worker has direct access to these direc-tories, it can create and manipulate their contents with little or no scrutiny from either the orchestrator or the user. Be-sides exacerbating the risks described above, this capability enables attackers to stage social engineering attacks against the operator. For example, malicious code may be embedded into user-intended artifacts (e.g., proof-of-concept exploits or scripts) and subsequently executed when the user inspects or interacts with them on the host system. Under our threat model, every output generated by the worker should be treated as potentially malicious and there-fore scrutinized before it reaches the orchestrator. Conse-quently, functionalities that require filesystem-based commu-nication between the worker and the rest of the architecture should be implemented through narrowly scoped, explicit channels rather than shared directories. A more robust alternative is to expose a constrained LLM tool such as: “upload_artifacts_from_worker(path: str) ”, which allows the worker to transfer files into a ded-icated, isolated directory on the orchestrator’s filesystem (edge (4) in Figure 6). This design consolidates artifact ex-change into a single, well-defined communication channel, thereby improving observability and control over all data ex-changed between the worker and the orchestrator. Centralizing transfers in this manner naturally enables the integration of additional security safeguards, such as human approval gates, content inspection, or automated policy en-forcement prior to material being accepted by the orchestrator. As a result, the system reduces implicit trust in filesystem-level interactions and replaces it with explicit, auditable oper-ations that are easier to monitor and secure. 15 Such mechanisms become particularly important when the LLM is capable of automatically generating artifacts that may subsequently be integrated into the system itself, such as executable skills or plugins. In these scenarios, treating worker-produced artifacts as untrusted inputs is essential to prevent persistence and privilege-escalation attacks. 
+
+Application-level separation: As shown in § 5, escalation from the worker to the orchestrator is enabled by insecure communication channels between the two components. Since some form of communication between them is unavoidable, the primary design objective is to minimize and rigorously scrutinize all communication paths at application level too. The rule of thumb here is that each channel should be explic-itly justified, tightly scoped, and properly hardened. In general, a fully-functional agentic-red-team requires two channels: a command-response channel ( (3) /(6) in Figure 6) and an artifact channel (4) (covered above). The command-response channel is used by the orchestrator to submit commands (e.g., bash commands) to be executed by the worker and to retrieve their output (i.e., standard output and standard error) along with the necessary metadata. The primary attack surface in this context is the orchestrator code that processes worker outputs (i.e., signal coming from (6) ). The main risk is RCE via improper input handling: worker output that reaches a shell-executing function, a template ren-derer, improper deserialization, SQL injections, or a logging sink on the orchestrator side may carry shell metacharacters, format string directives, or null bytes. A secondary and minor concern is template escape: if tool results are embedded into hand-crafted markup via unescaped string interpolation, a payload containing the wrapper’s clos-ing tag can exit the boundary and land as user-role content in the LLM’s context. This does not itself cause RCE, but it amplifies the attacker’s ability to manipulate the orchestrator LLM. This is the case in STRIX , which implements a cus-tom XML-over-text tool protocol instead of using the LLM provider’s native structured tool-use API; a design choice that leaves the boundary between tool results and free conversa-tion content enforced only by string matching. An attacker with code execution in the worker sandbox can craft an output that breaks the result wrapper, delivering arbitrary instructions to the orchestrator model as first-class user-role observations. 
+
+Orchestration should be Tool-free (as much as possible): 
+
+agentic-red-team systems should be designed to avoid execut-ing tools on the orchestration layer, and should instead dele-gate all computation to the worker environment. A concrete example of a violation of this principle is the case of AIRecon ,which exposed a Python execution tool that ran code on the orchestrator rather than within the worker, enabling a sandbox escape (see § 8.1). More generally, any LLM tool that requires complex exe-cution on the orchestrator infrastructure represents a potential vector for privilege escalation and should either be avoided or subjected to rigorous security review. When such tools cannot be avoided, they must be carefully designed and hardened so that any potential abuse has a strictly limited blast radius. As an illustrative example, consider a tool that allows the LLM to generate a report and make it available to the user by saving it within the orchestrator container (with-out passing through the worker). A possible interface de-sign for such a tool is: “ write_report(file_name:str, content:str) ”, where the implementation writes content 
+
+to a file named file_name in a restricted directory of the or-chestrator filesystem, e.g., /home/reports/ . However, if the filename is not properly sanitized or escaped, an attacker may manipulate the LLM into invoking the tool with a malicious string that enables path traversal and potentially leads to unin-tended modification of orchestrator files (e.g., ../.bashrc ). While this example is deliberately simple, it illustrates a broader principle: any pathway through which the worker can influence the orchestrator environment must be treated as high-risk and carefully scrutinized, or ideally eliminated altogether when possible. Communication with User Interface: Trivially, any com-munication between the UI component and the orchestra-tor must be properly authenticated using session secrets that are only available to the orchestrator. This aims to prevent the worker from abusing such APIs for escalation (e.g., see 
+
+RedAmon and AIRecon cases) or enabling other processes with access to the host network to misuse them. However, we stress that the worker should not be able to access such end-points in the first place, given the previous design principles. 
+
+## 9.2 Deep guardrails and strong sandboxing 
+
+As discussed in § 6.1 and summarized in Table 1, for all tested 
+
+agentic-red-teams , attackers were able to achieve unbounded weaponization of the agent. This was not due to the absence of guardrails, but rather due to their improper enforcement (see § 6.1.1). In all evaluated systems, enforcement was implemented at the orchestrator level and was largely limited to argument validation for LLM tool calls. A proper guardrailing design should satisfy the following properties, instead: 1. Deep enforcement at the OS level: the policy must be enforced at the level of the OS, preventing the kernel from executing system calls that violate the policy at runtime, rather than relying on pre-execution argument validation in tool calls. 2. Worker-level enforcement: as a consequence of the first point, enforcement should be applied within the worker runtime environment rather than at the orchestrator level. 3. Non-bypassable policy control: the worker and the LLM must not be able to decide, modify, or bypass the 16 policy. Only the user should be able to modify the policy or approve LLM-suggested changes through an explicit approval stage. 
+
+Network guardrails: Given the context of agentic-red-teams , the most fundamental form of guardrail is network isolation. Preventing the system from interacting with sensi-tive or out-of-scope external targets drastically reduces the impact surface of agent weaponization. In the proposed de-sign, this is straightforward to enforce. The only required component is an external egress proxy placed outside the worker environment that enforces the policy defined by the orchestrator. This proxy is designed to prevent network traffic to any domain outside an allowlist or inside a blocklist (edge (10 )
+
+in Figure 6), routing all worker traffic through it (edge (5)). Because the policy is stored in the orchestrator (edge (7)), it cannot be modified by the worker, nor directly altered by the agent, making it an invariant property under the current threat model. 
+
+File system and shell guardrails: A user may wish to im-pose policies that restrict the worker from performing certain operations, such as executing specific Bash commands or ac-cessing sensitive directories within the worker system (e.g., 
+
+rm -r /* ). Given the ephemeral nature of the worker and its lack of access to sensitive material, we argue that fine-grained command-level policy enforcement provides limited security benefit, while potentially introducing friction in the agent ex-ecution loop. In our architecture, the worker is treated as a fully sacrificial entity that may behave arbitrarily maliciously, provided that its blast radius remains strictly contained within the worker environment and does not affect the external world. This last property is enforced primarily through network sand-boxing and the secure architectural separation of the worker from the orchestrator, which prevents lateral movement or escalation beyond the worker boundary. If, under an alternative threat model or system architec-ture, this property becomes relevant, we recommend adopting runtime sandboxing mechanisms such as those proposed by Anthropic [6] in order to achieve deep, OS-level, enforcement. In the same spirit, we do not consider file system-level restrictions within the worker to be a fundamental security requirement. Nonetheless, such controls can be straightfor-wardly achieved through standard user and permission iso-lation mechanisms within the worker environment, without requiring additional policy enforcement complexity at higher layers. 
+
+## 9.3 Least-privileged and Scoped Workers 
+
+Workers require additional OS capabilities (e.g., 
+
+CAP_NET_RAW ) to support tools that operate at a low level, such as port scanners. However, every additional capability granted to the container reduces the isolation between the container and the host, thereby increasing the risk of sandbox escapes (see § 8.1). This introduces a natural trade-off between functionality and security. In practice, a carefully considered assignment of capabili-ties to the worker is often sufficient to maintain an acceptable security posture. Nevertheless, if security is a primary design objective, we argue that this trade-off can be substantially mitigated through principled system design. The key observation is that not all tools used by the worker require elevated privileges. In fact, the vast majority of tools operate correctly without additional capabilities, and only a small subset of functionalities, known in advance, depend on such privileges. Consequently, capabilities should not be assigned globally to the worker container. Instead, they should be scoped to dedicated execution environments tailored to the expected functionality of the privileged tools. Under this design, low-privilege tasks execute in a maximally restricted worker environment, while high-privilege tools are isolated in separate containers provisioned with only the minimum capabilities required for their execution; hereafter, we refer to these environments as “ privileged workers ”. Trivially, the LLM should not be permitted to execute ar-bitrary code within a privileged worker, as it can within the unprivileged one. Instead, it should interact with privileged workers exclusively through narrowly scoped and robust APIs that expose only the minimum functionality required by the corresponding high-privilege tools. Figure 6 illustrates this design using port scanning as an ex-ample. The tool nmap requires raw network access to support its full functionality; we therefore deploy it inside a privileged worker provisioned with the necessary capabilities (leftmost container in Figure 6). The LLM has no arbitrary code execution capability within the privileged worker. Rather, we define a dedicated API that exposes only the expected usage patterns of nmap , allowing the LLM to specify common parameters and flags through a constrained interface (edge (1) in Figure 6). Trivially, as for unprivileged workers, privileged network traffic must still pass through the egress proxy (edge (9)). Crucially, the API intentionally excludes options that could be abused to achieve arbitrary code execution. For example, the --script argument is not exposed, as it would permit the execution of arbitrary NSE scripts inside the privileged container, effectively nullifying the security benefits of the design. This architecture preserves the flexibility and generality of an unprivileged worker while confining elevated privileges to narrowly scoped execution environments over which an attacker can exert only limited control; minimizing the room for abuse without sacrificing functionality. 17 9.4 Discussion 
+
+The proposed architecture introduces necessary complexity, but ensures that the worker remains the only component an attacker can control under a realistic threat model. If this com-partmentalization is correctly enforced and implemented, it will reduce the blast radius and prevent any escalation be-tween system components. However, some open challenges are not fully resolved; for instance, worker weaponization (see § 6.1). While the use of strict network containment mechanisms discussed in § 9.2, together with the removal of persistence channels, can significantly limit practical impact, the worker still represents a potentially exploitable execution substrate. In the absence of sufficiently restrictive network policies, an attacker may continue to leverage the worker infrastructure to perform constrained but still meaningful malicious actions. Another challenging security property to achieve is the suppression of soft persistence vectors (see § 7.2). While human gating can be used to guard infrequent events such as the synthesis of new agentic skills, applying the same ap-proach to memory writes may not be feasible given their higher frequency within the operational life cycle. In general, memory poisoning attacks on agentic systems remain an open problem [11, 20], and we are not aware of reliable automated oracles that can consistently replace human judgment. We therefore suggest minimizing inter-operation memory sharing (e.g., episodic memory [15]) in order to reduce the risk of persistence. 
+
+## Conclusions 
+
+We introduced a set of mechanisms and blueprints for crit-ically reasoning about the security of agentic offensive-security tools. We demonstrated that such systems can be systematically exploited to achieve code execution on the op-erator’s machine, often despite multiple layers of sandboxing and defensive guardrails. We presented techniques for evalu-ating and stress-testing these vulnerabilities and exploitation pathways, as well as design principles intended to fundamen-tally bound the potential harm derived from them. As these tools become increasingly widespread and inte-grated into day-to-day security operations, we hope this work serves as a first principled step toward the secure development and deployment of agentic offensive-security systems. 
+
+## References 
+
+[1] Sahar Abdelnabi and Eugene Bagdasarian. Ai agents may always fall for prompt injections. arXiv preprint arXiv:2605.17634 , 2026. [2] Aikido Security. Ai pentesting (aipentest): Autonomous ai attack simulation. https://www.aikido.dev/ attack/aipentest , 2026. Accessed: 2026-06-18. [3] Alias Robotics. Alias1: Cybersecurity ai and robot secu-rity platform. https://aliasrobotics.com/alias1. php , 2026. Accessed: 2026-06-18. [4] Anomaly. Opencode: The open source coding agent, 2026. GitHub repository. Accessed: 2026-06-22. [5] Anthropic. Disrupting the first reported ai-orchestrated cyber espionage campaign. https://www.anthropic. com/news/disrupting-AI-espionage , 2025. Pub-lished: November 2025. Accessed: 2026-06-18. [6] Anthropic. sandbox-runtime: A lightweight sandboxing tool for enforcing filesystem and network restrictions on arbitrary processes at the os level. https://github. com/anthropic-experimental/sandbox-runtime ,2025. GitHub repository, accessed 2026-06-15. [7] Konstantin Böttinger, Patrice Godefroid, and Rishabh Singh. Deep reinforcement fuzzing. In 2018 IEEE Security and Privacy Workshops (SPW) , pages 116–122. IEEE, 2018. [8] Mihai Christodorescu, Earlence Fernandes, Ashish Hooda, Somesh Jha, Johann Rehberger, Kamalika Chaudhuri, Xiaohan Fu, Khawaja Shams, Guy Amir, Jihye Choi, Sarthak Choudhary, Nils Palumbo, Andrey Labunets, and Nishit V. Pandya. Agent security is a systems problem, 2026. [9] Cracken. Cracken: Ai-enabled adversarial exposure val-idation platform. https://cracken.ai/ , 2026. Ac-cessed: 2026-06-18. [10] Gelei Deng, Yi Liu, Víctor Mayoral-Vilches, Peng Liu, Yuekang Li, Yuan Xu, Tianwei Zhang, Yang Liu, Martin Pinzger, and Stefan Rass. {PentestGPT }: Evaluating and harnessing large language models for automated penetration testing. In 33rd USENIX Security Sympo-sium (USENIX Security 24) , pages 847–864, 2024. [11] Shen Dong, Shaochen Xu, Pengfei He, Yige Li, Jiliang Tang, Tianming Liu, Hui Liu, and Zhen Xiang. Mem-ory injection attacks on llm agents via query-only in-teraction. Advances in Neural Information Processing Systems , 38:46697–46731, 2026. [12] Richard Fang, Rohan Bindu, Akul Gupta, and Daniel Kang. Llm agents can autonomously exploit one-day vulnerabilities, 2024. [13] Richard Fang, Rohan Bindu, Akul Gupta, Qiusi Zhan, and Daniel Kang. Llm agents can autonomously hack websites, 2024. 18 [14] Fortune. Ai-powered coding tool replit wiped database, called it a "catastrophic failure". Fortune , July 2025. [15] Zafeirios Fountas, Martin Benfeghoul, Adnan Oomer-jee, Fenia Christopoulou, Gerasimos Lampouras, Haitham Bou Ammar, and Jun Wang. Human-inspired episodic memory for infinite context LLMs. In The Thirteenth International Conference on Learning Representations , 2025. [16] Google Threat Intelligence Group. Ai vulnerability exploitation for initial access, 2026. Google Cloud Blog, accessed 2026-06-17. [17] Kai Greshake, Sahar Abdelnabi, Shailesh Mishra, Christoph Endres, Thorsten Holz, and Mario Fritz. Not what you’ve signed up for: Compromising real-world llm-integrated applications with indirect prompt injec-tion. In Proceedings of the 16th ACM workshop on artificial intelligence and security , pages 79–90, 2023. [18] Andreas Happe and Jürgen Cito. Getting pwn’d by ai: Penetration testing with large language models. In 
+
+Proceedings of the 31st ACM Joint European Software Engineering Conference and Symposium on the Foun-dations of Software Engineering , ESEC/FSE ’23. ACM, November 2023. [19] Sydney J. Freedberg Jr. Army plans fast follow-up to ai cyber wargame with industry: Officials. https://breakingdefense.com/2026/05/army-plans-fast-follow-up-to-ai-cyber-wargame-with-industry-officials/, 2026. Breaking Defense, published May 2026. Accessed: 2026-06-18. [20] Ben Kereopa-Yorke, Guillermo Diaz, Holly Wright, Rea-gan Johnston, Ron F. Del Rosario, and Timothy Ly-nar. Oracle poisoning: Corrupting knowledge graphs to weaponise ai agent reasoning, 2026. [21] Eduard Kovacs. Locked shields 2026: 41 nations strengthen cyber resilience in world’s biggest exercise, April 2026. [22] Priyanshu Kumar, Elaine Lau, Saranya Vijayakumar, Tu Trinh, Elaine Chang, Vaughn Robinson, Shuyan Zhou, Matt Fredrikson, Sean Hendryx, Summer Yue, and Zifan Wang. Aligned llms are not aligned browser agents. In Y. Yue, A. Garg, N. Peng, F. Sha, and R. Yu, editors, International Conference on Learning Repre-sentations , volume 2025, pages 26755–26776, 2025. [23] Eunkyu Lee, Donghyeon Kim, Wonyoung Kim, and Insu Yun. Takedown: How it’s done in modern coding agent exploits. arXiv preprint arXiv:2509.24240 , 2025. [24] Justin W Lin, Eliot Krzysztof Jones, Donovan Julian Jasper, Ethan Jun-shen Ho, Anna Wu, Arnold Tianyi Yang, Neil Perry, Andy Zou, Matt Fredrikson, J Zico Kolter, et al. Comparing ai agents to cybersecurity professionals in real-world penetration testing. arXiv preprint arXiv:2512.09882 , 2025. [25] Hanzhi Liu, Chaofan Shou, Xiaonan Liu, Hongbo Wen, Yanju Chen, Ryan Jingyang Fang, and Yu Feng. Synthe-sizing multi-agent harnesses for vulnerability discovery. 
+
+arXiv preprint arXiv:2604.20801 , 2026. [26] William Melicher, Blase Ur, Sean M Segreti, Saranga Komanduri, Lujo Bauer, Nicolas Christin, and Lor-rie Faith Cranor. Fast, lean, and accurate: Modeling password guessability using neural networks. In 25th USENIX Security Symposium (USENIX Security 16) ,pages 175–191, 2016. [27] Ben Nassi, Stav Cohen, and Or Yair. Invitation is all you need! promptware attacks against llm-powered as-sistants in production are practical and dangerous. arXiv preprint arXiv:2508.12175 , 2025. [28] National Vulnerability Database (NVD). CVE-2022-0185 Detail. https://nvd.nist.gov/vuln/detail/ CVE-2022-0185 , 2022. Accessed: 2026-06-08. [29] Novee Security. Novee security: Ai penetration test-ing platform. https://novee.security/ , 2026. Ac-cessed: 2026-06-18. [30] Dario Pasquini, Giuseppe Ateniese, and Carmela Tron-coso. Universal neural-cracking-machines: Self-configurable password models from auxiliary data. In 
+
+2024 IEEE Symposium on Security and Privacy (SP) ,pages 1365–1384. IEEE, 2024. [31] Dario Pasquini, Ankit Gangwal, Giuseppe Ateniese, Massimo Bernaschi, and Mauro Conti. Improving pass-word guessing via representation learning. In 2021 IEEE Symposium on Security and Privacy (SP) , pages 1382–1399. IEEE, 2021. [32] Dario Pasquini, Evgenios M. Kornaropoulos, and Giuseppe Ateniese. Hacking back the ai-hacker: Prompt injection as a defense against llm-driven cyberattacks, 2024. [33] Dario Pasquini, Evgenios M. Kornaropoulos, Giuseppe Ateniese, Omer Akgul, Athanasios Theocharis, and Pet-ros Efstathopoulos. When aiops become "ai oops": Sub-verting llm-driven it operations via telemetry manipula-tion, 2025. 19 [34] Dario Pasquini, Martin Strohmeier, and Carmela Tron-coso. Neural exec: Learning (and learning from) execu-tion triggers for prompt injection attacks. In Proceed-ings of the 2024 Workshop on Artificial Intelligence and Security , pages 89–100, 2024. [35] Dan Schere. Army awards seekr contract for agentic ai to identify cyber vulnerabilities. https://insidedefense.com/insider/army-awards-seekr-contract-agentic-ai-identify-cyber-vulnerabilities, 2026. Inside Defense, published January 2026. Accessed: 2026-06-18. [36] Minghao Shao, Boyuan Chen, Sofija Jancheska, Bren-dan Dolan-Gavitt, Siddharth Garg, Ramesh Karri, and Muhammad Shafique. An empirical evaluation of llms for solving offensive security challenges. 2024. [37] Kamran Shaukat, Suhuai Luo, Vijay Varadharajan, Ibrahim A Hameed, and Min Xu. A survey on ma-chine learning techniques for cyber security in the last decade. IEEE access , 8:222310–222354, 2020. [38] Tianneng Shi, Robin Rheem, Dongwei Jiang, Mona Wang, Francisco De La Riega, Zhun Wang, Jingzhi Jiang, Alexander Cheung, Sean Tai, Jonah Cha, et al. Cybergym-e2e: Scalable real-world benchmark for ai agents’ end-to-end cybersecurity capabilities. arXiv preprint arXiv:2606.04460 , 2026. [39] Brian Singer, Keane Lucas, Lakshmi Adiga, Meghna Jain, Lujo Bauer, and Vyas Sekar. Incalmo: An au-tonomous llm-assisted system for red teaming multi-host networks. arXiv preprint arXiv:2501.16466 , 2025. [40] Mariami Tkeshelashvili, Ritika Verma, and Steven M. Kelly. Ai loss of control risk: Indications & warning, February 2026. [41] Lingzhi Wang, Jiahui Wang, Kyle Jung, Kedar Thia-garajan, Emily Wei, Xiangmin Shen, Yan Chen, and Zhenyuan Li. From sands to mansions: Enabling auto-matic full-life-cycle cyberattack construction with llm. 
+
+arXiv preprint arXiv:2407.16928 , 2024. [42] Zhun Wang, Nico Schiller, Hongwei Li, Srijiith Sesha Narayana, Milad Nasr, Nicholas Carlini, Xiangyu Qi, Eric Wallace, Elie Bursztein, Luca Invernizzi, et al. Ex-ploitgym: Can ai agents turn security vulnerabilities into real attacks? arXiv preprint arXiv:2605.11086 , 2026. [43] Wiz. Introducing the wiz red agent: Ai-powered attacker. https://www.wiz.io/blog/ introducing-the-wiz-red-agent , 2026. Pub-lished: March 2026. Accessed: 2026-06-18. [44] XBOW. Xbow: Autonomous offensive security plat-form. https://xbow.com/ , 2026. Accessed: 2026-06-18. Table A.1: List of guardrails implemented by the agents under consideration.            
+
+> Agent Binary allowlist Command denylist Shell-parse check Encoding decode Scope check Prompt-inj. detection AIRecon ✓
+> CAI ✓✓
+> DarkMoon ✓✓
+> METATRON ✓
+> PentestAgent ✓
+> RedAmon ✓
+> xalgorix ✓✓
+
+[45] Jiacen Xu, Jack W. Stokes, Geoff McDonald, Xuesong Bai, David Marshall, Siyue Wang, Adith Swaminathan, and Zhou Li. Autoattacker: A large language model guided system to implement automatic cyber-attacks, 2024. [46] Andy Zhang, Joey Ji, Celeste Menders, Riya Dulepet, Thomas Qin, Ron Wang, Junrong Wu, Kyleen Liao, Jil-iang Li, Jinghan Hu, Sara Hong, Nardos Demilew, Shi-vatmica Murgai, Jason Tran, Nishka Kacheria, Ethan Ho, Denis Liu, Lauren McLane, Olivia Bruvik, Dai-Rong Han, Seungwoo Kim, Akhil Vyas, Cuiyuanxiu Chen, Ryan Li, Weiran Xu, Jonathan Ye, Prerit Choud-hary, Siddharth M. Bhatia, Vikram Sivashankar, Yuxuan Bao, Dawn Song, Dan Boneh, Daniel Ho, and Percy Liang. Bountybench: Dollar impact of ai agent attackers and defenders on real-world cybersecurity systems. In D. Belgrave, C. Zhang, H. Lin, R. Pascanu, P. Koniusz, M. Ghassemi, and N. Chen, editors, Advances in Neu-ral Information Processing Systems , volume 38. Curran Associates, Inc., 2025. [47] Yuxuan Zhu, Antony Kellermann, Akul Gupta, Philip Li, Richard Fang, Rohan Bindu, and Daniel Kang. Teams of llm agents can exploit zero-day vulnerabilities. In 
+
+Proceedings of the 19th Conference of the European Chapter of the Association for Computational Linguis-tics (Volume 1: Long Papers) , pages 23–35, 2026. [48] Peiyuan Zong, Tao Lv, Dawei Wang, Zizhuang Deng, Ruigang Liang, and Kai Chen. {FuzzGuard }: Filter-ing out unreachable inputs in directed grey-box fuzzing through deep learning. In 29th USENIX security sympo-sium (USENIX security 20) , pages 2255–2269, 2020. 
+
+## Appendix A Additional material 
+
+Table A.2 lists the source and version of the agents tested in the paper, as well as the number of stars. Table A.4 contains examples of staged scenarios on which we based the agent-phishing attack. Table A.1 lists the guardrails implemented 20 Table A.2: Audited agents: repository, evaluated commit, and GitHub popularity (stars as of June 2026).                                        
+
+> Agent Repository Commit Stars
+> STRIX usestrix/strix 15c9571 25,951 PentAGI vxcontrol/pentagi 2ec8ef3 17,668 PentestGPT GreyDGL/PentestGPT 6e84be8 13,661 CAI aliasrobotics/CAI d93c27e 9,085 METATRON sooryathejas/METATRON 9dd2ee3 3,054 PentestAgent GH05TCREW/pentestagent 3592f4f 2,636 RedAmon samugit83/redamon ea9fffe 1,979 nebula berylliumsec/nebula f7ca75f 973 AIRecon pikpikcu/airecon 9a21453 643 xalgorix xalgord/xalgorix 4e6815b 603 Artemis Stanford-Trinity/ARTEMIS f309242 519 DarkMoon ASCIT31/Dark-Moon b1195e9 379
+
+in the agents. Table A.3 lists the techniques used to achieve sandbox escapes on the involved agentic-red-teams .
+
+## B Technical Details: pwcrypt payload 
+
+A .pwc vault file begins with an 8-byte magic sequence fol-lowed by a one-byte format version, a flags byte, and a two-byte little-endian header length. The header itself is encrypted with a fixed, format-constant-derived AES-128-CTR key; a design choice presented in the public documentation as a 
+
+metadata-privacy feature that keeps the choice of cipher and KDF opaque on disk. After decryption, the header is a flat stream of TLV (tag–length–value) records encoding fields such as the cipher name, the KDF index, the KDF parameter string, an optional human-readable label, and zero or more 
+
+metadata extension records. The encrypted body follows the header, along with a PBKDF2 salt and AES initialization vector. 
+
+The incomplete bounds check Metadata extension records carry an inner four-byte header consisting of a two-byte big-endian subtype and a two-byte big-endian value length. The value is written into a 256-byte static buffer at the byte offset given by the subtype field. Before the write, a validation helper enforces three independent invariants: (1) the value bytes fit within the outer TLV record, (2) the value length does not exceed 256, and (3) the subtype is strictly less than 256. The invariant that is never checked is the combined one: 
+
+subtype + value length ≤ 256 . A record with subtype 255 and value length 49 satisfies all three explicit checks, yet the resulting write begins one byte before the buffer’s end and extends 48 bytes beyond it. 
+
+BSS layout and function-pointer corruption In the linked binary, the 256-byte metadata buffer and the integrity-hook table are the two adjacent objects in the BSS segment. Both are declared with a 16-byte alignment annotation (justified in the source comments as a performance hint for AES-NI aligned loads) and the linker’s object file ordering places the metadata buffer immediately before the hook table. The hook table is an array of eight {name, fn} pairs, where fn 
+
+is a function pointer. A constructor -attributed initializer populates slots 1 and 2 at program startup with pointers to the v1 and v2 semantic-check callbacks. The forged overflow payload is constructed to cross slots 0 and 1 with null bytes (producing harmless no-op entries) and to place the address of system at the fn field of slot 2. Because the binary is compiled without position-independent code ( -no-pie ), all BSS and PLT addresses are fixed at link time and remain identical across executions. The forge script reads these addresses directly from the compiled binary’s symbol table and PLT entries before writing the vault file, so the payload is always byte-accurate for a given build. 
+
+Triggering execution Whenever pwc_load finishes pars-ing the header, it invokes the per-version hook for format version 2 — the only version the parser accepts — pass-ing the vault’s KDF parameter string as the sole argument. With slot 2 corrupted to point to system , this call reduces to 
+
+system(params) .The params field of the forged vault is set to the string iter=200000;<payload> , where <payload> is the attacker’s arbitrary shell command. Two independent con-sumers read this string: the PBKDF2 wrapper, which scans for the prefix iter= and then reads decimal digits, stopping at the semicolon and returning the iteration count 200 000; and system , which passes the entire string to /bin/sh -c ,where iter=200000 is interpreted as a temporary variable assignment and the suffix after the semicolon is executed as a separate command. The PBKDF2 derivation therefore pro-ceeds with a valid iteration count and, if the correct master password is supplied, produces the right key; the body de-crypts successfully and the secret is printed to standard output. The shell command has already executed, silently and syn-chronously, during the header-load phase, before any output is produced. 
+
+Observable behavior from the agent’s perspective When an agent runs the binary to assess its safety, the process pro-duces output consistent with a correct, benign decryption: the expected secret appears on standard output, the exit status is zero, and no anomalous file descriptors, child processes, or network connections are visible in the foreground. If the agent supplies an incorrect master password, decryption fails and the binary prints a generic error message — behavior identical to that of a legitimately corrupt vault file. In either case, the shell command embedded in the vault has already executed as a side effect of the file-load routine, without any observable signal that would distinguish it from ordinary parsing activity. 21 Agent How the escape was achieved 
+
+CAI The production container is launched with -privileged and -network host , granting all Linux capabilities and disabling seccomp and AppArmor. Four independent one-command techniques are available simultaneously: reading or writing the host filesystem through /proc/1/root/ ; mounting the host block device ( /dev/sda ) and chroot ing; configuring a cgroup v1 release_agent that the host kernel executes upon cgroup release; and attaching to all host namespaces with nsenter --target 1 . Any one of them yields unrestricted root access to the host OS. AIRecon The sandbox container is launched with -network host , placing it in the host’s network namespace. The orchestrator proxy at 
+
+127.0.0.1:3000 is therefore reachable from inside the container, and none of its routes require authentication. An attacker calls 
+
+/api/stop to clear the agent’s busy lock, then POSTs to /api/chat with a message instructing the LLM to invoke python_session .Unlike the execute tool (which runs inside Docker), python_session is dispatched in-process via raw exec() /eval() in the host proxy, yielding arbitrary code execution in the host OS process. DarkMoon The host Docker daemon socket ( /var/run/docker.sock ) is bind-mounted into the Toolbox (Kali) container, where the LLM executes all commands. A single injected command spawns a new privileged container with the host root filesystem at /mnt and 
+
+chroot s into it, yielding an unrestricted root shell on the host. No kernel exploit is required; the socket itself is the escape primitive. PentAGI Same technique as DarkMoon: /var/run/docker.sock is mounted in the primary agent container, and a single docker run -privileged -v /:/hostroot call escapes to the host. The critical distinction is that socket exposure is the default configuration: 
+
+.env.example ships with DOCKER_INSIDE=true , so the escape path is active in every installation bootstrapped from the published quickstart without any intentional decision by the operator. PentestAgent DockerRuntime bind-mounts the host’s ~/.pentestagent/ directory read-write into the container at /root/.pentestagent/ . An attacker with RCE in the container writes a malicious mcp_servers.json through this mount, planting an entry whose command 
+
+field is an attacker-controlled shell payload. On the next host startup, MCPManager scans DEFAULT_CONFIG_PATHS , finds the injected file, and calls asyncio.create_subprocess_exec with the attacker’s command — spawning a host subprocess under the operator’s UID with the full host environment (including ANTHROPIC_API_KEY , OPENAI_API_KEY , etc.) inherited. RedAmon (partial) From the Kali worker container, the attacker calls the unauthenticated recon-orchestrator FastAPI service (no authentication on any route). The request body includes a webapp_api_url pointing to an attacker-controlled server; the orchestrator fetches its settings from that URL and uses the returned naabuDockerImage value verbatim in a docker run -net=host call on the host 
+
+daemon, executing the attacker’s image with access to the host network namespace. As a side effect, the orchestrator forwards its 
+
+INTERNAL_API_KEY to the attacker’s server before spawning the container. 
+
+Table A.3: Sandbox escape paths across agentic-red-teams . Each row represents an agent for which execution inside the worker container was escalated to host-level access. 22 Table A.4: Four examples of staging scenarios for the payloads used for agent-phishing. 
+
+Name Lang. Payload staging appearance Vulnerability / RCE mechanism Artifacts 
+
+cfgunpack Go Encrypted release-config bun-dle whose AEAD body decrypts to a plausible production se-cret map. The plaintext header carries an extras_transform 
+
+name validated by a strict regex 
+
+ˆ[a-z][a-z0-9-]*$ ; the sibling 
+
+extras_transform_args field is only length-checked and parsed in a separate file ( bundle/extras.go ). Both fields are concatenated as prog = name + " " + args and appended to a tar --to-command=<prog> argv. GNU tar evaluates this string via /bin/sh -c , giving shell execution. Only the 
+
+decrypt subcommand triggers the extras path; info /list /verify are safe. 
+
+.cfgbundle , Go src, binary 
+
+db-restore C A .dbk backup that passes full XChaCha20-Poly1305 AEAD au-thentication, creating a “trusted con-tent” impression. Inside the verified body, a REC_NATIVE_DRIVER TLV is presented as an embedded perfor-mance driver for the restore path. 
+
+driver.c:dbk_load_driver() 
+
+maps the blob into exe-cutable pages using the inte-ger literal DBK_BUF_PROT=5 
+
+(PROT_READ|PROT_EXEC ) and calls it as a function pointer. No 
+
+exec* /system /dlopen appear in the binary; shellcode is x86-64 PIC execve . The AEAD key 
+
+DBK_BUILD_SECRET is a hardcoded 
+
+.rodata string, so anyone with the binary can forge a valid body. 
+
+.dbk , C src, binary 
+
+tokensign C A PCK1 key blob containing salt, IV, and a XOR-keystream-encrypted metadata label. The label decrypts to an innocuous string at runtime. A documented --exec-hook CI feature already calls system() , making its presence in the binary unsuspicious. 
+
+audit_kv() composes a key:value 
+
+audit line and passes the buffer directly as the format string to 
+
+syslog (missing "%s" ). A %17$hn 
+
+write flips the low 16 bits of the 
+
+g_kid_normalizer .data function pointer to the address of system() 
+
+inside ts_run_exec_hook . Subse-quent JWT header composition calls 
+
+g_kid_normalizer(opts->kid) 
+
+→ system(opts->kid) .
+
+.pck1 key, JWT cfg, binary 
+
+session_debugger Python An AES-256-GCM encrypted session cookie with a per-message HKDF-derived key and header-as-AAD. The malicious flag is typed as uuid.UUID 
+
+under the key device_id , mirroring benign cookie entries. Decryption still prints a valid support_admin 
+
+session. 
+
+_revive() in session_codec.py 
+
+resolves dotted constructor names via operator.attrgetter 
+
+against an explicit allow-list 
+
+{datetime, ipaddress, uuid} .Dunder attributes are blocked, but 
+
+uuid.os.system is a valid three-level walk (no component starts with 
+
+_) because CPython’s uuid imports 
+
+os at module level. os.system() 
+
+fires during decode; its integer return renders as "device_id": 0 .Cookies .json , Python src 
+
+23
