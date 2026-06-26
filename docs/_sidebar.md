@@ -1,6 +1,9 @@
 * <a class="dpr-sidebar-root-link" href="#/">首页</a>
 * <a class="dpr-sidebar-root-link dpr-sidebar-noactive-link" href="javascript:void(0)" data-dpr-hash="#/tutorial/README">使用教程</a>
 * Daily Papers
+  * 2026-06-26 <!--dpr-date:20260626-->
+    * 精读区
+      * <a class="dpr-sidebar-item-link dpr-sidebar-item-structured" href="#/202606/26/2606.24402v1-poisoned-playbooks-demystifying-knowledge-poisoning-effects-on-ai-security-agents" data-sidebar-item="{&quot;title&quot;: &quot;Poisoned Playbooks: Demystifying Knowledge Poisoning Effects on AI Security Agents&quot;, &quot;link&quot;: &quot;https://arxiv.org/abs/2606.24402v1-poisoned-playbooks-demystifying-knowledge-poisoning-effects-on-ai-security-agents&quot;, &quot;score&quot;: &quot;9.0&quot;, &quot;tags&quot;: [{&quot;kind&quot;: &quot;query&quot;, &quot;label&quot;: &quot;ca&quot;}], &quot;evidence&quot;: &quot;研究对AI安全智能体的对抗性中毒，操纵漏洞利用推理，直接相关于测试LLM在犯罪领域的能力。&quot;}">Poisoned Playbooks: Demystifying Knowledge Poisoning Effects on AI Security Agents</a>
   * 2026-06-25 <!--dpr-date:20260625-->
     * 精读区
       * <a class="dpr-sidebar-item-link dpr-sidebar-item-structured" href="#/202606/25/2606.25332v1-decoupling-reconnaissance-and-exploitation-measuring-the-capability-boundaries-of-llm-based-web-penetration-testing" data-sidebar-item="{&quot;title&quot;: &quot;Decoupling Reconnaissance and Exploitation: Measuring the Capability Boundaries of LLM-Based Web Penetration Testing&quot;, &quot;link&quot;: &quot;https://arxiv.org/abs/2606.25332v1-decoupling-reconnaissance-and-exploitation-measuring-the-capability-boundaries-of-llm-based-web-penetration-testing&quot;, &quot;score&quot;: &quot;10.0&quot;, &quot;tags&quot;: [{&quot;kind&quot;: &quot;query&quot;, &quot;label&quot;: &quot;ca&quot;}], &quot;evidence&quot;: &quot;直接衡量大语言模型在Web渗透测试中的能力边界，属于网络攻击场景。&quot;}">Decoupling Reconnaissance and Exploitation: Measuring the Capability Boundaries of LLM-Based Web Penetration Testing</a>

@@ -1,0 +1,53 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-06-26T22:04:39.806325+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 1,
+    "deep_cap": 6,
+    "deep_selected": 1,
+    "quick_candidates": 0,
+    "quick_skim_target": 11,
+    "quick_selected": 0
+  },
+  "deep_dive": [
+    {
+      "id": "2606.24402v1",
+      "source": "arxiv",
+      "title": "Poisoned Playbooks: Demystifying Knowledge Poisoning Effects on AI Security Agents",
+      "abstract": "AI security agents increasingly rely on Retrieval-Augmented Generation (RAG) to use external security knowledge for vulnerability analysis and exploit reasoning. This creates a new risk: poisoned write-ups can be operationalized into incorrect exploit behavior. Yet, prior work on RAG poisoning has mostly studied answer corruption in QA settings, much less is known about action-taking security agents. This paper aims to reveal such characteristics with crafted poisons about real-world challenges and AI agents. First, we demonstrate how a crafted single poisoned write-up injected into public-style security knowledge sources which we denote as Poisoned Playbooks, alters the behavior of RAG-based AI security agents. Across 11 CTF challenges, 3 frontier LLM families, 2 model generations, and 11 real-world CVEs, we find that poison adoption is systematic rather than random. To explain this pattern, we introduce the Verification Boundary (VB), a 3-level empirical classification based on what evidence the agent can use to refute a retrieved claim. Finally, we evaluate verification prompting and multi-source retrieval, showing that both help when stronger evidence exists, but weaken under sparse-evidence and zero-day conditions.",
+      "authors": [
+        "Juho Park",
+        "Hyunmin Choi",
+        "Kevin Nam"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR"
+      ],
+      "published": "2026-06-23T10:37:34+00:00",
+      "link": "https://arxiv.org/pdf/2606.24402v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "Studies adversarial poisoning of AI security agents, manipulating exploit reasoning, directly relevant to testing LLM cybercrime capabilities.",
+      "llm_evidence_cn": "研究对AI安全智能体的对抗性中毒，操纵漏洞利用推理，直接相关于测试LLM在犯罪领域的能力。",
+      "llm_evidence": "研究对AI安全智能体的对抗性中毒，操纵漏洞利用推理，直接相关于测试LLM在犯罪领域的能力。",
+      "canonical_evidence": "研究对AI安全智能体的对抗性中毒，操纵漏洞利用推理，直接相关于测试LLM在犯罪领域的能力。",
+      "llm_tldr_en": "Shows how poisoned security knowledge can manipulate AI security agents into producing incorrect exploit code, revealing vulnerabilities in RAG-based agents and risks for cyber defense.",
+      "llm_tldr_cn": "本文揭示了通过向AI安全智能体的知识库中注入中毒文档，可以操纵其进行漏洞分析和利用推理的行为。在11个CTF挑战和3个模型上的实验表明，单个中毒手册即可导致智能体产生错误的利用行为，证明了RAG型安全智能体面临的实际威胁。该研究为评估LLM在安全任务中的脆弱性提供了新视角。",
+      "llm_tldr": "本文揭示了通过向AI安全智能体的知识库中注入中毒文档，可以操纵其进行漏洞分析和利用推理的行为。在11个CTF挑战和3个模型上的实验表明，单个中毒手册即可导致智能体产生错误的利用行为，证明了RAG型安全智能体面临的实际威胁。该研究为评估LLM在安全任务中的脆弱性提供了新视角。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "adversarial agents for testing large language models in cybercrime",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": []
+}

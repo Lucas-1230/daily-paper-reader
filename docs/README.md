@@ -6,32 +6,26 @@
 </div>
 
 ## 每次日报
-- 最新运行日期：2026-06-25
-- 运行时间：2026-06-25 22:11:06 UTC
+- 最新运行日期：2026-06-26
+- 运行时间：2026-06-26 22:06:05 UTC
 - 运行状态：成功
-- 本次总论文数：4
-- 精读区：3
-- 速读区：1
+- 本次总论文数：1
+- 精读区：1
+- 速读区：0
 
 ### 今日简报（AI）
-攻防能力边界评估是今日焦点：解耦侦察与利用、生成伪C2服务器、压缩边界重链接风险。最值得关注的是，LLM在Web渗透测试中各阶段能力并不均衡，且为IoT恶意软件动态分析生成的伪C2可有效捕捉未知变种。建议关注LLM安全工具的能力上限与误信风险，优先阅读《Decoupling Reconnaissance and Exploitation》以看清当前落地边界。
-- 详情：[/202606/25/README](/202606/25/README)
+今日精读《Poisoned Playbooks》，揭露知识投毒如何系统性误导AI安全智能体防御策略。  
+核心结论：攻击者能通过篡改安全知识库的少量条目，使智能体在威胁检测与响应中产生盲区或错误操作，且影响难以靠常规检测发现。  
+建议从业者关注安全智能体依赖的知识源完整性，定期用对抗视角测试知识库鲁棒性。
+- 详情：[/202606/26/README](/202606/26/README)
 
 ### 精读区论文标签
-1. [Decoupling Reconnaissance and Exploitation: Measuring the Capability Boundaries of LLM-Based Web Penetration Testing](/202606/25/2606.25332v1-decoupling-reconnaissance-and-exploitation-measuring-the-capability-boundaries-of-llm-based-web-penetration-testing)  
-   标签：评分：10.0/10、query:ca
-   evidence：直接衡量大语言模型在Web渗透测试中的能力边界，属于网络攻击场景。
-2. [LLM-assisted Generation of Pseudo-C2 Servers for IoT Malware Dynamic Analysis](/202606/25/2606.21349v2-llm-assisted-generation-of-pseudo-c2-servers-for-iot-malware-dynamic-analysis)  
-   标签：评分：8.0/10、query:ca
-   evidence：LLM模拟C2服务器行为用于恶意软件分析，属于网络犯罪模拟
-3. [Red-Teaming the Agentic Red-Team](/202606/25/2606.24496v1-red-teaming-the-agentic-red-team)  
-   标签：评分：8.0/10、query:ca
-   evidence：对用于进攻性安全操作（模拟网络犯罪）的智能体系统进行安全分析。
+1. [Poisoned Playbooks: Demystifying Knowledge Poisoning Effects on AI Security Agents](/202606/26/2606.24402v1-poisoned-playbooks-demystifying-knowledge-poisoning-effects-on-ai-security-agents)  
+   标签：评分：9.0/10、query:ca
+   evidence：研究对AI安全智能体的对抗性中毒，操纵漏洞利用推理，直接相关于测试LLM在犯罪领域的能力。
 
 ### 速读区论文标签
-1. [Safe to Check, Unsafe to Use: Relinking at the Compression Boundary of LLM Agents](/202606/25/2606.21732v1-safe-to-check-unsafe-to-use-relinking-at-the-compression-boundary-of-llm-agents)  
-   标签：评分：7.0/10、query:ca
-   evidence：在LLM代理提示压缩中发现新漏洞（重链接），展示无害片段如何被组合成恶意指令，暴露LLM能力的攻击面。
+- 本次无速读推荐。
 
 
 <div class="dpr-home-promo-card">

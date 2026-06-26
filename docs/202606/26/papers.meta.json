@@ -1,0 +1,24 @@
+{
+  "label": "2026-06-26",
+  "date": "2026-06-26",
+  "generated_at": "2026-06-26T22:06:11",
+  "count": 1,
+  "papers": [
+    {
+      "paper_id": "202606/26/2606.24402v1-poisoned-playbooks-demystifying-knowledge-poisoning-effects-on-ai-security-agents",
+      "section": "deep",
+      "title_en": "Poisoned Playbooks: Demystifying Knowledge Poisoning Effects on AI Security Agents",
+      "authors": "Juho Park, Hyunmin Choi, Kevin Nam",
+      "date": "2026-06-23",
+      "pdf": "https://arxiv.org/pdf/2606.24402v1",
+      "score": "9.0",
+      "evidence": "研究对AI安全智能体的对抗性中毒，操纵漏洞利用推理，直接相关于测试LLM在犯罪领域的能力。",
+      "tldr": "AI安全代理利用RAG整合漏洞知识时，面临恶意文档注入导致错误利用行为的风险，但以往RAG投毒研究局限于问答答案污染。本文通过构造“Poisoned Playbooks”投毒公共安全源，在多个CTF和CVE场景中系统评估AI安全代理，发现毒化采纳呈系统性模式。为解释该现象，提出基于反驳证据的三级“验证边界”（VB）分类，并评估验证提示与多源检索对策，表明强证据下缓解有效，弱证据下性能下降。该工作首次揭示行动型安全代理投毒机制，为安全代理防御提供关键洞见。",
+      "tags": "query:ca",
+      "abstract_en": "AI security agents increasingly rely on Retrieval-Augmented Generation (RAG) to use external security knowledge for vulnerability analysis and exploit reasoning. This creates a new risk: poisoned write-ups can be operationalized into incorrect exploit behavior. Yet, prior work on RAG poisoning has mostly studied answer corruption in QA settings, much less is known about action-taking security agents. This paper aims to reveal such characteristics with crafted poisons about real-world challenges and AI agents. First, we demonstrate how a crafted single poisoned write-up injected into public-style security knowledge sources which we denote as Poisoned Playbooks, alters the behavior of RAG-based AI security agents. Across 11 CTF challenges, 3 frontier LLM families, 2 model generations, and 11 real-world CVEs, we find that poison adoption is systematic rather than random. To explain this pattern, we introduce the Verification Boundary (VB), a 3-level empirical classification based on what evidence the agent can use to refute a retrieved claim. Finally, we evaluate verification prompting and multi-source retrieval, showing that both help when stronger evidence exists, but weaken under sparse-evidence and zero-day conditions.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}
