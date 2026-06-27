@@ -1,0 +1,134 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-06-27T21:27:45.189727+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 1,
+    "deep_cap": 6,
+    "deep_selected": 1,
+    "quick_candidates": 2,
+    "quick_skim_target": 11,
+    "quick_selected": 2
+  },
+  "deep_dive": [
+    {
+      "id": "2606.25836v1",
+      "source": "arxiv",
+      "title": "AI Snitches Get Glitches: Towards Evading Agentic Surveillance",
+      "abstract": "To better assist users with completing challenging tasks, AI agents mediate communications, access data, and interact with different APIs. Many employers (and even nation-states) already provide their users with this technology. However, widespread adoption of AI agents creates a new risk to abuse access to user data for another goal: surveilling users. These users might not even have the ability or permission to control the actions and data accesses of the surveilling agents.   We introduce and formalize the problem of agentic surveillance: the ability of an AI agent to analyze available information, craft a report, and send it out using available tools. To evaluate surveillance capabilities across different models, we create SurveilBench, a dataset of various reporting scenarios focusing on three domains: corporate, education, and police. We find that some models exhibit emergent (i.e., unprompted) tendencies to help surveillance, but they also report the attempts to surveil users to the government.   Finally, we repurpose prompt injections for evading surveillance and develop three evasion techniques that hide from, deceive, or induce over-escalation in surveillance agents. We conclude that agentic surveillance can already be easily implemented and, therefore, call for a comprehensive technical, ethical, and legislative framework to protect users.",
+      "authors": [
+        "Hyejun Jeong",
+        "Dzung Pham",
+        "Amir Houmansadr",
+        "Eugene Bagdasarian"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-06-24T13:50:22+00:00",
+      "link": "https://arxiv.org/pdf/2606.25836v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Formalizes and evaluates AI agents' surveillance capabilities, a misuse scenario relevant to cybercrime, revealing model capability boundaries.",
+      "llm_evidence_cn": "形式化并评估AI代理的监控能力，这是一个与网络犯罪相关的滥用场景，揭示了模型能力边界。",
+      "llm_evidence": "形式化并评估AI代理的监控能力，这是一个与网络犯罪相关的滥用场景，揭示了模型能力边界。",
+      "canonical_evidence": "形式化并评估AI代理的监控能力，这是一个与网络犯罪相关的滥用场景，揭示了模型能力边界。",
+      "llm_tldr_en": "This paper introduces agentic surveillance, evaluates models via SurveilBench, and demonstrates AI agents' ability to conduct surveillance, exposing risks and capability limits in malicious monitoring scenarios.",
+      "llm_tldr_cn": "本文首次形式化了代理监控问题，即AI代理利用可用工具分析信息、生成报告并外发数据。通过构建SurveilBench数据集评估多个模型的监控能力，揭示了当前AI代理在监控场景下的能力与局限。研究发现AI代理能够有效执行监控任务，对用户隐私构成威胁，同时也展示了逃避监控的可能性。这项工作直接触及了LLM在恶意网络行为中的能力边界，为未来监管应对提供了依据。",
+      "llm_tldr": "本文首次形式化了代理监控问题，即AI代理利用可用工具分析信息、生成报告并外发数据。通过构建SurveilBench数据集评估多个模型的监控能力，揭示了当前AI代理在监控场景下的能力与局限。研究发现AI代理能够有效执行监控任务，对用户隐私构成威胁，同时也展示了逃避监控的可能性。这项工作直接触及了LLM在恶意网络行为中的能力边界，为未来监管应对提供了依据。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "evaluating the limits of large language models in cybercrime scenarios",
+      "matched_requirement_id": "req-9",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2606.25476v1",
+      "source": "arxiv",
+      "title": "A Red Teaming Framework for Large Language Models: A Case Study on Faithfulness Evaluation",
+      "abstract": "Large language models (LLMs) have demonstrated remarkable performance across natural language processing tasks, yet their deployment in high-stakes applications raises critical concerns regarding reliability, safety, and trustworthiness. In this paper, we present a red teaming framework that systematically uncovers vulnerabilities in LLM outputs. Our approach employs a novel multi-role architecture comprising target, attacker, and jury models. The attackers generate increasingly effective adversarial prompts while the jury rigorously evaluates response accuracy and consistency across tasks. In a case study, our strategy proved particularly effective at exposing unfaithfulness in LLM responses. Exploitative adversarial prompts increased the attack success rate by up to 7.9% in question-answering tasks, revealing weaknesses in reliability. The approach identifies how structural constraints in summarization can shape vulnerability patterns, with format limitations yielding measurable gains in faithfulness, and shows that architectural design choices typically outweigh parameter scaling in determining model safety. The framework's key strength is its adaptability across evaluation tasks, from English question-answering to Arabic summarization, enabling comprehensive comparison of model vulnerabilities. While it excels at comparing cross-model and cross-linguistic vulnerabilities, it faces challenges in fully automating adversarial prompt generation across languages. Our experiments also reveal limitations in detecting subtle forms of unfaithfulness that do not manifest as explicit factual contradictions, particularly across linguistic contexts. Overall, this architecture provides both actionable insights into current LLM vulnerabilities and a scalable methodology for ongoing safety evaluation as models evolve.",
+      "authors": [
+        "Abrar Alotaibi",
+        "Raed Mughus",
+        "Moataz Ahmed"
+      ],
+      "primary_category": "cs.CL",
+      "categories": [
+        "cs.CL",
+        "cs.AI"
+      ],
+      "published": "2026-06-24T07:00:53+00:00",
+      "link": "https://arxiv.org/pdf/2606.25476v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Presents a multi-agent red teaming framework with adversarial agents to test LLMs, applicable to cybercrime capability evaluation.",
+      "llm_evidence_cn": "提出多智能体红队框架，使用对抗性智能体测试大模型，可用于网络犯罪能力评估",
+      "llm_evidence": "提出多智能体红队框架，使用对抗性智能体测试大模型，可用于网络犯罪能力评估",
+      "canonical_evidence": "提出多智能体红队框架，使用对抗性智能体测试大模型，可用于网络犯罪能力评估",
+      "llm_tldr_en": "Introduces a multi-agent red teaming framework (target, attacker, jury) that generates adversarial prompts to systematically expose LLM weaknesses, demonstrated on faithfulness evaluation.",
+      "llm_tldr_cn": "针对大模型在可靠性和安全性方面的脆弱性，本文提出一种多智能体红队测试框架。框架由目标模型、攻击者和裁判三个角色构成：攻击者动态生成对抗性提示，裁判严格评估响应的准确性和一致性。在忠实性评估案例中，该框架有效揭示了大模型输出中的不忠实行为。该方法提供了一种系统探测模型漏洞的通用范式，可用于评估网络犯罪等高风险场景下的大模型能力边界。",
+      "llm_tldr": "针对大模型在可靠性和安全性方面的脆弱性，本文提出一种多智能体红队测试框架。框架由目标模型、攻击者和裁判三个角色构成：攻击者动态生成对抗性提示，裁判严格评估响应的准确性和一致性。在忠实性评估案例中，该框架有效揭示了大模型输出中的不忠实行为。该方法提供了一种系统探测模型漏洞的通用范式，可用于评估网络犯罪等高风险场景下的大模型能力边界。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "adversarial agents for testing large language models in cybercrime",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2606.26793v1",
+      "source": "arxiv",
+      "title": "MIRROR: Novelty-Constrained Memory-Guided MCTS Red-Teaming for Agentic RAG",
+      "abstract": "Multimodal agentic retrieval-augmented generation (RAG) systems expand the attack surface beyond prompt injection to include text poisoning, image injection, direct-query attacks, and orchestrator-level tool manipulation. Existing red-teaming approaches are typically surface-specific and often recycle known attack templates; on text-poisoning benchmarks we measure 73-84% exact duplication. We present MIRROR, a unified cross-surface framework that performs memory-guided Monte Carlo tree search while conditioning candidate generation on retrieved context under an explicit novelty constraint. A deterministic Novelty Gate rejects any candidate matching the retrieval set under normalized comparison, allowing retrieval to inform search priors without enabling prompt copying. Across four attack surfaces on a multimodal agentic RAG target, MIRROR attains 76% ASR on image poisoning compared with 52% for baselines, 97% ASR on orchestrator attacks at half the query cost, and the lowest cross-surface variance (coefficient of variation 0.47). In contrast, specialized baselines collapse across surfaces: suffix optimization reaches 79% ASR on text poisoning but 1% on direct queries. We release ART-SafeBench with 41,815 in-package records and runtime adapters yielding 41,991+ total records across four surfaces.",
+      "authors": [
+        "Inderjeet Singh",
+        "Andrés Murillo",
+        "Motoyoshi Sekiya",
+        "Yuki Unno",
+        "Junichi Suga"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI",
+        "cs.LG"
+      ],
+      "published": "2026-06-25T09:26:49+00:00",
+      "link": "https://arxiv.org/pdf/2606.26793v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Red-teaming framework for multimodal agentic RAG systems, enabling unified adversarial testing across multiple attack surfaces",
+      "llm_evidence_cn": "多模态智能体RAG系统的红队测试框架，支持跨攻击面的统一对抗测试",
+      "llm_evidence": "多模态智能体RAG系统的红队测试框架，支持跨攻击面的统一对抗测试",
+      "canonical_evidence": "多模态智能体RAG系统的红队测试框架，支持跨攻击面的统一对抗测试",
+      "llm_tldr_en": "MIRROR is a cross-surface red-teaming framework that uses memory-guided MCTS with novelty constraint to generate diverse adversarial attacks on agentic RAG systems. It avoids duplication and targets text poisoning, image injection, etc. This approach can be adapted to test LLM-based agents in cybercrime contexts by unifying attack surface evaluation.",
+      "llm_tldr_cn": "针对现有红队方法常回收已知模板、攻击面单一的问题，提出MIRROR——一种统一跨攻击面框架，通过记忆引导的蒙特卡洛树搜索并在生成候选时引入新颖性约束，对多模态智能体RAG系统进行红队测试。实验表明该框架显著减少了重复攻击，并覆盖文本中毒、图像注入等多种攻击方式。该工作为智能体系统的全面安全测试提供了方法，可迁移至网络犯罪场景中对LLM代理进行能力边界探索。",
+      "llm_tldr": "针对现有红队方法常回收已知模板、攻击面单一的问题，提出MIRROR——一种统一跨攻击面框架，通过记忆引导的蒙特卡洛树搜索并在生成候选时引入新颖性约束，对多模态智能体RAG系统进行红队测试。实验表明该框架显著减少了重复攻击，并覆盖文本中毒、图像注入等多种攻击方式。该工作为智能体系统的全面安全测试提供了方法，可迁移至网络犯罪场景中对LLM代理进行能力边界探索。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "adversarial agents for testing large language models in cybercrime",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}

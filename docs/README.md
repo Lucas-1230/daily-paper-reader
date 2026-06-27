@@ -6,26 +6,31 @@
 </div>
 
 ## 每次日报
-- 最新运行日期：2026-06-26
-- 运行时间：2026-06-26 22:06:05 UTC
+- 最新运行日期：2026-06-27
+- 运行时间：2026-06-27 21:31:30 UTC
 - 运行状态：成功
-- 本次总论文数：1
+- 本次总论文数：3
 - 精读区：1
-- 速读区：0
+- 速读区：2
 
 ### 今日简报（AI）
-今日精读《Poisoned Playbooks》，揭露知识投毒如何系统性误导AI安全智能体防御策略。  
-核心结论：攻击者能通过篡改安全知识库的少量条目，使智能体在威胁检测与响应中产生盲区或错误操作，且影响难以靠常规检测发现。  
-建议从业者关注安全智能体依赖的知识源完整性，定期用对抗视角测试知识库鲁棒性。
-- 详情：[/202606/26/README](/202606/26/README)
+今日精读“AI告密者也会出故障”，速览两项大模型红队新武器。  
+最值得关注：逃避智能体监控可利用其自身缺陷，而系统化红队测试已在忠实度评估和RAG攻击中展现实力。  
+普通读者可留意：当AI助手接管更多决策时，它的“忠诚”与“漏洞”同样需要你审慎对待。
+- 详情：[/202606/27/README](/202606/27/README)
 
 ### 精读区论文标签
-1. [Poisoned Playbooks: Demystifying Knowledge Poisoning Effects on AI Security Agents](/202606/26/2606.24402v1-poisoned-playbooks-demystifying-knowledge-poisoning-effects-on-ai-security-agents)  
-   标签：评分：9.0/10、query:ca
-   evidence：研究对AI安全智能体的对抗性中毒，操纵漏洞利用推理，直接相关于测试LLM在犯罪领域的能力。
+1. [AI Snitches Get Glitches: Towards Evading Agentic Surveillance](/202606/27/2606.25836v1-ai-snitches-get-glitches-towards-evading-agentic-surveillance)  
+   标签：评分：8.0/10、query:ca
+   evidence：形式化并评估AI代理的监控能力，这是一个与网络犯罪相关的滥用场景，揭示了模型能力边界。
 
 ### 速读区论文标签
-- 本次无速读推荐。
+1. [A Red Teaming Framework for Large Language Models: A Case Study on Faithfulness Evaluation](/202606/27/2606.25476v1-a-red-teaming-framework-for-large-language-models-a-case-study-on-faithfulness-evaluation)  
+   标签：评分：7.0/10、query:ca
+   evidence：提出多智能体红队框架，使用对抗性智能体测试大模型，可用于网络犯罪能力评估
+2. [MIRROR: Novelty-Constrained Memory-Guided MCTS Red-Teaming for Agentic RAG](/202606/27/2606.26793v1-mirror-novelty-constrained-memory-guided-mcts-red-teaming-for-agentic-rag)  
+   标签：评分：6.0/10、query:ca
+   evidence：多模态智能体RAG系统的红队测试框架，支持跨攻击面的统一对抗测试
 
 
 <div class="dpr-home-promo-card">

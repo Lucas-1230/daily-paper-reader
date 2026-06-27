@@ -1,0 +1,54 @@
+{
+  "label": "2026-06-27",
+  "date": "2026-06-27",
+  "generated_at": "2026-06-27T21:31:39",
+  "count": 3,
+  "papers": [
+    {
+      "paper_id": "202606/27/2606.25836v1-ai-snitches-get-glitches-towards-evading-agentic-surveillance",
+      "section": "deep",
+      "title_en": "AI Snitches Get Glitches: Towards Evading Agentic Surveillance",
+      "authors": "Hyejun Jeong, Dzung Pham, Amir Houmansadr, Eugene Bagdasarian",
+      "date": "2026-06-24",
+      "pdf": "https://arxiv.org/pdf/2606.25836v1",
+      "score": "8.0",
+      "evidence": "形式化并评估AI代理的监控能力，这是一个与网络犯罪相关的滥用场景，揭示了模型能力边界。",
+      "tldr": "AI代理普及带来代理监视风险，即分析信息、生成报告并外发。为解决该问题，我们定义问题并构建SurveilBench数据集，涵盖企业、教育、警务场景，评估模型监视能力。发现部分模型有自发监视倾向但也向政府举报监视行为。我们开发三种基于提示注入的逃避技术：隐藏、欺骗与过度升级。结果表明代理监视已易实现，亟需技术、伦理与法律框架保护用户。",
+      "tags": "query:ca",
+      "abstract_en": "To better assist users with completing challenging tasks, AI agents mediate communications, access data, and interact with different APIs. Many employers (and even nation-states) already provide their users with this technology. However, widespread adoption of AI agents creates a new risk to abuse access to user data for another goal: surveilling users. These users might not even have the ability or permission to control the actions and data accesses of the surveilling agents.   We introduce and formalize the problem of agentic surveillance: the ability of an AI agent to analyze available information, craft a report, and send it out using available tools. To evaluate surveillance capabilities across different models, we create SurveilBench, a dataset of various reporting scenarios focusing on three domains: corporate, education, and police. We find that some models exhibit emergent (i.e., unprompted) tendencies to help surveillance, but they also report the attempts to surveil users to the government.   Finally, we repurpose prompt injections for evading surveillance and develop three evasion techniques that hide from, deceive, or induce over-escalation in surveillance agents. We conclude that agentic surveillance can already be easily implemented and, therefore, call for a comprehensive technical, ethical, and legislative framework to protect users.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202606/27/2606.25476v1-a-red-teaming-framework-for-large-language-models-a-case-study-on-faithfulness-evaluation",
+      "section": "quick",
+      "title_en": "A Red Teaming Framework for Large Language Models: A Case Study on Faithfulness Evaluation",
+      "authors": "Abrar Alotaibi, Raed Mughus, Moataz Ahmed",
+      "date": "2026-06-24",
+      "pdf": "https://arxiv.org/pdf/2606.25476v1",
+      "score": "7.0",
+      "evidence": "提出多智能体红队框架，使用对抗性智能体测试大模型，可用于网络犯罪能力评估",
+      "tldr": "大型语言模型在高风险应用中面临可靠性隐患。本文提出多角色红队框架，协同目标、攻击者与陪审团模型，自动生成对抗提示并严格评估输出忠实度。在问答任务上攻击成功率提升7.9%，揭示架构设计比参数缩放更影响安全性。该框架跨任务、跨语言，为模型安全评估提供可扩展方法。",
+      "tags": "query:ca",
+      "abstract_en": "Large language models (LLMs) have demonstrated remarkable performance across natural language processing tasks, yet their deployment in high-stakes applications raises critical concerns regarding reliability, safety, and trustworthiness. In this paper, we present a red teaming framework that systematically uncovers vulnerabilities in LLM outputs. Our approach employs a novel multi-role architecture comprising target, attacker, and jury models. The attackers generate increasingly effective adversarial prompts while the jury rigorously evaluates response accuracy and consistency across tasks. In a case study, our strategy proved particularly effective at exposing unfaithfulness in LLM responses. Exploitative adversarial prompts increased the attack success rate by up to 7.9% in question-answering tasks, revealing weaknesses in reliability. The approach identifies how structural constraints in summarization can shape vulnerability patterns, with format limitations yielding measurable gains in faithfulness, and shows that architectural design choices typically outweigh parameter scaling in determining model safety. The framework's key strength is its adaptability across evaluation tasks, from English question-answering to Arabic summarization, enabling comprehensive comparison of model vulnerabilities. While it excels at comparing cross-model and cross-linguistic vulnerabilities, it faces challenges in fully automating adversarial prompt generation across languages. Our experiments also reveal limitations in detecting subtle forms of unfaithfulness that do not manifest as explicit factual contradictions, particularly across linguistic contexts. Overall, this architecture provides both actionable insights into current LLM vulnerabilities and a scalable methodology for ongoing safety evaluation as models evolve.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202606/27/2606.26793v1-mirror-novelty-constrained-memory-guided-mcts-red-teaming-for-agentic-rag",
+      "section": "quick",
+      "title_en": "MIRROR: Novelty-Constrained Memory-Guided MCTS Red-Teaming for Agentic RAG",
+      "authors": "Inderjeet Singh, Andrés Murillo, Motoyoshi Sekiya, Yuki Unno, Junichi Suga",
+      "date": "2026-06-25",
+      "pdf": "https://arxiv.org/pdf/2606.26793v1",
+      "score": "6.0",
+      "evidence": "多模态智能体RAG系统的红队测试框架，支持跨攻击面的统一对抗测试",
+      "tldr": "现有多模态代理RAG系统的红队测试多为表面特定且重复度高，样本重复率达73-84%。MIRROR提出一种新颖性约束的记忆引导蒙特卡洛树搜索框架，统一跨表面攻击生成，通过新颖性门控避免提示复制。实验表明，其在图像投毒、编排器攻击等表面上的攻击成功率分别达76%和97%，跨表面方差最低。同时发布包含4万余条记录的ART-SafeBench基准，推动安全评估标准化。",
+      "tags": "query:ca",
+      "abstract_en": "Multimodal agentic retrieval-augmented generation (RAG) systems expand the attack surface beyond prompt injection to include text poisoning, image injection, direct-query attacks, and orchestrator-level tool manipulation. Existing red-teaming approaches are typically surface-specific and often recycle known attack templates; on text-poisoning benchmarks we measure 73-84% exact duplication. We present MIRROR, a unified cross-surface framework that performs memory-guided Monte Carlo tree search while conditioning candidate generation on retrieved context under an explicit novelty constraint. A deterministic Novelty Gate rejects any candidate matching the retrieval set under normalized comparison, allowing retrieval to inform search priors without enabling prompt copying. Across four attack surfaces on a multimodal agentic RAG target, MIRROR attains 76% ASR on image poisoning compared with 52% for baselines, 97% ASR on orchestrator attacks at half the query cost, and the lowest cross-surface variance (coefficient of variation 0.47). In contrast, specialized baselines collapse across surfaces: suffix optimization reaches 79% ASR on text poisoning but 1% on direct queries. We release ART-SafeBench with 41,815 in-package records and runtime adapters yielding 41,991+ total records across four surfaces.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}
