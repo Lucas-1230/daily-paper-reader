@@ -7211,6 +7211,9 @@ body.dpr-sidebar-resizing {
   transition: background .12s ease, border-color .12s ease;
   overflow: hidden;
 }
+#dpr-sidebar-v2 .dpr-sidebar-paper {
+  position: relative !important;
+}
 .dpr-sidebar-paper.dpr-sidebar-paper-deep {
   border-left-color: #93c5fd;
 }
@@ -7258,13 +7261,13 @@ body.dpr-sidebar-resizing {
 .dpr-sidebar-paper[data-read="0"]::after {
   content: "";
   position: absolute;
-  right: 10px;
-  top: 6px;
-  width: 12px;
-  height: 12px;
+  right: 8px;
+  top: 7px;
+  width: 8px;
+  height: 8px;
   border-radius: 999px;
   background: #ef4444;
-  box-shadow: 0 0 0 2px #ffffff, 0 0 7px rgba(239, 68, 68, .55);
+  box-shadow: 0 0 0 2px #ffffff, 0 0 5px rgba(239, 68, 68, .45);
   z-index: 6;
   pointer-events: none;
 }
