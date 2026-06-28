@@ -1,0 +1,136 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-06-28T21:21:31.846983+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 0,
+    "deep_cap": 6,
+    "deep_selected": 0,
+    "quick_candidates": 3,
+    "quick_skim_target": 11,
+    "quick_selected": 3
+  },
+  "deep_dive": [],
+  "quick_skim": [
+    {
+      "id": "2606.25195v1",
+      "source": "arxiv",
+      "title": "SoK: AI Secure Code Generation: Progress, Pitfalls, and Paths Forward",
+      "abstract": "The increasing use of AI systems for code generation raises a central security question: what can today's models and coding agents actually do to produce secure code, where do they still fail, and what would move the field forward? Existing work has explored prompting, fine-tuning, reinforcement learning, and agentic workflows for secure code generation, but the field still lacks a systematic understanding of how these techniques improve security and why substantial failures persist. In this SoK, we systematize the progress, pitfalls, and paths forward for AI secure code generation. We introduce a three-level framework that measures models' natural-language understanding of secure coding principles, their code-level actuation of those principles during generation, and the knowledge--actuation gaps between the two. We instantiate this framework across models and coding agents on benchmarks covering both isolated function-level security and full web-application security. Our results show that secure-coding-principle understanding is a statistically strong predictor of code-level outcomes, including functional correctness, security, and joint functional-security correctness. Yet substantial knowledge--actuation gaps remain: models can recognize relevant security principles but still fail to translate them into secure and functional code. These findings offer a principle-centered account of where AI secure code generation stands today and identify concrete paths forward through principle-guided generation, evaluation, benchmarking, and agentic workflows.",
+      "authors": [
+        "Rupam Patir",
+        "Keyan Guo",
+        "Haipeng Cai",
+        "Hongxin Hu"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI"
+      ],
+      "published": "2026-06-23T21:39:05+00:00",
+      "link": "https://arxiv.org/pdf/2606.25195v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "systematizes AI secure code generation, measuring LLM capability limits in cyber coding tasks",
+      "llm_evidence_cn": "系统化评估AI安全代码生成，测量LLM在网络安全编码任务中的能力边界",
+      "llm_evidence": "系统化评估AI安全代码生成，测量LLM在网络安全编码任务中的能力边界",
+      "canonical_evidence": "系统化评估AI安全代码生成，测量LLM在网络安全编码任务中的能力边界",
+      "llm_tldr_en": "This SoK systematizes AI secure code generation progress, introduces a three-level framework to measure LLMs' understanding and actuation of secure coding, and identifies persistent failure modes, providing benchmarks and paths forward.",
+      "llm_tldr_cn": "该论文系统化梳理了AI系统生成安全代码的进展与不足，提出三级评估框架，衡量模型对安全编码原则的自然语言理解、代码实现能力及实际漏洞修复表现，揭示了当前模型在安全代码生成中的能力边界，为安全关键领域应用提供基准。",
+      "llm_tldr": "该论文系统化梳理了AI系统生成安全代码的进展与不足，提出三级评估框架，衡量模型对安全编码原则的自然语言理解、代码实现能力及实际漏洞修复表现，揭示了当前模型在安全代码生成中的能力边界，为安全关键领域应用提供基准。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "exploring the capability boundaries of large language models in cyber contexts",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2606.26883v1",
+      "source": "arxiv",
+      "title": "EconSimulacra: A Digital Twin Platform of Socio-Economic Systems Powered by LLM Agents",
+      "abstract": "Real-world social behavior emerges from tightly coupled domains: economic conditions shape mobility and social interactions, while online attention and offline activity feed back into local popularity and consumer behavior. Capturing these feedback loops requires artificial societies in which agents carry experiences from one domain into decisions in another. Large language models (LLMs) provide a promising foundation for such societies. However, existing LLM-based simulators typically model domains in isolation or merely place them side by side. To enable such cross-domain interactions, we present EconSimulacra, a multi-agent social simulator that couples consumer economy, mobility, and social networks through a shared internal-state mechanism. In EconSimulacra, experiences accumulated across different domains are stored in memory and transformed into shared internal states (i.e., stress level) connecting heterogeneous domains through individual decision making. This design allows agents to reconcile competing demands arising from multiple domains and generate coherent cross-domain behaviors. As a case study, we show that the shared internal state mechanisms reproduce a nonlinear relationship between online social attention and offline local popularity, illustrating how realistic cross-domain dynamics can emerge within a unified artificial society.",
+      "authors": [
+        "Ryuji Hashimoto",
+        "Masahiro Kaneko",
+        "Kentaro Ueda",
+        "Takehiro Takayanagi",
+        "Kiyoshi Izumi"
+      ],
+      "primary_category": "cs.DL",
+      "categories": [
+        "cs.DL"
+      ],
+      "published": "2026-06-25T11:13:13+00:00",
+      "link": "https://arxiv.org/pdf/2606.26883v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "multi-agent LLM simulation platform with cross-domain interactions, adaptable for cybercrime agent-based modeling",
+      "llm_evidence_cn": "多智能体LLM模拟平台，具有跨领域交互，可适配网络犯罪的智能体建模",
+      "llm_evidence": "多智能体LLM模拟平台，具有跨领域交互，可适配网络犯罪的智能体建模",
+      "canonical_evidence": "多智能体LLM模拟平台，具有跨领域交互，可适配网络犯罪的智能体建模",
+      "llm_tldr_en": "EconSimulacra is an LLM-agent-based multi-domain social simulator coupling economy, mobility, and social networks; its general multi-agent architecture can be adapted for cybercrime simulation to test LLM capabilities.",
+      "llm_tldr_cn": "该论文提出了EconSimulacra，一个由LLM驱动的多智能体社会模拟平台，通过共享内部状态模型耦合消费经济、移动性和社交网络，实现跨领域交互。该平台展示了如何构建复杂的LLM智能体社会以捕捉现实世界的反馈循环。其通用架构和思路可迁移至网络犯罪活动的智能体模拟，为研究LLM在网络犯罪中的能力边界提供仿真环境。",
+      "llm_tldr": "该论文提出了EconSimulacra，一个由LLM驱动的多智能体社会模拟平台，通过共享内部状态模型耦合消费经济、移动性和社交网络，实现跨领域交互。该平台展示了如何构建复杂的LLM智能体社会以捕捉现实世界的反馈循环。其通用架构和思路可迁移至网络犯罪活动的智能体模拟，为研究LLM在网络犯罪中的能力边界提供仿真环境。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "How can agent based modeling and multi agent systems simulate cybercriminal activities with large language models?",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2606.26936v1",
+      "source": "arxiv",
+      "title": "Jailbreaking for the Average Jane: Choosing Optimal Jailbreaks via Bandit Algorithms for Automatically Enhanced Queries",
+      "abstract": "With a profusion of jailbreaks for LLMs now widely known, a growing concern is that non-expert malicious actors (\"the average Jane\") could elicit actionable responses to malicious requests. In this work, we examine whether this concern is justified. A non-expert malicious actor requires two ingredients for a successful attack: a powerful jailbreak for their target model, acting on an effective malicious query. For the former, we propose a novel attack strategy based on the multi-armed bandit framework. This allows efficient online learning of the optimal jailbreak from a large choice set via noisy exploration on a small number of queries, with subsequent application of the learnt policy on an exploitation set. For the latter, we curate $\\mathrm{FrankensteinBench}$, a safety benchmark of $11,279$ malicious queries drawn from manual curation over $7$ existing benchmarks, along with automated enhancement and generation. Each query is categorized as simple or complex by the technical expertise required to craft it. Our findings confirm the concern. Our bandit-based attack achieves success rates as high as $97\\%$ on average over $15$ SoTA open-weight LLMs. Moreover, adding complexity to queries raises the attack success rate by up to $26\\%$ on average across models -- making it an effective, automatable prompting strategy.",
+      "authors": [
+        "Prarabdh Shukla",
+        "Ritik",
+        "Suhas Rao",
+        "Arpit Agarwal",
+        "Arjun Bhagoji"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.CL",
+        "cs.LG"
+      ],
+      "published": "2026-06-25T12:11:28+00:00",
+      "link": "https://arxiv.org/pdf/2606.26936v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Examines non-expert malicious actors using bandit algorithms to choose optimal jailbreaks for LLMs",
+      "llm_evidence_cn": "研究非专家恶意行为者用老虎机算法选择最优越狱攻击",
+      "llm_evidence": "研究非专家恶意行为者用老虎机算法选择最优越狱攻击",
+      "canonical_evidence": "研究非专家恶意行为者用老虎机算法选择最优越狱攻击",
+      "llm_tldr_en": "Investigates whether average users can successfully jailbreak LLMs using a multi-armed bandit framework to learn optimal jailbreaks from limited queries, showing high success rates and highlighting cybercrime misuse risks.",
+      "llm_tldr_cn": "随着大模型越狱方法的泛滥，人们担忧非专家恶意行为者也能获取有害信息。本文探究这种担忧是否成立，并提出基于多臂老虎机框架的攻击策略：从大量越狱选项中通过少量查询的噪声探索高效学习最优越狱，随后应用于恶意查询。实验表明，即使仅有少量查询，该策略也能达到很高的攻击成功率，证明普通人确实能有效越狱大模型。研究结果警示，大模型易被普通人用于网络犯罪，需加强安全防护。",
+      "llm_tldr": "随着大模型越狱方法的泛滥，人们担忧非专家恶意行为者也能获取有害信息。本文探究这种担忧是否成立，并提出基于多臂老虎机框架的攻击策略：从大量越狱选项中通过少量查询的噪声探索高效学习最优越狱，随后应用于恶意查询。实验表明，即使仅有少量查询，该策略也能达到很高的攻击成功率，证明普通人确实能有效越狱大模型。研究结果警示，大模型易被普通人用于网络犯罪，需加强安全防护。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "capabilities of large language models in cybercrime",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    }
+  ]
+}

@@ -1,0 +1,54 @@
+{
+  "label": "2026-06-28",
+  "date": "2026-06-28",
+  "generated_at": "2026-06-28T21:25:12",
+  "count": 3,
+  "papers": [
+    {
+      "paper_id": "202606/28/2606.25195v1-sok-ai-secure-code-generation-progress-pitfalls-and-paths-forward",
+      "section": "quick",
+      "title_en": "SoK: AI Secure Code Generation: Progress, Pitfalls, and Paths Forward",
+      "authors": "Rupam Patir, Keyan Guo, Haipeng Cai, Hongxin Hu",
+      "date": "2026-06-23",
+      "pdf": "https://arxiv.org/pdf/2606.25195v1",
+      "score": "7.0",
+      "evidence": "系统化评估AI安全代码生成，测量LLM在网络安全编码任务中的能力边界",
+      "tldr": "随着AI代码生成应用增加，其安全性问题日益突出，当前研究缺乏系统性认知。本SoK提出一个三层框架，分别衡量模型对安全编码原则的自然语言理解、代码生成时的原则执行，以及两者间的知识-行动差距。实验发现，原则理解是代码安全性和功能性的强预测因子，但模型普遍存在显著的知识-行动差距，能识别原则却无法转化为安全功能代码。这一工作为AI安全代码生成提供了原则中心的现状解读，并指出了原则引导生成、基准评估和智能体工作流等前进方向。",
+      "tags": "query:ca",
+      "abstract_en": "The increasing use of AI systems for code generation raises a central security question: what can today's models and coding agents actually do to produce secure code, where do they still fail, and what would move the field forward? Existing work has explored prompting, fine-tuning, reinforcement learning, and agentic workflows for secure code generation, but the field still lacks a systematic understanding of how these techniques improve security and why substantial failures persist. In this SoK, we systematize the progress, pitfalls, and paths forward for AI secure code generation. We introduce a three-level framework that measures models' natural-language understanding of secure coding principles, their code-level actuation of those principles during generation, and the knowledge--actuation gaps between the two. We instantiate this framework across models and coding agents on benchmarks covering both isolated function-level security and full web-application security. Our results show that secure-coding-principle understanding is a statistically strong predictor of code-level outcomes, including functional correctness, security, and joint functional-security correctness. Yet substantial knowledge--actuation gaps remain: models can recognize relevant security principles but still fail to translate them into secure and functional code. These findings offer a principle-centered account of where AI secure code generation stands today and identify concrete paths forward through principle-guided generation, evaluation, benchmarking, and agentic workflows.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202606/28/2606.26883v1-econsimulacra-a-digital-twin-platform-of-socio-economic-systems-powered-by-llm-agents",
+      "section": "quick",
+      "title_en": "EconSimulacra: A Digital Twin Platform of Socio-Economic Systems Powered by LLM Agents",
+      "authors": "Ryuji Hashimoto, Masahiro Kaneko, Kentaro Ueda, Takehiro Takayanagi, Kiyoshi Izumi",
+      "date": "2026-06-25",
+      "pdf": "https://arxiv.org/pdf/2606.26883v1",
+      "score": "7.0",
+      "evidence": "多智能体LLM模拟平台，具有跨领域交互，可适配网络犯罪的智能体建模",
+      "tldr": "社会经济系统是一个多域耦合的复杂整体，消费经济、人口流动和社交网络相互影响，线上注意力与线下消费形成反馈循环，但基于大语言模型的现有模拟器往往孤立或简单并置这些领域，难以捕捉交互动态。EconSimulacra通过设计共享内部状态（如压力水平）的机制，将不同域的经历存入记忆并转化为统一状态，使智能体在消费、出行和社交决策中协调多域需求。案例验证表明，该机制成功复现了线上社交关注度与线下本地流行度之间的非线性关系，展现出跨域行为的涌现。该平台为构建数字孪生社会经济系统、模拟现实跨域动态提供了新型实验基础。",
+      "tags": "query:ca",
+      "abstract_en": "Real-world social behavior emerges from tightly coupled domains: economic conditions shape mobility and social interactions, while online attention and offline activity feed back into local popularity and consumer behavior. Capturing these feedback loops requires artificial societies in which agents carry experiences from one domain into decisions in another. Large language models (LLMs) provide a promising foundation for such societies. However, existing LLM-based simulators typically model domains in isolation or merely place them side by side. To enable such cross-domain interactions, we present EconSimulacra, a multi-agent social simulator that couples consumer economy, mobility, and social networks through a shared internal-state mechanism. In EconSimulacra, experiences accumulated across different domains are stored in memory and transformed into shared internal states (i.e., stress level) connecting heterogeneous domains through individual decision making. This design allows agents to reconcile competing demands arising from multiple domains and generate coherent cross-domain behaviors. As a case study, we show that the shared internal state mechanisms reproduce a nonlinear relationship between online social attention and offline local popularity, illustrating how realistic cross-domain dynamics can emerge within a unified artificial society.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202606/28/2606.26936v1-jailbreaking-for-the-average-jane-choosing-optimal-jailbreaks-via-bandit-algorithms-for-automatically-enhanced-queries",
+      "section": "quick",
+      "title_en": "Jailbreaking for the Average Jane: Choosing Optimal Jailbreaks via Bandit Algorithms for Automatically Enhanced Queries",
+      "authors": "Prarabdh Shukla, Ritik, Suhas Rao, Arpit Agarwal, Arjun Bhagoji",
+      "date": "2026-06-25",
+      "pdf": "https://arxiv.org/pdf/2606.26936v1",
+      "score": "7.0",
+      "evidence": "研究非专家恶意行为者用老虎机算法选择最优越狱攻击",
+      "tldr": "随着大模型越狱方法的泛滥，人们担忧非专家恶意行为者也能获取有害信息。本文探究这种担忧是否成立，并提出基于多臂老虎机框架的攻击策略：从大量越狱选项中通过少量查询的噪声探索高效学习最优越狱，随后应用于恶意查询。实验表明，即使仅有少量查询，该策略也能达到很高的攻击成功率，证明普通人确实能有效越狱大模型。研究结果警示，大模型易被普通人用于网络犯罪，需加强安全防护。",
+      "tags": "query:ca",
+      "abstract_en": "With a profusion of jailbreaks for LLMs now widely known, a growing concern is that non-expert malicious actors (\"the average Jane\") could elicit actionable responses to malicious requests. In this work, we examine whether this concern is justified. A non-expert malicious actor requires two ingredients for a successful attack: a powerful jailbreak for their target model, acting on an effective malicious query. For the former, we propose a novel attack strategy based on the multi-armed bandit framework. This allows efficient online learning of the optimal jailbreak from a large choice set via noisy exploration on a small number of queries, with subsequent application of the learnt policy on an exploitation set. For the latter, we curate $\\mathrm{FrankensteinBench}$, a safety benchmark of $11,279$ malicious queries drawn from manual curation over $7$ existing benchmarks, along with automated enhancement and generation. Each query is categorized as simple or complex by the technical expertise required to craft it. Our findings confirm the concern. Our bandit-based attack achieves success rates as high as $97\\%$ on average over $15$ SoTA open-weight LLMs. Moreover, adding complexity to queries raises the attack success rate by up to $26\\%$ on average across models -- making it an effective, automatable prompting strategy.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}

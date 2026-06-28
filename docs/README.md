@@ -6,31 +6,32 @@
 </div>
 
 ## 每次日报
-- 最新运行日期：2026-06-27
-- 运行时间：2026-06-27 21:31:30 UTC
+- 最新运行日期：2026-06-28
+- 运行时间：2026-06-28 21:25:04 UTC
 - 运行状态：成功
 - 本次总论文数：3
-- 精读区：1
-- 速读区：2
+- 精读区：0
+- 速读区：3
 
 ### 今日简报（AI）
-今日精读“AI告密者也会出故障”，速览两项大模型红队新武器。  
-最值得关注：逃避智能体监控可利用其自身缺陷，而系统化红队测试已在忠实度评估和RAG攻击中展现实力。  
-普通读者可留意：当AI助手接管更多决策时，它的“忠诚”与“漏洞”同样需要你审慎对待。
-- 详情：[/202606/27/README](/202606/27/README)
+- 今日共生成 3 篇推荐（精读 0 篇，速读 3 篇）
+- 速读：《SoK: AI Secure Code Generation: Progress, Pitfalls, and Paths Forward》（7.0/10）, 《EconSimulacra: A Digital Twin Platform of Socio-Economic Systems Powered by LLM Agents》（7.0/10）, 《Jailbreaking for the Average Jane: Choosing Optimal Jailbreaks via Bandit Algorithms for Automatically Enhanced Queries》（7.0/10）
+- 这些结果覆盖了当下较热的方向，建议先看精读区论文的关键问题与方法。
+- 详情：[/202606/28/README](/202606/28/README)
 
 ### 精读区论文标签
-1. [AI Snitches Get Glitches: Towards Evading Agentic Surveillance](/202606/27/2606.25836v1-ai-snitches-get-glitches-towards-evading-agentic-surveillance)  
-   标签：评分：8.0/10、query:ca
-   evidence：形式化并评估AI代理的监控能力，这是一个与网络犯罪相关的滥用场景，揭示了模型能力边界。
+- 本次无精读推荐。
 
 ### 速读区论文标签
-1. [A Red Teaming Framework for Large Language Models: A Case Study on Faithfulness Evaluation](/202606/27/2606.25476v1-a-red-teaming-framework-for-large-language-models-a-case-study-on-faithfulness-evaluation)  
+1. [SoK: AI Secure Code Generation: Progress, Pitfalls, and Paths Forward](/202606/28/2606.25195v1-sok-ai-secure-code-generation-progress-pitfalls-and-paths-forward)  
    标签：评分：7.0/10、query:ca
-   evidence：提出多智能体红队框架，使用对抗性智能体测试大模型，可用于网络犯罪能力评估
-2. [MIRROR: Novelty-Constrained Memory-Guided MCTS Red-Teaming for Agentic RAG](/202606/27/2606.26793v1-mirror-novelty-constrained-memory-guided-mcts-red-teaming-for-agentic-rag)  
-   标签：评分：6.0/10、query:ca
-   evidence：多模态智能体RAG系统的红队测试框架，支持跨攻击面的统一对抗测试
+   evidence：系统化评估AI安全代码生成，测量LLM在网络安全编码任务中的能力边界
+2. [EconSimulacra: A Digital Twin Platform of Socio-Economic Systems Powered by LLM Agents](/202606/28/2606.26883v1-econsimulacra-a-digital-twin-platform-of-socio-economic-systems-powered-by-llm-agents)  
+   标签：评分：7.0/10、query:ca
+   evidence：多智能体LLM模拟平台，具有跨领域交互，可适配网络犯罪的智能体建模
+3. [Jailbreaking for the Average Jane: Choosing Optimal Jailbreaks via Bandit Algorithms for Automatically Enhanced Queries](/202606/28/2606.26936v1-jailbreaking-for-the-average-jane-choosing-optimal-jailbreaks-via-bandit-algorithms-for-automatically-enhanced-queries)  
+   标签：评分：7.0/10、query:ca
+   evidence：研究非专家恶意行为者用老虎机算法选择最优越狱攻击
 
 
 <div class="dpr-home-promo-card">
