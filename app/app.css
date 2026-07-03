@@ -7809,7 +7809,8 @@ body.dpr-sidebar-resizing {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: clip;
-  padding-right: calc(20px + 3ch);
+  width: calc(100% - 2ch);
+  padding-right: calc(20px + 1ch);
   box-sizing: border-box;
   transition: padding-right .12s ease;
 }
