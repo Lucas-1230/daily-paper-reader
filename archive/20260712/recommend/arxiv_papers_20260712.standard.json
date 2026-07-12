@@ -1,0 +1,320 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-07-12T20:58:37.054598+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 5,
+    "deep_cap": 6,
+    "deep_selected": 5,
+    "quick_candidates": 3,
+    "quick_skim_target": 11,
+    "quick_selected": 3
+  },
+  "deep_dive": [
+    {
+      "id": "2607.07368v1",
+      "source": "arxiv",
+      "title": "Multi-Agent AI Control: Distributed Attacks Hamper Per-Instance Monitors",
+      "abstract": "AI control is a family of techniques to prevent an AI with malicious goals from subverting its operator's intent. AI Control usually studies a single agent in one trajectory, but real deployments run many agents over shared infrastructure, and the most severe risks (model-weight exfiltration, training-run poisoning) plausibly need several agents acting in concert. We initiate the empirical study of multi-agent AI control, formalising distributed attacks in which several agents jointly aim for a malicious goal. We develop FakeLab: a synthetic AI-lab codebase (9 services, 86 benign tasks, 4 attack objectives). We evaluate single agent monitoring against distributed attacks, varying the number of agents, their coordination, model capabilities and precise monitoring configuration.   Our central finding is the fragmentation effect: as more agents coordinate to attack, per-agent monitoring becomes less likely to catch any of the attackers. Secondly, this is not driven by the ratio of benign to malicious code -- we argue this is likely dependent on model capability. Third, an explicit planner amplifies the fragmentation effect, raises the rate of completing the attack up to sevenfold, and mildly sharpens executors' poor monitor-theory-of-mind. Finally: a weak \"trusted\" monitor misses most attacks, while a stronger one cuts undetected success by more than an order of magnitude but remains imperfect. We are happy to share FakeLab, our control setting, with safety researchers on request.",
+      "authors": [
+        "Oliver Makins",
+        "Orazio Angelini",
+        "Zohreh Shams",
+        "Mary Phuong"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG",
+        "cs.AI",
+        "cs.MA"
+      ],
+      "published": "2026-07-08T13:03:25+00:00",
+      "link": "https://arxiv.org/pdf/2607.07368v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 10.0,
+      "llm_evidence_en": "formalising distributed attacks with multiple malicious agents in cybercrime-like settings",
+      "llm_evidence_cn": "形式化多个恶意智能体在网络犯罪式场景中的分布式攻击",
+      "llm_evidence": "形式化多个恶意智能体在网络犯罪式场景中的分布式攻击",
+      "canonical_evidence": "形式化多个恶意智能体在网络犯罪式场景中的分布式攻击",
+      "llm_tldr_en": "This paper initiates empirical study of multi-agent AI control, formalizing distributed attacks where multiple agents conspire to exfiltrate models or poison training, and finds single-agent monitors ineffective.",
+      "llm_tldr_cn": "该工作首次对多智能体AI控制进行实证研究，形式化多个AI智能体协同达成恶意目标（如模型权重外传、训练投毒）的分布式攻击场景。他们开发了合成AI实验室FakeLab，包含9个服务、86个良性任务和4种攻击目标，对比了单智能体监控与分布式攻击的有效性。结果表明，随着智能体数量、协调能力和精度提升，逐实例监控几乎失效。这揭示了多智能体系统在模拟网络犯罪活动中的巨大潜力，并对安全监控提出了新要求。",
+      "llm_tldr": "该工作首次对多智能体AI控制进行实证研究，形式化多个AI智能体协同达成恶意目标（如模型权重外传、训练投毒）的分布式攻击场景。他们开发了合成AI实验室FakeLab，包含9个服务、86个良性任务和4种攻击目标，对比了单智能体监控与分布式攻击的有效性。结果表明，随着智能体数量、协调能力和精度提升，逐实例监控几乎失效。这揭示了多智能体系统在模拟网络犯罪活动中的巨大潜力，并对安全监控提出了新要求。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "multi-agent systems for cybercrime simulation",
+      "matched_requirement_id": "req-3",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2607.06963v1",
+      "source": "arxiv",
+      "title": "Large Language Models (LLMs) and Generative AI in Cybersecurity and Privacy: A Survey of Dual-Use Risks, AI-Generated Malware, Explainability, and Defensive Strategies",
+      "abstract": "Large Language Models (LLMs) and generative AI (GenAI) systems, such as ChatGPT, Claude, Gemini, LLaMA, Copilot, Stable Diffusion by OpenAI, Anthropic, Google, Meta, Microsoft, Stability AI, respectively, are revolutionizing cybersecurity, enabling both automated defense and sophisticated attacks. These technologies power real-time threat detection, phishing defense, secure code generation, and vulnerability exploitation at unprecedented scales. Following a rapid surge where LLM-generated malware grew to account for an estimated 50% of detected threats by 2025, up from just 2% in 2021, navigating this highly automated threat landscape in 2026 demands next-generation security frameworks. This paper presents a comprehensive survey of the beneficial and malicious applications of LLMs in cybersecurity, including zero-day detection, DevSecOps, federated learning, synthetic content analysis, and explainable AI (XAI). Drawing on a review of over 70 academic papers, industry reports, and technical documents, this work synthesizes insights from real-world case studies across platforms like Google Play Protect, Microsoft Defender, Amazon Web Services (AWS), Apple App Store, OpenAI Plugin Stores, Hugging Face Spaces, and GitHub, alongside emerging initiatives like the SAFE Framework and AI-driven anomaly detection. We conclude with practical recommendations for responsible and transparent LLM deployment and trustworthy AI, including model watermarking, adversarial defense, and cross-industry collaboration, setting a new benchmark for rigorous, holistic cybersecurity research at the intersection of AI and threat defense, and offering a roadmap for secure, scalable LLM systems that serves as a critical reference for researchers, engineers, and security leaders navigating the complex challenges of AI-driven cybersecurity.",
+      "authors": [
+        "Kiarash Ahi",
+        "Saeed Valizadeh"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI",
+        "cs.CL"
+      ],
+      "published": "2026-07-08T03:40:26+00:00",
+      "link": "https://arxiv.org/pdf/2607.06963v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "survey of LLM-generated malware and dual-use risks, showing LLMs' capability in cybercrime",
+      "llm_evidence_cn": "综述LLM生成恶意软件及双用风险，展示LLM在网络犯罪中的能力",
+      "llm_evidence": "综述LLM生成恶意软件及双用风险，展示LLM在网络犯罪中的能力",
+      "canonical_evidence": "综述LLM生成恶意软件及双用风险，展示LLM在网络犯罪中的能力",
+      "llm_tldr_en": "This survey examines how LLMs and generative AI are used in cybersecurity, highlighting their dual-use nature, the rise of AI-generated malware (from 2% to 50% of threats), and the need for new defensive strategies.",
+      "llm_tldr_cn": "该综述系统研究了大型语言模型和生成式AI在网络安全中的双用角色。它们既可用于实时威胁检测和钓鱼防御，也可用于生成恶意软件和自动化漏洞利用。数据显示，到2025年，LLM生成的恶意软件已占检测威胁的约50%，凸显其网络犯罪能力的指数级增长。面对这一趋势，2026年亟需结合可解释性和下一代防御策略来应对高度自动化的威胁形势。",
+      "llm_tldr": "该综述系统研究了大型语言模型和生成式AI在网络安全中的双用角色。它们既可用于实时威胁检测和钓鱼防御，也可用于生成恶意软件和自动化漏洞利用。数据显示，到2025年，LLM生成的恶意软件已占检测威胁的约50%，凸显其网络犯罪能力的指数级增长。面对这一趋势，2026年亟需结合可解释性和下一代防御策略来应对高度自动化的威胁形势。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "capabilities of large language models in cybercrime",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2607.07474v1",
+      "source": "arxiv",
+      "title": "Beyond Attack-Success Rate: Action-Graded Severity Scale for Tool-Using AI Agents",
+      "abstract": "Agentic red-teaming benchmarks report whether an injected agent was compromised as a single bit: the attack succeeded, or it did not. We argue that this binary attack-success rate discards the information a defender most needs, namely how harmful the resulting action was. We introduce an action-graded harm rubric that scores an agent's tool-call trajectory on a seven-level ordinal scale (L0 to L6) according to whether the executed action was reversible, whether it crossed scope to reach another party, and whether it expanded privilege. We compute the scale two ways: a deterministic oracle that reads the trajectory and the attacker's stated goal, and a panel of three frontier language-model judges that read a tag-free account of the same trajectory. Across four victim models and two defenses on the AgentDojo workspace suite, severity grading exposes three cases the binary metric hides, including a defense that reports a zero attack-success rate while still permitting an externally visible cross-scope leak through an unfiltered tool. The judge panel reproduces the oracle with high ordinal agreement (Krippendorff's alpha = 0.91) but shares systematic blind spots that we characterize, most notably a failure to recognize escalation chains. Unlike prior work that provides harm taxonomies, harmful-task completion tests, execution-level safety benchmarks, or severity-aware simulation, our contribution is a reusable, trace-grounded severity instrument applied to the actual actions recorded in existing red-team logs. All code, prompts, and per-episode logs are released.",
+      "authors": [
+        "Harry Owiredu-Ashley"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI",
+        "cs.CL"
+      ],
+      "published": "2026-07-08T14:38:01+00:00",
+      "link": "https://arxiv.org/pdf/2607.07474v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "action-graded harm scale for red-teaming tool-using AI agents",
+      "llm_evidence_cn": "为工具使用型AI智能体红队测试设计动作分级危害量表",
+      "llm_evidence": "为工具使用型AI智能体红队测试设计动作分级危害量表",
+      "canonical_evidence": "为工具使用型AI智能体红队测试设计动作分级危害量表",
+      "llm_tldr_en": "Introduces an action-graded harm scale for tool-using AI agents, moving beyond binary success rates to measure actual impact severity in agent red-teaming.",
+      "llm_tldr_cn": "当前智能体红队测试仅报告二进制攻击成功率，忽略了攻击后果的严重性。本文提出一个七级动作危害量表，根据动作可逆性、跨范围影响和权限提升对智能体工具调用轨迹进行分级，通过确定性规则和大模型评判两种方式计算。这为防御者提供了更细粒度的风险评估，有助于更精准地评估智能体在对抗场景下的真实危害，对测试LLM在网络犯罪中的能力极限具有方法论价值。",
+      "llm_tldr": "当前智能体红队测试仅报告二进制攻击成功率，忽略了攻击后果的严重性。本文提出一个七级动作危害量表，根据动作可逆性、跨范围影响和权限提升对智能体工具调用轨迹进行分级，通过确定性规则和大模型评判两种方式计算。这为防御者提供了更细粒度的风险评估，有助于更精准地评估智能体在对抗场景下的真实危害，对测试LLM在网络犯罪中的能力极限具有方法论价值。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "adversarial agents for testing large language models in cybercrime",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2607.07277v1",
+      "source": "arxiv",
+      "title": "Understanding Interpretation Difficulty in Harmful Online Communication: Insights from Cybercrime Communities",
+      "abstract": "Harmful online communication often contains slang, coded terms, abbreviations, and community-specific expressions, which make messages difficult to interpret. This paper presents an exploratory study of interpretation difficulty in Discord chats related to cybercrime. We construct reference interpretations of purposefully selected difficult messages, which were reviewed by an expert. We then use them to evaluate human and large language model (LLM) interpretations under different context conditions. The results show that local context alone is often insufficient for humans, while external knowledge and extended conversational context substantially improve human interpretation. For LLMs, local context also improves interpretation, and the larger model performs better. We further conduct a qualitative error analysis and propose a preliminary classification of factors that make harmful chats difficult to interpret. These findings suggest that harmful-content analysis should treat interpretation as an evidence-integration problem, rather than as message-level classification alone.",
+      "authors": [
+        "Tomohiro Okatsu",
+        "Naoki Takada",
+        "Yin Min Pa Pa",
+        "Katsunari Yoshioka",
+        "Tatsunori Mori"
+      ],
+      "primary_category": "cs.CL",
+      "categories": [
+        "cs.CL",
+        "cs.CY"
+      ],
+      "published": "2026-07-08T11:09:06+00:00",
+      "link": "https://arxiv.org/pdf/2607.07277v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Explores LLM interpretation difficulty in cybercrime community chats, evaluating capability limits",
+      "llm_evidence_cn": "探索大语言模型解读网络犯罪社区聊天内容的困难程度，评估能力边界",
+      "llm_evidence": "探索大语言模型解读网络犯罪社区聊天内容的困难程度，评估能力边界",
+      "canonical_evidence": "探索大语言模型解读网络犯罪社区聊天内容的困难程度，评估能力边界",
+      "llm_tldr_en": "Studies interpretation difficulty in cybercrime Discord chats; evaluates human and LLM interpretations under different contexts, finding that LLMs benefit from extended context but still face challenges, indicating capability limits.",
+      "llm_tldr_cn": "本文针对网络犯罪社区Discord聊天中使用的俚语、暗语和社区特定表达造成的解读困难，构建了困难消息的参考解读，并评估人类和大语言模型在不同上下文条件下的解读表现。结果显示，本地上下文对人类和LLM均不足，扩展对话和历史知识能显著改善LLM解读。研究揭示了LLM在理解网络犯罪黑话时的能力边界，为评估大模型在网络犯罪领域的应用提供了实证依据。",
+      "llm_tldr": "本文针对网络犯罪社区Discord聊天中使用的俚语、暗语和社区特定表达造成的解读困难，构建了困难消息的参考解读，并评估人类和大语言模型在不同上下文条件下的解读表现。结果显示，本地上下文对人类和LLM均不足，扩展对话和历史知识能显著改善LLM解读。研究揭示了LLM在理解网络犯罪黑话时的能力边界，为评估大模型在网络犯罪领域的应用提供了实证依据。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "What are the capability limits of large language models when used for cybercrime?",
+      "matched_requirement_id": "req-7",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2607.07433v1",
+      "source": "arxiv",
+      "title": "Beware of Agentic Botnets: Scalable Untargeted Promptware Attacks via Universal and Transferable Adversarial HalluSquatting",
+      "abstract": "The growing adoption of agentic LLM applications has introduced a new threat previously named as promptware. While prior work has established that adversaries can exploit direct channels to LLM applications to apply promptware under weak threat models, many applications do not provide any direct channels that could be exploited for prompt injection beyond the Internet. This raises a question: can attackers exploit LLM applications at scale without any direct channels in practical threat models? In this work, we show that the inherent tendency of LLMs to hallucinate resource identifiers can be exploited to amplify untargeted promptware attacks that pull adversarial prompts at scale and could be exploited to establish a botnet. We introduce adversarial hallucination squatting, a technique in which attackers identify trending resources (e.g., popular repositories, popular skills, etc.), compute the LLM distribution of hallucinations on the trending resource names, and preemptively register them to host adversarial prompts. By leveraging the predictability and transferability of hallucinations across foundational LLMs and to application layers, adversaries can significantly amplify the reach of untargeted promptware under weak threat models and establish a botnet by exploiting LLM applications to install a bot on the device that pulled the compromised hallucinated resource from the Inter. We empirically demonstrate that hallucinated resource generation occurs at high rates, up to 85% in repository cloning scenarios and up to 100% in skill installation, and that these hallucinations transfer between foundational models and different prompts. We demonstrate the practicality of adversarial hallucination squatting against various production LLM applications with integrated terminals in their set of tools, achieving remote tool execution and remote code execution.",
+      "authors": [
+        "Aya Spira",
+        "Stav Cohen",
+        "Elad Feldman",
+        "Ron Bitton",
+        "Avishai Wool",
+        "Ben Nassi"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR"
+      ],
+      "published": "2026-07-08T14:02:14+00:00",
+      "link": "https://arxiv.org/pdf/2607.07433v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "agentic LLM applications exploited for scalable untargeted promptware attacks",
+      "llm_evidence_cn": "利用智能体LLM实现可扩展非定向提示软件攻击",
+      "llm_evidence": "利用智能体LLM实现可扩展非定向提示软件攻击",
+      "canonical_evidence": "利用智能体LLM实现可扩展非定向提示软件攻击",
+      "llm_tldr_en": "Shows LLM hallucinations can be exploited to create agentic botnets for scalable untargeted promptware attacks, expanding threat landscape of agentic LLM applications.",
+      "llm_tldr_cn": "针对缺乏直接注入渠道的智能体LLM应用，本文揭示了利用LLM幻觉生成虚假资源标识符的机制，可实现无直接交互的大规模非定向提示软件攻击。该方法通过对抗性幻觉蹲守技术，无需直接接入即可拉取敌对提示，实验证明其攻击有效且可转移，强调智能体部署中新兴的安全风险，对理解LLM在网络犯罪中的能力边界提供重要参考。",
+      "llm_tldr": "针对缺乏直接注入渠道的智能体LLM应用，本文揭示了利用LLM幻觉生成虚假资源标识符的机制，可实现无直接交互的大规模非定向提示软件攻击。该方法通过对抗性幻觉蹲守技术，无需直接接入即可拉取敌对提示，实验证明其攻击有效且可转移，强调智能体部署中新兴的安全风险，对理解LLM在网络犯罪中的能力边界提供重要参考。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "capabilities of large language models in cybercrime",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2607.05001v2",
+      "source": "arxiv",
+      "title": "TACTIC-KG: Toward Small Agent Teams for Cyber Threat Intelligence Knowledge Graph Construction",
+      "abstract": "Cyber Threat Intelligence (CTI) reports are predominantly unstructured, heterogeneous, and noisy, which limits their direct usability for automated analysis and reasoning. Cybersecurity Knowledge Graphs (CSKGs) provide a structured representation of adversarial entities, actions, and relations, but constructing such graphs from free-text CTI remains a challenge. Recent approaches rely on monolithic Large Language Models (LLMs) to perform end-to-end extraction and completion, leading to high cost, limited controllability, and unstable performance. This paper introduces TACTIC-KG, an agentic framework for CSKG construction that decomposes the task into modular, specialized LLM agents responsible for extraction, typing, verification, and curation. Using lightweight models (3B--8B), TACTIC-KG improves stability, recall, and graph consistency while reducing deployment cost. We implement and evaluate TACTIC-KG against recent state-of-the-art systems. Experiments on human-annotated CTI reports show that agent specialization consistently outperforms larger monolithic in-context-learning (ICL) baselines in extraction F1-score, typing accuracy, and structural graph similarity.",
+      "authors": [
+        "Mouhamed Amine Bouchiha",
+        "Gregory Blanc"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI",
+        "cs.LG",
+        "cs.MA"
+      ],
+      "published": "2026-07-06T12:41:11+00:00",
+      "link": "https://arxiv.org/pdf/2607.05001v2",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "small agent teams for cyber threat intelligence knowledge graph construction",
+      "llm_evidence_cn": "使用小型智能体团队构建网络威胁情报知识图谱",
+      "llm_evidence": "使用小型智能体团队构建网络威胁情报知识图谱",
+      "canonical_evidence": "使用小型智能体团队构建网络威胁情报知识图谱",
+      "llm_tldr_en": "Proposes TACTIC-KG, a multi-agent LLM framework for constructing cyber threat intelligence knowledge graphs from unstructured reports, improving controllability and efficiency over monolithic LLMs.",
+      "llm_tldr_cn": "为解决从非结构化网络威胁情报报告中构建网络安全知识图谱的挑战，本文提出TACTIC-KG框架，将任务分解为模块化、专业化的智能体团队，分别负责实体抽取、类型化、验证等步骤。实验表明，小型智能体团队在降低成本的同时提升了图构建的质量和可控性，为自动化威胁分析提供了高效方法，其多智能体协作思路可迁移至网络犯罪模拟场景。",
+      "llm_tldr": "为解决从非结构化网络威胁情报报告中构建网络安全知识图谱的挑战，本文提出TACTIC-KG框架，将任务分解为模块化、专业化的智能体团队，分别负责实体抽取、类型化、验证等步骤。实验表明，小型智能体团队在降低成本的同时提升了图构建的质量和可控性，为自动化威胁分析提供了高效方法，其多智能体协作思路可迁移至网络犯罪模拟场景。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "multi-agent systems for cybercrime simulation",
+      "matched_requirement_id": "req-3",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2607.07751v1",
+      "source": "arxiv",
+      "title": "Forensic Schema for Psychological Manipulation in Cyber Fraud: LLM-Driven Victim Reports Analysis",
+      "abstract": "Existing cybercrime classification schemas capture contact metadata and financial transactions but omit the psychological manipulation techniques perpetrators employ. We present a forensic schema (four categories, 35 questions) adding 11 manipulation indicators and cryptocurrency evidence fields to established forensic foundations. Applied to 10,994 victim reports via large language model (LLM)-driven annotation and validated against two human annotators (mean LLM-human $κ= 0.69$, matching inter-annotator $κ= 0.68$), the schema revealed a statistically distinct manipulation profile for each major fraud type (Cramer's $V$ up to $0.790$). A rationale-based evidence audit nonetheless exposed a forensic detail gap: detection of manipulation techniques was reliable, but victim narratives varied widely in the actionable detail supporting each Yes answer, and blockchain-specific identifiers were nearly absent. These findings point to AI-assisted victim intake with schema-informed follow-up questions as the most direct way to close the gap. The tiered annotation strategy also provides a reusable template for LLM-based extraction from other forensic text domains.",
+      "authors": [
+        "Zikai Alex Wen",
+        "Corrazon Ogot",
+        "Juan Li",
+        "Yan Bai"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR"
+      ],
+      "published": "2026-07-08T11:37:56+00:00",
+      "link": "https://arxiv.org/pdf/2607.07751v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "LLM-driven annotation of psychological manipulation in cyber fraud victim reports",
+      "llm_evidence_cn": "使用LLM对网络欺诈受害者报告中的心理操纵进行标注",
+      "llm_evidence": "使用LLM对网络欺诈受害者报告中的心理操纵进行标注",
+      "canonical_evidence": "使用LLM对网络欺诈受害者报告中的心理操纵进行标注",
+      "llm_tldr_en": "Presents a forensic schema for psychological manipulation in cyber fraud; LLM-driven annotation achieves moderate agreement with human experts and reveals distinct manipulation profiles per fraud type.",
+      "llm_tldr_cn": "该文针对网络欺诈现有分类体系忽略心理操纵技巧的缺陷，提出包含11项操纵指标和加密货币证据字段的取证模式，并利用大语言模型对10994份受害者报告进行自动标注。结果显示LLM标注与人工标注一致性中等（κ=0.69），且各欺诈类型呈现显著不同的操纵特征。研究表明LLM可用于大规模网络犯罪心理操纵取证，但存在取证细节差距。",
+      "llm_tldr": "该文针对网络欺诈现有分类体系忽略心理操纵技巧的缺陷，提出包含11项操纵指标和加密货币证据字段的取证模式，并利用大语言模型对10994份受害者报告进行自动标注。结果显示LLM标注与人工标注一致性中等（κ=0.69），且各欺诈类型呈现显著不同的操纵特征。研究表明LLM可用于大规模网络犯罪心理操纵取证，但存在取证细节差距。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "capabilities of large language models in cybercrime",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2607.05999v1",
+      "source": "arxiv",
+      "title": "AgoraSim: A Hybrid Agent-Based Modeling Framework",
+      "abstract": "LLM-agent simulations make natural-language social scenarios easy to instantiate, but their outputs can be overread as predictions and are often difficult to compare with explicit social dynamics. We present AgoraSim, a hybrid agent-based modeling framework for scenario-oriented social reaction analysis. AgoraSim resolves textual or multimodal artifacts into editable ABM configurations, runs ratio-controlled populations that mix LLM, vision-language, custom-endpoint, random, and classical agents, and compares the same scenario against matched classical reference dynamics. All agents emit a shared structured decision object, enabling common action spaces, interaction protocols, metrics, and audit records. Exposed through a local UI, Python SDK/CLI, and REST API, AgoraSim helps users inspect scenario trajectories, compare modeling assumptions, and identify cases that warrant empirical validation.",
+      "authors": [
+        "Chung-Chi Chen"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-07-07T08:37:17+00:00",
+      "link": "https://arxiv.org/pdf/2607.05999v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "provides a hybrid agent-based modeling framework that can incorporate LLM agents for social scenario simulation, applicable to cybercrime modeling",
+      "llm_evidence_cn": "提供可集成LLM智能体的混合智能体建模框架，适用于网络犯罪场景模拟",
+      "llm_evidence": "提供可集成LLM智能体的混合智能体建模框架，适用于网络犯罪场景模拟",
+      "canonical_evidence": "提供可集成LLM智能体的混合智能体建模框架，适用于网络犯罪场景模拟",
+      "llm_tldr_en": "Presents AgoraSim, a hybrid ABM framework that integrates LLM, vision-language, and classical agents for scenario-oriented social simulations, enabling controlled comparison with classical dynamics.",
+      "llm_tldr_cn": "针对LLM智能体模拟中自然语言场景易于实例化但难以比较社会动态的问题，提出混合智能体建模框架AgoraSim，支持组合LLM与经典智能体，提供统一决策对象与审计记录，可用于社会反应分析，也为网络犯罪等场景模拟提供了可定制的平台。",
+      "llm_tldr": "针对LLM智能体模拟中自然语言场景易于实例化但难以比较社会动态的问题，提出混合智能体建模框架AgoraSim，支持组合LLM与经典智能体，提供统一决策对象与审计记录，可用于社会反应分析，也为网络犯罪等场景模拟提供了可定制的平台。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "How can agent based modeling and multi agent systems simulate cybercriminal activities with large language models?",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    }
+  ]
+}

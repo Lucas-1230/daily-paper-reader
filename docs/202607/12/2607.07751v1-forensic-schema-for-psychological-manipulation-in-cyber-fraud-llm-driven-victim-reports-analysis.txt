@@ -1,0 +1,316 @@
+Title: Forensic Schema for Psychological Manipulation in Cyber Fraud: LLM-Driven Victim Reports Analysis
+
+URL Source: https://arxiv.org/pdf/2607.07751v1
+
+Published Time: Fri, 10 Jul 2026 00:01:39 GMT
+
+Number of Pages: 10
+
+Markdown Content:
+# Forensic Schema for Psychological Manipulation in Cyber Fraud: LLM-Driven Victim Reports Analysis 
+
+Zikai Alex Wen †, Corrazon Ogot †, Juan Li ‡, Yan Bai †
+
+> †
+
+School of Engineering and Technology University of Washington 
+
+Tacoma, United States 
+
+{zkwen, cogot12, yanb }@uw.edu 
+
+> ‡
+
+Department of Computer Science North Dakota State University 
+
+Fargo, United States j.li@ndsu.edu 
+
+Abstract —Existing cybercrime classification schemas capture contact metadata and financial transactions but omit the psycho-logical manipulation techniques perpetrators employ. We present a forensic schema (four categories, 35 questions) adding 11 manipulation indicators and cryptocurrency evidence fields to established forensic foundations. Applied to 10,994 victim reports via large language model (LLM)-driven annotation and validated against two human annotators (mean LLM-human κ = 0 .69 ,matching inter-annotator κ = 0.68 ), the schema revealed a statistically distinct manipulation profile for each major fraud type (Cram ´er’s V up to 0.790 ). A rationale-based evidence audit nonetheless exposed a forensic detail gap : detection of manipulation techniques was reliable, but victim narratives varied widely in the actionable detail supporting each Yes answer, and blockchain-specific identifiers were nearly absent. These findings point to AI-assisted victim intake with schema-informed follow-up questions as the most direct way to close the gap. The tiered annotation strategy also provides a reusable template for LLM-based extraction from other forensic text domains. 
+
+Index Terms —digital forensics, cyber fraud, psychological manipulation, cryptocurrency evidence, LLM for analysis 
+
+I. IN T RO D U C T I O N 
+
+Cyber fraud has evolved from opportunistic individual schemes into industrialized operations [1]. Organized syndi-cates such as the Prince (Taizi) Group operate sprawling scam compounds across countries, training trafficked workers with shared scripts to execute psychologically sophisticated fraud at scale [2]. The industrialized nature of these operations suggests that they produce recurring behavioral signatures, also known as modus operandi patterns . If these patterns can be systematically captured, investigators could link seemingly independent complaints to a single syndicate, an approach known as cross-case linkage [3]. Existing cybercrime classification schemas have not kept pace with this evolution. Current frameworks [4], [5] capture contact metadata and financial transactions but do not cate-gorize the psychological manipulation techniques perpetrators employ, leaving modus operandi elements buried in narratives. Meanwhile, the persuasion and natural language process-ing community has produced taxonomies for exactly these manipulation tactics. For example, Cialdini’s six principles of persuasion [6] describe how authority impersonation and scarcity pressure exploit cognitive biases, and PsyScam [7] benchmarked nine such techniques in real scam reports. How-ever, these taxonomies remain disconnected from forensic applications. They identify what perpetrators do but not how 
+
+that maps to evidence dimensions, investigative workflows, or prosecution needs. Since no existing framework bridges these perspectives, we ask the following two research questions:  
+
+> •
+
+RQ1 (Forensic Associations): What forensic associations exist between psychological manipulation profiles and fraud typology in victim reports?  
+
+> •
+
+RQ2 (Forensic Information Bottlenecks): What informa-tion bottlenecks in victim reports limit the forensic utility of LLM-extracted manipulation indicators? To answer these questions, we designed a forensic schema of 4 categories and 35 questions. Categories 1–2 establish the forensic foundation drawn from existing schemas [4], [5]. Category 3 (11 questions) breaks down the modus operandi into specific psychological manipulation tactics, each grounded in persuasion theory [6], [8] and formulated as an answer-able forensic question. Category 4 (5 questions) addresses a second gap in existing frameworks. As organized syndicates increasingly route proceeds through cryptocurrency [9], in-vestigators need blockchain-specific evidence such as wallet addresses, transaction hashes, and exchange identifiers that current schemas cannot structure. Category 4 structures these evidence elements as answerable questions, modeled on FBI IC3 intake fields [10]. We applied the schema to 10,994 victim reports using a hybrid annotation methodology driven by a large language model (LLM), where each question was assigned to the extrac-tion method matching the reasoning it required (Section IV). We validated annotation quality through structured-field cross-validation and human evaluation on a stratified subset. In summary, our work makes three contributions: 1) A forensic schema bridging persuasion theory and forensic investigation across four evidence categories, with psycho-logical manipulation profiling (Category 3) as the primary novel dimension. 2) Empirical evidence from 10,994 victim reports showing that manipulation profiles distinguish fraud types (RQ1), but that victim narratives vary widely in actionable forensic detail (RQ2). This forensic detail gap has three implications: (a) the profiles constitute a behavioral feature space for automated fraud-type triage (Section VI-A ); (b) schema-informed follow-up questions can dynamically elicit the arXiv:2607.07751v1 [cs.CR] 8 Jul 2026 missing detail during victim intake (Section VI-B ); and (c) blockchain-specific identifiers are nearly absent, rep-resenting a critical bottleneck for cryptocurrency fraud investigation (Section VI-B). 3) A tiered annotation methodology that assigns each question to the extraction method matching its reasoning demands, providing a reusable template for LLM-based structured extraction from other forensic and security text domains (Section VI-C). II. RE L AT E D WO R K 
+
+We organize prior work along three dimensions: forensic re-porting standards that structure cybercrime data, psychological theories that explain how perpetrators manipulate victims, and LLM-based methods that enable scalable text annotation. We then identify the gap our schema addresses. 
+
+A. Forensic Reporting Standards 
+
+Cybercrime classification schemas [4], [5], standardized exchange formats such as CybOX [11], and ontology-driven approaches [12], [13] have advanced incident standardization but focus on technical artifact representation, not psychological manipulation tactics. The need for richer standardization is reinforced by work on structured fraud report data [14] and inconsistencies in police cybercrime measurement [15]. On the investigative side, case linkage analysis identifies serial offenders through behavioral patterns [3], and digital forensic frameworks have evolved to support scalable evidence processing [16] and fintech investigations [17]. However, these methodologies have not been applied to cyber fraud, where behavioral patterns manifest as manipulation rather than physical traces. Two additional gaps motivate our work. First, victims often under-report [18], so reports may omit tactics that were actu-ally used. Second, cryptocurrency fraud introduces evidential challenges such as wallet tracing and exchange attribution that existing frameworks do not address [19]. Our schema addresses both: Category 3 captures the manipulation patterns that behavioral case linkage requires, and Category 4 structures the blockchain evidence that existing frameworks lack. 
+
+B. Psychological Manipulation in Fraud 
+
+Cialdini’s six principles of persuasion (i.e., reciprocity, commitment and consistency, social proof, authority, liking, and scarcity) [6] provided a foundational framework for understanding how perpetrators exploit cognitive biases. At a structural level, routine activity theory explains that fraud opportunities arise when a motivated offender encounters a suitable target in the absence of capable guardianship, a condition that online environments readily create [20]. In phishing research, authority and scarcity were found to be the most frequently exploited principles [21]. In romance scams, liking and commitment exploitation were shown to follow identifiable temporal scripts [22], [23], with recent work tracing the evolution of romance fraud into “pig butchering” schemes [9], [24].              
+
+> TABLE I PO S I T I O N I N G R E L AT I V E T O E X I S T I N G W O R K .
+> Psych. Forensic Victim Taxonomy Grounding Reports
+> Cialdini [6] ✓
+> PsyScam [7] ✓✓
+> Donalds & Osei-Bryson [4] ✓
+> Tsakalidis & Vergidis [5] ✓
+> Our Work ✓✓✓
+
+PsyScam [7] is the most directly relevant prior work. Ma et al. benchmarked nine psychological techniques in real-world scams grounded in Cialdini’s principles, prospect theory [8], and the elaboration likelihood model [25]. However, PsyScam was designed for technique detection, not forensic investigation. It classifies what tactic was used but not why that matters for an investigator, and acknowledges taxonomic gaps such as enforced isolation, where the perpetrator instructs the victim to cut off outside advisors [7]. Surveys of computational persuasion [26] and LLM-driven persuasion [27] similarly lack forensic grounding. Therefore, our Category 3 schema design addresses these limitations. 
+
+C. LLMs in Digital Forensics and Fraud Analysis 
+
+Large language models have been applied to a growing range of digital forensic tasks, including evidence triage and report generation [28], [29]. Most relevant to our approach, Relins et al. [30] applied instruction-tuned LLMs to annotate unstructured police incident narratives with domain-specific vulnerability indicators, demonstrating that LLMs can extract structured forensic categories from free-text law enforcement reports. Their work validated the core premise of our method-ology, that LLMs can perform schema-guided annotation of investigative text, though they targeted physical-world vulner-ability indicators rather than psychological manipulation in cyber fraud. A recent review of computational text analysis of police data [31] confirmed that fraud-specific applications of these methods remain largely unaddressed. More broadly, Gilardi et al. [32] showed that LLM an-notations can match crowd-worker quality, and Savelka et al. [33] demonstrated strong zero-shot performance on legal text annotation, supporting LLM use in forensic pipelines. 
+
+D. Gap Analysis 
+
+Table I summarizes our positioning. PsyScam provides the psychological taxonomy; cybercrime classification schemas and forensic exchange formats provide the forensic grounding. No prior work has integrated manipulation profiling with forensic grounding and validation on real victim reports. III. S C H E M A DE S I G N 
+
+The schema comprises 4 categories and 35 questions, all using a ternary Yes/No/Unknown (Y/N/U) answer format. Table II summarizes all four categories. The categories progress from established forensic foundations to our new contributions: TABLE II SC H E M A S U M M A RY B Y C AT E G O RY .                 
+
+> Cat. Description Qs Source
+> 1Standard Forensic Metadata 16 [4], [5] 2Traditional Financial Flow 3[4], [5] 3Psych. Manipulation Indicators 11 Ours 4Cryptocurrency Evidence 5Ours
+> Total 35
+> •
+
+Category 1: Standard Forensic Metadata (16 questions). Contact and subject identification fields, along with key financial metadata (i.e., transaction dates, amounts, total loss, payment method, and routing instructions), drawn from cybercrime classification schemas [4], [5].  
+
+> •
+
+Category 2: Traditional Financial Flow (3 questions). Traditional banking involvement and recipient bank iden-tification, included for schema completeness [4], [5].  
+
+> •
+
+Category 3: Psychological Manipulation Indicators (11 questions). The schema’s primary contribution: a structured modus operandi taxonomy grounded in persuasion theory [6], [8] and translated into answerable forensic questions.  
+
+> •
+
+Category 4: Cryptocurrency Evidence (5 questions). As organized fraud syndicates increasingly route proceeds through digital assets [9], investigators need blockchain-specific evidence (wallet addresses, transaction hashes, cryp-tocurrency type) that existing classification schemas do not capture. The FBI IC3 has recognized this need by introducing cryptocurrency-specific intake fields [10]; we model Category 4 on these fields to assess whether victim reports provide actionable blockchain detail. We detail the design of Categories 3–4 in the following subsections and list the Category 1–2 questions in Appendix B. 
+
+A. Category 3: Psychological Manipulation Indicators 
+
+Current forensic intake instruments, including the FBI IC3 complaint form [10], [34], treat modus operandi as a single narrative field. A case where the perpetrator impersonated a government official and one where the perpetrator built a romantic relationship over months are recorded the same way. These distinctions matter: impersonating an official supports aggravated charges and agency referral, while romantic groom-ing indicates a different fraud typology, victim vulnerability profile, and temporal pattern. To achieve forensic granularity within the modus operandi field, we developed 11 indicators inspired by PsyScam’s psy-chological technique taxonomy [7] and grounded in Cialdini’s principles of persuasion [6] and prospect theory [8]. Prior work validated that these psychological constructs manifest in real-world fraud [21], [22]. Our contribution is to translate them into answerable forensic questions through the following design steps:  
+
+> •
+
+Forensic Justification: Each psychological technique is paired with an explicit forensic rationale, specifying why the technique matters for investigation or prosecution and what evidence dimension it maps to.                
+
+> TABLE III CAT E G O RY 3: F O R E N S I C P S Y C H O L O G I C A L M A N I P U L AT I O N I N D I C AT O R S (Q3.1–3.11).
+> Q# Operationalized Question
+> Persuasion-theory-based indicators:
+> 3.1 Did the perpetrator claim to represent a government, law enforcement, or corporate entity? 3.2 Did the perpetrator induce fear through threats of legal action, arrest, or penalties? 3.3 Did the perpetrator create time pressure through dead-lines or limited availability? 3.4 Did the perpetrator build rapport through romantic interest, flattery, or emotional connection? 3.5 Did the perpetrator impersonate a real entity or con-struct false credibility using fabricated artifacts (e.g., fake documents, scam websites)? 3.6 Did the perpetrator provide initial benefits to create obligation? 3.7 Did the perpetrator exploit commitment through incre-mental escalation or post-payment fee demands (e.g., taxes, unfreezing fees, withdrawal fees)? 3.8 Did the perpetrator use social proof to influence the victim (e.g., others’ success stories)? 3.9 Did the perpetrator promise unrealistic returns, win-nings, or financial rewards?
+> Forensic extensions:
+> 3.10 Did the perpetrator instruct the victim to migrate communication to private channels? 3.11 Did the perpetrator become unreachable or sever con-tact after receiving payment?
+> •
+
+Forensic Extension: Beyond the nine core persuasion-based indicators, we added two indicators addressing gaps ac-knowledged in the persuasion literature [7]: Communication Migration (i.e., capturing instructions to move to private channels) and Post-Payment Behavioral Shift (i.e., capturing contact severance and communication pattern changes after payment). Table III presents the resulting 11 indicators. We clarify what each captures in practice in the following paragraphs. 
+
+Authority (Q3.1) marks cases where the perpetrator claims to represent a specific organization, such as a bank, a government agency, or a law enforcement body. Fear (Q3.2) captures explicit threats of serious consequences: arrest, lawsuits, or account seizure. These two often co-occur, but Authority can appear without Fear (e.g., a perpetrator posing as a tech-support agent offering help) and Fear without Authority (e.g., a sextortion threat from an anonymous sender). Urgency (Q3.3) captures imposed deadlines or demands for immediate action, such as “your account will be locked in 24 hours.” 
+
+Liking (Q3.4) captures deliberate rapport-building through romantic interest, flattery, or emotional bonding. Pretext (Q3.5) marks the fabrication of artifacts designed to appear legitimate: counterfeit credentials, forged documents, or spoofed websites. Pretext and authority are related but distinct. Pretext is the deceptive artifact or evidence, while authority is the claim of a professional role. These two may overlap when a role claim invokes a named real organization. Investment or trading plat-form apps are excluded from Pretext because they constitute the fraud mechanism itself, not an artifact used to claim legitimacy. TABLE IV CAT E G O RY 4: C RY P T O C U R R E N C Y E V I D E N C E Q U E S T I O N S W I T H F O R E N S I C R AT I O NA L E .      
+
+> Q# Operationalized Question
+> 4.1 Did the transaction involve cryptocurrency? 4.2 Is the type of cryptocurrency known? 4.3 Is the transaction hash available? 4.4 Is the recipient’s wallet address available? 4.5 Was a crypto ATM or kiosk used for the transaction?
+
+Reciprocity (Q3.6) captures cases where the perpetrator personally gives something, such as a small payout, a gift, or intimate content, to create a sense of obligation. Consistency 
+
+(Q3.7) captures post-payment escalation: after an initial pay-ment, the perpetrator demands additional money under new pretexts such as “taxes,” “unfreezing fees,” or “withdrawal charges.” These two indicators track different stages of finan-cial exploitation: Reciprocity is the hook, Consistency is the ratchet. A subtle but important boundary separates Consistency 
+
+from Fear : when a platform freezes a victim’s funds and demands a fee to release them, it is Consistency ; when the freeze is accompanied by threats of legal action, it is Fear .
+
+Social proof (Q3.8) captures visible demonstrations that others have succeeded, such as screenshots of earnings or fabricated testimonials in group chats. Phantom riches (Q3.9) captures promises of unusually high or guaranteed returns. The two forensic extensions address gaps acknowledged in persuasion taxonomies [7]. Communication migration (Q3.10) captures instructions to move from a public or traceable chan-nel to a private one, such as from a dating app to WhatsApp or a scammer-managed group chat, which constitutes evidence of consciousness of guilt. Post-payment behavioral shift (Q3.11) marks the point where the perpetrator becomes unreachable or the platform goes offline after receiving payment, providing a temporal boundary that helps establish intent. 
+
+B. Category 4: Cryptocurrency Evidence 
+
+Category 4 structures the evidence elements investigators require as answerable questions, modeled on FBI IC3 intake fields [10]. Table IV presents the 5 questions. Cryptocurrency involvement (Q4.1) is a gating indicator that triggers the remain-ing four questions. Transaction hashes (Q4.3) and recipient wallet addresses (Q4.4) are critical because blockchain tracing techniques such as wallet clustering, exchange KYC matching, and cross-complaint address linking [19] require these on-chain identifiers. Crypto ATM involvement (Q4.5) captures a physical dimension yielding surveillance footage and geolocation. IV. ME T H O D O L O G Y 
+
+This section describes how we applied the schema to real victim reports. We first introduce the dataset, then detail the hybrid annotation strategy that assigns each schema question to the appropriate extraction method, and finally describe the human evaluation and statistical tests used to answer RQs. 
+
+A. Dataset 
+
+The corpus comprises 10,994 cyber fraud victim reports 1
+
+drawn from eight publicly available sources spanning multiple jurisdictions. Five are U.S. consumer protection and regulatory scam trackers: BBB [35], California DFPI [36], Washington State DFI [37], Wisconsin DFI [38], and DC DISB [39]. Three are academic datasets: the CCL23-Eval Task 6 telecom fraud corpus [40], the crime script analysis dataset of Lwin Tun and Birks [41], and the PsyScam benchmark [7]. Reports span 7 consolidated fraud categories derived from FBI Common Frauds and Scams Categories [42]: Business and Investment Fraud (27.5%), Spoofing and Phishing (25.2%), Romance Scams (21.4%), Consumer Fraud Schemes (11.4%), Cryptocurrency Investment Fraud (7.3%), Sextortion (4.1%), and Job Scams (3.0%). Each report is represented by 22 structured fields: a unique case identifier, report date, and fraud type label; a free-text victim narrative (i.e., description); contact metadata (i.e., plat-form, method, date, scammer name, phone, email, and website); and financial transaction details (i.e., date, amount, currency, recipient name, bank name, account number, and payment method). For cases involving cryptocurrency, additional fields record the wallet address, cryptocurrency type, cryptocurrency amount, and transaction hash. 
+
+B. Ethical Considerations 
+
+All data used in this study were collected from publicly available sources. The dataset contains no victim personally identifiable information. 
+
+C. Annotation 
+
+The 35 schema questions vary in the type of reasoning they require. Some can be resolved by direct field lookup, others require extracting information from free-text narratives, and a third group demands semantic interpretation beyond surface-level pattern matching. Accordingly, we employed a hybrid annotation strategy that assigned each question to the most appropriate method. The per-tier question assignments are detailed in Appendix A. 
+
+Tier 1: Structured field lookup (14 questions). We annotated deterministically those questions that mapped directly to con-sistently populated structured fields: if the field is non-empty, the answer is Y with the field value; otherwise N. 
+
+Tier 2: Field lookup with narrative supplementation (4 questions). Questions whose structured fields have incomplete coverage. We checked the field first; if empty, the LLM extracted the answer from the narrative. 
+
+Tier 3: Narrative extraction (6 questions). Questions with no corresponding structured field. The LLM extracted these directly from the narrative. 
+
+Tier 4: Semantic interpretation (11 questions). The entire Category 3 (Q3.1–Q3.11), which required inferential reasoning to recognize persuasion tactics such as authority impersonation, urgency framing, and escalation patterns. 
+
+> 1The dataset is available at https://research.zkwen.site/scamschema.
+
+D. LLM Setup 
+
+Tier 2 through Tier 4 questions were annotated using the Claude Haiku 4.5 ( claude-haiku-4-5-20251001 ) API. We followed the LLM-as-annotator methodology established by Gilardi et al. [32], who showed that LLM annotations can match or exceed crowd-worker quality on text classification tasks. In their experiments, the same model produced identical labels 97% of the time when run twice on the same input. We configured the model with temperature = 0.2 to balance annotation consistency with output quality. Since Gilardi et al. used GPT-series models, we validated the approach for our model through self-agreement measurement and human evaluation (Section IV-E). For each case, the LLM received a structured prompt containing the full schema with question definitions, the structured fields and victim narrative, and instructions to output a JSON array with Y/N/U labels and a short rationale for each indicator marked Y. The per-indicator rationales serve as an audit trail for every annotation decision. A condensed version of the prompt 2 is shown in Appendix A. We ensured annotation quality through two complementary checks: structured-field cross-validation against Tier 1 ground truth, and the human evaluation on a stratified sample described in the next subsection. 
+
+E. Human Evaluation 
+
+To validate LLM annotation reliability for Tier 4 questions, two annotators (co-authors with training in digital forensics) independently labeled a stratified subset of 228 cases (2.1% of the corpus). The subset maintained proportional representation across all seven fraud categories, with minority-category over-sampling to ensure stable estimates. Cohen’s κ measures how often annotators agree beyond what chance would predict, on a scale from 0 (chance) to 1 (perfect). Table V reports the results. We found average human-human κ of 0.68, which Landis and Koch [43] classify as substantial agreement, and average LLM-human κ of 0.69, on par with the human-human average. The two lowest human-human indicators, Liking (Q3.4, κ = 0 .48 )and Reciprocity (Q3.6, κ = 0 .49 ), both had fewer than 30 positive cases, a regime where κ is known to be unstable under skewed marginals. Overall, the LLM annotations were reliable enough to support the population-level statistical analyses in the following sections. 
+
+F. Statistical Analysis 
+
+We tested associations between Category 3 manipulation technique profiles and fraud typology using chi-square tests of independence between each indicator and the fraud typology, with Cram ´er’s V for effect size. All tests used α = 0 .001 to control for multiple comparisons across the 11 indicators. We also conducted a rationale-based evidence audit to identify where victim narratives limit the forensic utility of LLM-extracted manipulation indicators. Our hybrid annotation pipeline produced, for every Y answer, a short rationale (15–60                                                    
+
+> 2The full prompt is available at https://research.zkwen.site/scamschema. TABLE V IN T E R -A N N OTAT O R A N D LLM-H U M A N AG R E E M E N T F O R
+> CAT E G O RY 3I N D I C AT O R S (C O H E N ’Sκ,n= 228 S T R AT I F I E D C A S E S ).
+> Q# Indicator H-H κLLM-H κ
+> 3.1 Authority 0.88 0.84 3.2 Fear 0.68 0.79 3.3 Urgency 0.65 0.59 3.4 Liking 0.48 0.57 3.5 Pretext 0.72 0.80 3.6 Reciprocity 0.49 0.42 3.7 Consistency 0.76 0.74 3.8 Social proof 0.67 0.62 3.9 Phantom riches 0.75 0.73 3.10 Comm. migration 0.67 0.69 3.11 Post-payment shift 0.72 0.83
+> Average 0.68 0.69
+
+words) quoting or closely paraphrasing the supporting evidence from the victim narrative. We used these rationales to assess evidence quality. These rationales revealed not only whether 
+
+the LLM detected a tactic but what evidence the narrative actually contained .We assessed two dimensions. First, evidence thinness : for each Category 3 indicator, we measured the proportion of Y rationales that contained forensically actionable details (specific platform names, monetary amounts, dates, or named entities) versus generic descriptions (e.g., “perpetrator imper-sonated police” with no further specifics). Second, indicator information ceiling : we identified indicators where victim narratives provided too little signal for meaningful extraction, characterized by low Y-rates even in fraud types where the tactic is known to be common (e.g., Social proof in Cryptocurrency Investment Fraud). For Category 4, where the question is whether victims provided on-chain identifiers at all, we used a simpler coverage-based analysis. Q4.1 establishes whether cryptocurrency was involved. Q4.2–4.5 are then evaluated only among the crypto-involved cases (those where Q4.1 = Y, Ncrypto = 1 ,172 ). V. R E S U LT S 
+
+A. RQ1: Forensic Associations 
+
+We found that all 11 Category 3 indicators showed sta-tistically significant associations with fraud typology (all 
+
+p < 0.001 ). Cram ´er’s V measures how strongly an indicator’s presence or absence is linked to the fraud type. Values above 0.5 indicate a large effect. The strongest associations were Pretext ( V = 0 .685 ), Post-payment shift ( V = 0 .526 ), Fear (V = 0 .520 ), and Authority ( V = 0 .504 ). The weakest was Liking ( V = 0 .230 ), though still highly significant. Table VI presents all associations. The prevalence matrix (Table VII) shows that fraud types differed not only in which tactics are present but in how many : Cryptocurrency Investment Fraud exhibited the highest tactic density (mean 3.6 per case), followed by Business and Investment Fraud (mean 2.5) and Sextortion (mean 2.2), while Consumer Fraud was leanest (mean 0.9). TABLE VI IN D I C AT O R -F R AU D T Y P E A S S O C I AT I O N S (C H I -S Q UA R E T E S T S ,                                        
+
+> N= 10 ,994 ,A L L p < 0.001 ).
+> Q# Indicator χ2V
+> 3.5 Pretext 5163.5 0.685 3.11 Post-payment shift 3040.5 0.526 3.2 Fear 2974.3 0.520 3.1 Authority 2796.2 0.504 3.8 Social proof 2214.6 0.449 3.7 Consistency 1612.0 0.383 3.10 Comm. migration 1163.0 0.325 3.9 Phantom riches 1006.1 0.303 3.6 Reciprocity 825.0 0.274 3.3 Urgency 760.8 0.263 3.4 Liking 579.6 0.230
+
+1) Coercive profiles: Spoofing and Sextortion both use fear-based tactics, but their manipulation profiles are structurally distinct. In Spoofing cases, 73.5% involve Authority claims (e.g., impersonating a bank or government agency) and 26.4% involve Fear (e.g., threatening account closure), consistent with phishing research identifying authority as the most exploited principles [21]. Sextortion relied on Fear far more heavily (81.3% of cases) but almost never involved Authority claims (2.6%); instead, it paired Fear with Consistency (48.9% of cases, reflecting repeated payment demands) and Communica-tion migration (46.7%, reflecting channel isolation). In short, Spoofing is a single-interaction authority play; Sextortion is a sustained fear-and-escalation campaign. 
+
+2) Investment-based profiles: Cryptocurrency Investment Fraud used the widest range of manipulation tactics (mean 3.6 per case). In this fraud type, 85.1% of cases involve fabricated credentials (Pretext), 58.5% involve escalating fee demands (Consistency), 54.3% involve the perpetrator disappearing after payment (Post-payment shift), and 42.7% involve promises of high returns (Phantom riches). Business/Investment Fraud shared the escalation pattern (40.5% Consistency) but relied instead on Post-payment shift (62.6%) and third-party en-dorsements (Social proof, 33.2%), with almost no platform fabrication (Pretext at only 2.7%). These differences quantify how cryptocurrency-based pig-butchering schemes [9], [24] depend on fabricated infrastructure and initial return payments in ways that traditional investment fraud does not. 
+
+3) Financial-gain profiles: Job Scams showed moderate escalation (Consistency in 42.8% of cases) and channel iso-lation (Communication migration, 30.3%), with unrealistic earnings promises (Phantom riches) in 12.2%. Consumer Fraud presented the sparsest profile (mean 0.9 tactics per case), with Authority claims as the only indicator exceeding 25%. 
+
+B. RQ2: Forensic Information Bottlenecks 
+
+RQ1 established that the LLM can reliably detect which manipulation tactics were used. RQ2 asks a different question: when the LLM labels a tactic as present, how much useful forensic detail does the victim narrative actually contain? 
+
+1) Evidence Thinness: We found stark variation in the foren-sic specificity of Y rationales across indicators (Table VIII). We measured forensic specificity as the proportion of Y rationales that contained concrete, actionable identifiers (a specific platform name, a monetary amount, a date, or a named entity) as opposed to generic descriptions like “the perpetrator impersonated police” with no further detail. At the rich end, Communication migration (77.5%) and Social proof (77.4%) produced highly specific rationales because victims naturally named the platform they were directed to (“moved me from Tinder to WhatsApp”) or described concrete testimonial evidence. Consistency (64.2%) and Reciprocity (49.8%) were also relatively rich, as victims tended to report specific amounts for escalating payments or initial payouts. At the thin end, Pretext (11.4%) stood out: of 1,218 cases where the LLM detected fabricated credentials or platforms, only 139 rationales contained a specific detail such as a website URL, a document type, or an agency name. The rest were generic. Fear (22.2%) and Urgency (18.3%) were similarly thin, as victims reported that they were threatened or pressured but rarely described how (e.g., the exact wording, the claimed legal basis, or the stated deadline). This variation constituted a forensic detail gap : the LLM reliably detected which tactics were used ( ¯κ = 0 .69 ), but for several indicators the victim narrative provided too little detail for investigators to act on the detection. The gap was not uniform. Communication migration and Social proof were already forensically rich, while Pretext, Fear, and Urgency would require elicitation to become investigatively useful. 
+
+2) Indicator Information Ceiling: The previous section addressed indicators that are frequently detected but produce thin evidence. A different bottleneck affected indicators that were rarely detected in the first place, not because the tactic was absent, but because victims did not mention it unprompted. We call this an information ceiling .We observed this ceiling most clearly for Social proof (Q3.8). Cryptocurrency Investment Fraud routinely employs group-chat earnings screenshots and fabricated testimonials [1], yet only 14.9% of Crypto Investment Fraud cases received a Y label for Social proof. The likely explanation is that victims did not recognize these displays as a manipulation tactic worth reporting. The information was in the victim’s memory, but not in the narrative. Liking (Q3.4) exhibited a related ceiling. Even in Romance Scams, where emotional bonding is the defining feature, only 4.9% of cases produced a Y annotation. Victims may not have described rapport-building in terms that qualified as explicit perpetrator actions under the evidence-only annotation standard, or they may have considered emotional details too personal to report. 
+
+3) Cryptocurrency Evidence Gaps (Category 4): Of the 10,994 cases, 10.7% ( Ncrypto = 1 ,172 ) involved cryptocurrency. We found that cryptocurrency involvement was itself a strong differentiator ( V = 0 .790 ): 96.2% of Cryptocurrency Invest-ment Fraud cases involved crypto, versus 10.6% of Romance Scams and 4.0% of Sextortion. However, even when cryptocurrency was involved, the evidence needed for blockchain tracing was largely absent. TABLE VII CAT E G O RY 3 P R E VA L E N C E M AT R I X : P E R C E N TAG E O F R E P O RT S W I T H I N D I C AT O R P R E S E N T (Y) B Y F R AU D T Y P E (N = 10 ,994 ). D A R K E R S H A D I N G I N D I C AT E S H I G H E R P R E VA L E N C E ; C E L L S ≥ 50% A R E B O L D E D .
+
+Fraud Type (Yes %) Q# Indicator Spoofing Romance Consumer Crypto Inv. Sextortion Bus. & Inv. Job Scams 
+
+3.1 Authority 73.5 14.4 25.6 27.0 2.6 23.9 14.1 3.2 Fear 26.4 3.9 7.2 14.5 81.3 0.6 1.8 3.3 Urgency 20.9 12.7 7.5 7.8 3.3 0.6 0.9 3.4 Liking 3.4 4.9 2.6 14.6 7.3 18.2 6.4 3.5 Pretext 5.4 4.4 1.1 85.1 26.4 2.7 18.3 3.6 Reciprocity 4.8 7.1 8.7 17.9 2.4 26.6 18.7 3.7 Consistency 7.1 30.5 7.6 58.5 48.9 40.5 42.8 3.8 Social proof 0.9 0.7 2.7 14.9 0.0 33.2 5.8 3.9 Phantom riches 4.5 28.4 11.5 42.7 2.2 23.7 12.2 3.10 Comm. migration 1.8 9.3 3.4 22.6 46.7 13.4 30.3 3.11 Post-pay shift 4.2 24.8 12.9 54.3 0.2 62.6 29.7 TABLE VIII FO R E N S I C S P E C I F I C I T Y O F CAT E G O RY 3 Y R AT I O NA L E S : 
+
+> P RO P O RT I O N C O N TA I N I N G AC T I O NA B L E D E TA I L S
+
+(P L AT F O R M ,
+
+> A M O U N T
+
+, DAT E , O R NA M E D E N T I T Y ). 
+
+Q# Indicator Y count Specific (%) 
+
+3.10 Comm. migration 1,211 77.5 3.8 Social proof 1,220 77.4 3.7 Consistency 3,068 64.2 3.6 Reciprocity 1,432 49.8 3.11 Post-pay shift 3,290 41.6 3.4 Liking 964 39.4 3.9 Phantom riches 2,050 30.9 3.1 Authority 3,698 29.4 3.2 Fear 1,426 22.2 3.3 Urgency 1,071 18.3 3.5 Pretext 1,218 11.4 
+
+Across all crypto-involved cases, only 36.9% identified the cryptocurrency type, 21.5% provided a recipient wallet address, and just 6.2% included a transaction hash (Table IX). The gap was most acute in Cryptocurrency Investment Fraud ( n = 777 ,66.3% of the crypto subset), which had the lowest evidence availability despite being the fraud type most dependent on cryptocurrency. Only 4.0% of these cases included a transaction hash and only 13.4% provided a wallet address. Without these on-chain identifiers, blockchain tracing techniques such as wallet clustering and cross-complaint address linking [19] could not be applied to these cases. VI. DI S C U S S I O N 
+
+Taken together, RQ1 and RQ2 painted a two-sided picture. On one side, RQ1 showed that different fraud types have distinct manipulation profiles, and that detection labels are sufficient to tell them apart. On the other, RQ2 revealed a 
+
+forensic detail gap : while the LLM can reliably detect which tactics were used, the victim narratives behind those detections vary widely in the actionable detail they provide. For some 
+
+TABLE IX CRY P T O C U R R E N C Y E V I D E N C E : Y-R AT E S A N D C OV E R AG E A M O N G C RY P T O -I N VO LV E D C A S E S (NC RY P T O = 1 ,172 ). 
+
+Q# Evidence element Y (%) Cov. (%) 
+
+4.2 Cryptocurrency type 36.9 54.0 4.4 Recipient wallet addr. 21.5 52.6 4.3 Transaction hash 6.2 48.8 4.5 Crypto ATM/kiosk used 1.6 99.9 
+
+indicators, victims naturally report specifics that investigators can act on; for others, they give only vague descriptions. The following sections ask: what can binary profiles already achieve (Section VI-A ), how can we close the forensic detail gap (Section VI-B ), and what methodological challenges remain, including how the annotation methodology generalizes beyond fraud (Section VI-C). 
+
+A. How Far Can Differentiation Take Us? 
+
+RQ1 showed that each major fraud type has a distinct manipulation profile. The statistical separation between these profiles is what we mean by differentiation , which sets the ceiling on any downstream classification task (i.e., assigning a case to a fraud type) or its operational instantiation at intake, 
+
+triage (i.e., routing complaints to a case linkage). Each case can be described by which of the 11 Category 3 tactics were present. Combined with the large effect sizes in Table VI and the fourfold range in tactic density (0.9 in Consumer Fraud to 3.6 in Cryptocurrency Investment Fraud), these profiles provide a strong basis for automated fraud-type triage. Beyond triage, these profiles have broader implications for fraud classification. They constitute a behavioral feature space that complements the technical and financial features traditionally used. Existing systems classify complaints by transaction metadata, contact channels, or keyword patterns. By contrast, the Category 3 profiles add an orthogonal dimension capturing how the perpetrator behaved . As a concrete example, Cryptocurrency Investment Fraud and Business/Investment Fraud both showed high Consistency (58.5% and 40.5% of cases), but diverge sharply on Pretext (+82 percentage points), Post-payment behavioral shift ( −8 pp), and Phantom riches (+19 pp). An automated system could use these divergences to flag probable pig-butchering cases among incoming complaints, even when transaction metadata alone is ambiguous. However, triage is only the first step. Once a complaint is routed to the right team, investigators need to act on it: seize the fabricated platform, trace the impersonated agency, link the case to others involving the same infrastructure. This requires the forensic detail that RQ2 showed is often missing. A Pretext = Y label tells the investigator that a fake platform was involved, but not which platform. An Authority = Y label confirms impersonation, but not which agency was impersonated. The next section addresses closing this gap. 
+
+B. Closing the Evidence Gap Through Intake Design 
+
+The most direct way to close the forensic detail gap is to collect richer evidence at the point of reporting. The RQ2 rationale audit showed that Category 3 and Category 4 present complementary but distinct design challenges. For Category 3, the bottleneck is not coverage but forensic depth . Indicators with high forensic specificity (Communica-tion migration at 77.5%, Social proof at 77.4%, Consistency at 64.2%) corresponded to concrete events that victims naturally described in detail. Indicators capturing fabricated artifacts (Pretext at 11.4%) and temporal pressure (Urgency at 18.3%) instead produced generic descriptions. Intake instruments could therefore include targeted follow-up prompts for the thin indicators: “What evidence of legitimacy did they show you, such as screenshots, documents, or websites?” (Q3.5) or “What specific deadline or time pressure did they impose?” (Q3.3). For indicators at the information ceiling (Section V-B 2), the challenge is more fundamental. Victims do not spontaneously report social proof (Q3.8) because they may not recognize group-chat earnings displays as a manipulation tactic. Intake forms could therefore include explicit prompts such as “Did anyone else appear to be profiting from the same opportunity?” to elicit information that victims possess but do not volunteer. While the Category 3 gaps could be narrowed through better prompting, Category 4 presents a more fundamental challenge. Blockchain forensic techniques such as wallet clustering and cross-complaint address linking [19] assume that on-chain identifiers are available as input. Our RQ2 findings showed that this assumption rarely held in practice: even in the fraud type most dependent on cryptocurrency, only 4% of cases included a transaction hash and 13% provided a wallet address. Whether this gap reflects victim unfamiliarity with blockchain details, platform obfuscation, or simply that intake instruments do not prompt for this information remains an open question. Targeted prompts such as “Do you have the recipient’s wallet address or the transaction confirmation from your exchange?” could narrow these gaps if the primary barrier is elicitation rather than availability. Beyond static forms, the hybrid annotation methodology points to AI-assisted adaptive intake: an LLM-powered re-porting interface that generates follow-up questions while the victim narrates, using the RQ1 prevalence profiles (Table VII) as conditional logic. For instance, Consistency and Phantom riches co-occur in 30.9% of Cryptocurrency Investment Fraud cases, far more than in any other fraud type. Detecting this pair mid-report could therefore trigger cryptocurrency-specific prompts for wallet addresses and transaction hashes, targeting the evidence gap most acute in that fraud type. 
+
+C. From Detection to Characterization 
+
+Even with improved intake, a methodological challenge remains: the current annotation pipeline determined whether a tactic was used (i.e., detection) but not what specific form it took (i.e., characterization). The substantial LLM-human agreement ( ¯κ = 0 .69 , Table V) confirmed that the LLM could reliably answer “was this tactic present?” The evidence thinness findings, however, showed that forensic value ultimately depends on a harder question: “what exactly did the perpetrator do?” This gap between detection and characterization is not uni-form across indicators. Urgency (Q3.3) illustrated the hard end: it showed weak LLM-human agreement ( κ = 0 .59 ), among the weakest fraud-type associations ( V = 0 .263 ), low preva-lence (maximum 20.9%), and low forensic specificity (18.3%). This convergence across all metrics suggested an indicator whose signal is inherently diffuse in victim narratives rather than a model-specific limitation. By contrast, Communication migration (77.5% specificity) and Consistency (64.2%) yielded characterization almost as a byproduct of detection, because victims naturally named the platforms and amounts involved. Future annotation pipelines could exploit this variation by applying lightweight extraction for high-specificity indicators and reserving more intensive methods, or intake-side elicitation, for thin indicators such as Pretext and Urgency. More broadly, the tiered annotation strategy is not specific to fraud: the same approach could be applied to other domains where investigators extract structured indicators from unstructured narratives, such as threat intelligence reports, vulnerability disclosures, or abuse complaints, with the indicator-level κ protocol serving as a validation template. 
+
+D. Limitations and Future Work 
+
+Our research has several limitations. Our corpus of publicly available reports may not represent all victimization, and the schema captures only what victims report, not perpetrator-side artifacts. RQ1 associations are cross-sectional, not causal. Because public sources differ in intake forms, jurisdiction, and fraud-type composition, observed manipulation profiles may partly reflect reporting practices rather than perpetrator behavior alone. The multi-source design reduces dependence on a single venue, but does not eliminate this bias. On the annotation side, LLM annotation may miss subtle indicators, particularly implicit emotional coercion. The low Liking Y-rate (4.9% even in Romance Scams, Section V-B 2) likely reflects the evidence-only annotation standard and victims’ reporting tendencies, though LLM insensitivity to implicit cues may also contribute. The annotation results are validated for one LLM configuration and a stratified human audit subset. Future work needs to test their robustness across LLM families and estimate agreement with narrower confidence intervals. Finally, perpetrators aware of forensic profiling might vary their behavioral signatures, though the schema’s breadth across 11 indicators raises the cost of evasion. Future work could validate the schema in operational law enforcement settings and develop structured intake instruments informed by the evidence audit findings. VII. CO N C L U S I O N 
+
+We presented a forensic schema of 4 categories and 35 ques-tions bridging persuasion research and forensic investigation of cyber fraud. Applied to 10,994 victim reports via LLM-driven annotation, our analysis yielded two findings. Different fraud types exhibited distinct psychological manipulation profiles (RQ1), but victim narratives varied widely in the actionable de-tail behind those detections (RQ2). This forensic detail gap was most acute for blockchain evidence, where on-chain identifiers were nearly absent. AI-assisted victim intake, where schema-informed follow-up questions dynamically elicit the missing detail, is the most direct path from detection to investigative impact. The tiered annotation strategy and validation protocol demonstrated here provide a reusable template for LLM-based structured extraction from other forensic text domains. AC K N OW L E D G M E N T 
+
+The authors thank the anonymous reviewers for their con-structive feedback. This work was partially supported by the National Science Foundation (NSF) with award numbers 1921576, 2334196, and 2334197. RE F E R E N C E S [1] I. Franceschini, L. Li, and M. Bo, “Compound capitalism: A political economy of southeast asia’s online scam operations,” Critical Asian Studies , vol. 55, no. 4, pp. 575–603, Oct. 2023. [2] U.S. Department of Justice, “Chairman of prince group indicted for operating cambodian forced-labor scam compounds engaged in cryptocurrency fraud schemes,” Oct. 2025. [Online]. Available: https://www.justice.gov/opa/pr/chairman-prince-group-indicted-operati ng-cambodian-forced-labor-scam-compounds-engaged [3] J. Woodhams, R. Bull, and C. R. Hollin, “Case linkage,” in Criminal Profiling: International Theory, Research, and Practice , R. N. Kocsis, Ed., Jun. 2007, pp. 117–133. [4] C. Donalds and K.-M. Osei-Bryson, “Toward a cybercrime classification ontology: A knowledge-based approach,” Computers in Human Behavior ,vol. 92, pp. 403–418, Mar. 2019. [5] G. Tsakalidis and K. Vergidis, “A systematic approach toward description and classification of cybercrime incidents,” IEEE Trans. Syst. Man Cybern. Syst. , vol. 49, no. 4, pp. 710–729, Apr. 2019. [6] R. B. Cialdini, Influence: science and practice , 3rd ed. Harper Collins College Publishers, 1993. [7] S. Ma, T. Ma, J. Liu, W. Song, Z. Liang, X. Xiao, and Y. Ye, “PsyScam: A benchmark for psychological techniques in real-world scams,” in 
+
+Findings of EMNLP , Nov. 2025, pp. 12 623–12 637. [8] D. Kahneman and A. Tversky, “Prospect theory: An analysis of decision under risk,” Econometrica , vol. 47, no. 2, pp. 263–291, Mar. 1979. [9] A. Lim and K.-s. Choi, “Modus operandi and blockchain analysis of romance scams: Cryptocurrency-driven victimization,” International Journal of Cybersecurity Intelligence & Cybercrime , vol. 8, no. 2, Jan. 2025. [10] FBI Internet Crime Complaint Center, “Cryptocurrency — IC3.” [Online]. Available: https://www.ic3.gov/CrimeInfo/Cryptocurrency [11] E. Casey, G. Back, and S. Barnum, “Leveraging Cybox™ to standardize representation and exchange of digital forensic information,” Digital Investigation , vol. 12, pp. S102–S110, Mar. 2015. [12] L. F. Sikos, “AI in digital forensics: Ontology engineering for cybercrime investigations,” WIREs Forensic Science , vol. 3, no. 3, p. e1394, May 2021. [13] V. S. Harichandran, D. Walnycky, I. Baggili, and F. Breitinger, “CuFA: A more formal definition for digital forensic artifacts,” Digital Investigation ,vol. 18, pp. S125–S137, Aug. 2016. [14] S. Giro Correia, “Making the most of cybercrime and fraud crime report data: A case study of UK action fraud,” Int. J. Popul. Data Sci. , vol. 7, no. 1, May 2022. [15] D. Kwon, H. Borrion, and R. Wortley, “Measuring cybercrime in calls for police service,” Asian J. Criminol. , vol. 19, no. 3, pp. 329–351, Sep. 2024. [16] H. Van Beek, J. Van Den Bos, A. Boztas, E. Van Eijk, R. Schramp, and M. Ugen, “Digital forensics as a service: Stepping up the game,” 
+
+Forensic Science International: Digital Investigation , vol. 35, p. 301021, Dec. 2020. [17] B. Nikkel, “Fintech forensics: Criminal investigation and digital evi-dence in financial technologies,” Forensic Science International: Digital Investigation , vol. 33, p. 200908, Jun. 2020. [18] C. Fonseca, S. Moreira, and I. Guedes, “Online consumer fraud victim-ization and reporting: A quantitative study of the predictors and motives,” 
+
+Victims & Offenders , vol. 17, no. 5, pp. 756–780, Jul. 2022. [19] M. Fr ¨owis, T. Gottschalk, B. Haslhofer, C. R ¨uckert, and P. Pesch, “Safe-guarding the evidential value of forensic cryptocurrency investigations,” 
+
+Forensic Science International: Digital Investigation , vol. 33, p. 200902, Jun. 2020. [20] T. C. Pratt, K. Holtfreter, and M. D. Reisig, “Routine online activity and internet fraud targeting: Extending the generality of routine activity theory,” Journal of Research in Crime and Delinquency , vol. 47, no. 3, pp. 267–296, Aug. 2010. [21] K. Khadka, A. B. Ullah, W. Ma, E. M. Marroquin, and Y. Alem, “A survey on the principles of persuasion as a social engineering strategy in phishing,” in TrustCom , Nov. 2023, pp. 1631–1638. [22] J. M. Schokkenbroek and T. Snaphaan, “Love as bait: A scoping review and crime script analysis of online romance scams,” Trauma, Violence, & Abuse , p. 15248380251361046, Sep. 2025. [23] A. Coluccia, A. Pozza, F. Ferretti, F. Carabellese, A. Masti, and G. Gualtieri, “Online romance scams: Relational dynamics and psycho-logical characteristics of the victims and scammers. a scoping review,” 
+
+Clin. Pract. Epidemiol. Ment. Health , vol. 16, no. 1, pp. 24–35, Apr. 2020. [24] C. Cross, “Romance baiting, cryptorom and ‘pig butchering’: An evolutionary step in romance fraud,” Current Issues in Criminal Justice ,vol. 36, no. 3, pp. 334–346, Jul. 2024. [25] R. E. Petty and J. T. Cacioppo, “The elaboration likelihood model of persuasion,” in Advances in Experimental Social Psychology , 1986, vol. 19, pp. 123–205. [26] N. B. Bozdag, S. Mehri, X. Yang, H. Ha, Z. Cheng, E. Durmus, J. You, H. Ji, G. Tur, and D. Hakkani-T ¨ur, “Must read: A comprehensive survey of computational persuasion,” ACM Comput. Surv. , Mar. 2026. [27] M. Liu, Z. Xu, X. Zhang, H. An, S. Qadir, Q. Zhang, P. J. Wisniewski, J.-H. Cho, S. W. Lee, R. Jia, and L. Huang, “LLM can be a dangerous persuader: Empirical study of persuasion safety in large language models,” in COLM , Aug. 2025. [28] D. Dunsin, M. C. Ghanem, K. Ouazzane, and V. Vassilev, “A comprehen-sive analysis of the role of artificial intelligence and machine learning in modern digital forensics and incident response,” Forensic Science International: Digital Investigation , vol. 48, p. 301675, Mar. 2024. [29] A. Wickramasekara, F. Breitinger, and M. Scanlon, “Exploring the poten-tial of large language models for improving digital forensic investigation efficiency,” Forensic Science International: Digital Investigation , vol. 52, p. 301859, Mar. 2025. [30] S. Relins, D. Birks, and C. Lloyd, “Using instruction-tuned large language models to identify indicators of vulnerability in police incident narratives,” J. Quant. Criminol. , vol. 41, no. 4, pp. 647–684, Dec. 2025. [31] W. Lukmanjaya, C. Halmich, T. Butler, D. Cook, and G. Karystianis, “Computational text analysis on unstructured police data: A scoping review,” Crime Sci. , vol. 15, no. 1, p. 6, Feb. 2026. [32] F. Gilardi, M. Alizadeh, and M. Kubli, “ChatGPT outperforms crowd-workers for text-annotation tasks,” Proc. Natl. Acad. Sci. U.S.A. , vol. 120, no. 30, p. e2305016120, Jul. 2023. [33] J. Savelka and K. D. Ashley, “The unreasonable effectiveness of large language models in zero-shot semantic annotation of legal texts,” Front. Artif. Intell. , vol. 6, p. 1279794, Nov. 2023. [34] FBI Internet Crime Complaint Center, “Frequently asked questions — IC3.” [Online]. Available: https://www.ic3.gov/Home/FAQ [35] Better Business Bureau, “Search for scams | BBB scam tracker.” [Online]. Available: https://www.bbb.org/scamtracker/lookupscam [36] The Department of Financial Protection and Innovation, California State, “Crypto scam tracker.” [Online]. Available: https://dfpi.ca.gov/co nsumers/crypto/crypto-scam-tracker/ [37] Washington State Department of Financial Institutions, “Washington state investment scam tracker.” [Online]. Available: https://dfi.wa.gov/s cam-tracker [38] Department of Financial Institutions, State of Wisconsin, “DFI investment scam tracker.” [Online]. Available: https://dfi.wi.gov/Pages/S ecurities/InvestorResources/InvestmentScamTracker.aspx [39] District of Columbia Department of Insurance, Securities & Banking, “DISB scam tracker.” [Online]. Available: https://disb.dc.gov/page/disb-s cam-tracker [40] C. Sun, J. Ji, B. Shang, and B. Liu, “Overview of CCL23-Eval task 6: Telecom network fraud case classification,” in Proceedings of the 22nd Chinese National Conference on Computational Linguistics , M. Sun, B. Qin, X. Qiu, J. Jiang, and X. Han, Eds., Aug. 2023, pp. 193–200. [Online]. Available: https://aclanthology.org/2023.ccl-3.23/ [41] Z. Lwin Tun and D. Birks, “Supporting crime script analyses of scams with natural language processing,” Crime Sci. , vol. 12, no. 1, Feb. 2023. [42] Federal Bureau of Investigation, “Common frauds and scams.” [Online]. Available: https://www.fbi.gov/how-we-can-help-you/scams-and-safety/ common-frauds-and-scams [43] J. R. Landis and G. G. Koch, “The measurement of observer agreement for categorical data,” Biometrics , vol. 33, no. 1, pp. 159–174, Mar. 1977. 
+
+AP P E N D I X 
+
+A. Annotation Prompt Template 
+
+The Tiers 2–4 questions use Claude Haiku 4.5 API for LLM annotation. We present the prompts below in condensed form. 
+
+a) Tier 1 deterministic: 14 questions are resolved by aPython script before any LLM call. If the corresponding structured field is non-empty the answer is Y with the field value; otherwise N. The mappings are: Q1.1 → contact_platform; Q1.2 → contact_method; Q1.3 →
+
+scammer_name; Q1.4 → scammer_phone; Q1.5 → scammer_email; Q1.7 → scammer_website; Q1.12 → transaction_date; Q1.13 
+
+→ transaction_amount; Q1.15 → payment_method; Q2.2 →
+
+bank_name; Q4.1 → crypto_involved; Q4.2 → crypto_type; Q4.3 → tx_hash; Q4.4 → recipient_wallet 
+
+b) Tier 2/3 prompt: You are a forensic analyst annotating cyber fraud victim reports. Each case has structured fields and a narrative description. Annotate 10 questions across Tier 2 and 3 using BOTH sources. 
+
+Tier 2 Field + narrative (4 questions): Check the structured field first. If non-empty, answer Y with the field value. If empty, search the narrative. Q1.6 Other contact identifiers (sp/se + narrative); Q1.14 Total loss (ta + narrative); Q2.1 Traditional banking (bn/ba + narrative); Q2.3 Recipient identification (ba + narrative) 
+
+Tier 3 Narrative extraction (6 questions): No structured field. Extract from narrative. Q1.8 Subject address; Q1.9 Subject IP; Q1.10 Multiple perpetrators; Q1.11 Coordinated group operations; Q1.16 Routing instructions; Q4.5 Crypto ATM (N if Q4.1=N) For each question answer Y/N/U with a JSON object. Rationale required for Y answers, null for N/U. 
+
+c) Tier 4 prompt: You are annotating fraud case descriptions for Q3: Persuasion & Manipulation Techniques. Evaluate 11 indicators (Q3.1--Q3.11). This is an evidence-only task: label Y only when the narrative contains explicit perpetrator actions or utterances; provide an exact supporting quote (15--60 words) for every Y. No inference, no category-based reasoning. 
+
+Input: CSV with columns fraud_category, case_id, date, description. 
+
+Output: JSON array; each element: {"case_id": "...", "Q3.X": ["Y"|"N"|"U", "quote or null"] }. U reserved for genuine ambiguity (<5%). 
+
+Indicator definitions: 
+
+Q3.1 Authority --- claims a professional role or organizational affiliation. Q3.2 Fear --- explicit threats of serious consequences (legal, physical, exposure). Q3.3 Urgency --- explicit deadlines or immediate demands. Q3.4 Liking --- builds romantic interest, friendship, or emotional bond. Q3.5 Pretext --- impersonates a real entity or creates fabricated artifacts (fake documents, spoofed emails, scam websites). Excludes investment/trading apps. Q3.6 Reciprocity --- personally gives something (gift, service, intimate content, prize) to create obligation. Excludes investment platform returns. Q3.7 Consistency --- after initial payment, demands additional money via new pretextual fees or charges. Q3.8 Social Proof --- demonstrates others’ success via visible evidence (screenshots, testimonials). Q3.9 Phantom Riches --- specific promise of unusually high or guaranteed returns. Q3.10 Communication Migration --- directs victim to a different communication channel or scammer-managed group. Excludes investment/trading apps. Q3.11 Post-Payment Shift --- after payment, scammer becomes unreachable or platform goes offline. 
+
+Key disambiguation rules: 
+
+Account freeze for fees = Q3.7; freeze tied to legal accusation = Q3.2. Still reachable demanding more = Q3.7; vanished entirely = Q3.11; both can co-occur. ‘‘Unable to withdraw’’ alone = Q3.7, not Q3.11; ‘‘realized fraud’’ alone ̸ = Q3.11. 
+
+B. Categories 1–2 Question Listing 
+
+Table X lists all Category 1 and 2 questions. 
+
+TABLE X CAT E G O R I E S 1–2: F O R E N S I C ME TA DATA A N D FI NA N C I A L FL OW .
+
+Q# Operationalized Question 
+
+Category 1: Standard Forensic Metadata 
+
+1.1 Did it include the contact platform used by the perpetrator? 1.2 Did it describe how the perpetrator initially contacted the victim? 1.3 Did it include the perpetrator’s name or entity? 1.4 Did it include the perpetrator’s telephone number? 1.5 Did it include the perpetrator’s email address? 1.6 Did it include other contact identifiers for the perpetrator? 1.7 Did it mention a web domain or URL associated with the fraud? 1.8 Did it include the perpetrator’s physical address? 1.9 Did it include the perpetrator’s IP address? 1.10 Were multiple perpetrators mentioned (e.g., organized group, named accomplices)? 1.11 Were multiple coordinated group operations mentioned (e.g., distinct roles, coordination structure, or division of labor)? 1.12 Was the transaction date mentioned? 1.13 Was the transaction amount mentioned? 1.14 Was the total financial loss quantified? 1.15 Was the payment method mentioned (e.g., bank transfer, credit card, cryptocurrency, gift card, wire transfer)? 1.16 Did the perpetrator provide routing or transfer instructions to the victim? 
+
+Category 2: Traditional Financial Flow 
+
+2.1 Did the transaction involve traditional banking methods (e.g., wire transfer, bank account, check)? 2.2 Was the name of the receiving bank identified? 2.3 Was the recipient identified by bank account name or entity?
