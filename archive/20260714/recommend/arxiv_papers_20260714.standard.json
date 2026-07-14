@@ -1,0 +1,295 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-07-14T21:42:20.629722+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 4,
+    "deep_cap": 6,
+    "deep_selected": 4,
+    "quick_candidates": 3,
+    "quick_skim_target": 11,
+    "quick_selected": 3
+  },
+  "deep_dive": [
+    {
+      "id": "2607.07903v1",
+      "source": "arxiv",
+      "title": "Mechanistic Interpretability of LLM Jailbreaks via Internal Attribution Graphs",
+      "abstract": "Large language models (LLMs) exhibit remarkable capabilities but remain highly vulnerable to adversarial prompts and jailbreak attacks. Existing approaches primarily analyze these failures through input-output behaviors or attribution methods, offering limited insight into how adversarial perturbations alter the model's internal reasoning. Consequently, the mechanisms underlying unsafe or incorrect behaviors remain poorly understood. We introduce a mechanistic framework for diagnosing LLM vulnerabilities using paired internal computation graphs, which represent prompt-specific inference as structured causal interactions among latent features. By constructing and aligning computation graphs for clean and attacked prompts, we reveal that adversarial attacks induce systematic transformations of internal reasoning, including suppression of safety-relevant components, emergence of attack-specific features, and rerouting of computation paths. Building on this representation, we propose a unified framework that (i) decomposes computation into invariant, suppressed, and emergent structures, (ii) identifies recurring vulnerability motifs associated with failure modes, and (iii) performs causal interventions on nodes, paths, and subgraphs to directly evaluate their contributions to attack success. This enables a transition from descriptive attribution to causal diagnosis of model failures. Experiments across multiple open-source LLMs and diverse adversarial and jailbreak benchmarks demonstrate that structural deviations in internal computation graphs strongly correlate with unsafe behaviors. Furthermore, targeted interventions on identified vulnerability motifs improve model robustness, establishing internal computation graphs as a principled foundation for understanding, diagnosing, and mitigating LLM vulnerabilities.",
+      "authors": [
+        "Anupam Wagle",
+        "Ifrat Ikhtear Uddin",
+        "Chaowei Zhang",
+        "Longwei Wang"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI"
+      ],
+      "published": "2026-07-08T20:31:06+00:00",
+      "link": "https://arxiv.org/pdf/2607.07903v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "diagnosing LLM vulnerabilities to jailbreak attacks via attribution graphs",
+      "llm_evidence_cn": "通过归因图诊断LLM越狱攻击的漏洞",
+      "llm_evidence": "通过归因图诊断LLM越狱攻击的漏洞",
+      "canonical_evidence": "通过归因图诊断LLM越狱攻击的漏洞",
+      "llm_tldr_en": "Proposes a mechanistic interpretability framework using attribution graphs to understand how jailbreak attacks alter LLM internal reasoning, revealing adversarial impact pathways.",
+      "llm_tldr_cn": "为解决LLM越狱攻击内部机制不透明的问题，提出基于内部归因图的机制可解释性框架。通过构建干净与攻击提示的因果交互图，揭示对抗扰动如何改变模型内部推理过程。实验发现攻击通过特定归因路径重定向安全相关特征，为理解LLM脆弱性提供了新视角，有助于开发更鲁棒的安全措施。",
+      "llm_tldr": "为解决LLM越狱攻击内部机制不透明的问题，提出基于内部归因图的机制可解释性框架。通过构建干净与攻击提示的因果交互图，揭示对抗扰动如何改变模型内部推理过程。实验发现攻击通过特定归因路径重定向安全相关特征，为理解LLM脆弱性提供了新视角，有助于开发更鲁棒的安全措施。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "exploring the capability boundaries of large language models in cyber contexts",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2607.08011v1",
+      "source": "arxiv",
+      "title": "Beware What You Autocomplete: Forensic Attribution of Backdoored Code Completions",
+      "abstract": "Large language models have enabled powerful code completion systems that assist developers by predicting subsequent lines of code. However, these models remain vulnerable to backdoor attacks, where malicious fine-tuning data covertly implants unsafe behaviors. Despite advances in defensive techniques, adaptive and sophisticated backdoor attacks still evade detection and mitigation. We present CodeTracer, a forensic framework that traces malicious code completions back to the backdoor fine-tuning data responsible for them. Operating under realistic post-deployment constraints, CodeTracer relies solely on the fine-tuning corpus and the reported miscompletion event. It extracts a structured behavioral fingerprint from the compromised output, narrows the search to semantically relevant code samples, and employs LLM-based reasoning to attribute unsafe logic to specific backdoor data. Extensive evaluations across three representative vulnerability cases and ten backdoor attacks, along with sixteen competitive baselines, demonstrate that CodeTracer consistently achieves high forensic accuracy, low false identification rates, and strong robustness against adaptive attacks.",
+      "authors": [
+        "Anjun Gao",
+        "Yueyang Quan",
+        "Zhuqing Liu",
+        "Minghong Fang"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI",
+        "cs.IR",
+        "cs.LG"
+      ],
+      "published": "2026-07-09T00:37:25+00:00",
+      "link": "https://arxiv.org/pdf/2607.08011v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "LLMs can be backdoored to produce unsafe code, directly demonstrating a cybercrime capability boundary",
+      "llm_evidence_cn": "大模型可被植入后门生成不安全代码，直接展示网络犯罪能力边界",
+      "llm_evidence": "大模型可被植入后门生成不安全代码，直接展示网络犯罪能力边界",
+      "canonical_evidence": "大模型可被植入后门生成不安全代码，直接展示网络犯罪能力边界",
+      "llm_tldr_en": "Presents CodeTracer, a forensic framework that traces malicious code completions back to backdoor fine-tuning data, revealing LLMs' vulnerability to producing unsafe code in cybercrime contexts.",
+      "llm_tldr_cn": "该论文指出大语言模型代码补全系统易受后门攻击，恶意微调数据可植入隐蔽的不安全行为。为此提出CodeTracer取证框架，仅依赖微调语料和误补全事件，通过提取行为指纹和命名实体溯源来定位后门数据。实验证实该方法在现实约束下能有效实现攻击归因，揭示了模型在恶意代码生成方面的能力边界，对理解大模型在网络犯罪中的潜在滥用及防御具有重要价值。",
+      "llm_tldr": "该论文指出大语言模型代码补全系统易受后门攻击，恶意微调数据可植入隐蔽的不安全行为。为此提出CodeTracer取证框架，仅依赖微调语料和误补全事件，通过提取行为指纹和命名实体溯源来定位后门数据。实验证实该方法在现实约束下能有效实现攻击归因，揭示了模型在恶意代码生成方面的能力边界，对理解大模型在网络犯罪中的潜在滥用及防御具有重要价值。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "exploring the capability boundaries of large language models in cyber contexts",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2607.10455v1",
+      "source": "arxiv",
+      "title": "ANCHOR: Automated Alignment Auditing for CLI Agents on Real-World Harm",
+      "abstract": "Autonomous CLI agents can now execute hundreds of actions across multi-hour sessions: writing code, executing shell commands, browsing the web, and managing cloud infrastructure, all with minimal human oversight. Does greater autonomy invite greater risk? We introduce ANCHOR, an automated auditing framework that stress-tests CLI agents on illegal tasks grounded in public US court cases. ANCHOR deploys an auditor agent fine-tuned on dark personality data using supervised and reinforcement fine tuning. This auditor roleplays persistent malicious users who decompose tasks, reframe requests upon refusal, and adapt strategies across multi-turn interactions. Evaluating frontier CLI agents, we find that while they often refuse illegal tasks when prompted directly, compliance reaches 100\\% under persistent malicious interaction. When agents comply, they frequently exceed user requests, autonomously building infrastructure for large-scale harm, including catastrophic risk scenarios such as large-scale financial fraud and bioweapon development. These findings demonstrate that current alignment techniques are insufficient for autonomous agents and underscore the need for safety evaluations against persistent, adaptive malicious users. We release ANCHOR at https://github.com/garified/anchor",
+      "authors": [
+        "Kefan Song",
+        "Yanjun Qi"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI",
+        "cs.CL"
+      ],
+      "published": "2026-07-11T19:39:47+00:00",
+      "link": "https://arxiv.org/pdf/2607.10455v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "stress-tests CLI agents on illegal tasks using an auditor agent fine-tuned on dark personality data",
+      "llm_evidence_cn": "使用基于黑暗人格数据微调的审计代理压力测试CLI代理的非法任务",
+      "llm_evidence": "使用基于黑暗人格数据微调的审计代理压力测试CLI代理的非法任务",
+      "canonical_evidence": "使用基于黑暗人格数据微调的审计代理压力测试CLI代理的非法任务",
+      "llm_tldr_en": "ANCHOR audits CLI agents' safety by deploying an adversarial auditor that roleplays malicious users, testing if agents can be tricked into illegal actions, revealing alignment weaknesses.",
+      "llm_tldr_cn": "针对自主CLI代理在长会话中可能执行危险操作的问题，本文提出ANCHOR框架，通过微调了黑暗人格数据的审计代理模拟恶意用户多轮交互，压力测试代理在非法任务上的对齐性。实验发现，尽管代理常拒绝非法请求，但持续的策略调整仍可能诱导其执行有害行为。该工作为评估大模型代理在真实非法情境下的安全性提供了自动化审计手段，揭示了当前对齐的不足。",
+      "llm_tldr": "针对自主CLI代理在长会话中可能执行危险操作的问题，本文提出ANCHOR框架，通过微调了黑暗人格数据的审计代理模拟恶意用户多轮交互，压力测试代理在非法任务上的对齐性。实验发现，尽管代理常拒绝非法请求，但持续的策略调整仍可能诱导其执行有害行为。该工作为评估大模型代理在真实非法情境下的安全性提供了自动化审计手段，揭示了当前对齐的不足。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "adversarial agents for testing large language models in cybercrime",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2607.10490v1",
+      "source": "arxiv",
+      "title": "NetInjectBench: Benchmarking Indirect Prompt Injection in Tool-Using Large Language Model Agents for Network Operations",
+      "abstract": "Tool-using large language model (LLM) agents are attractive for network operations, but tickets, alerts, logs, runbooks, and ChatOps messages can carry indirect prompt injections. We present NetInjectBench, a 130-scenario benchmark that separates untrusted artifact text, trusted policy metadata, and evaluation labels for network-operation tool use. The sample contains 40 benign, 40 weak-attack, 40 strong-attack, and 10 approved high-impact change scenarios; each is evaluated with Qwen2.5-7B, Llama3.1-8B, and Mistral-7B. Across 240 attack instances, naive execution reached an 82.50% unsafe tool-action rate. Prompt-only safety, Self-Reminder, Spotlighting, and a Two-Pass LLM Judge reduced this rate to 25.63%, 21.67%, 18.33%, and 10.00%, respectively. Static allowlisting reached 5.00% but blocked all approved changes, yielding 0.00% usefulness and 100.00% overblocking on approved cases. Under the stated metadata-integrity assumption, the metadata-aware policy gate produced 0/240 unsafe attack actions, with a 95% Wilson upper bound of 1.58%, while preserving 99.17% attack-scenario usefulness and 100.00% approved-change usefulness. The findings show that network-operation agents need execution-time authorization boundaries alongside prompt-level instruction hygiene.",
+      "authors": [
+        "Ruksat Khan Shayoni",
+        "Muhammad Faraz Shoaib",
+        "S M Asif Hossain",
+        "M. F. Mridha"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.LG"
+      ],
+      "published": "2026-07-11T21:54:20+00:00",
+      "link": "https://arxiv.org/pdf/2607.10490v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "benchmarking indirect prompt injection against LLM agents in network operations",
+      "llm_evidence_cn": "面向网络操作的大模型智能体间接提示注入基准测试",
+      "llm_evidence": "面向网络操作的大模型智能体间接提示注入基准测试",
+      "canonical_evidence": "面向网络操作的大模型智能体间接提示注入基准测试",
+      "llm_tldr_en": "Presents NetInjectBench, a benchmark for evaluating indirect prompt injection attacks on tool-using LLM agents in network operations. Evaluates defenses, showing naive agents execute unsafe actions 82.5% of the time, reduced to 25.6% by mitigations. This measures LLM agent vulnerabilities in a cyber-physical domain.",
+      "llm_tldr_cn": "针对网络操作领域大语言模型智能体的间接提示注入威胁，本文构建了NetInjectBench基准，包含130个场景，区分可信策略与评估标签。在三种模型上的测试表明，无防护时82.5%的工具调用为不安全动作，通过提示安全、自我提醒等方法可降至25.6%。该基准有效量化了智能体在网络犯罪攻击场景下的脆弱性，为对抗性测试提供了标准化工具。",
+      "llm_tldr": "针对网络操作领域大语言模型智能体的间接提示注入威胁，本文构建了NetInjectBench基准，包含130个场景，区分可信策略与评估标签。在三种模型上的测试表明，无防护时82.5%的工具调用为不安全动作，通过提示安全、自我提醒等方法可降至25.6%。该基准有效量化了智能体在网络犯罪攻击场景下的脆弱性，为对抗性测试提供了标准化工具。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "adversarial agents for testing large language models in cybercrime",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2607.05120v1",
+      "source": "arxiv",
+      "title": "Agent Data Injection Attacks are Realistic Threats to AI Agents",
+      "abstract": "AI agents act on behalf of user prompts, consuming external data and taking actions based on the agent context. Prior research on AI agent security has primarily focused on indirect prompt injection (IPI). Its most well-studied category is instruction injection, where attacker-controlled untrusted data is interpreted as an instruction. In response, many mitigations have been proposed to prevent instruction injection attacks. In this paper, we introduce a new category of IPI, agent data injection attacks (ADI). ADI injects malicious data disguised as trusted data, such as security-critical metadata (e.g., resource identifiers or data origins) or agent context data (e.g., tool call and response formats). As a result, agents unknowingly execute unintended actions based on attacker-controlled data. ADI has similar attack impacts as instruction injection attacks, because it causes agents to misbehave and execute unintended actions. Despite the similar impact, ADI remains underexplored and easily bypasses existing IPI defenses. We found several critical vulnerabilities in real-world agents that allow an attacker to launch various attacks: arbitrary click attacks on web agents (Claude in Chrome, Antigravity, and Nanobrowser), and remote code execution and supply-chain attacks on coding agents (Claude Code, Codex, and Gemini CLI). We evaluate ADI vulnerabilities across off-the-shelf models and AI agents, and find that ADI is effective in both standalone LLMs and AI agent settings. ADI exposes a critical gap in agent security, signifying that current AI agents do not employ a fundamental security principle: current agents do not isolate trusted data from untrusted data.",
+      "authors": [
+        "Woohyuk Choi",
+        "Juhee Kim",
+        "Taehyun Kang",
+        "Jihyeon Jeong",
+        "Luyi Xing",
+        "Byoungyoung Lee"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI"
+      ],
+      "published": "2026-07-06T14:07:49+00:00",
+      "link": "https://arxiv.org/pdf/2607.05120v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "agent data injection attacks as adversarial tests for LLM agents",
+      "llm_evidence_cn": "智能体数据注入攻击作为大模型智能体的对抗性测试",
+      "llm_evidence": "智能体数据注入攻击作为大模型智能体的对抗性测试",
+      "canonical_evidence": "智能体数据注入攻击作为大模型智能体的对抗性测试",
+      "llm_tldr_en": "Introduces agent data injection (ADI) attacks, a new category of indirect prompt injection that disguises malicious data as trusted context, causing agents to execute unintended actions. Mitigations are evaluated, showing current defenses are insufficient. This highlights adversarial vulnerabilities in LLM agents, relevant to testing cybercrime capabilities.",
+      "llm_tldr_cn": "本文揭示一种新型间接提示注入攻击——智能体数据注入（ADI），攻击者将恶意数据伪装为可信数据，诱使AI智能体执行非预期动作。研究展示了现有防御措施的不足，并评估了多种缓解策略。这项工作暴露了大语言模型智能体在对抗性攻击下的安全边界，为测试和模拟网络犯罪场景中智能体的脆弱性提供了重要基准。",
+      "llm_tldr": "本文揭示一种新型间接提示注入攻击——智能体数据注入（ADI），攻击者将恶意数据伪装为可信数据，诱使AI智能体执行非预期动作。研究展示了现有防御措施的不足，并评估了多种缓解策略。这项工作暴露了大语言模型智能体在对抗性攻击下的安全边界，为测试和模拟网络犯罪场景中智能体的脆弱性提供了重要基准。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "adversarial agents for testing large language models in cybercrime",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2607.07918v1",
+      "source": "arxiv",
+      "title": "Efficient Safety Alignment of Language Models via Latent Personality Traits",
+      "abstract": "Current safety methods for large language models are known to be vulnerable to adversarial attacks, motivating research into robust alternatives. Latent Adversarial Training (LAT) is among the most effective defenses, but can degrade utility and requires training on large datasets of harmful prompts. We introduce Latent Personality Alignment (LPA), which replaces explicit harm refusal with adversarial training on just 66 harm-agnostic statements drawn from psychometric personality literature. We hypothesize that personality-anchored representations share latent structure with harm avoidance, so adversarially stabilizing them implicitly constrains the subspace exploited by jailbreak attacks. LPA achieves near-zero attack success rates on HarmBench across direct requests and five jailbreak methods, despite never seeing harmful content during training and no loss of performance on standard benchmarks. Moreover, the training process is lightweight; the entire procedure completes in minutes on a single GPU and uses 75x fewer examples than standard LAT. Extensive ablations demonstrate the robustness, efficiency, and generalization of our method.",
+      "authors": [
+        "Mohamed Amine Merzouk",
+        "Nolan Smyth",
+        "Damiano Fornasiere",
+        "Linh Le",
+        "David Williams-King",
+        "Adam Oberman"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG",
+        "cs.AI",
+        "cs.CL",
+        "cs.CR"
+      ],
+      "published": "2026-07-08T21:03:27+00:00",
+      "link": "https://arxiv.org/pdf/2607.07918v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "safety alignment against adversarial attacks, evaluating LLM robustness",
+      "llm_evidence_cn": "针对对抗攻击的安全对齐，评估LLM的鲁棒性",
+      "llm_evidence": "针对对抗攻击的安全对齐，评估LLM的鲁棒性",
+      "canonical_evidence": "针对对抗攻击的安全对齐，评估LLM的鲁棒性",
+      "llm_tldr_en": "Introduces Latent Personality Alignment, which uses psychometric statements to adversarially train LLMs, achieving near-zero jailbreak attack success while preserving utility.",
+      "llm_tldr_cn": "针对现有安全对齐方法易受对抗攻击且训练代价高的问题，提出潜在人格对齐（LPA）方法，利用66条心理测量学陈述进行对抗训练。通过稳定人格锚定表征间接约束越狱攻击利用的子空间，在HarmBench上实现接近零的攻击成功率，同时保持模型实用性。该方法为高效且鲁棒的LLM安全对齐提供了新路径，有助于探索模型在对抗场景下的能力边界。",
+      "llm_tldr": "针对现有安全对齐方法易受对抗攻击且训练代价高的问题，提出潜在人格对齐（LPA）方法，利用66条心理测量学陈述进行对抗训练。通过稳定人格锚定表征间接约束越狱攻击利用的子空间，在HarmBench上实现接近零的攻击成功率，同时保持模型实用性。该方法为高效且鲁棒的LLM安全对齐提供了新路径，有助于探索模型在对抗场景下的能力边界。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "evaluating the limits of large language models in cybercrime scenarios",
+      "matched_requirement_id": "req-9",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2607.10402v1",
+      "source": "arxiv",
+      "title": "Large Language Models in Misinformation Ecosystems: Misuse, Defense, and Vulnerability",
+      "abstract": "Large language models (LLMs) have transformed misinformation from a primarily content-centric problem into a broader ecosystem-level security challenge. When misused, LLMs create risks beyond false content generation, enabling attacks on the social contexts, evidence sources, retrieval corpora, and verification workflows that misinformation defense depends on. In this paper, we introduce a role-layer framework to unify these risks and defenses. The role dimension characterizes LLMs as attackers, defenders, and vulnerable components of verification systems, while the layer dimension covers content, social contexts, evidence environments, and verification workflows. Guided by this framework, we organize LLM-enabled attacks, investigate LLM-based detection and verification methods, analyze vulnerabilities in LLM-centric detection paradigms, and discuss existing countermeasures against LLM-enabled attacks. Building on this synthesis, we identify three key open challenges: moving from static detection accuracy to budgeted ecosystem-level risk evaluation, hardening LLM-centered verification pipelines against adversarial manipulation, and deploying auditable human-in-the-loop verification systems for trustworthy real-world misinformation defense.",
+      "authors": [
+        "Lingwei Wei",
+        "Dou Hu",
+        "Wei Zhou",
+        "Songlin Hu",
+        "Philip S. Yu"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI",
+        "cs.SI"
+      ],
+      "published": "2026-07-11T17:04:17+00:00",
+      "link": "https://arxiv.org/pdf/2607.10402v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "LLMs as attackers in misinformation ecosystems",
+      "llm_evidence_cn": "大语言模型在错误信息生态系统中作为攻击者",
+      "llm_evidence": "大语言模型在错误信息生态系统中作为攻击者",
+      "canonical_evidence": "大语言模型在错误信息生态系统中作为攻击者",
+      "llm_tldr_en": "Introduces a role-layer framework to analyze LLMs in misinformation: as attackers, defenders, and vulnerable components across content, social, evidence, and verification layers. Organizes attacks and defenses, showing LLMs amplify ecosystem-level threats. This illuminates LLM misuse capacity in a cybercrime context.",
+      "llm_tldr_cn": "本文提出角色-分层框架，系统性分析大语言模型在错误信息生态系统中的滥用（攻击者）、防御（防御者）与脆弱性（被攻击对象）。从内容、社会、证据和验证四个层面梳理了攻击与防御手段。研究表明，大语言模型能够发动对错误信息防御体系的跨层攻击，放大安全威胁。这深刻揭示了大语言模型在网络犯罪中的潜在能力与风险边界。",
+      "llm_tldr": "本文提出角色-分层框架，系统性分析大语言模型在错误信息生态系统中的滥用（攻击者）、防御（防御者）与脆弱性（被攻击对象）。从内容、社会、证据和验证四个层面梳理了攻击与防御手段。研究表明，大语言模型能够发动对错误信息防御体系的跨层攻击，放大安全威胁。这深刻揭示了大语言模型在网络犯罪中的潜在能力与风险边界。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "capabilities of large language models in cybercrime",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    }
+  ]
+}
