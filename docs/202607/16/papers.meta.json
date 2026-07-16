@@ -1,0 +1,39 @@
+{
+  "label": "2026-07-16",
+  "date": "2026-07-16",
+  "generated_at": "2026-07-16T20:18:38",
+  "count": 2,
+  "papers": [
+    {
+      "paper_id": "202607/16/2607.13693v1-social-simulations-from-agent-based-modeling-to-digital-twins",
+      "section": "deep",
+      "title_en": "Social Simulations: from Agent-Based Modeling to Digital Twins",
+      "authors": "Erica Cau, Andrea Failla, Valentina Pansanella, Giulio Rossetti",
+      "date": "2026-07-15",
+      "pdf": "https://arxiv.org/pdf/2607.13693v1",
+      "score": "9.0",
+      "evidence": "综述社会模拟从ABM到LLM增强智能体及数字孪生的演进，直接回答如何用智能体建模和LLM模拟社会现象",
+      "tldr": "社会模拟领域经历了从基于显式行为规则的经典基于智能体模型，到利用大型语言模型增强代理的AI强化模拟，再到构建高保真、数据驱动的社会数字孪生的范式演进。这一转变标志着研究重心从探究一般社会机制的抽象理论模型，逐步移向对特定真实世界社会技术系统的精细计算复现。本章系统回顾了各阶段的方法论根基、典型应用场景及其优势与局限，旨在为理解社会模拟的过去与未来提供全面视角，并明确未来的研究方向。",
+      "tags": "query:ca",
+      "abstract_en": "This book chapter covers the evolution of social simulation from classical agent-based models, in which agents interact according to explicitly defined behavioral rules, to AI-enhanced simulations based on Large Language Models and, ultimately, Social Digital Twins: high-fidelity, data-driven representations of real-world socio-technical systems. Along this trajectory, we discuss the main methodological foundations, applications, advantages, and limitations of each paradigm, highlighting the progressive shift from abstract models designed to investigate general social mechanisms toward increasingly realistic computational representations of specific social systems.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202607/16/2607.13705v1-agentcompass-a-unified-evaluation-infrastructure-for-agent-capabilities",
+      "section": "quick",
+      "title_en": "AgentCompass: A Unified Evaluation Infrastructure for Agent Capabilities",
+      "authors": "Zichen Ding, Jiaye Ge, Shufan Jiang, Kai Chen, Mo Li, Qingqiu Li, Zehao Li, Zonglin Li, Tiaohao Liang, Shudong Liu, Zerun Ma, Zixing Shang, Wenhui Tian, Zun Wang, Liwei Wu, Zhenyu Wu, Jun Xu, Bowen Yang, Dingbo Yuan, Qi Zhang, Songyang Zhang, Peiheng Zhou, Dongsheng Zhu",
+      "date": "2026-07-15",
+      "pdf": "https://arxiv.org/pdf/2607.13705v1",
+      "score": "7.0",
+      "evidence": "提出可扩展的LLM智能体评估基础设施，可用于网络犯罪智能体评估",
+      "tldr": "随着LLM演化为自主智能体，统一评估基础设施至关重要，但现有流程碎片化且紧密耦合。AgentCompass将评估解耦为基准、测试框架和环境三个组件，实现灵活配置与可复现性。它配备容错异步运行时和轨迹分析工具，可诊断奖励破解等细微失败模式，原生支持20余个基准、5种能力维度。为智能体研究提供可扩展、可复现的统一评估平台。",
+      "tags": "query:ca",
+      "abstract_en": "As Large Language Models (LLMs) evolve into autonomous agents, the need for unified evaluation infrastructure becomes critical. However, current evaluation pipelines remain highly fragmented and tightly coupled, hindering reproducibility and causing redundant engineering. To address this, we introduce AgentCompass, an open-source, lightweight, and extensible infrastructure for evaluating LLM-based agents. AgentCompass organizes the evaluation process around three independent components, namely Benchmark, Harness, and Environment, thereby enabling flexible configurations without requiring the reimplementation of complex execution logic. Furthermore, it features a fault-tolerant asynchronous runtime and comprehensive trajectory analysis tools to transparently diagnose nuanced failure modes like reward-hacking. Natively supporting over 20 benchmarks across five capability dimensions, AgentCompass provides the community with a scalable and reproducible infrastructure for advancing agent research.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}

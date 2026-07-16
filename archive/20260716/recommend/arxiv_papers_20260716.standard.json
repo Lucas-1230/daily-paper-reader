@@ -1,0 +1,116 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-07-16T20:15:28.464570+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 1,
+    "deep_cap": 6,
+    "deep_selected": 1,
+    "quick_candidates": 1,
+    "quick_skim_target": 11,
+    "quick_selected": 1
+  },
+  "deep_dive": [
+    {
+      "id": "2607.13693v1",
+      "source": "arxiv",
+      "title": "Social Simulations: from Agent-Based Modeling to Digital Twins",
+      "abstract": "This book chapter covers the evolution of social simulation from classical agent-based models, in which agents interact according to explicitly defined behavioral rules, to AI-enhanced simulations based on Large Language Models and, ultimately, Social Digital Twins: high-fidelity, data-driven representations of real-world socio-technical systems. Along this trajectory, we discuss the main methodological foundations, applications, advantages, and limitations of each paradigm, highlighting the progressive shift from abstract models designed to investigate general social mechanisms toward increasingly realistic computational representations of specific social systems.",
+      "authors": [
+        "Erica Cau",
+        "Andrea Failla",
+        "Valentina Pansanella",
+        "Giulio Rossetti"
+      ],
+      "primary_category": "cs.MA",
+      "categories": [
+        "cs.MA",
+        "cs.AI",
+        "cs.SI",
+        "physics.soc-ph"
+      ],
+      "published": "2026-07-15T10:42:25+00:00",
+      "link": "https://arxiv.org/pdf/2607.13693v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "surveys evolution of social simulation from ABM to LLM-enhanced agents and digital twins, directly addressing how agent-based modeling and LLMs can simulate social phenomena",
+      "llm_evidence_cn": "综述社会模拟从ABM到LLM增强智能体及数字孪生的演进，直接回答如何用智能体建模和LLM模拟社会现象",
+      "llm_evidence": "综述社会模拟从ABM到LLM增强智能体及数字孪生的演进，直接回答如何用智能体建模和LLM模拟社会现象",
+      "canonical_evidence": "综述社会模拟从ABM到LLM增强智能体及数字孪生的演进，直接回答如何用智能体建模和LLM模拟社会现象",
+      "llm_tldr_en": "This chapter reviews the progression of social simulation from classical agent-based models to AI-enhanced simulations using LLMs, providing a methodological foundation for simulating criminal activities with MAS and LLMs.",
+      "llm_tldr_cn": "该章节综述了社会模拟从基于显式行为规则的经典智能体模型，到基于大语言模型的AI增强模拟，再到社会数字孪生的演进。讨论了各范式的核心方法、应用场景及局限性，突显了从抽象社会机制探究到具体系统高保真复现的转变。这一方法论框架为利用多智能体系统和LLM模拟网络犯罪等社会现象提供了关键基础，直接回答了如何用智能体建模和LLM构建犯罪活动模拟的问题。",
+      "llm_tldr": "该章节综述了社会模拟从基于显式行为规则的经典智能体模型，到基于大语言模型的AI增强模拟，再到社会数字孪生的演进。讨论了各范式的核心方法、应用场景及局限性，突显了从抽象社会机制探究到具体系统高保真复现的转变。这一方法论框架为利用多智能体系统和LLM模拟网络犯罪等社会现象提供了关键基础，直接回答了如何用智能体建模和LLM构建犯罪活动模拟的问题。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "How can agent based modeling and multi agent systems simulate cybercriminal activities with large language models?",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2607.13705v1",
+      "source": "arxiv",
+      "title": "AgentCompass: A Unified Evaluation Infrastructure for Agent Capabilities",
+      "abstract": "As Large Language Models (LLMs) evolve into autonomous agents, the need for unified evaluation infrastructure becomes critical. However, current evaluation pipelines remain highly fragmented and tightly coupled, hindering reproducibility and causing redundant engineering. To address this, we introduce AgentCompass, an open-source, lightweight, and extensible infrastructure for evaluating LLM-based agents. AgentCompass organizes the evaluation process around three independent components, namely Benchmark, Harness, and Environment, thereby enabling flexible configurations without requiring the reimplementation of complex execution logic. Furthermore, it features a fault-tolerant asynchronous runtime and comprehensive trajectory analysis tools to transparently diagnose nuanced failure modes like reward-hacking. Natively supporting over 20 benchmarks across five capability dimensions, AgentCompass provides the community with a scalable and reproducible infrastructure for advancing agent research.",
+      "authors": [
+        "Zichen Ding",
+        "Jiaye Ge",
+        "Shufan Jiang",
+        "Kai Chen",
+        "Mo Li",
+        "Qingqiu Li",
+        "Zehao Li",
+        "Zonglin Li",
+        "Tiaohao Liang",
+        "Shudong Liu",
+        "Zerun Ma",
+        "Zixing Shang",
+        "Wenhui Tian",
+        "Zun Wang",
+        "Liwei Wu",
+        "Zhenyu Wu",
+        "Jun Xu",
+        "Bowen Yang",
+        "Dingbo Yuan",
+        "Qi Zhang",
+        "Songyang Zhang",
+        "Peiheng Zhou",
+        "Dongsheng Zhu"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI",
+        "cs.SE"
+      ],
+      "published": "2026-07-15T11:11:17+00:00",
+      "link": "https://arxiv.org/pdf/2607.13705v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Presents an extensible infrastructure for evaluating LLM-based agents, applicable to cybercrime agent evaluation",
+      "llm_evidence_cn": "提出可扩展的LLM智能体评估基础设施，可用于网络犯罪智能体评估",
+      "llm_evidence": "提出可扩展的LLM智能体评估基础设施，可用于网络犯罪智能体评估",
+      "canonical_evidence": "提出可扩展的LLM智能体评估基础设施，可用于网络犯罪智能体评估",
+      "llm_tldr_en": "Introduces AgentCompass, a lightweight, extensible infrastructure for evaluating LLM-based agents, which can be adapted to benchmark agents in cybercrime simulation tasks.",
+      "llm_tldr_cn": "针对当前LLM智能体评估流程碎片化、难以复现的问题，论文提出了AgentCompass，一个开源、轻量且可扩展的评估基础设施。它通过基准、执行器和环境三个独立组件解耦评估过程，支持灵活配置。该框架包含容错异步运行时和完整的轨迹分析工具，可透明记录智能体行为。虽然并非专门针对网络犯罪，但其通用设计可直接用于评估模拟网络犯罪活动的LLM智能体，为智能体能力边界研究提供关键工具。",
+      "llm_tldr": "针对当前LLM智能体评估流程碎片化、难以复现的问题，论文提出了AgentCompass，一个开源、轻量且可扩展的评估基础设施。它通过基准、执行器和环境三个独立组件解耦评估过程，支持灵活配置。该框架包含容错异步运行时和完整的轨迹分析工具，可透明记录智能体行为。虽然并非专门针对网络犯罪，但其通用设计可直接用于评估模拟网络犯罪活动的LLM智能体，为智能体能力边界研究提供关键工具。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "Agent based simulation of cybercrime to evaluate large language model performance",
+      "matched_requirement_id": "req-10",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    }
+  ]
+}
