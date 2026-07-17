@@ -6,28 +6,28 @@
 </div>
 
 ## 每次日报
-- 最新运行日期：2026-07-16
-- 运行时间：2026-07-16 20:18:26 UTC
+- 最新运行日期：2026-07-17
+- 运行时间：2026-07-17 21:02:33 UTC
 - 运行状态：成功
 - 本次总论文数：2
 - 精读区：1
 - 速读区：1
 
 ### 今日简报（AI）
-今日精读社会模拟前沿，从智能体建模到数字孪生的路线图已清晰浮现。
-最值得关注：新一轮虚拟社会实验正借助数字孪生重演现实，而AgentCompass则为智能体能力提供了统一“体检”标尺。
-建议从这篇社会模拟综述切入，再结合评估框架，思考你的领域如何构建可交互的孪生原型。
-- 详情：[/202607/16/README](/202607/16/README)
+今日精读《Rethinking Penetration Testing for AI-Enabled Systems》，提出AI渗透测试应从“攻陷资源”转向实现“行为目标违反”；速读《Bad Memory》揭示智能体记忆可能成为提示注入的隐蔽入口。  
+最值得关注：安全评估需将AI的行为目标合规性纳入测试范畴，且Agent的长时记忆正成为新的注入攻击面。  
+下步建议：开发者在防护AI系统时，不仅要盯紧输入过滤，还应审计智能体如何利用与验证记忆内容。
+- 详情：[/202607/17/README](/202607/17/README)
 
 ### 精读区论文标签
-1. [Social Simulations: from Agent-Based Modeling to Digital Twins](/202607/16/2607.13693v1-social-simulations-from-agent-based-modeling-to-digital-twins)  
+1. [Rethinking Penetration Testing for AI-Enabled Systems: From Resource Compromise to Behavioral Objective Violation](/202607/17/2607.14006v1-rethinking-penetration-testing-for-ai-enabled-systems-from-resource-compromise-to-behavioral-objective-violation)  
    标签：评分：9.0/10、query:ca
-   evidence：综述社会模拟从ABM到LLM增强智能体及数字孪生的演进，直接回答如何用智能体建模和LLM模拟社会现象
+   evidence：重新定义AI系统的渗透测试，评估对抗性操纵导致的行为违规，直接适用于网络能力评估
 
 ### 速读区论文标签
-1. [AgentCompass: A Unified Evaluation Infrastructure for Agent Capabilities](/202607/16/2607.13705v1-agentcompass-a-unified-evaluation-infrastructure-for-agent-capabilities)  
+1. [Bad Memory: Evaluating Prompt Injection Risks from Memory in Agentic Systems](/202607/17/2607.14611v1-bad-memory-evaluating-prompt-injection-risks-from-memory-in-agentic-systems)  
    标签：评分：7.0/10、query:ca
-   evidence：提出可扩展的LLM智能体评估基础设施，可用于网络犯罪智能体评估
+   evidence：通过基于记忆的对抗指令测试LLM智能体上的提示注入攻击
 
 
 <div class="dpr-home-promo-card">

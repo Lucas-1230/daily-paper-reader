@@ -1,0 +1,95 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-07-17T20:59:06.065199+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 1,
+    "deep_cap": 6,
+    "deep_selected": 1,
+    "quick_candidates": 1,
+    "quick_skim_target": 11,
+    "quick_selected": 1
+  },
+  "deep_dive": [
+    {
+      "id": "2607.14006v1",
+      "source": "arxiv",
+      "title": "Rethinking Penetration Testing for AI-Enabled Systems: From Resource Compromise to Behavioral Objective Violation",
+      "abstract": "Penetration testing traditionally evaluates whether adversaries can exploit weaknesses in software, infrastructure, configurations, or operational controls to achieve security-relevant compromise. This paradigm remains necessary for AI-enabled systems, but it is no longer sufficient. In such systems, adversaries may influence prompts, retrieved content, sensor inputs, training data, memory, tools, or human-AI interaction loops to alter system behavior without directly compromising the underlying infrastructure. This paper reframes penetration testing for AI-enabled systems as objective-driven behavioral evaluation. We define an AI-enabled system as one in which learned models materially influence behavior affecting operational outcomes, and we define AI-enabled penetration as the feasible induction of AI-governed behavior that violates one or more operational objectives under an explicit threat model. This definition preserves conventional penetration testing while extending it to adversarial pathways such as prompt injection, indirect prompt injection, data poisoning, sensor manipulation, retrieval poisoning, tool misuse, and agentic misalignment. We further propose a testing workflow that identifies operational objectives, maps AI-governed behavior, analyzes adversarial influence surfaces, defines behavioral failure criteria, executes scenario-based tests, and reports evidence linking adversarial action to objective violation. A running example involving an AI-enabled security operations center assistant illustrates how penetration may occur through behavioral influence rather than infrastructure compromise. Together, the definitions, workflow, and example provide a technical framework for evaluating adversarial success in deployed AI-enabled systems.",
+      "authors": [
+        "Mohammad Allahbakhsh",
+        "Mohammad Hassan Bahari",
+        "Moslem Attar-Raouf"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI"
+      ],
+      "published": "2026-07-15T16:36:54+00:00",
+      "link": "https://arxiv.org/pdf/2607.14006v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "reframes penetration testing for AI systems to evaluate behavioral violations from adversarial manipulation, directly applicable to cyber capability assessment",
+      "llm_evidence_cn": "重新定义AI系统的渗透测试，评估对抗性操纵导致的行为违规，直接适用于网络能力评估",
+      "llm_evidence": "重新定义AI系统的渗透测试，评估对抗性操纵导致的行为违规，直接适用于网络能力评估",
+      "canonical_evidence": "重新定义AI系统的渗透测试，评估对抗性操纵导致的行为违规，直接适用于网络能力评估",
+      "llm_tldr_en": "This paper proposes a new penetration testing paradigm for AI-enabled systems, focusing on objective-driven behavioral evaluation to uncover vulnerabilities from adversarial influence on prompts, tools, and interactions.",
+      "llm_tldr_cn": "本文重新构建AI系统的渗透测试范式，将评估从资源破坏转向行为目标违规，通过对抗性影响提示、检索内容、工具等来揭示系统脆弱性，为评估AI在网络犯罪中的能力边界提供了测试方法论。",
+      "llm_tldr": "本文重新构建AI系统的渗透测试范式，将评估从资源破坏转向行为目标违规，通过对抗性影响提示、检索内容、工具等来揭示系统脆弱性，为评估AI在网络犯罪中的能力边界提供了测试方法论。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "exploring the capability boundaries of large language models in cyber contexts",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2607.14611v1",
+      "source": "arxiv",
+      "title": "Bad Memory: Evaluating Prompt Injection Risks from Memory in Agentic Systems",
+      "abstract": "A growing class of agentic systems maintain persistent state across sessions through memory files, behavioral preferences, and knowledge bases. While this makes agents more useful and self-improving, it also creates a new attack surface for prompt injections in which malicious instructions can be embedded within persistent files and influence future behavior. In this work, we study prompt injection attacks in memory-based agentic systems using a sandboxed synthetic workspace. We evaluate two agentic systems, Anthropic Claude Code and OpenAI Codex, across four models: Claude Haiku 4.5, Claude Opus 4.7, GPT-5.2, and GPT-5.5. Our results show that although it is difficult to make an agent overwrite its own memory files using untrusted external content, payloads already planted in those files can successfully attack current and future sessions. Attack success and payload persistence vary substantially across systems, models, adversarial goals, and multi-session attack sequences. These findings show that persistent memory changes the threat model for prompt injection and motivate defenses that protect memory updates without removing useful agent adaptation.",
+      "authors": [
+        "Soham Gadgil",
+        "David Alexander",
+        "Sai Sunku",
+        "Franziska Roesner"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI",
+        "cs.MA"
+      ],
+      "published": "2026-07-16T06:13:48+00:00",
+      "link": "https://arxiv.org/pdf/2607.14611v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Tests prompt injection attacks on LLM agents via memory-based adversarial instructions",
+      "llm_evidence_cn": "通过基于记忆的对抗指令测试LLM智能体上的提示注入攻击",
+      "llm_evidence": "通过基于记忆的对抗指令测试LLM智能体上的提示注入攻击",
+      "canonical_evidence": "通过基于记忆的对抗指令测试LLM智能体上的提示注入攻击",
+      "llm_tldr_en": "Evaluates prompt injection risks in memory-based agentic systems, showing that malicious instructions in memory files can influence agent behavior, though overwriting memory directly is difficult.",
+      "llm_tldr_cn": "该论文研究基于持久化记忆的智能体系统中的提示注入攻击。在沙盒化合成工作空间中，针对Claude Code和OpenAI Codex，使用四种模型测试，结果表明虽然难以通过外部内容让智能体覆写自身记忆文件，但记忆中的恶意指令仍能影响后续行为，暴露了新型攻击面。",
+      "llm_tldr": "该论文研究基于持久化记忆的智能体系统中的提示注入攻击。在沙盒化合成工作空间中，针对Claude Code和OpenAI Codex，使用四种模型测试，结果表明虽然难以通过外部内容让智能体覆写自身记忆文件，但记忆中的恶意指令仍能影响后续行为，暴露了新型攻击面。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "exploring the capability boundaries of large language models in cyber contexts",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    }
+  ]
+}
