@@ -1,0 +1,99 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-07-18T20:57:40.978213+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 1,
+    "deep_cap": 6,
+    "deep_selected": 1,
+    "quick_candidates": 1,
+    "quick_skim_target": 11,
+    "quick_selected": 1
+  },
+  "deep_dive": [
+    {
+      "id": "2607.15263v1",
+      "source": "arxiv",
+      "title": "Beyond Success Rate: Cost-Aware Evaluation of Offensive and Defensive Security Agents",
+      "abstract": "Security-agent evaluations commonly measure peak offensive capability under generous inference budgets, emphasizing vulnerability discovery, exploit development, penetration testing, and CTF completion. Such measurements are useful but incomplete: in operational security, every reasoning step, tool call, telemetry query, and enrichment request consumes budget. We evaluate language-model security agents through this cost-success lens on offensive Cybench challenges and defensive Splunk BOTS v1 investigation challenges. Instead of reporting only best-case success, we compare models at fixed cost levels and decompose performance by inference spend and tool spend. Our results show distinct scalingregimes for red- and blue-team tasks. Offensive CTF performance improves with additional test-time compute, and scaled open-weight models can approach frontier proprietary systems while remaining cost-competitive. Defensive SOC investigation does not scale in the same way: success depends more heavily on disciplined tool use, telemetry navigation, and selective enrichment than on raw reasoning budget alone. We argue that security-agent benchmarks should measure economic efficiency and operational fit alongside task success. Cost-aware, SOC-native evaluations provide a clearer picture of which models are practically useful today and where defensive agents still need to improve. We present an interactive website with our results https://evals.frontier.security.",
+      "authors": [
+        "Paul Kassianik",
+        "Blaine Nelson",
+        "Yaron Singer"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI"
+      ],
+      "published": "2026-07-16T17:54:47+00:00",
+      "link": "https://arxiv.org/pdf/2607.15263v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "evaluates LLM security agents' offensive/defensive capabilities under cost constraints, including penetration testing",
+      "llm_evidence_cn": "在成本约束下评估LLM安全代理的攻击与防御能力，涵盖渗透测试",
+      "llm_evidence": "在成本约束下评估LLM安全代理的攻击与防御能力，涵盖渗透测试",
+      "canonical_evidence": "在成本约束下评估LLM安全代理的攻击与防御能力，涵盖渗透测试",
+      "llm_tldr_en": "This paper evaluates language-model security agents on offensive and defensive tasks by measuring success relative to inference and tool-usage costs, showing distinct scaling behaviors for red and blue teams.",
+      "llm_tldr_cn": "现有安全代理评估多关注最佳成功率而忽略成本。本文在攻击性Cybench挑战和防御性Splunk调查任务上，以固定成本对比模型，分解推理和工具调用开销。结果表明红蓝队任务呈不同规模扩展规律：攻击成功与成本呈对数增长，防御则随工具调用增多趋于饱和。此成本-成功率视角为编排和预算安全代理提供了更务实的基准。",
+      "llm_tldr": "现有安全代理评估多关注最佳成功率而忽略成本。本文在攻击性Cybench挑战和防御性Splunk调查任务上，以固定成本对比模型，分解推理和工具调用开销。结果表明红蓝队任务呈不同规模扩展规律：攻击成功与成本呈对数增长，防御则随工具调用增多趋于饱和。此成本-成功率视角为编排和预算安全代理提供了更务实的基准。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "evaluating the limits of large language models in cybercrime scenarios",
+      "matched_requirement_id": "req-9",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2607.14485v1",
+      "source": "arxiv",
+      "title": "Step-Level Preference Learning for Generative Agents in Social Simulations",
+      "abstract": "Large language model (LLM)-based generative agents simulate human behavior through long-horizon decision-making processes that comprise intermediate steps such as planning, memory retrieval, reflection, and action selection. However, fine-grained human annotations of these intermediate steps remain scarce, and existing agents are not grounded in human preferences over such intermediate decisions. To address this gap, we introduce \\method, an interactive simulation interface that enables us to collect step-level human preference supervision over agent decision trajectories, leading to a dataset of 57K fine-grained annotations. We conduct step-level preference learning on open-weight language models using supervised finetuning and direct preference optimization on this data, consistently improving simulation fidelity, coordination, and interaction quality, and inducing more socially effective agent behavior. Our results show that step-level human supervision is an effective training signal for improving both local decision quality and long-horizon agent behavior.",
+      "authors": [
+        "Wenchang Gao",
+        "Pingyue Sheng",
+        "Lanlan Qiu",
+        "Yunfei Ma",
+        "Jian Zhao",
+        "Baicheng Chen",
+        "Kangda Wang",
+        "Yuyang Tian",
+        "Shunqiang Mao",
+        "Tianxing He"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-07-16T01:58:53+00:00",
+      "link": "https://arxiv.org/pdf/2607.14485v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "proposes step-level preference learning for generative agents in social simulations, directly supporting agent-based modeling of human-like behaviors",
+      "llm_evidence_cn": "提出面向社会模拟中生成式智能体的步级偏好学习,直接支持基于智能体的类人行为建模",
+      "llm_evidence": "提出面向社会模拟中生成式智能体的步级偏好学习,直接支持基于智能体的类人行为建模",
+      "canonical_evidence": "提出面向社会模拟中生成式智能体的步级偏好学习,直接支持基于智能体的类人行为建模",
+      "llm_tldr_en": "The paper introduces a method to collect step-level human preferences over generative agent decision trajectories in social simulations, and uses supervised finetuning and DPO to align LLM agents with human preferences. It provides a dataset of 57K annotations and shows that preference learning improves behavioral realism. This approach can be adapted to simulate cybercriminal activities with more realistic agent behaviors.",
+      "llm_tldr_cn": "该论文针对大语言模型生成式智能体在社会模拟中缺乏细粒度人类偏好引导的问题,提出了一种通过交互界面收集步级人类偏好监督的方法,构建了包含5.7万条精细标注的数据集,并利用监督微调和直接偏好优化对开源模型进行步级偏好学习。实验表明,该方法显著提升了智能体决策轨迹的行为真实感。该技术为基于智能体的网络犯罪模拟提供了可迁移的行为建模方法。",
+      "llm_tldr": "该论文针对大语言模型生成式智能体在社会模拟中缺乏细粒度人类偏好引导的问题,提出了一种通过交互界面收集步级人类偏好监督的方法,构建了包含5.7万条精细标注的数据集,并利用监督微调和直接偏好优化对开源模型进行步级偏好学习。实验表明,该方法显著提升了智能体决策轨迹的行为真实感。该技术为基于智能体的网络犯罪模拟提供了可迁移的行为建模方法。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "agent-based modeling of criminal activities",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    }
+  ]
+}

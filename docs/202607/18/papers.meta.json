@@ -1,0 +1,39 @@
+{
+  "label": "2026-07-18",
+  "date": "2026-07-18",
+  "generated_at": "2026-07-18T21:01:28",
+  "count": 2,
+  "papers": [
+    {
+      "paper_id": "202607/18/2607.15263v1-beyond-success-rate-cost-aware-evaluation-of-offensive-and-defensive-security-agents",
+      "section": "deep",
+      "title_en": "Beyond Success Rate: Cost-Aware Evaluation of Offensive and Defensive Security Agents",
+      "authors": "Paul Kassianik, Blaine Nelson, Yaron Singer",
+      "date": "2026-07-16",
+      "pdf": "https://arxiv.org/pdf/2607.15263v1",
+      "score": "8.0",
+      "evidence": "在成本约束下评估LLM安全代理的攻击与防御能力，涵盖渗透测试",
+      "tldr": "安全智能体评估常以攻击成功率为单一指标，忽视推理和工具调用成本。本研究从成本-成功视角，评估语言模型智能体在进攻性CTF和防御性SOC调查中的表现。结果显示，进攻任务性能随计算预算增加而提升，扩展的开放模型成本竞争力可逼近专有系统；但防御任务不随推理预算简单扩展，更依赖工具使用和遥测导航。因此，安全智能体基准应纳入经济效率和操作适配性，以反映实际可用性。",
+      "tags": "query:ca",
+      "abstract_en": "Security-agent evaluations commonly measure peak offensive capability under generous inference budgets, emphasizing vulnerability discovery, exploit development, penetration testing, and CTF completion. Such measurements are useful but incomplete: in operational security, every reasoning step, tool call, telemetry query, and enrichment request consumes budget. We evaluate language-model security agents through this cost-success lens on offensive Cybench challenges and defensive Splunk BOTS v1 investigation challenges. Instead of reporting only best-case success, we compare models at fixed cost levels and decompose performance by inference spend and tool spend. Our results show distinct scalingregimes for red- and blue-team tasks. Offensive CTF performance improves with additional test-time compute, and scaled open-weight models can approach frontier proprietary systems while remaining cost-competitive. Defensive SOC investigation does not scale in the same way: success depends more heavily on disciplined tool use, telemetry navigation, and selective enrichment than on raw reasoning budget alone. We argue that security-agent benchmarks should measure economic efficiency and operational fit alongside task success. Cost-aware, SOC-native evaluations provide a clearer picture of which models are practically useful today and where defensive agents still need to improve. We present an interactive website with our results https://evals.frontier.security.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202607/18/2607.14485v1-step-level-preference-learning-for-generative-agents-in-social-simulations",
+      "section": "quick",
+      "title_en": "Step-Level Preference Learning for Generative Agents in Social Simulations",
+      "authors": "Wenchang Gao, Pingyue Sheng, Lanlan Qiu, Yunfei Ma, Jian Zhao, Baicheng Chen, Kangda Wang, Yuyang Tian, Shunqiang Mao, Tianxing He",
+      "date": "2026-07-16",
+      "pdf": "https://arxiv.org/pdf/2607.14485v1",
+      "score": "7.0",
+      "evidence": "提出面向社会模拟中生成式智能体的步级偏好学习,直接支持基于智能体的类人行为建模",
+      "tldr": "大型语言模型生成式代理在社交模拟中依赖多步决策，但中间步骤缺乏细粒度人类偏好标注。本文提出步级偏好学习框架，通过交互式模拟接口收集57K条步级人类偏好监督数据，并利用监督微调与直接偏好优化训练开放权重语言模型。实验表明，该方法显著提升模拟保真度、协调性与交互质量，诱导出更有效的社交行为。研究证实步级人类监督是提升局部决策质量和长期代理行为的有效训练信号。",
+      "tags": "query:ca",
+      "abstract_en": "Large language model (LLM)-based generative agents simulate human behavior through long-horizon decision-making processes that comprise intermediate steps such as planning, memory retrieval, reflection, and action selection. However, fine-grained human annotations of these intermediate steps remain scarce, and existing agents are not grounded in human preferences over such intermediate decisions. To address this gap, we introduce \\method, an interactive simulation interface that enables us to collect step-level human preference supervision over agent decision trajectories, leading to a dataset of 57K fine-grained annotations. We conduct step-level preference learning on open-weight language models using supervised finetuning and direct preference optimization on this data, consistently improving simulation fidelity, coordination, and interaction quality, and inducing more socially effective agent behavior. Our results show that step-level human supervision is an effective training signal for improving both local decision quality and long-horizon agent behavior.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}
