@@ -44,7 +44,7 @@ def test_home_dashboard_cards_keep_a_quiet_equal_height_surface():
     assert "overflow: hidden" in shared_rule
     assert "background: #ffffff" in shared_rule
     assert "border: 1px solid #d9dee3" in shared_rule
-    assert "border-top: 4px solid var(--dpr-home-dashboard-accent)" in shared_rule
+    assert "border-top: 4px solid var(--dpr-home-dashboard-accent-soft)" in shared_rule
     assert "border-radius: 8px" in shared_rule
     assert "box-shadow:" in shared_rule
     assert shared_rule.count("rgba(") >= 2
@@ -62,18 +62,16 @@ def test_home_dashboard_variants_only_use_semantic_accent_colors():
     assert "color: var(--dpr-home-dashboard-accent)" in title_rule
     assert "color: var(--dpr-home-dashboard-accent)" in count_rule
 
-    assert "--dpr-home-dashboard-accent: #2563eb" in _rule_body(
-        section, ".markdown-section .dpr-home-report-card"
+    expected_palette = (
+        (".markdown-section .dpr-home-report-card", "#16a34a", "#86efac"),
+        (".markdown-section .dpr-home-brief-card", "#2563eb", "#93c5fd"),
+        (".markdown-section .dpr-home-deep-card", "#7c3aed", "#c4b5fd"),
+        (".markdown-section .dpr-home-skim-card", "#dc2626", "#fca5a5"),
     )
-    assert "--dpr-home-dashboard-accent: #17805c" in _rule_body(
-        section, ".markdown-section .dpr-home-brief-card"
-    )
-    assert "--dpr-home-dashboard-accent: #c44f45" in _rule_body(
-        section, ".markdown-section .dpr-home-deep-card"
-    )
-    assert "--dpr-home-dashboard-accent: #966b00" in _rule_body(
-        section, ".markdown-section .dpr-home-skim-card"
-    )
+    for selector, accent, soft in expected_palette:
+        rule = _rule_body(section, selector)
+        assert f"--dpr-home-dashboard-accent: {accent}" in rule
+        assert f"--dpr-home-dashboard-accent-soft: {soft}" in rule
     shared_rule_start = section.index(".markdown-section .dpr-home-dashboard-card {")
     shared_rule_end = section.index("}", shared_rule_start)
     for selector in (
@@ -83,6 +81,23 @@ def test_home_dashboard_variants_only_use_semantic_accent_colors():
         ".markdown-section .dpr-home-skim-card",
     ):
         assert section.index(f"{selector} {{") > shared_rule_end
+
+
+def test_home_dashboard_palette_matches_active_sidebar_status_buttons():
+    css = _read_css()
+    pairs = (
+        ("report", "good"),
+        ("brief", "blue"),
+        ("deep", "orange"),
+        ("skim", "bad"),
+    )
+    for card, status in pairs:
+        card_rule = _rule_body(css, f".markdown-section .dpr-home-{card}-card")
+        status_rule = _rule_body(css, f".dpr-sidebar-paper-status-{status}.is-active")
+        accent = re.search(r"--dpr-home-dashboard-accent:\s*(#[0-9a-f]+)", card_rule)
+        soft = re.search(r"--dpr-home-dashboard-accent-soft:\s*(#[0-9a-f]+)", card_rule)
+        assert accent and f"color: {accent.group(1)}" in status_rule
+        assert soft and f"background: {soft.group(1)}" in status_rule
 
 
 def test_home_dashboard_stats_are_not_nested_cards():

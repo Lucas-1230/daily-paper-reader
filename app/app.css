@@ -268,7 +268,8 @@ html {
 }
 
 .markdown-section .dpr-home-dashboard-card {
-  --dpr-home-dashboard-accent: #2563eb;
+  --dpr-home-dashboard-accent: #16a34a;
+  --dpr-home-dashboard-accent-soft: #86efac;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -277,7 +278,7 @@ html {
   overflow: hidden;
   padding: 16px 18px 18px;
   border: 1px solid #d9dee3;
-  border-top: 4px solid var(--dpr-home-dashboard-accent);
+  border-top: 4px solid var(--dpr-home-dashboard-accent-soft);
   border-radius: 8px;
   background: #ffffff;
   box-shadow:
@@ -287,19 +288,23 @@ html {
 }
 
 .markdown-section .dpr-home-report-card {
-  --dpr-home-dashboard-accent: #2563eb;
+  --dpr-home-dashboard-accent: #16a34a;
+  --dpr-home-dashboard-accent-soft: #86efac;
 }
 
 .markdown-section .dpr-home-brief-card {
-  --dpr-home-dashboard-accent: #17805c;
+  --dpr-home-dashboard-accent: #2563eb;
+  --dpr-home-dashboard-accent-soft: #93c5fd;
 }
 
 .markdown-section .dpr-home-deep-card {
-  --dpr-home-dashboard-accent: #c44f45;
+  --dpr-home-dashboard-accent: #7c3aed;
+  --dpr-home-dashboard-accent-soft: #c4b5fd;
 }
 
 .markdown-section .dpr-home-skim-card {
-  --dpr-home-dashboard-accent: #966b00;
+  --dpr-home-dashboard-accent: #dc2626;
+  --dpr-home-dashboard-accent-soft: #fca5a5;
 }
 
 .markdown-section .dpr-home-dashboard-header {
