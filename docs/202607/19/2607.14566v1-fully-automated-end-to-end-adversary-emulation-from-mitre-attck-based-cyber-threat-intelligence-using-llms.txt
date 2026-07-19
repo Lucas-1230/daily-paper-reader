@@ -1,0 +1,388 @@
+Title: Fully Automated End-to-End Adversary Emulation from MITRE ATT&CK Based Cyber Threat Intelligence Using LLMs
+
+URL Source: https://arxiv.org/pdf/2607.14566v1
+
+Published Time: Fri, 17 Jul 2026 01:21:42 GMT
+
+Number of Pages: 27
+
+Markdown Content:
+# Fully Automated End-to-End Adversary Emulation from MITRE ATT&CK Based Cyber Threat Intelligence Using LLMs 
+
+Jueon Choi 1[0009 −0006 −8331 −1251] , Seojun Lee 1[0009 −0008 −7178 −2341] , Sanggwon Yun 1[0009 −0000 −9639 −032 X], Kwanghoon Choi 1[0000 −0003 −3519 −3650] , and Gunjin Cha 2[0009 −0004 −7699 −6286]  
+
+> 1
+
+Chonnam National University, Gwangju, Republic of Korea 
+
+{jueonchoi0512, tjwns1300, sanggwon, kwanghoon.choi}@jnu.ac.kr  
+
+> 2
+
+Good First Information Technology, Gwangju, Republic of Korea 
+
+gj.cha@gfict.com 
+
+Abstract. This paper presents a fully automated end-to-end framework for adversary emulation from MITRE ATT&CK-aligned CTI reports us-ing LLMs. Unlike prior work, which either executes prewritten playbooks or partially automates playbook generation, our framework unifies play-book generation, execution, and failure recovery in a single workflow. In particular, although AURORA, the most recent prior study, generates playbooks from CTI reports, it still requires partial manual intervention and does not revise playbooks based on execution failures. Our frame-work generates Caldera playbooks from CTI reports, executes them au-tomatically, and revises failed Abilities through a failure-type-aware re-covery mechanism. Evaluated on 11 CTI reports with Claude Sonnet 4.5, GPT-4o, Gemini 2.5 Pro, and Grok 4 Fast, the framework achieved its best results with Claude Sonnet 4.5: 27.3 Abilities per playbook, 84.22% execution success after revision, and CTI Precision, Recall, and F1 of 73.95%, 52.48%, and 60.50%, respectively. The failure recovery mecha-nism consistently improved execution success across all evaluated LLM models by 14.59%p to 17.23%p. On the 10 CTI reports selected from AURORA’s dataset, this mechanism further increased the final execu-tion success rate, surpassing that of AURORA, which represents the state-of-the-art adversary emulation system. 
+
+Keywords: Adversary Emulation · Cyber Threat Intelligence · LLM ·
+
+MITRE ATT&CK. 
+
+## 1 Introduction 
+
+Cyberattack techniques continue to grow in sophistication, and accordingly, de-fense systems must be equipped with means to realistically reproduce and val-idate the latest threats[6]. Such means include attack emulation, BAS (Breach and Attack Simulation)[4], and Red Teaming[5]. Adversary emulation[29] among these is a method that precisely replicates the specific tactics, techniques, and arXiv:2607.14566v1 [cs.CR] 16 Jul 2026 2 J. Choi et al. 
+
+procedures (TTPs) used by a particular threat group (e.g., an APT) accord-ing to a predefined scenario, in order to assess in a focused manner whether an organization’s defense systems can detect or block such attacks. However, for adversary emulation to truly help improve security systems, organizations need the capability and operational setup to repeatedly reproduce the latest attack techniques on an ongoing basis. To maximize the effectiveness of adversary emulation, end-to-end automa-tion is required, encompassing scenario design, attack execution, and recovery procedures in the event of errors. To implement such systematic automation, it is necessary to describe an attacker’s actions according to a consistent standard. Existing CTI(Cyber Threat Intelligence) reports often rely on natural-language descriptions that are useful for human analysts, but they are not always suffi-ciently structured to support direct machine interpretation and automated ex-ecution. Therefore, to make attack procedures usable in an automatable form, reports are needed in which attack stages, employed techniques, and attack flows are described in a standardized structure. MITRE ATT&CK[1,2] addresses this need by organizing adversarial TTPs into a knowledge base of tactics, techniques, and procedures. It classifies an attacker’s goals (tactics), means of achieving those goals (techniques), and detailed implementation actions (procedures) in a step-by-step manner to strengthen an organization’s threat detection and defense systems. By analyzing real-world security incidents and writing CTI reports in accordance with the MITRE ATT&CK framework, such reports can be used as input for the adversary emulation process. Existing studies on attack emulation can be broadly classified by the scope of automation they address. Tools such as MITRE Caldera [22], PurpleSharp [23], and Attack Range [24] automate the execution of predefined playbooks but leave scenario generation entirely to security experts, requiring repeated man-ual effort[7] whenever new threats emerge. AURORA [27] extends automation to playbook generation by using an LLM to extract tactics and techniques from CTI reports and constructing attack chains through symbolic planning that models preconditions and effects. However, AURORA still requires manual interven-tion at certain stages, such as serving and executing payloads. Furthermore, the system lacks a mechanism for diagnosing or repairing failures during execu-tion; when a command fails, it simply proceeds to the next step in the chain. Because the same command can yield different outcomes depending on subtle environmental differences, such unhandled failures invalidate the planned state transitions and weaken the execution validity of the entire attack plan. Based on an analysis of the strengths and limitations of prior studies, three key elements that automated attack emulation should commonly provide were identified: playbook generation, playbook execution, and failure recovery. Ulti-mately, these three elements reflect the practical workflow of a security analyst: designing an attack scenario ( playbook generation ), executing it against a target (playbook execution ), and resolving runtime failures ( failure recovery ). Because the absence of any single element necessitates manual intervention, integrating all three is essential to achieve fully automated, end-to-end adversary emulation. Fully Automated Adversary Emulation from CTI Using LLMs 3            
+
+> Table 1. Comparison of the Proposed System with Prior Studies
+> Approach Auto Generation Auto Execution Failure Recovery Caldera, PurpleSharp, Attack Range, Perry XOXAURORA O△XOurs (Proposed) OOO
+
+A comparative analysis of prior studies with respect to these three elements is summarized in Table 1. As shown in the table, among existing studies on automated attack emulation, no approach has yet been proposed that automat-ically generates playbooks, executes them automatically, and revises them by incorporating feedback from execution results, thereby ultimately reducing time and cost while maximizing the attack success rate. In this study, we present a fully automated end-to-end framework for adver-sary emulation from MITRE ATT&CK-aligned CTI reports using LLMs. Rather than improving only a single stage of the pipeline, our framework unifies play-book generation, execution, and failure recovery into one automated workflow, as illustrated in Figure 1. The system uses an LLM to extract attack goals and methods from natural-language CTI reports and combines them with an envi-ronment specification to generate executable commands and their dependencies. The generated results are converted into MITRE Caldera Abilities and assem-bled into an Adversary–which we regard as a playbook in this study–that is automatically uploaded and executed on the MITRE Caldera platform without human intervention.  
+
+> Fig. 1. System Overview
+
+We evaluated the framework with four LLMs–Claude Sonnet 4.5 [39], GPT-4o [40], Gemini 2.5 Pro [41], and Grok 4 Fast [42]. Among them, Claude Sonnet 4.5 achieved the best performance: 94.91% ATT&CK conformance, an average of 27.3 Abilities per playbook, an execution success rate of 84.22%, and a CTI F1-score of 60.50%. To assess the competitiveness of our system, we conducted a comparative evaluation using 10 CTI reports from the dataset of AURORA, which repre-sents the current state of the art. We compared the final executable attack chains generated by the two systems using the same evaluation metrics. Our system outperformed AURORA in both CTI F1-score (30.57% vs. 26.07%) and 4 J. Choi et al. 
+
+execution success rate (65.17% vs. 60.72%), while additionally providing full end-to-end automation and failure-aware revision. A central component of the framework is failure-type-aware recovery. The mechanism classifies execution failures into four types–syntax error, environ-ment mismatch, dependency error, and timeout–and applies a tailored recovery strategy to each. All four LLMs achieved consistent improvements of 14.59%p to 17.23%p after recovery. In particular, in the AURORA comparison, our sys-tem’s initial playbooks achieved only 32.90% execution success, but after failure recovery the rate rose by 32.27%p to 65.17%, demonstrating that the recovery mechanism remains effective even when applied to CTI reports from a different source and environment. Finally, the framework also provides substantial efficiency gains: generating and revising a playbook required only 197.39 seconds and $0.35 in LLM token cost per report on average, whereas the ATT&CK Evaluations Library [26] has published only 14 manually constructed attack scenarios over six years (2019– 2025), underscoring the scalability advantage of our automated approach. More details of the experimental results are provided in Section 4. Although prior studies [30,31,32,33,34,36,35] have explored feedback-based correction for general code generation, they have not addressed the attack-simulation domain. Our novelty lies in being the first to demonstrate an end-to-end adversary emulation system that automatically performs playbook gen-eration, execution, and failure recovery. Because attack simulation involves het-erogeneous and sometimes unrecoverable failures in remote target environments that are not fully under the system’s control, our recovery mechanism is domain-specific rather than a straightforward reuse of existing ideas. The main contributions of this study are summarized as follows. 
+
+– We present a fully automated end-to-end adversary emulation framework that integrates playbook generation, execution, and failure recovery into a single workflow from CTI reports to attack playbooks with high execution success. 
+
+– We propose a failure recovery mechanism that identifies four execution fail-ure types and revises playbooks with type-specific recovery strategies and prior revision histories, which is essential to practical end-to-end adversary emulation. 
+
+– We evaluated four commercial LLMs–Claude Sonnet 4.5, GPT-4o, Gemini 2.5 Pro, and Grok 4 Fast–and showed that each model has a distinct area of strength. The remainder of this paper is organized as follows. Section 2 reviews prior studies. Section 3 describes the proposed system. Section 4 introduces research questions and presents the corresponding experimental results. Section 5 presents the results of our comparison with AURORA. Finally, Section 6 concludes the paper. Fully Automated Adversary Emulation from CTI Using LLMs 5
+
+## 2 Related Work 
+
+This section reviews prior work most relevant to our study from three perspec-tives: cyber attack emulation, AURORA, and failure recovery. 
+
+2.1 Cyber Attack Emulation 
+
+Prior studies on cyber attack emulation span a wide spectrum of automation [27]. At one end, numerous studies have actively extracted attacker behaviors from CTI reports and mapped them to structured representation frameworks such as MITRE ATT&CK. For example, recent work has leveraged LLMs to auto-matically extract entities and relationships in STIX—a standard for structured cyber threat representation— from unstructured CTI text [18], aiming to struc-ture threat intelligence and reduce the manual effort required of security ana-lysts. However, these approaches remain at the level of abstract modeling and do not produce executable artifacts. At the other end, tools such as Atomic Red Team [19], Metasploit [20], and LOLBAS [21] provide executable means for individual techniques, and frameworks such as MITRE Caldera [22], Pur-pleSharp [23], and Splunk Attack Range [24] orchestrate them into multi-stage playbooks. However, these tools require playbooks to be manually authored by security experts: even the MITRE Engenuity ATT&CK Evaluations [26] have published only 14 executable scenarios over six years (2019–2025), underscoring the scalability bottleneck of manual approaches. More recently, Perry et al. [25] proposed a high-level abstraction layer that reduces the implementation effort for attack and deception strategies, but the strategies themselves must still be manually specified by the operator. 
+
+2.2 AURORA 
+
+AURORA [27] is an end-to-end system for automatically generating multi-stage attack scenarios from CTI reports, and is the prior work most closely related to our study. AURORA extracts ATT&CK techniques from CTI reports us-ing an LLM-based report analyzer, generates attack chains that preserve causal relationships among attack steps using a PDDL (Planning Domain Definition Language)[28]-based emulation planner. The authors demonstrated its effective-ness by applying it to 250 CTI reports and generating corresponding attack chains. AURORA has two main limitations. First, it still depends on human interven-tion at certain stages, such as serving and executing payloads. For example, the generated attack_chain.py may include [MANUAL ACTION REQUIRED] blocks. Second, AURORA does not revise failed commands based on execution feed-back, which can leave certain attack stages untested and give organizations an incomplete view of their defensive posture. 6 J. Choi et al. 
+
+2.3 Failure Recovery 
+
+Research on LLM self-correction has mainly been developed in general code gen-eration [30]. Representative studies have shown that LLMs can revise their code based on execution feedback [31,32], that iterative self-feedback loops improve LLM outputs across diverse tasks [33,34], and that feedback from external tools or execution environments is generally more effective than internally generated feedback [35,36]. However, all of the above studies focus on general code gener-ation, and no prior work has systematically applied failure-type taxonomy and recovery strategies specialized for the attack-simulation domain. The attack-simulation domain differs fundamentally from general code gen-eration in three ways: heterogeneous failure types, the existence of unrecoverable failures, and limited control over the execution environment. Unlike general code errors, attack-command failures arise from diverse causes and often require dif-ferent recovery strategies. Some failures are inherently unrecoverable, and attack commands are executed in remote target environments whose state is not fully controllable. Motivated by the finding of Pan et al. [36] that leveraging feedback from external sources such as execution results is more effective than relying on the LLM’s own self-assessment, we incorporate execution feedback from Caldera into a failure recovery mechanism that combines failure-type classification, type-specific recovery strategies, and the use of prior recovery history. 
+
+## 3 System Design 
+
+Our system is an automated framework that uses an LLM to transform CTI re-ports into Caldera playbooks and automatically recovers from execution failures through a recovery mechanism. As shown in Figure 2, the overall system con-sists of four functional layers: CTI and Environment Input, automated playbook generation, playbook execution, and failure recovery.  
+
+> Fig. 2. System Architecture
+
+3.1 CTI and Environment Input Layer CTI report. The input to our system is a collection of 11 high-quality CTI reports, each of which contains multiple TTPs, published by the Korea Internet Fully Automated Adversary Emulation from CTI Using LLMs 7
+
+& Security Agency (KISA)[3]. Published between 2020 and 2024, these reports are structured based on the MITRE ATT&CK framework and cover a wide range of cyber threats, including ransomware, APT attacks, surveillance-oriented attacks, and web application attacks. Each report is based on a real intrusion incident and provides detailed descriptions of the attacker’s TTPs. Details of the dataset are presented in Section 4.1. Each report is organized hierarchically by tactics (e.g., Initial Access ), with specific techniques enumerated under each tactic (e.g., Valid Accounts , Exploit Public-Facing Application ). For each technique, the report provides concrete op-erational details such as web request traces, file paths, and execution commands, along with corresponding mitigation strategies. This combination of ATT&CK-aligned structure and operational-level detail makes the reports particularly well-suited as input for automated attack emulation. However, the reports contain environment-specific details from the real in-cident, such as IP addresses, account information, and file paths. These details must be abstracted so that the scenario can be reused across different environ-ments. 
+
+Environment Specification. The environment specification is a document written by a security operator that provides essential information for concretiz-ing abstract attack goals in the target environment. It includes network and system information, such as the IP addresses of target hosts, the structure of the internal network, operating system versions, installed software, and user account information. The LLM uses this specification to translate environment-dependent information in the CTI report into concrete commands for the test environment. 
+
+3.2 LLM-Based Playbook Generation Layer 
+
+The LLM-based playbook generation layer transforms a CTI report into a play-book executable in Caldera through three stages. 
+
+Step 1: Abstract Attack Flow Generation. Step 1 extracts text from the CTI report in PDF format and converts it into a structured representation sep-arated by page. Because the reports average 41.5 pages, page-level segmentation makes the input more manageable for subsequent LLM processing. The system then iterates through the extracted text in chunks, progressively identifying at-tack goals from the natural-language narrative. Each attack goal consists of an attack objective, a MITRE ATT&CK tactic, and a description of the method used to achieve the objective. The resulting collection of attack goals forms an environment-independent abstract attack flow. 
+
+Step 2: Concrete Attack Flow Generation. In Step 2, the system provides the abstract attack flow from Step 1 and the environment specification to the 8 J. Choi et al. 
+
+LLM, which converts each attack goal into one or more nodes. Each node includes an executable command, a MITRE ATT&CK Technique ID, and environment-specific information such as IP addresses, paths, and credentials. Logical pre-requisite relationships among nodes are explicitly represented as edges, and an execution order is determined so that the resulting attack flow can be executed in that order. 
+
+Step 3: Caldera Ability and Adversary Generation. Step 3 converts each node from Step 2 into a Caldera Ability containing the node’s command, tactic, and technique ID. The Abilities are then assembled into an Adversary by ordering them according to the execution order determined in Step 2. The final result is stored in abilities.yml and adversaries.yml , ready to be uploaded to Caldera for automated execution. 
+
+3.3 Caldera Execution Layer 
+
+MITRE Caldera is an open-source platform for automating ATT&CK-based at-tack emulation [22,29]. An Ability is an execution unit that implements a specific ATT&CK technique as operating-system-specific commands, and an Adversary is an attack profile that arranges multiple Abilities in a logical order. An Agent resides on a target host, receives Abilities from the Server, executes them, and returns the results, including exit code, stdout, and stderr. The Caldera ex-ecution layer uploads the generated Abilities and Adversary from the previous layer, executes them via the Agent, and passes the collected results to the Failure Recovery Layer. 
+
+3.4 Failure Recovery Layer 
+
+In the attack-simulation domain, the same command may succeed or fail de-pending on subtle differences in the target environment, such as its OS version, security policy, and network configuration, and a failure in an earlier stage can cascade and invalidate all subsequent stages. The Failure Recovery Layer ad-dresses this by classifying failures into predefined types and applying tailored recovery strategies, as shown in Figure 3. 
+
+Domain-Specific Failure Classification. The system extracts error logs from the execution result of each Ability and classifies failure types using prede-fined regular-expression patterns derived from error patterns actually observed in the attack-simulation environment. The classification consists of four types: 
+
+syntax_error (command syntax errors such as Escaping and string parsing er-rors), dependency_error (privilege and cascading failure issues), missing_env 
+
+(absence of required environmental resources such as file paths or network end-points), and timeout (execution exceeding the time limit). Failures that do not match any of these types are excluded from the recovery loop. Table 2 sum-marizes the regular-expression patterns used to detect and classify each failure type. Fully Automated Adversary Emulation from CTI Using LLMs 9 
+
+> Fig. 3. Classifying failure types from execution results and constructing a recovery prompt with the corresponding strategy and revision history.
+
+Recovery with Accumulated Revision History. For each recovery at-tempt, the system accumulates failure logs and revision records from all previous attempts and includes them in the prompt, along with the original command and the environment specification. To guide the LLM toward a targeted repair based on the classified failure type, the prompt also includes the corresponding defi-nition from Table 3, which describes the scope and characteristics of each type. This design both discourages repeated errors across retries and directs the LLM toward a failure-type-specific repair. Figure 3 illustrates the overall recovery process. The failure recovery process is repeated up to three times, reflecting a trade-off between cost and recovery effectiveness, as recoverable failures were empirically resolved within this limit. The process terminates when all Abilities execute successfully, when the retry limit is reached, or when no further failures are classified as recoverable types. 
+
+## 4 Evaluation 
+
+In this section, we evaluate the proposed system through a series of experiments. We first describe the experimental setup and then discuss the results in relation to our four research questions. 10 J. Choi et al. 
+
+Table 2. Failure type classification patterns 
+
+Type Patterns 
+
+SYNTAX_ERROR parsererror | unexpected token | At line:\d+ | is not a valid state-ment separator | invalid\s+(key\s+name|parameter) | positional parameter | cannot be found that accepts | incorrectly formatted 
+
+| is not recognized as the name of a cmdlet | service name is invalid DEPENDENCY_ERROR access\s*(is\s*)?denied | requires?\s+elevation | privilege | unau-thori[sz]ed | run\s+as\s+administrator | (open|start|create)service \s+failed | winrm\s+client \s+cannot\s+process MISSING_ENV cannot find (path|drive) | does not exist | network name cannot be found | unable to connect | system error\s+(53|67|86|1355|6118) TIMEOUT timeout\s*reached | process\s*(was\s*)?killed | did not respond.+in a timely fashion | Exit code: 124 
+
+Table 3. Failure type definitions and their specifications 
+
+Failure Type Specification 
+
+SYNTAX_ERROR The command syntax is invalid and cannot be parsed or executed. This in-cludes incorrect parameter formats, missing arguments, incompatible com-mand usage, and string/path format errors. 
+
+DEPENDENCY_ERROR The prerequisites required for command execution are not met. This includes insufficient permissions, cascading failures due to prior task failures, authen-tication failures, remote connection configuration issues, and service access denials. 
+
+MISSING_ENV The file, path, network resource, or service referenced by the command does not exist in the current environment. This includes incorrect IP/URL, non-existent file paths, and network connection failures. 
+
+TIMEOUT The command execution did not complete within the specified time limit. This includes long-running operations, timeout while waiting for response, and service response delays. 
+
+4.1 Test Environment Experimental Setup Figure 4 shows the experimental environment, which consists of three system roles: PC1 , an externally exposed initial-access point; 
+
+PC2 , an internal host reachable only via lateral movement; and PC3 , a central enterprise management host, such as an Active Directory domain controller. This configuration covers the essential stages of enterprise internal-network intrusion— initial compromise, lateral movement, and domain control. The entire network was isolated from the external Internet, and security solutions such as Win-dows Defender were disabled to ensure that the evaluation focused solely on the quality of generated playbooks. Specifically, the experimental setup is as follows. A Caldera server (Caldera 5.3.0 on Ubuntu 20.04 LTS) manages playbook upload, execution, and result collection, while an attacker server provides payload delivery and data exfiltra-tion endpoints. A Caldera agent on PC1 receives commands from the server, executes them, and returns results. PC1 and PC2 run Windows 10 Pro, while PC3 runs Windows Server 2019. Table 4 summarizes the system roles required by each of the 11 CTI reports. We also prepared environment-specific prerequisites for each report, such as IIS/ASP for web application attack scenarios and SMB shares for file-sharing attack scenarios. Fully Automated Adversary Emulation from CTI Using LLMs 11 
+
+Fig. 4. Network and System Configuration of the Experimental Environment 
+
+Table 4. Experimental-environment system roles used by each CTI report (TTPs#1– #11)                                   
+
+> Role OS #1 #2 #3 #4 #5 #6 #7 #8 #9 #10 #11
+> PC1 (Public-facing host) Win 10 Pro OOOOOOOOOOOPC2 (Internal host) Win 10 Pro OOOOOOPC3 (Domain controller) Win Srv 2019 OO
+
+CTI Report Dataset Table 5 shows the 11 KISA TTPs reports [3] used in our experiments. These reports systematically describe attack techniques iden-tified through investigations of real security incidents, structured based on the MITRE ATT&CK framework. Published between 2020 and 2024, they cover diverse cyber threats including ransomware, APT attacks, surveillance-oriented attacks, and web application attacks. In total, the dataset contains 456 pages and 339,244 words, averaging 41.5 pages and 30,840 words per report. The final attack goal for each report was determined by the ultimate objective of the attacker as explicitly described in the corresponding KISA report. These goals fall into two categories: Exfiltration T1041 ( Exfiltration Over C2 Channel ), which appears in 10 of the 11 reports, and Impact T1486 ( Data Encrypted for Impact ), which appears in TTPs#5, TTPs#7, and TTPs#8. We also classify the reports into three complexity levels based on the number of attack_goals 
+
+in the Step 1 output: Medium ( ≤ 23 ), Advanced ( 23 < attack_goals ≤ 35 ), and Expert ( 35 < attack_goals ). 
+
+Security Verification and Attack Goal Achievement. To verify that the experimental environment represents a sufficiently secured system, we executed assessment scripts derived from the KISA Detailed Guide for Technical Vul-nerability Analysis and Assessment [38] to all three hosts. Specifically, 19 PC vulnerability inspection items (PC-01–PC-19) were evaluated on PC1 and PC2, and 82 Windows server inspection items (W-01–W-82) were evaluated on PC3. The resulting pass rates were 89.95% for PC1, 89.47% for PC2, and 93.90% for PC3, yielding an overall average of 91.11%. The failed items on PC1 and PC2 were limited to the latest security patch (PC-09) and firewall activation (PC-11), while on PC3, five items were assessed as non-compliant: administra-12 J. Choi et al. 
+
+Table 5. Our CTI report dataset                                                                             
+
+> ID Report Title Incident Type Attack Obj. Comp. Pg. Word
+> #1 Internal Network Compro-mise through a Website Web Vulnerability &Internal Compromise Exfil. T1041 Advanced 32 21,397 #2 Info. Collection Attack In-fra. through Spear Phishing Social Engineering &Phishing Exfil. T1041 Expert 79 59,104 #3 The Attacker’s Malware Utilization Strategy Malware Multi-Stage Intrusion Exfil. T1041 Advanced 27 15,896 #4 Phishing Target Recon. and Attack Resource Dev. Reconnaissance & Re-source Development Exfil. T1041 Advanced 61 31,630 #5 Attack Patterns Threaten-ing AD Environments Directory Service At-tack Exfil. T1041, Impact T1486 Expert 52 39,003 #6 Targeted Watering-Hole At-tack Strategy Website Compromise & Distribution Exfil. T1041 Medium 29 20,506 #7 Internal Network Movement Strategy Using SMB Admin Share Lateral Movement in Internal Networks Impact T1486 Advanced 32 19,373 #8 Op. GWISIN – Customized Ransomware Attack Strat-egy Targeted Ransomware Exfil. T1041, Impact T1486 Expert 35 37,872 #9 Attack Strategies for Moni-toring an Individual’s Daily Life Spyware &Personal Surveillance Exfil. T1041 Medium 36 27,686 #10 Op. GoldGoblin – Selective Intrusion Based on a Zero-Day Vuln. Zero-Day & APT Exfil. T1041 Expert 40 32,637 #11 Op. An Octopus –Attack on a Centralized Mgmt. So-lution Supply Chain & Man-agement Systems Exfil. T1041 Expert 33 34,140
+
+tor account renaming (W-01), latest service pack (W-30), latest security patch (W-32), antivirus installation (W-33), and screen saver configuration (W-36). Because these are either deliberate experiment prerequisites or characteristics of the virtualized environment, we consider the experimental environment to be adequately secured for evaluation purposes. Despite this secured configuration, the playbooks generated from all 11 CTI reports successfully achieved their designated final attack goals as listed in Ta-ble 5. In every case, a valid Ability corresponding to the final attack goal’s tactic and technique was both generated and successfully executed, confirming that the proposed framework can carry out complete attack scenarios even against environments with high checklist compliance. 
+
+4.2 Results 
+
+For each report–model pair, we conduct five runs and report the average to account for the probabilistic characteristics of LLM outputs. 
+
+RQ1: How faithfully do the generated playbooks reproduce the ATT&CK techniques in the original CTI reports? 
+
+We evaluate the fidelity of generated playbooks using three metrics: ATT&CK Validity , the proportion of generated Abilities whose Technique IDs exist in MITRE ATT&CK (v15.1, Enterprise) [1,37]; CTI Precision , the proportion of unique techniques in the generated playbook that also appear in the CTI re-Fully Automated Adversary Emulation from CTI Using LLMs 13 
+
+port; and CTI Recall , the proportion of techniques in the CTI report that are reproduced in the generated playbook. Table 6 presents the results for Claude Sonnet 4.5, which outperformed the other models. ATT&CK Validity averaged 94.91%, indicating that most gener-ated techniques correspond to valid MITRE ATT&CK techniques. CTI Precision averaged 73.95%, showing that a substantial portion of the generated techniques matched those in the original reports. CTI Recall averaged 52.48%, indicating that the generated playbooks covered more than half of the techniques described in the reports. Together, these results correspond to a CTI F1-score of 60.5%. In Section 5, we present a comparative experiment showing that our system achieves reasonably higher CTI F1-score than AURORA. 
+
+Table 6. Per-Report MITRE ATT&CK Validity, CTI Precision, CTI Recall, CTI F1-score (Claude Sonnet 4.5)                                                                  
+
+> ID Validity(%) Prec.(%) Recall(%) CTI F1(%) Complx.
+> TTPs#1 98.69 92.56 61.03 73.56 Advanced TTPs#2 96.55 94.69 41.54 57.75 Expert TTPs#3 100.00 85.18 69.56 76.58 Advanced TTPs#4 85.37 66.97 40.57 50.53 Advanced TTPs#5 99.31 81.83 44.50 57.65 Expert TTPs#6 88.02 68.69 53.04 59.86 Medium TTPs#7 93.04 71.59 52.59 60.64 Advanced TTPs#8 100.00 59.81 36.92 45.66 Expert TTPs#9 93.96 84.63 64.55 73.24 Medium TTPs#10 100.00 53.78 52.94 53.36 Expert TTPs#11 89.03 53.77 60.00 56.71 Expert
+> Average 94.91 73.95 52.48 60.50 -
+
+As a representative case of high Precision but low Recall, we examined the TTPs#2 report. In this case, 19 techniques were common to both the generated playbook and the report, 2 appeared only in the playbook (Precision: 0.91), and 35 appeared only in the report (Recall: 0.35). The playbook faithfully reproduced the core attack flow, but advanced techniques such as Web Shell(T1505.003) 
+
+and Credentials in Files(T1552.001) were absent. To understand why Recall remained low in this representative case, we fur-ther analyzed the unreproduced techniques using Claude Sonnet 4.5 on TTPs#2 as a representative case. One interesting phenomenon we observed was that some ATT&CK techniques were not generated as separate explicit steps, but were instead functionally absorbed into other implemented techniques. For ex-ample, T1569.002 (Service Execution) was not realized as a separate step, but instead incorporated into T1543.003 (Windows Service) as part of a single create-and-start sequence. Likewise, T1074 (Data Staged) was subsumed into the data compression step, T1560 (Data Compressed). This technique-absorption pattern is consistent with the knowledge overshadowing phenomenon [43], where dom-inant knowledge suppresses less salient knowledge during generation, causing minor techniques to lose their semantic distinctiveness and be folded into more prominent ones. 14 J. Choi et al. 
+
+RQ2: What is the execution success rate of the generated playbooks, and how much does the failure recovery mechanism improve it? 
+
+Let N denote the total number of Abilities, M1 the number successfully ex-ecuted on the initial attempt, and M2 the number successfully executed after applying the failure recovery mechanism. We measure four metrics: initial exe-cution success rate ( M1/N ), final execution success rate ( M2/N ), improvement rate ( (M2 − M1)/N ), and recovery rate ( (M2 − M1)/(N − M1)). Note that the recovery rate represents the proportion of initially failed Abilities that were suc-cessfully recovered. 
+
+Table 7. Per-Report Execution Success Rates Before and After Failure Recovery (Claude Sonnet 4.5)                                                                               
+
+> ID Len. Initial Exec.(%) Final Exec.(%) Improv.(pp) Mod.(%) Retries
+> TTPs#1 33.6 52.73 70.82 +18.09 49.20 3.0 TTPs#2 29.4 73.46 96.05 +22.59 27.23 2.6 TTPs#3 23.0 70.26 91.26 +21.00 29.74 2.8 TTPs#4 30.4 63.59 81.21 +17.62 36.41 3.0 TTPs#5 27.2 64.20 77.87 +13.67 36.49 3.0 TTPs#6 24.2 74.08 85.20 +11.13 25.92 2.8 TTPs#7 28.2 81.88 88.47 +6.59 18.12 3.0 TTPs#8 33.8 52.51 86.28 +33.77 49.43 3.0 TTPs#9 23.4 82.08 88.79 +6.71 17.92 2.8 TTPs#10 22.6 85.88 92.00 +6.11 14.12 2.4 TTPs#11 24.0 65.32 68.52 +3.20 34.68 3.0
+> Average 27.3 69.63 84.22 +14.59 30.84 2.85
+
+Table 7 shows the per-report results using Claude Sonnet 4.5, the best-performing model. On average, each playbook contained 27.3 Abilities, of which 69.63% succeeded on the initial attempt. After applying the failure recovery mechanism for up to three retries, the success rate increased to 84.22%, an im-provement of 14.59 percentage points(pp). 
+
+Table 8. Recovery Rate by Failure Type (Claude Sonnet 4.5, 11 Reports)                    
+
+> Failure Type # of Failures # of Recovered Recovery Rate(%)
+> syntax_error 245 101 41.22 dependency_error 117 32 27.35 missing_env 31 19 61.29 timeout 26 415.38 unrecoverable 57 00.00
+> Total 476 156 32.77
+
+Table 8 breaks down the 476 total failure cases by type. Notably, syntax_error 
+
+(51.5%) and dependency_error (24.6%) together accounted for 76.1% of all failures. Among the four recoverable types, missing_env achieved the highest recovery rate at 61.29%, while syntax_error , the most frequent type, was re-covered in 41.22% of cases. Overall, the mechanism successfully recovered 156 out of 476 failures (32.77%). The remaining 57 unrecoverable failures arose ei-Fully Automated Adversary Emulation from CTI Using LLMs 15 
+
+ther when no diagnostic output was available, preventing identification of the failure cause, or when the error was due to environmental constraints beyond command-level repair, such as the LLM using incorrect file paths despite the environment specifications describing the correct ones. The improvement varies considerably across reports, ranging from +3.20pp (TTPs#11) to +33.77pp (TTPs#8). To understand this variance, we analyzed failure-type distributions for four representative reports, as summarized in Ta-ble 9. 
+
+Table 9. Failure distribution and recovery rate for selected reports. Values: failure count (recovery rate %)                                
+
+> TTPs#1 TTPs#8 TTPs#10 TTPs#11 Improvement +18.09pp +33.77pp +6.11pp +3.20pp syntax_error 47 (23.4) 16 (50.0) 8 (75.0) 16 (6.2) dependency_error 13 (23.1) 53 (41.5) –8 (0.0) missing_env 12 (58.3) 3 (100) –2 (100) timeout 5 (0.0) 4 (50.0) 6 (0.0) 3 (0.0) unrecoverable 67212
+> Total 83 83 16 41
+
+First, a high proportion of unrecoverable failures limits the recovery potential. TTPs#11 had the highest unrecoverable ratio (29.3%, 12 of 41 failures), and even its recoverable failures were rarely fixed (syntax_error 6.2%, dependency_error 0%), yielding the lowest improvement (+3.20pp). Second, reports with high initial success rates naturally show smaller im-provements. TTPs#7, TTPs#9, and TTPs#10 all had initial success rates above 80%, leaving few failures for the mechanism to recover. Their improvements ranged from +6.11pp to +6.71pp, yet these reports still achieved final success rates between 88.47% and 92.00%. Third, the distribution of root causes among failures affects recovery effec-tiveness. TTPs#1 and TTPs#8 both had 83 failures with similar initial success rates, yet their improvements differed substantially (+18.09pp vs. +33.77pp). In TTPs#8, 53 dependency_errors predominantly stemmed from a single recurring root cause—the LLM placed double backslashes where only one was needed in remote credential parameters—allowing it to apply a consistent fix across in-stances (41.5% recovery). In TTPs#1, 47 syntax_errors arose from varying es-caping contexts in web-shell commands, where attacker-issued commands were relayed through a web-shell and then reinterpreted by the underlying shell, yield-ing only 23.4% recovery. Additionally, when the initial web-shell setup command itself failed in TTPs#1, all subsequent commands that depended on it also failed, further limiting recovery opportunities. Table 10 illustrates how the failure recovery mechanism addressed each fail-ure type in practice. For syntax_error , nested quotation marks were replaced with PowerShell backticks and CMD-based commands were rewritten as na-tive PowerShell cmdlets. For dependency_error , commands were wrapped with 
+
+Start-Process -Verb RunAs or replaced with built-in alternatives (e.g., nltest 16 J. Choi et al. 
+
+Table 10. Attack Command Failure Type Classification and Recovery Examples 
+
+Failure Type Problem Description Recovery Examples 
+
+syntax_error Escaping and string parsing errors \\ → \, "\"cmd\"" → ‘"‘cmd‘"‘ 
+
+syntax_error Web shell invocation parameter conflict cmd=raw command →
+
+cmd=%20encoded%20command 
+
+syntax_error Shell/binary compatibility issue dir →Get-ChildItem , del →Remove-Item ,
+
+copy →Copy-Item 
+
+syntax_error HTTP upload format mismatch -InFile → multipart/form-data body 
+
+syntax_error Large-file transfer failure upload(file) →
+
+upload(file_chunks[]) 
+
+syntax_error Unstable output and redirection Scmd > file → cmd | Out-File file 
+
+missing_env Use of a restricted path System32 → Users\Public\data 
+
+missing_env Failure to collect environment informa-tion 
+
+command failure → fallback output 
+
+missing_env Authentication and session ambiguity admin → HOST\admin 
+
+missing_env Missing execution preconditions execute → prepare + execute 
+
+dependency_error Insufficient privileges (Access Denied) cmd → RunAs(cmd) 
+
+dependency_error Remote access and authentication de-pendency 
+
+Invoke-Command → auth_setup + Invoke-Command 
+
+dependency_error Missing modules or binaries Get-ADComputer → nltest / net 
+
+dependency_error Resource conflict and duplicate execu-tion 
+
+create → if exists then overwrite 
+
+dependency_error Network authentication bypass \\host\share → New-PSDrive + access 
+
+Table 11. Attack Chain Length, Total Time, Token Usage, and Cost by Report(Claude Sonnet 4.5) 
+
+ID Len. Total(s) Gen.(s) Mod.(s) Exec.(s) Prep.(s) Input(K) Output(K) Cost($) 
+
+TTPs#1 33.6 1802.97 130.93 86.09 1398.20 187.75 69.4 13.5 0.41 TTPs#2 29.4 1065.22 255.45 16.31 670.60 122.86 73.3 17.1 0.48 TTPs#3 23.0 927.33 107.85 19.24 645.00 155.24 30.1 8.9 0.22 TTPs#4 30.4 1809.97 207.57 27.21 1394.40 180.79 53.8 14.2 0.38 TTPs#5 27.2 1679.44 230.97 38.57 1187.80 222.11 58.2 14.8 0.40 TTPs#6 24.2 790.28 128.84 21.14 485.40 154.90 36.2 9.9 0.26 TTPs#7 28.2 1452.84 166.86 23.11 1075.40 187.47 39.3 12.1 0.30 TTPs#8 33.8 2275.96 185.31 63.05 1806.00 221.60 67.2 17.8 0.47 TTPs#9 23.4 974.60 118.41 14.54 666.80 174.86 39.1 9.9 0.27 TTPs#10 22.6 1070.45 133.67 3.29 773.00 160.49 38.9 11.2 0.28 TTPs#11 24.0 1494.56 161.82 31.13 1092.60 209.01 65.6 13.1 0.39 
+
+Average 27.3 1394.87 166.15 31.24 1017.75 179.73 51.9 13.0 0.35 
+
+instead of the Active Directory module). For missing_env , file operations tar-geting protected paths were redirected to writable locations with preemptive directory creation. 
+
+RQ3: What are the generated playbook size, time, and cost of the automated end-to-end adversary emulation? 
+
+We measure three efficiency metrics for each report–model pair based on five runs: attack chain length (the number of Abilities in the generated play-book), time (playbook generation and failure recovery), and LLM API cost (calculated from total token usage). These metrics are compared against the manual authoring baseline: the ATT&CK Evaluations Library [26] has released only 14 executable attack scenarios from 2019 to 2025, averaging approximately 5.1 months per scenario, and no prior studies on CTI-based adversary emula-tion [8,17,12,9,10,11,13,16] concretely report the time required for manual play-book construction. Fully Automated Adversary Emulation from CTI Using LLMs 17 
+
+As shown in Table 11, using Claude Sonnet 4.5, each playbook contained an average of 27.2 Abilities. Playbook generation required 2.8 minutes on average, and including failure recovery the total preparation time was approximately 3.3 minutes per report. The average LLM token cost was $0.35 per report. These results suggest that the proposed method provides substantial time and cost savings compared with manual playbook authoring. 
+
+RQ4: How does the performance of the end-to-end adversary emula-tion system vary when different LLM models are used? 
+
+We compare four LLM models by aggregating the metrics from RQ1–RQ3. Figure 5 presents five key metrics: CTI fidelity, attack-chain length, execution success rate, improvement from failure recovery, and generation and revision time.  
+
+> Fig. 5. Performance Comparison across LLM Models(0–100; best model for each metric = 100)
+
+The results show that each model has a distinct area of strength. Claude Sonnet 4.5 achieved the highest CTI F1-score (60.50%) and the longest attack chains (27.2 Abilities), generating the most comprehensive and faithful play-books among the four models. Its execution success rate of 84.22% was also strong. Although its generation time (197.39s) was longer than GPT-4o and Grok 4 Fast, this overhead is modest compared with manual authoring and is justified by its superior CTI fidelity and playbook scale. Grok 4 Fast was the most efficient model, requiring only 71.19 seconds and the lowest token cost, while maintain-ing a competitive CTI F1-score (51.10%). Gemini 2.5 Pro achieved the highest final execution success rate at 87.86%, but this advantage was offset by the longest generation time (300.77s) and relatively short attack chains (13.3 Abili-ties), which resulted in the lowest CTI F1-score (42.58%) among the four models. GPT-4o showed the largest improvement from failure recovery (+17.23 pp), in-dicating relatively strong recovery capability. Its CTI Precision was the highest at 77.51%, while Recall remained low due to shorter attack chains. 18 J. Choi et al. 
+
+Notably, the failure recovery mechanism yielded consistent gains of +14.59pp to +17.23pp across all four models, shifting execution success from an initial range of 56.33%–71.37% to a final range of 73.56%–87.86%, confirming that the mechanism is not dependent on a specific model but generalizes effectively across LLMs. 
+
+## 5 Discussion 
+
+5.1 Comparison with AURORA 
+
+We first compare the datasets used in the two studies. Table 12 summarizes their basic statistics. While AURORA [27] used 250 reports averaging 5,561 words, the 11 CTI reports used in this study average 30,840 words, or about 5.5 times longer per report. This suggests that, although smaller in number, the dataset used in our study is sufficiently rich for evaluating adversary emulation from detailed CTI reports.        
+
+> Table 12. Comparison of CTI report statistics between AURORA and this study
+> Study # Reports Words / Report
+> AURORA [27] 250 5,561 (2,666–10,193) This study 11 30,840 (15,896–59,104)
+
+AURORA conducted its experiments using only a single model, GPT-o3. In contrast, our study performed a comparative evaluation using four recent models and found that each model exhibits distinct strengths. For the comparative experiment, we used the same 10 CTI reports that AU-RORA used as ground truth in their evaluation. As noted earlier, these reports explicitly contain Technique IDs in their main bodies, enabling objective mea-surement of Precision and Recall against report-derived ground truth. We then used these 10 reports as input to our system, generated playbooks with Claude Sonnet 4.5, and executed them in the Windows environment provided by AU-RORA to enable a direct comparison of performance. Table 13 shows the results of evaluating both AURORA’s publicly released executable attack chains and our generated playbooks under identical metrics: attack-chain length, execution success rate, CTI Precision, CTI Recall, and CTI F1-score. The average chain length was slightly longer in our system, at 29.0, compared with 24.7 in AURORA, indicating a more elaborate multi-stage attack flow. The experimental results showed that the average CTI F1-score was 30.57% for our system and 26.07% for AURORA, suggesting that the proposed method is sufficiently competitive overall. Although the ALPHVBlackcat report may ap-pear to disproportionately affect this average—because its ground truth contains only five Technique IDs, yielding 0% CTI Precision and Recall for AURORA but Fully Automated Adversary Emulation from CTI Using LLMs 19 
+
+Table 13. Comparison with AURORA (Claude Sonnet 4.5, the 10 ground-truth CTI reports provided by AURORA).                                                                                                                                                 
+
+> Reports: (1) AA23-341A, (2) AA24-046A, (3) ALPHVBlackcat, (4) PhobosRansomware, (5) PlayRansomware, (6) RhysidaRansomware, (7) ScatteredSpider, (8) SnatchRansomware, (9) BlackBasta, (10) RoyalRansomware.
+> ID Chain Len. Exec. Succ. (%) CTI Prec. (%) CTI Rec. (%) CTI F1 (%) AURORA Ours AURORA Ours init Ours final AURORA Ours AURORA Ours AURORA Ours 125 17 60.00 35.29 82.35 6.25 16.67 10.00 20.00 7.69 18.18 225 13 64.00 53.85 53.85 20.00 25.00 27.27 18.18 23.08 21.05 333 29 66.67 17.24 82.76 0.00 4.76 0.00 20.00 0.00 7.69 426 28 61.54 35.71 78.57 82.35 52.63 40.00 28.57 53.85 37.04 523 38 60.87 28.95 52.63 20.00 28.12 18.75 56.25 19.35 37.50 627 41 48.15 51.22 63.41 37.50 46.15 30.00 60.00 33.33 52.17 721 31 61.90 58.06 80.65 28.57 33.33 12.50 21.88 17.39 26.42 821 36 66.67 13.89 66.67 50.00 25.00 38.89 33.33 43.75 28.57 923 30 60.87 20.00 43.33 28.57 19.23 44.44 55.56 34.78 28.57 10 23 27 56.52 14.81 51.85 14.29 22.22 16.67 33.33 15.39 26.66
+> Avg. 24.70 29.00 60.72 32.90 65.17 28.25 27.31 23.85 34.71 26.07 30.57
+
+an F1-score of 7.69% for our system—our system still outperformed AURORA in average CTI F1-score even after excluding this report. In terms of final execution success rate, our system achieved 65.17%, out-performing AURORA’s 60.72% by 4.45%p. This improvement was primarily attributable to the failure recovery mechanism. Before recovery, our system achieved an initial execution success rate of 32.90%, whereas AURORA reached 60.72%. This gap reflects the contrasting command-generation strategies of the two systems: AURORA selects known-working commands from a pre-built li-brary of 5,555 actions, whereas our system generates commands from scratch using an LLM. By revising failed commands and retrying execution, the recov-ery mechanism improved our success rate by 32.27%p, allowing the final result to exceed that of AURORA, the state-of-the-art adversary emulation system. Notably, the failure recovery mechanism achieved a larger improvement on the AURORA reports (+32.27%p) than on our own dataset (+14.59%p). This difference likely reflects the shorter and less detailed nature of AURORA’s CTI reports (averaging 5,561 words vs. 30,840 in ours), which contain fewer attack details for the LLM to reference when generating executable commands, leading to more initial failures that the recovery mechanism can subsequently address. Although this comparison was limited to the 10 ground-truth reports from AURORA’s full dataset, the results show that our system achieves competi-tive CTI fidelity and, with the help of the failure recovery mechanism, higher execution success while additionally providing full end-to-end automation and failure-aware revision—capabilities that AURORA does not offer. 
+
+5.2 Generating Multiple Playbooks from a Single CTI Report 
+
+Recall that the current system generates only one playbook per CTI report. In Step 2, the LLM constructs a directed acyclic graph (DAG) whose nodes rep-resent attack steps and whose edges represent dependencies. The system then 20 J. Choi et al. 
+
+derives a single execution order from this graph and converts it into one Ad-versary. However, branching structures in the graph can produce multiple valid playbooks from a single CTI report. The number of such flows grows combinato-rially as branch points increase. This makes exhaustive generation and evaluation impractical. For this reason, the present study generates only one playbook per CTI report. We instead focused on building a fully automated pipeline and validating the effectiveness of the feedback-based failure recovery mechanism. Extending the system to generate and select among multiple playbooks is left for future work. 
+
+## 6 Conclusion 
+
+This paper proposed a fully end-to-end adversary emulation system that sup-ports all three key functions: playbook generation, execution, and feedback-based recovery from execution failures. To the best of our knowledge, this is the first work to provide complete end-to-end adversary emulation by integrating these three essential capabilities into a single pipeline. Our experiments on 11 high-quality CTI reports showed that the proposed system can generate executable playbooks while faithfully reflecting the attack techniques described in the origi-nal CTI reports. The results also showed that both the time and cost required for playbook generation and revision remain low, demonstrating practical efficiency compared with manual adversary emulation. In particular, the failure recovery mechanism consistently improved execution success rates across different failure types, thereby increasing the practical usability of the generated playbooks. The current system assumes that the test environment and the environment specification are prepared in advance by the security operator. These steps could be further automated by integrating Infrastructure as Code tools such as Ter-raform [44] for environment provisioning and system information collectors such as osquery [45] or autonomous AI agents such as OpenClaw [46] for environment specification generation. Extending the automation to cover these remaining steps is a key direction for future work. 
+
+## References                     
+
+> 1. MITRE Corporation: MITRE ATT&CK. https://attack.mitre.org (2018) 2. Strom, B.E., Applebaum, A., Miller, D.P., Nickels, K.C., Pennington, A.G., Thomas, C.B.: MITRE ATT&CK: Design and Philosophy. Technical Report, The MITRE Corporation (2018) 3. Korea Internet & Security Agency: Cyber Incident Analysis Reports: TTPs #1– #11. https://www.boho.or.kr (2020–2024) 4. Rapid7: Breach and Attack Simulation (BAS). https://www.rapid7.com/ fundamentals/what-is-breach-and-attack-simulation-bas/ (2024) 5. Kovačević, I., Groš, S.: Red Teams—Pentesters, APTs, or Neither. In: 2020 43rd International Convention on Information, Communication and Electronic Technol-ogy (MIPRO), pp. 1242–1249. IEEE, Opatija (2020)
+
+Fully Automated Adversary Emulation from CTI Using LLMs 21 6. Ahmad, A., Maynard, S.B., Desouza, K.C., Kotsias, J., Whitty, M.T., Baskerville, R.L.: How can organizations develop situation awareness for incident response: A case study of management practice. Computers & Security 101 , 102122 (2021) 7. Akbari Gurabi, M., Nitz, L., Bregar, A., Popanda, J., Siemers, C., Matzutt, R., Mandal, A.: Requirements for Playbook-Assisted Cyber Incident Response, Re-porting and Automation. Digital Threats 5(3), 34:1–34:36 (2024). https://doi. org/10.1145/3688810 
+
+8. Alam, M.T., Bhusal, D., Park, Y., Rastogi, N.: Looking beyond IoCs: Automat-ically extracting attack patterns from external CTI. In: Proceedings of the 26th International Symposium on Research in Attacks, Intrusions and Defenses, pp. 92–108. ACM, New York (2023) 9. Kumarasinghe, U., Lekssays, A., Sencar, H.T., Boughorbel, S., Elvitigala, C., Nakov, P.: Semantic Ranking for Automated Adversarial Technique Annotation in Security Text. In: Proceedings of the 19th ACM Asia Conference on Computer and Communications Security, pp. 49–62. ACM, New York (2024) 10. Li, Z., Zeng, J., Chen, Y., Liang, Z.: AttacKG: Constructing Technique Knowl-edge Graph from Cyber Threat Intelligence Reports. In: European Symposium on Research in Computer Security, pp. 589–609. Springer, Berlin (2022) 11. Rahman, M.R., Hezaveh, R.M., Williams, L.: What are the attackers doing now? Automating cyberthreat intelligence extraction from text on pace with the chang-ing threat landscape: A survey. ACM Computing Surveys 55 (12), 1–36 (2023) 12. Husari, G., Al-Shaer, E., Ahmed, M., Chu, B., Niu, X.: TTPDrill: Automatic and accurate extraction of threat actions from unstructured text of CTI sources. In: Proceedings of the 33rd Annual Computer Security Applications Conference, pp. 103–115. ACM, New York (2017) 13. Satvat, K., Gjomemo, R., Venkatakrishnan, V.N.: Extractor: Extracting Attack Behavior from Threat Reports. In: 2021 IEEE European Symposium on Security and Privacy (EuroS&P), pp. 598–615. IEEE, New York (2021) 14. Rani, N., Saha, B., Maurya, V., Shukla, S.K.: TTPXHunter: Actionable Threat Intelligence Extraction as TTPs from Finished Cyber Threat Reports. Digital Threats 5(4), 37:1–37:19 (2024). https://doi.org/10.1145/3696427 
+
+15. Kim, H.R., Lee, D., Lee, I., Lee, S., Lee, S.: Multi-Step LLM Pipeline for Enhancing TTP Extraction in Cyber Threat Intelligence. IEEE Access 13 , 179696–179710 (2025). https://doi.org/10.1109/ACCESS.2025.3622350 
+
+16. Takahashi, Y., Shima, S., Tanabe, R., Yoshioka, K.: APTGen: An Approach to-wards Generating Practical Dataset Labelled with Targeted Attack Sequences. In: 13th USENIX Workshop on Cyber Security Experimentation and Test (CSET 20), pp. 1–8. USENIX Association, Berkeley (2020) 17. Choi, S., Yun, J.-H., Min, B.-G.: Probabilistic Attack Sequence Generation and Execution Based on MITRE ATT&CK for ICS Datasets. In: Cyber Security Ex-perimentation and Test Workshop, pp. 41–48. ACM, New York (2021) 18. Lekssays, A., Sencar, H.T., Yu, T.: From Text to Actionable Intelligence: Au-tomating STIX Entity and Relationship Extraction. In: 2025 28th International Symposium on Research in Attacks, Intrusions and Defenses (RAID), pp. 458– 473. IEEE Computer Society, Los Alamitos (2025). https://doi.org/10.1109/ RAID67961.2025.00030 
+
+19. Atomic Red Team: Explore Atomic Red Team. https://atomicredteam.io/ 
+
+(2025) 20. Metasploit: The World’s Most Used Penetration Testing Framework. https:// www.metasploit.com/ (2025) 22 J. Choi et al. 21. The LOLBAS Project: Living Off The Land Binaries, Scripts and Libraries (LOL-BAS). https://lolbas-project.github.io/ (2024) 22. The MITRE Corporation: MITRE Caldera. https://github.com/mitre/caldera 
+
+(2024) 23. Velazco, M.: PurpleSharp. https://detectionlab.network/usage/purplesharp/ 
+
+(2024) 24. Splunk Threat Research Team: Splunk Attack Range. https://github.com/ splunk/attack_range (2024) 25. Singer, B., Saquib, Y., Bauer, L., Sekar, V.: Perry: A High-level Framework for Ac-celerating Cyber Deception Experimentation. In: 2025 28th International Sympo-sium on Research in Attacks, Intrusions and Defenses (RAID), pp. 158–173. IEEE Computer Society, Los Alamitos (2025). https://doi.org/10.1109/RAID67961. 2025.00049 
+
+26. MITRE Engenuity: ATT&CK Evaluations. https://evals.mitre.org/ (2024) 27. Wang, L., Li, Z., Jiang, Y., Wang, Z., Shen, X., Ruan, W., Chen, Y.: From Sands to Mansions: Towards Automated Cyberattack Emulation with Classical Planning and Large Language Models. In: 24th International Conference on Applied Cryp-tography and Network Security (ACNS 2026). Springer (2026). arXiv:2407.16928 28. McDermott, D., Ghallab, M., Howe, A., Knoblock, C., Ram, A., Veloso, M., Weld, D., Wilkins, D.: PDDL—The Planning Domain Definition Language. Technical Report CVC TR-98-003, Yale Center for Computational Vision and Control (1998) 29. Applebaum, A., Miller, D., Strom, B., Korber, C., Wolf, R.: Intelligent, Automated Red Team Emulation. In: Proceedings of the 32nd Annual Conference on Computer Security Applications, pp. 363–373. ACM, New York (2016) 30. Huang, J., et al.: When Can LLMs Actually Correct Their Own Mistakes? A Crit-ical Survey of Self-Correction. Transactions of the Association for Computational Linguistics 12 , 1417–1440 (2024) 31. Chen, X., Lin, M., Schärli, N., Zhou, D.: Teaching Large Language Models to Self-Debug. In: The Twelfth International Conference on Learning Representations (ICLR) (2024). https://openreview.net/forum?id=KuPixIqPiq 
+
+32. Ding, Y., Min, M.J., Kaiser, G., Ray, B.: CYCLE: Learning to Self-Refine the Code Generation. Proc. ACM Program. Lang. 8(OOPSLA1), 108:1–108:27 (2024). 
+
+https://doi.org/10.1145/3649825 
+
+33. Shinn, N., Cassano, F., Gopinath, A., Narasimhan, K., Yao, S.: Reflexion: Lan-guage Agents with Verbal Reinforcement Learning. In: Proceedings of the 37th International Conference on Neural Information Processing Systems. Curran As-sociates Inc., Red Hook (2023) 34. Madaan, A., Tandon, N., Gupta, P., et al.: SELF-REFINE: Iterative Refinement with Self-Feedback. In: Proceedings of the 37th International Conference on Neural Information Processing Systems. Curran Associates Inc., Red Hook (2023) 35. Olausson, T.X., Inala, J.P., Wang, C., Gao, J., Solar-Lezama, A.: Is Self-Repair a Silver Bullet for Code Generation? In: The Twelfth International Conference on Learning Representations (ICLR) (2024). https://openreview.net/forum?id= y0GJXRungR 
+
+36. Pan, L., Saxon, M., Xu, W., Nathani, D., Wang, X., Wang, W.Y.: Automatically Correcting Large Language Models: Surveying the Landscape of Diverse Auto-mated Correction Strategies. Transactions of the Association for Computational Linguistics 12 , 484–506 (2024). https://doi.org/10.1162/tacl_a_00660 
+
+37. MITRE Corporation: MITRE CTI: Cyber Threat Intelligence Repository. https: //github.com/mitre/cti (2024) Fully Automated Adversary Emulation from CTI Using LLMs 23 38. Korea Internet & Security Agency: Detailed Guide to Technical Vulnerability Anal-ysis and Evaluation Method for Major Information and Communication Infrastruc-ture. Technical Report, Korea Internet & Security Agency (KISA) (2021) 39. Anthropic: Claude Sonnet 4.5 System Card. https://www.anthropic.com/ claude-sonnet-4-5-system-card (2025) 40. OpenAI: GPT-4o System Card. https://openai.com/index/ gpt-4o-system-card/ (2024) 41. Google DeepMind: Gemini 2.5: Pushing the Frontier with Advanced Reason-ing, Multimodality, Long Context, and Next Generation Agentic Capabilities. Technical Report, Google DeepMind (2025). https://storage.googleapis.com/ deepmind-media/gemini/gemini_v2_5_report.pdf 
+
+42. xAI: Grok 4 Fast. http://x.ai/news/grok-4-fast (2025) 43. Zhang, Y., Li, S., Qian, C., Liu, J., Yu, P., Han, C., Fung, Y., McKeown, K., Zhai, C., Li, M., Ji, H.: The Law of Knowledge Overshadowing: Towards Understanding, Predicting, and Preventing LLM Hallucination. In: Proceedings of the 63rd Annual Meeting of the Association for Computational Linguistics (ACL), pp. 132–150. Association for Computational Linguistics, Vienna (2025) 44. HashiCorp: Terraform: Infrastructure as Code. https://www.terraform.io (2025) 45. osquery Project: osquery: SQL Powered Operating System Instrumentation. 
+
+https://osquery.io (2025) 46. OpenClaw Project: OpenClaw: Open-Source Autonomous AI Agent. https:// github.com/openclaw/openclaw (2025) 
+
+## A Appendix 
+
+This appendix includes examples of the system inputs, the intermediate outputs produced at each pipeline step, and the LLM prompts. Listing 1.1 shows an excerpt from the KISA TTPs#1 report, Compromising an Internal Network through a Website . The report is structured by first listing tactics such as Initial Access , and then enumerating techniques under each tactic, such as Valid Accounts .
+
+Listing 1.1. Excerpt of TTPs#1 CTI report                                         
+
+> #Initial Access 1. Valid Accounts Successful login to the corporate website using previously collected valid account credentials . 2019 -06 -07 02:40:07 211.115. xxx . xxx GET / default . asp islogin = y & stf_id = xxx & stf_name = stf_cId = xxx & stf_ib = xxx & stf_IdF = xxx & stf_cName =[]& stf_usertype =& stf_userlevel =& stf_fleCode =& stf_woalcode =0& id_cookie =80 -61.254. xxx . xxx ### Mitigation Strategies -Restrict user access by IP address . -Monitor web logs to detect access attempts from unauthorized IP addresses .
+
+Listing 1.2 shows an excerpt from the environment specification for TTPs#1. 24 J. Choi et al. 
+
+Listing 1.2. Excerpt of Environment Specification File (TTPs#1) 
+
+## Environment Information - Shell : Windows PowerShell 5.1 ## Attacker Server ( 192.1 68.56 .1:344 44) - GET / agents /* : Download files required for the victim ’ s PC - sandcat_ttps1 . ps1 : Caldera agent ( Executes after initial privilege escalation ) - cmd . asp : Web shell file ( Executed via cmd . asp ? cmd ={ command }) - PrintSpoofer64 . exe : Privilege escalation tool ( Runs with IIS AppPool privileges ) - POST / upload : Endpoint for exfiltrating victim data ## IIS Web Application (192.168.56.105) - Login : POST http ://192.168.56.105/ login_process . asp - Credentials : admin / P@ssw0rd !2020 - File Upload : POST http ://192.168.56.105/ upload_handler . asp - Form field : file , Upload path : / uploads / ## Victim Server (192.168.56.105) - Target files for exfiltration : C :\ Users \ Public \ data \* - Additional info collection : Search only under the " Users " folder and save to the path Fully Automated Adversary Emulation from CTI Using LLMs 25 
+
+The LLM prompt used to extract these abstract attack goals from the report is shown in Listing 1.3. 
+
+Listing 1.3. Abstract Attack Flow Generation Prompt for Step 1 
+
+You are analyzing a KISA threat intelligence report chunk - by - chunk to extract attack goals . # Overview { overview } { previous_context } # Current Chunk ({ chunk_num }/{ total_chunks }) { chunk } # Task Analyze this chunk and identify any NEW attack goals not yet found . Focus on : - Goals NOT already in the " Previously Identified Goals " list - Environment - independent objectives ( no IPs , URLs , credentials ) - MITRE ATT & CK tactics : initial - access , execution , persistence , privilege -escalation , defense - evasion , credential - access , discovery , lateral -movement , collection , exfiltration , impact ## Output Format ( JSON only ) {" new_goals ": [{" goal ": " Clear description of attack objective " , " tactic ": " MITRE ATT & CK tactic name " , " description ": " Brief explanation " }] , " report_complete ": true / false }Output JSON only . No explanations . 26 J. Choi et al. 
+
+Listing 1.4 presents the prompt used for generating specific commands and map-ping MITRE ATT&CK techniques to the target environment. 
+
+Listing 1.4. Concrete Attack Flow Generation Prompt for Step 2 
+
+You are a penetration testing expert with deep knowledge of MITRE ATT & CK . # Abstract Attack Goals { abstract_flow } # Target Environment { e n vi r o n m en t _ d e sc r i p ti o n } # Task Map each abstract goal to concrete attack steps using environment details . For each step , select the most appropriate MITRE ATT & CK technique . ## Core Principles 1) Every node MUST include ‘ envi ronme nt_sp ecifi c . commands ‘ - Single - line command for target shell ; chain with ‘; ‘ - No code blocks / comments ; plain command string only - Add simulation stub ( e . g . , echo ) if real command impossible 2) Enforce environment detail usage - Reflect IP / URL / credentials / params from environment in commands - No external downloads unless explicitly provided 3) Tool priority : built - in OS tools > simulation command 4) Preserve all environment - specified values ( params , credentials , URLs ) 5) MITRE ATT & CK Technique Selection - Select ONE valid technique ID per node ( e . g . , T1059 .001 , T1190 ) - Prefer sub - techniques over parent techniques when applicable - Technique MUST be appropriate for { os_type } platform ## Output Structure ( use YAML literal block scalar | for commands ) nodes : - id : " node_001 " name : " Attack step name " tactic : " initial - access " technique : id : " T1190 " name : " Exploit Public - Facing Application " env ironm ent_s pecif ic : target : " actual IP " url : " actual URL " credentials : { username : " user " , password : " pass "} commands : |Single - line command for target shell edges : - { from : " node_001 " , to : " node_002 " , dependency_type : " required "} execution_order : [" node_001 " , " node_002 "] Output YAML only . No explanations . Fully Automated Adversary Emulation from CTI Using LLMs 27 
+
+Listing 1.5 provides an excerpt of the generated Caldera Ability and Adversary. 
+
+Listing 1.5. Caldera Ability and an Adversary Excerpted from Step 3 Output (TTPs#1) 
+
+[ abilities . yaml ] - ability_id : 8497 abc5 - e5c1 -57 c0 - af6f - cded271c90d6 name : Upload web shell to bulletin board description : Exploit file upload vulnerability to deploy web shell tactic : initial - access technique_id : T1190 technique_name : Exploit Public - Facing Application executors : - name : psh platform : windows command : ’ $wc = New - Object System . Net . WebClient ; $wc . UploadFile (" http ://192.168.56.105/ upload_handler . asp " , " C :\\ Users \\ Public \\ data \\ cmd . asp ") ’ timeout : 60 - ability_id : cce02e18 -917 a -5 a8b - a070 -8857 fa81d541 ... [ adversaries . yaml ] - adversary_id : kisa - ttp - adversary - KISA_TTPs_1 name : KISA TTP Adversary ( KISA_TTPs_1 ) description : Auto - generated adversary profile from KISA TTP report atomic_ordering : ... - 8497 abc5 - e5c1 -57 c0 - af6f - cded271c90d6 - cce02e18 -917 a -5 a8b - a070 -8857 fa81d541 ... 
+
+Listing 1.6 details the prompt used to guide the LLM in fixing failed abilities during this recovery phase. 
+
+Listing 1.6. Command Revision Prompt for the failure recovery layer 
+
+You are an expert in fixing Caldera Ability commands . Analyze the failed Ability and fix the command . [ Failed Ability ] ID : { ability_id } , Name : { ability_name } Tactic : { tactic } , Technique : { technique_id } ({ technique_name }) [ Original Command ] { original_cmd } [ Execution Result - Failed ] Exit Code : { exit_code } stderr : { stderr } stdout : { stdout } [ Failure Type : { failure_type }] { f a i l u r e _ t y p e _ d e s c r i p t i o n } [ Environment Description ] { env_description } { correction_history } [ Important Rules ] 1. Each Ability runs independently - no variable sharing 2. Use actual values from Environment Description 3. Follow shell constraints in Environment Description 4. Output only the fixed command ( no explanation ) Generate the fixed command :
