@@ -6,31 +6,37 @@
 </div>
 
 ## 每次日报
-- 最新运行日期：2026-07-20
-- 运行时间：2026-07-20 21:44:25 UTC
+- 最新运行日期：2026-07-21
+- 运行时间：2026-07-21 21:44:30 UTC
 - 运行状态：成功
-- 本次总论文数：3
-- 精读区：2
-- 速读区：1
+- 本次总论文数：5
+- 精读区：3
+- 速读区：2
 
 ### 今日简报（AI）
-今日聚焦工具调用型大模型的对齐隐患与安全评估新范式：精读两篇高分研究，速览一项欺骗检测工作。  
-核心发现：工具调用让LLM的安全与实用目标出现深层冲突，而成本感知的攻防评估则揭示了仅看成功率会高估智能体能力。  
-建议：若你正使用支持工具调用的AI助手，值得关注《ToolAlignBench》中的冲突案例，思考实用与安全的真实代价。
-- 详情：[/202607/20/README](/202607/20/README)
+今日聚焦大模型安全应用：评估其在自动驾驶漏洞情报生成、诈骗检测及攻击图自动化中的真实表现。  
+最值得关注的是，开放权重LLM生成结构化威胁信息的基准测试（9.0分）与生成式AI对诈骗检测的性能评估（8.0分），揭示了自动化安全分析的潜力与现状。  
+建议读者优先体验高分论文的评估框架，并将其用于检验团队自身安全管线的实际效用。
+- 详情：[/202607/21/README](/202607/21/README)
 
 ### 精读区论文标签
-1. [ToolAlignBench: Investigating Alignment Conflicts in Tool-Calling Enabled LLMs](/202607/20/2607.14285v1-toolalignbench-investigating-alignment-conflicts-in-tool-calling-enabled-llms)  
+1. [Evaluating Open-Weight LLMs for Generating Structured Threat Information for Autonomous Vehicle Vulnerabilities](/202607/21/2607.16175v1-evaluating-open-weight-llms-for-generating-structured-threat-information-for-autonomous-vehicle-vulnerabilities)  
    标签：评分：9.0/10、query:ca
-   evidence：实验触发大模型智能体的数据外泄行为，揭示其在类网络犯罪行为中的能力边界
-2. [Beyond Success Rate: Cost-Aware Evaluation of Offensive and Defensive Security Agents](/202607/20/2607.15263v2-beyond-success-rate-cost-aware-evaluation-of-offensive-and-defensive-security-agents)  
-   标签：评分：9.0/10、query:ca
-   evidence：在进攻性Cybench挑战上评估LLM安全智能体的成本感知指标
+   evidence：评估LLM生成结构化网络威胁情报的能力
+2. [Measuring and Evaluating the Performance of Generative AI Models for Scam Detection](/202607/21/2607.17353v1-measuring-and-evaluating-the-performance-of-generative-ai-models-for-scam-detection)  
+   标签：评分：8.0/10、query:ca
+   evidence：在真实世界诈骗检测基准上评估九种大语言模型，测试其在网络犯罪情境下的能力
+3. [Towards Agentic Agent-based Models: Feasibility, Performance, and Statistical Model Checking](/202607/21/2607.17948v1-towards-agentic-agent-based-models-feasibility-performance-and-statistical-model-checking)  
+   标签：评分：8.0/10、query:ca
+   evidence：研究使用LLM驱动基于智能体的模型，与用LLM模拟网络犯罪活动直接相关
 
 ### 速读区论文标签
-1. [Transcoders for Investigating Deception in Language Models](/202607/20/2607.14791v1-transcoders-for-investigating-deception-in-language-models)  
+1. [GARAGE: Characterizing the Automation Boundary in LLM-based Attack Graph Generation](/202607/21/2607.18108v1-garage-characterizing-the-automation-boundary-in-llm-based-attack-graph-generation)  
+   标签：评分：7.0/10、query:ca
+   evidence：通过刻画攻击图生成的自动化边界，探索大模型在网络上下文中的能力
+2. [When Do Multi-Agent Systems Help? An Information Bottleneck Perspective](/202607/21/2607.16133v1-when-do-multi-agent-systems-help-an-information-bottleneck-perspective)  
    标签：评分：6.0/10、query:ca
-   evidence：利用转换器分析大模型中的欺骗回路，为映射恶意行为的能力边界迈出一步
+   evidence：多智能体系统的信息瓶颈分析，为网络犯罪模拟设计提供启发
 
 
 <div class="dpr-home-promo-card">

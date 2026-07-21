@@ -1,0 +1,219 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-07-21T21:38:21.465384+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 3,
+    "deep_cap": 6,
+    "deep_selected": 3,
+    "quick_candidates": 2,
+    "quick_skim_target": 11,
+    "quick_selected": 2
+  },
+  "deep_dive": [
+    {
+      "id": "2607.16175v1",
+      "source": "arxiv",
+      "title": "Evaluating Open-Weight LLMs for Generating Structured Threat Information for Autonomous Vehicle Vulnerabilities",
+      "abstract": "Connected and Autonomous Vehicles (CAVs) rely on interconnected software and hardware components, including sensors, Electronic Control Units, in-vehicle infotainment systems, and telematics units, where vulnerabilities can compromise assets, users, and vehicle operations. These vulnerabilities are commonly documented as plain text in the Common Vulnerabilities and Exposures (CVE) database; however, security practitioners require structured information about affected assets, types of weaknesses, and attack behaviors to effectively mitigate the risks from these vulnerabilities. To this end, we evaluate open-weight Large Language Models (LLMs) for generating Structured Threat Information Expression (STIX), a well-known structured format for representing threat information, for CAV-related CVEs. We construct a dataset called CAV-STIXGen that maps CAV vulnerability descriptions to STIX domain objects (SDO), STIX relationship objects (SRO), Common Weakness Enumeration (CWE), and MITRE ATT&CK techniques mappings. Using this dataset, we evaluated 11 open-weight LLMs (4B to 120B parameters) across various prompting strategies and temperatures. Single-model configurations achieve F1 scores of 0.94 for SDO, 0.63 for SRO, and 0.99 for CWE mapping, while complete MITRE ATT&CK mapping remains challenging. In a multi-agent setup, Gemma-4-31B and Codestral-22B achieve F1 scores of 0.91 for SDOs and 0.43 for SROs, respectively. Lastly, we analyze CWE and MITRE ATT&CK co-occurrences to identify recurring threat patterns in the CAV domain, demonstrating how AI-assisted vulnerability-to-STIX translation can automate threat intelligence and prioritize defense in transportation security.",
+      "authors": [
+        "Md Erfan",
+        "Ahmed Ryan",
+        "Md Kamal Hossain Chowdhury",
+        "Md Rayhanur Rahman"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI"
+      ],
+      "published": "2026-07-17T17:55:19+00:00",
+      "link": "https://arxiv.org/pdf/2607.16175v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "evaluates LLM capability in generating structured cyber threat intelligence",
+      "llm_evidence_cn": "评估LLM生成结构化网络威胁情报的能力",
+      "llm_evidence": "评估LLM生成结构化网络威胁情报的能力",
+      "canonical_evidence": "评估LLM生成结构化网络威胁情报的能力",
+      "llm_tldr_en": "Evaluates open-weight LLMs for generating STIX threat intelligence from CVE data, demonstrating their cybersecurity automation capability with varying accuracy, directly assessing LLM performance in a cybercrime-related task.",
+      "llm_tldr_cn": "自主车辆面临众多软件硬件漏洞，CVE库中的非结构化文本难以直接用于风险评估。本文评估了多种开源LLM将CVE描述转换为STIX结构化威胁信息的能力，发现部分模型可准确识别影响资产和攻击行为，但性能差异显著，为LLM在网络安全威胁情报自动化中的应用提供了基准，进而支撑网络犯罪防御场景下的能力评估。",
+      "llm_tldr": "自主车辆面临众多软件硬件漏洞，CVE库中的非结构化文本难以直接用于风险评估。本文评估了多种开源LLM将CVE描述转换为STIX结构化威胁信息的能力，发现部分模型可准确识别影响资产和攻击行为，但性能差异显著，为LLM在网络安全威胁情报自动化中的应用提供了基准，进而支撑网络犯罪防御场景下的能力评估。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "capabilities of large language models in cybercrime",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2607.17353v1",
+      "source": "arxiv",
+      "title": "Measuring and Evaluating the Performance of Generative AI Models for Scam Detection",
+      "abstract": "Online scams continue to cause substantial financial and personal harm. As a result, detection systems based on Large Language Models (LLMs) have been integrated into security products ranging from email gateways and browser extensions to fraud-monitoring dashboards. As this adoption accelerates, a common belief has taken hold: that these models are broadly suitable for scam detection. In this work, we investigate whether LLMs, with their strong capabilities in understanding intent, context, and reasoning, can effectively detect scams across diverse scenarios without task-specific fine-tuning. We curate and release a unique benchmark dataset of real-world scams spanning multiple formats and topics. We evaluate nine LLMs of varying sizes and architectures, examining their performance under different prompting strategies and comparing them to a fine-tuned BERT-based classifier. Our results show that while larger LLMs generally outperform smaller ones, effective prompting substantially boosts the performance of smaller models. Moreover, LLMs are better at generalizing to unseen scams compared to fine-tuned models, suggesting that pre-trained knowledge contributes meaningfully to scam detection. We release our dataset and evaluation framework to facilitate future research in robust scam detection using language models.",
+      "authors": [
+        "Cem Topcuoglu",
+        "Seyed Ali Akhavani",
+        "Harel Berger",
+        "Sadia Afroz",
+        "Michalis Pachilakis",
+        "Vibhor Sehgal",
+        "Leyla Bilge",
+        "Engin Kirda"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR"
+      ],
+      "published": "2026-07-19T17:28:36+00:00",
+      "link": "https://arxiv.org/pdf/2607.17353v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "evaluates nine LLMs on real-world scam detection benchmark, testing their capabilities in a cybercrime context",
+      "llm_evidence_cn": "在真实世界诈骗检测基准上评估九种大语言模型，测试其在网络犯罪情境下的能力",
+      "llm_evidence": "在真实世界诈骗检测基准上评估九种大语言模型，测试其在网络犯罪情境下的能力",
+      "canonical_evidence": "在真实世界诈骗检测基准上评估九种大语言模型，测试其在网络犯罪情境下的能力",
+      "llm_tldr_en": "Curates a benchmark of real-world scams and finds that current LLMs are not yet broadly reliable for scam detection, with performance varying across models, highlighting capability limits in cybercrime detection.",
+      "llm_tldr_cn": "该论文针对大语言模型在诈骗检测中缺乏系统性评估的问题，创建了一个涵盖多种格式和主题的真实诈骗基准数据集。对九种不同规模的大模型进行评估后发现，当前模型在未经任务微调的情况下还不足以普遍适用，且性能因诈骗类型和模型而异。这揭示了大语言模型在网络犯罪检测能力方面的边界，为安全产品集成提供了实证参考。",
+      "llm_tldr": "该论文针对大语言模型在诈骗检测中缺乏系统性评估的问题，创建了一个涵盖多种格式和主题的真实诈骗基准数据集。对九种不同规模的大模型进行评估后发现，当前模型在未经任务微调的情况下还不足以普遍适用，且性能因诈骗类型和模型而异。这揭示了大语言模型在网络犯罪检测能力方面的边界，为安全产品集成提供了实证参考。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "capabilities of large language models in cybercrime",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2607.17948v1",
+      "source": "arxiv",
+      "title": "Towards Agentic Agent-based Models: Feasibility, Performance, and Statistical Model Checking",
+      "abstract": "Agent-based models (ABMs) rely on simple, explicit and reproducible rules for individual decision making, while complex collective behavior emerges from interactions among agents. Recent advances in large language models (LLMs) make it tempting to replace, enrich, or perturb these rules with LLM-based agentic capabilities. However, this raises a methodological question: how does introducing LLM-driven decisions affect the reliability, computational cost, and behavior of ABM simulations? We investigate this for Mesa ABM models, a popular Python library for ABMs, analyzed by statistical model checking. Building on Mesa's integration with the statistical model checker MultiVeStA, we extend the classical Schelling segregation model with a hybrid population: ordinary agents classify neighbors using the standard symbolic rule, while one agent delegates this task to an LLM through tool calls. The LLM-enabled agent receives natural-language descriptions of neighboring agents and invokes tools that increment counters of similar/different neighbors; these counters determine its happiness according to the original Schelling dynamics. This provides a minimal but controlled setting where the semantic, operational, and computational behavior of LLM-based decisions can be studied inside an otherwise standard ABM. We report preliminary experiments with locally served LLMs of different sizes, showing that smaller models may fail simple semantic classification experiments or become operationally unusable during repeated tool-call generation, while larger tested models pass these preliminary checks. We discuss how statistical model checking can estimate classical ABM observables and quantify the impact of introducing agentic LLM components into simulation models.",
+      "authors": [
+        "Stefano Blando",
+        "Emanuele Guerrazzi",
+        "Riccardo Porcedda",
+        "Giuseppe Squillace",
+        "Max Tschaikowski",
+        "Andrea Vandin"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI",
+        "cs.MA"
+      ],
+      "published": "2026-07-20T13:49:51+00:00",
+      "link": "https://arxiv.org/pdf/2607.17948v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Investigates using LLMs to drive agent-based models, directly relevant to simulating cybercriminal activities with LLMs",
+      "llm_evidence_cn": "研究使用LLM驱动基于智能体的模型，与用LLM模拟网络犯罪活动直接相关",
+      "llm_evidence": "研究使用LLM驱动基于智能体的模型，与用LLM模拟网络犯罪活动直接相关",
+      "canonical_evidence": "研究使用LLM驱动基于智能体的模型，与用LLM模拟网络犯罪活动直接相关",
+      "llm_tldr_en": "This paper investigates the feasibility of replacing or augmenting agent-based model rules with LLM-driven decisions, using the Mesa ABM library and statistical model checking to evaluate reliability and cost, providing a methodological foundation for simulating criminal activities with LLM agents.",
+      "llm_tldr_cn": "本文探讨了在基于智能体的模型中引入大型语言模型（LLM）驱动决策的可行性和影响。通过在Mesa ABM平台上扩展经典谢林隔离模型，结合MultiVeStA统计模型检验工具，系统比较了基于规则和基于LLM的智能体行为。实验揭示了LLM驱动仿真带来的行为变化、计算开销和可靠性权衡，为利用LLM智能体模拟网络犯罪等复杂社会现象提供了可复用的方法论基础。",
+      "llm_tldr": "本文探讨了在基于智能体的模型中引入大型语言模型（LLM）驱动决策的可行性和影响。通过在Mesa ABM平台上扩展经典谢林隔离模型，结合MultiVeStA统计模型检验工具，系统比较了基于规则和基于LLM的智能体行为。实验揭示了LLM驱动仿真带来的行为变化、计算开销和可靠性权衡，为利用LLM智能体模拟网络犯罪等复杂社会现象提供了可复用的方法论基础。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "How can agent based modeling and multi agent systems simulate cybercriminal activities with large language models?",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2607.18108v1",
+      "source": "arxiv",
+      "title": "GARAGE: Characterizing the Automation Boundary in LLM-based Attack Graph Generation",
+      "abstract": "While modern vehicle security depends on effective Cyber Threat Intelligence (CTI) synthesis, current automated tools struggle with unstructured data and automotive-specific architectural nuances. To bridge this gap, we introduce GARAGE, a RAG-powered framework that converts fragmented CTI into an actionable, domain-specific knowledge base for automated attack graph generation. GARAGE synthesizes a dataset of 12,786 CVEs and 140 incident reports into a STIX 2.1 and Auto-ISAC ATM-compliant knowledge base. By formalizing tactical-pattern-level scenarios through granular kill chain analysis, GARAGE achieves threat generation capabilities. Our 320 Leave-One-Out experiments reveal that the framework can accurately transfer security knowledge to entirely unseen vehicle architectures. Furthermore, we position GARAGE as a scalable TARA support tool within human-in-the-loop workflows, offering a comprehensive cost-performance analysis to guide its deployment across various LLM tiers.",
+      "authors": [
+        "Daekwon Pi",
+        "Sangho Lee",
+        "Young Hun Lee",
+        "Huy Kang Kim"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR"
+      ],
+      "published": "2026-07-20T16:08:23+00:00",
+      "link": "https://arxiv.org/pdf/2607.18108v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "characterizes LLM automation boundary in attack graph generation for vehicle cybersecurity, directly exploring LLM capabilities in cyber contexts",
+      "llm_evidence_cn": "通过刻画攻击图生成的自动化边界，探索大模型在网络上下文中的能力",
+      "llm_evidence": "通过刻画攻击图生成的自动化边界，探索大模型在网络上下文中的能力",
+      "canonical_evidence": "通过刻画攻击图生成的自动化边界，探索大模型在网络上下文中的能力",
+      "llm_tldr_en": "Introduces GARAGE, a RAG-powered framework that automates attack graph generation from automotive CTI, formally evaluating the automation boundary and revealing LLM capability limits in this cyber task.",
+      "llm_tldr_cn": "该工作提出GARAGE框架，利用检索增强生成将车辆网络安全威胁情报转化为攻击图，并系统刻画了大语言模型在此任务中的自动化边界。通过320组留一法实验，表明模型能准确传递安全知识并生成威胁，但也存在自动化局限，从而推进了对大语言模型在网络任务中能力边界的理解。",
+      "llm_tldr": "该工作提出GARAGE框架，利用检索增强生成将车辆网络安全威胁情报转化为攻击图，并系统刻画了大语言模型在此任务中的自动化边界。通过320组留一法实验，表明模型能准确传递安全知识并生成威胁，但也存在自动化局限，从而推进了对大语言模型在网络任务中能力边界的理解。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "exploring the capability boundaries of large language models in cyber contexts",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2607.16133v1",
+      "source": "arxiv",
+      "title": "When Do Multi-Agent Systems Help? An Information Bottleneck Perspective",
+      "abstract": "LLM powered multi-agent systems (MAS) have emerged as a promising paradigm for complex tasks. However, their advantages over single-agent systems (SAS) remain unclear, with performance varying inconsistently across settings. Here, we provide an information bottleneck perspective on elucidating the differences between MAS and SAS. Specifically, our key observation is that a SAS accumulates its full reasoning trace in one shared context, while a MAS uses isolated local contexts connected by bounded relay messages. We show that, under infinite relay bandwidth, any SAS can be simulated by a MAS that transmits the full upstream context. Thus, the nontrivial advantage of MAS arises under bounded relays, where compression introduces a fundamental trade-off: reducing redundant context can improve efficiency, but may also incur loss of task-relevant information. We formalize this trade-off as an information bottleneck controlled by an effective parameter $β$, which captures how the balance shifts with model capability, and shows that MAS gains arise when context reduction outweighs relay information loss. We conduct 18 controlled experiments across five benchmarks and three model scales to validate our theoretical studies. We observe that MAS consistently helps when relays are near-sufficient, especially for weaker models. In contrast, MAS gains shrink or reverse when relays incur information loss, especially for stronger models that can already extract useful information from redundant context and thus gain little from compression. Our study shows that multi-agent design is fundamentally an information-bottleneck optimization problem. This perspective explains when bounded inter-agent communication helps or hurts.",
+      "authors": [
+        "Wendi Yu",
+        "Lianhao Zhou",
+        "Xiangjue Dong",
+        "Sai Sudarshan Barath",
+        "Declan Staunton",
+        "Byung-Jun Yoon",
+        "Xiaoning Qian",
+        "James Caverlee",
+        "Shuiwang Ji"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG",
+        "cs.AI"
+      ],
+      "published": "2026-07-17T17:13:44+00:00",
+      "link": "https://arxiv.org/pdf/2607.16133v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "information bottleneck analysis of multi-agent systems, informing cybercrime simulation design",
+      "llm_evidence_cn": "多智能体系统的信息瓶颈分析，为网络犯罪模拟设计提供启发",
+      "llm_evidence": "多智能体系统的信息瓶颈分析，为网络犯罪模拟设计提供启发",
+      "canonical_evidence": "多智能体系统的信息瓶颈分析，为网络犯罪模拟设计提供启发",
+      "llm_tldr_en": "Using an information bottleneck perspective, this paper shows that MAS advantage over SAS emerges from compression under bounded relay messages, providing design principles for building effective MAS in domains like cybercrime simulation.",
+      "llm_tldr_cn": "本文从信息瓶颈理论出发，比较单智能体与多智能体系统，发现单智能体积累完整推理痕迹于同一上下文，而多智能体使用独立本地上下文并经有限消息中继交互，因此在有限通信带宽下，多智能体通过压缩实现泛化优势，为构造用于网络犯罪模拟等复杂任务的高效多智能体系统提供了原理性指导。",
+      "llm_tldr": "本文从信息瓶颈理论出发，比较单智能体与多智能体系统，发现单智能体积累完整推理痕迹于同一上下文，而多智能体使用独立本地上下文并经有限消息中继交互，因此在有限通信带宽下，多智能体通过压缩实现泛化优势，为构造用于网络犯罪模拟等复杂任务的高效多智能体系统提供了原理性指导。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "multi-agent systems for cybercrime simulation",
+      "matched_requirement_id": "req-3",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}
