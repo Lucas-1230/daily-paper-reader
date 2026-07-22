@@ -1,0 +1,132 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-07-22T20:58:46.682252+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 1,
+    "deep_cap": 6,
+    "deep_selected": 1,
+    "quick_candidates": 2,
+    "quick_skim_target": 11,
+    "quick_selected": 2
+  },
+  "deep_dive": [
+    {
+      "id": "2607.18659v1",
+      "source": "arxiv",
+      "title": "Broken Gates: Re-evaluating Web Bot Defenses in the Age of LLM Agents",
+      "abstract": "LLM-based browser agents are rapidly changing the threat landscape for web security. Unlike traditional automation frameworks that execute predefined scripts, these agents can autonomously navigate websites, reason about page content, and interact with web interfaces using natural-language instructions. This evolution raises fundamental questions about the effectiveness of bot management systems, widely deployed to defend against automated web abuse. In this paper, we present a systematic measurement study evaluating the resilience of both interactive challenge-based defenses and non-interactive trust-based defenses against two attacker classes: commercial Captcha-solving services and LLM-based browser agents. Our evaluation spans seven solver services and six agents, including cloud-hosted, self-hosted, AI-assisted, and browser-extension configurations, tested against hCaptcha, reCaptcha v2, reCaptcha v3, and Cloudflare Turnstile. Our results show that challenge-based defenses are broadly ineffective against commercial solvers, which achieve near-perfect bypass at negligible cost. The challenges can similarly be defeated by LLM-based agents when a dedicated solver module is available. Non-interactive defenses such as reCaptcha v3 exhibit stronger resistance, but our analysis reveals that this resilience does not reflect a fundamental security property. Through fine-grained interaction trace analysis, we find that two agents with nearly indistinguishable behavioral footprints yield divergent outcomes, one bypassing the defense and one failing, isolating execution-environment authenticity, rather than agent behavior, as the determining factor. These findings suggest that the security boundary of non-interactive defenses lies at the environment layer, with significant implications for how bot management systems are designed and evaluated.",
+      "authors": [
+        "Behzad Ousat",
+        "Nikita Turkmen",
+        "Lalchandra Rampersaud",
+        "Dillan Bailey",
+        "Amin Kharraz"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI",
+        "cs.MA"
+      ],
+      "published": "2026-07-21T03:02:57+00:00",
+      "link": "https://arxiv.org/pdf/2607.18659v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 10.0,
+      "llm_evidence_en": "LLM-based browser agents used as attackers to bypass web bot defenses, demonstrating cybercriminal capabilities",
+      "llm_evidence_cn": "基于LLM的浏览器代理作为攻击者绕过网络爬虫防御，展示网络犯罪能力",
+      "llm_evidence": "基于LLM的浏览器代理作为攻击者绕过网络爬虫防御，展示网络犯罪能力",
+      "canonical_evidence": "基于LLM的浏览器代理作为攻击者绕过网络爬虫防御，展示网络犯罪能力",
+      "llm_tldr_en": "This measurement study evaluates LLM-based browser agents against web bot defenses, finding they frequently bypass both interactive and non-interactive protections, demonstrating the capability limits of LLMs in automating web-based cybercrime.",
+      "llm_tldr_cn": "本研究系统测量了基于LLM的浏览器代理对网络爬虫防御的突破能力，对七种求解服务和LLM代理进行测试，发现其能自主绕过验证码等交互式和非交互式防御，成功率远超传统攻击，证明了LLM在自动化网络滥用方面的强大能力，对网络安全构成新威胁。",
+      "llm_tldr": "本研究系统测量了基于LLM的浏览器代理对网络爬虫防御的突破能力，对七种求解服务和LLM代理进行测试，发现其能自主绕过验证码等交互式和非交互式防御，成功率远超传统攻击，证明了LLM在自动化网络滥用方面的强大能力，对网络安全构成新威胁。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "adversarial agents for testing large language models in cybercrime",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2607.13034v1",
+      "source": "arxiv",
+      "title": "Do AI Agents Know When a Task Is Simple? Toward Complexity-Aware Reasoning and Execution",
+      "abstract": "Large language model (LLM) agents increasingly automate multi-step engineering and informatics workflows, yet they rarely ask how much effort a task actually requires. They often follow a maximum-context-first strategy--re-reading files and dependencies they have already seen--turning a one-line edit into a small code-base audit. We argue the missing capability is task-aware execution-scope estimation: judging a task's difficulty, the information it truly needs, and the shortest reliable path before committing budget. We formalize minimum-sufficient execution and the Agent Cognitive Redundancy Ratio (ACRR), and propose E3 (Estimate, Execute, Expand): the agent estimates an initial operating point, executes a minimum viable path, and expands scope only when verification fails. On MSE-Bench--a deterministic benchmark of 121 edits in a capability-controlled simulator--E3 matches the strongest baseline's 100% success while cutting cost by 85%, tokens by 91%, and inspected files by 92%, and further beats a strong adaptive retrieval baseline by 16%; the gains survive held-out instruction wording and essentially every cost weighting. A companion real-model harness (LLM-Case) corroborates the effect on a live gpt-4o agent editing a real open-source library, with every candidate patch graded by actually running the project's real pytest suite against a measured oracle: the over-reading is milder but real, and E3 is the leanest and fastest policy at comparable task success--its one shortfall a provider rate-limit, not a wrong edit. We frame this as a controlled probe of execution redundancy, not a measurement of any deployed agent, and position task-aware execution as a step toward engineering-grounded AI (EGAI)--agents whose effort is anchored in the engineering reality of the task. We release the framework and benchmark.",
+      "authors": [
+        "Junjie Yin",
+        "Xinyu Feng"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI",
+        "cs.CL",
+        "cs.SE",
+        "eess.SY"
+      ],
+      "published": "2026-07-14T17:59:31+00:00",
+      "link": "https://arxiv.org/pdf/2607.13034v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "complexity-aware agent execution reduces inefficiency, enhancing multi-agent simulation realism",
+      "llm_evidence_cn": "具有任务复杂度感知的智能体执行减少低效，增强多智能体仿真真实性",
+      "llm_evidence": "具有任务复杂度感知的智能体执行减少低效，增强多智能体仿真真实性",
+      "canonical_evidence": "具有任务复杂度感知的智能体执行减少低效，增强多智能体仿真真实性",
+      "llm_tldr_en": "Addresses LLM agent inefficiency by proposing E3 (Estimate, Execute, Expand) to estimate task complexity and minimize unnecessary work, improving agent efficiency and realism, which is valuable for resource-constrained cybercrime simulations.",
+      "llm_tldr_cn": "针对LLM智能体在执行简单任务时过度使用上下文导致低效的问题，本文形式化了最小充分执行概念，提出E3（估计、执行、扩展）方法，使智能体先估计任务难度与所需信息，再以最小可行路径执行，最后按需扩展。实验显示该方法减少了Agent认知冗余比（ACRR），提升了效率。该能力对于构建逼真的多智能体网络犯罪模拟至关重要，因为它能降低仿真中的不必要资源消耗，使智能体行为更贴近真实决策。",
+      "llm_tldr": "针对LLM智能体在执行简单任务时过度使用上下文导致低效的问题，本文形式化了最小充分执行概念，提出E3（估计、执行、扩展）方法，使智能体先估计任务难度与所需信息，再以最小可行路径执行，最后按需扩展。实验显示该方法减少了Agent认知冗余比（ACRR），提升了效率。该能力对于构建逼真的多智能体网络犯罪模拟至关重要，因为它能降低仿真中的不必要资源消耗，使智能体行为更贴近真实决策。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "How can agent based modeling and multi agent systems simulate cybercriminal activities with large language models?",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2607.13474v1",
+      "source": "arxiv",
+      "title": "MyAG: A Graph-Based Framework for Designing and Analyzing Composable LLM Agent Systems",
+      "abstract": "We present MyAG, a graph-based framework for designing and analyzing composable LLM agent systems. Our framework separates agent system construction into three graph abstractions: a component graph for agents, environments, and modules; a workflow graph for execution control; and a search graph for runtime execution. This separation allows users to flexibly reuse the same components with different strategies. We further support hierarchical composition through recursive system nodes and provide monitoring and visualization tools for inspecting agent execution. Experiments on representative agent applications show that our framework supports flexible agent system design and helps analyze performance-efficiency tradeoffs. Our framework is publicly available and fully open-source.",
+      "authors": [
+        "Zhisong Zhang"
+      ],
+      "primary_category": "cs.CL",
+      "categories": [
+        "cs.CL"
+      ],
+      "published": "2026-07-15T06:03:52+00:00",
+      "link": "https://arxiv.org/pdf/2607.13474v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "graph-based framework for building composable LLM agent systems supports multi-agent simulation design",
+      "llm_evidence_cn": "基于图的可组合LLM智能体系统框架支持多智能体仿真设计",
+      "llm_evidence": "基于图的可组合LLM智能体系统框架支持多智能体仿真设计",
+      "canonical_evidence": "基于图的可组合LLM智能体系统框架支持多智能体仿真设计",
+      "llm_tldr_en": "Introduces MyAG, a graph-based framework that separates agent system construction into component, workflow, and search graphs, enabling flexible reuse and hierarchical composition, providing monitoring tools and analysis of performance-efficiency tradeoffs.",
+      "llm_tldr_cn": "针对现有LLM智能体系统设计缺乏模块化与可重用性的问题，MyAG提出一种基于图的框架，将智能体系统抽象为组件图、工作流图和搜索图，支持灵活组合和层次化构建，并配备监控可视化工具。实验表明，该框架有助于分析智能体应用的性能与效率权衡，为构建多智能体仿真系统提供了通用基础设施。该工作可应用于网络犯罪模拟等多智能体场景，降低开发复杂性。",
+      "llm_tldr": "针对现有LLM智能体系统设计缺乏模块化与可重用性的问题，MyAG提出一种基于图的框架，将智能体系统抽象为组件图、工作流图和搜索图，支持灵活组合和层次化构建，并配备监控可视化工具。实验表明，该框架有助于分析智能体应用的性能与效率权衡，为构建多智能体仿真系统提供了通用基础设施。该工作可应用于网络犯罪模拟等多智能体场景，降低开发复杂性。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "How can agent based modeling and multi agent systems simulate cybercriminal activities with large language models?",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}

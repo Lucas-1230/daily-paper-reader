@@ -1,0 +1,57 @@
+{
+  "date": "20260722",
+  "date_label": "",
+  "generated_at": "2026-07-22 21:02:20 UTC",
+  "recommend_exists": true,
+  "run_count": 1,
+  "papers": [
+    {
+      "paper_id": "2607.18659v1",
+      "route": "202607/22/2607.18659v1-broken-gates-re-evaluating-web-bot-defenses-in-the-age-of-llm-agents",
+      "title": "Broken Gates: Re-evaluating Web Bot Defenses in the Age of LLM Agents",
+      "section": "deep",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "ca"
+        }
+      ],
+      "score": 10.0,
+      "evidence": "基于LLM的浏览器代理作为攻击者绕过网络爬虫防御，展示网络犯罪能力",
+      "first_seen_at": "2026-07-22 21:02:20 UTC",
+      "updated_at": "2026-07-22 21:02:20 UTC"
+    },
+    {
+      "paper_id": "2607.13034v1",
+      "route": "202607/22/2607.13034v1-do-ai-agents-know-when-a-task-is-simple-toward-complexity-aware-reasoning-and-execution",
+      "title": "Do AI Agents Know When a Task Is Simple? Toward Complexity-Aware Reasoning and Execution",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "ca"
+        }
+      ],
+      "score": 6.0,
+      "evidence": "具有任务复杂度感知的智能体执行减少低效，增强多智能体仿真真实性",
+      "first_seen_at": "2026-07-22 21:02:20 UTC",
+      "updated_at": "2026-07-22 21:02:20 UTC"
+    },
+    {
+      "paper_id": "2607.13474v1",
+      "route": "202607/22/2607.13474v1-myag-a-graph-based-framework-for-designing-and-analyzing-composable-llm-agent-systems",
+      "title": "MyAG: A Graph-Based Framework for Designing and Analyzing Composable LLM Agent Systems",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "ca"
+        }
+      ],
+      "score": 6.0,
+      "evidence": "基于图的可组合LLM智能体系统框架支持多智能体仿真设计",
+      "first_seen_at": "2026-07-22 21:02:20 UTC",
+      "updated_at": "2026-07-22 21:02:20 UTC"
+    }
+  ]
+}
