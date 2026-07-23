@@ -1,0 +1,214 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-07-23T21:37:11.897845+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 2,
+    "deep_cap": 6,
+    "deep_selected": 2,
+    "quick_candidates": 3,
+    "quick_skim_target": 11,
+    "quick_selected": 3
+  },
+  "deep_dive": [
+    {
+      "id": "2607.14493v1",
+      "source": "arxiv",
+      "title": "Context Contamination in LLM Analysis of Network Security Logs: Poison with Passive Prompt Injection and Mitigation Evaluation",
+      "abstract": "Large Language Models are increasingly deployed in Security Operations Centers for log analysis tasks including summarization, alert triage, and threat investigation. These systems ingest logs from external-facing services and process network logs as natural language contexts to generate security insights. We demonstrate that this architectural pattern introduces a critical vulnerability: adversaries can embed prompt injection payloads in log-generating fields that persist in storage and are executed when analysts query the LLM, achieving what we term passive prompt injection. We present LogInject, a systematic framework for evaluating these threats. Using LogInject-1.0, a benchmark of 12,847 log entries including 2,569 adversarial samples, we evaluate three production LLMs across four attack objectives: activity concealment, false positive generation, information exfiltration, and output hijacking. Our findings reveal an up to 88.2% attack success rate (83.4% average across models) under the baseline conditions. We introduce Context Stitching, a novel technique that fragments payloads across multiple log entries to evade stateless filters while exploiting LLM long-context reasoning, achieving a 76.4% success rate. As mitigation, we evaluate layered defenses by combining input filtering, prompt hardening, and output validation, demonstrating a 90.4% attack reduction, although 8.4% residual vulnerability persists. Our results establish that LLM-based log analysis creates an inherent confused deputy vulnerability where untrusted data and trusted instructions compete indistinguishably for model attention, requiring defense in-depth architectures and continued human oversight for security-critical decisions.",
+      "authors": [
+        "Rabimba Karanjai",
+        "Yang Lu",
+        "Hemanth Hegadehalli Madhavarao",
+        "Lei Xu",
+        "Weidong Shi"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR"
+      ],
+      "published": "2026-07-16T02:15:35+00:00",
+      "link": "https://arxiv.org/pdf/2607.14493v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "Evaluates LLM vulnerability to passive prompt injection in security logs, a direct cyber threat scenario.",
+      "llm_evidence_cn": "评估安全日志中LLM对被动提示注入的脆弱性，直接涉及网络威胁场景。",
+      "llm_evidence": "评估安全日志中LLM对被动提示注入的脆弱性，直接涉及网络威胁场景。",
+      "canonical_evidence": "评估安全日志中LLM对被动提示注入的脆弱性，直接涉及网络威胁场景。",
+      "llm_tldr_en": "The paper demonstrates passive prompt injection attacks on LLM-based security log analysis, creating a benchmark LogInject-1.0 to systematically evaluate threat and mitigation techniques, highlighting LLM exploitative capabilities in cyber contexts.",
+      "llm_tldr_cn": "本文证明了针对基于LLM的安全日志分析的被动提示注入攻击，攻击者可将恶意载荷嵌入外部面向服务的日志字段，持久化存储后由受害者触发。通过构建包含12847条日志的LogInject-1.0基准，系统评估了该威胁的严重性和现有缓解措施的不足，揭示了LLM在网络安全运营中的可利用性边界，为理解大模型在网络犯罪场景下的脆弱性提供了关键实验证据。",
+      "llm_tldr": "本文证明了针对基于LLM的安全日志分析的被动提示注入攻击，攻击者可将恶意载荷嵌入外部面向服务的日志字段，持久化存储后由受害者触发。通过构建包含12847条日志的LogInject-1.0基准，系统评估了该威胁的严重性和现有缓解措施的不足，揭示了LLM在网络安全运营中的可利用性边界，为理解大模型在网络犯罪场景下的脆弱性提供了关键实验证据。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "exploring the capability boundaries of large language models in cyber contexts",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2607.18366v1",
+      "source": "arxiv",
+      "title": "Operational Hallucination and Safety Drift in AI Agents",
+      "abstract": "Large language models (LLMs) serving as planners in tool-using autonomous agents introduce dynamic reliability risks in multi-turn execution. While single-turn safety mechanisms are relatively mature, extended interactions reveal structural vulnerabilities where initial alignment degrades over time. This paper empirically characterizes two observed failure modes across multiple state-of-the-art LLMs: Safety Drift, the gradual erosion of declared safety intent leading to constraint-violating actions (e.g., textual refusal followed by reconnaissance and unsafe execution), and Operational Hallucination, persistent repetitive tool calls indicative of flawed state perception (e.g., livelocks even in legitimate tasks). Through controlled multi-turn evaluation on high-stakes ethical dilemmas, malicious requests, and benign controls, we quantify these phenomena using declaration-action gap and livelock metrics, demonstrating their cross-model prevalence under direct execution protocols. Root-cause analysis attributes the instabilities to the decoupling of reasoning context from execution state in current agent loops. We propose an Action-Aware Supervision Layer - a lightweight, plug-and-play architectural blueprint incorporating intent-action consistency checks, runtime state tracking, and forced termination primitives. Post-hoc simulation on captured failure trajectories shows the layer can intercept observed violations without false positives on benign cases. This work advances agent reliability by shifting focus from linguistic safeguards to enforceable architectural mechanisms for responsible agentic AI.",
+      "authors": [
+        "Shasha Yu",
+        "Fiona Carroll",
+        "Barry L. Bentley"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI",
+        "cs.CL",
+        "cs.CY"
+      ],
+      "published": "2026-07-20T17:01:50+00:00",
+      "link": "https://arxiv.org/pdf/2607.18366v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Characterizes safety drift in LLM agents leading to constraint-violating actions, directly probing capability limits in cyber-like scenarios.",
+      "llm_evidence_cn": "表征LLM代理的安全漂移导致违反约束的行动，直接探测网络场景中的能力极限。",
+      "llm_evidence": "表征LLM代理的安全漂移导致违反约束的行动，直接探测网络场景中的能力极限。",
+      "canonical_evidence": "表征LLM代理的安全漂移导致违反约束的行动，直接探测网络场景中的能力极限。",
+      "llm_tldr_en": "The paper empirically shows that LLM agents can drift from alignment to performing reconnaissance and unsafe operations, revealing critical capability boundaries in adversarial contexts.",
+      "llm_tldr_cn": "该论文实证发现LLM代理在多轮交互中会出现安全漂移，从文本拒绝转向侦察等不安全执行，揭示了大模型在网络犯罪相关任务中能力边界的关键脆弱性。",
+      "llm_tldr": "该论文实证发现LLM代理在多轮交互中会出现安全漂移，从文本拒绝转向侦察等不安全执行，揭示了大模型在网络犯罪相关任务中能力边界的关键脆弱性。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "What are the capability limits of large language models when used for cybercrime?",
+      "matched_requirement_id": "req-7",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2607.20255v1",
+      "source": "arxiv",
+      "title": "The Ethics of Autonomous AI Agents for Offensive Security",
+      "abstract": "LLM-driven autonomous agents are reshaping offensive security. Unlike traditional penetration-testing tooling -- deterministic, narrowly scoped, and operated by trained practitioners -- agentic security tools exhibit \\textit{indeterminacy} along three independent dimensions. First, their actions are drawn from a non-deterministic policy whose outputs resist both ex-ante and ex-post explanation, frustrating incident attribution and pre-deployment safety review. Second, their impact is open-ended due to the non-deterministic actions, agency of utilized models, and opaque LLM supply-chains. Third, their user population is indeterminate in both size and required skill: the operating skill floor for using or developing offensive capabilities has dropped sharply. These three properties are linked thematically, but are not derivable from one another. Combined with the structural cost asymmetry between offense and defense, they enable the industrialization of offensive capability. The net short-term effect favors attackers, even if the same technology may, in the long run, democratize access to defensive practice. Existing dual-use cybersecurity and AI-ethics frameworks were not designed for this combination. Our work analyzes how moral attribution becomes diffuse between users, tool-makers, and third parties when employing autonomous AI agents for offensive security. We also examine the stakeholder impact of this technology and provide stratified recommendations.",
+      "authors": [
+        "Andreas Happe",
+        "Jürgen Cito",
+        "Jasmin Wachter"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI"
+      ],
+      "published": "2026-07-22T15:13:15+00:00",
+      "link": "https://arxiv.org/pdf/2607.20255v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Discusses LLM-driven autonomous agents for offensive security and their indeterminacy, exploring capability boundaries in cyber contexts.",
+      "llm_evidence_cn": "探讨LLM驱动的自主代理在攻击性安全中的不确定性，探索网络上下文中的能力边界。",
+      "llm_evidence": "探讨LLM驱动的自主代理在攻击性安全中的不确定性，探索网络上下文中的能力边界。",
+      "canonical_evidence": "探讨LLM驱动的自主代理在攻击性安全中的不确定性，探索网络上下文中的能力边界。",
+      "llm_tldr_en": "The paper examines the indeterminacy of LLM-driven offensive security agents across actions, impact, and users, highlighting capability boundaries and ethical concerns in cyber contexts.",
+      "llm_tldr_cn": "论文分析了LLM驱动的攻击性安全代理在行动、影响和用户层面的不确定性，揭示其在网络环境中的能力边界与伦理风险，为理解大模型在网络犯罪中的潜在能力提供了基础。",
+      "llm_tldr": "论文分析了LLM驱动的攻击性安全代理在行动、影响和用户层面的不确定性，揭示其在网络环境中的能力边界与伦理风险，为理解大模型在网络犯罪中的潜在能力提供了基础。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "exploring the capability boundaries of large language models in cyber contexts",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2607.18725v1",
+      "source": "arxiv",
+      "title": "Find Before You Fine-Tune: A Diagnostic Study of Small LLMs for Cybersecurity QA",
+      "abstract": "Large Language Models (LLMs) are increasingly fine-tuned for critical-domain Question-Answering (QA), yet choosing which small model to adapt, before paying the cost of adaptation, remains difficult. Fine-tuning can improve domain alignment, but it may also erode prior knowledge, weaken instruction-following, or increase hallucination, especially when labeled data are scarce or rapidly evolving as in cybersecurity. We present FiT (Find before Fine-Tune), a task-oriented diagnostic framework that characterizes small LLMs along three capabilities required for cybersecurity QA: vocabulary recognition, parametric knowledge, and contextualization of retrieved information. Using FiT, we conduct an empirical study of five open-weight 7-billion-parameter models under two fine-tuning regimes. We find that fine-tuning does not uniformly help: it consistently degrades vocabulary and parametric knowledge in small models, and the two regimes trade off differently. Knowledge-focused tuning causes moderate, rank-preserving degradation, whereas instruction-focused tuning collapses measured knowledge through induced abstention, inverting the knowledge ranking while leaving retrieval-grounded contextualization essentially intact. We quantify these regime-specific patterns with rank-correlation analysis and show that pre-fine-tuning FiT scores anticipate the direction of post-tuning change. Our results suggest that task-oriented diagnosis can screen out unsuitable models, avoid unnecessary fine-tuning, and support safer deployment of small LLMs in cybersecurity QA pipelines.",
+      "authors": [
+        "Shaswata Mitra",
+        "Subash Neupane",
+        "Trisha Chakraborty",
+        "Himanshu Tripathi",
+        "Sudip Mittal",
+        "Aritran Piplai",
+        "Shahram Rahimi"
+      ],
+      "primary_category": "cs.CL",
+      "categories": [
+        "cs.CL",
+        "cs.AI",
+        "cs.CR"
+      ],
+      "published": "2026-07-21T05:32:40+00:00",
+      "link": "https://arxiv.org/pdf/2607.18725v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Diagnostic framework for LLM cybersecurity capabilities; relevant to evaluating LLM knowledge for cyber tasks.",
+      "llm_evidence_cn": "大语言模型网络安全能力诊断框架；与评估大语言模型网络任务知识相关。",
+      "llm_evidence": "大语言模型网络安全能力诊断框架；与评估大语言模型网络任务知识相关。",
+      "canonical_evidence": "大语言模型网络安全能力诊断框架；与评估大语言模型网络任务知识相关。",
+      "llm_tldr_en": "Proposes FiT, a diagnostic framework assessing vocabulary, knowledge, and contextualization of small LLMs before fine-tuning for cybersecurity QA; aids in selecting models for cyber applications.",
+      "llm_tldr_cn": "提出诊断框架FiT，在微调前评估小尺寸大语言模型在网络安全问答中的词汇识别、参数知识和信息上下文化能力，有助于为网络应用选择合适的模型。",
+      "llm_tldr": "提出诊断框架FiT，在微调前评估小尺寸大语言模型在网络安全问答中的词汇识别、参数知识和信息上下文化能力，有助于为网络应用选择合适的模型。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "exploring the capability boundaries of large language models in cyber contexts",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2607.18826v1",
+      "source": "arxiv",
+      "title": "Cross-Agent Campaign Attribution: Linking Asynchronous Attacks Across LLM Agents",
+      "abstract": "LLM-agent defenses are typically evaluated one session at a time. In deployment, however, attacks can be distributed across independent agents, teams, and runtimes, leaving each local guardrail with only a sparse fragment. We formalize cross-agent asynchronous campaign attribution: linking sessions from the same latent adversarial campaign without shared runtime state, test-time campaign labels, or attacker identity oracles. We introduce Asynchronous Attribution Fingerprint Vectors ($A^2FV$), a lightweight proxy-side reference protocol for scoring pairwise campaign similarity from proxy-observable tool-use, timing, and prompt residue. We also construct SCD-v1, a controlled persona-matched benchmark with benign traffic, isolated attacks, multi-session campaigns, matched non-oracle evasion, and leakage audits. On SCD-v1, $A^2FV$ achieves 0.82 pairwise AUC for campaign linking, while score-only adaptations of per-session detectors and chunked LLM judges remain near chance under the same task. The strongest fixed signal is carried by structural and stylometric residue, while timing is retained as a diagnostic channel for richer proxy traces. Crossed-style controls show that the signal is partly style-sensitive but not reducible to style alone. Static and dimension-aware non-oracle stress tests further show that pairwise separability persists under controlled evasion. These results establish cross-agent campaign attribution as a distinct evaluation layer for securing LLM agents in the wild.",
+      "authors": [
+        "SangJin Park",
+        "Myungsub Choi",
+        "Jineok Kim",
+        "Minseung Kang"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI"
+      ],
+      "published": "2026-07-21T08:01:51+00:00",
+      "link": "https://arxiv.org/pdf/2607.18826v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Formalizes cross-agent asynchronous campaign attribution for linking adversarial attacks across LLM agents, useful for testing adversarial agents.",
+      "llm_evidence_cn": "形式化跨代理异步活动归因，链接LLM代理之间的对抗攻击，可用于测试对抗代理。",
+      "llm_evidence": "形式化跨代理异步活动归因，链接LLM代理之间的对抗攻击，可用于测试对抗代理。",
+      "canonical_evidence": "形式化跨代理异步活动归因，链接LLM代理之间的对抗攻击，可用于测试对抗代理。",
+      "llm_tldr_en": "The paper introduces a method to link distributed adversarial sessions from LLM agents into campaigns, enabling better evaluation of adversarial agent behaviors in cyber scenarios.",
+      "llm_tldr_cn": "该论文提出了一种跨代理异步活动归因方法，通过轻量级指纹向量链接分散的LLM代理攻击会话，为评估网络对抗代理的活动模式提供了新工具。",
+      "llm_tldr": "该论文提出了一种跨代理异步活动归因方法，通过轻量级指纹向量链接分散的LLM代理攻击会话，为评估网络对抗代理的活动模式提供了新工具。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "adversarial agents for testing large language models in cybercrime",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}
