@@ -41,17 +41,17 @@
 <section class="dpr-home-dashboard-card dpr-home-report-card">
   <div class="dpr-home-dashboard-header">
     <div>
-      <span class="dpr-home-dashboard-kicker">2026-07-23</span>
+      <span class="dpr-home-dashboard-kicker">2026-07-24</span>
       <h3 class="dpr-home-dashboard-title">今日汇总</h3>
     </div>
-    <strong class="dpr-home-dashboard-count">共 5 篇</strong>
+    <strong class="dpr-home-dashboard-count">共 6 篇</strong>
   </div>
   <dl class="dpr-home-dashboard-stats">
     <div class="dpr-home-dashboard-stat"><dt>累计更新</dt><dd>1 次</dd></div>
-    <div class="dpr-home-dashboard-stat"><dt>精读</dt><dd>2</dd></div>
+    <div class="dpr-home-dashboard-stat"><dt>精读</dt><dd>3</dd></div>
     <div class="dpr-home-dashboard-stat"><dt>速读</dt><dd>3</dd></div>
   </dl>
-  <p class="dpr-home-dashboard-body">最近更新：2026-07-23 21:42:13 UTC<br>状态：成功</p>
+  <p class="dpr-home-dashboard-body">最近更新：2026-07-24 21:44:59 UTC<br>状态：成功</p>
 </section>
 <section class="dpr-home-dashboard-card dpr-home-brief-card">
   <div class="dpr-home-dashboard-header">
@@ -62,9 +62,9 @@
     <strong class="dpr-home-dashboard-count">AI</strong>
   </div>
   <div class="dpr-home-dashboard-body">
-<p>今日聚焦AI安全前沿：从日志分析到攻防代理，挖掘潜在风险与防御盲区。</p>
-<p>精读发现LLM处理安全日志时存在被动提示注入导致的上下文污染（9分），以及AI代理运行中产生的“操作性幻觉”与安全策略漂移（8分）。</p>
-<p>建议用户优先关注日志分析中的隐形投毒防护，并对AI自动化代理加强行为一致性审查。</p>
+<p>今日精读了两篇关于LLM安全分析与威胁情报自动提取的高分论文，并速览了AI安全基准、小模型协同防御等多项研究。</p>
+<p>最值得关注的方向是LLM在符号化安全协议解析中的能力评估，以及从威胁报告中自动抽取可达攻击链的框架。</p>
+<p>下一步建议：尝试用小规模开源模型协同工作，以替代单体大模型进行恶意软件分析，兼顾效率与成本。</p>
   </div>
 </section>
 <section class="dpr-home-dashboard-card dpr-home-deep-card">
@@ -73,12 +73,12 @@
       <span class="dpr-home-dashboard-kicker">今日累计</span>
       <h3 class="dpr-home-dashboard-title">精读推荐</h3>
     </div>
-    <strong class="dpr-home-dashboard-count">2 篇</strong>
+    <strong class="dpr-home-dashboard-count">3 篇</strong>
   </div>
   <div class="dpr-home-dashboard-body">
-<ul class="dpr-home-dashboard-paper-list"><li><span class="dpr-home-dashboard-paper-title" title="Context Contamination in LLM Analysis of Network Security Logs: Poison with Passive Prompt Injection and Mitigation Evaluation">Context Contamination in LLM Analysis of Network Security Logs: Poison with Passive Prompt Injection and Mitigation Evaluation</span></li><li><span class="dpr-home-dashboard-paper-title" title="Operational Hallucination and Safety Drift in AI Agents">Operational Hallucination and Safety Drift in AI Agents</span></li></ul>
+<ul class="dpr-home-dashboard-paper-list"><li><span class="dpr-home-dashboard-paper-title" title="Evaluating Large Language Models for Symbolic Security Protocol Analysis">Evaluating Large Language Models for Symbolic Security Protocol Analysis</span></li><li><span class="dpr-home-dashboard-paper-title" title="An Automated Framework for Extracting Reachable Attack Chains from Cyber Threat Intelligence Reports">An Automated Framework for Extracting Reachable Attack Chains from Cyber Threat Intelligence Reports</span></li><li><span class="dpr-home-dashboard-paper-title" title="IssueTrojanBench: Benchmarking AI Coding Agents Against Malicious Issue Requests">IssueTrojanBench: Benchmarking AI Coding Agents Against Malicious Issue Requests</span></li></ul>
   </div>
-  <div class="dpr-home-dashboard-tags"><span class="dpr-home-dashboard-tag">ca <strong>2</strong></span></div>
+  <div class="dpr-home-dashboard-tags"><span class="dpr-home-dashboard-tag">ca <strong>3</strong></span></div>
 </section>
 <section class="dpr-home-dashboard-card dpr-home-skim-card">
   <div class="dpr-home-dashboard-header">
@@ -89,7 +89,7 @@
     <strong class="dpr-home-dashboard-count">3 篇</strong>
   </div>
   <div class="dpr-home-dashboard-body">
-<ul class="dpr-home-dashboard-paper-list"><li><span class="dpr-home-dashboard-paper-title" title="The Ethics of Autonomous AI Agents for Offensive Security">The Ethics of Autonomous AI Agents for Offensive Security</span></li><li><span class="dpr-home-dashboard-paper-title" title="Find Before You Fine-Tune: A Diagnostic Study of Small LLMs for Cybersecurity QA">Find Before You Fine-Tune: A Diagnostic Study of Small LLMs for Cybersecurity QA</span></li><li><span class="dpr-home-dashboard-paper-title" title="Cross-Agent Campaign Attribution: Linking Asynchronous Attacks Across LLM Agents">Cross-Agent Campaign Attribution: Linking Asynchronous Attacks Across LLM Agents</span></li></ul>
+<ul class="dpr-home-dashboard-paper-list"><li><span class="dpr-home-dashboard-paper-title" title="GuardianAgentBench: Where Agents Fail and How to Guard Them">GuardianAgentBench: Where Agents Fail and How to Guard Them</span></li><li><span class="dpr-home-dashboard-paper-title" title="Towards an Automated Test of LLM Security Knowledge">Towards an Automated Test of LLM Security Knowledge</span></li><li><span class="dpr-home-dashboard-paper-title" title="Small, Free, and Effective: Orchestrating Open-Weight Small Language Models to Outperform Single LLM for Malware Analysis">Small, Free, and Effective: Orchestrating Open-Weight Small Language Models to Outperform Single LLM for Malware Analysis</span></li></ul>
   </div>
   <div class="dpr-home-dashboard-tags"><span class="dpr-home-dashboard-tag">ca <strong>3</strong></span></div>
 </section>

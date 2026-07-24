@@ -1,0 +1,251 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-07-24T21:38:16.841059+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 3,
+    "deep_cap": 6,
+    "deep_selected": 3,
+    "quick_candidates": 3,
+    "quick_skim_target": 11,
+    "quick_selected": 3
+  },
+  "deep_dive": [
+    {
+      "id": "2607.20712v1",
+      "source": "arxiv",
+      "title": "Evaluating Large Language Models for Symbolic Security Protocol Analysis",
+      "abstract": "Security protocol verification relies on formal tools such as ProVerif and OFMC. This study evaluates whether Large Language Models (LLMs) can perform comparable analysis. We test GPT and DeepSeek in chat and reasoning modes over three runs on 130 obfuscated AnB/AnBx protocols covering 388 security goals, scored against ProVerif and OFMC. Chat models reach 69 to 81% recall at precision below 31%. Reasoning models reverse this trade-off, reaching 66.5% precision for GPT and 45.4% for DeepSeek, but detect just over half the attacks. DeepSeek's two modes share one underlying model, so the comparison isolates reasoning itself, which raises precision from 27.2% to 45.4%. The GPT contrast spans a model-version change and is only suggestive. All models perform worst on authentication goals: reasoning models detect well under half of injective and non-injective agreement attacks, whereas chat models over-flag them at low precision. Confidentiality is the exception, with F1 up to 95.7% in reasoning mode. Verdicts are unstable across runs, identical on 89.7% of goals for GPT but 74.0% for DeepSeek. Self-reported confidence is uniformly high yet shows no meaningful correlation with correctness. On this benchmark LLMs do not match formal verification, but may serve, at best, as pre-screening filters.",
+      "authors": [
+        "Paolo Modesti",
+        "Syed Ahmed",
+        "Ioannis Sfyrakis",
+        "Derek Enodolomwanyi"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR"
+      ],
+      "published": "2026-07-22T20:29:59+00:00",
+      "link": "https://arxiv.org/pdf/2607.20712v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "evaluates LLMs on security protocol verification, exploring capability limits in a core cyber task",
+      "llm_evidence_cn": "评估大模型在安全协议验证中的表现，探索其在核心网络任务中的能力边界",
+      "llm_evidence": "评估大模型在安全协议验证中的表现，探索其在核心网络任务中的能力边界",
+      "canonical_evidence": "评估大模型在安全协议验证中的表现，探索其在核心网络任务中的能力边界",
+      "llm_tldr_en": "This paper evaluates LLMs (GPT, DeepSeek) on 130 obfuscated protocols, comparing chat and reasoning modes; reasoning modes achieve higher precision at 66.5% but detect only half the attacks, revealing limitations in formal protocol analysis.",
+      "llm_tldr_cn": "该论文评估了大语言模型（GPT和DeepSeek）在符号化安全协议分析中的能力，测试了130个混淆协议和388个安全目标。结果显示，聊天模式召回率高但精确度低，推理模式精确度提升至66.5%，但仅能检测一半攻击。与ProVerif等正式工具对比，揭示大模型在形式化验证中的能力界限，为理解其在网络安全任务中的适用性提供了实证依据。",
+      "llm_tldr": "该论文评估了大语言模型（GPT和DeepSeek）在符号化安全协议分析中的能力，测试了130个混淆协议和388个安全目标。结果显示，聊天模式召回率高但精确度低，推理模式精确度提升至66.5%，但仅能检测一半攻击。与ProVerif等正式工具对比，揭示大模型在形式化验证中的能力界限，为理解其在网络安全任务中的适用性提供了实证依据。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "exploring the capability boundaries of large language models in cyber contexts",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2607.19742v1",
+      "source": "arxiv",
+      "title": "An Automated Framework for Extracting Reachable Attack Chains from Cyber Threat Intelligence Reports",
+      "abstract": "Cyber Threat Intelligence (CTI) reports richly describe real-world attack processes, but their unstructured narratives cannot be directly used for automated attack-path reasoning. Existing CTI extraction methods focus on indicators, entities, or TTP labels without modeling the execution conditions and resulting states of each attack step, so the extracted knowledge supports neither state matching nor reachability analysis across multi-stage attack chains. This paper proposes an automated framework that extracts reachable attack chains by modeling each attack step as an attack unit of preconditions, an attack behavior, and postconditions. A multi-stage pipeline assisted by large language models (LLMs) extracts attack behavior skeletons, recovers their preconditions and postconditions, normalizes them into predefined predicates, and repairs broken dependencies; the resulting units are compiled into Datalog-style rules for attack-goal reachability reasoning. On a dataset of 20 CTI reports containing 334 human-validated annotated steps, our framework achieves higher annotated-step coverage than representative CTI extraction systems in recovering attack behaviors. Moreover, by explicitly generating preconditions and postconditions, it produces attack units that are more complete and consistent than those generated by end-to-end LLM baselines. On the extracted chains, Datalog inference reaches the specified attack goal in 19 of 20 reports, while backward search yields 34 attack paths under the generated rules. The source code and experimental artifacts are available in an anonymized repository. .",
+      "authors": [
+        "Wenbo Hou",
+        "Ning Hu",
+        "Xueping Wang",
+        "Jiahao Gu",
+        "Wenjian Luo"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI"
+      ],
+      "published": "2026-07-22T04:16:35+00:00",
+      "link": "https://arxiv.org/pdf/2607.19742v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "LLM-assisted extraction of reachable attack chains from CTI reports, advancing cybercrime modeling",
+      "llm_evidence_cn": "利用大模型从网络威胁情报报告中提取可达攻击链，推进网络犯罪建模",
+      "llm_evidence": "利用大模型从网络威胁情报报告中提取可达攻击链，推进网络犯罪建模",
+      "canonical_evidence": "利用大模型从网络威胁情报报告中提取可达攻击链，推进网络犯罪建模",
+      "llm_tldr_en": "This paper proposes an automated framework that uses LLMs to extract attack steps with preconditions and postconditions from CTI reports, enabling reachability analysis of multi-stage cyber attacks.",
+      "llm_tldr_cn": "该论文针对网络威胁情报报告文本无法直接用于攻击路径推理的问题，提出利用大模型辅助的多阶段流水线，将每个攻击步骤建模为包含前提条件、行为和后续条件的攻击单元，从而自动提取可达攻击链。实验表明，该方法能有效支持跨阶段攻击的状态匹配和可达性分析，为自动化网络攻击建模和模拟奠定了基础。",
+      "llm_tldr": "该论文针对网络威胁情报报告文本无法直接用于攻击路径推理的问题，提出利用大模型辅助的多阶段流水线，将每个攻击步骤建模为包含前提条件、行为和后续条件的攻击单元，从而自动提取可达攻击链。实验表明，该方法能有效支持跨阶段攻击的状态匹配和可达性分析，为自动化网络攻击建模和模拟奠定了基础。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "capabilities of large language models in cybercrime",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2607.20759v1",
+      "source": "arxiv",
+      "title": "IssueTrojanBench: Benchmarking AI Coding Agents Against Malicious Issue Requests",
+      "abstract": "AI coding agents powered by LLMs are increasingly integrated into real-world software development, where they generate, edit, and execute code with autonomous access to local files and tools. Coding agents inherit security risks from both the LLM backbone, where adversarial prompts, poisoned training data, and backdoor triggers can cause models to emit insecure or attacker-chosen code, and their agentic architecture, where tool-using autonomy enables induced misuse of external APIs, data exfiltration, and persistent compromise of development environments. This paper presents a systematic evaluation of malicious issue requests against state-of-the-art coding agents (Cursor, Claude Code, and Codex Desktop), powered by two major model families (OpenAI GPT-5.3 Codex/GPT-5.4 and Anthropic Sonnet 4.6). Our novel benchmark IssueTrojanBench contains malicious issues that are constructed based on four novel attack categories (i.e., embedded as malicious instructions in issues), six delivery vectors (e.g., PDF, or issue comment), and further augmented by perturbations. Our results reveal critical vulnerabilities in the as-deployed modern coding agents, i.e., 66.5% of the malicious issues from IssueTrojanBench penetrate all the guardrails (agent- and LLM-level) of coding agents. Our further analysis shows that rejection is almost entirely from LLMs rather than the agent frameworks, with GPT models broadly vulnerable and Sonnet 4.6 exhibiting more selective, risk-aware blocking of high-impact actions. Our evaluation also highlights that the current agent-level defense strategy offers limited additional protection for coding agents. Our findings highlight the urgent need for stronger agent- and model-level safety mechanisms to protect AI coding agents.",
+      "authors": [
+        "Ankur Singh",
+        "Jinqiu Yang",
+        "Tse-Hsun Chen"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI",
+        "cs.SE"
+      ],
+      "published": "2026-07-22T22:20:02+00:00",
+      "link": "https://arxiv.org/pdf/2607.20759v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Benchmarks AI coding agents against malicious issue requests, acting as adversarial stimuli to test LLM behavior in cyberattack-like scenarios.",
+      "llm_evidence_cn": "通过恶意问题请求对AI编码代理进行基准测试，作为对抗性刺激测试大模型在类网络攻击场景中的行为",
+      "llm_evidence": "通过恶意问题请求对AI编码代理进行基准测试，作为对抗性刺激测试大模型在类网络攻击场景中的行为",
+      "canonical_evidence": "通过恶意问题请求对AI编码代理进行基准测试，作为对抗性刺激测试大模型在类网络攻击场景中的行为",
+      "llm_tldr_en": "IssueTrojanBench systematically evaluates state-of-the-art coding agents (Cursor, Claude Code, Codex Desktop) against malicious issue requests, uncovering vulnerabilities to backdoors, data exfiltration, and insecure code generation, highlighting risks of LLMs in adversarial cyber contexts.",
+      "llm_tldr_cn": "IssueTrojanBench系统评估了主流编码代理（Cursor、Claude Code、Codex Desktop）面对恶意问题请求时的安全性，揭示了其后门注入、数据泄露和不安全代码生成等脆弱性。该基准测试通过多种恶意请求模板，攻击不同模型家族的编码代理，发现所有代理均易受攻击，强调了在软件开发中集成大模型时需加强安全防护。",
+      "llm_tldr": "IssueTrojanBench系统评估了主流编码代理（Cursor、Claude Code、Codex Desktop）面对恶意问题请求时的安全性，揭示了其后门注入、数据泄露和不安全代码生成等脆弱性。该基准测试通过多种恶意请求模板，攻击不同模型家族的编码代理，发现所有代理均易受攻击，强调了在软件开发中集成大模型时需加强安全防护。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "adversarial agents for testing large language models in cybercrime",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2607.20982v1",
+      "source": "arxiv",
+      "title": "GuardianAgentBench: Where Agents Fail and How to Guard Them",
+      "abstract": "As large language model agents increasingly operate autonomously with access to tools and external environments, ensuring their safe and reliable behavior becomes critical. We present GuardianAgentBench (GABench), a benchmark of 580 scenarios across six domains evaluated on three production-ready frameworks: LangChain, LlamaIndex, and Vectara. The benchmark incorporates rigorous multi-stage validation and five adversarial attack modes. Experiments with six state-of-the-art models reveal that even the strongest configuration achieves only 74.8% overall accuracy and expose two distinct failure regimes: stronger models under-call required tools, while weaker models mis-select and over-call tools. Performance degrades monotonically with both tool-set size and sequential turn depth, with long-horizon planning proving the steeper bottleneck. Our guardrail implementation consistently outperforms system-prompt-based defenses across all models, recovering 19.9% of failures at a false positive rate of just 0.5%. These results demonstrate that execution-time structural intervention improves safety without disrupting correct agent behavior.",
+      "authors": [
+        "Vishal Ishwar Naik",
+        "Chenyu Xu",
+        "Donna Dong",
+        "Hussein Hassan",
+        "Abhishek Pradhan",
+        "Ofer Mendelevitch",
+        "Tallat Shafat",
+        "Humayun Irshad"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-07-23T07:05:05+00:00",
+      "link": "https://arxiv.org/pdf/2607.20982v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Benchmark evaluating LLM agent failures under adversarial attacks, relevant for testing LLM robustness in adversarial contexts.",
+      "llm_evidence_cn": "评估大语言模型代理在对抗攻击下的失败基准，与对抗代理测试大模型在网络犯罪中的能力相关。",
+      "llm_evidence": "评估大语言模型代理在对抗攻击下的失败基准，与对抗代理测试大模型在网络犯罪中的能力相关。",
+      "canonical_evidence": "评估大语言模型代理在对抗攻击下的失败基准，与对抗代理测试大模型在网络犯罪中的能力相关。",
+      "llm_tldr_en": "Introduces GuardianAgentBench, a benchmark with 580 scenarios and five adversarial attack modes to evaluate LLM agent safety across frameworks. Reveals failure modes and performance degradation, providing insights for adversarial testing that can be adapted to cybercrime contexts.",
+      "llm_tldr_cn": "本文提出GuardianAgentBench基准，涵盖六个领域580个场景并集成五种对抗攻击模式，在LangChain等框架上评估大语言模型代理的安全行为。实验表明即使最强配置也只有74.8%准确率，揭示了欠调用和误调用两种失败模式。该工作为对抗性测试大模型能力提供了方法论，可迁移至网络犯罪场景下的代理能力评估。",
+      "llm_tldr": "本文提出GuardianAgentBench基准，涵盖六个领域580个场景并集成五种对抗攻击模式，在LangChain等框架上评估大语言模型代理的安全行为。实验表明即使最强配置也只有74.8%准确率，揭示了欠调用和误调用两种失败模式。该工作为对抗性测试大模型能力提供了方法论，可迁移至网络犯罪场景下的代理能力评估。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "adversarial agents for testing large language models in cybercrime",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2607.18496v2",
+      "source": "arxiv",
+      "title": "Towards an Automated Test of LLM Security Knowledge",
+      "abstract": "Large language models (LLMs) are increasingly used for a range of software, hardware and human-centered security tasks. Consequently, LLM performance on security tasks is an active area of measurement and research, often with a focus on identifying areas in which LLM security ``knowledge'' may be insufficient. Popular strategies for identifying LLM security knowledge gaps include building corpora of challenge questions or task benchmarks, strategies that require substantial manual work and security expertise to design and execute. We introduce a partially-automated method for assessing LLM knowledge of a security area.The method uses authoritative information from Consumer Protection Agencies (CPAs) to identify instability in LLM responses that can be indicative of knowledge gaps. We demonstrate the method for 2 security topics, identity theft and impostor scams, and 5 LLMs in 2 leading LLM families, Gemini and GPT, using publicly available information about identity theft and impostor scams from 6 CPAs.The method distinguishes between models that have and don't have sufficient knowledge to accurately identify the security topics in text narratives.",
+      "authors": [
+        "Shufan Chai",
+        "Liangliang Sun",
+        "Jessica Staddon"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI",
+        "cs.HC"
+      ],
+      "published": "2026-07-20T20:37:37+00:00",
+      "link": "https://arxiv.org/pdf/2607.18496v2",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "automated method to assess LLM security knowledge gaps",
+      "llm_evidence_cn": "自动化评估大模型安全知识缺口的方法",
+      "llm_evidence": "自动化评估大模型安全知识缺口的方法",
+      "canonical_evidence": "自动化评估大模型安全知识缺口的方法",
+      "llm_tldr_en": "Proposes a partially-automated method using CPA information to identify instability in LLM responses, indicating security knowledge gaps.",
+      "llm_tldr_cn": "该文提出一种部分自动化的方法来评估大模型安全知识，利用消费者保护机构权威信息识别LLM应答不稳定性，从而发现安全领域知识缺口。该方法减少了对手动安全专家构建题库的依赖，可扩展至网络安全知识评估，为探索LLM在安全任务上的能力边界提供通用实验框架。实验表明该方法能有效检测LLM在安全知识上的不确定性，揭示其能力局限。",
+      "llm_tldr": "该文提出一种部分自动化的方法来评估大模型安全知识，利用消费者保护机构权威信息识别LLM应答不稳定性，从而发现安全领域知识缺口。该方法减少了对手动安全专家构建题库的依赖，可扩展至网络安全知识评估，为探索LLM在安全任务上的能力边界提供通用实验框架。实验表明该方法能有效检测LLM在安全知识上的不确定性，揭示其能力局限。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "evaluating the limits of large language models in cybercrime scenarios",
+      "matched_requirement_id": "req-9",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2607.20216v1",
+      "source": "arxiv",
+      "title": "Small, Free, and Effective: Orchestrating Open-Weight Small Language Models to Outperform Single LLM for Malware Analysis",
+      "abstract": "Malware analysis demands rapid interpretation of complex detonation reports spanning filesystem, network, and process behaviours. While large language models (LLMs) demonstrate impressive capabilities for technical artifact interpretation, the opacity and escalating API costs of closed-weight frontier models motivate exploration of open-weight alternatives. However, many open-weight models are large, demanding significant compute resources and incurring non-trivial hosting costs that place them beyond reach for resource-constrained deployments. This paper investigates whether orchestrated ensembles of small language models (SLMs) can match or exceed single LLM performance on structured questions about malware detonation reports. We established baselines by testing eleven open-weight SLMs, three cyber security pre-trained models, and six frontier LLMs on Meta's CyberSecEval Malware Analysis benchmark. We then designed and evaluated four orchestration architectures: (i) a multi-agent pipeline that decomposes analysis into structured evidence-collection and reasoning stages, (ii) an adversarial debate framework in which two agents iteratively critique each other's reasoning, (iii) a hierarchical consultation system that pairs a general-purpose SLM with a cyber-specialised expert model, and (iv) a hybrid architecture that combines evidence-grounded pipelines with adversarial debate reasoning. The hybrid system (Qwen3-4B with Foundation-Sec-8B) achieved 35.30% overall accuracy, exceeding the strongest cyber-specialised baseline (22.54%) and the strongest ungrounded frontier baseline (34.77%); when given the same evidence pipeline, grounded Gemini remained the strongest configuration at 38.22%. These findings show that evidence-grounded orchestration can substantially improve the performance of collaborative SLMs for supporting interpretation of malware detonation reports.",
+      "authors": [
+        "Adel ElZemity",
+        "Shujun Li",
+        "Budi Arief"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI"
+      ],
+      "published": "2026-07-22T14:36:10+00:00",
+      "link": "https://arxiv.org/pdf/2607.20216v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Orchestrates small LMs for malware analysis, demonstrating LLM capabilities in a cybercrime task.",
+      "llm_evidence_cn": "编排小语言模型进行恶意软件分析，展示了大语言模型在网络犯罪任务中的能力。",
+      "llm_evidence": "编排小语言模型进行恶意软件分析，展示了大语言模型在网络犯罪任务中的能力。",
+      "canonical_evidence": "编排小语言模型进行恶意软件分析，展示了大语言模型在网络犯罪任务中的能力。",
+      "llm_tldr_en": "Explores using ensembles of open-weight small language models to outperform single large LLMs on malware analysis questions. Shows that resource-efficient orchestrations can achieve competitive performance, providing a cost-effective alternative for cybercrime analysis tasks.",
+      "llm_tldr_cn": "本文针对闭源大模型在恶意软件分析中成本高且不透明的问题，研究使用多个开源小语言模型协同工作，以超越单一大型模型的性能。通过分析恶意软件爆炸报告的结构化问答实验，表明精心编排的小模型组合能够达到或超过大模型水平，为资源受限环境下的网络犯罪分析提供了经济高效的替代方案。",
+      "llm_tldr": "本文针对闭源大模型在恶意软件分析中成本高且不透明的问题，研究使用多个开源小语言模型协同工作，以超越单一大型模型的性能。通过分析恶意软件爆炸报告的结构化问答实验，表明精心编排的小模型组合能够达到或超过大模型水平，为资源受限环境下的网络犯罪分析提供了经济高效的替代方案。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "capabilities of large language models in cybercrime",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}
