@@ -1,0 +1,54 @@
+{
+  "label": "2026-07-25",
+  "date": "2026-07-25",
+  "generated_at": "2026-07-25T21:22:06",
+  "count": 3,
+  "papers": [
+    {
+      "paper_id": "202607/25/2607.19424v1-jailmeter-an-evidence-based-evaluation-framework-for-jailbreak-attacks-on-large-language-models",
+      "section": "deep",
+      "title_en": "JailMeter: An Evidence-Based Evaluation Framework for Jailbreak Attacks on Large Language Models",
+      "authors": "Qingjia Huang, Jingyu Zhang, Jianguo Wu, Yakai Li, Weijuan Zhang, Yankai Rong, Junyi Yao, Shengzhi Zhang, Xiaoqi Jia",
+      "date": "2026-07-20",
+      "pdf": "https://arxiv.org/pdf/2607.19424v1",
+      "score": "8.0",
+      "evidence": "评估越狱攻击以衡量LLM滥用能力",
+      "tldr": "当前越狱攻击的评估缺乏统一标准，导致攻击成功率估计不可靠。为此，我们提出JailMeter，一个基于证据的评估框架，受信息瓶颈理论启发，通过双重反馈优化从模型响应中过滤越狱噪声，保留与恶意问题相关的内容，生成简洁证据进行严格审核。在人工标注的JailMeter-Eva基准上，JailMeter取得97.27%的准确率，远超现有评估方法，准确率大幅领先。同时，蒸馏出小模型JailMeter_SLM，在几乎不损失可靠性的情况下大幅减少算力需求，为大规模越狱攻击评估提供了高效且可靠的解决方案。",
+      "tags": "query:ca",
+      "abstract_en": "The assessment of jailbreak attacks against large language models currently suffers from inconsistent evaluation criteria and methods, leading to unreliable estimates of attack success rates. We propose JailMeter, an evidence-based evaluation framework designed to more faithfully measure jailbreak effectiveness. Inspired by the Information Bottleneck theory, JailMeter applies dual-feedback optimization to filter jailbreak noise from model responses while preserving content relevant to the original malicious question. This process produces concise evidence for a rigorous assessment under which an attack is validated only when the response captures the malicious intent and delivers a complete answer, thereby signaling a substantive bypass of model safety alignment. We evaluate JailMeter on JailMeter-Eva, a challenging benchmark containing 330 human-labeled, non-rejected jailbreak instances. JailMeter achieves an accuracy of 97.27%, substantially outperforming existing evaluation methods. To support large-scale evaluation, we further distill JailMeter into a small language model, JailMeter\\textsubscript{SLM}, which maintains comparable reliability with significantly reduced computational costs. Code and dataset are available at https://github.com/Magi2B0y/JailMeter.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202607/25/2607.19837v1-know-your-agent-reconnaissance-driven-pentesting-of-ai-agents",
+      "section": "deep",
+      "title_en": "Know Your Agent: Reconnaissance-Driven Pentesting of AI Agents",
+      "authors": "Or Zion Eliav, Eyal Lenga, Shir Bernstien, Yisroel Mirsky",
+      "date": "2026-07-22",
+      "pdf": "https://arxiv.org/pdf/2607.19837v1",
+      "score": "8.0",
+      "evidence": "正式提出侦察驱动的AI智能体渗透测试，直接支持安全环境中LLM智能体的对抗评估。",
+      "tldr": "传统渗透测试在每个步骤都进行侦察，以逐步发现隐蔽弱点、构建更强攻击，然而AI代理缺乏类似的侦察驱动安全评估方法。本文形式化代理侦察过程，识别知识资产与弱点，进而提出KYA框架，实现黑盒自动侦察，构建轮廓以增强间接提示注入攻击。在代理安全基准和真实编码代理上的评估表明，KYA能有效提升攻击威力，提供了AI代理安全评估的新范式，并开源了框架与基准以促进可复现研究。",
+      "tags": "query:ca",
+      "abstract_en": "Traditional pentesting uses reconnaissance at each step to uncover unseen weaknesses, build stronger attacks, and advance the objective; we argue that AI agents require the same treatment. We formalize agent reconnaissance by modeling the process and identifying the knowledge assets it seeks to extract: what they are, how they are used, and which agent weaknesses they exploit to give adversaries leverage in indirect prompt injection attacks. We instantiate these insights in Know Your Agent (KYA), a framework that automates black-box, reconnaissance-driven pentesting by probing agents, building target profiles, and using those profiles to craft stronger attacks. We evaluate KYA on agent-security benchmarks and a real-world coding agent, and release KYA, its benchmarks, and baseline implementations for reproducibility.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202607/25/2607.18485v1-trusted-credentials-untrusted-behavior-benchmarking-llm-agent-security-in-high-performance-computing",
+      "section": "quick",
+      "title_en": "Trusted Credentials, Untrusted Behavior: Benchmarking LLM-Agent Security in High-Performance Computing",
+      "authors": "Jie Li",
+      "date": "2026-07-20",
+      "pdf": "https://arxiv.org/pdf/2607.18485v1",
+      "score": "7.0",
+      "evidence": "基准测试大模型智能体对抗对抗性指令的安全性，一种对抗性智能体测试。",
+      "tldr": "大语言模型（LLM）代理开始在高性能计算（HPC）环境中执行常规任务，但使用用户凭据易遭对抗性指令劫持，导致任务意图偏离。本文定义了HPC场景的威胁模型，剖析了调度器、共享存储等攻击面，指出现有身份控制难以防范此类劫持。研究揭示了“被劫持的授权代理”问题，强调认证机制不足以保障任务安全。为此提出研究议程与实证基准TaskBound，为HPC代理安全提供评估框架。",
+      "tags": "query:ca",
+      "abstract_en": "Large language model (LLM) agents are starting to take on routine work in high-performance computing (HPC), including monitoring Slurm jobs, diagnosing failed builds, inspecting simulation output, and coordinating scientific workflows. To do this work, an agent commonly acts under its user's credentials and inherits the user's access to files and the scheduler. This arrangement creates a failure mode that ordinary account-level controls do not capture. Adversarial instructions in a log, tool description, shared file, or peer-agent message may redirect the agent beyond the task the user assigned, even though every resulting command is authenticated and permitted for that account. We refer to this as the hijacked authorized agent problem. Existing agent-security studies explain relevant mechanisms, such as indirect prompt injection and tool misuse, but generally evaluate them in web, enterprise, or personal-assistant settings. HPC security, by contrast, has mature controls for identity and isolation but does not ordinarily represent the intent of a particular task. This paper defines the threat model in the HPC setting, identifies attack surfaces created by schedulers, shared storage, multi-project accounts, and scientific workflows, and examines where current controls fall short. It concludes with a research agenda and a plan for an empirical benchmark, TaskBound.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}
