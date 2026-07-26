@@ -1,0 +1,25 @@
+{
+  "date": "20260726",
+  "date_label": "",
+  "generated_at": "2026-07-26 20:24:46 UTC",
+  "recommend_exists": true,
+  "run_count": 1,
+  "papers": [
+    {
+      "paper_id": "2607.16900v2",
+      "route": "202607/26/2607.16900v2-environment-free-synthetic-data-generation-for-api-calling-agents",
+      "title": "Environment-free Synthetic Data Generation for API-Calling Agents",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "ca"
+        }
+      ],
+      "score": 6.0,
+      "evidence": "免环境生成智能体轨迹的方法可支撑网络犯罪智能体的可扩展模拟",
+      "first_seen_at": "2026-07-26 20:24:46 UTC",
+      "updated_at": "2026-07-26 20:24:46 UTC"
+    }
+  ]
+}

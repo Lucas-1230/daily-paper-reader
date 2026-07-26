@@ -41,17 +41,17 @@
 <section class="dpr-home-dashboard-card dpr-home-report-card">
   <div class="dpr-home-dashboard-header">
     <div>
-      <span class="dpr-home-dashboard-kicker">2026-07-25</span>
+      <span class="dpr-home-dashboard-kicker">2026-07-26</span>
       <h3 class="dpr-home-dashboard-title">今日汇总</h3>
     </div>
-    <strong class="dpr-home-dashboard-count">共 3 篇</strong>
+    <strong class="dpr-home-dashboard-count">共 1 篇</strong>
   </div>
   <dl class="dpr-home-dashboard-stats">
     <div class="dpr-home-dashboard-stat"><dt>累计更新</dt><dd>1 次</dd></div>
-    <div class="dpr-home-dashboard-stat"><dt>精读</dt><dd>2</dd></div>
+    <div class="dpr-home-dashboard-stat"><dt>精读</dt><dd>0</dd></div>
     <div class="dpr-home-dashboard-stat"><dt>速读</dt><dd>1</dd></div>
   </dl>
-  <p class="dpr-home-dashboard-body">最近更新：2026-07-25 21:22:01 UTC<br>状态：成功</p>
+  <p class="dpr-home-dashboard-body">最近更新：2026-07-26 20:24:46 UTC<br>状态：成功</p>
 </section>
 <section class="dpr-home-dashboard-card dpr-home-brief-card">
   <div class="dpr-home-dashboard-header">
@@ -62,9 +62,9 @@
     <strong class="dpr-home-dashboard-count">AI</strong>
   </div>
   <div class="dpr-home-dashboard-body">
-<p>今日精读了两篇最新安全研究，聚焦于大模型越狱攻击的量化评估与AI智能体的渗透测试。</p>
-<p>核心发现：JailMeter 首次提出基于证据的越狱评估框架，揭示了现有防御的盲区；Know Your Agent 则展示了主动侦察如何系统性攻破智能体。</p>
-<p>建议关注 AI 系统安全评估从“事后打补丁”转向“先发制人式渗透”的趋势，开发者可优先迭代自动化红队工具。</p>
+<p>今日关注：合成数据如何让API调用智能体不再依赖真实环境训练。</p>
+<p>最值得看：无环境合成数据生成方法，直接模拟交互场景，降低开发门槛。</p>
+<p>下步建议：若在构建工具型AI，不妨试试用这种数据快速冷启动你的智能体。</p>
   </div>
 </section>
 <section class="dpr-home-dashboard-card dpr-home-deep-card">
@@ -73,12 +73,12 @@
       <span class="dpr-home-dashboard-kicker">今日累计</span>
       <h3 class="dpr-home-dashboard-title">精读推荐</h3>
     </div>
-    <strong class="dpr-home-dashboard-count">2 篇</strong>
+    <strong class="dpr-home-dashboard-count">0 篇</strong>
   </div>
   <div class="dpr-home-dashboard-body">
-<ul class="dpr-home-dashboard-paper-list"><li><span class="dpr-home-dashboard-paper-title" title="JailMeter: An Evidence-Based Evaluation Framework for Jailbreak Attacks on Large Language Models">JailMeter: An Evidence-Based Evaluation Framework for Jailbreak Attacks on Large Language Models</span></li><li><span class="dpr-home-dashboard-paper-title" title="Know Your Agent: Reconnaissance-Driven Pentesting of AI Agents">Know Your Agent: Reconnaissance-Driven Pentesting of AI Agents</span></li></ul>
+<p class="dpr-home-dashboard-empty">今日暂无推荐。</p>
   </div>
-  <div class="dpr-home-dashboard-tags"><span class="dpr-home-dashboard-tag">ca <strong>2</strong></span></div>
+
 </section>
 <section class="dpr-home-dashboard-card dpr-home-skim-card">
   <div class="dpr-home-dashboard-header">
@@ -89,7 +89,7 @@
     <strong class="dpr-home-dashboard-count">1 篇</strong>
   </div>
   <div class="dpr-home-dashboard-body">
-<ul class="dpr-home-dashboard-paper-list"><li><span class="dpr-home-dashboard-paper-title" title="Trusted Credentials, Untrusted Behavior: Benchmarking LLM-Agent Security in High-Performance Computing">Trusted Credentials, Untrusted Behavior: Benchmarking LLM-Agent Security in High-Performance Computing</span></li></ul>
+<ul class="dpr-home-dashboard-paper-list"><li><span class="dpr-home-dashboard-paper-title" title="Environment-free Synthetic Data Generation for API-Calling Agents">Environment-free Synthetic Data Generation for API-Calling Agents</span></li></ul>
   </div>
   <div class="dpr-home-dashboard-tags"><span class="dpr-home-dashboard-tag">ca <strong>1</strong></span></div>
 </section>

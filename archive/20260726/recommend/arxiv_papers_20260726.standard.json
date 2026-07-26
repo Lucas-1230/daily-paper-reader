@@ -1,0 +1,59 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-07-26T20:21:17.475319+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 0,
+    "deep_cap": 6,
+    "deep_selected": 0,
+    "quick_candidates": 1,
+    "quick_skim_target": 11,
+    "quick_selected": 1
+  },
+  "deep_dive": [],
+  "quick_skim": [
+    {
+      "id": "2607.16900v2",
+      "source": "arxiv",
+      "title": "Environment-free Synthetic Data Generation for API-Calling Agents",
+      "abstract": "Training API-calling large language model (LLM) agents demands massive amounts of high-quality trajectories. However, collecting such data at scale typically requires fully implemented environments with executable APIs and realistic, pre-populated backend databases, creating a major bottleneck for scalability. To overcome this, we propose an environment-free synthetic data generation approach that leverages LLMs as on-the-fly digital world models. Given only API specifications, our method generates trajectories mimicking interactions between an agent and a stateful environment. Specifically, an LLM first generates diverse tasks solvable with the provided APIs. A teacher agent then iteratively solves each task while an LLM simulator generates coherent synthetic API responses conditioned on the task context and simulation history. Finally, an LLM judge filters the trajectories to ensure the quality of the resulting dataset. We evaluate our approach on the challenging AppWorld and OfficeBench benchmarks, which include both information-retrieval and state-changing tasks. Fine-tuning models on our synthetic data yields significant performance gains, demonstrating that effective supervision for API-calling agents can be generated without any executable environment. Our results establish LLM-based API simulation as a practical, scalable solution for training agents across diverse API ecosystems.",
+      "authors": [
+        "Seanie Lee",
+        "Sanjoy Chowdhury",
+        "Chao Jiang",
+        "Cheng-Yu Hsieh",
+        "Ting-Yao Hu",
+        "Alexander T Toshev",
+        "Oncel Tuzel",
+        "Raviteja Vemulapalli"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-07-18T17:36:44+00:00",
+      "link": "https://arxiv.org/pdf/2607.16900v2",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "environment-free generation of agent trajectories could enable scalable simulation of cybercrime agents",
+      "llm_evidence_cn": "免环境生成智能体轨迹的方法可支撑网络犯罪智能体的可扩展模拟",
+      "llm_evidence": "免环境生成智能体轨迹的方法可支撑网络犯罪智能体的可扩展模拟",
+      "canonical_evidence": "免环境生成智能体轨迹的方法可支撑网络犯罪智能体的可扩展模拟",
+      "llm_tldr_en": "Proposes using LLMs as world models to generate synthetic interaction trajectories for API-calling agents, removing the need for real environments; this can lower the barrier to training agents that simulate cybercriminal activities.",
+      "llm_tldr_cn": "该论文针对训练API调用智能体需要大量轨迹数据但真实环境难以获取的问题，提出了一种无环境合成数据生成方法。利用LLM作为虚拟世界模型，仅根据API规范生成智能体与有状态环境交互的轨迹。这种方法为训练网络犯罪模拟智能体提供了可扩展的轨迹生成方案，降低了数据收集成本。",
+      "llm_tldr": "该论文针对训练API调用智能体需要大量轨迹数据但真实环境难以获取的问题，提出了一种无环境合成数据生成方法。利用LLM作为虚拟世界模型，仅根据API规范生成智能体与有状态环境交互的轨迹。这种方法为训练网络犯罪模拟智能体提供了可扩展的轨迹生成方案，降低了数据收集成本。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "How can agent based modeling and multi agent systems simulate cybercriminal activities with large language models?",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}

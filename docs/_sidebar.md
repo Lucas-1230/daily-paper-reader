@@ -1,6 +1,9 @@
 * <a class="dpr-sidebar-root-link" href="#/">首页</a>
 * <a class="dpr-sidebar-root-link dpr-sidebar-noactive-link" href="javascript:void(0)" data-dpr-hash="#/tutorial/README">使用教程</a>
 * Daily Papers
+  * 2026-07-26 <!--dpr-date:20260726-->
+    * 速读区
+      * <a class="dpr-sidebar-item-link dpr-sidebar-item-structured" href="#/202607/26/2607.16900v2-environment-free-synthetic-data-generation-for-api-calling-agents" data-sidebar-item="{&quot;title&quot;: &quot;Environment-free Synthetic Data Generation for API-Calling Agents&quot;, &quot;link&quot;: &quot;https://arxiv.org/abs/2607.16900v2-environment-free-synthetic-data-generation-for-api-calling-agents&quot;, &quot;score&quot;: &quot;6.0&quot;, &quot;tags&quot;: [{&quot;kind&quot;: &quot;query&quot;, &quot;label&quot;: &quot;ca&quot;}], &quot;evidence&quot;: &quot;免环境生成智能体轨迹的方法可支撑网络犯罪智能体的可扩展模拟&quot;}">Environment-free Synthetic Data Generation for API-Calling Agents</a>
   * 2026-07-25 <!--dpr-date:20260725-->
     * 精读区
       * <a class="dpr-sidebar-item-link dpr-sidebar-item-structured" href="#/202607/25/2607.19424v1-jailmeter-an-evidence-based-evaluation-framework-for-jailbreak-attacks-on-large-language-models" data-sidebar-item="{&quot;title&quot;: &quot;JailMeter: An Evidence-Based Evaluation Framework for Jailbreak Attacks on Large Language Models&quot;, &quot;link&quot;: &quot;https://arxiv.org/abs/2607.19424v1-jailmeter-an-evidence-based-evaluation-framework-for-jailbreak-attacks-on-large-language-models&quot;, &quot;score&quot;: &quot;8.0&quot;, &quot;tags&quot;: [{&quot;kind&quot;: &quot;query&quot;, &quot;label&quot;: &quot;ca&quot;}], &quot;evidence&quot;: &quot;评估越狱攻击以衡量LLM滥用能力&quot;}">JailMeter: An Evidence-Based Evaluation Framework for Jailbreak Attacks on Large Language Models</a>
