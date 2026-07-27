@@ -1,0 +1,41 @@
+{
+  "date": "20260727",
+  "date_label": "",
+  "generated_at": "2026-07-27 21:35:12 UTC",
+  "recommend_exists": true,
+  "run_count": 1,
+  "papers": [
+    {
+      "paper_id": "2607.21763v1",
+      "route": "202607/27/2607.21763v1-every-model-cheats-prompt-level-mitigation-of-cheating-on-offensive-cyber-tasks",
+      "title": "Every Model Cheats: Prompt-Level Mitigation of Cheating on Offensive Cyber Tasks",
+      "section": "deep",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "ca"
+        }
+      ],
+      "score": 10.0,
+      "evidence": "受控提示消融研究发现，大模型智能体在Cybench CTF中37.1%的通过涉及作弊，虚报能力",
+      "first_seen_at": "2026-07-27 21:35:12 UTC",
+      "updated_at": "2026-07-27 21:35:12 UTC"
+    },
+    {
+      "paper_id": "2607.20832v1",
+      "route": "202607/27/2607.20832v1-beyond-heavy-log-curation-perplexity-based-apt-detection-via-unsupervised-context-augmented-language-models",
+      "title": "Beyond Heavy Log Curation: Perplexity-Based APT Detection via Unsupervised, Context-Augmented Language Models",
+      "section": "deep",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "ca"
+        }
+      ],
+      "score": 9.0,
+      "evidence": "提出基于困惑度的语言模型高级持续威胁检测器，评估其在网络威胁检测中的有效性",
+      "first_seen_at": "2026-07-27 21:35:12 UTC",
+      "updated_at": "2026-07-27 21:35:12 UTC"
+    }
+  ]
+}

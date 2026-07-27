@@ -1,0 +1,417 @@
+Title: Beyond Heavy Log Curation: Perplexity-Based APT Detection via Unsupervised, Context-Augmented Language Models
+
+URL Source: https://arxiv.org/pdf/2607.20832v1
+
+Published Time: Fri, 24 Jul 2026 00:23:02 GMT
+
+Number of Pages: 20
+
+Markdown Content:
+# Beyond Heavy Log Curation: Perplexity-Based APT Detection via Unsupervised, Context-Augmented Language Models 
+
+## Shoya Otsu 1, Kei Suzuki 2, Toshiaki Koike-Akino 2, Jing Liu 2, Ye Wang 2,
+
+## Abstract 
+
+Advanced Persistent Threats (APTs) remain difficult to detect because only a small fraction of events in large-scale logs are attack-related, and investigation is expensive and hard to scale. Prior machine-learning approaches can reduce ana-lyst workload, but they often rely on heavily curated training data and sophisticated preprocessing pipelines. Building and maintaining such pipelines require substantial domain exper-tise and engineering cost. Motivated by insights from a study of a strong APT detection baseline, we propose CAPTAIN (Context-Augmented Perplexity-based Threat Activity log detectIoN), a perplexity-based detector that leverages general, pre-trained language models with minimal, domain-agnostic preprocessing, enabling robust scoring of long, minimally pro-cessed log entries. CAPTAIN encodes recent history with an encoder model and a Q-Former-style bridge, then injects the compact context tokens into the decoder input so that perplex-ity reflects temporal context. To improve stability, CAPTAIN additionally applies smoothing filters to the perplexity time series. Across APT-oriented benchmarks, CAPTAIN com-petes with strong existing baselines and remains robust under substantially less curated inputs, that reduces the development and operational cost of advanced log preprocessing. 
+
+## 1 Introduction 1.1 Background 
+
+Advanced Persistent Threats (APTs) remain a major opera-tional challenge for defenders because they unfold over long time horizons and blend into benign activity. In practice, de-fenders must examine massive volumes of heterogeneous logs, and only a small fraction of events are truly attack-related. Manual processes are costly and difficult to scale. Therefore, machine learning applications for attack detection are being actively investigated as a way to automate these processes.  
+
+> 1Mitsubishi Electric Corporation, Japan. Email: Otsu.Shoya@eb.MitsubishiElectric.co.jp
+> 2Mitsubishi Electric Research Laboratories, Cambridge, MA, USA.
+
+Recent advances in machine learning and natural language processing, especially the emergence of Transformer [43], have greatly improved text understanding, summarization, generation, and reasoning [25, 36, 46]. Encoder-style trans-formers such as BERT [10] use bidirectional attention to compress token-level information into rich representations. They achieve strong performance on many language under-standing tasks, including tasks that require document-level representations. In contrast, decoder-only transformers such as the GPT family [4, 35] and Qwen [51] compute next-token probabilities in an autoregressive manner. This design enables high-quality text generation and general-purpose reasoning . Transformer-based models have also been widely adopted for log analysis and anomaly detection [12, 15, 16, 24, 29]. A common approach in recent attack investigation starts from audit logs and constructs a provenance or causal graph. The graph connects system entities and events through de-pendency edges, and it helps analysts trace multi-step attack paths. Many systems then apply machine learning on top of the graph to identify suspicious nodes or subgraphs and to reconstruct the attack story [6, 21, 32]. ATLAS [3] is a rep-resentative benchmark and method in this line of work. It builds a causal graph from audit logs and learns patterns of attack and non-attack behaviors for investigation. The shared evaluation setting of ATLAS has enabled rapid progress and comparison across methods in the community. However, this graph-based workflow raises practical chal-lenges. First, graph construction requires heavy preprocessing, which adds latency and engineering overhead. Second, many learning-based methods benefit from labels on graph nodes or edges, but reliable labeling is costly and error-prone. Third, graph structures and schemas often depend on the dataset and the collection environment, which limits portability across deployments. Finally, investigation pipelines often focus on post-hoc analysis. In operations, defenders also want fast de-tection on each host, not only centralized aggregation and long offline analysis. To reduce the burden on analysts, recent research has explored machine-learning-based approaches that automati-1arXiv:2607.20832v1 [cs.LG] 23 Jul 2026 PPLs 1.213  
+
+> 0.312
+> 3.343 1.031 5.342
+> 0.531 ….
+> Model Inference Preprocessing
+> Text Encoder Decoder-only Language Model Smoothing Filter
+> Raw Logs
+> Audit Firefox DNS
+> Post Processing Alert/Investigate
+> Analyst Investigation
+> Q-Former
+
+# CAPTAIN 
+
+> Smoothed PPLs
+> 0.823 0.521
+> 3.3424 3.1412 4.3234
+> 0.6342 ….
+> Contex-Augmented Queries
+> Log History Current Log Entry
+> Minimally processed log entries
+
+Figure 1: CAPTAIN overview. CAPTAIN ingests minimally processed, time-ordered logs (the current entry and its recent history). A text encoder summarizes the history, and a Q-Former bridges it into a decoder-only LM as context tokens. The LM assigns a perplexity (PPL) score to each entry. Then, the PPL time series is smoothed in post-processing, and entries with high final scores are flagged as suspicious for analyst investigation. cally surface suspicious events and prioritize investigations. AIRTAG [11], for example, reports strong detection capability on the ATLAS dataset and avoids manual graph labeling by learning directly from log text. Despite this progress, existing approaches still depend heavily on dataset-specific preprocess-ing and curation. Such dependence increases development cost and can limit robustness when logs are long and noisy. In this work, we revisit AIRTAG as a strong baseline and conduct a replication study to better understand the factors driving its performance. We then propose a new approach that better matches practical logging conditions and addresses the limitations identified in our replication study. 
+
+## 1.2 Revisiting AIRTAG: Reproduction Find-ings and Practical Limitations 
+
+Through our replication study, we identified two factors that substantially affect measured performance, as well as two practical limitations that become more prominent in realistic logging settings: • Observation 1: Cross-split correlation of malicious log entries can introduce evaluation bias. Malicious log entries in ATLAS can be highly correlated across splits, sometimes appearing in near-identical form in both training and test sets. This overlap can lead to opti-mistic estimates by favoring memorization over gener-alization, so we re-evaluate under a setting that reduces such overlap. • Observation 2: Post-processing can leverage ma-licious log entry labels. AIRTAG includes a post-processing filter that can utilize labels that indicate ma-licious log entries. We find that removing these labels changes the behavior of post-filtering and leads to de-graded performance. • Limitation 1: Reduced robustness to long log entries and reliance on manual feature extraction. AIRTAG’s log preprocessing pipeline involves carefully designed manual feature extraction that may be key to enable at-tack detection from short token sequences. In our exper-iments, however, we found that AIRTAG’s performance degrades once the token budget is increased beyond a certain point. We also observed performance drops when using a minimally processed dataset that does not rely on careful application of domain knowledge for manual feature extraction. These results suggest that AIRTAG is more sensitive to token content and may require high-quality, domain-specific preprocessing to achieve strong performance in operational settings. • Limitation 2: Lack of context modeling across log events. AIRTAG evaluates each log entry independently as benign or malicious, and therefore cannot naturally incorporate temporal context or dependencies across events. This is particularly important for detecting APTs (advanced persistent threats): because APT campaigns unfold over long time horizons, attacker activity may be temporally sparse or occur in bursts, and the sequence and timing of events can provide crucial evidence that is not captured by individual log lines alone. 21.3 Our Approach 
+
+In this paper, we propose CAPTAIN (Context-Augmented Perplexity-based Threat Activity log detectIoN), a perplexity-based detector that utilizes general, pre-trained language mod-els with minimal, domain-agnostic preprocessing (Figure 1). By leveraging LMs, the method can judge whether a token se-quence is plausible under normal behavior for both short and long log entries. This allows us to ingest log entries with mini-mal, domain-agnostic preprocessing while preserving most of the information in raw logs, which is important because attack evidence may appear anywhere in a long message. To incor-porate past log context efficiently, we create a small number of special context tokens using an encoder-style Transformer and a Q-Former module [27] that bridges the representation spaces of the encoder and the decoder LM. We insert these to-kens into the LM input so that the LM can consider historical activity when scoring the current log entry. Finally, we treat the sequence of perplexity scores as a time series and apply a classical post-filtering step (e.g., smoothing), which improves stability and makes sustained abnormal behavior easier to detect. We train the model with an autoencoder-style unsu-pervised learning scheme so that it can learn normal patterns without attack labels. This paper makes the following contributions: • Re-evaluation of AIRTAG. We reproduce AIRTAG and identify artifacts that can unintentionally introduce label-related information into the learning/evaluation pipeline. By correcting these issues and re-evaluating, we clar-ify AIRTAG’s performance under conditions that better reflect deployment settings. • Context-aware detection model with only minimal domain-specific preprocessing. We propose CAPTAIN, a new approach that incorporates historical log context while operating on logs produced by simple, domain-agnostic preprocessing rather than carefully curated fea-ture extraction. Concretely, we show that soft prompting of contextual log information via a Q-Former bridge is ef-fective for attack detection, and ablation results confirm that the gain cannot be explained by domain adaptation alone. • Score smoothing improves performance. We find that treating per-entry perplexity scores as a time series and applying a smoothing filter consistently improves detec-tion performance and stabilizes the detector. • Unsupervised learning formulation for our proposed model. We develop an unsupervised training method that learns the proposed context-conditioning mechanism using only benign logs, enabling CAPTAIN to be trained without relying on labeled malicious examples. 
+
+## 2 Establishing a Baseline: AIRTAG 
+
+We conducted a replication study of AIRTAG to establish a fair and well-controlled baseline for CAPTAIN. In the course of this effort, we identified several evaluation-related issues that we believe are important to document and share, and we summarize them here. 
+
+## 2.1 Preprocessing 
+
+Dataset. AIRTAG evaluates its method on several datasets: the public ATLAS [3] (M1–M6 and S1–S4), DEPIM-PACT [14] (dataleak, vpnfilter, and shellshock), and an addi-tional dataset collected by the authors. However, the scripts and detailed results needed to reproduce AIRTAG’s evalu-ation on DEPIMPACT and the privately collected dataset are not available [1], making an exact reproduction difficult. Therefore, in this work, we focus on the reproducible, publicly available ATLAS dataset. 
+
+Preprocessing. In principle, AIRTAG can preprocess logs in various formats. In the implementation released on GitHub, however, the evaluation on ATLAS relies on data that has already been preprocessed using the ATLAS preprocess-ing procedure. This procedure aligns logs from multiple sources—such as Firefox, DNS, and security/audit events—by timestamp and merges them into a single stream. Concretely, ATLAS parses three log types (Firefox, DNS, and Audit logs) and converts each log entry into a CSV row with 19 fields. The last field contains both (i) a source identifier (e.g., “LA”, “LB”, or “LD” to respectively distinguish Firefox, DNS, or Windows Audit logs), and (ii) the ground-truth label: benign indicated as “-” or malicious as “+”. Based on the ATLAS-preprocessed data, AIRTAG performs additional preprocessing to generate the training split, the test split, and a vocabulary file for its custom tokenizer. During our replication, we confirmed that the BERT training and test files provided by the AIRTAG authors still contained the malicious markers “+” at the end of each line. Since this marker correspond to the ground-truth label, we remove it from both the training and test data in our experiments to avoid unintentionally exposing label information to the model. 
+
+## 2.2 Training 
+
+In the training stage, first, AIRTAG tokenizes log entries using a domain-specific tokenizer and pretrains BERT (uncased_L-6_H-128_A-2) on a mixture of benign and malicious log entries. After pretraining, it encodes the benign-only train-ing set into embedding vectors and trains a downstream One-Class Support Vector Machine (OC-SVM) using these benign embeddings. A key property of ATLAS is that malicious events were synthetically created in a manner 3Table 1: The number of log entries containing common mali-cious keywords, across all ATLAS dataset splits. Keyword M1 M2 M3 M4 M5 M6 S1 S2 S3 S4 0xalsaheel.com 51 89 113 13 62 16 71 41 12 19 192.168.223.3 342 780 623 355 553 2506 301 247 1363 413 payload.exe 8940 34956 34963 9057 34037 9071 5162 17855 4422 17862 Table 2: Malicious Keyword Mapping (left → right) Before (Original) After 0xalsaheel.com 0xygen.org 192.168.223.3 192.168.7.58 payload.exe shipment.exe pypayload.exe pyshipment.exe msf.rtf hghg.rft msf_2018_8174.rtf fgfg_1990_0605.rft msf.exe fghg.exe msf.doc hgfg.doc aalsahee/index.html 00xygen/start.html that resulted in malicious log entries that share distinguish-ing features across all dataset splits. Specifically, malicious log entries are uniquely identified by containing keywords 
+
+0xalsaheel.com , 192.168.223.3 or payload.exe , which, as shown in Table 1, are shared across all data splits. This raises the risk that pretraining may expose the model to test-set patterns, which can inflate evaluation results. To reduce this risk in our replication, we modify the training data so that malicious keywords that appear in the training split do not exactly match those in the test split. Concretely, we replace malicious keywords in the training split with alternative ones, as listed in Table 2, ensuring that only the test split contains original malicious keywords. 
+
+## 2.3 Attack Detection 
+
+During inference, AIRTAG applies the pretrained BERT en-coder and the OC-SVM to determine whether each log entry is likely related to an attack. Log entries flagged as suspicious are then passed through a frequent-term-based post-filter (re-ferred to as field frequency filters with tolerance bounds) to reduce false positives rate (FPR). While inspecting the imple-mentation of this post-filter, we found that the file used for word counting still contains the ground-truth malicious/be-nign labels “+/-”. In our analysis, we discovered that the pres-ence of these labels play a crucial factor in the effectiveness of this filter, by observing that removing these “+/-" labels significantly degraded performance. demonstrating that it no longer performed its intended function. Therefore, we do not use this post-filter in the remainder of this paper. Details of this analysis is described in the Appendix A. 
+
+## 3 Proposed Method 
+
+CAPTAIN is a perplexity-based attack detection method that incorporates historical log context with minimal, domain-agnostic preprocessing. The pipeline has three stages: prepro-cessing, model inference, and post-processing (Figure 2). 
+
+## 3.1 Perplexity-based Detection of Attack-related Log Entries 
+
+In this study, we use perplexity as a measure of how well an LM can explain each log entry as a “normal” log, while explicitly conditioning on historical log context. Let a current log entry be represented as a token sequence x = ( x1, . . . , xT ),and let c denote the context provided to the LM (e.g., context tokens derived from past logs and inserted into the LM input). An autoregressive LM defines the conditional likelihood of x
+
+given c, as a product of next-token conditionals: 
+
+q(x | c) = 
+
+> T
+
+# ∏
+
+> t=1
+
+q(xt | x<t , c), (1) where x<t ≜ (x1, . . . , xt−1). We then define the average cross entropy of the sequence conditioned on c as 
+
+H(x | c) ≜ − 1
+
+T
+
+> T
+
+# ∑
+
+> t=1
+
+log q(xt | x<t , c), (2) and the conditional perplexity as the exponential of this cross entropy: PPL (x | c) ≜ exp  H(x | c). (3) A larger PPL (x | c) indicates that the model finds the sequence harder to predict (i.e., it has lower likelihood). Our key assumption is that attack-induced logs differ from normal logs in terms of vocabulary, syntax, and transitions of log context; therefore, an LM trained on normal logs is likely to assign lower probabilities to malicious logs, resulting in higher perplexity. Accordingly, we compute perplexity of each log entry and decide it is an attack, if it exceeds a threshold τ:
+
+x is suspicious ⇐⇒ PPL (x | c) > τ. (4) 
+
+## 3.2 Preprocessing 
+
+CAPTAIN is designed to minimize the need for domain-specific preprocessing. Rather than relying on manual fea-ture extraction (e.g., regex-based parsing), we apply only lightweight, general transformations that keep the log content largely intact while making it suitable as text input. Each event is associated with a timestamp, and when a single event spans multiple lines, we merge the lines into a single textual record. Specifically, we normalize raw audit log entries by converting timestamps to UTC and replacing line breaks with the string “\n”, so that a single multi-line Audit event is represented as a single-line textual record. 4Text Encoder Q-Former Log History Current Log Entry PPL Smoothing �ilter Smoothed PPL Learned Queries Raw logs Preprocessor Preprocessing Post Processing Model Inference 
+
+> …
+> Text Encoder Current Log Entry Self Attention Cross Attention Feed Forword Text Encoder Self Attention Cross Attention Feed Forword Linear Projection
+
+×N ×N Q-Former Decoder-only Language model 
+
+> Learned Query Tokens
+
+Figure 2: CAPTAIN architecture with Q-Former details. The text encoder embeds the current log entry and log history. Q-Former uses a fixed set of learned query tokens and updates them with Transformer blocks (self-attention, cross-attention to encoder outputs, and feed-forward layers). In our two-stage design, queries are first conditioned on the current entry and then refined using the log history, followed by a linear projection into the decoder LM space. The resulting context tokens are fed to a decoder-only LM to compute per-entry perplexity (PPL), and the PPL time series is smoothed in post-processing to produce stable anomaly scores. We also follow the dataset conventions of ATLAS for DNS and Firefox log types: for DNS logs, we retain only responses because the corresponding request information is already re-flected in the response; for Firefox logs, we focus on events related to HTTP requests. Importantly, these choices do not require designing log-specific feature templates, but instead avoid heavy curation while preserving the original semantics of the logs. CAPTAIN does not assume a specific internal schema of the log entry. As long as the input can be represented as text such that the model can access both (i) the current log entry to be scored and (ii) the historical log context preceding it, CAPTAIN can be applied without requiring a fixed format. 
+
+## 3.3 Model 
+
+As shown in Figure 2, CAPTAIN has three model components: (i) a text encoder, (ii) a decoder-only transformer LM, and (iii) a Q-Former that bridges the representation spaces of the encoder and the LM. 
+
+Text encoder. The text encoder converts both the current log entry (the entry we want to score) and the past log entries (context) into continuous embeddings. 
+
+Q-Former bridge. Q-Former was originally introduced in BLIP-2 [27] as a lightweight bridge module that projects encoder-side embeddings into a form that a downstream LM can effectively use. It maintains a fixed number of learned query vectors and extracts information from external encoder embeddings through cross-attention. Through training, Q-Former learns (1) how to select relevant information from the encoder outputs and (2) how to map that information into an embedding space that the LM can interpret. In CAPTAIN, we designed a two-stage Q-Former: • Stage 1: The Q-Former encodes the current log entry into the learned queries, producing a compact represen-tation that captures what the model should focus on for this specific entry. • Stage 2: Conditioned on the Stage-1 queries, the Q-Former then encodes the previous C log entries into updated queries. This design encourages the model to extract context from past logs that is strongly related to the current entry, rather than producing a generic sum-mary of history. The final learned queries are inserted into the decoder LM as soft context tokens, enabling the LM to compute perplexity for the current entry while taking past context into account. 
+
+Model choices in this paper. CAPTAIN does not require specific backbone models for the text encoder or the decoder LM. In our experiments, we use DistilBERT [38] as the text encoder and Qwen3-0.6B [51] as the decoder LM. We inten-tionally choose relatively lightweight models because we tar-5get a practical use case where detection is performed quickly on each host with limited resources, rather than aggregating logs to a central server and relying on large-scale compute. 
+
+## 3.4 Post Processing 
+
+In the post-processing stage, we treat the PPL values produced by the LM as a time-series random variable and apply smooth-ing to clean out fluctuations. APT activity is often temporally uneven; consequently, attack traces in logs can exhibit tempo-ral concentration. Our analysis suggests that ATLAS exhibits a similar tendency; we provide a detailed characterization in the Appendix B. Based on this observation, we consider the sequence of perplexity scores as a time series following the hidden Markov model. For such signals, smoothing with a classical filter (e.g., a moving average) can significantly reduce local noise, improve the stability of the detector, and make sustained abnormal behavior easier to identify. 
+
+Wiener filter for smoothing. In this paper, we apply a finite-impulse-response (FIR)-based smoothing filter to the raw PPL score sequence in order to suppress short-term fluc-tuations and emphasize the underlying trend. Let {xt }T −1 
+
+> t=0
+
+de-note the (optionally rescaled) scalar PPL score at time index 
+
+t. We produce a smoothed sequence { ˜xt } by linear filtering. For a window length L (odd), the smoothed score is com-puted by FIR convolution: ˜xt =
+
+> L−1
+
+# ∑
+
+> i=0
+
+wi xt+i−c, (5) where w = [ w0, . . . , wL−1]⊤ is the Wiener filter coefficient vector, and c = L−12 is the center index. The filter coefficients are obtained by solving a Wiener–Hopf system: 
+
+Rw = r, (6) where R ∈ RL×L is a symmetric Toeplitz auto-correlation matrix and r ∈ RL is a cross-correlation vector with respect to the window center. Assuming a simplified Markov chain, we parameterize the correlation structure using a crossover probability p ∈ (0, 1) as follows: 
+
+Ri j = ( 1 − p)|i− j| + σ2δi j , i, j = 0, . . . , L − 1, (7) 
+
+ri = ( 1 − p)|i−c|, i = 0, . . . , L − 1, (8) where δi j is the Kronecker delta and σ2 ≥ 0 is a noise variance 
+
+(diagonal loading) that regularizes the inversion of R and con-trols smoothing strength. The FIR filter could be normalized as w/∥w∥ to preserve the signal energy, however it has no impact on final detection performance with a correspondingly scaled threshold. 
+
+Parameter roles. The window size L determines the tem-poral span of smoothing: larger L yields stronger averaging but may blur rapid transitions. The crossover probability p
+
+controls the correlation decay (1 − p)|k|: smaller p implies longer-range correlation and typically produces a broader, smoother kernel. The variance σ2 acts as diagonal regulariza-tion; increasing σ2 reduces sensitivity to the assumed corre-lation model and tends to produce more conservative (less peaky) filter weights. Note that the Wiener filter reduces to the moving average filter, w = 11+L/σ2 1, when zero crossover probability is assumed (i.e., p = 0). 
+
+## 3.5 Model Training 
+
+Training in CAPTAIN consists of two stages: adapter training 
+
+(Figure 3) and full fine-tuning (Figure 4). 
+
+Adapter training. The first stage is to learn the Q-Former’s ability to project information from the encoder space into a representation that is usable by the decoder LM. We adopt an autoencoder-style unsupervised objective, where the model is trained to reconstruct the LM input from its own output. During this stage, we freeze the parameters of the text encoder and the LM, and update only the parameters of the Q-Former. The Q-Former is randomly initialized. We use the following training configuration: 1 epoch, 100K steps, and batch size of 2, resulting in a total of 200K be-nign log entries used for training. We use AdamW with a learning rate of 1 × 10 −4, a weight decay of 0.01 , β1 = 0.9 ,
+
+β2 = 0.98 , and 6,000 warm-up steps. For reference, adapter training takes approximately 9 hours on a single NVIDIA A40 GPU (48 GB). 
+
+Full fine-tuning. In the second stage, we fine-tune all model components, including the text encoder, the pretrained Q-Former, and the decoder LM. We use the same autoencoder-style unsupervised objective as in adapter training (i.e., recon-structing the LM input). We train for 1 epoch, 30K steps, and batch size of 2, corresponding to a total of 60K benign log entries. We use AdamW with a weight decay of 0.05 , β1 = 0.9 , and 
+
+β2 = 0.999 . We apply cosine learning-rate decay with a linear warm-up of 1,000 steps, a peak learning rate of 1 × 10 −5
+
+towards a minimum learning rate of 0 .0. 61) Adapter Training Text Encoder Q-former LLM Tokenize/Embedding Log History Current Log Entry Current Log Entry Reconstruction 
+
+> ……
+> Decoder-only Language model Learned Queries Embeddings
+
+Figure 3: Stage 1: Training only Q-Former adapter module. Text Encoder Q-former LLM Tokenize/Embedding Current Log Entry Reconstruction 
+
+> ……
+
+2) Full Fine-Tuning Decoder-only Language model Learned Queries Embeddings Log History Current Log Entry 
+
+Figure 4: Stage 2: Full fine-tuning of all modules. 
+
+## 4 Evaluation 4.1 Experimental Setup 
+
+Datasets and preprocessing settings. To evaluate the ro-bustness of CAPTAIN with respect to dataset characteristics, we conduct two experiments using datasets produced by dif-ferent preprocessing pipelines. • Experiment 1 (AIRTAG-preprocessed ATLAS). We use the dataset preprocessed by the AIRTAG/ATLAS pipeline. • Experiment 2 (CAPTAIN-preprocessed ATLAS). We use the dataset produced by our minimal, domain-agnostic preprocessing. A comparison of these two datasets is summarized in Ta-ble 3. Overall, the AIRTAG-preprocessed data has smaller file sizes and shorter log entries: the average entry length is approximately 115 characters (with a standard deviation around 60). In contrast, our preprocessed data is larger and contains substantially longer entries: the average entry length is approximately 670 characters (with a standard deviation around 300), which indicates that it retains more information per entry. 
+
+Experiment 1: Evaluation on AIRTAG-preprocessed data. 
+
+In Experiment 1, we compare AIRTAG and CAPTAIN on the dataset preprocessed by the AIRTAG/ATLAS pipeline. Since AIRTAG provides a tokenizer specialized for this pre-processed format, we integrate the same tokenizer into the text encoder used by CAPTAIN in this experiment. Because the text encoder must adapt to the AIRTAG tokenizer in this setting, we also make the text encoder parameters trainable during the adapter training stage (only for this experiment). We evaluate two maximum input lengths: 32 tokens , which is AIRTAG’s default setting, and 64 tokens as an extended setting to test robustness to a larger token budget. To match AIRTAG’s evaluation protocol, we use the same train/test split configuration for each target dataset. Specifi-cally, for multi-host campaigns: (i) when testing on M1 or M2, we train on M3–M6; (ii) when testing on M3 or M4, we train on M1, M2, M5, and M6; (iii) when testing on M5 or M6, we train on M1–M4. For single-host datasets S1–S4, when testing on a dataset (e.g., S1), we train on the remaining ones (e.g., S2–S4). 
+
+Experiment 2: Evaluation on CAPTAIN-preprocessed data. In Experiment 2, we compare AIRTAG and CAPTAIN on the dataset produced by our preprocessing. For AIRTAG, we follow the authors’ released scripts as closely as possi-ble to build the required vocabulary file, training data, and test data from our dataset. In this experiment, we adopt the ATLAS-style training configuration for train/test splits. For example, to test on M1, we train on M2–M6; to test on S1, we train on S2–S4. 
+
+Performance metric. To compare detection performance, we use the area under the curve (AUC) of receiver operat-ing characteristics (ROC) . AUC summarizes the trade-off between the TPR and the FPR across all possible decision thresholds τ.For AIRTAG, the OC-SVM produces a signed score based on the distance of each data point to the learned decision boundary (hyperplane). We sweep the classification threshold over this score to compute TPR and FPR, and then compute AUC. For CAPTAIN, we use the perplexity-based score pro-duced by the LM for each log entry. We sweep a threshold 
+
+τ over the perplexity values to compute TPR and FPR, and then compute AUC. In both Experiment 1 and Experiment 2, we observe dataset splits where the AUC falls below 0.5 for both AIRTAG and CAPTAIN. Since an AUC below 0.5 indicates that the scor-ing function is negatively correlated with the ground-truth 7Table 3: Dataset Statistics Comparison (AIRTAG vs. Ours).                                                                                                                                                                               
+
+> AIRTAG Preprocessed Dataset Our Preprocessed Dataset Split APT intrusion campaign Total Entries Attack %Size[MB] char. μ±σTotal Entries Attack %Size[MB] char. μ±σ
+> M1 Strategic web compromise 251 ,675 8,180 3.328 115.0 ±66.3 274 ,713 9,007 3.3179 681.0 ±310.1 M2 Targeted GOV phishing 284 ,392 34 ,968 12 .333 113.4 ±64.4 311 ,585 35 ,171 11 .3208 695.9 ±331.8 M3 Malvertising dominate 334 ,343 35 ,198 10 .537 111.5 ±57.6 358 ,133 35 ,123 9.8228 667.4 ±364.4 M4 Monero miner by Rig 258 ,750 8,260 3.230 114.8 ±62.2 282 ,014 9,319 3.3185 686.7 ±314.5 M5 Pony campaign 701 ,512 34 ,256 4.977 114.2 ±61.3 767 ,192 34 ,313 4.5475 669.6 ±215.5 M6 Spam campaign 354 ,028 10 ,004 2.839 112.0 ±59.9 380 ,945 11 ,485 3.0243 660.8 ±278.5 S1 Strategic web compromise 95 ,065 4,598 4.811 116.0 ±71.0 102 ,213 5,262 5.165 664.8 ±281.5 S2 Malvertising dominate 397 ,952 15 ,073 3.846 117.6 ±67.2 419 ,412 17 ,989 4.3270 672.9 ±243.5 S3 Spam campaign 128 ,317 5,172 4.015 118.7 ±69.2 140 ,320 5,826 4.292 679.6 ±317.3 S4 Pony campaign 125 ,613 18 ,071 14 .415 119.9 ±70.9 135 ,534 18 ,137 13 .489 681.1 ±315.0 Total 2,931 ,647 173 ,780 5.93,172 ,061 181 ,632 5.7
+
+labels (i.e., reversing the decision rule would yield better-than-random discrimination), we report the corresponding discriminative ability using 1 − AUC for those cases. 
+
+## 4.2 Experiment 1 Results: Evaluation on AIRTAG-preprocessed Dataset 
+
+We report the results of Experiment 1 in Table 4. Overall, AIRTAG achieves very strong performance when the maxi-mum input length is 32 tokens, especially on multi-host splits M1–M4. However, when the maximum input length is in-creased to 64 tokens, AIRTAG’s performance decreases across all splits, resulting in an average AUC drop of 0 .16. In contrast, CAPTAIN is substantially more stable with respect to the input token budget. With 32 tokens, CAPTAIN outperforms AIRTAG on M5, M6, S1, S2, S3, S4, and the overall average. More importantly, when increasing the input length from 32 to 64 tokens, CAPTAIN exhibits only a minor degradation: the average AUC decreases by 0.02 . These re-sults indicate that CAPTAIN maintains detection performance without relying on a tightly constrained token budget. 
+
+## 4.3 Experiment 2 Results: Evaluation on CAPTAIN-preprocessed Dataset 
+
+We also report the results of Experiment 2 in Table 4. On our minimally preprocessed dataset, CAPTAIN outperforms AIRTAG on all splits. In particular, CAPTAIN maintains a high average AUC of 0.93 , whereas AIRTAG achieves an average AUC of 0 .68. These results suggest that CAPTAIN does not require heav-ily engineered preprocessing to achieve strong detection per-formance. Even on less curated logs produced by domain-agnostic preprocessing, CAPTAIN remains effective, indi-cating that it is robust to dataset characteristics and input variability. We also observe that the AUC on S2 falls below 0.5 for both AIRTAG and CAPTAIN. We attribute this to S2 con-taining a large volume of benign logs that are highly specific to that split, which can skew the data distribution and hinder generalization (Appendix C). 
+
+## 4.4 Ablation Study 
+
+In this section, we conduct an ablation study to isolate the key design choices that contribute to CAPTAIN’s performance. CAPTAIN is built on two major components: (1) a context-bridging mechanism that incorporates historical log context and connects the encoder space to the decoder LM space via a Q-Former, and (2) a decoder-only LM that serves as the backbone for PPL-based scoring. In addition, since post-processing is also an important com-ponent that contributes to performance, we include it in our ablation study as well. Our goal is to quantify how much each component con-tributes to detection performance and to validate whether the corresponding design choices are justified. All ablation experiments in this section are conducted on our preprocessed dataset, which contains longer and less cu-rated log entries and therefore better reflects realistic operat-ing conditions. 
+
+4.4.1 Comparison with Vanilla LM 
+
+we evaluate the contribution of CAPTAIN’s core mechanism: soft prompting via a Q-Former that incorporates historical log context and bridges the encoder space and the decoder LM space. To this end, we compare CAPTAIN against a vanilla decoder-only LM that does not use Q-Former or contextual soft tokens. In addition, we fine-tune the vanilla LM using only benign logs in order to separate the effect of simple domain adaptation from the structural benefit introduced by CAPTAIN. 8Table 4: AUC comparison on Experiment 1 and Experiment 2. 
+
+Experiment 1 Experiment 2 32 tokens 64 tokens 512 tokens Split AIRTAG CAPTAIN AIRTAG CAPTAIN AIRTAG CAPTAIN M1 0.997 0.981 0.959 0.977 0.736 0.951 
+
+M2 0.999 0.988 0.980 0.985 0.680 0.950 
+
+M3 0.998 0.994 0.873 0.997 0.874 0.976 
+
+M4 0.998 0.993 0.775 0.992 0.888 0.966 
+
+M5 0.943 0.979 0.530 0.975 *0.541 0.979 
+
+M6 0.989 0.991 0.936 0.982 0.688 0.971 
+
+S1 0.972 0.986 0.869 0.994 0.563 0.918 
+
+S2 0.820 0.979 *0.592 0.793 *0.689 *0.746 
+
+S3 0.932 0.984 0.616 0.981 0.509 0.888 
+
+S4 0.934 0.951 0.846 0.935 0.672 0.944 
+
+Ave. 0.958 0.983 0.798 0.961 0.684 0.929  
+
+> Note: AUC values below 0.5 are inverted and marked with *.
+
+Figure 5 (a) shows the results. First, fine-tuning the vanilla LM improves performance, indicating that adapting a decoder-only LM to the log domain is beneficial. However, even the fine-tuned vanilla LM does not reach the performance of CAPTAIN, even without full fine-tuning of stage 2. We also observe an additional improvement from after CAPTAIN adapter training (stage 1) to CAPTAIN full fine-tuning (stage 2). This indicates that it is not sufficient to only calibrate the Q-Former bridge; end-to-end adaptation that jointly fine-tunes the encoder and the decoder LM is also important. Finally, the effect of increasing the fine-tuning budget for the vanilla LM (100K/150K/200K steps) is not monotonic. In particular, the model trained for 200K steps performs worse than the one trained for 150K steps. This highlights that longer training is not always beneficial and can introduce issues such as overfitting, distributional bias, or optimization instability. 
+
+4.4.2 Effect of Historical Context Size 
+
+We next study how the amount of historical context affects detection performance. We vary the context size, defined as the number of past log entries provided to the model. Figure 5 (b) summarizes the results on the ATLAS dataset. When the context size is set to 0, 1, 5, and 9, the average AUC follows the order: 1 (AUC: 0.886) > 5 (0.872) > 9(0.871) > 0 (0.866). The lowest average AUC is observed when no context is used (context size 0). This confirms that incorporating historical log context is beneficial for detection. However, performance does not improve monotonically as the context size increases. 
+
+4.4.3 Replacing Q-Former with Alternative Adapters 
+
+In this subsection, we evaluate whether Q-Former is an ap-propriate bridging mechanism by replacing it with alterna-tive adapters. We consider an multi-layer perceptron (MLP) adapter and a SwiGLU-based adapter. We choose these de-signs because they are widely used as projector/connector modules in recent multimodal models. For example, [30] reports that a fully-connected MLP connector between the vision encoder and the LLM can be strong and data-efficient. In addition, recent efficiency-oriented multimodal models ex-plore connector designs that include SwiGLU [39, 44]. For instance, ML-Mamba incorporates SwiGLU into the multi-modal connector to improve the ingestion of visual sequences [20]. Based on these literature, we treat MLP and SwiGLU as strong alternative baselines for CAPTAIN’s bridge. The results in Figure 5 (c) show that the average AUC follows the order: Q-Former (0.886) > SwiGLU (0.802) >
+
+MLP (0.794). This ranking suggests that CAPTAIN benefits from more than a simple projection from the encoder space to the LM space. SwiGLU can improve over an MLP by increasing nonlinearity and expressive capacity via gating, but it still does not compete with Q-Former. 
+
+4.4.4 Effect of Decoder LM Backbone 
+
+We also evaluate whether CAPTAIN depends on a particu-lar decoder-only LM, and how the choice of backbone af-fects performance. We replace the decoder LM with sev-eral lightweight open models that have more parameters than Qwen3-0.6B. Specifically, we evaluate Llama3.2-1B-Instruct [13, 34] and Gemma3-1B-IT [9, 42]. The results in Figure 5 (d) show that the average AUC 90.5 0.6 0.7 0.8 0.9 1M1 M2 M3 M4 M5 M6 S1 S2* S3 S4 Ave. AUC Vanilla Qwen3-0.6B Vanilla Qwen3-0.6B FT 100K Vanilla Qwen3-0.6B FT 150K Vanilla Qwen3-0.6B FT 200K CAPTAIN Adapter Training CAPTAIN Full Fine Tuning (a) Q-Former ablation. 0.5 0.6 0.7 0.8 0.9 1M1 M2 M3 M4 M5 M6 S1 S2* S3 S4 Ave. AUC no ctx ctx 1 ctx 5 ctx 9 (b) Varying context window size. 0.5 0.6 0.7 0.8 0.9 1M1 M2 M3 M4 M5 M6 S1 S2* S3 S4 Ave. AUC MLP SwiGLU Q-Former 
+
+(c) Bridge adapter replacement. 0.5 0.6 0.7 0.8 0.9 1M1 M2 M3 M4 M5 M6 S1 S2* S3 S4 Ave. AUC CAPTAIN Full Fine Tuning w/google_gemma-3-1b-it CAPTAIN Full Fine Tuning w/meta-llama_Llama-3.2-1B-Instruct CAPTAIN Full Fine Tuning w/Qwen3-0.6B (d) Decoder LM replacement. 
+
+Figure 5: Ablation study of Q-former and LM. We analyze the impact of (a) removing Q-Former (vanilla LM baselines with additional fine-tuning), (b) varying the history context window size, (c) replacing Q-Former with alternative adapters, and (d) swapping the decoder LM backbone. follows the order: Qwen3-0.6B (0.900) > Llama3.2-1B-IT(0.899) > Gemma3-1B-IT (0.887). Qwen3-0.6B and Llama3.2-1B-IT achieve almost comparable performance, while Gemma3-1B-IT yields a slightly lower average AUC. One possible explanation is that these instruction-tuned (IT) models may be optimized for dialogue and instruction-following behavior more strongly than for likelihood-based modeling of domain text such as logs. In many IT models, the generation distribution is shaped using prompt templates and supervised preferences designed for interactive tasks. In CAP-TAIN, however, our full fine-tuning stage performs domain adaptation on log data without using such instruction-style prompt templates. Under this training setup, transferring from a highly instruction-tuned distribution to the log-domain dis-tribution may be less effective, which can lead to similar or slightly worse AUC despite having more parameters. From a deployment perspective, it is also encouraging that Qwen3-0.6B achieves strong performance with a relatively small model size. This aligns with our target use case: instead of aggregating logs to a central server and relying on large-scale compute, we aim for fast detection on each host with limited resources. The fact that a lightweight decoder LM can deliver competitive accuracy supports the practicality of CAPTAIN. 
+
+4.4.5 Effect of Wiener Filter. 
+
+CAPTAIN includes a post-processing step that smooths the per-entry PPL sequence using a Wiener filter. Figure 6 quantifies the impact of applying the Wiener fil-ter in Experiment 2. Compared to the same model without any smoothing (i.e., the fully fine-tuned CAPTAIN model evaluated on raw PPL scores), Wiener filtering improves per-formance on all data splits. On average, the AUC increases from 0.889 without filtering to 0.929 with filtering, indicating a consistent benefit from simple temporal smoothing of the PPL time series. 10 0.5 0.6 0.7 0.8 0.9 1M1 M2 M3 M4 M5 M6 S1 S2* S3 S4 Ave. AUC CAPTAIN w/o Wiener Filter CAPTAIN w/ Wiener Filter Figure 6: Wiener Filter Ablation. 
+
+## 5 Discussion 5.1 Robustness 
+
+The results from Experiment 1 and Experiment 2 suggest a clear difference in robustness between AIRTAG and CAP-TAIN. AIRTAG is sensitive to both the input token budget and the preprocessing pipeline, while CAPTAIN remains stable under these changes. We attribute this difference primarily to how each method represents log entries and performs anomaly detection. AIRTAG compresses each log entry into a single fixed-size embedding (a 128-dimensional vector corresponding to the 
+
+[CLS] token) using a compact BERT encoder, and then ap-plies a one-class classifier (OC-SVM). This design can create a strong representational bottleneck. The [CLS] token has been widely used as an aggregate representation for down-stream tasks [7, 10], but prior work has reported that [CLS] -based representations can be weak as sentence-level semantic embeddings [37], and that the behavior of BERT-based classi-fiers can be sensitive to changes in the input text [22]. These observations are consistent with a setting where a single-vector summary is not always stable under changes in input length or noise. In Experiment 1, increasing the token budget (from 32 to 64) adds more trailing tokens that are often less relevant for detection in the curated ATLAS format. This can increase the variance of [CLS] embeddings even for benign logs, be-cause the encoder must compress more content into a single fixed-size vector. When benign embeddings become more dispersed, a one-class detector such as OC-SVM may need to cover a larger region of the embedding space, which can reduce separability between benign and malicious samples and degrade the ROC curve. In Experiment 2, the effect becomes stronger because our minimally preprocessed logs are longer and noisier. Long entries contain more variability, and local attack indicators can be diluted when mapped into a single fixed-size representation. Such shifts in the embedding distribution can degrade the separability assumed by OC-SVM and lead to lower AUC (and worse TPR/FPR trade-offs). In contrast, CAPTAIN uses a decoder-only language model to directly score each log entry by the likelihood of its token sequence (i.e., perplexity). Perplexity reflects the average cross-entropy between the input sequence and the learned do-main distribution. It does not rely on a particular embedding geometry learned under a specific preprocessing pipeline in the same way as a fixed [CLS] -embedding space. In addition, CAPTAIN explicitly injects historical log context through context tokens produced by the encoder and the Q-Former bridge. This encourages the LM to interpret an entry in rela-tion to recent activity, rather than relying only on entry-local keywords. Finally, CAPTAIN treats the perplexity scores as a time series and applies smoothing. This reduces sensitivity to noisy individual events and emphasizes sustained deviations, which are more consistent with typical threat activity patterns. Taken together, these design choices explain why CAP-TAIN can maintain performance even when the token budget increases or when preprocessing becomes less curated. We emphasize that this discussion does not imply that AIRTAG is ineffective; rather, it highlights that a [CLS] -compression plus one-class boundary can be sensitive to in-put distribution shifts, which becomes visible under more deployment-oriented settings. 
+
+## 5.2 Effect of Q-Former-based Soft Prompting 
+
+Our ablation results show that the performance gain of CAP-TAIN cannot be explained solely by additional training on log data (i.e., domain adaptation). Instead, the context bridge enabled by Q-Former—which transfers information from the encoder space to the decoder LM space—plays a central role. 
+
+(a) Structural benefit beyond domain adaptation. When we remove Q-Former and use a vanilla decoder-only LM, fine-tuning on benign logs improves performance. This con-firms that adapting a decoder-only LM to the log domain is beneficial. However, even the fine-tuned vanilla LM does not match CAPTAIN, especially the adapter trained (stage 1 only) variant. This gap suggests that the improvement is not explained by domain adaptation alone: projecting contex-tual information from the encoder space into the decoder LM space through the Q-Former provides a substantial benefit. The additional gain from CAPTAIN stage 1 (adapter train-ing focused on Q-Former) to stage 2 (end-to-end fine-tuning including the encoder and LM) further supports this interpreta-tion. It is not enough to make the bridge function in isolation; the encoder and LM must also co-adapt so that the decoder LM can reliably utilize the injected context tokens. Impor-tantly, this improvement is not replicated by simply training the vanilla LM longer, which strengthens the conclusion that the bridging mechanism and joint optimization are key. We also observe that increasing the fine-tuning budget of the vanilla LM does not yield monotonic improvements 11 (e.g., 200K steps underperforms 150K steps). This suggests that, for log data with repetitive structures, learning from individual entries can be prone to overfitting or optimization instability. In contrast, CAPTAIN conditions on historical context during training, so even similar log entries can appear under different surrounding contexts. This may encourage the model to rely less on memorizing surface strings and more on context-dependent consistency, which can mitigate overfitting. 
+
+(b) Context size and the need for selective information. 
+
+When we vary the context size, using no context (size 0) per-forms the worst, while a small context (size 1) performs the best. This indicates that incorporating historical context is use-ful, but increasing history indiscriminately is not. Excessive context may act as noise or make training more challenging. This behavior is consistent with CAPTAIN’s design: past logs are compressed into a fixed number of learned queries (context tokens) before being consumed by the LM. As the number of past entries N increases, compression becomes more severe and important cues may be averaged out or di-luted. Therefore, while context provides a clear advantage over no-context scoring, too much history can be counterpro-ductive, highlighting the importance of selective extraction. 
+
+(c) Adapter replacement: projection alone is not sufficient. 
+
+Replacing Q-Former with MLP or SwiGLU adapters yields the ranking Q-Former > SwiGLU > MLP in average AUC. This suggests that CAPTAIN benefits not only from map-ping features into the LM space, but also from selectively extracting and shaping useful fragments from past logs via cross-attention. An MLP applies a single global mapping, and SwiGLU can increase expressiveness through gating, which explains its improvement over MLP. However, neither matches Q-Former, suggesting that increased nonlinearity alone cannot replace the selectivity provided by attention-based bridging. In other words, higher expressiveness by it-self appears insufficient; effective detection likely requires selectively extracting relevant signals via attention. Overall, these results indicate that while the choice of con-text size matters, Q-Former is a crucial design element of CAPTAIN, enabling effective context-aware perplexity scor-ing by providing a selective and LM-compatible representa-tion of historical log context. 
+
+## 5.3 Limitations and Future Work 
+
+We discuss several limitations of this work and outline direc-tions for future research. 
+
+Dataset dependence. Our evaluation is conducted primar-ily on ATLAS. Although ATLAS is constructed from multiple log sources and includes a range of injected attack behaviors, it remains a benchmark dataset and cannot cover the full diver-sity of real operational environments. Therefore, our results do not guarantee the same level of performance under differ-ent logging configurations, software stacks, or organizational practices. Evaluating CAPTAIN on additional public datasets and on logs collected from real deployments is an important next step to assess generalization from multiple perspectives. 
+
+The “anomaly = attack” gap under unlabeled train-ing. CAPTAIN is trained using only benign logs in a one-class/unsupervised manner. As a result, legitimate but previ-ously unseen changes in system behavior (e.g., operational updates or workload shifts) can also yield high perplexity and be flagged as suspicious. In fact, on S2 we observe an AUC be-low 0.5, which indicates that benign entries can receive higher perplexity than malicious ones in that split. In such a case, reversing the decision direction (treating low perplexity as anomalous) would yield a higher detection rate. We attribute this behavior to the presence of a large volume of benign log patterns that appear only in S2. Notably, we observe a similar phenomenon for AIRTAG in our evaluation on our prepro-cessed dataset (Section 4, Experiment 2), suggesting that this challenge is not unique to CAPTAIN but reflects a broader issue in one-class detection for logs. Future work may address benign distribution shifts through adaptive thresholding, con-tinual learning, or lightweight human-in-the-loop feedback to separate operational changes from true attacks. 
+
+Uncertainty in context design and the optimal window size. 
+
+As shown in our ablation study, historical context improves detection performance, but excessive context can introduce noise and degrade performance. The optimal context size may vary depending on the environment, log granularity, and the time scale of attacks. Developing adaptive context selection strategies is therefore an important direction, such as selecting salient events, introducing hierarchical memory representa-tions, or dynamically adjusting the number of context queries. 
+
+Broader applicability and multimodality. Since CAP-TAIN detects out-of-distribution behavior through perplexity, it may be applicable not only to APT detection but also to other anomaly detection tasks. In addition, CAPTAIN uses Q-Former to bridge representations from a text encoder into a decoder LM space. Originally, Q-Former was proposed to project visual embeddings from a vision encoder into an LM-compatible space, and recent work has highlighted the importance of multimodal signals for anomaly detection. A natural extension is to incorporate additional modalities be-yond text. For example, time-series telemetry such as network traffic volume could be transformed into visual summaries (e.g., plots) and encoded with a vision encoder, enabling the model to detect anomalies from complementary perspectives. Exploring such multimodal extensions, as well as applications 12 to other anomaly detection settings, is a promising future di-rection. 
+
+## 6 Related Work 
+
+Robust Log Anomaly Detection with Machine Learning 
+
+A wide range of machine learning techniques, including deep learning, have been studied for anomaly detection in software logs from systems and applications [5, 23, 40, 49, 50]. Early approaches often relied on engineered representations and assumptions about log formats. Representative examples in-clude mining-based detectors that exploit invariants across log events [31], PCA-based methods that detect outliers by measuring distances from the principal subspace of normal behavior [48], and feature-based classifiers that perform bi-nary classification with manually constructed features [19,28]. A common limitation of these approaches is that they can be sensitive to changes in log formats and templates. To improve robustness to log variation, learning-based methods that capture the semantics and ordering of log mes-sages have been proposed. LogRobust, for example, learns se-mantic representations and sequence patterns to detect anoma-lies under changing log templates [52]. However, LogRobust is a supervised method, and thus it inherits practical chal-lenges such as the scarcity of high-quality labeled data and limited portability across environments. 
+
+Deep Learning for Attack Detection from Audit Logs In security settings, deep learning has also been applied to attack detection from audit logs, often by constructing provenance graphs (causal graphs) from low-level events and learning over graph-derived sequences. Representative systems include ATLAS [3], CLUE [8], and ConLBS [26]. These approaches can achieve high detection accuracy, but they typically re-quire generating and manipulating provenance graphs, which can introduce substantial computational overhead and delay time-to-detection. In addition, abstracting raw logs into graph nodes and edges can reduce granularity, and prior work re-ports that such abstraction may lead to unstable or inaccurate results in some settings [11]. In contrast, CAPTAIN directly analyzes log entries with-out requiring provenance graph construction, enabling faster detection while preserving the original granularity of log evi-dence. This design is aligned with operational settings where low latency and lightweight deployment are important. 
+
+LLM-based Detection and Incident Analysis Recently, applying large language models (LLMs) to security tasks such as attack detection and incident analysis has attracted growing attention [17, 18, 47]. Several methods leverage LLMs’ language understanding and reasoning capabilities to improve detection or to support higher-level investigation workflows [33, 41, 45]. CLOUSEAU [2], in particular, pro-poses a hierarchical multi-agent system that uses LLM rea-soning to automate cyber attack investigation and reconstruct attack narratives without relying on task-specific training or hand-crafted rules. It reduces noise by extracting only events relevant to a user-provided Point-of-Interest (POI) and then tracing causal relations in a step-by-step manner. CLOUSEAU targets a complementary use case to ours: it assumes a POI as an initial hint, whereas CAPTAIN aims to identify suspicious log entries without such prior guidance. Accordingly, the two approaches can coexist in a practical pipeline, e.g., CAPTAIN can first surface candidate malicious logs, and CLOUSEAU can then expand the analysis to recon-struct the attack story around these findings. Many LLM-based systems also require substantial com-putational resources, which can be a barrier for host-level deployment. CAPTAIN, by contrast, is designed to operate with relatively lightweight open-source encoder and decoder transformers, enabling detection on each host under limited computational resources. 
+
+## 7 Conclusion 
+
+This paper proposed CAPTAIN, a context-augmented, perplexity-based approach for detecting threat activities from logs. We first revisited a strong baseline, AIRTAG, and re-evaluated it under settings that remove factors that may un-intentionally affect the observed performance. Motivated by practical limitations of pipelines that rely on heavily curated, entry-level log representations, we then introduced several mechanisms to tackle them. CAPTAIN scores log entries using perplexity from a decoder-only language model and injects historical context via an encoder and a Q-Former bridge. By additionally treat-ing perplexity scores as a time series and applying smoothing, CAPTAIN achieves robustness to changes in token budget and preprocessing, and it remains effective on long and noisy logs produced by minimal preprocessing. In experiments on the ATLAS dataset, CAPTAIN competes well with AIRTAG under the original curated setting while exhibiting substantially more stable performance under in-creased token budgets and altered preprocessing. CAPTAIN also consistently achieved high performance on less curated logs that are longer and noisier. Our ablation study showed that Q-Former-based soft prompting contributes beyond sim-ple domain adaptation, and that effective detection is possible even with lightweight decoder LMs. Taken together, these re-sults suggest that CAPTAIN is a practical and robust approach for log-based threat detection. 13 Ethical Considerations 
+
+This work studies automated threat-activity detection from audit and network logs and proposes CAPTAIN, a context-augmented perplexity-based detector. We structure this discus-sion as a stakeholder-based analysis, distinguishing impacts arising from (i) the research process (data handling and ex-perimentation) and (ii) the publication of results (deployment and broader use). 
+
+Stakeholders. The primary stakeholders include: (1) oper-ators and defenders who deploy log-based detection in en-terprises; (2) users and employees whose activity may be recorded in system logs; (3) the security research community that builds on, evaluates, or reuses our artifacts; and (4) ad-versaries who may attempt to evade detection or misuse the method. 
+
+Research process: data handling and experimentation. 
+
+Our experiments use the publicly available ATLAS dataset and do not involve interactions with human subjects, active attacks, or collection of new operational telemetry. Neverthe-less, logs can contain sensitive information (e.g., hostnames, user identifiers, filenames, command lines). To reduce privacy risks, we (i) rely on a dataset that is already curated for re-search distribution, (ii) avoid attempting to enrich the dataset with external sources, and (iii) ensure that our preprocessing does not introduce additional identifying information beyond what is already present in the released corpus. 
+
+Publication and deployment impacts: benefits. CAP-TAIN can benefit defenders by reducing the manual effort required to triage large volumes of logs and by providing a detection approach that remains effective under less curated preprocessing. Improving the reliability of threat detection can also reduce the time-to-response and limit the impact of real attacks. 
+
+Publication and deployment impacts: potential harms. 
+
+We consider several potential negative outcomes: (1) False positives and operational disruption: as a one-class method trained on benign data, CAPTAIN can flag benign distribution shifts as anomalies, which may lead to unnecessary investi-gations or disruptions if used without safeguards. (2) Misuse by adversaries: public descriptions of detection pipelines can help attackers understand what signals may trigger alerts and motivate evasion strategies. (3) Over-reliance: organizations may over-trust automated scores and under-invest in comple-mentary controls and human review. 
+
+Mitigations. We take and recommend the following mit-igations to reduce these risks: (1) Data minimization and access control: deployments should limit log collection and retention to what is necessary for security operations, and restrict access to logs and model outputs to authorized per-sonnel. (2) Human-in-the-loop triage: CAPTAIN should be used as a prioritization signal; high-scoring events should be reviewed in context, especially after operational changes. (3) Calibration under distribution shift: deployments should re-calibrate thresholds when workloads, logging policies, or software versions change. (4) Responsible artifact release: 
+
+when releasing code and scripts, we avoid including any op-erational credentials or environment-specific identifiers. we also document intended use. 
+
+Decision to conduct and publish. We believe the expected benefits to defenders and to the research community outweigh the foreseeable harms, provided the above mitigations are followed. Our study is based on an open research dataset and focuses on robustness of threat detection. We emphasize appropriate governance, access control, and human oversight in any real deployment. 14 References 
+
+[1] Talha Abrar, Ahmad Shamail, Mohammad Jaffer Iqbal, Amaan Ahmed, Muhammad Abdullah, Muhammad Shayan, Fareed Zaffar, Thomas Pasquier, David Ey-ers, and Ashish Gehani. On the reproducibility of provenance-based intrusion detection that uses deep learning. In Proceedings of the 3rd ACM Conference on Reproducibility and Replicability , ACM REP ’25, page 14–28, New York, NY, USA, 2025. Association for Computing Machinery. [2] Abdullah Aldaihan, Fahad Alotaibi, and Sergio Maffeis. Clouseau: A hierarchical multi-agent approach for au-tonomous attack investigation. In Annual Computer Security Applications Conference , 2025. [3] Abdulellah Alsaheel, Yuhong Nan, Shiqing Ma, Le Yu, Gregory Walkup, Z. Berkay Celik, Xiangyu Zhang, and Dongyan Xu. ATLAS: A sequence-based learning approach for attack investigation. In 
+
+30th USENIX Security Symposium (USENIX Secu-rity 21) , pages 3005–3022. USENIX Association, Au-gust 2021. https://www.usenix.org/conference/ usenixsecurity21/presentation/alsaheel .[4] Tom Brown, Benjamin Mann, Nick Ryder, Melanie Subbiah, Jared D Kaplan, Prafulla Dhariwal, Arvind Neelakantan, Pranav Shyam, Girish Sastry, Amanda Askell, Sandhini Agarwal, Ariel Herbert-Voss, Gretchen Krueger, Tom Henighan, Rewon Child, Aditya Ramesh, Daniel Ziegler, Jeffrey Wu, Clemens Winter, Chris Hesse, Mark Chen, Eric Sigler, Mateusz Litwin, Scott Gray, Benjamin Chess, Jack Clark, Christopher Berner, Sam McCandlish, Alec Radford, Ilya Sutskever, and Dario Amodei. Language models are few-shot learners. In H. Larochelle, M. Ranzato, R. Hadsell, M.F. Balcan, and H. Lin, editors, Advances in Neural Information Pro-cessing Systems , volume 33, pages 1877–1901. Curran Associates, Inc., 2020. [5] Zhuangbin Chen, Jinyang Liu, Wenwei Gu, Yuxin Su, and Michael R. Lyu. Experience report: Deep learning-based system log analysis for anomaly detection, 2022. [6] Zijun Cheng, Qiujian Lv, Jinyuan Liang, Yan Wang, De-gang Sun, Thomas Pasquier, and Xueyuan Han. Kairos: Practical intrusion detection and investigation using whole-system provenance. In 2024 IEEE Symposium on Security and Privacy (SP) , pages 3533–3551, 2024. [7] Hyunjin Choi, Judong Kim, Seongho Joe, and Youngjune Gwon. Evaluation of BERT and ALBERT Sentence Embedding Performance on Downstream NLP Tasks . In 2020 25th International Conference on Pattern Recognition (ICPR) , pages 5482–5487, Los Alamitos, CA, USA, January 2021. IEEE Computer Society. [8] Wenzhuo Cui, Maihao Guo, Jingjing Feng, Shuyi Zhang, Zheng Liu, and Yu Wen. Clue: A high-performance, efficient, and robust apt detection framework via fine-tuning pretrained transformer and contrastive learning. In 2025 International Conference on Intelligent Com-puting , 2025. [9] Google DeepMind. gemma-3-1b-it (gemma 3 1b instruction-tuned) model card. https://huggingface. co/google/gemma-3-1b-it . Accessed: 2026-01-29. [10] Jacob Devlin, Ming-Wei Chang, Kenton Lee, and Kristina Toutanova. BERT: pre-training of deep bidirec-tional transformers for language understanding. CoRR ,abs/1810.04805, 2018. [11] Hailun Ding, Juan Zhai, Yuhong Nan, and Shiqing Ma. AIRTAG: Towards automated attack investigation by unsupervised learning with log texts. In 32nd USENIX Security Symposium (USENIX Security 23) , pages 373–390, Anaheim, CA, August 2023. USENIX Association. https://www.usenix.org/ conference/usenixsecurity23/presentation/ ding-hailun-airtag .[12] Min Du, Feifei Li, Guineng Zheng, and Vivek Srikumar. Deeplog: Anomaly detection and diagnosis from system logs through deep learning. In Proceedings of the 2017 ACM SIGSAC Conference on Computer and Communi-cations Security , CCS ’17, page 1285–1298, New York, NY, USA, 2017. Association for Computing Machinery. [13] Abhimanyu Dubey et al. The llama 3 herd of models, 2024. [14] Pengcheng Fang, Peng Gao, Changlin Liu, Erman Ay-day, Kangkook Jee, Ting Wang, Yanfang (Fanny) Ye, Zhuotao Liu, and Xusheng Xiao. Back-Propagating system dependency impact for attack investigation. In 31st USENIX Security Sympo-sium (USENIX Security 22) , pages 2461–2478, Boston, MA, August 2022. USENIX Associa-tion. https://www.usenix.org/conference/ usenixsecurity22/presentation/fang .[15] Haixuan Guo, Shuhan Yuan, and Xintao Wu. Logbert: Log anomaly detection via bert. In 2021 International Joint Conference on Neural Networks (IJCNN) , pages 1–8, 2021. [16] Xiao Han, Shuhan Yuan, and Mohamed Trabelsi. Log-gpt: Log anomaly detection via gpt. In 2023 IEEE International Conference on Big Data (BigData) , pages 1117–1122, 2023. 15 [17] Ismayil Hasanov, Seppo Virtanen, Antti Hakkala, and Jouni Isoaho. Application of large language models in cybersecurity: A systematic literature review. IEEE Access , 12:176751–176778, 2024. [18] Mohammed Hassanin and Nour Moustafa. A compre-hensive overview of large language models (llms) for cyber defences: Opportunities and directions, 2024. [19] Pinjia He, Jieming Zhu, Shilin He, Jian Li, and Michael R. Lyu. Towards automated log parsing for large-scale log data analysis. IEEE Transactions on De-pendable and Secure Computing , 15(6):931–944, 2018. [20] Wenjun Huang, Jiakai Pan, Jiahao Tang, Yanyu Ding, Yifei Xing, Yuhe Wang, Zhengzhuo Wang, and Jianguo Hu. Ml-mamba: Efficient multi-modal large language model utilizing mamba-2, 2024. [21] Zian Jia, Yun Xiong, Yuhong Nan, Yao Zhang, Jinjing Zhao, and Mi Wen. MAGIC: Detect-ing advanced persistent threats via masked graph representation learning. In 33rd USENIX Secu-rity Symposium (USENIX Security 24) , pages 5197– 5214, Philadelphia, PA, August 2024. USENIX As-sociation. https://www.usenix.org/conference/ usenixsecurity24/presentation/jia-zian .[22] Di Jin, Zhijing Jin, Joey Tianyi Zhou, and Peter Szolovits. Is bert really robust? a strong baseline for natural language attack on text classification and entail-ment. In AAAI Conference on Artificial Intelligence ,2019. [23] Max Landauer, Sebastian Onder, Florian Skopik, and Markus Wurzenberger. Deep learning for anomaly de-tection in log data: A survey. Machine Learning with Applications , 12:100470, June 2023. [24] Yukyung Lee, Jina Kim, and Pilsung Kang. Lanobert: System log anomaly detection based on bert masked language model. Appl. Soft Comput. , 146(C), October 2023. [25] Mike Lewis, Yinhan Liu, Naman Goyal, Marjan Ghazvininejad, Abdelrahman Mohamed, Omer Levy, Veselin Stoyanov, and Luke Zettlemoyer. BART: De-noising sequence-to-sequence pre-training for natural language generation, translation, and comprehension. In Dan Jurafsky, Joyce Chai, Natalie Schluter, and Joel Tetreault, editors, Proceedings of the 58th Annual Meet-ing of the Association for Computational Linguistics ,pages 7871–7880, Online, July 2020. Association for Computational Linguistics. [26] Jiawei Li, Ru Zhang, and Jianyi Liu. Conlbs: An attack investigation approach using contrastive learning with behavior sequence. Sensors , 23(24), 2023. [27] Junnan Li, Dongxu Li, Silvio Savarese, and Steven Hoi. Blip-2: Bootstrapping language-image pre-training with frozen image encoders and large language models, 2023. [28] Yinglung Liang, Yanyong Zhang, Hui Xiong, and Ra-mendra Sahoo. Failure prediction in ibm bluegene/l event logs. In Seventh IEEE International Conference on Data Mining (ICDM 2007) , pages 583–588, 2007. [29] Qingwei Lin, Hongyu Zhang, Jian-Guang Lou, Yu Zhang, and Xuewei Chen. Log clustering based problem identification for online service systems. In 
+
+2016 IEEE/ACM 38th International Conference on Software Engineering Companion (ICSE-C) , pages 102–111, 2016. [30] Haotian Liu, Chunyuan Li, Yuheng Li, and Yong Jae Lee. Improved baselines with visual instruction tuning. In 2024 IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR) , pages 26286–26296, 2024. [31] Jian-Guang Lou, Qiang Fu, Shengqi Yang, Ye Xu, and Jiang Li. Mining invariants from console logs for system problem detection. In Proceedings of the 2010 USENIX Conference on USENIX Annual Technical Conference ,USENIXATC’10, page 24, USA, 2010. USENIX Asso-ciation. [32] Mingqi Lv, Hongzhe Gao, Xuebo Qiu, Tieming Chen, Tiantian Zhu, Jinyin Chen, and Shouling Ji. Trec: Apt tactic / technique recognition via few-shot provenance subgraph learning. In Proceedings of the 2024 on ACM SIGSAC Conference on Computer and Communications Security , CCS ’24, page 139–152, New York, NY, USA, 2024. Association for Computing Machinery. [33] Yuhan Meng, Shaofei Li, Jiaping Gui, Peng Jiang, and Ding Li. Knowhow: Automatically applying high-level cti knowledge for interpretable and accurate provenance analysis, 2025. [34] Meta. Llama 3.2 1b instruct, 2024. Model card and weights release. Release date: Sept 25, 2024. 
+
+https://huggingface.co/meta-llama/Llama-3. 2-1B-Instruct .[35] Long Ouyang, Jeffrey Wu, Xu Jiang, Diogo Almeida, Carroll Wainwright, Pamela Mishkin, Chong Zhang, Sandhini Agarwal, Katarina Slama, Alex Ray, et al. Training language models to follow instructions with human feedback. Advances in neural information pro-cessing systems , 35:27730–27744, 2022. [36] Colin Raffel, Noam Shazeer, Adam Roberts, Katherine Lee, Sharan Narang, Michael Matena, Yanqi Zhou, Wei Li, and Peter J. Liu. Exploring the limits of transfer learning with a unified text-to-text transformer. J. Mach. Learn. Res. , 21(1), January 2020. 16 [37] Nils Reimers and Iryna Gurevych. Sentence-bert: Sen-tence embeddings using siamese bert-networks. ArXiv ,abs/1908.10084, 2019. [38] Victor Sanh, Lysandre Debut, Julien Chaumond, and Thomas Wolf. Distilbert, a distilled version of bert: smaller, faster, cheaper and lighter. ArXiv ,abs/1910.01108, 2019. [39] Noam Shazeer. GLU variants improve transformer. 
+
+CoRR , abs/2002.05202, 2020. [40] Meena Siwach and Suman Mann. Anomaly detection for web log data analysis: A review. Journal of Alge-braic Statistics , 13(1), 2022. [41] Danyu Sun, Jinghuai Zhang, Jiacen Xu, Yu Zheng, Yuan Tian, and Zhou Li. From alerts to intelligence: A novel llm-aided framework for host-based intrusion detection, 2025. [42] Gemma Team et al. Gemma 3 technical report, 2025. [43] Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N Gomez, Ł ukasz Kaiser, and Illia Polosukhin. Attention is all you need. In I. Guyon, U. Von Luxburg, S. Bengio, H. Wallach, R. Fergus, S. Vishwanathan, and R. Garnett, editors, 
+
+Advances in Neural Information Processing Systems ,volume 30. Curran Associates, Inc., 2017. [44] Weihan Wang, Qingsong Lv, Wenmeng Yu, Wenyi Hong, Ji Qi, Yan Wang, Junhui Ji, Zhuoyi Yang, Lei Zhao, Xix-uan Song, Jiazheng Xu, Keqin Chen, Bin Xu, Juanzi Li, Yuxiao Dong, Ming Ding, and Jie Tang. Cogvlm: Visual expert for pretrained language models. In A. Globerson, L. Mackey, D. Belgrave, A. Fan, U. Paquet, J. Tomczak, and C. Zhang, editors, Advances in Neural Information Processing Systems , volume 37, pages 121475–121499. Curran Associates, Inc., 2024. [45] Zhihao Wang, Jiachen Dong, and Chuanchuan Yang. Logppo: A log-based anomaly detector aided with prox-imal policy optimization algorithms. Smart Cities , 9(1), 2026. [46] Jason Wei, Xuezhi Wang, Dale Schuurmans, Maarten Bosma, Brian Ichter, Fei Xia, Ed H. Chi, Quoc V. Le, and Denny Zhou. Chain-of-thought prompting elicits reasoning in large language models. In Proceedings of the 36th International Conference on Neural Infor-mation Processing Systems , NIPS ’22, Red Hook, NY, USA, 2022. Curran Associates Inc. [47] Hanxiang Xu, Shenao Wang, Ningke Li, Kailong Wang, Yanjie Zhao, Kai Chen, Ting Yu, Yang Liu, and Haoyu Wang. Large language models for cyber security: A systematic literature review. ACM Trans. Softw. Eng. Methodol. , September 2025. Just Accepted. [48] Wei Xu, Ling Huang, Armando Fox, David Patterson, and Michael I. Jordan. Detecting large-scale system problems by mining console logs. In Proceedings of the ACM SIGOPS 22nd Symposium on Operating Systems Principles , SOSP ’09, page 117–132, New York, NY, USA, 2009. Association for Computing Machinery. [49] Zhiwei Xu, Yujuan Wu, Shiheng Wang, Jiabao Gao, Tian Qiu, Ziqi Wang, Hai Wan, and Xibin Zhao. Deep learning-based intrusion detection systems: A survey, 2025. [50] Rakesh Bahadur Yadav, P Santosh Kumar, and Sunita Vikrant Dhavale. A survey on log anomaly detection using deep learning. In 2020 8th International Conference on Reliability, Infocom Technologies and Optimization (Trends and Future Directions) (ICRITO) ,pages 1215–1220, 2020. [51] An Yang, Anfeng Li, Baosong Yang, Beichen Zhang, Binyuan Hui, Bo Zheng, Bowen Yu, Chang Gao, Chen-gen Huang, Chenxu Lv, Chujie Zheng, Dayiheng Liu, Fan Zhou, Fei Huang, Feng Hu, Hao Ge, Haoran Wei, Huan Lin, Jialong Tang, Jian Yang, Jianhong Tu, Jian-wei Zhang, Jianxin Yang, Jiaxi Yang, Jing Zhou, Jingren Zhou, Junyang Lin, Kai Dang, Keqin Bao, Kexin Yang, Le Yu, Lianghao Deng, Mei Li, Mingfeng Xue, Mingze Li, Pei Zhang, Peng Wang, Qin Zhu, Rui Men, Ruize Gao, Shixuan Liu, Shuang Luo, Tianhao Li, Tianyi Tang, Wenbiao Yin, Xingzhang Ren, Xinyu Wang, Xinyu Zhang, Xuancheng Ren, Yang Fan, Yang Su, Yichang Zhang, Yinger Zhang, Yu Wan, Yuqiong Liu, Zekun Wang, Zeyu Cui, Zhenru Zhang, Zhipeng Zhou, and Zihan Qiu. Qwen3 technical report, 2025. [52] Xu Zhang, Yong Xu, Qingwei Lin, Bo Qiao, Hongyu Zhang, Yingnong Dang, Chunyu Xie, Xinsheng Yang, Qian Cheng, Ze Li, Junjie Chen, Xiaoting He, Randolph Yao, Jian-Guang Lou, Murali Chintalapati, Furao Shen, and Dongmei Zhang. Robust log-based anomaly de-tection on unstable log data. In Proceedings of the 2019 27th ACM Joint Meeting on European Software Engineering Conference and Symposium on the Founda-tions of Software Engineering , ESEC/FSE 2019, page 807–817, New York, NY, USA, 2019. Association for Computing Machinery. 17 A Additional Experiments of AIRTAG Post-Filtering 
+
+AIRTAG applies a post-filter to remove evidently benign en-tries from the set of suspicious logs predicted by OC-SVM. The intended effect is to reduce the false positive rate (FPR) while maintaining a high true positive rate (TPR). Concretely, the post-filter marks a log entry as malicious if it contains at least one word that satisfies both of the following conditions: • it appears infrequently in the document (i.e., it falls out-side the top 30% by frequency, under the default setting), and • it appears at least eight times within the document. If a log entry contains even one such word, it is classified as malicious; otherwise, it is classified as benign. The list of frequent terms used by this filter is extracted from ATLAS-preprocessed data (or data with a similar format). The AIRTAG paper reports that setting the threshold to 0.3 consistently reduces FPR while keeping TPR high across datasets. However, in our investigation, we found that the files used for frequent-term counting provided with the AIRTAG artifacts still contain the ground-truth label markers “+/-”. To assess the impact of this artifact, we conducted additional experiments where we removed the “+/-” markers and re-measured the post-filter performance on the S1–S4 splits. Figure 7 shows that, after removing the markers, the TPR falls below 0.3 at threshold 0.3 for all splits (orange diamond, solid line). Moreover, within the threshold range of 0.1 – 0.5 , we did not find a common threshold that simultaneously maintains a high TPR while effectively reducing only the FPR. We also revisit the threshold sensitivity described in the original AIRTAG paper: while a threshold of 0.3 reduces FPR with little impact on TPR, increasing the threshold beyond 0.4 leads to a drop in TPR. This trend is consistent with our measurements using the released artifacts (blue circle, solid line). Our analysis suggests the following mechanism. In ATLAS-preprocessed data, the final field of each entry encodes both the log type identifier and the benign/malicious label information. For example, strings such as “-LA-” and “-LA+” indicate the source type (e.g., Windows Audit logs) together with the ground-truth label (benign vs. malicious). We confirmed that when the threshold is set to 0.3 , “-LA-” is selected as a frequent term, whereas when the threshold is increased to 0.4 , “-LA+” becomes selected as a frequent term. Since the filter treats log entries containing selected frequent terms as benign, selecting “-LA+” causes malicious Windows Audit entries to be filtered out as benign, which directly reduces the TPR. Taken together, these results indicate that the post-filter does not reliably provide the intended benefit under properly sanitized conditions. Therefore, we exclude this post-filtering step in the remainder of our evaluation. Table 5: First-order Markov transition probabilities and de-rived statistics. Split Self-transition Switching M1 0.980 0.020 M2 0.994 0.006 M3 0.995 0.005 M4 0.978 0.022 M5 0.993 0.007 M6 0.975 0.025 S1 0.977 0.023 S2 0.996 0.004 S3 0.972 0.028 S4 0.994 0.006 
+
+## B Temporal bias of attack logs in the ATLAS dataset 
+
+We model the binary attack label sequence {xt }Tt=1 as a first-order Markov process: 
+
+P(xt+1 | x1: t ) = P(xt+1 | xt ), xt ∈ { F, T}. (9) Here, we treat False as benign logs and True as malicious logs. Under this assumption, the temporal dependency of attack labels is fully characterized by the 2 × 2 transition probabilities P(F | F), P(T | F), P(F | T), and P(T | T).To summarize the degree of temporal persistence (i.e., clus-tering) and switching behavior, we report the following ag-gregated quantities: Self-transition = P(F | F) + P(T | T)
+
+2 ,
+
+Switching = P(T | F) + P(F | T)
+
+2 .
+
+(10) A higher self-transition indicates that labels tend to persist across time steps, whereas a higher switching rate indicates frequent alternations between F and T. Table 5 shows consistently high self-transition probabil-ities across all splits ( 0.972 – 0.996 ) with correspondingly low switching rates ( 0.004 – 0.028 ). This indicates that, un-der a first-order Markov view, the label dynamics are strongly “sticky”: once the process is in either F or T, it is likely to remain in the same state at the next time step. Such behavior implies substantial temporal clustering in attack logs, rather than rapid alternation. 18 00.2 0.4 0.6 0.8 10.1 0.2 0.3 0.4 0.5 
+
+> Rate (TPR/FPR)
+
+Threshold 
+
+> TPR w/ markers FPR w/ markers TPR w/o markers FPR w/o markers
+
+(a) S1 00.2 0.4 0.6 0.8 10.1 0.2 0.3 0.4 0.5 
+
+> Rate (TPR/FPR)
+
+Threshold  
+
+> TPR w/ markers FPR w/ markers TPR w/o markers FPR w/o markers
+
+(b) S2 00.2 0.4 0.6 0.8 10.1 0.2 0.3 0.4 0.5 
+
+> Rate (TPR/FPR)
+
+Threshold 
+
+> TPR w/ markers FPR w/ markers TPR w/o markers FPR w/o markers
+
+(c) S3 00.2 0.4 0.6 0.8 10.1 0.2 0.3 0.4 0.5 
+
+> Rate (TPR/FPR)
+
+Threshold  
+
+> TPR w/ markers FPR w/ markers TPR w/o markers FPR w/o markers
+
+(d) S4 
+
+Figure 7: Threshold–TPR/FPR relationship. 
+
+## C Unique log entries on S2 dataset 
+
+During evaluation, we observed a notable performance drop on the S2 split. To understand this behavior, we inspected the logs in S2 and identified at least three types of benign log entries that are heavily skewed toward S2 and consistently yield high perplexity. Table 6 lists these three log types (identified by character-istic strings) and their occurrence counts across S1–S4. In our preprocessed dataset, there are 419,412 log entries in to-tal on S2 (Table 3), and we find that more than half of the entries are dominated by logs that appear almost exclusively in S2. These entries often contain seemingly random strings within the message body (see the example in Figure 8), which plausibly increases perplexity. Because these log patterns are largely absent from the other splits (S1, S3, and S4), a model trained without S2 cannot learn that they are benign. As a result, when evaluated on S2, the model assigns high perplexity to these unseen-but-Table 6: Counts of logs disproportionately present in S2. 
+
+Keyword S1 S2 S3 S4 
+
+Audit Policy Change 72 146629 77 73 Sensitive Privilege Use 157 65512 1 131bf3856ad364e35_ 0 83225 3 3
+
+legitimate entries, leading to degraded detection performance. 19 Figure 8: Sample Log Entry with High Perplexity 
+
+Audit Success 9/15/2018 8:38:54 AM Microsoft-Windows-Security-Auditing 4674 Sensitive Privilege Use "An operation was attempted on a privileged object. Subject: Security ID: WIN-D65GVM5K5FO\ aalsahee Account Name: aalsahee Account Domain: WIN-D65GVM5K5FO Logon ID: 0x19224 Object:^M Object Server: Security Object Type: File Object Name: C:\$Recycle.Bin\S -1-5-21-450080267-1945256726-3465656282-1000\ $II85YSE.2924 Object Handle: 0x31c Process Information: Process ID: 0xbf4 Process Name: C:\Windows\System32\dllhost.exe Requested Operation: Desired Access: READ_CONTROL ACCESS_SYS_SEC ReadAttributes Privileges: SeSecurityPrivilege 
+
+20
