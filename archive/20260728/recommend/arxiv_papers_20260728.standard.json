@@ -1,0 +1,135 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-07-28T21:11:58.486670+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 1,
+    "deep_cap": 6,
+    "deep_selected": 1,
+    "quick_candidates": 2,
+    "quick_skim_target": 11,
+    "quick_selected": 2
+  },
+  "deep_dive": [
+    {
+      "id": "2607.23496v1",
+      "source": "arxiv",
+      "title": "Do LLMs Know Their Vulnerable Scenarios?",
+      "abstract": "Safety-aligned large language models are trained to refuse harmful requests, yet embedding the same requests in particular scenarios can bypass their safeguards. Existing red-teaming methods empirically identify effective scenarios through observed attack outcomes, but why particular scenarios weaken refusal remains mechanistically unclear. Meanwhile, mechanistic interpretability studies have characterized both refusal directions and jailbreak-associated features, without explaining the relationship between the two representations. In this work, we show that scenario-wrapped prompts activate internal scenario directions whose causal steering consistently reduces refusal scores. Building on this finding, we propose \\textsc{Concept2Scenario}, a concept-based attribution framework for vulnerable scenario discovery. It instantiates a broad concept space with a sparse autoencoder, attributes refusal suppression to individual concepts, translates the identified concepts into interpretable natural-language scenarios, and identifies synergistic scenario combinations through interaction attribution. Across three open-source models, two safety benchmarks, and six black-box jailbreak methods, the discovered scenarios serve as reusable priors that improve average attack success rates by up to $18.2$ percentage points. They also transfer to GPT-5, Claude-Haiku-4.5, and Gemini-3-Flash, suggesting that some scenario-level refusal vulnerabilities are shared across model families. Moreover, the identified combinations outperform their individual constituents and enable iterative attacks to succeed in fewer turns.",
+      "authors": [
+        "Ziheng Peng",
+        "Huiqi Deng",
+        "Haoran Jing",
+        "Xuankun Rong",
+        "Jiahui Han",
+        "Xiting Wang",
+        "Na Zou",
+        "Xia Hu"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI",
+        "cs.CR"
+      ],
+      "published": "2026-07-26T06:54:28+00:00",
+      "link": "https://arxiv.org/pdf/2607.23496v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "uncovers mechanism of scenario-based LLM safety bypass, key to cybercrime vulnerability",
+      "llm_evidence_cn": "揭示基于场景的LLM安全绕过机制，是评估网络犯罪脆弱性的关键",
+      "llm_evidence": "揭示基于场景的LLM安全绕过机制，是评估网络犯罪脆弱性的关键",
+      "canonical_evidence": "揭示基于场景的LLM安全绕过机制，是评估网络犯罪脆弱性的关键",
+      "llm_tldr_en": "Uses mechanistic interpretability to show scenario-wrapped prompts activate internal directions that reduce refusal, and proposes Concept2Scenario framework for automated vulnerability discovery, revealing LLM weakness in cybercrime contexts.",
+      "llm_tldr_cn": "安全对齐的大语言模型在面对特定场景包装的恶意请求时，其拒绝保护机制会失效，但内在原因不明。本文通过机械可解释性分析，发现场景包装激活了内部的场景方向，该方向因果操控可稳定降低拒绝分数。基于此提出Concept2Scenario概念归因框架，能自动将有害概念映射到具体的绕过场景。实验验证了场景方向的存在和作用，并演示了Concept2Scenario在发现高危场景方面的有效性，揭示了大模型在网络犯罪场景下脆弱性的内在机理，为评估和强化模型安全性提供新方法。",
+      "llm_tldr": "安全对齐的大语言模型在面对特定场景包装的恶意请求时，其拒绝保护机制会失效，但内在原因不明。本文通过机械可解释性分析，发现场景包装激活了内部的场景方向，该方向因果操控可稳定降低拒绝分数。基于此提出Concept2Scenario概念归因框架，能自动将有害概念映射到具体的绕过场景。实验验证了场景方向的存在和作用，并演示了Concept2Scenario在发现高危场景方面的有效性，揭示了大模型在网络犯罪场景下脆弱性的内在机理，为评估和强化模型安全性提供新方法。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "exploring the capability boundaries of large language models in cyber contexts",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2607.20121v2",
+      "source": "arxiv",
+      "title": "OpenSkillRisk: Benchmarking Agent Safety When Using Real-World Risky Third-Party Skills",
+      "abstract": "LLM-based agents leverage third-party skills to extend their capabilities in open-world scenarios. However, third-party skills can introduce extra security vulnerabilities, as seemingly harmless skills can contain latent safety risks that only emerge during actual execution. In this work, we conduct a systematic investigation into how well current agent systems recognize and avoid such risks. To support quantitative and qualitative evaluation, we construct OpenSkillRisk, a dedicated safety benchmark containing 263 risky skills collected from public skill marketplaces. We classify these skills into seven categories based on their threat types and pair each skill with a standardized user task and a corresponding sandbox for controlled evaluation. Distinct from prior benchmarks, OpenSkillRisk not only covers more realistic and diverse unsafe scenarios, but also provides a fine-grained analysis to diagnose the behavioral patterns of agents in such scenarios. We conduct comprehensive experiments covering three mainstream CLI agent frameworks and thirteen state-of-the-art LLMs. Experimental results show that no tested system handles risky skills reliably: even the safest configurations still execute unsafe actions in about 17% of cases. Context-dependent and system-level risks are especially difficult for current agent systems to avoid. Our behavioral analysis reveals three recurring failure patterns: agents may fail to recognize the risk, recognize it but fail to intervene before acting, or follow skill instructions beyond the user's intended scope. These findings highlight the need to improve both risk reasoning in LLMs and execution control in agent frameworks.",
+      "authors": [
+        "Qiyuan Liu",
+        "Tingfeng Hui",
+        "Kun Zhan",
+        "Kaike Zhang",
+        "Ning Miao"
+      ],
+      "primary_category": "cs.CL",
+      "categories": [
+        "cs.CL"
+      ],
+      "published": "2026-07-22T13:24:09+00:00",
+      "link": "https://arxiv.org/pdf/2607.20121v2",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "benchmarks LLM agent safety with risky skills, revealing capability limits in malicious scenarios",
+      "llm_evidence_cn": "通过风险技能基准测试LLM智能体安全性，揭示恶意场景下的能力边界",
+      "llm_evidence": "通过风险技能基准测试LLM智能体安全性，揭示恶意场景下的能力边界",
+      "canonical_evidence": "通过风险技能基准测试LLM智能体安全性，揭示恶意场景下的能力边界",
+      "llm_tldr_en": "OpenSkillRisk provides a benchmark of 263 risky third-party skills to evaluate LLM agents' safety awareness, highlighting limitations in avoiding malicious tasks relevant to cybercrime.",
+      "llm_tldr_cn": "大语言模型智能体通过集成第三方技能扩展能力，但这些技能可能引入隐蔽的安全风险，执行时可能触发恶意操作。本文系统性构建了OpenSkillRisk基准，包含263个从公开市场收集的真实风险技能，按威胁类型分为七类，并设计标准化用户任务与沙箱执行环境。对主流智能体系统的评估表明，当前系统在识别和规避高风险技能方面表现不佳，安全防护机制容易被绕过。该基准为测试大模型在潜在网络犯罪辅助工具调用中的能力边界和安全性提供了量化手段，并强调了提升智能体安全认知的必要性。",
+      "llm_tldr": "大语言模型智能体通过集成第三方技能扩展能力，但这些技能可能引入隐蔽的安全风险，执行时可能触发恶意操作。本文系统性构建了OpenSkillRisk基准，包含263个从公开市场收集的真实风险技能，按威胁类型分为七类，并设计标准化用户任务与沙箱执行环境。对主流智能体系统的评估表明，当前系统在识别和规避高风险技能方面表现不佳，安全防护机制容易被绕过。该基准为测试大模型在潜在网络犯罪辅助工具调用中的能力边界和安全性提供了量化手段，并强调了提升智能体安全认知的必要性。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "evaluating the limits of large language models in cybercrime scenarios",
+      "matched_requirement_id": "req-9",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2607.23982v1",
+      "source": "arxiv",
+      "title": "Moral Hazard in Multi-Agent Language Models",
+      "abstract": "Cooperation can fail when socially valuable effort is costly, weakly observable, and mainly benefits others. Drawing on Holmström's team moral-hazard model, we introduce the Dialogue Moral Hazard Game, a controlled textual game that operationalizes this hidden-action structure for language agents. In each episode, an agent can preserve an immediate local reward or pay a query cost to reveal a hidden safety fact that primarily helps another agent's downstream decision. We evaluate seven open-weight language models and decompose behavior into query use, realized information transfer, local-reward preservation, unsafe choice, format validity, and team success. Base models commonly preserve local reward without team success or query without communicating information that changes the final decision. We then use supervised fine-tuning, RLOO, sequential SFT+RLOO, and GEPA prompt optimization as diagnostic update mechanisms. Their effects are heterogeneous: OLMo-7B shows the clearest mechanism-consistent weight-level improvement, whereas GEPA sometimes improves team success while reducing or eliminating costly queries. Thus, optimization can shift aggregate reward without recovering the intended cooperative mechanism, motivating evaluations that report mechanism-level behavior rather than team success alone.",
+      "authors": [
+        "Dane Malenfant"
+      ],
+      "primary_category": "cs.MA",
+      "categories": [
+        "cs.MA",
+        "cs.AI"
+      ],
+      "published": "2026-07-27T04:13:42+00:00",
+      "link": "https://arxiv.org/pdf/2607.23982v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "models hidden-action dynamics in multi-agent language systems, adaptable to simulating criminal cooperation",
+      "llm_evidence_cn": "在多智能体语言系统中建模隐藏行动动态，可适应于模拟犯罪协作",
+      "llm_evidence": "在多智能体语言系统中建模隐藏行动动态，可适应于模拟犯罪协作",
+      "canonical_evidence": "在多智能体语言系统中建模隐藏行动动态，可适应于模拟犯罪协作",
+      "llm_tldr_en": "The paper introduces a Dialogue Moral Hazard Game to study cooperation and information sharing in language agents, providing a framework potentially useful for agent-based modeling of criminal activities.",
+      "llm_tldr_cn": "借鉴Holmström团队道德风险模型，提出对话道德风险博弈，让语言智能体在隐藏行动中权衡局部奖励与团队安全，为犯罪活动模拟提供了可迁移的多智能体行为建模框架。",
+      "llm_tldr": "借鉴Holmström团队道德风险模型，提出对话道德风险博弈，让语言智能体在隐藏行动中权衡局部奖励与团队安全，为犯罪活动模拟提供了可迁移的多智能体行为建模框架。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "agent-based modeling of criminal activities",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    }
+  ]
+}

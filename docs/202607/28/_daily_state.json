@@ -1,0 +1,57 @@
+{
+  "date": "20260728",
+  "date_label": "",
+  "generated_at": "2026-07-28 21:17:37 UTC",
+  "recommend_exists": true,
+  "run_count": 1,
+  "papers": [
+    {
+      "paper_id": "2607.23496v1",
+      "route": "202607/28/2607.23496v1-do-llms-know-their-vulnerable-scenarios",
+      "title": "Do LLMs Know Their Vulnerable Scenarios?",
+      "section": "deep",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "ca"
+        }
+      ],
+      "score": 8.0,
+      "evidence": "揭示基于场景的LLM安全绕过机制，是评估网络犯罪脆弱性的关键",
+      "first_seen_at": "2026-07-28 21:17:37 UTC",
+      "updated_at": "2026-07-28 21:17:37 UTC"
+    },
+    {
+      "paper_id": "2607.20121v2",
+      "route": "202607/28/2607.20121v2-openskillrisk-benchmarking-agent-safety-when-using-real-world-risky-third-party-skills",
+      "title": "OpenSkillRisk: Benchmarking Agent Safety When Using Real-World Risky Third-Party Skills",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "ca"
+        }
+      ],
+      "score": 7.0,
+      "evidence": "通过风险技能基准测试LLM智能体安全性，揭示恶意场景下的能力边界",
+      "first_seen_at": "2026-07-28 21:17:37 UTC",
+      "updated_at": "2026-07-28 21:17:37 UTC"
+    },
+    {
+      "paper_id": "2607.23982v1",
+      "route": "202607/28/2607.23982v1-moral-hazard-in-multi-agent-language-models",
+      "title": "Moral Hazard in Multi-Agent Language Models",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "ca"
+        }
+      ],
+      "score": 7.0,
+      "evidence": "在多智能体语言系统中建模隐藏行动动态，可适应于模拟犯罪协作",
+      "first_seen_at": "2026-07-28 21:17:37 UTC",
+      "updated_at": "2026-07-28 21:17:37 UTC"
+    }
+  ]
+}
