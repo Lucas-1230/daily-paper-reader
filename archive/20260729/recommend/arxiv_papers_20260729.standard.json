@@ -1,0 +1,167 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-07-29T21:12:57.138948+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 4,
+    "deep_cap": 6,
+    "deep_selected": 4,
+    "quick_candidates": 0,
+    "quick_skim_target": 11,
+    "quick_selected": 0
+  },
+  "deep_dive": [
+    {
+      "id": "2607.25379v1",
+      "source": "arxiv",
+      "title": "Cyber-Capable AI Agents: Vulnerabilities, Evaluation Containment, and Defensive Response",
+      "abstract": "Cyber-capable AI agents combine language models with tools, memory, and execution en- vironments to perform multi-step offensive-security tasks. Existing work separately measures cyber capability and catalogs attacks against agent components, but provides less guidance on containing a capable agent within the environments used to evaluate it. This review synthe- sizes five vulnerability classes at that boundary: multi-step offensive chains, objectives that conflict with sandbox boundaries, supply-chain and credential exposure, persistent command- and-control, and the speed of automated action. We use the reported July 2026 Hugging Face/OpenAI incident as a bounded case study, distinguishing incident-specific observations from findings established in the wider literature. Across the taxonomy and case, we examine controls for containment, privilege separation, provenance, and responder access, including the dual-use problem that defensive artifacts may also enable misuse. The review identifies practical priorities for evaluating cyber capability together with the security of the environment in which that capability is exercised.",
+      "authors": [
+        "Abu Bakar Siddik"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-07-28T07:34:37+00:00",
+      "link": "https://arxiv.org/pdf/2607.25379v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "review of cyber-capable AI agent vulnerabilities and containment for evaluation, directly exploring capability limits",
+      "llm_evidence_cn": "综述网络能力AI智能体在评估中的漏洞和隔离方法，直接探索能力极限",
+      "llm_evidence": "综述网络能力AI智能体在评估中的漏洞和隔离方法，直接探索能力极限",
+      "canonical_evidence": "综述网络能力AI智能体在评估中的漏洞和隔离方法，直接探索能力极限",
+      "llm_tldr_en": "This review synthesizes vulnerabilities in evaluating cyber-capable AI agents and proposes containment strategies, using a real incident as a case study.",
+      "llm_tldr_cn": "该综述总结了评估具有网络进攻能力的AI智能体时面临的五类漏洞，包括多步攻击链、目标冲突、凭证暴露等，并通过Hugging Face/OpenAI事件案例提供隔离与防御响应指南，为安全评估大模型在网络安全中的能力边界提供了系统性框架。",
+      "llm_tldr": "该综述总结了评估具有网络进攻能力的AI智能体时面临的五类漏洞，包括多步攻击链、目标冲突、凭证暴露等，并通过Hugging Face/OpenAI事件案例提供隔离与防御响应指南，为安全评估大模型在网络安全中的能力边界提供了系统性框架。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "exploring the capability boundaries of large language models in cyber contexts",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2607.25568v1",
+      "source": "arxiv",
+      "title": "Network Reciprocity Shapes Evolutionary Cybersecurity Dynamics",
+      "abstract": "AI-assisted cybersecurity systems are characterised by continuous adaptation between attackers and defenders, making evolutionary game theory a natural framework for studying their long-term behaviour. However, existing evolutionary cybersecurity models have primarily focused on homogeneous interactions, providing limited understanding of how population structure influences cyber attack-defence dynamics. In this paper, we develop a mixed-role evolutionary game in which adaptive cyber agents can exhibit both offensive and defensive behaviours, and investigate its dynamics in well-mixed and structured populations. The proposed framework combines stochastic evolutionary analysis with large-scale agent-based simulations to examine how interaction structure shapes long-run strategic behaviour. Our results reveal a fundamental difference between global and local interactions. While well-mixed populations exhibit broad coexistence between attacking and defensive strategies, structured populations generate well-defined evolutionary regimes in which secure defensive behaviour becomes dominant over a much larger region of the parameter space. Spatial analysis further shows that neighbouring defenders naturally form resilient clusters that suppress persistent attacks through network reciprocity. These findings demonstrate that interaction structure is a fundamental determinant of AI-assisted cybersecurity evolution and suggest that organising defensive agents through local networked interactions can substantially improve long-term cyber resilience without requiring additional defensive incentives.",
+      "authors": [
+        "Adeela Bashir",
+        "Zia Ush Shamszaman",
+        "Zhao Song",
+        "The Anh Han"
+      ],
+      "primary_category": "cs.GT",
+      "categories": [
+        "cs.GT"
+      ],
+      "published": "2026-07-28T10:56:30+00:00",
+      "link": "https://arxiv.org/pdf/2607.25568v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "uses agent-based simulation and evolutionary game theory to model cyber attack-defense dynamics with adaptive agents",
+      "llm_evidence_cn": "使用基于智能体的模拟和演化博弈论建模自适应网络攻防动态",
+      "llm_evidence": "使用基于智能体的模拟和演化博弈论建模自适应网络攻防动态",
+      "canonical_evidence": "使用基于智能体的模拟和演化博弈论建模自适应网络攻防动态",
+      "llm_tldr_en": "Develops a mixed-role evolutionary game with adaptive cyber agents and large-scale agent-based simulations to study how population structure affects attack-defense dynamics, showing network reciprocity promotes cooperation.",
+      "llm_tldr_cn": "该论文提出一个混合角色的演化博弈模型，利用自适应网络智能体和基于智能体的大规模模拟，研究群体结构如何影响网络攻击与防御动态，发现网络互惠性能够促进合作行为。",
+      "llm_tldr": "该论文提出一个混合角色的演化博弈模型，利用自适应网络智能体和基于智能体的大规模模拟，研究群体结构如何影响网络攻击与防御动态，发现网络互惠性能够促进合作行为。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "agent-based modeling of criminal activities",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2607.23147v1",
+      "source": "arxiv",
+      "title": "False Prophets: On the Security of World Models in Agentic Systems",
+      "abstract": "Large language models now power autonomous agents capable of complex, multi-step tasks in different environments. Accurate and reliable execution of these tasks requires the agent to predict the results of its actions. Recent research proposes to enhance predictive capabilities via specially trained environment simulators-world models. While world models can improve performance, they can also mislead agents into executing harmful actions, creating significant security and privacy risks. In this paper, we raise security concerns regarding the usage of world models in agentic systems. We discover a range of world model specific vulnerabilities, which can be exploited in terminal-based agents to execute malicious code or extract sensitive data. To facilitate future development, we introduce a security benchmark dataset designed for text-based world models. We argue that some risks are intrinsic to approximate world modeling, and show that attackers can induce mispredictions in agentic pipelines with up to 95% success rate, possibly resulting in unintended command execution, denial of service, drainage of wallet and private information extraction. Finally, we provide practical recommendations for practitioners to mitigate the discovered harms and harden agentic systems.",
+      "authors": [
+        "Erik Imgrund",
+        "Anna Wimbauer",
+        "Klim Kireev",
+        "Konrad Rieck"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI"
+      ],
+      "published": "2026-07-25T10:55:14+00:00",
+      "link": "https://arxiv.org/pdf/2607.23147v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Reveals security vulnerabilities of world models in LLM agents, enabling malicious attacks",
+      "llm_evidence_cn": "揭示大模型代理中世界模型的安全漏洞，可能导致恶意攻击",
+      "llm_evidence": "揭示大模型代理中世界模型的安全漏洞，可能导致恶意攻击",
+      "canonical_evidence": "揭示大模型代理中世界模型的安全漏洞，可能导致恶意攻击",
+      "llm_tldr_en": "This paper discovers vulnerabilities in world models used in agentic systems, showing how they can mislead agents into executing malicious code, highlighting security risks in LLM-based agents.",
+      "llm_tldr_cn": "针对大模型代理中世界模型的安全风险，发现其可误导代理执行恶意代码或提取敏感数据的漏洞。通过实验验证终端代理中的利用技术，表明世界模型可能成为攻击入口。该研究拓展了对大模型在对抗环境下能力边界的理解，为网络犯罪模拟和防御提供了潜在攻击面知识。",
+      "llm_tldr": "针对大模型代理中世界模型的安全风险，发现其可误导代理执行恶意代码或提取敏感数据的漏洞。通过实验验证终端代理中的利用技术，表明世界模型可能成为攻击入口。该研究拓展了对大模型在对抗环境下能力边界的理解，为网络犯罪模拟和防御提供了潜在攻击面知识。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "exploring the capability boundaries of large language models in cyber contexts",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2607.23710v1",
+      "source": "arxiv",
+      "title": "The Illusion of Secure LLM Code: Closing the Security Gap via Iterative Reprompting",
+      "abstract": "Large Language Models (LLMs) are increasingly integrated into software development workflows, yet their ability to autonomously generate secure authentication code remains uncertain. This paper evaluates the security architecture of authentication systems generated by five prominent AI coding assistants through a bi-modal assessment framework combining static code analysis and dynamic penetration testing, mapped to NIST SP 800-63B guidelines. The study examines model behavior across four prompting strategies Basic, Secure, NIST-Based, and Reprompting to reflect varying levels of developer guidance. Empirical results demonstrate that code generated from functional or generically secure prompts consistently omits critical protections, particularly concerning brute-force resistance, session management, and robust password handling. While providing explicit, single-shot NIST context significantly improves compliance, the findings reveal that this remains structurally inadequate. Instead, iterative Reprompting: forcing models into a contextual self-auditing loop is strictly required to achieve a comprehensive, defense-in-depth security architecture. Ultimately, this study proves that current AI coding assistants do not produce secure-by-default applications, dictating that enterprise deployments must transition from single-shot prompt engineering to continuous, standards-driven verification pipelines.",
+      "authors": [
+        "Ishpuneet Singh",
+        "Shreyas Mahajan",
+        "Gurjot Singh",
+        "Maninder Singh"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI",
+        "cs.HC",
+        "cs.LG",
+        "cs.MA"
+      ],
+      "published": "2026-07-26T15:16:44+00:00",
+      "link": "https://arxiv.org/pdf/2607.23710v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Evaluates LLM-generated authentication code security, revealing capability limits in secure coding",
+      "llm_evidence_cn": "评估大模型生成认证代码的安全性，揭示其在安全编码上的能力局限",
+      "llm_evidence": "评估大模型生成认证代码的安全性，揭示其在安全编码上的能力局限",
+      "canonical_evidence": "评估大模型生成认证代码的安全性，揭示其在安全编码上的能力局限",
+      "llm_tldr_en": "This paper evaluates the security of LLM-generated authentication code, finding that default prompting yields insecure code, while iterative reprompting with NIST guidelines closes the security gap.",
+      "llm_tldr_cn": "针对大模型生成代码的安全性问题，评估五种AI编程助手生成的认证系统，结合静态分析和渗透测试。发现基本提示生成代码常缺失关键防护，而基于NIST指南的迭代重提示可缩小安全差距。该研究揭示了大模型在网络空间安全编码中的能力边界，为防御网络犯罪中的代码漏洞提供参考。",
+      "llm_tldr": "针对大模型生成代码的安全性问题，评估五种AI编程助手生成的认证系统，结合静态分析和渗透测试。发现基本提示生成代码常缺失关键防护，而基于NIST指南的迭代重提示可缩小安全差距。该研究揭示了大模型在网络空间安全编码中的能力边界，为防御网络犯罪中的代码漏洞提供参考。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "exploring the capability boundaries of large language models in cyber contexts",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": []
+}

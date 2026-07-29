@@ -1,0 +1,280 @@
+Title: Network Reciprocity Shapes Evolutionary Cybersecurity Dynamics
+
+URL Source: https://arxiv.org/pdf/2607.25568v1
+
+Published Time: Wed, 29 Jul 2026 00:59:47 GMT
+
+Number of Pages: 15
+
+Markdown Content:
+# Network Reciprocity Shapes Evolutionary Cybersecurity Dynamics 
+
+# Adeela Bashir 1, Zia Ush Shamszaman 2, Zhao Song 1, and The Anh Han 1,3,∗
+
+> 1
+
+# School of Computing, Engineering and Digital Technologies, Teesside University 
+
+> 2
+
+# Department of Informatics, Faculty of Natural, Mathematical & Engineering Sciences, King’s College London: London, UK 
+
+> 3
+
+# Center for Digital Innovation, Teesside University 
+
+> ∗
+
+# Corresponding: The Anh Han (T.Han@tees.ac.uk) July 29, 2026 
+
+Abstract 
+
+AI-assisted cybersecurity systems are characterised by continuous adaptation between attackers and defenders, making evolutionary game theory a natural framework for studying their long-term behaviour. However, existing evolutionary cybersecurity models have primarily focused on homogeneous interactions, providing limited understanding of how population structure influences cyber attack–defence dynamics. In this paper, we develop a mixed-role evolutionary game in which adaptive cyber agents can exhibit both offensive and defensive behaviours, and investigate its dynamics in well-mixed and structured pop-ulations. The proposed framework combines stochastic evolutionary analysis with large-scale agent-based simulations to examine how interaction structure shapes long-run strategic behaviour. Our results reveal a fundamental difference between global and local interactions. While well-mixed populations exhibit broad coexistence between attacking and defensive strategies, structured populations generate well-defined evolutionary regimes in which secure defensive behaviour becomes dominant over a much larger region of the parameter space. Spatial analysis further shows that neighbouring defenders natu-rally form resilient clusters that suppress persistent attacks through network reciprocity. These findings demonstrate that interaction structure is a fundamental determinant of AI-assisted cybersecurity evolu-tion and suggest that organising defensive agents through local networked interactions can substantially improve long-term cyber resilience without requiring additional defensive incentives. 
+
+# 1 Introduction 
+
+Artificial intelligence (AI) is rapidly transforming modern cybersecurity. Large language models (LLMs), autonomous agents, and machine learning techniques are increasingly being used by both attackers and defenders. AI enables attackers to automate phishing campaigns, generate malicious code, launch adaptive malware, and exploit vulnerabilities at unprecedented speed. At the same time, AI-assisted defence improves intrusion detection, malware analysis, behavioural analytics, threat intelligence, and automated incident response, enabling organisations to respond more rapidly to evolving threats [1, 2, 3]. Thus, cybersecurity has become an adaptive evolutionary process in which both sides co-evolve by continuously modifying their strategies in response to changing incentives and environmental conditions [4]. Evolutionary Game Theory (EGT) provides a natural framework for analysing such adaptive cybersecurity dynamics [5, 6, 7, 8]. Unlike classical game theory, EGT captures how competing behaviours spread, persist, and evolve over time, making it particularly suitable for studying long-term attack-defence interactions [9, 10]. Consequently, EGT has been widely applied to cybersecurity investment, intrusion response, attack-defence games, and collective defence mechanisms [11, 12, 13]. These studies have improved our understanding of strategic cyber conflicts by revealing how incentives influence the evolutionary success of attacking and defensive behaviours [14]. However, most existing evolutionary cybersecurity models focus primarily on strategic incentives [15, 16]. In many real-world cyber systems, organisations, devices, and AI-enabled security agents interact through communication networks, enterprise infrastructures, cloud platforms, and supply-chain relationships rather 1arXiv:2607.25568v1 [cs.GT] 28 Jul 2026 Figure 1: Conceptual overview of the proposed framework where attacks and defence mechanisms interact within a cyber environment and interactions are modelled using a mixed-role evolutionary game. 
+
+than through homogeneous random mixing [17, 18, 19]. Extensive studies in EGT have demonstrated that interaction structure can fundamentally reshape evolutionary outcomes by altering strategy propagation, invasion dynamics, and equilibrium selection in networked populations [20, 21, 22, 23, 24]. However, these insights have rarely been translated to cybersecurity. Existing EGT models explain how incentives influence attacker–defender behaviour, but cannot explain how attacks propagate through connected cyber infrastruc-tures or how local defensive coordination emerges. It remains unclear how population structure influences the long-term evolution of attack-defence dynamics and the emergence of cyber resilience in interconnected systems. Motivated by this gap, we propose an evolutionary game-theoretic framework to investigate how pop-ulation structure influences the long-run evolution of adaptive AI-assisted cyber attack-defence dynamics. The overall workflow of the proposed framework is illustrated in Figure 1. AI-assisted cyber attacks and AI-enabled defence mechanisms interact within a secure digital environment and are represented using a mixed-role evolutionary game. The resulting evolutionary dynamics are analysed under both well-mixed and structured populations to quantify the impact of interactions on attack suppression, defensive clustering, and long-term cyber resilience. Our results demonstrate that population structure fundamentally influences the evolutionary dynamics of cyber conflict. While well-mixed populations exhibit broad coexistence between attacking and defensive behaviours, structured populations promote defensive clustering through network reciprocity, suppress per-sistent attacks, and drive the system towards secure defensive states. These findings provide new insights into how network organisation can enhance cyber resilience alongside advances in AI-assisted defence. The main contributions of this work are: 
+
+• We develop an evolutionary game model to study AI-assisted cyber attack-defence dynamics in both well-mixed and structured populations. 
+
+• We combine stochastic evolutionary analysis with large-scale agent-based simulations to compare the long-run behaviour of homogeneous and networked cyber systems. 
+
+• We show that network reciprocity promotes defensive clustering and suppresses persistent attacks. 
+
+• We provide analytical and computational evidence that interaction structure is a key factor governing the evolution of AI-assisted cyber resilience. The remainder of this paper is organised as follows. Section 2 reviews the related work on EGT and AI-assisted cybersecurity. Section 3 presents the proposed AI-assisted cyber attack-defence game, derives the 2attack-suppression threshold, and formulates the evolutionary dynamics in both well-mixed and structured populations. Section 4 presents the simulation setup and discusses the results, including stochastic evolu-tionary dynamics, the comparison between well-mixed and structured populations, with particular emphasis on defensive clustering as a mechanism for attack suppression. Finally, Section 5 concludes the paper and outlines directions for future research. 
+
+# 2 Related Work 
+
+The rapid adoption of AI has transformed both offensive and defensive cybersecurity capabilities. AI-assisted techniques are increasingly used for vulnerability discovery, malware generation, phishing campaigns, intrusion detection, malware analysis, and automated incident response. As AI systems become more au-tonomous, attackers and defenders continuously adapt their behaviour in response to one another, creating highly dynamic cyber environments [25, 14, 11]. These developments have motivated growing interest in mathematical models that can capture the long-term evolution of AI-assisted cyber conflicts rather than analysing isolated attack or defence decisions. Evolutionary game-theoretic models have been widely applied to study adaptive cybersecurity problems, including cybersecurity investment, attack-defence interactions, intrusion response, malware propagation, trust management, and collaborative defence [12, 26, 6, 7].Existing studies consistently demonstrate that the long-term success of attackers and defenders depends on the balance between attack incentives, defen-sive costs, and protection effectiveness [4]. More recent work has further incorporated adaptive adversaries and AI-assisted defence, providing valuable insights into how intelligent cyber agents continuously modify their strategies in response to changing threat environments [25, 14]. Complementing these evolutionary approaches, broader game-theoretic cybersecurity models have investigated collaborative intrusion detec-tion, industrial cyber-physical system security, advanced persistent threats, blockchain security, and resilient control, primarily focusing on application-specific defence optimisation and equilibrium analysis rather than evolutionary population dynamics [27, 28, 29, 30, 31]. However, these studies predominantly analyse strate-gic adaptation under homogeneous interaction settings, where every agent is assumed to interact equally with every other agent. In contrast, interaction structure has been extensively studied in EGT [20, 21, 32]. Research on coopera-tion and social dilemmas has shown that network topology fundamentally alters evolutionary outcomes by enabling cooperative agents to form resilient local clusters through network reciprocity [33, 34, 35, 36, 37]. Structured populations exhibit spatial self-organisation, phase transitions, and stable behavioural patterns that do not emerge under homogeneous mixing [32, 8, 38, 39]. These findings suggest that interaction struc-ture may play an equally important role in cybersecurity, where attacks propagate through communication networks, enterprise infrastructures, cloud systems, and interconnected organisations rather than through globally mixed populations [17, 18, 19]. Despite these advances, the role of population structure in AI-assisted cybersecurity remains largely un-explored. Understanding how cyber behaviours propagate through interconnected populations, how local interactions reshape attack persistence and defensive organisation, and whether network organisation can suppress persistent attacks and promote cyber resilience is therefore an important open research question. To address this gap, we develop an evolutionary game model for AI-assisted cyber attack-defence interac-tions and investigate its dynamics in both well-mixed and structured populations. By integrating stochastic evolutionary analysis with large-scale agent-based simulations, we systematically compare homogeneous and local interaction structures and demonstrate how network reciprocity suppresses attacks, promotes defensive clustering, and expands the parameter region in which secure defensive behaviour emerges. 
+
+# 3 AI-Assisted Cyber Attack-Defence Game 
+
+Guided by the conceptual framework shown in Figure 1, we now formalise the interactions between at-tackers and defenders as an evolutionary game. We first define the strategy space and payoff structure before analysing the resulting evolutionary dynamics in well-mixed and structured populations. The payoffs associated with the attacker and defender actions are summarised in Table 1, and AI-assisted capabilities are represented through the effectiveness of attack and defence. The attacker incurs an attack cost ca for launching an attack against an undefended target and receives the attack benefit ba, while the defender suffers a loss equal to the asset value w. If defence is deployed, the defender additionally incurs the defence 3cost cd, whereas successful defence prevents the attack with probability pd, reducing the attacker’s expected benefit while increasing the defender’s protection. In particular, pd represents the effectiveness of AI-assisted defensive mechanisms, such as intelligent intrusion detection, automated response, and AI-driven threat mitigation. 
+
+> Table 1: Payoffs of the adaptive attacker and defender
+
+Strategies Payoffs D A Defender Attacker 
+
+N D N A 0 0
+
+N D A −w −ca + ba
+
+D N A −cd + bd 0
+
+D A −cd + pdbd − w(1 − pd) −ca + ba(1 − pd)The model contains six parameters describing the costs, benefits, and effectiveness of cybersecurity actions. Their meanings are summarised in Table 2. 
+
+> Table 2: Summary of parameters in the model
+
+Variables Meaning of variables Constraints 
+
+w Assets value, i.e. loss to the defender for an attack 0 < w ≤ 1
+
+ca Cost to the attacker for attack attempt 0 < c a < w cd Cost to the defender for implementing defence 0 < c d < w ba Attacker’s benefit for a successful attack ca < b a
+
+bd Defender’s benefit for not being breached cd < b d ≤ wpd Probability of successful defence 0 < p d ≤ 1Each agent can choose among two strategies. Attacking behaviour AT ∈ { A, N A }, where A denotes launching an AI-assisted cyber attack, and NA denotes not attacking. Similarly, defensive behaviour 
+
+DF ∈ { D, N D }, where D denotes deploying AI-assisted defence, and ND denotes not investing in de-fensive protection. Combining the offensive and defensive decisions produces four mixed-role strategies, (A, D ), (A, N D ), (N A, D ), (N A, N D ).
+
+These four mixed-role strategies represent distinct cybersecurity behaviours: 
+
+• (A, D ) ( active defence ), where organisations actively attack others while simultaneously investing in protecting themselves; 
+
+• (N A, D ) ( defensive-only ), where organisations invest in self-defence and do not attack others; 
+
+• (A, N D ) ( offensive-only ), where organisations prioritise offensive capability but neglect self-protection; 
+
+• (N A, N D ) ( passive ), where organisations neither launch attacks nor invest in defensive mechanisms. These four strategies capture the principal behavioural modes observed in modern AI-assisted cybersecu-rity environments, ranging from proactive defence to purely offensive and passive security postures. Modern cybersecurity organisations increasingly possess both offensive and defensive capabilities [40]. National cyber agencies and military cyber units conduct defensive operations while also maintaining offensive cyber capa-bilities [41]. Likewise, organisations routinely employ internal red teams that perform penetration testing and adversarial assessments alongside blue teams responsible for protecting operational infrastructure [42]. Commercial cybersecurity vendors similarly combine offensive security testing with defensive monitoring and incident response services. These examples motivate representing cyber agents as mixed-role entities capable of simultaneously adopting offensive and defensive behaviours. In the proposed model, during every interaction, one player first assumes the attacker role while the opponent acts as the defender. The roles are then exchanged, allowing each player to experience both offensive and defensive interactions. The overall payoff is defined as the average utility obtained across 4the two roles. Formally, the payoff of a player with strategy ( AT 1, DF 1) against a player with strategy (AT 2, DF 2) is given by: 
+
+π((AT 1, DF 1), (AT 2, DF 2)) = 12
+
+[
+
+π(AT 1, DF 2) + π(DF 1, AT 2)
+
+]
+
+,
+
+where π(AT i, DF j ) denotes the payoff obtained when the focal player performs the attacking role against the opponent’s defensive strategy, and π(DF i, AT j ) denotes the payoff obtained when acting as the defender against the opponent’s attacking strategy. Averaging over the two interaction roles reflects the dual offensive and defensive capabilities of modern AI-assisted cyber agents. The resulting mixed-role payoff matrix is given in Table 3. The payoff structure determines the evolutionary incentives governing cyber attack and defence. 
+
+> Table 3: Payoff matrix for mixed-role game.
+
+(A, D ) (A, N D ) (N A, D ) (N A, N D )(A, D ) 12 (πDA + πAD ) 12 (πN D A + πAN D ) 12 (πDA + πN A D ) 12 (πN D A )(A, N D ) 12 (πDA + πAD ) 12 (πN D A + πAN D ) 12 (πDA + πN A D ) 12 (πN D A )(N A, D ) 12 (πAD ) 12 (πAN D ) 12 (πN A D ) 0(N A, N D ) 12 (πAD ) 12 (πAN D ) 12 (πN A D ) 0
+
+Analytical Condition for Attack Suppression. The payoff structure of the proposed game provides a simple analytical condition that explains when attacking ceases to be evolutionarily profitable. Consider an interaction in which an attacking agent encounters a defended opponent. From Table 1, the expected payoff of the attacker is 
+
+πDA = −ca + ba(1 − pd),
+
+where ca is the operational cost of launching an attack, ba is the benefit of a successful attack, and pd
+
+denotes the probability that the defender successfully detects and blocks the attack. For an attacking strategy to remain evolutionarily favourable, its expected payoff must be positive, i.e., 
+
+πDA > 0.
+
+Substituting the attacker payoff yields 
+
+−ca + ba(1 − pd) > 0,
+
+which can be rearranged to show attacking strategy is evolutionarily advantageous against defended agents if and only if 
+
+ba(1 − pd) > c a.
+
+Equivalently, attacks become evolutionarily unattractive whenever 
+
+pd > 1 − ca
+
+ba
+
+. (1) Equation (1) provides an analytical attack-suppression condition. When the probability of successful defence exceeds this threshold, the expected payoff of attacking becomes non-positive, making attacks evolu-tionarily unattractive against defended agents. It shows that attack suppression is governed jointly by three factors: the operational cost of launching attacks ( ca), the reward obtained from successful attacks ( ba), and the effectiveness of AI-assisted defensive mechanisms ( pd). Increasing the operational cost of attacks or im-proving defence both reduce the evolutionary attractiveness of offensive behaviour. Although this condition follows directly from the payoff structure, it provides useful analytical intuition for interpreting the phase transitions and attack-suppression behaviour observed in the stochastic analysis and structured population simulations presented in the following sections. 53.1 Well-Mixed Finite Population 
+
+We consider a well-mixed finite population consisting of M players, where every player can interact with evey other player, as shown in Figure 1. Each player adopts a strategy S from the four mixed-role strategies where S = {(A, D ), (A, N D ), (N A, D ), (N A, N D )}. At each time step, a randomly selected player updates its strategy by imitating the strategy of another randomly selected player, following a Moran-type process [43, 14]. To analyse the evolutionary dynamics, we consider pairwise competition between two strategies 
+
+X, Y ∈ S . Suppose there are m players adopting strategy X and M − m players adopting strategy Y . The average payoffs of players using strategies X and Y are given by: 
+
+fX = (m − 1) πX,X + ( M − m)πX,Y 
+
+M − 1 , fY = mπ Y,X + ( M − m − 1) πY,Y 
+
+M − 1 ,
+
+where πX,Y denotes the payoff of a player using strategy X when interacting with a player using strategy 
+
+Y , as defined by the mixed-role payoff matrix in Table 3. The evolutionary dynamics are governed by the Fermi update rule [43], where a player with strategy X randomly selects one of its neighbours and adopts their strategy Y with probability: 
+
+P (X → Y ) = 11 + exp[ β(fY − fX )] , (2) where β represents the selection intensity, controlling how strongly payoff differences influence strategy adoption. When β → 0, strategy updates are random (neutral drift), while for large β, players are more likely to imitate strategies with higher payoffs. Based on this update rule, the probability that the number of players using strategy X increases or decreases by one is given by: 
+
+T ± 
+
+> XY
+
+= M − mMmM [1 + exp( ∓β(fX − fY ))] −1 .
+
+The fixation probability of a single mutant with strategy X in a resident population of M − 1 players using strategy Y is given by: 
+
+ρY X =
+
+[
+
+1 +  
+
+> M−1
+
+∑
+
+> k=0
+> k
+
+∏
+
+> m=1
+
+T −
+
+> XY
+
+T +
+
+> Y X
+
+]−1
+
+.
+
+Assuming a small mutation limit, where each mutant either fixates or goes extinct before another mutation occurs, the population transitions only between homogeneous strategic states. This assumption reflects the fact that the introduction of fundamentally new AI-assisted attack or defence strategies is much less frequent than routine cyber interactions, while also making the stochastic evolutionary dynamics analytically tractable. The fixation probabilities ρXY therefore define the transition probabilities between homogeneous states of the population. Let q = 4 be the number of strategies. The transition matrix is defined as: 
+
+TXY =
+
+{ ρXY  
+
+> q−1
+
+, X̸ = Y, 
+
+1 − ∑qY =1 ,Y ̸ =X TXY , X = Y. 
+
+The stationary distribution of this Markov process is obtained from the normalised eigenvector correspond-ing to eigenvalue 1 of the transposed transition matrix [10, 43]. This distribution describes the long-run pro-portion of time the population spends in each homogeneous state, providing a measure of the evolutionary success of each mixed-role strategy. 
+
+# 3.2 Structured Population 
+
+To investigate the influence of interaction structure, we next consider a structured population represented by a two-dimensional square lattice with periodic boundary conditions [22]. Each node corresponds to one adaptive cyber agent, and each agent interacts only with its four nearest neighbours, as shown in Figure 1. This local interaction pattern reflects the fact that cyber attacks and defensive responses often propagate through connected infrastructures rather than through globally mixed populations. During each Monte Carlo Step (MCS), a randomly selected agent compares its accumulated payoff with one randomly chosen neighbour and updates its strategy according to the Fermi rule in Eq. (2). The process is repeated until the population reaches a stationary state, from which the long-run frequencies of the four strategies are obtained. Further details on the simulations setup are given in Section 4.3. 6(a) (b) (c) (d) 
+
+Figure 2: Stationary frequencies of AI-assisted cyber attack-defence strategies as functions of the selection intensity 
+
+β under four representative cybersecurity environments. Weak selection is dominated by random drift, whereas stronger selection increasingly favours strategies with higher payoffs. Panels (a) and (b) represent attack-favourable environments in which AI-assisted offensive strategies dominate. Panels (c) and (d) illustrate defence-favourable environments, where higher attack costs and more effective AI-assisted defence progressively suppress attacks and promote non-attacking strategies. Parameter values for (a) ca = 0 .2, b a = 1 .0, p d = 0 .2, c d = 0 .5, b d = 1 .0, w = 1 .0, (b) 
+
+ca = 0 .45 , b a = 1 .0, p d = 0 .5, c d = 0 .4, b d = 1 .0, w = 1 .0, (c) ca = 0 .8, b a = 0 .8, p d = 0 .9, c d = 0 .2, b d = 1 .2, w = 1 .0, and (d) ca = 0 .8, b a = 0 .7, p d = 0 .8; , c d = 0 .2, b d = 1 .2, w = 1 .0. 
+
+# 4 Results and Discussion 
+
+In this section, we investigate the evolutionary dynamics of the proposed AI-assisted cyber attack-defence game using both analytical and computational approaches. We first analyse the stochastic evolutionary dynamics of the finite well-mixed population through the Markov-chain framework, followed by a parameter sensitivity analysis to identify the key factors governing attack and defence. We then compare the evolution-ary behaviour of well-mixed and structured populations using agent-based simulations and finally examine how defensive clustering suppresses attacks and promotes cyber resilience. 
+
+# 4.1 Stochastic Evolutionary Dynamics 
+
+We first investigate how selection pressure influences the long-run evolution of AI-assisted cyber attack-defence strategies in a well-mixed population. The stochastic Markov framework enables us to identify the stationary behaviour of the four mixed-role strategies under different cybersecurity conditions, providing a baseline for comparison with the structured population model introduced later. Figure 2 illustrates the stationary frequencies of the four AI-assisted cyber strategies as the selection intensity β increases under different cybersecurity environments. When selection is weak ( β < 10 −2), all strategies occur with similar frequencies because strategy updates are dominated by random drift rather than payoff differences. As selection becomes stronger, evolutionary success is increasingly determined by the balance between attack incentives and defensive effectiveness. Panels (a) and (b) represent environments in which AI-assisted attacks remain evolutionarily viable. Under these conditions, stronger selection drives the population towards attack-oriented strategies, with ( A, D )dominating when defensive investment remains beneficial and ( A, N D ) prevailing when maintaining defence    
+
+> (a) (b) (c) (d)
+
+Figure 3: Embedded four-state Markov chains corresponding to the cybersecurity environments shown in Figure 2 (β = 1). Nodes represent homogeneous population states and are labelled by their stationary probabilities, while directed edges denote fixation probabilities (only the stronger transition between any two states is shown, for clarity). Increasing attack cost and AI-assisted defence effectiveness progressively redirect the evolutionary flow from attack-dominated states towards secure non-attacking strategies. Parameter values for (a) ca = 0 .2, b a = 1 .0, p d = 0 .2, c d =0.5, b d = 1 .0, w = 1 .0, (b) ca = 0 .45 , b a = 1 .0, p d = 0 .5, c d = 0 .4, b d = 1 .0, w = 1 .0, (c) ca = 0 .8, b a = 0 .8, p d =0.9, c d = 0 .2, b d = 1 .2, w = 1 .0, and (d) ca = 0 .8, b a = 0 .7, p d = 0 .8; , c d = 0 .2, b d = 1 .2, w = 1 .0. 
+
+7Figure 4: Parameter sensitivity analysis of the stochastic AI-assisted cyber attack-defence model. Each parameter is varied independently over the ranges w, c a, c d, b d, p d ∈ [0 , 1] and ba ∈ [0 , 2], while all remaining parameters are               
+
+> ca= 0 .2, b a= 1 .0, p d= 0 .2, c d= 0 .5, b d= 1 .0, w = 1 .0. Results are obtained from the finite-population Markov model with β= 1. Attack cost ca, attacker benefit ba, and AI-assisted defence effectiveness pdhave the strongest influence on long-run evolutionary outcomes, whereas variations in asset value, defence cost, and defender benefit produce comparatively smaller changes.
+
+becomes comparatively less rewarding. Such situations correspond to cyber environments in which AI-assisted offensive tools can be deployed at relatively low cost while defensive mechanisms are insufficiently effective to discourage attacks. In contrast, panels (c) and (d) illustrate defence-favourable environments created by higher attack costs and more effective AI-assisted defence. As attacking becomes less profitable, the population shifts towards non-attacking strategies. The temporary dominance of ( N A, D ) in panel (c) indicates that defensive behaviour becomes advantageous before attacks are completely eliminated. Under even stronger deterrence, shown in panel (d), the system ultimately converges to ( N A, N D ), where attacks are no longer evolutionarily attractive and defensive investment is also no longer required. These transitions directly follow from the incentive structure of the proposed game. Increasing the attack cost reduces the expected payoff of cyber attackers, and improvements in AI-assisted defence decrease the probability of successful attacks. Together, these mechanisms reduce the evolutionary advantage of attack-ing strategies and progressively shift the population towards secure non-attacking behaviour. In attack-favourable environments, transitions are concentrated towards ( A, D ) and ( A, N D ), indicating that these strategies possess the highest fixation probabilities and therefore dominate the long-run dynamics. As at-tack costs increase and AI-assisted defence becomes more effective, the transition structure shifts towards (N A, D ) and eventually ( N A, N D ) reflects the reduced evolutionary viability of offensive behaviour. The stationary strategy frequencies are further explained by the embedded Markov chains shown in Fig-ure 3. Whereas Figure 2 describes the final evolutionary outcome, the Markov diagrams reveal how fixation events drive transitions between homogeneous population states. Together, Figures 2 and 3 demonstrate that long-run cybersecurity outcomes are governed by the interaction between attack incentives and AI-assisted defensive capability. Improvements in defensive effectiveness not only reduce the success of individual attacks but also alter the overall evolutionary flow of the population towards increasingly secure states. 
+
+# 4.2 Parameter Sensitivity Analysis 
+
+The previous analysis demonstrated how selection intensity influences the long-run evolution of AI-assisted cyber attack-defence strategies. We next investigate how variations in the underlying cybersecurity parame-8Figure 5: Heatmaps of stationary strategy frequencies in the well-mixed AI-assisted cyber attack-defence model as attack cost ca and AI-assisted defence effectiveness pd vary. Other parameters are fixed at w = 1 .0, ba = 1 .0, cd = 0 .4,       
+
+> bd= 1 .0, and β= 0 .1. Low attack costs and weak defence favour attack-oriented strategies, whereas increasing either
+> caor pdprogressively suppresses attacks and promotes the secure defensive strategy ( N A, D ). The broad coexistence regions and smooth transitions reflect the stochastic nature of well-mixed evolutionary dynamics.
+
+ters affect these evolutionary outcomes. Figure 4 presents the stationary strategy frequencies obtained from the stochastic Markov model as each parameter is varied independently. Although all parameters influence the evolutionary dynamics, their effects differ considerably. In particular, attack cost ca, attacker benefit 
+
+ba, and AI-assisted defence effectiveness pd produce the largest changes in strategy frequencies, whereas variations in asset value w, defence cost cd, and defender benefit bd lead to comparatively smaller changes. These trends directly reflect the evolutionary incentives of the proposed game. Increasing the attack cost reduces the payoff for attackers, making AI-assisted attacks progressively less attractive. Conversely, larger attacker benefits increase the evolutionary advantage of attacking strategies by raising the expected reward from successful attacks. Similarly, improving AI-assisted defence effectiveness lowers the probability of suc-cessful attacks and shifts the evolutionary balance towards secure defensive behaviour. These observations are consistent with the analytical attack-suppression condition derived in Section 3, which predicts that attacks become evolutionarily unattractive once their expected payoff falls below their operational cost. From a cybersecurity perspective, these results indicate that increasing the operational cost of attacks and improving the effectiveness of AI-assisted defence are considerably more effective than modifying defensive costs or the value of protected assets alone. Practical mechanisms such as AI-assisted intrusion detection, automated response systems, and exploit mitigation can therefore have a greater long-term impact on sup-pressing adversarial behaviour than policies that simply increase defensive investment. We next investigate how these evolutionary transitions are distributed across the joint attack cost-defence effectiveness parameter space in well-mixed and structured populations. 
+
+# 4.3 Simulation Setup 
+
+To validate the stochastic analysis, we perform agent-based simulations for both well-mixed and structured populations using the mixed-role game introduced in Section 3. Unless otherwise stated, the mutation probability is fixed at μ = 10 −5 and the selection intensity at β = 0 .1. The remaining model parameters are specified in the corresponding experiments. For the well-mixed population, we consider a finite population of M = 100 agents. Simulations are performed for 30 , 000 update steps, and all reported quantities are averaged over 50 independent simulation runs to reduce stochastic fluctuations. For the structured population, agents occupy the nodes of a 100 × 100 square lattice with periodic bound-ary conditions. Each agent interacts only with its four nearest neighbours, and strategies are updated asynchronously using the Fermi imitation rule described in Eq. (2). One Monte Carlo step (MCS) consists of L2 elementary updates. Each simulation is executed for 30 , 000 MCSs, and stationary frequencies are obtained by averaging over the final 5000 MCSs. To improve statistical reliability, all results are further averaged over 10 independent runs. 
+
+# 4.4 Evolutionary Dynamics in Well-Mixed Populations 
+
+The parameter sensitivity analysis identified attack cost ca and AI-assisted defence effectiveness pd as the dominant factors governing long-run cybersecurity dynamics. We now examine their combined influence across the entire parameter space. Figure 5 presents heatmaps of the stationary frequencies of the four mixed-role strategies as both ca and pd vary simultaneously. The well-mixed population exhibits broad regions in 9Figure 6: Heatmaps of stationary strategy frequencies in the structured AI-assisted cyber attack-defence model as attack cost ca and AI-assisted defence effectiveness pd vary. Other parameters are fixed at w = 1 .0, ba = 1 .0, cd = 0 .4,       
+
+> bd= 1 .0, μ= 10 −5, and β= 0 .1. Compared with the well-mixed population, local interactions produce well-defined strategic regions with sharp evolutionary transitions. Increasing either attack cost or defence effectiveness rapidly promotes the secure defensive strategy ( N A, D ), demonstrating that population structure substantially enhances long-run cyber resilience.
+
+which multiple strategies coexist, indicating that AI-assisted cybersecurity dynamics remain highly stochas-tic when interactions occur globally. This behaviour is consistent with the analytical attack-suppression condition derived in Section 3. At low ca and pd, attacking strategies dominate because offensive actions remain profitable and defensive protection provides only limited resistance. As either ca or pd increases, at-tacking behaviour gradually declines and the secure defensive strategy ( N A, D ) expands over a large region of the parameter space. The figure illustrates that the transitions between strategies are smooth and this behaviour arises because every agent interacts equally with every other agent. Consequently, attacking and defensive behaviours continue to coexist over a wide range of parameter values, producing gradual evolutionary transitions instead of clear strategic boundaries. These results demonstrate that AI-assisted defence alone can substantially suppress attacks by reducing their evolutionary advantage. However, in a well-mixed population the absence of local organisation limits the ability of defensive behaviour to completely eliminate attacking strategies. This suggests that defensive capability alone may not be sufficient to maximise long-term cyber resilience when interactions occur globally. The well-mixed population analysis shows that improving pd and increasing ca reduce the long-run preva-lence of cyber attacks. However, the global interaction pattern also produces broad coexistence regions in which attacking and defensive strategies persist together. These results provide a useful baseline for assessing whether local interactions can further enhance attack suppression and promote stable defensive behaviour. 
+
+# 4.5 Evolutionary Behaviour in Structured Populations 
+
+Real-world AI-assisted cyber systems are typically organised as interconnected networks rather than ho-mogeneous populations. Organisations, autonomous security agents, and digital devices primarily interact with neighbouring entities through communication links and shared infrastructures. Such local interactions create opportunities for defensive clustering and network reciprocity, which may fundamentally alter the long-run evolutionary dynamics. We therefore investigate how population structure and local interactions influence the evolutionary dynamics of the proposed model. Figure 6 presents the stationary strategy frequencies on the square lattice as ca and pd vary simultaneously. Compared with the well-mixed population (see again Figure 5), the structured population exhibits a markedly different evolutionary landscape. Instead of broad coexistence regions, the lattice develops well-defined strategic domains separated by sharp evolutionary transitions. The secure defensive strategy ( N A, D ) occupies a substantially larger region of the parameter space than in the well-mixed population. As either ca or pd increases, attacking strategies become less frequent and the population converges towards defence-oriented behaviour. In contrast, the attack-oriented strategy ( A, N D )remains viable only when attacks are inexpensive and AI-assisted defence is weak. The ( A, D ) strategy forms an intermediate transition region between attack-dominated and defence-dominated regimes, whereas (N A, N D ) remains negligible throughout the parameter space. Population structure does not alter the boundary condition itself (when a strategy is dominance) but changes how rapidly the population reaches the defence-dominated regime predicted by the condition through network reciprocity. 10 Figure 7: Spatial evolution of AI-assisted cyber attack-defence strategies for different attack costs ca. Columns correspond to M CS = {0, 30 , 50 , 80 , 100 } and rows to ca = {0.2, 0.4, 0.7}. Other parameters are fixed at w = 1 .0,           
+
+> ba= 0 .7, cd= 0 .3, bd= 0 .8, pd= 0 .5, and β= 0 .1. Increasing the attack cost progressively fragments attacking clusters and promotes the expansion of the secure defensive strategy ( N A, D ) through local interactions.
+
+These behavioural transitions arise from the local interaction structure of the lattice. Unlike the well-mixed population, neighbouring AI-assisted defenders repeatedly interact with one another and accumulate mutual defensive benefits over time. Once small defensive clusters emerge, they become increasingly re-sistant to invasion by attacking strategies and gradually expand through local imitation. Consequently, defensive behaviour spreads collectively across the network, leading to much sharper transitions between attack-dominated and defence-dominated regimes than those observed under global mixing. From a cybersecurity perspective, these findings suggest that interaction structure itself contributes to cyber resilience. Organising AI-assisted defence through locally connected infrastructures enables neigh-bouring defensive agents to reinforce one another, allowing secure behaviour to emerge under conditions where globally mixed populations continue to exhibit persistent attacks. Although the lattice heatmaps clearly demonstrate that population structure favours secure defensive behaviour, they do not explain how this transition occurs over time. We therefore examine the spatial evolution of strategies to identify the mechanism responsible for attack suppression and the emergence of stable defensive regions. 
+
+# 4.6 Defensive Clustering as a Mechanism for Attack Suppression 
+
+The lattice heatmaps, in Figure 6, reveal that local interactions substantially enlarge the region in which secure defensive behaviour dominates. To understand the underlying mechanism, we next examine the spatial evolution of strategies under different cybersecurity conditions. The spatial snapshots illustrate how local interactions reorganise the population over time and reveal the process through which AI-assisted defence suppresses persistent attacks. Figure 7 investigates the influence of attack cost on the spatial evolution of the population. Initially, all four strategies are randomly distributed across the lattice. When attacks remain inexpensive ( ca = 0 .2), attack-oriented strategies persist throughout the network because offensive actions continue to generate sufficient evolutionary rewards. As the attack cost increases, attacking clusters progressively fragment and shrink, while neighbouring defensive agents expand into the vacated regions. At sufficiently high ca, the secure defensive strategy ( N A, D ) occupies almost the entire population, indicating that persistent attacks are no longer evolutionarily sustainable. The underlying mechanism is local reinforcement. Because neighbouring defenders repeatedly interact with one another, they accumulate higher collective payoffs than isolated attackers. Once a defensive cluster becomes sufficiently large, it becomes increasingly difficult for attacking strategies to invade. Instead, attack-ers survive only along cluster boundaries, where they are gradually eliminated through repeated imitation of more successful neighbouring defenders. Consequently, increasing ca can accelerate the expansion of de-11 Figure 8: Spatial evolution of AI-assisted cyber attack–defence strategies for different AI-assisted defence effectiveness                          
+
+> pd. Columns correspond to M CS ={0,30 ,50 ,80 ,100 }and rows to pd={0.2,0.4,0.6}. Other parameters are fixed at w= 1 .0, ba= 0 .7, ca= 0 .4, cd= 0 .3, bd= 0 .8, and β= 0 .1. Stronger AI-assisted defence accelerates the formation and expansion of defensive clusters, rapidly suppressing persistent attacks and promoting the secure defensive strategy (N A, D ).
+
+fensive clusters and suppress the long-run persistence of attacks. We next investigate whether strengthening AI-assisted defence pd produces a similar evolutionary mechanism. Figure 8 presents the spatial evolution obtained under different levels of AI-assisted defence effectiveness. When defensive capability is weak, attacking strategies remain active for extended periods because successful attacks continue to provide sufficient evolutionary rewards. As defence effectiveness increases, attacking clusters contract more rapidly and are progressively replaced by expanding defensive regions. Under strong AI-assisted defence, the population quickly converges towards the secure defensive strategy ( N A, D ). Although ca and pd influence different components of the payoff structure, both parameters alter the same evolutionary balance between attack and defence. Increasing attack cost discourages offensive behaviour directly, whereas improving AI-assisted defence reduces the probability of successful attacks. In both cases, defensive clusters obtain higher cumulative payoffs than neighbouring attackers, allowing secure behaviour to propagate across the lattice through local imitation. These findings have important implications for AI-assisted cyber defence. Modern cybersecurity platforms increasingly deploy distributed autonomous defence agents across enterprise networks, cloud infrastructures, industrial control systems, and edge devices. Our results suggest that when these agents interact primarily with neighbouring systems, local coordination naturally strengthens collective defence. Even without intro-ducing additional incentives, local defensive organisation substantially improves the ability of the network to suppress persistent attacks. 
+
+# 5 Conclusion 
+
+AI-assisted cybersecurity systems are characterised by continuous adaptation between attackers and de-fenders, making EGT a suitable framework for understanding their long-term behaviour. However, existing evolutionary cybersecurity models have primarily focused on homogeneous interactions, providing limited insight into how network structure influences the evolution of attack and defence. Understanding this re-lationship is becoming increasingly important as modern cyber systems rely on interconnected AI-enabled agents operating across enterprise networks, cloud infrastructures, industrial control systems, and IoT envi-ronments. To address this gap, we developed a mixed-role evolutionary game for AI-assisted cyber attack-defence interactions and investigated its dynamics in both well-mixed and structured populations. By combin-ing stochastic evolutionary analysis with large-scale agent-based simulations, we examined how interaction 12 structure influences the long-run balance between attacking and defensive behaviour. Unlike conventional attacker-defender models with fixed roles, the proposed framework allows agents to exhibit both offensive and defensive behaviours, providing a more flexible representation of modern AI-assisted cybersecurity en-vironments. Our findings demonstrate that population structure fundamentally changes cybersecurity behavioural evo-lution. While well-mixed populations exhibit broad coexistence between attacking and defensive strategies, structured populations generate well-defined evolutionary regimes in which the secure defensive strategy (N A, D ) occupies a substantially larger region of the parameter space. The spatial analysis further reveals that local interactions enable neighbouring defenders to form stable defensive clusters that progressively suppress attacking behaviour through network reciprocity. These observations are consistent with previous studies demonstrating the importance of interaction structure in evolutionary dynamics [22, 35, 23, 24], while extending these concepts to AI-assisted cyber attack-defence systems. From a practical cybersecurity perspective, the results suggest that improving cyber resilience requires more than increasing attack costs or deploying stronger defensive technologies. The organisation of inter-actions between AI-assisted defensive agents also plays an important role. Designing cyber systems that encourage local coordination and collaboration among neighbouring defenders can naturally strengthen col-lective defence and reduce the long-term persistence of attacks. The present work also opens several directions for future research. More realistic network topologies, including scale-free, small-world, and random networks, should be investigated to evaluate the robustness of the proposed framework [22]. The model can also be extended to incorporate heterogeneous AI agents, adaptive learning, reputation mechanisms, cyber threat intelligence sharing, and multi-stage attack scenar-ios. These extensions will further improve the realism of evolutionary cybersecurity models and contribute towards the design of more resilient, network-aware AI-assisted cyber ecosystems. 
+
+# Acknowledgements 
+
+T.A.H. and Z.S. are supported by EPSRC (grant EP/Y00857X/1). 
+
+# References 
+
+[1] Adeyemi Akinyemi. Ai-driven cyber attacks and defensive countermeasures. Multidisciplinary Studies and Innovative Research , 5(2):16–30, 2024. [2] Blessing Guembe, Ambrose Azeta, Sanjay Misra, Victor Chukwudi Osamor, Luis Fernandez-Sanz, and Vera Pospelova. The emerging threat of ai-driven cyber attacks: A review. Applied Artificial Intelligence ,36(1):2037254, 2022. [3] Alexander K Saeri, Jess Graham, Michael Noetel, Peter Slattery, Dennis Ah-King, Edla Aittokallio, Ibitola Akindehin, Abbas Al Mahdi, Elie Alhajjar, Rafael Andersson Lipcsey, et al. Prioritization of risks from artificial intelligence: A delphi study of 272 international experts. arXiv preprint arXiv:2606.04490 ,2026. [4] Adeela Bashir, Zia Ush Shamszaman, Zhao Song, and The Anh Han. Co-evolutionary dynamics of attack and defence in cybersecurity. Knowledge-Based Systems , page 115750, 2026. [5] David W Dorsey and Michael D Coovert. Mathematical modeling of decision making: a soft and fuzzy approach to capturing hard decisions. Human Factors , 45(1):117–135, 2003. [6] Rakesh Verma, Saroj Koul, KV Ajaygopal, and Sudhanshu Singh. Exploring game theoretic applications in cyber security. In 2024 International Conference on Intelligent Systems for Cybersecurity (ISCS) ,pages 1–6. IEEE, 2024. [7] Walt Tirenin and Don Faatz. A concept for strategic cyber defense. In MILCOM 1999. IEEE Military Communications. Conference Proceedings (Cat. No. 99CH36341) , volume 1, pages 458–463. IEEE, 1999. [8] Josef Hofbauer and Karl Sigmund. Evolutionary games and population dynamics . Cambridge university press, 1998. 13 [9] J Maynard Smith and George R Price. The logic of animal conflict. Nature , 246(5427):15–18, 1973. [10] Karl Sigmund. The calculus of selfishness . Princeton University Press, 2010. [11] Florian Skopik, Markus Wurzenberger, and Max Landauer. Detecting unknown cyber security attacks through system behavior analysis. In Cybersecurity of Digital Service Chains: Challenges, Methodolo-gies, and Tools , pages 103–119. Springer, 2022. [12] Cuong T Do, Nguyen H Tran, Choongseon Hong, Charles A Kamhoua, Kevin A Kwiat, Erik Blasch, Shaolei Ren, Niki Pissinou, and Sundaraja Sitharama Iyengar. Game theory for cyber security and privacy. ACM Computing Surveys (CSUR) , 50(2):1–37, 2017. [13] Christian Hilbe, Maria Kleshnina, and Kateˇ rina Staˇ nkov´ a. Evolutionary games and applications: Fifty years of ‘the logic of animal conflict’. Dynamic Games and Applications , 13(4):1035–1048, 2023. [14] Adeela Bashir, Zia Ush Shamszaman, Zhao Song, Matjaz Perc, and The Anh Han. Strategic com-mitments shape collective cybersecurity under ai inequality. Chaos, Solitons & Fractals , 210:118728, 2026. [15] Tobias Reittinger, Johannes Grill, and G¨ unther Pernul. Share and benefit: incentives for cyber threat intelligence sharing: T. reittinger et al. International Journal of Information Security , 25(1):37, 2026. [16] Martijn Wessels, Puck van den Brink, Thijmen Verburgh, Beatrice Cadet, and Theo van Ruijven. Understanding incentives for cybersecurity investments: Development and application of a typology. 
+
+Digital Business , 1(2):100014, 2021. [17] Steven A Melnyk, Tobias Schoenherr, Cheri Speier-Pero, Chris Peters, Jeff F Chang, and Derek Friday. New challenges in supply chain management: cybersecurity across the supply chain. International Journal of Production Research , 60(1):162–183, 2022. [18] Agnes Clare Odimarha, Sodrudeen Abolore Ayodeji, and Emmanuel Adeyemi Abaku. Securing the digital supply chain: Cybersecurity best practices for logistics and shipping companies. World Journal of Advanced Science and Technology , 5(1):026–030, 2024. [19] Andrii Boiko, Vira Shendryk, and Olha Boiko. Information systems for supply chain management: uncertainties, risks and cyber security. Procedia computer science , 149:65–70, 2019. [20] Gy¨ orgy Szolnoki and Matjaˇ z Perc. Evolutionary dynamics of group interactions on structured popula-tions: a review. Journal of The Royal Society Interface , 10(80):20120997, 2013. [21] Charles G Nathanson, Corina E Tarnita, and Martin A Nowak. Calculating evolutionary dynamics in structured populations. PLoS computational biology , 5(12):e1000615, 2009. [22] Gy¨ orgy Szab´ o and Gabor Fath. Evolutionary games on graphs. Physics reports , 446(4-6):97–216, 2007. [23] Theodor Cimpeanu, Francisco C Santos, Lu´ ıs Moniz Pereira, Tom Lenaerts, and The Anh Han. Artificial intelligence development races in heterogeneous settings. Scientific Reports , 12(1):1723, 2022. [24] Bin Pi, Minyu Feng, Liang-Jian Deng, Xiaojie Chen, and Attila Szolnoki. Evolutionary dynamics of variable games in structured populations. IEEE Transactions on Cybernetics , 2026. [25] Georgios Petihakis, Aristeidis Farao, Panagiotis Bountakas, Athanasia Sabazioti, John Polley, and Christos Xenakis. Aias: Ai-assisted cybersecurity platform to defend against adversarial ai attacks. In Proceedings of the 19th International Conference on Availability, Reliability and Security , pages 1–7, 2024. [26] Mohd Nor Akmal Khalid, Amjed Ahmed Al-Kadhimi, and Manmeet Mahinderjit Singh. Recent devel-opments in game-theory approaches for the detection and defense against advanced persistent threats (apts): a systematic review. Mathematics , 11(6):1353, 2023. 14 [27] Hao Wu and Wei Wang. A game theory based collaborative security detection method for internet of things systems. IEEE Transactions on Information Forensics and Security , 13(6):1432–1445, 2018. [28] Kaixing Huang, Chunjie Zhou, Yuanqing Qin, and Weixun Tu. A game-theoretic approach to cross-layer security decision-making in industrial cyber-physical systems. IEEE Transactions on Industrial Electronics , 67(3):2371–2379, 2019. [29] Lefeng Zhang, Tianqing Zhu, Farookh Khadeer Hussain, Dayong Ye, and Wanlei Zhou. A game-theoretic method for defending against advanced persistent threats in cyber systems. IEEE Transactions on Information Forensics and Security , 18:1349–1364, 2022. [30] Shaohan Feng, Wenbo Wang, Zehui Xiong, Dusit Niyato, Ping Wang, and Shaun Shuxun Wang. On cyber risk management of blockchain networks: A game theoretic approach. IEEE Transactions on Services Computing , 14(5):1492–1504, 2018. [31] Shan Liu, Xueyu Cao, Jian Cen, and Sheng Yu. Game theory-based resilient control of time-varying cyber-physical systems under hybrid attacks. IEEE Transactions on Automation Science and Engineer-ing , 23:7164–7175, 2026. [32] Zhao Song, Chen Shen, and The Anh Han. Network reciprocity turns cheap talk into a force for cooperation. Journal of Theoretical Biology , 617:112303, 2026. [33] Gy¨ orgy Szab´ o and Csaba T˝ oke. Evolutionary prisoner’s dilemma game on a square lattice. Physical Review E , 58(1):69, 1998. [34] Martin A Nowak. Five rules for the evolution of cooperation. science , 314(5805):1560–1563, 2006. [35] Matjaˇ z Perc, Jillian J Jordan, David G Rand, Zhen Wang, Stefano Boccaletti, and Attila Szolnoki. Statistical physics of human cooperation. Physics Reports , 687:1–51, 2017. [36] Lucas S Flores, Marco A Amaral, Mendeli H Vainstein, and Heitor CM Fernandes. Cooperation in regular lattices. Chaos, Solitons & Fractals , 164:112744, 2022. [37] The Anh Han, Simon Lynch, Long Tran-Thanh, and Francisco C Santos. Fostering cooperation in structured populations through local and global interference strategies. In 27th International Joint Conference on Artificial Intelligence and the 23rd European Conference on Artificial Intelligence , pages 289–295. IJCAI, 2018. [38] Maja Duh, Marko Gosak, and Matjaˇ z Perc. Mixing protocols in the public goods game. Physical Review E, 102(3):032310, 2020. [39] Francisco C Santos, Jorge M Pacheco, and Tom Lenaerts. Evolutionary dynamics of social dilemmas in structured heterogeneous populations. Proceedings of the National Academy of Sciences , 103(9):3490– 3494, 2006. [40] Zillay Huma. Hacking the hackers: Offensive security strategies in modern cyber defense. Journal of Data and Digital Innovation (JDDI) , 2(2):126–132, 2025. [41] Ilai Saltzman. Cyber posturing and the offense-defense balance. Contemporary Security Policy , 34(1):40– 63, 2013. [42] Sonu Kumar, Aarti Hans, et al. The ai shield and red ai framework: Machine learning solutions for cyber threat intelligence (cti). In 2024 International Conference on Intelligent Systems for Cybersecurity (ISCS) , pages 1–6. IEEE, 2024. [43] Arne Traulsen, Martin A Nowak, and Jorge M Pacheco. Stochastic dynamics of invasion and fixation. 
+
+Physical Review E—Statistical, Nonlinear, and Soft Matter Physics , 74(1):011909, 2006. 15

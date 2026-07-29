@@ -41,17 +41,17 @@
 <section class="dpr-home-dashboard-card dpr-home-report-card">
   <div class="dpr-home-dashboard-header">
     <div>
-      <span class="dpr-home-dashboard-kicker">2026-07-28</span>
+      <span class="dpr-home-dashboard-kicker">2026-07-29</span>
       <h3 class="dpr-home-dashboard-title">今日汇总</h3>
     </div>
-    <strong class="dpr-home-dashboard-count">共 3 篇</strong>
+    <strong class="dpr-home-dashboard-count">共 4 篇</strong>
   </div>
   <dl class="dpr-home-dashboard-stats">
     <div class="dpr-home-dashboard-stat"><dt>累计更新</dt><dd>1 次</dd></div>
-    <div class="dpr-home-dashboard-stat"><dt>精读</dt><dd>1</dd></div>
-    <div class="dpr-home-dashboard-stat"><dt>速读</dt><dd>2</dd></div>
+    <div class="dpr-home-dashboard-stat"><dt>精读</dt><dd>4</dd></div>
+    <div class="dpr-home-dashboard-stat"><dt>速读</dt><dd>0</dd></div>
   </dl>
-  <p class="dpr-home-dashboard-body">最近更新：2026-07-28 21:17:37 UTC<br>状态：成功</p>
+  <p class="dpr-home-dashboard-body">最近更新：2026-07-29 21:16:10 UTC<br>状态：成功</p>
 </section>
 <section class="dpr-home-dashboard-card dpr-home-brief-card">
   <div class="dpr-home-dashboard-header">
@@ -62,9 +62,7 @@
     <strong class="dpr-home-dashboard-count">AI</strong>
   </div>
   <div class="dpr-home-dashboard-body">
-<p>今天我们聚焦大语言模型的安全防线，排查了它们对自身弱点的认知及智能体调用第三方工具的风险。</p>
-<p>最值得关注的是：LLM 能高准确度自曝易受攻击的脆弱场景，而智能体在调用真实风险技能时，现有安全基准会暴露新的越狱盲区。</p>
-<p>建议读者在使用智能体平台时，主动关闭不必要的第三方技能并限制自动执行权限，随时留心多智能体协作中的道德风险迹象。</p>
+<p>今日精读两篇高分安全研究，揭示AI智能体网络攻防与演化博弈的新前沿：AI智能体存在被操纵发动网络攻击的漏洞，亟需构建评估隔离与防御响应体系；网络互惠原则正深刻塑造安全策略的长期演进。下一步可深入跟踪AI安全评测框架，并探索以互惠机制强化协作防御。</p>
   </div>
 </section>
 <section class="dpr-home-dashboard-card dpr-home-deep-card">
@@ -73,12 +71,12 @@
       <span class="dpr-home-dashboard-kicker">今日累计</span>
       <h3 class="dpr-home-dashboard-title">精读推荐</h3>
     </div>
-    <strong class="dpr-home-dashboard-count">1 篇</strong>
+    <strong class="dpr-home-dashboard-count">4 篇</strong>
   </div>
   <div class="dpr-home-dashboard-body">
-<ul class="dpr-home-dashboard-paper-list"><li><span class="dpr-home-dashboard-paper-title" title="Do LLMs Know Their Vulnerable Scenarios?">Do LLMs Know Their Vulnerable Scenarios?</span></li></ul>
+<ul class="dpr-home-dashboard-paper-list"><li><span class="dpr-home-dashboard-paper-title" title="Cyber-Capable AI Agents: Vulnerabilities, Evaluation Containment, and Defensive Response">Cyber-Capable AI Agents: Vulnerabilities, Evaluation Containment, and Defensive Response</span></li><li><span class="dpr-home-dashboard-paper-title" title="Network Reciprocity Shapes Evolutionary Cybersecurity Dynamics">Network Reciprocity Shapes Evolutionary Cybersecurity Dynamics</span></li><li><span class="dpr-home-dashboard-paper-title" title="False Prophets: On the Security of World Models in Agentic Systems">False Prophets: On the Security of World Models in Agentic Systems</span></li></ul>
   </div>
-  <div class="dpr-home-dashboard-tags"><span class="dpr-home-dashboard-tag">ca <strong>1</strong></span></div>
+  <div class="dpr-home-dashboard-tags"><span class="dpr-home-dashboard-tag">ca <strong>4</strong></span></div>
 </section>
 <section class="dpr-home-dashboard-card dpr-home-skim-card">
   <div class="dpr-home-dashboard-header">
@@ -86,12 +84,12 @@
       <span class="dpr-home-dashboard-kicker">今日累计</span>
       <h3 class="dpr-home-dashboard-title">速读推荐</h3>
     </div>
-    <strong class="dpr-home-dashboard-count">2 篇</strong>
+    <strong class="dpr-home-dashboard-count">0 篇</strong>
   </div>
   <div class="dpr-home-dashboard-body">
-<ul class="dpr-home-dashboard-paper-list"><li><span class="dpr-home-dashboard-paper-title" title="OpenSkillRisk: Benchmarking Agent Safety When Using Real-World Risky Third-Party Skills">OpenSkillRisk: Benchmarking Agent Safety When Using Real-World Risky Third-Party Skills</span></li><li><span class="dpr-home-dashboard-paper-title" title="Moral Hazard in Multi-Agent Language Models">Moral Hazard in Multi-Agent Language Models</span></li></ul>
+<p class="dpr-home-dashboard-empty">今日暂无推荐。</p>
   </div>
-  <div class="dpr-home-dashboard-tags"><span class="dpr-home-dashboard-tag">ca <strong>2</strong></span></div>
+
 </section>
 </div>
 

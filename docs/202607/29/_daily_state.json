@@ -1,0 +1,73 @@
+{
+  "date": "20260729",
+  "date_label": "",
+  "generated_at": "2026-07-29 21:16:10 UTC",
+  "recommend_exists": true,
+  "run_count": 1,
+  "papers": [
+    {
+      "paper_id": "2607.25379v1",
+      "route": "202607/29/2607.25379v1-cyber-capable-ai-agents-vulnerabilities-evaluation-containment-and-defensive-response",
+      "title": "Cyber-Capable AI Agents: Vulnerabilities, Evaluation Containment, and Defensive Response",
+      "section": "deep",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "ca"
+        }
+      ],
+      "score": 9.0,
+      "evidence": "综述网络能力AI智能体在评估中的漏洞和隔离方法，直接探索能力极限",
+      "first_seen_at": "2026-07-29 21:16:10 UTC",
+      "updated_at": "2026-07-29 21:16:10 UTC"
+    },
+    {
+      "paper_id": "2607.25568v1",
+      "route": "202607/29/2607.25568v1-network-reciprocity-shapes-evolutionary-cybersecurity-dynamics",
+      "title": "Network Reciprocity Shapes Evolutionary Cybersecurity Dynamics",
+      "section": "deep",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "ca"
+        }
+      ],
+      "score": 9.0,
+      "evidence": "使用基于智能体的模拟和演化博弈论建模自适应网络攻防动态",
+      "first_seen_at": "2026-07-29 21:16:10 UTC",
+      "updated_at": "2026-07-29 21:16:10 UTC"
+    },
+    {
+      "paper_id": "2607.23147v1",
+      "route": "202607/29/2607.23147v1-false-prophets-on-the-security-of-world-models-in-agentic-systems",
+      "title": "False Prophets: On the Security of World Models in Agentic Systems",
+      "section": "deep",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "ca"
+        }
+      ],
+      "score": 8.0,
+      "evidence": "揭示大模型代理中世界模型的安全漏洞，可能导致恶意攻击",
+      "first_seen_at": "2026-07-29 21:16:10 UTC",
+      "updated_at": "2026-07-29 21:16:10 UTC"
+    },
+    {
+      "paper_id": "2607.23710v1",
+      "route": "202607/29/2607.23710v1-the-illusion-of-secure-llm-code-closing-the-security-gap-via-iterative-reprompting",
+      "title": "The Illusion of Secure LLM Code: Closing the Security Gap via Iterative Reprompting",
+      "section": "deep",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "ca"
+        }
+      ],
+      "score": 8.0,
+      "evidence": "评估大模型生成认证代码的安全性，揭示其在安全编码上的能力局限",
+      "first_seen_at": "2026-07-29 21:16:10 UTC",
+      "updated_at": "2026-07-29 21:16:10 UTC"
+    }
+  ]
+}

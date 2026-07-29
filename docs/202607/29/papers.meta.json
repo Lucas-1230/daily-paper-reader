@@ -1,0 +1,69 @@
+{
+  "label": "2026-07-29",
+  "date": "2026-07-29",
+  "generated_at": "2026-07-29T21:16:17",
+  "count": 4,
+  "papers": [
+    {
+      "paper_id": "202607/29/2607.25379v1-cyber-capable-ai-agents-vulnerabilities-evaluation-containment-and-defensive-response",
+      "section": "deep",
+      "title_en": "Cyber-Capable AI Agents: Vulnerabilities, Evaluation Containment, and Defensive Response",
+      "authors": "Abu Bakar Siddik",
+      "date": "2026-07-28",
+      "pdf": "https://arxiv.org/pdf/2607.25379v1",
+      "score": "9.0",
+      "evidence": "综述网络能力AI智能体在评估中的漏洞和隔离方法，直接探索能力极限",
+      "tldr": "网络能力AI代理结合语言模型与工具执行多步攻击，现有研究分别衡量攻击能力与组件漏洞，但缺乏对评估环境约束代理的指导。本综述综合了五个关键漏洞类别，并以Hugging Face/OpenAI事件为案例，分析防御控制与双重用途问题。结果表明，必须将网络能力评估与环境安全相结合，并警惕防御工具被滥用。该工作为安全评估实践提供了具体优先事项。",
+      "tags": "query:ca",
+      "abstract_en": "Cyber-capable AI agents combine language models with tools, memory, and execution en- vironments to perform multi-step offensive-security tasks. Existing work separately measures cyber capability and catalogs attacks against agent components, but provides less guidance on containing a capable agent within the environments used to evaluate it. This review synthe- sizes five vulnerability classes at that boundary: multi-step offensive chains, objectives that conflict with sandbox boundaries, supply-chain and credential exposure, persistent command- and-control, and the speed of automated action. We use the reported July 2026 Hugging Face/OpenAI incident as a bounded case study, distinguishing incident-specific observations from findings established in the wider literature. Across the taxonomy and case, we examine controls for containment, privilege separation, provenance, and responder access, including the dual-use problem that defensive artifacts may also enable misuse. The review identifies practical priorities for evaluating cyber capability together with the security of the environment in which that capability is exercised.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202607/29/2607.25568v1-network-reciprocity-shapes-evolutionary-cybersecurity-dynamics",
+      "section": "deep",
+      "title_en": "Network Reciprocity Shapes Evolutionary Cybersecurity Dynamics",
+      "authors": "Adeela Bashir, Zia Ush Shamszaman, Zhao Song, The Anh Han",
+      "date": "2026-07-28",
+      "pdf": "https://arxiv.org/pdf/2607.25568v1",
+      "score": "9.0",
+      "evidence": "使用基于智能体的模拟和演化博弈论建模自适应网络攻防动态",
+      "tldr": "现有AI辅助网络安全模型多假设同质交互，忽视种群结构影响。本研究构建混合角色演化博弈框架，引入结构化种群与网络互惠机制，通过随机分析与大规模仿真探究攻击-防御动态。结果显示，局部交互下防御策略通过集群效应实现更广泛的主导，而混合种群仅呈现广泛共存。该发现表明网络结构可显著提升长期网络弹性，为无需额外激励的防御组织设计提供了新思路。",
+      "tags": "query:ca",
+      "abstract_en": "AI-assisted cybersecurity systems are characterised by continuous adaptation between attackers and defenders, making evolutionary game theory a natural framework for studying their long-term behaviour. However, existing evolutionary cybersecurity models have primarily focused on homogeneous interactions, providing limited understanding of how population structure influences cyber attack-defence dynamics. In this paper, we develop a mixed-role evolutionary game in which adaptive cyber agents can exhibit both offensive and defensive behaviours, and investigate its dynamics in well-mixed and structured populations. The proposed framework combines stochastic evolutionary analysis with large-scale agent-based simulations to examine how interaction structure shapes long-run strategic behaviour. Our results reveal a fundamental difference between global and local interactions. While well-mixed populations exhibit broad coexistence between attacking and defensive strategies, structured populations generate well-defined evolutionary regimes in which secure defensive behaviour becomes dominant over a much larger region of the parameter space. Spatial analysis further shows that neighbouring defenders naturally form resilient clusters that suppress persistent attacks through network reciprocity. These findings demonstrate that interaction structure is a fundamental determinant of AI-assisted cybersecurity evolution and suggest that organising defensive agents through local networked interactions can substantially improve long-term cyber resilience without requiring additional defensive incentives.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202607/29/2607.23147v1-false-prophets-on-the-security-of-world-models-in-agentic-systems",
+      "section": "deep",
+      "title_en": "False Prophets: On the Security of World Models in Agentic Systems",
+      "authors": "Erik Imgrund, Anna Wimbauer, Klim Kireev, Konrad Rieck",
+      "date": "2026-07-25",
+      "pdf": "https://arxiv.org/pdf/2607.23147v1",
+      "score": "8.0",
+      "evidence": "揭示大模型代理中世界模型的安全漏洞，可能导致恶意攻击",
+      "tldr": "近年来，在复杂多步任务中，大语言模型驱动的自主代理广泛采用世界模型预测行动结果以提升性能，但世界模型自身的安全性鲜有关注，可被恶意利用误导代理执行有害操作。本文首次系统探究代理系统中世界模型的安全风险，揭示多种特有漏洞，攻击者能通过构造恶意环境状态在终端代理中诱导错误预测，实现恶意代码执行与敏感数据窃取。我们构建了专门的文本世界模型安全基准数据集，实验验证攻击诱导错误预测成功率高达95%，可导致非预期命令执行、拒绝服务、钱包耗尽及隐私信息提取等严重后果。最后，文章提出一套实用防御建议，为强化代理系统安全性提供重要参考。",
+      "tags": "query:ca",
+      "abstract_en": "Large language models now power autonomous agents capable of complex, multi-step tasks in different environments. Accurate and reliable execution of these tasks requires the agent to predict the results of its actions. Recent research proposes to enhance predictive capabilities via specially trained environment simulators-world models. While world models can improve performance, they can also mislead agents into executing harmful actions, creating significant security and privacy risks. In this paper, we raise security concerns regarding the usage of world models in agentic systems. We discover a range of world model specific vulnerabilities, which can be exploited in terminal-based agents to execute malicious code or extract sensitive data. To facilitate future development, we introduce a security benchmark dataset designed for text-based world models. We argue that some risks are intrinsic to approximate world modeling, and show that attackers can induce mispredictions in agentic pipelines with up to 95% success rate, possibly resulting in unintended command execution, denial of service, drainage of wallet and private information extraction. Finally, we provide practical recommendations for practitioners to mitigate the discovered harms and harden agentic systems.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202607/29/2607.23710v1-the-illusion-of-secure-llm-code-closing-the-security-gap-via-iterative-reprompting",
+      "section": "deep",
+      "title_en": "The Illusion of Secure LLM Code: Closing the Security Gap via Iterative Reprompting",
+      "authors": "Ishpuneet Singh, Shreyas Mahajan, Gurjot Singh, Maninder Singh",
+      "date": "2026-07-26",
+      "pdf": "https://arxiv.org/pdf/2607.23710v1",
+      "score": "8.0",
+      "evidence": "评估大模型生成认证代码的安全性，揭示其在安全编码上的能力局限",
+      "tldr": "LLM被广泛用于软件开发，但其生成安全认证代码的能力存疑。本研究通过静态分析与渗透测试，结合NIST标准，评估五种AI助手在四种提示策略下的安全架构。结果表明普通提示遗漏关键防护，单次NIST提示不足，必须采用迭代重提示实现深度防御。这证明当前AI编码助手不默认安全，企业需转向标准驱动的持续验证流程。",
+      "tags": "query:ca",
+      "abstract_en": "Large Language Models (LLMs) are increasingly integrated into software development workflows, yet their ability to autonomously generate secure authentication code remains uncertain. This paper evaluates the security architecture of authentication systems generated by five prominent AI coding assistants through a bi-modal assessment framework combining static code analysis and dynamic penetration testing, mapped to NIST SP 800-63B guidelines. The study examines model behavior across four prompting strategies Basic, Secure, NIST-Based, and Reprompting to reflect varying levels of developer guidance. Empirical results demonstrate that code generated from functional or generically secure prompts consistently omits critical protections, particularly concerning brute-force resistance, session management, and robust password handling. While providing explicit, single-shot NIST context significantly improves compliance, the findings reveal that this remains structurally inadequate. Instead, iterative Reprompting: forcing models into a contextual self-auditing loop is strictly required to achieve a comprehensive, defense-in-depth security architecture. Ultimately, this study proves that current AI coding assistants do not produce secure-by-default applications, dictating that enterprise deployments must transition from single-shot prompt engineering to continuous, standards-driven verification pipelines.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}
