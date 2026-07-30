@@ -41,17 +41,17 @@
 <section class="dpr-home-dashboard-card dpr-home-report-card">
   <div class="dpr-home-dashboard-header">
     <div>
-      <span class="dpr-home-dashboard-kicker">2026-07-29</span>
+      <span class="dpr-home-dashboard-kicker">2026-07-30</span>
       <h3 class="dpr-home-dashboard-title">今日汇总</h3>
     </div>
-    <strong class="dpr-home-dashboard-count">共 4 篇</strong>
+    <strong class="dpr-home-dashboard-count">共 6 篇</strong>
   </div>
   <dl class="dpr-home-dashboard-stats">
     <div class="dpr-home-dashboard-stat"><dt>累计更新</dt><dd>1 次</dd></div>
     <div class="dpr-home-dashboard-stat"><dt>精读</dt><dd>4</dd></div>
-    <div class="dpr-home-dashboard-stat"><dt>速读</dt><dd>0</dd></div>
+    <div class="dpr-home-dashboard-stat"><dt>速读</dt><dd>2</dd></div>
   </dl>
-  <p class="dpr-home-dashboard-body">最近更新：2026-07-29 21:16:10 UTC<br>状态：成功</p>
+  <p class="dpr-home-dashboard-body">最近更新：2026-07-30 21:45:46 UTC<br>状态：成功</p>
 </section>
 <section class="dpr-home-dashboard-card dpr-home-brief-card">
   <div class="dpr-home-dashboard-header">
@@ -62,7 +62,7 @@
     <strong class="dpr-home-dashboard-count">AI</strong>
   </div>
   <div class="dpr-home-dashboard-body">
-<p>今日精读两篇高分安全研究，揭示AI智能体网络攻防与演化博弈的新前沿：AI智能体存在被操纵发动网络攻击的漏洞，亟需构建评估隔离与防御响应体系；网络互惠原则正深刻塑造安全策略的长期演进。下一步可深入跟踪AI安全评测框架，并探索以互惠机制强化协作防御。</p>
+<p>AI攻防今日聚焦：两篇满分精读揭示自主渗透代理的“隐身术”与“捕猎陷阱”。最值得关注的是，攻击方正研发可量化隐蔽性的基准，防守方则用欺骗拖延策略瓦解自动化攻击。建议从业者警惕AI攻防中隐蔽性与反制技术的持续升级。</p>
   </div>
 </section>
 <section class="dpr-home-dashboard-card dpr-home-deep-card">
@@ -74,7 +74,7 @@
     <strong class="dpr-home-dashboard-count">4 篇</strong>
   </div>
   <div class="dpr-home-dashboard-body">
-<ul class="dpr-home-dashboard-paper-list"><li><span class="dpr-home-dashboard-paper-title" title="Cyber-Capable AI Agents: Vulnerabilities, Evaluation Containment, and Defensive Response">Cyber-Capable AI Agents: Vulnerabilities, Evaluation Containment, and Defensive Response</span></li><li><span class="dpr-home-dashboard-paper-title" title="Network Reciprocity Shapes Evolutionary Cybersecurity Dynamics">Network Reciprocity Shapes Evolutionary Cybersecurity Dynamics</span></li><li><span class="dpr-home-dashboard-paper-title" title="False Prophets: On the Security of World Models in Agentic Systems">False Prophets: On the Security of World Models in Agentic Systems</span></li></ul>
+<ul class="dpr-home-dashboard-paper-list"><li><span class="dpr-home-dashboard-paper-title" title="StealthBench: Measuring Operational Stealth in Autonomous Offensive-Security Agents">StealthBench: Measuring Operational Stealth in Autonomous Offensive-Security Agents</span></li><li><span class="dpr-home-dashboard-paper-title" title="AgentSnare: Learning to Delay, Divert, and Defuse Autonomous Penetration Agents">AgentSnare: Learning to Delay, Divert, and Defuse Autonomous Penetration Agents</span></li><li><span class="dpr-home-dashboard-paper-title" title="The Disruptive Impact of Large Language Models on Capture the Flag Competitions and the Path Toward Fair Play">The Disruptive Impact of Large Language Models on Capture the Flag Competitions and the Path Toward Fair Play</span></li></ul>
   </div>
   <div class="dpr-home-dashboard-tags"><span class="dpr-home-dashboard-tag">ca <strong>4</strong></span></div>
 </section>
@@ -84,12 +84,12 @@
       <span class="dpr-home-dashboard-kicker">今日累计</span>
       <h3 class="dpr-home-dashboard-title">速读推荐</h3>
     </div>
-    <strong class="dpr-home-dashboard-count">0 篇</strong>
+    <strong class="dpr-home-dashboard-count">2 篇</strong>
   </div>
   <div class="dpr-home-dashboard-body">
-<p class="dpr-home-dashboard-empty">今日暂无推荐。</p>
+<ul class="dpr-home-dashboard-paper-list"><li><span class="dpr-home-dashboard-paper-title" title="Just Testing, Move Along: Evasion of LLM-based System Log Interpretation by Prompt Injection">Just Testing, Move Along: Evasion of LLM-based System Log Interpretation by Prompt Injection</span></li><li><span class="dpr-home-dashboard-paper-title" title="ALIBI: Adaptive Agentic Attacks on LLM-Based Vulnerability Detectors via Adversarial Code Comments">ALIBI: Adaptive Agentic Attacks on LLM-Based Vulnerability Detectors via Adversarial Code Comments</span></li></ul>
   </div>
-
+  <div class="dpr-home-dashboard-tags"><span class="dpr-home-dashboard-tag">ca <strong>2</strong></span></div>
 </section>
 </div>
 

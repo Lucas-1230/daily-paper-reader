@@ -1,0 +1,255 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-07-30T21:37:50.179854+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 4,
+    "deep_cap": 6,
+    "deep_selected": 4,
+    "quick_candidates": 2,
+    "quick_skim_target": 11,
+    "quick_selected": 2
+  },
+  "deep_dive": [
+    {
+      "id": "2607.26314v1",
+      "source": "arxiv",
+      "title": "StealthBench: Measuring Operational Stealth in Autonomous Offensive-Security Agents",
+      "abstract": "Stealth, the discipline of achieving an objective without revealing your presence, capabilities, or collected intelligence, is what separates sophisticated operators from detectable ones. Elite security researchers and advanced persistent threats achieve their objectives unnoticed; autonomous agents increasingly inherit the same offensive tasks, but do they inherit the tradecraft? We introduce StealthBench,a benchmark that measures operational stealth in autonomous offensive-security agents across six operational security (OPSEC) dimensions. We extract 11 hand-verified OPSEC incidents from real bug-bounty and red-team trajectories, expanded into 14 dockerized task scenarios, where agents, despite finding real vulnerabilities, committed stealth failures inconsistent with standard operational tradecraft: embedding credentials in public uploads, deleting production resources to prove access, force-adding uninvolved users to demonstrate a race condition.   We evaluate agent trajectories using a 3-model large language model (LLM) judge panel with majority-vote aggregation, measuring safe success rate (solved and stealthy), Stealth@Solve (tradecraft quality among successful solves), and reckless solve rate (solved but cover blown). Our results show that no model exceeds 54% safe success rate (the compound metric requiring both task completion and stealth), confirming that OPSEC failures are systematic across model families. We release StealthBench as a public benchmark to support both the development of stealth-aware agents and automated OPSEC monitoring for autonomous offensive-security deployments. The interactive leaderboard, evaluation harness, and dataset are available at https://stealthbench.com.",
+      "authors": [
+        "Ads Dawson",
+        "Adrian Wood"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI"
+      ],
+      "published": "2026-07-28T22:23:34+00:00",
+      "link": "https://arxiv.org/pdf/2607.26314v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "measures operational stealth in autonomous offensive-security agents",
+      "llm_evidence_cn": "衡量自主攻击性安全智能体的操作隐蔽性",
+      "llm_evidence": "衡量自主攻击性安全智能体的操作隐蔽性",
+      "canonical_evidence": "衡量自主攻击性安全智能体的操作隐蔽性",
+      "llm_tldr_en": "Introduces StealthBench, a benchmark for evaluating stealth capabilities of LLM-based offensive-security agents across six OPSEC dimensions, directly assessing a key cyber-capability.",
+      "llm_tldr_cn": "本文提出StealthBench基准，专门用于评估自主攻击性安全智能体的操作隐蔽性。从真实漏洞悬赏和红队行动中提取了11个经过验证的操作安全事件，设计14个容器化场景，在六个维度上衡量智能体在执行攻击任务时是否继承顶级操作者的隐蔽技巧，为大模型在网络攻击中的能力评估提供了具体度量。",
+      "llm_tldr": "本文提出StealthBench基准，专门用于评估自主攻击性安全智能体的操作隐蔽性。从真实漏洞悬赏和红队行动中提取了11个经过验证的操作安全事件，设计14个容器化场景，在六个维度上衡量智能体在执行攻击任务时是否继承顶级操作者的隐蔽技巧，为大模型在网络攻击中的能力评估提供了具体度量。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "capabilities of large language models in cybercrime",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2607.26998v1",
+      "source": "arxiv",
+      "title": "AgentSnare: Learning to Delay, Divert, and Defuse Autonomous Penetration Agents",
+      "abstract": "Large language model (LLM) agents automate penetration testing through an observation-action loop, selecting actions based on observations returned by tools. This dependence allows defenders to inject deceptive observations that can mislead the agent's decision-making process. However, existing defenses rely heavily on static, isolated artifacts planted in the environment prior to an attack. Advanced agents can progressively recognize and bypass these artifacts, ultimately refocusing their exploitation attempts on the real target. To address this issue, we introduce AgentSnare, a trajectory-adaptive deception system that dynamically unfolds a decoy environment to continually steer the penetration agent away from the real target. Specifically, AgentSnare employs an artifact-construction policy model that constructs candidate artifacts conditioned on the agent's interaction history and decoy state. AgentSnare then validates these candidates and incrementally incorporates valid artifacts into a factually consistent decoy environment, thereby delaying the attack by absorbing its tool calls, diverting its post-entry trajectory within the decoy, and defusing it by inducing completion reports grounded in decoy evidence. Across 15 CVE-Bench web applications and three attacker models, AgentSnare absorbs 46.8% of the agent's tool calls in the decoy and retains 55.9% of post-entry actions there, while 90.0% of completion attempts are grounded in decoy evidence; across all 45 attacker-CVE pairs, no real target is successfully exploited at pass@3.",
+      "authors": [
+        "Ruoyu Wang",
+        "Heng Zhao",
+        "Renjie Wu",
+        "Mengnan Zhao",
+        "Zhixuan Chu",
+        "Wanyu Lin",
+        "Tianhang Zheng"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.CL",
+        "cs.LG"
+      ],
+      "published": "2026-07-29T14:56:31+00:00",
+      "link": "https://arxiv.org/pdf/2607.26998v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "uses LLM agents for autonomous penetration testing and proposes adversarial deception to test their limits",
+      "llm_evidence_cn": "利用LLM智能体进行自主渗透测试，并提出对抗性欺骗来测试其能力边界",
+      "llm_evidence": "利用LLM智能体进行自主渗透测试，并提出对抗性欺骗来测试其能力边界",
+      "canonical_evidence": "利用LLM智能体进行自主渗透测试，并提出对抗性欺骗来测试其能力边界",
+      "llm_tldr_en": "AgentSnare learns to deceive autonomous penetration testing agents by dynamically adapting decoy environments, revealing limitations of LLM agents in cyberattack tasks and providing a method to deflect them.",
+      "llm_tldr_cn": "自主渗透测试智能体通过工具返回的观察选择下一步动作，这为防御者提供了注入欺骗性观察的机会。然而，现有静态防御易被高级智能体识别并绕过。AgentSnare提出轨迹自适应欺骗系统，通过动态展开诱饵环境来持续误导渗透智能体，使其远离真实目标。实验结果表明，该方法能有效延迟、转移和化解自主渗透攻击，不仅暴露了基于LLM的渗透智能体在决策中的脆弱性，而且为评估大模型在网络攻击任务中的实际能力提供了对抗性测试框架，直接揭示了LLM用于网络犯罪时的能力边界。",
+      "llm_tldr": "自主渗透测试智能体通过工具返回的观察选择下一步动作，这为防御者提供了注入欺骗性观察的机会。然而，现有静态防御易被高级智能体识别并绕过。AgentSnare提出轨迹自适应欺骗系统，通过动态展开诱饵环境来持续误导渗透智能体，使其远离真实目标。实验结果表明，该方法能有效延迟、转移和化解自主渗透攻击，不仅暴露了基于LLM的渗透智能体在决策中的脆弱性，而且为评估大模型在网络攻击任务中的实际能力提供了对抗性测试框架，直接揭示了LLM用于网络犯罪时的能力边界。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "capabilities of large language models in cybercrime",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2607.25425v1",
+      "source": "arxiv",
+      "title": "The Disruptive Impact of Large Language Models on Capture the Flag Competitions and the Path Toward Fair Play",
+      "abstract": "Capture the Flag (CTF) competitions are among cybersecurity's most effective training grounds, developing practical skill across cryptography, web exploitation, and binary exploitation. Large language models (LLMs) can now solve a growing share of challenges with minimal human input, raising urgent questions about fairness, the validity of rankings, and whether participation still delivers the learning that justifies the effort. This paper reports a mixed-methods study of LLM impact on modern CTFs, combining a synthesis of published benchmarks, including a recent government evaluation, case studies of live competition across three challenge categories, structured observation of the public channels where the community debates AI use, and semi-structured interviews with experienced players and organisers. We map the current human-machine capability boundary by category, showing that easy and intermediate challenges in cryptography, web, and binary exploitation are now reliably automated while narrower sub-categories continue to resist. We find that community disagreement about whether AI should be permitted is downstream of an undeclared prior question: what a competition is for. Against this backdrop we contribute a four-component safeguard framework, combining tiered competition divisions, LLM-resistant challenge design, telemetry used investigatively, and a draft community code of conduct, together with a decision tool that ties the combination of safeguards to a competition's declared purpose. The argument reaches beyond CTFs to any setting in cybersecurity where a demonstrated result is taken as evidence of an underlying ability.",
+      "authors": [
+        "Michael Macaulay",
+        "Harmony Bouabid",
+        "Guo Gen Ang",
+        "Sasha Shaw"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI",
+        "cs.CR",
+        "cs.CY"
+      ],
+      "published": "2026-07-28T08:21:41+00:00",
+      "link": "https://arxiv.org/pdf/2607.25425v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Investigates LLM capabilities in solving CTF challenges, revealing their disruptive impact on cybersecurity competitions.",
+      "llm_evidence_cn": "研究LLM解决CTF挑战的能力，揭示其对网络安全竞赛的颠覆性影响。",
+      "llm_evidence": "研究LLM解决CTF挑战的能力，揭示其对网络安全竞赛的颠覆性影响。",
+      "canonical_evidence": "研究LLM解决CTF挑战的能力，揭示其对网络安全竞赛的颠覆性影响。",
+      "llm_tldr_en": "This mixed-methods study examines how LLMs are changing Capture the Flag competitions by solving challenges autonomously, raising fairness concerns and questioning the learning value of such events.",
+      "llm_tldr_cn": "本研究通过混合方法调查了大语言模型在各类CTF挑战中的解决能力，发现模型在无人工干预下可完成大量题目，严重冲击竞赛公平性与训练意义；结构观察与社区讨论表明，LLM的介入迫使CTF设计者重新思考题目形式和学习目标，以便在AI辅助下维持实战训练价值。",
+      "llm_tldr": "本研究通过混合方法调查了大语言模型在各类CTF挑战中的解决能力，发现模型在无人工干预下可完成大量题目，严重冲击竞赛公平性与训练意义；结构观察与社区讨论表明，LLM的介入迫使CTF设计者重新思考题目形式和学习目标，以便在AI辅助下维持实战训练价值。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "capabilities of large language models in cybercrime",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2607.26791v1",
+      "source": "arxiv",
+      "title": "SecRespond: Benchmarking AI Agents for Real-World Post-Compromise Incident Response",
+      "abstract": "Large Language Model (LLM) agents are increasingly adopted in real-world security operations with access to host artifacts and command-line interfaces (CLIs), making it critical to thoroughly assess their security capabilities. However, existing cybersecurity benchmarks focus on pre-compromise settings where agents are placed in a clean and idealized environment before an attack occurs. This leaves the post-compromise setting underexplored. To address this gap, we introduce SecRespond, the first benchmark for evaluating LLM agents on the post-compromise incident-response workflow. Given a forensic disk snapshot of a compromised host together with the alerts, vulnerability scans, and baseline checks reported by a host security product, agents are required to produce forensic reports on intrusions, baseline risks, and vulnerability risks, together with a remediation plan. We instantiate this task across 10 cyber ranges, each constructed from a distinct compromised cloud host, spanning 4 entry-point types, 21 ATT&CK techniques, and 5 operating systems. We evaluate 23 frontier LLMs on the OpenCode agent harness. Experimental results show that although current agents can reliably uncover the problems exposed by alerts, they struggle to proactively investigate the disk for silent intrusions and to produce comprehensive, verified remediation plans, with no model achieving complete detection and remediation on any single range. This reveals a fundamental bottleneck in building agents for real-world incident response. The benchmark is publicly available at https://github.com/Alibaba-NLP/qqr/tree/main/data/secrespond.",
+      "authors": [
+        "Lehan Wang",
+        "Boli Chen",
+        "Ruixue Ding",
+        "Pengjun Xie",
+        "Jinwei Huang",
+        "Zhendong Liu",
+        "Shuo Wang",
+        "Tao Lei",
+        "Xin Ouyang",
+        "Xiaomeng Li"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI",
+        "cs.CL"
+      ],
+      "published": "2026-07-29T11:32:23+00:00",
+      "link": "https://arxiv.org/pdf/2607.26791v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "benchmarks LLM agents on post-compromise incident response, a cyber context",
+      "llm_evidence_cn": "在妥协后事件响应任务上评测LLM智能体，属于网络上下文",
+      "llm_evidence": "在妥协后事件响应任务上评测LLM智能体，属于网络上下文",
+      "canonical_evidence": "在妥协后事件响应任务上评测LLM智能体，属于网络上下文",
+      "llm_tldr_en": "SecRespond is the first benchmark for evaluating LLM agents on post-compromise incident response, given forensic disk snapshots and alerts, assessing agent capabilities in real-world security operations.",
+      "llm_tldr_cn": "SecRespond是首个面向LLM智能体在妥协后事件响应工作流中的评估基准。给定受感染主机的取证磁盘快照、安全告警、漏洞扫描和基线检查结果，该基准全面评测智能体在真实安全运维中的能力。实验表明，现有LLM在事件响应任务中表现参差，揭示了其在网络防御场景下的能力边界，为构建更可靠的AI安全运维智能体提供了重要参考。",
+      "llm_tldr": "SecRespond是首个面向LLM智能体在妥协后事件响应工作流中的评估基准。给定受感染主机的取证磁盘快照、安全告警、漏洞扫描和基线检查结果，该基准全面评测智能体在真实安全运维中的能力。实验表明，现有LLM在事件响应任务中表现参差，揭示了其在网络防御场景下的能力边界，为构建更可靠的AI安全运维智能体提供了重要参考。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "exploring the capability boundaries of large language models in cyber contexts",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2607.24174v1",
+      "source": "arxiv",
+      "title": "Just Testing, Move Along: Evasion of LLM-based System Log Interpretation by Prompt Injection",
+      "abstract": "Large Language Models (LLMs) are increasingly integrated into Security Operations Center (SOC) workflows, where they support analysts in tasks such as the interpretation of system logs. However, the ability of LLMs to directly process untrusted textual input also introduces new attack surfaces. In particular, attackers can inject contextual information or explicit instructions into log entries in order to influence how malicious activity is interpreted by the model. Despite the growing adoption of LLMs for log analytics, the robustness of such systems against adversarial log injection remains largely unexplored. To address this gap, this paper presents a framework for evaluating prompt injection attacks against LLM-based log interpretation. Using log traces generated during real cyber attacks, our approach creates adversarial examples through generic injection generation, refinement, and attack-specific optimization. Our evaluation across multiple state-of-the-art LLMs shows that these injections can cause malicious log traces to be classified as benign despite containing clear indicators of compromise. As a potential remedy, we show that the explanations generated by the LLMs alongside their classifications frequently contain indicators of adversarial manipulation that can be leveraged to detect such attacks.",
+      "authors": [
+        "Max Landauer",
+        "Florian Skopik",
+        "Markus Wurzenberger",
+        "Franciszek Górski",
+        "Mateusz Krzysztoń"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR"
+      ],
+      "published": "2026-07-27T08:59:00+00:00",
+      "link": "https://arxiv.org/pdf/2607.24174v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "evaluates prompt injection attacks on LLM-based system log interpretation, a cyber context capability test",
+      "llm_evidence_cn": "评估针对基于LLM的系统日志解释的提示注入攻击，属于网络上下文能力测试",
+      "llm_evidence": "评估针对基于LLM的系统日志解释的提示注入攻击，属于网络上下文能力测试",
+      "canonical_evidence": "评估针对基于LLM的系统日志解释的提示注入攻击，属于网络上下文能力测试",
+      "llm_tldr_en": "This paper presents a framework for evaluating prompt injection attacks against LLM-based log interpretation in SOC workflows, revealing robustness gaps.",
+      "llm_tldr_cn": "本文提出用于评估提示注入攻击对LLM系统日志解释影响的框架。在安全运营中心场景中，攻击者通过向日志注入指令可以操纵模型对恶意活动的解读。实验表明，现有LLM系统易受此类攻击，其安全能力边界存在薄弱环节，需要更鲁棒的防御设计。",
+      "llm_tldr": "本文提出用于评估提示注入攻击对LLM系统日志解释影响的框架。在安全运营中心场景中，攻击者通过向日志注入指令可以操纵模型对恶意活动的解读。实验表明，现有LLM系统易受此类攻击，其安全能力边界存在薄弱环节，需要更鲁棒的防御设计。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "exploring the capability boundaries of large language models in cyber contexts",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2607.24964v1",
+      "source": "arxiv",
+      "title": "ALIBI: Adaptive Agentic Attacks on LLM-Based Vulnerability Detectors via Adversarial Code Comments",
+      "abstract": "Large language models are increasingly deployed for security-sensitive tasks such as vulnerability detection and code review. Their reliance on natural-language context embedded in source code exposes a previously underexplored attack surface: adversarial comments that can influence a detector's reasoning without changing program behavior. We study LLM-based vulnerability detectors against a new adversary: a coding agent that implements new functionality, deliberately introduces vulnerabilities, and strategically inserts adversarial source-code comments to evade detection.   We present ALIBI, an automated adaptive black-box attack framework that generates and iteratively refines adversarial comments using detector reasoning and feedback. We transform real-world vulnerability-fixing commits into coding tasks and evaluate four representative LLM-based vulnerability detectors, ranging from specialized open-weight reasoning models to frontier multi-agent systems. All evaluated detectors are highly vulnerable: attack success rates exceed 90% across 125 real-world null-pointer dereference vulnerabilities, reaching 100% on one system. The framework also generalizes beyond this vulnerability class. Adversarial comments steering detector reasoning or fabricating external tool results prove most effective, while iterative refinement based on detector feedback further increases attack success. Finally, prompt-level defenses provide limited robustness against adaptive attacks, whereas architectural isolation and pre-detector comment sanitization substantially improve resilience. Our findings expose a fundamental attack surface in current LLM-based vulnerability detectors and motivate security-aware designs that carefully calibrate trust between natural-language context and program evidence.",
+      "authors": [
+        "Zixuan Wu",
+        "Cristina Nita-Rotaru"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR"
+      ],
+      "published": "2026-07-27T18:13:28+00:00",
+      "link": "https://arxiv.org/pdf/2607.24964v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Presents an adaptive agentic attack framework that uses adversarial code comments to evade LLM-based vulnerability detection.",
+      "llm_evidence_cn": "提出一种自适应代理攻击框架，利用对抗性代码注释逃避基于LLM的漏洞检测。",
+      "llm_evidence": "提出一种自适应代理攻击框架，利用对抗性代码注释逃避基于LLM的漏洞检测。",
+      "canonical_evidence": "提出一种自适应代理攻击框架，利用对抗性代码注释逃避基于LLM的漏洞检测。",
+      "llm_tldr_en": "This paper introduces ALIBI, an adaptive agent-based attack framework that generates adversarial code comments to evade LLM-based vulnerability detectors. It demonstrates the vulnerability of such detectors to agentic attacks and underscores the need for robust defenses in code security tools.",
+      "llm_tldr_cn": "本文提出ALIBI框架，一种通过自适应代理生成对抗性代码注释以攻击基于LLM的漏洞检测器的方法。该框架模拟攻击者引入漏洞并策略性插入注释来逃避检测，展示了此类检测器易受代理攻击的脆弱性。实验表明，即使不改变程序行为，精心设计的注释也能显著降低检测准确率，突显了在代码安全工具中引入对抗性鲁棒性的必要性。",
+      "llm_tldr": "本文提出ALIBI框架，一种通过自适应代理生成对抗性代码注释以攻击基于LLM的漏洞检测器的方法。该框架模拟攻击者引入漏洞并策略性插入注释来逃避检测，展示了此类检测器易受代理攻击的脆弱性。实验表明，即使不改变程序行为，精心设计的注释也能显著降低检测准确率，突显了在代码安全工具中引入对抗性鲁棒性的必要性。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "adversarial agents for testing large language models in cybercrime",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}

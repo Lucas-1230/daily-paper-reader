@@ -1,0 +1,105 @@
+{
+  "date": "20260730",
+  "date_label": "",
+  "generated_at": "2026-07-30 21:45:46 UTC",
+  "recommend_exists": true,
+  "run_count": 1,
+  "papers": [
+    {
+      "paper_id": "2607.26314v1",
+      "route": "202607/30/2607.26314v1-stealthbench-measuring-operational-stealth-in-autonomous-offensive-security-agents",
+      "title": "StealthBench: Measuring Operational Stealth in Autonomous Offensive-Security Agents",
+      "section": "deep",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "ca"
+        }
+      ],
+      "score": 9.0,
+      "evidence": "衡量自主攻击性安全智能体的操作隐蔽性",
+      "first_seen_at": "2026-07-30 21:45:46 UTC",
+      "updated_at": "2026-07-30 21:45:46 UTC"
+    },
+    {
+      "paper_id": "2607.26998v1",
+      "route": "202607/30/2607.26998v1-agentsnare-learning-to-delay-divert-and-defuse-autonomous-penetration-agents",
+      "title": "AgentSnare: Learning to Delay, Divert, and Defuse Autonomous Penetration Agents",
+      "section": "deep",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "ca"
+        }
+      ],
+      "score": 9.0,
+      "evidence": "利用LLM智能体进行自主渗透测试，并提出对抗性欺骗来测试其能力边界",
+      "first_seen_at": "2026-07-30 21:45:46 UTC",
+      "updated_at": "2026-07-30 21:45:46 UTC"
+    },
+    {
+      "paper_id": "2607.25425v1",
+      "route": "202607/30/2607.25425v1-the-disruptive-impact-of-large-language-models-on-capture-the-flag-competitions-and-the-path-toward-fair-play",
+      "title": "The Disruptive Impact of Large Language Models on Capture the Flag Competitions and the Path Toward Fair Play",
+      "section": "deep",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "ca"
+        }
+      ],
+      "score": 8.0,
+      "evidence": "研究LLM解决CTF挑战的能力，揭示其对网络安全竞赛的颠覆性影响。",
+      "first_seen_at": "2026-07-30 21:45:46 UTC",
+      "updated_at": "2026-07-30 21:45:46 UTC"
+    },
+    {
+      "paper_id": "2607.26791v1",
+      "route": "202607/30/2607.26791v1-secrespond-benchmarking-ai-agents-for-real-world-post-compromise-incident-response",
+      "title": "SecRespond: Benchmarking AI Agents for Real-World Post-Compromise Incident Response",
+      "section": "deep",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "ca"
+        }
+      ],
+      "score": 8.0,
+      "evidence": "在妥协后事件响应任务上评测LLM智能体，属于网络上下文",
+      "first_seen_at": "2026-07-30 21:45:46 UTC",
+      "updated_at": "2026-07-30 21:45:46 UTC"
+    },
+    {
+      "paper_id": "2607.24174v1",
+      "route": "202607/30/2607.24174v1-just-testing-move-along-evasion-of-llm-based-system-log-interpretation-by-prompt-injection",
+      "title": "Just Testing, Move Along: Evasion of LLM-based System Log Interpretation by Prompt Injection",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "ca"
+        }
+      ],
+      "score": 6.0,
+      "evidence": "评估针对基于LLM的系统日志解释的提示注入攻击，属于网络上下文能力测试",
+      "first_seen_at": "2026-07-30 21:45:46 UTC",
+      "updated_at": "2026-07-30 21:45:46 UTC"
+    },
+    {
+      "paper_id": "2607.24964v1",
+      "route": "202607/30/2607.24964v1-alibi-adaptive-agentic-attacks-on-llm-based-vulnerability-detectors-via-adversarial-code-comments",
+      "title": "ALIBI: Adaptive Agentic Attacks on LLM-Based Vulnerability Detectors via Adversarial Code Comments",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "ca"
+        }
+      ],
+      "score": 6.0,
+      "evidence": "提出一种自适应代理攻击框架，利用对抗性代码注释逃避基于LLM的漏洞检测。",
+      "first_seen_at": "2026-07-30 21:45:46 UTC",
+      "updated_at": "2026-07-30 21:45:46 UTC"
+    }
+  ]
+}

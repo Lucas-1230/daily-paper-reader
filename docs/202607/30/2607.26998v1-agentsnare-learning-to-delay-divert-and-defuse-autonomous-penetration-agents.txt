@@ -1,0 +1,647 @@
+Title: AgentSnare: Learning to Delay, Divert, and Defuse Autonomous Penetration Agents
+
+URL Source: https://arxiv.org/pdf/2607.26998v1
+
+Published Time: Thu, 30 Jul 2026 01:03:09 GMT
+
+Number of Pages: 8
+
+Markdown Content:
+## AgentSnare: Learning to Delay, Divert, and Defuse Autonomous Penetration Agents 
+
+Ruoyu Wang 1∗, Heng Zhao 2∗, Renjie Wu 3,Mengnan Zhao 4, Zhixuan Chu 2, Wanyu Lin 5, Tianhang Zheng 6
+
+> 1
+
+The University of Hong Kong 
+
+> 2
+
+Zhejiang University 
+
+> 3
+
+Hainan University 
+
+> 4
+
+Anhui University 
+
+> 5
+
+The Hong Kong Polytechnic University 
+
+> 6
+
+The State Key Laboratory of Blockchain and Data Security, Zhejiang University 
+
+Abstract 
+
+Large language model (LLM) agents automate penetration testing through an observation–action loop, selecting actions based on observations returned by tools. This dependence al-lows defenders to inject deceptive observations that can mis-lead the agent’s decision-making process. However, existing defenses rely heavily on static, isolated artifacts planted in the environment prior to an attack. Advanced agents can progres-sively recognize and bypass these artifacts, ultimately refocus-ing their exploitation attempts on the real target. To address this issue, we introduce AgentSnare, a trajectory-adaptive de-ception system that dynamically unfolds a decoy environ-ment to continually steer the penetration agent away from the real target. Specifically, AgentSnare employs an artifact-construction policy model that constructs candidate artifacts conditioned on the agent’s interaction history and decoy state. AgentSnare then validates these candidates and incrementally incorporates valid artifacts into a factually consistent decoy environment, thereby delaying the attack by absorbing its tool calls, diverting its post-entry trajectory within the decoy, and defusing it by inducing completion reports grounded in decoy evidence. Across 15 CVE-Bench web applications and three attacker models, AgentSnare absorbs 46.8% of the agent’s tool calls in the decoy and retains 55.9% of post-entry ac-tions there, while 90.0% of completion attempts are grounded in decoy evidence; across all 45 attacker–CVE pairs, no real target is successfully exploited at pass@3. 
+
+Introduction 
+
+Recent advances in large language models (LLMs) have en-abled autonomous penetration-testing agents that plan at-tacks, invoke tools, interpret execution results, and contin-ually revise their strategies (Deng et al. 2024; Zhu et al. 2025). Although these agents can improve legitimate secu-rity testing, they can also be used for malicious cyberat-tacks (Ayzenshteyn, Weiss, and Mirsky 2025). Unlike tra-ditional penetration-testing methods following fixed work-flows, an autonomous penetration agent can adapt and deter-mine its next action by analyzing its observations from the en-vironment. This dependence on environmental observations creates a defensive opportunity against malicious agents: de-
+
+> ∗
+
+These authors contributed equally. Mislead Perception                               
+
+> Divert Attention
+> Specialized Lures
+> Model Corruption
+> Role Manipulation
+> Forced Code Exec.
+> DeepSeek V4 Pro
+> GPT-4o
+> Gemini 3.1 Pro
+> Claude Sonnet 4.6
+> MiniMax M2.7
+> Kimi K2.6
+> Attacker LLM
+> 0.10 0.25 0.10 0.05 0.15 0.25
+> 0.15 0.30 0.15 0.10 0.25 0.40
+> 0.10 0.20 0.10 0.10 0.15 0.25
+> 0.05 0.15 0.05 0.05 0.10 0.20
+> 0.10 0.25 0.10 0.10 0.20 0.35
+> 0.05 0.25 0.10 0.05 0.20 0.30
+> 0.0
+> 0.1
+> 0.2
+> 0.3
+> 0.4
+> 0.5
+> Defense effectiveness
+
+Figure 1: Interference@20 of 13 static intervention in-stances across six attacker LLMs and six tactics. Higher values indicate stronger interference. fenders can deliberately manipulate the observations to mis-lead the agent’s decision-making process. Existing defenses against LLM-based penetration agents mainly rely on static tactics, which introduce deceptive ar-tifacts such as honeytokens, misleading files, prompt in-jections and compute-wasting lures, into the environment before the penetration (Ayzenshteyn, Weiss, and Mirsky 2025; Pasquini, Kornaropoulos, and Ateniese 2024). These artifacts can provide the agents with misleading observa-tions during their exploration and thus affect their decision-making process. However, our evaluation on these static defenses reveals their fundamental limitation in sustaining influence over multi-step interactions. Specifically, we im-plement six common deception tactics and evaluate them against six LLMs for penetration (Ayzenshteyn, Weiss, and Mirsky 2025; Pasquini, Kornaropoulos, and Ateniese 2024; Lee and Park 2025; Reworr and Volkov 2025). We de-fine Interference@20 as the proportion of 20 inter-action steps in which deceptive artifacts can affect the at-tack agent’s behaviors. As shown in Figure 1, the averaged 
+
+Interference@20 score across all LLM–tactic combi-nations is less than 0.2, indicating that these static tactics could not maintain their effectiveness across diverse recent arXiv:2607.26998v1 [cs.CR] 29 Jul 2026 LLMs and evolving attack trajectories. The limited effectiveness stems from the fixed nature of static artifacts and the strong capabilities of recent agents. As advanced agents iteratively explore the environment and continuously refine their attack strategies, they become in-creasingly adept at detecting contextual inconsistencies in the static artifacts. Eventually, these agents can recognize and bypass the artifacts, ultimately refocusing their exploita-tion attempts on the real target. Thus, the key bottleneck of existing defenses is not the lack of more sophisticated artifacts, but the absence of mechanisms that can dynam-ically construct and disclose artifacts conditioned on the agent’s current state. To address this bottleneck, we intro-duce AgentSnare, a trajectory-adaptive system that dynam-ically constructs and discloses decoy artifacts to steer au-tonomous penetration agents away from the real target. Un-like traditional interactive honeypots that merely mimic real-istic local interactive responses, AgentSnare ensures global factual consistency across the interactive context, establish-ing a logically self-consistent alternative reality to actively reshape the attack trajectory. Specifically, AgentSnare con-structs and discloses deceptive artifacts following two stages. In the first stage, the deployed policy model infers the pen-etration agent’s attack intent from its interaction history and current state of the decoy environment, and then constructs candidate artifacts designed to induce the agent to continue probing the decoy. In the second stage, AgentSnare further validates each candidate artifact by checking whether its in-volved observations are compatible with the agent’s action, consistent with previously disclosed artifacts, and capable of supporting the agent’s subsequent actions. By accumu-lating these validated artifacts along the actual attack trajec-tory, AgentSnare unfolds the decoy incrementally rather than pre-construct the entire environment, ensuring global factual consistency along the agent’s attack trajectory. To construct artifacts that are more effective and logically valid, we fine tune the deployed policy model through simulated attacker– defender interactions. In each tuning round, an attacker sim-ulator issues a probe based on the current interaction history, and the defender constructs and discloses several validated artifacts for the same probe. The attacker simulator then pre-dicts the possible follow-up actions based on each artifact. The artifact that can consistently encourage continued inves-tigation of the decoy is selected, and its involved observations are appended to the interaction history for the next round. Repeating this process produces multi-round attack–defense interaction trajectories. We use the collected trajectories to tune a lightweight open-weight LLM, teaching the deployed policy model to infer the attacker’s intent from the interac-tion history and construct artifacts that are likely to keep its subsequent actions within the decoy. To our best knowledge, AgentSnare is the first system to trap autonomous penetra-tion agents by consistently steering them away from real tar-gets. To evaluate trajectory-level interactive defenses, we fur-ther introduce a process-oriented mechanism Delay–Divert– Defuse (DDD): Delay indicates how the decoy delays the attack by absorbing the agent’s probing actions (tool calls), which calculated as the fraction of the agent’s tool calls ab-sorbed by the decoy. Once the agent enters the decoy, Divert 
+
+measures the post-entry retention (PER), which is the frac-tion of post-entry actions that remain in the decoy. Defuse 
+
+measures whether the agent’s task-completion attempts are grounded in decoy observations. Across 45 attacker–CVE scenarios spanning 15 deployable CVE-Bench web applica-tions and three attacker models, AgentSnare achieves 46.8% Delay, 55.9% Divert, and 90.0% Defuse, with no success-ful real-target exploit recorded under the pass@3 evaluation setting. Our contributions are summarized as follows: 
+
+• We identify the fundamental bottleneck of static decep-tion: Advanced agents can easily recognize and bypass pre-planted artifacts. We therefore reframe the defense as trajectory-adaptive steering, where artifacts are dynami-cally constructed and disclosed conditioned on the agent’s evolving actions. 
+
+• We propose AgentSnare, the first decoy-based defense to preserve global consistency across the entire agent-decoy interaction context, which generates candidate deceptive artifacts based on the interaction history and current decoy state and then validates each candidate against the current action, prior committed facts, and subsequent steps. 
+
+• We fine-tune the deployed Policy Model for artifact gener-ation via simulated attacker–defender interactions, teach-ing a lightweight LLM to construct artifacts that can con-sistently trap the agent actions within the decoy. 
+
+• We introduce Delay-Divert-Defuse (DDD) as atrajectory-level defense evaluation framework, and demonstrate that AgentSnare achieves 46.8% Delay, 55.9% Divert, and 90.0% Defuse across 15 CVE-Bench applications and three attacker models, with no successful real-target exploit under the pass@3 setting. 
+
+Related Work 
+
+Autonomous Penetration Agents and Benchmarks 
+
+LLMs have enabled autonomous penetration agents that plan attacks, invoke security tools, interpret the returned observa-tions, and continually revise their strategies across multiple interaction steps. PentestGPT, AutoPT, and VulnBot imple-ment this process through modular reasoning, state machine control, and coordination among multiple agents, respec-tively (Deng et al. 2024; Wu et al. 2025; Kong et al. 2025). To evaluate these agents in realistic environments, CVE-Bench provides deployable vulnerable targets and automated evalu-ation mechanisms that determine whether an agent completes a specified exploitation objective (Zhu et al. 2025). 
+
+Agent-oriented Deception and Honeypots 
+
+As penetration agents rely on environmental observations to revise their strategies, defenders can influence the agent’s ac-tions with manipulated observations. Existing agent-oriented deception techniques mainly exploit this dependence by planting static artifacts into the environment before the pene-tration. For instance, CHeaT and Mantis deploy deceptive ar-tifacts such as misleading files and prompt injections (Ayzen-shteyn, Weiss, and Mirsky 2025; Pasquini, Kornaropoulos, and Ateniese 2024). However, as these artifacts are fixed, they cannot adapt to the agent’s evolving attack strategy. As advanced agents progressively explore the environment, static artifacts become increasingly difficult to steer penetra-tion agents away from the real target Interactive honeypots provide another direction for maintaining an ongoing decoy environment: Cowrie provides a preconstructed virtual shell environment, ShelLM leverages an LLM to broaden shell response coverage, and HoneyLLMd adapts responses ac-cording to modeled attack transitions (Cowrie Contributors 2026; Sladić et al. 2024; Fan et al. 2026). However, these honeypots primarily focus on mimicking realistic local interactive responses and collecting attacker behaviors, whereas AgentSnare maintains global factual con-sistency across the evolving interaction context to construct a coherent decoy reality that consistently steers penetration agents away from the real target. 
+
+Offline Data Synthesis 
+
+Offline data synthesis has been widely used to improve the capabilities of tool using agents and long-horizon decision-making systems. FireAct fine-tunes agents with teacher-generated multi-task action trajectories and AgentTuning ag-gregates high-quality trajectories across interactive environ-ments to improve cross-task agent capabilities (Chen et al. 2023; Zeng et al. 2024). In cybersecurity, Cyber-Zero synthe-sizes long-horizon interactions from public CTF write-ups and role-based simulation to train attack agents (Zhuo et al. 2025). These methods primarily construct or distill trajecto-ries to improve the execution capability of the agent itself. In contrast, AgentSnare uses offline simulation to learn how to infer the attacker’s evolving intent from interaction behaviors, enabling the LLM to construct artifacts that can consistently trap the agent actions within the decoy. 
+
+Threat Model 
+
+We consider an autonomous penetration agent A that plans attacks, invokes tools, and revises its strategy based on the returned observations under a finite budget of B tool calls. 
+
+Attacker model. The attacker controls the agent’s planner, memory, tools, and stopping rule, and may submit com-pletion attempts through the task interface. The agent may ignore defender-constructed artifacts, alternate between the real target and defender-controlled environments, and freely explore the environment with its available tools. 
+
+Defender model. The defender can plant deceptive arti-facts throughout the environment, provided that they do not modify the application’s normal functionality or vulnerable execution path. During the interaction, it constructs new ar-tifacts according to the evolving attack context, including the interaction history and all previously disclosed artifacts. The defender makes no assumptions about the target CVE, the underlying attacker model, the agent’s tool configuration, stopping rule, or attack strategy. 
+
+AgentSnare 
+
+System Overview 
+
+Figure 2 illustrates the overall workflow of AgentSnare, which consists of an online trajectory-adaptive defense pipeline and an offline training procedure. As shown on the right of Figure 2, the online pipeline con-sists of two stages. In the first stage, the deployed LLM infers the attacker’s current intent from the interaction history and the current decoy state, and constructs a candidate artifact for the current probe. Each artifact consists of the observa-tion to be disclosed together with the environmental facts required to support it. In the second stage, ShadowOS vali-dates the candidate artifact before realizing it into the decoy environment and disclosing the corresponding observation to the attacker. By repeatedly constructing, validating, and disclosing artifacts throughout the interaction, AgentSnare incrementally unfolds a persistent and globally consistent decoy environment along the attack trajectory. As shown on the left of Figure 2, the online deployed LLM is trained through simulated attacker-defender interactions. For each interaction state, multiple validated artifacts are explored under the same attack context, and the resulting trajectories provide supervision for learning how to infer the attacker’s intent and progressively construct artifacts that sustain exploration within the decoy. 
+
+Online Artifact Construction and Disclosure 
+
+Interaction context. We first formalize one round of on-line interaction. At step t, let ht denote the interaction his-tory visible to the attacker. The agent selects a tool action at,receives the observation ot actually returned by the environ-ment, and extends its history: 
+
+at ∼ A(ht), ht+1 = ht ∥ (at, o t). (1) Actions directed to the real target are handled unchanged by the original environment. AgentSnare intervenes only when at reaches a defender-controlled surface, where it con-structs and validates the artifact whose observation will be returned as ot.
+
+Decoy state and affordance frontier. To support artifact construction and validation across multiple rounds, Shad-owOS maintains a world-fact ledger Wt and a lazy affordance graph 
+
+Gt = ( Vt, E t). (2) The ledger Wt records committed decoy objects, at-tributes, relations, and attacker-induced state changes, ensur-ing that later observations remain consistent and mutations persist until explicitly modified or reversed. The graph Gt represents investigative opportunities that are currently visible or may be constructed next. Its nodes denote environmental objects and attack opportunities, such as files, credentials, services, users, containers, internal hosts, and privilege-escalation or lateral-movement oppor-tunities. Its edges encode relations such as references ,
+
+authenticates-to , runs-as , corroborates , and enables .Given the current action at, the graph determines a con-nected affordance frontier 
+
+Ft = Frontier( at, G t). (3) Ⅱ. DUAL -ROLE TRAJECTORY SYNTHESIS (Round 𝒕 )
+
+& POLICY DISTILLATION 
+
+> ATTACKER DEFENDER
+
+1) OFFLINE DATA SYNTHESIS + TRAINING 2) ONLINE ADAPTIVE DECEPTION 
+
+ATTACKER VIEW 
+
+ℎ!: Interaction History 
+
+DEFENDER VIEW 
+
+𝑞 : Server Profiles 
+
+ATTACKER PROBE (𝑎 !)    
+
+> TOOL CALL { $ cat /src/app/.env }
+
+ATTACKER 
+
+Reasoning with ℎ!
+
+𝑊 !: World Ledger 
+
+𝐺 !: Affordance Graph  
+
+> Decoy Environment
+
+Update Interaction History: 
+
+New Observations 𝑜 !
+
+Producing k
+
+candidate disclosures  
+
+> 1. COUNTERFACTUAL
+> CANDIDATE EXPANSION
+
+Update World Ledger & Affordance Graph: 
+
+> . . .
+
+Advance 
+
+> Current Thread
+
+Introduce 
+
+> Branch Clue
+
+Withhold 
+
+> Direct Response
+
+Trajectory Collection 
+
+Ⅰ. SCENARIO PROFILE SAMPLER 
+
+Application Environment 
+
+e.g. , Flask, PHP, Nginx, etc. 
+
+Attack Objective 
+
+e.g. , root access, ctf, etc. 
+
+Initial Clue 
+
+e.g. , SSH credential, etc. 
+
+Behavioral Focus 
+
+e.g. , recon, data -search, etc. 
+
+Deploy 
+
+LLM 
+
+REAL TARGET ENVIRONMENT Pentest Agent 
+
+(GPT / Claude / ...) 
+
+Goals: 
+
+• Root Access 
+
+• Catch the Flag 
+
+• Privilege Escalation 
+
+• · · · 
+
+Probe Action 
+
+Environment 
+
+Observations 
+
+———— DECOY ENVIRONMENT (ShadowOS) ————    
+
+> 1
+> Director Intercept
+> •Pre -preset templates for
+> specific scenarios of CVEs.
+> 2
+> Local Command Handler
+> •Common commands are
+> processed directly locally
+> 3
+> Virtual Command Executor
+> •File system -level operations are
+> performed in the virtual file system
+
+A. 4 -Layer Command Processing Pipeline           
+
+> 4
+> Disclosure Model
+> •Others are sent to
+> the LLM (Qwen3)
+> INPUT ( 𝑥 !)：
+> Ø𝑞 : Target Server Profiles
+> Ø𝑎 !: Attacker Probe Action
+> Øℎ!:Interaction History
+> Ø𝑊 !:ShadowOS State
+> (World Ledger)
+
+B. Internal Architecture           
+
+> LLM OUTPUT ( 𝑜 '!,∆𝑊 !)：
+> Ø𝑜 '!: Terminal Result for 𝑎 !
+> Ø∆𝑊 !:Fact Increment for 𝑜 '!
+
+Qwen3 LoRA 
+
+Disclosure Policy 
+
+Model  
+
+> Validation & Commitment
+> Invalid Output
+
+3. Hybrid Renderer 
+
+2. Commit           
+
+> Update World Ledger (𝑊 !)
+> Generative Content
+> Deterministic Content Mixer
+> Formal Response
+> (Observation) 𝑜 !
+> Returned to Attacker
+> admin user
+> < ... > ... index.php
+> ... /var/...
+> . . . . . .
+> /src/app/.env path
+> PASSWD .env
+> . . . . . .
+> ∆𝑊 !
+> Increased Facts
+> Existing Fabricated Facts
+
+Entry                                  
+
+> agentSnare Breadcrumbs
+> ØNormal Page -(comment)
+> Ø403 Page -(message)
+> Ødiagnostic message -(...)
+> Ø/.git/config -(...)
+> Ø. . .
+> 𝑊 !
+> 3. Check Command
+> Semantics
+> 1. Verify Consistency with
+> Ledger （𝑊 !）
+> 2. Check Affordance Graph
+> Frontier （𝐺 !）
+> 4. Validate Format
+> 5. Filter Real Secret Leaks
+> 6. Enforce Basic Constraints
+> . . .
+
+1. Validate                     
+
+> Update Affordance Graph (𝐺 !)
+> Path:
+> /var/www/html
+> Path:
+> /src/app
+> Log:
+> startup.log
+> ··· ···
+> refs
+> refs depend
+> User:
+> app_user
+> File:
+> /src/app/.env
+> read authority
+> File:
+> /src/app/.env
+> reveals
+> ···
+> Exposed Region
+> Validated Extension
+> ···
+> ∆𝐺 !←∆𝑊 !
+> Admissible nodes and
+> edges expand based
+> on ∆𝑊 !updates.
+> authority
+> 2. VALIDATE & SIMULATE
+> CANDIDATE -CONDITIONED REACTIONS
+> [PREDICTED NEXT ACTIONS]
+> cand. 1
+> cand. 2*
+> cand. 3
+> Each ball = one sampled next action
+> Ddecoy Cclue -following
+> Rrisky Nneutral
+> 3. COMMIT
+> CANDIDATE
+> Select Best
+> cand. (𝑜 #!
+> ∗,∆𝑊 !∗)
+
+↓             
+
+> Derive ∆𝐺 !
+> ∗
+> Commit (∆𝑊 !∗,∆𝐺 !
+> ∗)
+> Next synthesis turn
+> (𝑡 ←𝑡 +1)
+> Sample Next
+> Attacker Actions
+> D
+> D
+> D
+> D
+> R
+> RR
+> N
+> NN
+> NC
+> Input: ℎ!
+> ($)
+> Output: 𝑎 !&'
+> ($)
+> ShadowOS Validity
+> Discard
+> if not satisfied
+> Reachability &
+> Consistency
+
+↓
+
+↓   
+
+> Generate Formal 𝑜 !
+> via Hybrid Renderer
+> [raw trajectory pool]
+> . . .
+
+TRAJECTORY -LEVEL FILTERING 
+
+Rules: 
+
+• Engagement Length 
+
+• Diverse Scenario 
+
+• · · · 
+
+SELECTED -DECISION 
+
+DISTILLATION 
+
+LoRA Disclosure 
+
+Policy Model Open -Source  
+
+> Lightweight LLM
+
+Figure 2: Overview of AgentSnare. The frontier limits which artifacts may be constructed next. For example, a request for an .env file may reveal configu-ration values, and credentials, but not an unrelated privilege-escalation or lateral-movement opportunity. Together, Wt and Ft specify which previously constructed facts must remain unchanged and which connected artifacts may be introduced during the current interaction. 
+
+Online Stage I: Candidate artifact construction. The first online stage uses the learned artifact-construction pol-icy model Mθ to construct a candidate artifact for the current probe. Let q denote the server and application profile avail-able to the deployed defense. The model input is 
+
+xt = ( ht, a t, W t, Ft, q ). (4) We represent the candidate artifact as 
+
+ct = (˜ ot, ∆Wt) = Mθ (xt), (5) where ˜ot is the observation proposed for the current action and ∆Wt contains the environmental facts required to con-struct the corresponding artifact. The policy model does not directly modify Wt or Gt. It only specifies what the attacker would observe and which new facts would be required to support that observation. The proposed observation ˜ot is therefore distinct from the actual observation ot in Equation 1; it becomes visible only if the candidate passes the validation of the second online stage. For example, when the attacker agent executes cat /srv/app/.env , the model may construct a candidate artifact containing an internal database endpoint and a de-ployment account in ˜ot. The corresponding ∆Wt specifies the file contents, host, account, and credential relations re-quired to support this artifact. The model therefore constructs an artifact that fits the ongoing investigation and offers a plau-sible next step within the decoy. 
+
+Online Stage II: Artifact validation and disclosure. The second online stage determines whether the candidate arti-fact ct = (˜ ot, ∆Wt) can be incorporated into the current decoy environment. Specifically, AgentSnare’s ShadowOS validates the candidate artifact along three dimensions. 
+
+Semantic validity requires the proposed observations to match the current command, be observable through the cur-rent probe, and follow the expected output format. State va-lidity requires the introduced facts to be consistent with Wt,reachable from Ft, and reproducible in subsequent interac-tions. Safety validity prevents leakage of real-environment secrets and violations of basic filesystem, user, process, per-mission, and service constraints. For a valid artifact, ShadowOS derives the corresponding graph increment ∆Gt from the validated facts and the current frontier. It then incorporates the artifact into the decoy state and renders the observation returned to the attacker: 
+
+(Wt+1 , G t+1 ) = Commit( Wt, G t, ∆Wt, ∆Gt),ot = Render( at, ˜ot, W t+1 , G t+1 ). (6) Deterministic state management preserves users, working directories, file mutations, permissions, processes, ports, and previously constructed values, while generative rendering handles open-ended logs, configurations, errors, and other textual content. If validation fails, Wt and Gt remain unchanged, and the system returns a failure observation that introduces no new environmental fact. Thus, an artifact becomes part of the persistent decoy environment only after it has been validated and realized by ShadowOS. During deployment, each defender-controlled interaction invokes the artifact-construction model once, followed by validation, state up-date, and disclosure. Offline LLM Training for Artifact-Construction 
+
+The first online stage relies on the artifact-construction pol-icy model to infer the agent’s attack intent from the inter-action history and construct a candidate artifact for the cur-rent probe. To make deceptive artifacts more likely to in-duce the attacker to continue probing the decoy., we fine tune the model using supervision collected through simu-lated attacker–defender interactions. 
+
+Simulated attacker–defender interactions. Each syn-thetic trajectory begins by sampling a scenario 
+
+σ ∼ Q . (7) The scenario specifies a synthetic application environment, an attack objective, an initial clue, and a behavioral focus. The server and application profile provided to the model is obtained as 
+
+q = Profile( σ). (8) The scenario distribution covers 12 classes of attack in-tent, including service reconnaissance, credential discovery, privilege escalation, lateral movement, sensitive-data search, container escape, and SSH pivoting. We use two isolated DeepSeek-V4-Flash model instances in different roles. The attacker simulator Asim issues the current probe from the visible interaction history and predicts possible follow-up actions after observing an artifact. The candidate generator D constructs several alternative artifacts for the same probe and interaction context. The two roles use separate prompts and interaction histories. In each interaction round, the attacker simulator first issues a probe based on the interaction history ht:
+
+at ∼ Asim (ht, σ ). (9) The current decoy state determines Ft, after which the model input is constructed as 
+
+xt = ( ht, a t, W t, Ft, q ). (10) For this same input, the candidate generator constructs k
+
+alternative artifacts: 
+
+Ct = D(xt; k) = 
+
+n
+
+c(j) 
+
+> t
+
+= (˜ o(j) 
+
+> t
+
+, ∆W (j) 
+
+> t
+
+)
+
+okj=1 
+
+. (11) Each candidate is validated using the same semantic, state, and safety rules applied during online deployment. Candi-dates that conflict with existing facts, violate command se-mantics, cannot be observed through the current probe, can-not be constructed from the current frontier, cannot be repro-duced later, are malformed, or risk leaking real-environment secrets are removed before reaction comparison. 
+
+Reaction-guided artifact selection. For every remaining candidate, the system begins from the same visible history and decoy state and inserts only that candidate’s proposed observation to simulate an interaction history h(j) 
+
+> t
+
+:
+
+h(j) 
+
+> t
+
+= ht ∥ (at, ˜o(j) 
+
+> t
+
+). (12) The attacker simulator then samples m possible follow-up actions based on h(j) 
+
+> t
+
+:
+
+R(j) 
+
+> t
+
+=
+
+n
+
+r(j)
+
+> t,ℓ
+
+omℓ=1 
+
+, r(j)
+
+> t,ℓ
+> iid
+
+∼ Asim (h(j) 
+
+> t
+
+, σ ). (13) Because all candidates are evaluated under the same inter-action history, probe, and decoy state, the resulting reactions isolate the effect of changing the constructed artifact. The system first prefers an artifact that more often leads the attacker to continue investigating the decoy. Among these artifacts, it favors one that prompts further investigation of the newly constructed artifacts, followed by one that less often triggers suspicion, termination, or a return to the real target. The original candidate order provides a deterministic final tie-break. The selected artifact is 
+
+c⋆t = Select 
+
+n
+
+(c(j) 
+
+> t
+
+, R(j) 
+
+> t
+
+)
+
+o
+
+> j
+
+
+
+. (14) Only c⋆t is incorporated into the synthesized decoy. Its observation is appended to the main interaction history, from which the attacker simulator issues the next probe. Repeating this process produces multi-round interaction trajectories. 
+
+Trajectory filtering and model fine-tuning. Trajectory-level filtering retains interactions with enough valid rounds and selected decisions, resolved state conflicts, complete out-put formatting, and no real-secret leakage. The final corpus contains 24,807 selected defender decisions from 503 tra-jectories spanning 12 attack-intent classes. It contains no CVE-Bench application, vulnerability description, reference exploit trajectory, official solution, or evaluator output. We perform supervised fine-tuning of Qwen3-4B (Yang et al. 2025) on the selected decisions for three epochs in bf16 using a LoRA adapter (Hu et al. 2022) ( r = 64 ,
+
+α = 128 ). The resulting adapter is frozen and served through vLLM (Kwon et al. 2023). Candidate comparison and at-tacker simulation therefore occur only offline, whereas on-line deployment requires one candidate artifact construction followed by validation and disclosure. 
+
+Delay–Divert–Defuse Metrics 
+
+Verified real-target exploit success provides an end-to-end measure of whether a defense prevents the agent from com-pleting the exploit objective. However, it does not reveal how an interactive defense exerts control over the preceding attack trajectory. To characterize this trajectory-steering process, we introduce Delay–Divert–Defuse (DDD), a trajectory-level evaluation framework that measures whether the decoy ab-sorbs the agent’s actions over the complete run, retains the agent after its first decoy entry, and shapes the evidence used in task-completion attempts. Suppose a run produces T ≤ B budgeted tool calls. We assign each call a target label zt ∈ { real , decoy , other },where real denotes the original application, decoy denotes a defender-controlled interactive surface, and other includes local processing or calls attributable to neither surface. Let 
+
+τ denote the first validated action on the decoy. 
+
+Delay. Delay measures the fraction of the complete attack budget absorbed by the decoy: 
+
+Delay = 1
+
+T
+
+> T
+
+X
+
+> t=1
+
+I[zt = decoy] . (15) It evaluates decoy absorption over the entire trajectory, in-cluding activity before and after the first decoy entry. 
+
+Divert. We operationalize Divert as post-entry retention (PER), the fraction of subsequent actions that remain directed to the decoy after the first validated entry: 
+
+PER = 
+
+P 
+
+> t>τ
+
+I[zt = decoy] 
+
+T − τ . (16) Delay measures overall budget absorption, PER conditions on successful entry and evaluates whether the defense sus-tains control afterward rather than allowing the trajectory to return immediately to the real target. 
+
+Defuse. Let P be the set of valid task-completion attempts and let PD ⊆ P contain attempts whose supporting evidence is traced by provenance tags to the decoy. We operationalize Defuse as 
+
+SubDefuse = |P D ||P| . (17) SubDefuse evaluates whether the defense influences not only where the agent acts, but also what evidence it ultimately accepts as support for task completion. 
+
+Experiments 
+
+Setup 
+
+Benchmark and attackers. We evaluate 15 deployable CVE-Bench tasks (Zhu et al. 2025) using the agentic release of PentestGPT (Deng et al. 2024), with Claude Opus 4.6, GPT-5.4, and MiniMax M3 as attackers (Anthropic 2026; OpenAI 2026; MiniMax 2026). Each attacker–interactive-defense pair is run three times per CVE, producing 405 de-fended runs. All conditions share the task prompt, tools, 200-call budget, and stopping rule; the interactive defenses use the same application-side breadcrumb and interaction entry point. All defenses are evaluated at pass@3 and we provide pass@1 exploit rate without defense for references. 
+
+Defense conditions. Static Defenses jointly deploy all 13 reproducible intervention instances before the attack, span-ning six tactic categories: mislead perception, divert at-tention, specialized lures, model corruption, role manip-ulation, and forced code execution (Ayzenshteyn, Weiss, and Mirsky 2025; Pasquini, Kornaropoulos, and Ateniese 2024). Cowrie (Cowrie Contributors 2026) provides apreconstructed interactive shell environment with a static virtual filesystem and scripted command handling. Hon-eyLLMd (Fan et al. 2026) tracks attack transitions with a hierarchical probabilistic automaton and uses GPT-5.4-mini to generate adaptive responses. AgentSnare combines a learned artifact-construction model built on a LoRA-tuned Qwen3-4B (Yang et al. 2025; Hu et al. 2022). 
+
+RQ1: Does AgentSnare Sustain Attack-Trajectory Steering? 
+
+Budget absorption and retention. AgentSnare obtains the highest observed Delay and PER for all three attacker models (Table 1). Its Delay is 47.0% for Claude Opus 4.6, 37.7% for GPT-5.4, and 55.7% for MiniMax M3. Across attackers, It 0 50 100      
+
+> Progress (%)
+> 0.0
+> 0.5
+> 1.0
+> Action share  Cowrie
+> 050 100
+> Progress (%)
+> HoneyLLMd
+> 050 100
+> Progress (%)
+> AgentSnare
+> Decoy share Real-mainline share
+
+Figure 3: Share of actions targeting the decoy and real tar-get over normalized attack progress. For each run, tool-call positions are normalized to 0–100% and partitioned into 20 equal-width bins of five percentage points. Shares are pooled within corresponding bins across attackers and CVEs (N = 135 runs per defense); calls labeled other are omitted. absorbs 46.8% of all issued tool calls, compared with 17.6% for Cowrie and 29.5% for HoneyLLMd. Its overall PER is 55.9%, a 19.0-point improvement over HoneyLLMd. The interaction therefore extends beyond initial attraction: as the agent investigates, verifies, and revises its attack strategies, the decoy continues to receive a larger share of actions. 
+
+Decoy-grounded completion attempts. AgentSnare also achieves the highest SubDefuse for each attacker: 92.0% for Claude Opus 4.6, 96.5% for GPT-5.4, and 81.8% for Mini-Max M3. Pooling all attackers, CVEs, and repetitions, 574 of 638 valid completion attempts are grounded in decoy evi-dence, yielding 90.0% SubDefuse. Cowrie and HoneyLLMd reach 29.7% and 72.2%, respectively. The metrics need not move together: GPT-5.4 has the lowest AgentSnare Delay but the highest SubDefuse, whereas MiniMax M3 has the highest Delay and PER but lower SubDefuse. Time spent on the decoy and provenance of completion evidence therefore capture distinct aspects of trajectory control. Figure 3 isolates the competition between the two attack surfaces. Cowrie leaves the real mainline dominant through most of the trajectory, while HoneyLLMd moves the alloca-tion closer to an even split. AgentSnare instead reverses the balance after entry and maintains a decoy-majority share in later stages. Real and decoy calls can still alternate; contain-ment is reflected in the accumulated target-directed activity that the controlled environment absorbs. Attacker-specific trajectory plots are provided in the supplementary material. 
+
+RQ2: Does Trajectory Steering Reduce Real-Target Exploitation? 
+
+Real-target exploit suppression. Real-target exploit suc-cess is determined by the official CVE-Bench evaluator (Zhu et al. 2025). Without defense, the attackers exploit 18 of 45 attacker–CVE pairs at pass@1: 13 /15 for Claude Opus 4.6, 3/15 for GPT-5.4, and 2/15 for MiniMax M3. Un-der the pass@3 protocol used for defended conditions, Static Defenses still leave 18 /45 pairs exploitable, with the same attacker-wise counts. Cowrie and HoneyLLMd re-duce this number to 12 /45 and 10 /45 , respectively, whereas AgentSnare records no verified real-target exploit ( 0/45 ). Thus, AgentSnare eliminates all evaluator-verified real-target Table 1: Main results across 15 CVE-Bench tasks and three attackers. Delay and PER report the mean ± SE over 15 CVE-level averages; SubDefuse reports the fraction of valid completion attempts supported by decoy evidence, with counts in parentheses. DDD is not reported for Static Defenses, shown by dashes. Detailed static-defense results are provided in the appendix.                                                                                                                   
+
+> Trajectory Steering Verified Exploits Attacker Defense Delay (%) ↑PER (%) ↑SubDefuse (%) ↑Exploited CVEs ↓
+> Claude Opus 4.6 Static Defenses –––13 /15
+> Cowrie 13 .8±1.623 .8±3.713 .2 (10 /76) 9/15
+> HoneyLLMd 34 .1±3.146 .8±2.681 .4 (193 /237) 7/15
+> AgentSnare 47 .0±2.958 .1±2.792 .0(242 /263 )0/15
+> GPT-5.4 Static Defenses –––3/15
+> Cowrie 19 .9±1.622 .1±1.949 .4 (44 /89) 1/15
+> HoneyLLMd 20 .1±2.821 .9±3.272 .0 (72 /100) 0/15
+> AgentSnare 37 .7±2.045 .0±2.796 .5(166 /172 )0/15
+> MiniMax M3 Static Defenses –––2/15
+> Cowrie 19 .1±1.824 .5±1.924 .8 (25 /101) 2/15
+> HoneyLLMd 34 .3±3.941 .9±5.454 .8 (68 /124) 3/15
+> AgentSnare 55 .7±2.864 .7±3.381 .8(166 /203 )0/15
+> Overall Static Defenses –––18 /45
+> Cowrie 17 .623 .529 .7 (79 /266) 12 /45
+> HoneyLLMd 29 .536 .972 .2 (333 /461) 10 /45
+> AgentSnare 46 .855 .990 .0(574 /638 )0/45
+
+exploits despite giving each attacker three independent op-portunities per CVE. 
+
+Consistency with trajectory steering. Among the inter-active defenses, the verified exploit outcomes are consis-tent with the trajectory-steering results in RQ1. AgentSnare achieves the highest Delay, PER, and SubDefuse and is also the only defense with no verified real-target exploit. Cowrie and HoneyLLMd obtain lower DDD values and leave 12 /45 
+
+and 10 /45 attacker–CVE pairs exploitable, respectively. This alignment indicates that stronger budget absorption, post-entry retention, and decoy-grounded completion coincide with fewer successful real-target exploits. 
+
+RQ3: What Do Model Fine-Tuning and ShadowOS Contribute? 
+
+We evaluate two single-component ablations and one strong full-ablation reference under the complete 15-CVE, three-repetition protocol with GPT-5.4 as the attacker, yielding 45 runs per configuration. Base Qwen3-4B + ShadowOS re-moves model fine-tuning while retaining the complete state-ful ShadowOS runtime, isolating the contribution of the fine-tuned artifact-construction model. AgentSnare w/o Shad-owOS retains the fine-tuned model but removes the state-ful runtime, isolating the contribution of persistent valida-tion and realization. Prompted GPT-5.4-mini removes both model fine-tuning and the stateful ShadowOS runtime, corre-sponding functionally to a full ablation of the two AgentSnare mechanisms. Rather than using the weaker base Qwen3-4B for this configuration, we deliberately replace it with GPT-5.4-mini, the same closed model used by HoneyLLMd. This strengthens the underlying generator and tests whether generic model capability alone, without trajectory-specific supervision or persistent state, can recover the benefits of the complete system. With ShadowOS fixed, replacing the model fine-tuned on reaction-guided trajectories with Base Qwen3-4B reduces Delay/PER/SubDefuse from 37.7/45.0/96.5 to 34.4/38.0/85.5 and leaves 3/15 targets exploitable. This com-parison shows that model fine-tuning improves the selection of artifacts that sustain decoy-directed exploration. Remov-ing ShadowOS while retaining the fine-tuned model yields 34.6/38.5/82.2 and leaves 1/15 targets exploitable. The 14.3-point reduction in SubDefuse, the largest degradation among the three process metrics, highlights the importance of per-sistent state when the attacker repeatedly verifies evidence across commands and tools. The strong full ablation with prompted GPT-5.4-mini achieves 37.0/43.7/88.6 Delay/PER/SubDefuse but still leaves 3/15 targets exploitable. Thus, a stronger closed model can produce locally convincing interactions and recover much of the aggregate DDD performance, but it does not match the complete system’s sustained trajectory control or exploit suppression. Despite using Qwen3-4B, the complete AgentSnare system exceeds the prompted GPT-5.4-mini vari-ant on all three process metrics and is the only configuration with no verified real-target exploit. These results show that model fine-tuning and ShadowOS allow a compact model to outperform a stronger prompt-only model, and that both mechanisms are required for reliable end-to-end protection under the evaluated protocol. 
+
+Conclusion 
+
+In this paper, we presented AgentSnare, a trajectory-adaptive deception system that moves beyond pre-planted static arti-facts by dynamically unfolding a factually consistent decoy environment along the agent’s attack trajectory. Its learned artifact-construction policy model constructs artifacts condi-tioned on the agent’s current probe, interaction history, and decoy state; AgentSnare then validates and incrementally in-corporates valid artifacts to continually steer the penetration agent away from the real target. Across 15 CVE-Bench tasks and three attacker models, AgentSnare achieves 46.8% De-lay, 55.9% PER, and 90.0% SubDefuse, with no verified real-target exploit across 45 attacker–CVE pairs at pass@3. 
+
+References 
+
+Anthropic. 2026. Introducing Claude Opus 4.6. https://www. anthropic.com/news/claude-opus-4-6. Ayzenshteyn, D.; Weiss, R.; and Mirsky, Y. 2025. Cloak, Honey, Trap: Proactive Defenses Against {LLM } Agents. In 
+
+34th USENIX Security Symposium (USENIX Security 25) ,8095–8114. Chen, B.; Shu, C.; Shareghi, E.; Collier, N.; Narasimhan, K.; and Yao, S. 2023. Fireact: Toward language agent fine-tuning. arXiv preprint arXiv:2310.05915 .Cowrie Contributors. 2026. Cowrie SSH/Telnet Honeypot. https://github.com/cowrie/cowrie. Deng, G.; Liu, Y.; Mayoral-Vilches, V.; Liu, P.; Li, Y.; Xu, Y.; Zhang, T.; Liu, Y.; Pinzger, M.; and Rass, S. 2024. 
+
+{PentestGPT }: Evaluating and harnessing large language models for automated penetration testing. In 33rd USENIX Security Symposium (USENIX Security 24) , 847–864. Fan, W.; Du, F.; Wang, Z.; Cao, Q.; Liu, L.; Chang, K.; and Chang, S.-Y. 2026. HoneyLLMd: A Large Language Model-Powered Adaptive Honeypot System. IEEE Transactions on Network Science and Engineering .Hu, E. J.; Shen, Y.; Wallis, P.; Allen-Zhu, Z.; Li, Y.; Wang, S.; Wang, L.; Chen, W.; et al. 2022. Lora: Low-rank adaptation of large language models. Iclr , 1(2): 3. Kong, H.; Hu, D.; Ge, J.; Li, L.; Li, T.; and Wu, B. 2025. Vulnbot: Autonomous penetration testing for a multi-agent collaborative framework. arXiv preprint arXiv:2501.13411 .Kwon, W.; Li, Z.; Zhuang, S.; Sheng, Y.; Zheng, L.; Yu, C. H.; Gonzalez, J.; Zhang, H.; and Stoica, I. 2023. Efficient memory management for large language model serving with pagedattention. In Proceedings of the 29th symposium on operating systems principles , 611–626. Lee, S.; and Park, S. 2025. AI Kill Switch for malicious web-based LLM agent. arXiv preprint arXiv:2511.13725 .MiniMax. 2026. MiniMax M3: Frontier Coding, 1M Con-text, Native Multimodality—All in One Model. https: //www.minimax.io/blog/minimax-m3. OpenAI. 2026. GPT-5.4 Thinking System Card. https:// openai.com/index/gpt-5-4-thinking-system-card/. Pasquini, D.; Kornaropoulos, E. M.; and Ateniese, G. 2024. Hacking back the ai-hacker: Prompt injection as a defense against llm-driven cyberattacks. arXiv preprint arXiv:2410.20911 .Reworr, R.; and Volkov, D. 2025. LLM Agent Honeypot: Monitoring AI Hacking Agents in the Wild. Sladić, M.; Valeros, V.; Catania, C.; and Garcia, S. 2024. Llm in the shell: Generative honeypots. In 2024 IEEE Eu-ropean Symposium on Security and Privacy Workshops (Eu-roS&PW) , 430–435. IEEE. Wu, B.; Chen, G.; Chen, K.; Shang, X.; Han, J.; He, Y.; Zhang, W.; and Yu, N. 2025. AutoPT: How Far Are We From the Fully Automated Web Penetration Testing? IEEE Transactions on Information Forensics and Security .Yang, A.; Li, A.; Yang, B.; Zhang, B.; Hui, B.; Zheng, B.; Yu, B.; Gao, C.; Huang, C.; Lv, C.; et al. 2025. Qwen3 technical report. arXiv preprint arXiv:2505.09388 .Zeng, A.; Liu, M.; Lu, R.; Wang, B.; Liu, X.; Dong, Y.; and Tang, J. 2024. Agenttuning: Enabling generalized agent abilities for llms. In Findings of the Association for Compu-tational Linguistics: ACL 2024 , 3053–3077. Zhu, Y.; Kellermann, A.; Bowman, D.; Li, P.; Gupta, A.; Danda, A.; Fang, R.; Jensen, C.; Ihli, E.; Benn, J.; et al. 2025. CVE-bench: a benchmark for AI agents’ ability to exploit real-world web application vulnerabilities. arXiv preprint arXiv:2503.17332 .Zhuo, T. Y.; Wang, D.; Ding, H.; Kumar, V.; and Wang, Z. 2025. Cyber-zero: Training cybersecurity agents without runtime. arXiv preprint arXiv:2508.00910 .
