@@ -1,0 +1,96 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-07-31T21:32:24.649859+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 1,
+    "deep_cap": 6,
+    "deep_selected": 1,
+    "quick_candidates": 1,
+    "quick_skim_target": 11,
+    "quick_selected": 1
+  },
+  "deep_dive": [
+    {
+      "id": "2607.26120v1",
+      "source": "arxiv",
+      "title": "Even More Deception: Objective Misalignment in Mixed-Motive LLM Multi-Agent Systems",
+      "abstract": "Large Language Models (LLMs)-powered multi-agent systems are increasingly deployed in mixed-motive environments, where agents operate under asymmetric information and strategic deception due to conflicting or hidden objectives. In these settings, misalignment with collective goals becomes a central concern. We propose a novel framework for evaluating objective misalignment using the social deduction game Werewolf, modifying the objective of a single agent while preserving its assigned role. Across LLMs from four different model families and sizes, four player roles, and three objective formulations, we introduce a dual analysis of the agents' internal reasoning and their public cheap-talk behavior (i.e costless, non-binding communication that does not directly affect the agents' utilities), complemented by an analysis of game outcomes. Our results show that objective misalignment undermines outcomes in inherently adversarial environments, an effect exacerbated by asymmetric information and specialized roles. While compromised agents consistently develop distinct objective-dependent reasoning strategies, these adaptations remain largely invisible in their public behavior. More broadly, our findings suggest that even subtle objective misalignment can profoundly affect collective decision-making, highlighting the need for effective mitigation strategies for LLM-based multi-agent systems.",
+      "authors": [
+        "Marylou Fauchard",
+        "Florian Carichon",
+        "Margarida Carvalho",
+        "Golnoosh Farnadi"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-07-28T17:48:54+00:00",
+      "link": "https://arxiv.org/pdf/2607.26120v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "studies deception and misalignment in LLM multi-agent systems, relevant for adversarial agent testing",
+      "llm_evidence_cn": "研究LLM多智能体系统中的欺骗和目标偏差，适用于对抗性代理测试",
+      "llm_evidence": "研究LLM多智能体系统中的欺骗和目标偏差，适用于对抗性代理测试",
+      "canonical_evidence": "研究LLM多智能体系统中的欺骗和目标偏差，适用于对抗性代理测试",
+      "llm_tldr_en": "This paper evaluates objective misalignment in LLM multi-agent systems using the Werewolf game, revealing deceptive strategies and testing capability boundaries in adversarial settings akin to cybercrime.",
+      "llm_tldr_cn": "本文提出一个框架，通过修改狼人杀游戏中单个代理的目标来评估LLM多智能体系统中的目标偏差，分析其内部推理和公开通信中的欺骗行为。实验发现不同LLM展现出复杂的隐藏意图和欺骗策略，该方法为探索LLM在对抗性环境下的能力边界提供了新途径，尤其适用于模拟网络犯罪中的欺骗与策略互动。",
+      "llm_tldr": "本文提出一个框架，通过修改狼人杀游戏中单个代理的目标来评估LLM多智能体系统中的目标偏差，分析其内部推理和公开通信中的欺骗行为。实验发现不同LLM展现出复杂的隐藏意图和欺骗策略，该方法为探索LLM在对抗性环境下的能力边界提供了新途径，尤其适用于模拟网络犯罪中的欺骗与策略互动。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "adversarial agents for testing large language models in cybercrime",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2607.28146v1",
+      "source": "arxiv",
+      "title": "Can Agents Deceive? Evaluating Reasoning and Deception in ParliamentBench using a Social Deduction Game",
+      "abstract": "As large language models (LLMs) are deployed as agents in high-stakes settings, such as medical and legal systems, understanding their deceptive capabilities is fundamental to safety. Controlled social deduction games provide a reproducible proxy for isolating and evaluating these complex adversarial behaviors. We present the open-source benchmark framework ParliamentBench based on the game Secret Hitler to evaluate LLMs in scenarios that require deception, persuasion, and reasoning under information asymmetry. We evaluate 16 LLMs across 1,600 simulated matches playing each other, playing against humans, and compare them against a large set of online games. We introduce three novel metrics that isolate social deduction, reasoning, and deceptive consistency. Our experiments reveal that frontier models achieve strong performance across cooperative and deceptive roles, with a strong top-four cluster (GPT-5.4, Kimi K2.5, Grok 4.1 Fast, and DeepSeek 3.1 Terminus), whereas the weakest models fall short of random (33%) and simple algorithmic (45%) baselines. Most LLMs struggle to maintain a consistent deceptive persona throughout an entire game, with deception retention dropping below 50%.",
+      "authors": [
+        "Niklas Bauer",
+        "Lars Benedikt Kaesberg",
+        "Akiko Aizawa",
+        "Jan Philip Wahle",
+        "Bela Gipp",
+        "Terry Ruas"
+      ],
+      "primary_category": "cs.CL",
+      "categories": [
+        "cs.CL",
+        "cs.AI"
+      ],
+      "published": "2026-07-30T12:54:17+00:00",
+      "link": "https://arxiv.org/pdf/2607.28146v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "evaluates LLM agents' deceptive capabilities in social deduction games, providing insights into adversarial behavior transferable to cybercrime",
+      "llm_evidence_cn": "评估LLM智能体在社交推理游戏中的欺骗能力，为理解网络犯罪中的对抗行为提供可迁移的洞察",
+      "llm_evidence": "评估LLM智能体在社交推理游戏中的欺骗能力，为理解网络犯罪中的对抗行为提供可迁移的洞察",
+      "canonical_evidence": "评估LLM智能体在社交推理游戏中的欺骗能力，为理解网络犯罪中的对抗行为提供可迁移的洞察",
+      "llm_tldr_en": "This paper presents ParliamentBench, a benchmark for evaluating LLM deception and reasoning in Secret Hitler, showing that models exhibit strategic deception, which has implications for their potential misuse in cybercrime.",
+      "llm_tldr_cn": "为评估大语言模型在不确定信息下的欺骗与推理能力，本文推出基于桌游“秘密希特勒”的开源基准ParliamentBench，对16个LLM进行1600局模拟对战。结果显示模型能展现策略性欺骗，为评估LLM在网络犯罪等高风险场景的对抗行为提供了可复现的框架。",
+      "llm_tldr": "为评估大语言模型在不确定信息下的欺骗与推理能力，本文推出基于桌游“秘密希特勒”的开源基准ParliamentBench，对16个LLM进行1600局模拟对战。结果显示模型能展现策略性欺骗，为评估LLM在网络犯罪等高风险场景的对抗行为提供了可复现的框架。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "capabilities of large language models in cybercrime",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}

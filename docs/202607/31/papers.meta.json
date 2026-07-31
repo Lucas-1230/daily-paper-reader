@@ -1,0 +1,39 @@
+{
+  "label": "2026-07-31",
+  "date": "2026-07-31",
+  "generated_at": "2026-07-31T21:36:55",
+  "count": 2,
+  "papers": [
+    {
+      "paper_id": "202607/31/2607.26120v1-even-more-deception-objective-misalignment-in-mixed-motive-llm-multi-agent-systems",
+      "section": "deep",
+      "title_en": "Even More Deception: Objective Misalignment in Mixed-Motive LLM Multi-Agent Systems",
+      "authors": "Marylou Fauchard, Florian Carichon, Margarida Carvalho, Golnoosh Farnadi",
+      "date": "2026-07-28",
+      "pdf": "https://arxiv.org/pdf/2607.26120v1",
+      "score": "8.0",
+      "evidence": "研究LLM多智能体系统中的欺骗和目标偏差，适用于对抗性代理测试",
+      "tldr": "大型语言模型多智能体系统在混合动机环境下易出现目标偏差，本文以社交推理游戏Werewolf为测试平台，评估单智能体目标修改对集体决策的影响。研究发现，目标偏差在天然对抗场景中显著损害结果，且不对称信息与角色分工加剧了这一效应。受影响的智能体内部推理策略改变却未反映于公开交流，揭示隐蔽性风险。该工作警示即使微小偏差也能严重破坏集体决策，强调需开发有效缓解措施。",
+      "tags": "query:ca",
+      "abstract_en": "Large Language Models (LLMs)-powered multi-agent systems are increasingly deployed in mixed-motive environments, where agents operate under asymmetric information and strategic deception due to conflicting or hidden objectives. In these settings, misalignment with collective goals becomes a central concern. We propose a novel framework for evaluating objective misalignment using the social deduction game Werewolf, modifying the objective of a single agent while preserving its assigned role. Across LLMs from four different model families and sizes, four player roles, and three objective formulations, we introduce a dual analysis of the agents' internal reasoning and their public cheap-talk behavior (i.e costless, non-binding communication that does not directly affect the agents' utilities), complemented by an analysis of game outcomes. Our results show that objective misalignment undermines outcomes in inherently adversarial environments, an effect exacerbated by asymmetric information and specialized roles. While compromised agents consistently develop distinct objective-dependent reasoning strategies, these adaptations remain largely invisible in their public behavior. More broadly, our findings suggest that even subtle objective misalignment can profoundly affect collective decision-making, highlighting the need for effective mitigation strategies for LLM-based multi-agent systems.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202607/31/2607.28146v1-can-agents-deceive-evaluating-reasoning-and-deception-in-parliamentbench-using-a-social-deduction-game",
+      "section": "quick",
+      "title_en": "Can Agents Deceive? Evaluating Reasoning and Deception in ParliamentBench using a Social Deduction Game",
+      "authors": "Niklas Bauer, Lars Benedikt Kaesberg, Akiko Aizawa, Jan Philip Wahle, Bela Gipp, Terry Ruas",
+      "date": "2026-07-30",
+      "pdf": "https://arxiv.org/pdf/2607.28146v1",
+      "score": "6.0",
+      "evidence": "评估LLM智能体在社交推理游戏中的欺骗能力，为理解网络犯罪中的对抗行为提供可迁移的洞察",
+      "tldr": "随着大语言模型(LLM)部署于高风险场景，其欺骗能力评估成为安全关键。本文基于社交演绎游戏Secret Hitler，提出了开源基准框架ParliamentBench，通过1600场模拟评估16个LLM的欺骗、说服与推理能力，并引入三个新指标。实验显示，GPT-5.4等顶级模型表现强劲，形成四强集群；而最弱模型不及随机与算法基线。多数LLM难以维持一致欺骗角色，欺骗保留率低于50%。该基准揭示了LLM欺骗一致性的局限，强调安全部署重要性。",
+      "tags": "query:ca",
+      "abstract_en": "As large language models (LLMs) are deployed as agents in high-stakes settings, such as medical and legal systems, understanding their deceptive capabilities is fundamental to safety. Controlled social deduction games provide a reproducible proxy for isolating and evaluating these complex adversarial behaviors. We present the open-source benchmark framework ParliamentBench based on the game Secret Hitler to evaluate LLMs in scenarios that require deception, persuasion, and reasoning under information asymmetry. We evaluate 16 LLMs across 1,600 simulated matches playing each other, playing against humans, and compare them against a large set of online games. We introduce three novel metrics that isolate social deduction, reasoning, and deceptive consistency. Our experiments reveal that frontier models achieve strong performance across cooperative and deceptive roles, with a strong top-four cluster (GPT-5.4, Kimi K2.5, Grok 4.1 Fast, and DeepSeek 3.1 Terminus), whereas the weakest models fall short of random (33%) and simple algorithmic (45%) baselines. Most LLMs struggle to maintain a consistent deceptive persona throughout an entire game, with deception retention dropping below 50%.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}
