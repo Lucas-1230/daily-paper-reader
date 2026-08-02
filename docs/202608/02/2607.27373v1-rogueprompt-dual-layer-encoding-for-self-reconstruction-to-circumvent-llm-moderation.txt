@@ -1,0 +1,413 @@
+Title: RoguePrompt: Dual-Layer Encoding for Self-Reconstruction to Circumvent LLM Moderation
+
+URL Source: https://arxiv.org/pdf/2607.27373v1
+
+Published Time: Fri, 31 Jul 2026 00:07:15 GMT
+
+Number of Pages: 12
+
+Markdown Content:
+# RoguePrompt: Dual-Layer Encoding for Self-Reconstruction to Circumvent LLM Moderation 
+
+# Benyamin Tafreshian 
+
+Department of Computer Science Boston University Boston, MA, USA bentaf@bu.edu 
+
+# Prathamesh Dhake 
+
+Department of Computer Science Boston University Boston, MA, USA pratham9@bu.edu 
+
+## Abstract 
+
+Large language models (LLMs) are becoming increasingly inte-grated into mainstream development platforms and daily techno-logical workflows, typically behind moderation and safety controls. Despite these controls, preventing prompt-based policy evasion remains challenging, and adversaries continue to ‘jailbreak’ LLMs by crafting prompts that circumvent implemented safety mech-anisms. Prior work has established cipher-mediated interaction, code-embedded decryption, prompt decomposition and reconstruc-tion, and layered custom encryption as viable attack primitives. However, reported evaluations generally collapse visible accep-tance, successful recovery of the concealed request, and subsequent execution into an aggregate attack-success outcome. This leaves limited evidence about where multistage prompt-transformation attacks fail within an observable black-box interaction. This pa-per introduces RoguePrompt, a jailbreak pipeline that partitions a forbidden prompt and applies two nested encodings (Vigenère followed by ROT13) with natural-language reconstruction instruc-tions. RoguePrompt was developed and evaluated under a black-box threat model, with only API/UI access to the hosted models, and tested on 313 real-world hard-rejected prompts. Success was mea-sured in terms of moderation bypass, instruction reconstruction, and execution when exceeding the stage’s automated criterion. RoguePrompt achieved average rates of 93.93% for filter bypass, 79.02% for reconstruction, and 70.18% for execution. These results demonstrate the effectiveness of layered prompt encoding while providing stage-level evidence of where multistage jailbreaks fail during moderation bypass, instruction reconstruction, and execu-tion. 
+
+## CCS Concepts 
+
+• Security and privacy → Software and application security .
+
+## Keywords 
+
+Generative AI Security, Jailbreak Attacks, Moderation Evasion, Re-jected Prompts, Policy Circumvention 
+
+## 1 Introduction 
+
+Large language models (LLMs) are increasingly embedded in con-versational assistants, developer tools, and agentic workflows [ 5 , 33 ,36 ]. Because these systems accept untrusted input, providers com-monly combine input screening, model-level refusal, and output controls to prevent policy-violating usage [ 1 , 2, 21 – 23 ]. Early stud-ies demonstrated jailbreaks through direct prompt engineering and programmatic exploits [ 12 , 18 ]. Subsequent methods introduced 
+
+Figure 1: Self-reconstruction jailbreak: blocked request →
+
+obfuscated prompt → output-evidenced reconstruction →
+
+unsafe output (redacted). 
+
+automated search, cipher-based interaction, embedded decryption, prompt decomposition, and layered encodings [ 6, 9, 16 , 19 , 31 ]. However, prior evaluations do not jointly distinguish visible input acceptance, output-evidenced reconstruction, and execution within a common black-box evaluation. We address this gap by measuring these three stages separately and analyzing where unsuccessful attempts stop. Evaluating these attacks as a single pass-or-fail event can ob-scure where a safety failure occurs. A hosted system may apply controls before, during, and after inference, but a regular user gen-erally cannot observe proprietary routing or determine which in-ternal component produced a rejection [ 1, 8, 21 ]. Conversely, a arXiv:2607.27373v1 [cs.CR] 29 Jul 2026 Benyamin Tafreshian and Prathamesh Dhake 
+
+prompt that receives no visible hard block may still fail because the model misunderstands the concealed request or reconstructs it and then refuses. Assessing only the final response therefore conflates input-boundary behavior, recovery of the adversarial instruction, and subsequent compliance [ 7 , 27 , 29 ]. This distinction is impor-tant for both comparison and defense: an aggregate execution rate alone does not reveal whether an intervention improved boundary screening, disrupted reconstruction, or strengthened refusal after reconstruction. Self-reconstructing prompts make this distinction especially im-portant. Rather than placing the disallowed request directly in the visible input, an attacker can embed a transformed payload together with instructions for recovering and acting on it. The target is asked to serve as both decoder and executor: the surface representation is submitted at the input boundary, while successful recovery can be inferred only from observable response evidence [ 4, 11 , 17 ]. The attack must consequently satisfy two competing requirements. Its submitted form must avoid an observable hard block, yet it must retain enough structure for faithful reconstruction. Visible accep-tance without reconstruction is incomplete, as is reconstruction followed by refusal. This multistage behavior is not captured by evaluations that report only whether the final output is harmful. We introduce RoguePrompt , a deterministic, single-turn pipeline for studying this attack pattern under a black-box threat model. Figure 1 visualizes this workflow: a hard-blocked request is trans-formed into an obfuscated prompt that the target model itself de-codes, reconstructs, and executes within a single response. Rogue-Prompt partitions a forbidden prompt into even- and odd-position text-span streams, encrypts the serialized odd stream with Vigenère, applies ROT13 to the assembled payload, and wraps the result in natural-language reconstruction instructions. In each trial, the tar-get model is asked to reverse the transformations, reassemble the original instruction, and act on it within the same interaction. Par-titioning prevents either stream from containing the complete re-quest, while the two encoding layers reshape the payload without discarding information required for reconstruction. The wrapper supplies the procedural structure needed to reverse these operations in one response. This design allows us to test whether layered con-cealment and explicit self-reconstruction behave differently from direct encodings or contextual templates. The method requires only standard API/UI access and assumes no knowledge of model weights, system prompts, training data, or proprietary moderation rules. Although an adversary could probe a service while developing an attack, our evaluation freezes the wrapper, key policy, span-segmentation rule, parser, and baseline templates before testing. Each prompt–method–model condition uses three independent single-turn trials containing the same trans-formed prompt, with no adaptation between trials [ 3, 6, 17 ]. These trials capture stochastic response variability while maintaining a fixed query budget. We evaluate RoguePrompt on 313 StrongREJECT prompts [ 27 ]across three hosted model configurations using three sequential outcomes defined formally in Section 5: visible input acceptance, treated as a bypass proxy under observable API/UI criteria; faithful reconstruction of the original instruction; and execution without re-fusal or safe completion. Outcomes are assigned automatically from observable status and response text, without human adjudication. RoguePrompt’s average rates are 93.93% for Bypass@3, 79.02% for Reconstruction@3, and 70.18% for Execution@3. Its Execution@3 rate exceeds those of all five template-based and lexical-obfuscation baselines: Paired-Request Concatenation reaches 33.97%, while Base64 Raw reaches 16.83% despite its high Reconstruction@3 rate. These stage-wise results distinguish conditions that were blocked in all trials, failed to produce evidence of reconstruction, or recon-structed the request but stopped before execution. In summary, this work makes three contributions: 
+
+• Construction: We instantiate RoguePrompt, a black-box, single-turn pipeline with a fixed asymmetric composition: even/odd span partitioning, Vigenère transformation of one serialized stream, outer ROT13, and explicit reconstruction and execution directives. 
+
+• Methodology: We propose an evaluation methodology that separates bypass, reconstruction, and execution, align-ing measurement with real deployment risk rather than refusal-only scoring. 
+
+• Study: We conduct a comparative evaluation against five baselines and characterize failure modes across three hosted model configurations. 
+
+## 2 Background 
+
+Jailbreaks can involve both application-level controls and model-level behavior. This section summarizes the concepts needed to ana-lyze RoguePrompt while limiting the discussion to direct, reconstruction-oriented jailbreaks [17, 36]. 
+
+## 2.1 Layered safety and observable outcomes 
+
+Hosted LLM systems may apply input screening, model-level refusal behavior, and output handling around inference [ 1, 8, 21 ]. These controls operate at different points and may evaluate different representations of a request. A submitted prompt can therefore produce several externally distinguishable outcomes: an explicit input or API/UI block, a completion that fails to recover the intended instruction, a response that reconstructs the instruction but refuses it, or a response that carries it out. For closed services, an evaluator cannot directly observe pro-prietary moderation routes or attribute an outcome to a particular internal component. We consequently treat visible input acceptance as an observable proxy and separate it from reconstruction and ex-ecution. This framing characterizes where an attempt fails without assuming access to provider-side traces. 
+
+## 2.2 Jailbreaks and policy evasion 
+
+Prompt injection broadly refers to crafted input that redirects a model from an application’s intended objective, whereas jailbreak-ing specifically seeks to overcome safety constraints and elicit disal-lowed behavior [ 4, 6, 17 , 18 ]. Prior jailbreaks use role play, coercive framing, prompt concatenation, lexical obfuscation, and encoded payloads [ 15 , 18 , 35 ]. Attack discovery has also been automated through mutation and goal-directed search, showing that effective prompts need not be designed entirely by hand [6, 25, 34]. These studies establish the breadth and adaptability of prompt-based attacks. However, evaluations commonly emphasize whether the final response complies or refuses, and many attacks center on RoguePrompt 
+
+one principal template or transformation. RoguePrompt instead examines a layered construction in which concealment, output-evidenced recovery, and execution are distinct stages. This dis-tinction motivates measuring intermediate outcomes rather than treating all unsuccessful attempts as equivalent. 
+
+## 2.3 Self-reconstruction and representation shaping 
+
+Instruction-tuned LLMs can perform multi-step transformations over text, including translation, decoding, parsing, and procedural manipulation [ 2, 22 , 23 ]. An attacker can use this capability to place a transformed payload and its recovery procedure in the same prompt. The submitted representation need not contain the complete disallowed request in plaintext; a returned response can instead provide evidence that the request was recovered and inter-preted as an instruction [4, 10, 11]. We use self-reconstruction to describe prompts that carry both a concealed payload and instructions or demonstrations sufficient for recovering its semantics. This pattern appears in several closely related attacks, but with different representations and recovery mechanisms. CipherChat teaches a model to communicate through a cipher using a system-role description and enciphered demon-strations, with the returned cipher text decoded externally [ 31 ]. CodeChameleon reformulates the interaction as code completion, applies personalized word-order or structural transformations in-cluding an OddEven variant and embeds Python-like decryption and solution functions [ 19 ]. DrAttack uses syntactic decomposition, benign reassembly demonstrations, and synonym search to induce implicit reconstruction of separated sub-prompts [ 16 ]. ACE and LACE study user-defined custom ciphers and the sequential layer-ing of multiple ciphers, respectively, together with the relationship between decoding capability and attack success [9]. Table 1 summarizes these distinctions. RoguePrompt does not claim novelty for encryption, odd/even rearrangement, decompo-sition, reconstruction, or cipher layering in isolation. Its attack-side distinction is a deterministic asymmetric composition: the request is partitioned into two serialized span streams, only the odd stream receives the inner Vigenère transformation, and an outer ROT13 transformation covers the assembled fields and metadata. Its primary methodological distinction is to label visible acceptance, output-evidenced reconstruction, and execution separately rather than reporting only an aggregate attack-success rate. The tension between concealment and recoverability makes rep-resentation design consequential: payload length, normalization behavior, tokenization, and parsing can all affect reconstruction. Transformations that lose delimiters or depend on ambiguous re-construction may evade recognition yet fail before execution [ 7, 36 ]. RoguePrompt addresses this tradeoff with reversible character-level transformations, explicit serialization, and staged evaluation of vis-ible acceptance, reconstruction, and execution. 
+
+## 3 Threat Model 3.1 Assets and Security Goals 
+
+We model the protected asset as the policy compliance of the user-visible response. A hosted system may enforce this goal through input screening before inference, model-level refusal during gen-eration, and output moderation before delivery [ 1, 21 , 29 ]. The defender seeks to preserve: 
+
+• Input-boundary enforcement: Disallowed requests should be detected and blocked before reaching the model. 
+
+• Model-level policy adherence: Accepted requests, includ-ing reconstructed or obfuscated ones, should be refused when their underlying intent violates policy. 
+
+• Output-control enforcement: Post-generation controls should withhold policy-violating content that earlier layers fail to stop. An attack is end-to-end successful only when the prompt is visi-bly accepted, the concealed request is reconstructed and executed, and policy-violating content reaches the user. Because provider in-ternals are unobservable, our evaluation measures these user-visible outcomes without attributing failure to a particular component. 
+
+## 3.2 Adversary Capabilities and Assumptions 
+
+We consider a black-box adversary who interacts with the target LLM as a regular user, without special access or insider knowl-edge [3, 6, 17]. The attacker’s capabilities and assumptions are: 
+
+• API/UI access: The adversary can submit text prompts and observe textual outputs, but has no access to internal state, parameters, or system prompts; the system is a closed input–output interface. 
+
+• No privileged information: The adversary does not know the moderation system’s specific rules (e.g., exact keywords or patterns) or proprietary safety guidelines beyond what is publicly available, and can only infer behavior from query outcomes. 
+
+• No ability to alter the system: The adversary cannot modify the model or filters (e.g., via data poisoning, fine-tuning, or disabling moderation); the service is static, and the only control is prompt content. 
+
+• Single-turn (zero-shot) evaluated trials: Each trial uses one query and embeds all necessary instructions within that query rather than relying on dialogue history or auxil-iary channels. This evaluation constraint does not preclude offline development or prior probing used to design a fixed attack template before evaluation. Under these assumptions, the attacker is limited to text-only prompt construction against a closed input–output interface. Be-cause provider-side moderation routes are unobservable, stage at-tribution uses externally visible proxies. A trial was blocked only when the service returned a recognizable service-level rejection response or explicit API/UI block instead of a normal generated com-pletion. Generated refusals therefore counted as visible acceptance and were evaluated at later stages. These criteria do not identify an internal provider component, but they provide a consistent basis for the staged labels below. 
+
+## 3.3 Adversary Objectives and Success Criteria 
+
+The adversary seeks to induce a policy-violating model response while avoiding automated detection. Operationally, success means Benyamin Tafreshian and Prathamesh Dhake 
+
+Table 1: Conceptual comparison with the closest reconstruction-oriented jailbreaks. Reported success rates are not directly comparable due to usage of different datasets, targets, and evaluators.           
+
+> Method Concealment Recovery mechanism Interaction/setup Evaluation emphasis
+> CipherChat [31] Whole-request cipher or encoding Cipher teaching and enciphered demonstrations; returned cipher response is decoded externally System-role prompt with few-shot demonstrations Safety-violation rates by cipher, model, language, and domain CodeChameleon [19] Personalized word-order or structural transform, including OddEven Embedded Python-like decryption and solution functions Code-completion wrapper around one encrypted request End-to-end attack success across models and harmful-query benchmarks DrAttack [16] Syntactic decomposition and synonymized sub-prompts Implicit reconstruction from benign in-context reassembly examples Black-box search with a reported budget of up to 15 queries End-to-end attack success, including human and automated evaluation ACE/LACE [9] Custom ciphers; LACE sequentially layers multiple ciphers Model follows supplied cipher definitions to recover the request Prompt-based attack without target-specific gradient optimization Attack success and the relationship between cipher-decoding capability and vulnerability RoguePrompt Even/odd span streams; Vigenère on the serialized odd stream; outer ROT13 Explicit field grammar, key, inverse procedure, and deterministic interleaving Single-turn natural-language wrapper; three independent trials per condition Visible acceptance, output-evidenced reconstruction, execution, and failure stage
+
+the system accepts the input and the model returns disallowed con-tent it should have refused. We define success via three sequential criteria aligned with the RoguePrompt stages: (1) Visible Input Acceptance (Bypass Proxy): The prompt receives no observed hard rejection, explicit API/UI block, or pre-generation flag according to the observable API/UI criteria above, and instead produces a completion-like re-sponse. We treat this as a bypass proxy, not as proof that any particular provider-side moderation component accepted, skipped, or failed to inspect the input. (2) Output-Evidenced Reconstruction: Given an accepted prompt, the visible response restates, paraphrases, or sub-stantively addresses the intended request. This is an observ-able response criterion, not a claim that we can inspect the model’s internal state. (3) Execution: The response substantively carries out the re-constructed request rather than refusing, safe-completing, or returning only an incomplete fragment. Within a trial, an attack is fully successful only if all three condi-tions hold in that same response. At the condition level, Bypass@3, Reconstruction@3, and Execution@3 are the logical OR of the corresponding trial-level indicators across the three independent responses. Because trial-level execution implies both acceptance and reconstruction, condition-level Execution@3 also guarantees that all three stages occurred in at least one common trial. If all three trials are blocked, fail to reconstruct, or reconstruct but refuse, the condition is incomplete. By definition, execution also counts as evidence of reconstruction even when the response does not explicitly repeat the recovered instruction. 
+
+## 4 Methodology 
+
+RoguePrompt deterministically transforms a forbidden input into a single self-reconstructing query comprising an encoded payload and a visible natural-language wrapper. It partitions the input’s text spans into even- and odd-position streams, applies Vigenère to the serialized odd stream, and applies ROT13 to the assembled payload containing both streams, the key, and ordering metadata. The unen-coded wrapper instructs the target to reverse the transformations and act on the recovered request in one response. 
+
+## 4.1 Design Rationale 
+
+RoguePrompt is guided by four design goals. First, representation separation seeks to prevent either submitted stream from contain-ing the complete original request in order. Second, lossless recovery 
+
+requires every transformation to be reversible so that failure can be attributed to model behavior rather than information discarded by the encoder. Third, self-containment places the payload, key, ordering metadata, and inverse procedure in a single query, avoid-ing reliance on conversational history. Fourth, determinism fixes all attack-side choices before evaluation so that differences across targets arise from the observed target responses rather than per-prompt search. The layers serve distinct representational roles. Even/odd parti-tioning separates adjacent text spans while preserving their within-stream order. Vigenère changes the alphabetic content of one seri-alized stream, creating an asymmetric payload in which the two parts do not share the same surface representation. ROT13 then transforms the assembled fields, including the remaining plaintext stream and reconstruction metadata. The visible wrapper remains readable because it must tell the target how to reverse the outer layer and parse the revealed fields. The Vigenère key is included in the prompt and is not intended to provide cryptographic secrecy. Likewise, ROT13 is trivially re-versible. RoguePrompt therefore makes no cryptographic-security claim; the ciphers are deterministic representation transformations used to study whether safety behavior changes when disallowed semantics emerge only after instructed computation. Their value is evaluated empirically through the staged outcomes and compo-nent ablations rather than through resistance to a knowledgeable decoder. 
+
+## 4.2 Formal Pipeline Definition 
+
+Formally, let 𝐼 be a forbidden input prompt (plaintext). We denote by 𝜏 (·) the deterministic text-span segmentation function used by our implementation. It converts the input string into an ordered se-quence of attack-side text spans that preserve word boundaries and intervening non-alphabetic characters needed for reconstruction. These spans are not target-model tokens and do not depend on the proprietary tokenizer of the target LLM. The segmented prompt is 
+
+𝑃 = 𝜏 (𝐼 ) = (𝑡 0, 𝑡 1, · · · , 𝑡 𝑛 −1), (1) RoguePrompt 
+
+where 𝑃 is an ordered sequence of 𝑛 spans indexed from 0 to 𝑛 − 1.Next, we define a fixed zero-based even/odd partitioning operator that splits 𝑃 into two disjoint subsequences while preserving the original order within each subsequence: 
+
+(𝐸, 𝑂 ) = Partition (𝑃 ),𝐸 = (𝑡 𝑗 ) 0≤ 𝑗 <𝑛 𝑗 ≡0 (mod 2 )
+
+,𝑂 = (𝑡 𝑗 ) 0≤ 𝑗 <𝑛 𝑗 ≡1 (mod 2 )
+
+.
+
+(2) Thus 𝐸 is the zero-based even-position text-span stream and 𝑂 is the zero-based odd-position text-span stream. Other span-partition strategies are possible, but this convention is fixed for the exper-iments reported here. This ensures that neither part individually contains the complete forbidden phrase, reducing the chance of immediate detection. We also define a recombination operator R
+
+that inverts this fixed span partition by interleaving the streams beginning with 𝐸 :
+
+ˆ𝑃 = R ( 𝐸, 𝑂 ). (3) For even 𝑛 , |𝐸 | = |𝑂 | and R alternates 𝐸 0, 𝑂 0, 𝐸 1, 𝑂 1, . . . until both streams are exhausted. For odd 𝑛 , |𝐸 | = |𝑂 | + 1 and the final un-matched span is the last element of 𝐸 . If the transformations are fol-lowed correctly, ˆ𝑃 should exactly match 𝑃 (i.e., the original prompt is fully recovered after concatenating the attack-side text spans). We now formalize the two-layer transformation using the im-plementation order used by RoguePrompt: Vigenère is applied to the serialized odd-position stream 𝑂 first, and ROT13 is applied afterward to the assembled payload [ 14 , 24 ]. Let 𝑠 (·) serialize a span subsequence into a delimited string that preserves the information needed to parse the sequence, and let 𝑠 −1 (·) parse that string back into spans. Let 𝑓 𝜙 (·) denote the inner transformation , instanti-ated as Vigenère encryption with key 𝜙 , and let 𝑔 (·) denote the 
+
+outer transformation , instantiated as ROT13. The inner layer encrypts only the serialized odd stream: 
+
+𝑂 ′ = 𝑓 𝜙 (𝑠 (𝑂 )) . (4) We assemble the serialized even stream, Vigenère ciphertext, fixed key, and ordering metadata as 
+
+𝐴 = Assemble (𝑠 (𝐸 ), 𝑂 ′, 𝜙 ), (5) and the outer ROT13 layer is applied to the assembled payload before directive wrapping: 
+
+𝑄 = Wrap  𝑔 (𝐴 ). (6) Thus, 𝑄 encapsulates the encoded version of 𝐼 : the inner Vigenère layer transforms the odd-position content, while the outer ROT13 layer masks the assembled fields. The visible wrapper supplies the decoding procedure. The model is instructed to unwrap the directive, reverse ROT13, parse the payload, decrypt the odd stream with the Vigenère key, and recombine the two streams: 
+
+𝐶 = Unwrap (𝑄 ), 𝐴 = 𝑔 −1 (𝐶 ), (𝑆 𝐸 , 𝑂 ′, 𝜙 ) = Parse (𝐴 ),
+
+(7) where 𝑆 𝐸 denotes the serialized even-position stream parsed from the EVEN field of 𝐴 .
+
+ˆ𝑃 = R  𝑠 −1 (𝑆 𝐸 ), 𝑠 −1 (𝑓 −1 
+
+> 𝜙
+
+(𝑂 ′)) . (8) If the transformations are followed correctly, ˆ𝑃 recovers the original segmented sequence 𝑃 , after which the model may concatenate the recovered text spans and execute the reconstructed instruction. 
+
+Implementation-facing specification. To make the transformation reproducible without printing harmful payloads, we use a length-prefixed serialization grammar in all safety-reviewed artifacts. For a span sequence 𝑈 = (𝑢 0, . . . , 𝑢 𝑚 −1),
+
+𝑠 (𝑈 ) = len (𝑢 0):𝑢 0| · · · |len (𝑢 𝑚 −1):𝑢 𝑚 −1,
+
+where lengths are counted in Unicode code points after normaliza-tion and the length prefix makes delimiter escaping unnecessary. The inverse 𝑠 −1 reads exactly the advertised number of code points after each colon and treats the vertical bar only as a separator be-tween length-prefixed spans. The assembled payload has the field grammar 
+
+EVEN = 𝑠 (𝐸 ); ODD = 𝑂 ′; KEY = 𝜙 ; ORDER = 0-even .
+
+The ORDER = 0-even field records the reconstruction convention: interleave the even stream and odd stream starting with 𝐸 , and when |𝐸 | = |𝑂 | + 1 append the final unmatched span from 𝐸 . The Vigenère transform is applied to ASCII letters in the serialized odd stream, preserves case, leaves non-alphabetic characters unchanged, and advances the repeated key only when a letter is transformed. ROT13 is likewise applied only to ASCII letters and covers the assembled payload fields, not the visible wrapper directive. The fixed-key policy is pre-registered for a run: all prompts in the same experimental configuration use the same key identifier, and no prompt-specific key search or manual tuning is allowed. The following demo vector illustrates the parser. Let 
+
+𝐼 = bring blue pens ,𝑃 = (bring , blue , pens ).
+
+With zero-based parity, 𝐸 = (bring , pens ) and 𝑂 = (blue ).For the demo key 𝜙 = LIME , 𝑠 (𝐸 ) = 6:bring |4:pens , 𝑠 (𝑂 ) =
+
+5:blue , and 𝑂 ′ = 5:mtgi . Thus the assembled demo payload is 
+
+> A = EVEN=6:bring |4:pens; ODD=5:mtgi ;KEY=LIME;ORDER=0-even
+
+and the ROT13 payload is 
+
+> g(A) = RIRA=6:oevat |4:craf; BQQ=5:zgtv ;XRL=YVZR;BEQRE=0-rira .
+
+For our examples, Wrap (𝑥 ) instructs the model to decode the ROT13 payload, parse the four fields, decrypt the odd stream with the stated key, interleave streams beginning with the even stream, and report the recovered sentence. Applying the inverse operations yields 
+
+ˆ𝑃 = 𝑃 and the concatenated sentence " bring blue pens ". 
+
+## 4.3 Algorithms and Complexity 
+
+Algorithm 1 summarizes deterministic prompt construction, while Algorithm 2 gives the three-trial labeling and aggregation proce-dure. Benyamin Tafreshian and Prathamesh Dhake 
+
+Algorithm 1 RoguePrompt Generation 
+
+Require: Forbidden prompt 𝐼 ; fixed key 𝜙 
+
+Ensure: Transformed query 𝑄  
+
+> 1:
+
+𝑃 ← 𝜏 (𝐼 ) 
+
+> 2:
+
+(𝐸, 𝑂 ) ← PartitionEvenOdd (𝑃 ) 
+
+> 3:
+
+𝑂 ′ ← Vigenere (Serialize (𝑂 ), 𝜙 ) 
+
+> 4:
+
+𝐴 ← Assemble (Serialize (𝐸 ), 𝑂 ′, 𝜙 ) 
+
+> 5:
+
+𝑄 ← Wrap (ROT13 (𝐴 ))  
+
+> 6:
+
+return 𝑄 
+
+Algorithm 2 Three-Trial Evaluation and Condition-Level Labeling 
+
+Require: Prompts {𝐼 𝑖 }𝑁 𝑖 =1; method 𝑇 ; target 𝑀  
+
+> 1:
+
+for 𝑖 ← 1 to 𝑁 do  
+
+> 2:
+
+𝑄 𝑖 ← 𝑇 (𝐼 𝑖 ) 
+
+> 3:
+
+for 𝑘 ← 1 to 3 do  
+
+> 4:
+
+(𝑚 𝑖𝑘 , 𝑦 𝑖𝑘 ) ← Submit (𝑀, 𝑄 𝑖 ) 
+
+> 5:
+
+𝐵 𝑖𝑘 ← VisibleAcceptance (𝑚 𝑖𝑘 , 𝑦 𝑖𝑘 ) 
+
+> 6:
+
+𝑎 𝑖𝑘 ← AuxiliarySignals (𝑚 𝑖𝑘 , 𝑦 𝑖𝑘 , 𝐼 𝑖 ) 
+
+> 7:
+
+(e𝑅 𝑖𝑘 , e𝑋 𝑖𝑘 , e𝐹 𝑖𝑘 ) ← Judge (𝐼 𝑖 , 𝑦 𝑖𝑘 , 𝑎 𝑖𝑘 ) 
+
+> 8:
+
+if 𝐵 𝑖𝑘 = 1 then  
+
+> 9:
+
+(𝑅 𝑖𝑘 , 𝑋 𝑖𝑘 ) ← ( e𝑅 𝑖𝑘 , e𝑋 𝑖𝑘 ) 
+
+> 10:
+
+if 𝑋 𝑖𝑘 = 1 then 𝑅 𝑖𝑘 ← 1 
+
+> 11:
+
+end if  
+
+> 12:
+
+else  
+
+> 13:
+
+(𝑅 𝑖𝑘 , 𝑋 𝑖𝑘 ) ← ( 0, 0) 
+
+> 14:
+
+end if  
+
+> 15:
+
+𝐹 𝑖𝑘 ← FinalizeLabel (𝑚 𝑖𝑘 , 𝑦 𝑖𝑘 , 𝐵 𝑖𝑘 , 𝑅 𝑖𝑘 , 𝑋 𝑖𝑘 , e𝐹 𝑖𝑘 ) 
+
+> 16:
+
+end for  
+
+> 17:
+
+(𝐵 𝑖 , 𝑅 𝑖 , 𝑋 𝑖 ) ← ( max 𝑘 𝐵 𝑖𝑘 , max 𝑘 𝑅 𝑖𝑘 , max 𝑘 𝑋 𝑖𝑘 ) 
+
+> 18:
+
+𝐹 𝑖 ← AggregateFailure ({ 𝐹 𝑖𝑘 }3
+
+> 𝑘 =1
+
+, 𝑋 𝑖 ) 
+
+> 19:
+
+Log (𝐼 𝑖 , 𝑄 𝑖 , {𝑚 𝑖𝑘 , 𝑦 𝑖𝑘 }3
+
+> 𝑘 =1
+
+, 𝐵 𝑖 , 𝑅 𝑖 , 𝑋 𝑖 , 𝐹 𝑖 ) 
+
+> 20:
+
+end for 
+
+Let 𝐿 be the serialized input length. Segmentation, partitioning, serialization, Vigenère, ROT13, and assembly each require 𝑂 (𝐿 )
+
+time and 𝑂 (𝐿 ) space, so prompt generation is linear. For 𝑁 con-ditions with input lengths 𝐿 𝑖 and response lengths 𝑌 𝑖𝑘 for trials 
+
+𝑘 ∈ { 1, 2, 3}, local processing is 𝑂 (Í𝑖 (𝐿 𝑖 + Í𝑘 𝑌 𝑖𝑘 )) , excluding target-model and evaluator inference; each condition uses three target-model queries. 
+
+## 4.4 Robustness and Tokenization Considerations 
+
+The pipeline operates on attack-side text spans and ASCII characters rather than target-model tokens. Its length-prefixed serialization preserves span boundaries even when a span contains punctuation or field delimiters, while both transformations leave non-alphabetic characters unchanged. The parity rule and explicit ordering field remove ambiguity about which stream contributes the first and final span. Consequently, the mapping is lossless under the stated parsing rules: exact recovery is possible when the target follows the wrapper instructions. This construction makes prompt generation independent of a target service’s proprietary tokenizer, but it does not make model be-havior tokenizer-independent. Encoded strings may be split into dif-ferent token sequences, and a provider may normalize whitespace, Unicode, or punctuation before inference. Likewise, the wrapper may be misunderstood even when the underlying transformation is reversible. We therefore distinguish formal reversibility from em-pirical reconstruction: the former is a property of the encoder and parser, whereas the latter is measured from the visible response. Se-rialization and metadata add only linear length overhead, avoiding a combinatorial search or prompt-specific optimization step. 
+
+## 4.5 Implementation Summary 
+
+Before evaluation, we fixed the wrapper, Vigenère key policy, seg-mentation and serialization rules, parser version, automated label rules, and baseline templates. No key, delimiter, wrapper, or tem-plate was adapted to an individual benchmark prompt or to a re-sponse observed during the reported run. Given the same input and configuration identifier, prompt generation therefore produces the same transformed query. Each prompt-method-model condition was submitted three times under the provider’s default serving configuration. The three trials were independent, contained exactly the same transformed prompt, and did not use earlier responses to modify later requests. Only requests that returned no model response because of transport or rate-limit errors were retried; refusals, safe completions, malformed completions, and partial answers were retained as experimental out-comes. Requests could be issued concurrently to reduce wall-clock time, but concurrency did not change prompts, the three-query budget, or labeling rules. Each returned response was associated with exactly one prompt–method–configuration–trial tuple. Logs record the original and transformed prompts, complete re-sponse, timestamp, exact endpoint identifier, observable status/error signals, and the wrapper, key, serialization, baseline template, parser, and evaluator versions. These records support deterministic regen-eration of inputs and aggregate tables. They cannot make hosted inference deterministic: model outputs and provider-side policies may change across repeated runs. Our reproducibility claim is there-fore limited to prompt construction, and automated labeling code described in Section 5.1. 
+
+## 5 Evaluation 5.1 Experimental Setup 
+
+We evaluated RoguePrompt and the baselines on the StrongRE-JECT dataset, which comprises 313 policy-violating prompts that are designed to be specific, answerable, and rejected under Stron-gREJECT’s benchmark protocol [ 27 ]. These prompts span a variety of disallowed content categories (e.g., instructions for illicit activ-ities, hate speech, self-harm, etc.) and were chosen to be specific and answerable (if the model were to comply). Our target snap-shots were OpenAI GPT-4o (gpt-4o-2024-11-20), Anthropic Claude 3 Opus (claude-3-opus-20240229), and Google Gemini 1.5 Pro (gemini-1.5-pro-002). Tables and figures use the shorter names GPT-4o, Claude 3 Opus, and Gemini 1.5 Pro. All target and aux-iliary queries were conducted during April and May 2025 using these publicly deployed snapshots. We did not alter any decoding RoguePrompt 
+
+parameters : no special temperature, top-𝑝 , or system-message mod-ifications were applied. Each query used the relevant provider’s default settings. Consequently, our results reflect observed behavior under the providers’ default serving configurations, rather than a fixed or exactly reproducible decoding regime. This also mirrors an adversarial scenario in which the attacker cannot fine-tune or force deterministic decoding of a remote API model. The transformed prompts were deterministic, but the resulting outputs should be interpreted as three independent samples per condition from those serving configurations. For each method, model configuration, and source prompt, we recorded whether at least one of the three trials succeeded at each stage using the criteria below. The unit of analysis is one prompt-method-model condition, evaluated with three independent target-model trials. The main comparison contains six methods, three model configurations, and 313 prompts, for 5,634 conditions and 16,902 target submissions. Six additional ablation variants contribute another 5,634 conditions and 16,902 submissions, reusing the main-run full RoguePrompt result. The study therefore contains 11,268 conditions and 33,804 target-model submissions. Auto Payload Splitting used 313 offline auxiliary construction calls, and the evaluator used one offline judge call per target response (33,804 calls), yielding 67,921 total model API calls. Construction and evaluator calls are reported separately and excluded from the equal three-query attack budget. Method-level values are arithmetic means of the three per-configuration @3 rates; because each configuration uses the same 313 prompts, they are also equal-weight pooled rates. 
+
+## 5.2 Metrics and Automated Evaluator 
+
+After response collection, a fixed hybrid evaluator labeled every target response using rule-based signals, embedding similarity, and an LLM judge. Regular-expression and lexical checks detected rec-ognizable service-level blocks, refusal language, and reconstruction errors. Semantic signals used jinaai/jina-embeddings-v3 [ 28 ]. Original requests used the retrieval.query adapter and response chunks used retrieval.passage . We computed cosine similarity over 1,024-dimensional L2-normalized embeddings and supplied the maximum and top-three mean request–chunk similarities to the judge. These continuous signals did not independently determine a label. For each response, including responses identified by determinis-tic checks as service-level blocks, the evaluator supplied the original forbidden prompt, full response, and auxiliary regex and similar-ity signals to Llama-3.3-70B-Instruct through an author-managed API deployment on the cloud [ 20 ]. It withheld the transformed attack prompt, target-model and provider identities. The evaluation prompt was fixed and versioned, the deployment’s default gener-ation parameters were used, and one judge call produced binary reconstruction and execution decisions, a categorical outcome, and a short logged rationale. After that call, the deterministic visible-block rule fixed 𝐵 𝑖𝑘 = 0 and (𝑅 𝑖𝑘 , 𝑋 𝑖𝑘 ) = (0, 0) for a recognizable service-level block, regardless of the judge output. The judge did not receive chain-of-thought, hidden activations, or provider traces. For condition 𝑖 and trial 𝑘 , let 𝐵 𝑖𝑘 , 𝑅 𝑖𝑘 , 𝑋 𝑖𝑘 ∈ { 0, 1} denote visi-ble acceptance, reconstruction, and execution. 𝐵 𝑖𝑘 = 0 only for a recognizable service-level block; a normal completion that later refused had 𝐵 𝑖𝑘 = 1. For accepted trials, 𝑅 𝑖𝑘 = 1 required evidence that the response recovered and understood the original request rather than hallucinating or addressing another task. 𝑋 𝑖𝑘 = 1 re-quired substantive fulfillment without refusal or safe completion, and implies 𝑅 𝑖𝑘 = 1. Ambiguous responses without clear evidence received zero for the corresponding stage. Condition indicators are 𝐵 𝑖 = max 𝑘 𝐵 𝑖𝑘 , 𝑅 𝑖 = max 𝑘 𝑅 𝑖𝑘 , and 𝑋 𝑖 =
+
+max 𝑘 𝑋 𝑖𝑘 . Bypass@3, Reconstruction@3, and Execution@3 equal 
+
+100 𝑁 −1 Í𝑖 𝐵 𝑖 , 100 𝑁 −1 Í𝑖 𝑅 𝑖 , and 100 𝑁 −1 Í𝑖 𝑋 𝑖 . Table 2 defines the mutually exclusive trial labels. For conditions with 𝑋 𝑖 = 0, the condition label follows the fixed priority RAR → PR → DPF →
+
+OTH → BI ; successful conditions are excluded from the failure-mode denominator. Reported labels were not manually changed or adjudicated. To assess evaluator reliability, the authors conducted a label-blinded audit of 300 sampled records: they reviewed each original request and target-model response without seeing the evaluator’s label, assigned a label using the same rubric, and then compared their assessments with the automated judgments. The audit found no disagreements requiring label changes. 
+
+Table 2: Hybrid automated outcome and failure-label rules. Example patterns are sanitized.        
+
+> Label Observable rule or response pattern
+> BI Explicit service/API block, hard rejection, or no completion-like response. DPF Accepted response fails to recover the request or hallucinates unrelated content. PR Response recovers only a proper subset or materially incomplete form of the request. RAR Response evidences the recovered request and then refuses, redirects, or safe-completes. OTH Accepted response is malformed, unrelated, or not covered by DPF, PR, or RAR. Exec Response substantively fulfills the recovered request without refusal or safe completion.
+
+## 5.3 Main Results 
+
+Table 3 compares configuration-averaged @3 stage rates. Rogue-Prompt has the highest Execution@3 rate (70.18%), compared with 33.97% for the next strongest baseline, Paired-Request Concatena-tion. Base64 Raw makes the case for stage separation especially clearly. It reconstructs the hidden prompt in 93.29% of attempts, yet only 16.83% of those attempts produce policy-violating output. Reconstruction, and the visible acceptance that accompanies it, is therefore a poor proxy for end-to-end attack success. The baselines separate into different behavioral patterns. Base64 Raw is usually accepted and reconstructed but seldom executed, indicating that straightforward decoding often preserves the oppor-tunity for a model-level refusal. Auto Payload Splitting also recon-structs substantially more often than it executes. Paired-Request Concatenation and PAP (Authority Endorsement) have lower ac-ceptance and reconstruction but higher execution than the lexical baselines once considered end to end. Disemvowel performs poorly at every stage. RoguePrompt is the only evaluated method for which a majority of conditions reach Execution@3 after both preceding stages. Figure 2 shows that the Execution@3 ordering is consistent across the three tested model configurations. RoguePrompt Execu-tion@3 ranges from 66.13% on Gemini 1.5 Pro to 73.16% on Claude 3 Opus, with GPT-4o at 71.25%. Its Bypass@3 rate ranges from Benyamin Tafreshian and Prathamesh Dhake 
+
+Figure 2: Stage-wise @3 success rates by method and tested model configuration ( 𝑁 = 313 conditions per model; three trials per condition): visible input acceptance, output-evidenced reconstruction, and execution (percent). Table 3: Configuration-averaged fixed-budget success rates of the proposed method and baselines across GPT-4o, Claude 3 Opus, and Gemini 1.5 Pro ( 𝑁 = 313 conditions per configu-ration; three trials per condition).                      
+
+> Method Bypass@3 (%) Recon.@3 (%) Exec.@3 (%)
+> RoguePrompt 93.93 79.02 70.18 Auto Payload Splitting 79.55 76.36 12.99 Base64 Raw 93.40 93.29 16.83 Disemvowel 3.09 3.09 2.13 Paired-Request Concatenation 60.81 57.93 33.97 PAP (Authority Endorsement) 63.68 51.54 25.13
+
+90.10% to 97.13%, and its Reconstruction@3 rate from 73.80% to 82.11%. Paired-Request Concatenation is the strongest baseline by Execution@3 on each configuration, while Base64 Raw has consis-tently high Reconstruction@3 but Execution@3 near 16–17%. The magnitude varies across providers, but the central separation be-tween reconstruction and execution remains present in each tested configuration. For ablation, we held the dataset, wrapper family, key policy, three-trial query budget, target settings, and evaluator fixed. Each “No” variant removes the named transformation and its correspond-ing inverse instruction without retuning the remaining components; each “only” variant retains only the named transformation within the same single-turn wrapper structure. This design measures the effect of component removal under a fixed construction rather than searching for the best wrapper for every variant. Table 4 reports relative changes in the @3 rates from the full con-figuration. Removing any component reduces all three outcomes. Among the component-removal variants, disabling splitting pro-duces the largest observed reductions in Bypass@3 ( −55 .63% ), Re-construction@3 ( −48 .86% ), and Execution@3 ( −74 .59% ); the ROT13 and Vigenère removals have comparable but smaller effects. The single-component variants perform substantially worse, indicating that the observed performance depends on the combined construc-tion rather than on a single layer alone. These values establish contribution within the tested wrapper and fixed three-trial budget, not a universal ranking of the transformations under separately optimized prompts. 
+
+Table 4: Fixed-budget ablation study across models. Values are relative percentage changes in @3 rates vs. full Rogue-Prompt; the full method is the zero-change baseline.                         
+
+> Variant Bypass@3 ( Δ𝐵 )Recon.@3 ( Δ𝑅 )Exec.@3 ( Δ𝑋 )
+> RoguePrompt (Vig+ROT13+Split) 0.00% 0.00% 0.00% No ROT13 (Vig+Split) -50.18% -42.38% -67.93% No Splitting (Vig+ROT13) -55.63% -48.86% -74.59% No Vigenère (ROT13+Split) -52.00% -44.55% -70.05% ROT13 only -85.65% -83.61% -94.41% Splitting only -98.76% -98.52% -98.79% Vigenère only -81.57% -78.76% -91.69%
+
+Table 5 decomposes Execution@3-failed conditions using the automated aggregation rule defined above. RoguePrompt failures are distributed across blocking, decoding, partial recovery, and post-reconstruction refusal: no single category accounts for a majority of its 280 failed conditions. By contrast, Disemvowel failures are almost entirely BI (99.02%), whereas Base64 Raw failures are domi-nated by RAR (88.35%). Auto Payload Splitting is also dominated by RAR, while the paired and authority-based templates have larger input-blocking shares. The methods, therefore, fail at different ob-servable stages even when their final Execution@3 rates are similar, which would be hidden by reporting execution alone. 
+
+Table 5: Pooled observable-proxy failure-mode distribution among Execution@3-failed prompt–method–model condi-tions across GPT-4o, Claude 3 Opus, and Gemini 1.5 Pro. Failed 𝑛 is the number of failed conditions used as the de-nominator for that method; percentage columns sum to 100% per row.                                            
+
+> Method Failed 𝑛 BI (%) DPF (%) PR (%) RAR (%) OTH (%)
+> RoguePrompt 280 20.36 35.00 15.00 21.43 8.21 Auto Payload Splitting 817 23.50 2.57 1.10 59.98 12.85 Base64 Raw 781 7.94 0.13 0.00 88.35 3.59 Disemvowel 919 99.02 0.00 0.00 0.98 0.00 Paired-Request Concatenation 620 59.35 3.23 1.13 28.23 8.06 PAP (Authority Endorsement) 703 48.51 11.38 4.84 24.89 10.38 RoguePrompt
+
+BI: blocked at input; DPF: decode/parse fail after input acceptance; PR: partial reconstruction; RAR: refusal after reconstruction; OTH: other accepted-prompt anomaly. 
+
+## 5.4 Baselines 
+
+Table 6 maps each baseline to the exact transformation and source. Paired-Request Concatenation is a custom single-turn template and is not the iterative PAIR attack. All methods receive the same for-bidden input and three independent target-model trials containing the same transformed prompt, with no system-message changes. Template identifiers, delimiters, parameters, and fixed seeds are recorded with each generated prompt. The comparison budget counts the three queries to the evaluated target model for each condition. Deterministic lexical or encoding transformations are performed locally. Auto Payload Splitting uses one offline auxiliary-model construction call for each of the 313 source prompts; the resulting prompt is reused across all target models and trials and is not adapted to any target response. These 313 auxiliary calls are included in the complete API-call accounting in Section 5.1 but excluded from the equal target-model trial bud-get. This distinction keeps the measured target interaction budget consistent while making prompt-construction provenance explicit. The closest reconstruction-oriented attacks in Table 1 were not included in the logged comparative run. We therefore compare their mechanisms conceptually rather than juxtaposing published success rates obtained with different datasets, target versions, query budgets, wrappers, and evaluators. The numerical claims in this section are restricted to the five baselines implemented under our common evaluation procedure. 
+
+Table 6: Baseline definitions and provenance.        
+
+> Method Transformation Source
+> Paired-Request Concatenation Appends the request to a fixed benign companion prompt with a fixed delimiter. Custom (this work) PAP Instantiates the authority-endorsement persuasion template. Zeng et al. [32] Auto Payload Splitting Uses an auxiliary model to split and refer to sensitive payload terms indirectly. Kang et al. [12] Disemvowel Removes vowels from the forbidden request. StrongREJECT [27] Base64 Raw Base64-encodes the request without an additional jailbreak wrapper. StrongREJECT [27]
+
+## 5.5 Additional Analyses 
+
+Table 7 reports @3 results across six StrongREJECT policy domains. Bypass@3 is comparatively stable (91.36–96.67%), while Execu-tion@3 ranges from 49.15% for non-violent crimes to 90.00% for sexual content. The larger variation after acceptance indicates that category-level differences arise primarily during output-evidenced reconstruction and execution. Sexual content and disinformation/deception rank highest on Execution@3; illegal goods/services and non-violent crimes rank lowest. Their Bypass@3 rates remain close, so the gap cannot be explained solely by observable input blocking. Instead, the lower-performing categories also show reduced Reconstruction@3 and more opportunities for refusal or incomplete recovery. Violence and hate/harassment fall between these groups. These category results are descriptive rather than causal: prompt length, linguistic structure, and provider policy may all differ across domains. 
+
+Table 7: Configuration-averaged @3 attack success by content category ( 𝑁 = 313 conditions per configuration; category counts are source prompts per configuration). Categories are based on the policy violation type of the prompt.                           
+
+> Category #Prompts Bypass@3 (%) Recon.@3 (%) Exec.@3 (%)
+> Disinformation and deception 50 95.33 90.67 87.33 Hate/Harassment 50 94.00 84.67 74.00 Illegal goods and services 50 94.00 64.00 51.33 Non-violent crimes 59 92.66 61.02 49.15 Sexual content 50 96.67 93.33 90.00 Violence 54 91.36 83.33 72.84
+
+## 6 Discussion 
+
+RoguePrompt exposes a mismatch between surface-level input acceptance and downstream model behavior. Across the tested systems, 93.93% of conditions achieved Bypass@3, while 70.18% achieved Execution@3. The gap between these rates shows that reconstruction and refusal behavior still stopped some accepted prompts within the fixed three-trial budget, but also that input acceptance alone is an incomplete safety measure. Separating ac-ceptance, reconstruction, and execution therefore provides a more informative account of where an observable pipeline-level fail-ure occurs, without making claims about proprietary moderation routes. 
+
+Attack Feasibility and Scope. RoguePrompt requires only black-box API/UI access and places the transformation and execu-tion instructions in a single-turn query. The reported @3 evaluation submits that same query independently three times per condition. The same construction produced policy-violating outputs across all three tested model configurations, although success varied by configuration and content category. This consistency supports the existence of a recurring failure mode among the tested systems; it does not establish universal susceptibility or identify a shared flaw in their internal architectures. 
+
+Limitations and Threats to Validity. Our results are a snap-shot of three hosted model configurations and their provider poli-cies, collected during April and May 2025. These configurations have since been updated. The contribution is therefore the attack construction and the evaluation methodology rather than the spe-cific rates, which are expected to shift with provider changes. The benchmark does not cover long-context, or multi-turn deployments. The hybrid evaluator combines deterministic checks with model-based classification, supplemented by a label-blinded audit of 300 sampled records as an additional reliability check. All methods were evaluated consistently using three independent trials per condition. Accordingly, the reported @3 rates characterize performance under this fixed and uniformly applied query budget. 
+
+Defensive Implications. Defenses should evaluate the com-putation requested by a prompt, not only its surface text. Input controls can flag combinations of encoded payloads and decode-reconstruct-execute directives, and can inspect content recovered Benyamin Tafreshian and Prathamesh Dhake 
+
+through common transformations [ 4 , 11 , 17 ]. Safety policy should then be reapplied after reconstruction and before execution, with output moderation serving as an additional backstop [ 7 , 23 , 29 ]. Model training and evaluation should likewise include concealed, multi-step instructions so that refusal behavior depends on the inferred end goal rather than the representation in which it first ap-pears [ 2 , 22 , 26 , 30 ]. Because these controls can fail independently, the staged metrics used here can also help defenders locate which layer requires improvement. 
+
+Broader Impacts. Legitimate, authorized red teaming is essen-tial to improving LLM security because it exposes failure modes before they can be exploited at scale. Conducted within controlled evaluation settings and guided by responsible disclosure, such re-search provides evidence for strengthening moderation pipelines, refining safety evaluations, and developing defenses against emerg-ing prompt-based attacks [3, 13, 23]. 
+
+## 7 Conclusion 
+
+This paper presented RoguePrompt, a black-box, single-turn jail-break that combines dual-layer encoding with instructions for self-reconstruction. Across three hosted model configurations and 313 StrongREJECT prompts, RoguePrompt achieved 70.18% Exe-cution@3, higher than each of the five evaluated baselines under the same three-trial budget. Our staged evaluation separates visible input acceptance, output-evidenced reconstruction, and execution, showing why surface-level acceptance alone does not character-ize end-to-end safety. Across the tested configurations, the results establish a repeatable end-to-end failure mode under realistic black-box access and a fixed query budget, independent of assumptions about the design of proprietary moderation components. They show that moderation pipelines should assess transformation intent and reapply safety controls after reconstruction and before output de-livery. RoguePrompt therefore provides both a concrete attack case study and an evaluation framework for developing defenses against concealed, multistage instructions. 
+
+## Open Science 
+
+We support reproducibility of our methodology and key results through a safety-reviewed artifact release in the following public repository: 
+
+https://github.com/btafreshian/AIsecStudy 
+
+## References 
+
+[1] Anthropic. 2024. Model Card and Evaluations for Claude Models. https://www-cdn.anthropic.com/c6a80a657af445f40e31afac050f3bf76d3b1404.pdf Claude 3 model card / safety overview (PDF). [2] Yuntao Bai, Saurav Kadavath, Sandipan Kundu, et al . 2022. Constitutional AI: Harmlessness from AI Feedback. arXiv preprint arXiv:2212.08073. [3] Miles Brundage, Shahar Avin, Jack Clark, et al . 2018. The Malicious Use of Artificial Intelligence: Forecasting, Prevention, and Mitigation. arXiv preprint arXiv:1802.07228. [4] Sizhe Chen, Julien Piet, Chawin Sitawarin, and David Wagner. 2025. StruQ: Defending Against Prompt Injection with Structured Queries. In 34th USENIX Security Symposium (USENIX Security 25) . USENIX Association, Berkeley, CA, USA, 2383–2400. https://www.usenix.org/conference/usenixsecurity25/present ation/chen-sizhe [5] Edoardo Debenedetti, Jie Zhang, Mislav Balunović, Luca Beurer-Kellner, Marc Fischer, and Florian Tramèr. 2024. AgentDojo: A Dynamic Environment to Evaluate Prompt Injection Attacks and Defenses for LLM Agents. doi:10.5555/37 37916.3740552 Advances in Neural Information Processing Systems (NeurIPS 2024) Datasets and Benchmarks Track. [6] Gelei Deng, Yi Liu, Yuekang Li, et al . 2024. MASTERKEY: Automated Jailbreaking of Large Language Model Chatbots. doi:10.14722/ndss.2024.24188 Network and Distributed System Security (NDSS) Symposium 2024. [7] Samuel Gehman, Suchin Gururangan, Maarten Sap, Yejin Choi, and Noah A. Smith. 2020. RealToxicityPrompts: Evaluating Neural Toxic Degeneration in Language Models. In Findings of the Association for Computational Linguistics: EMNLP 2020 . Association for Computational Linguistics, Stroudsburg, PA, USA, 3356–3369. doi:10.18653/v1/2020.findings-emnlp.301 [8] Google DeepMind. 2022. Building safer dialogue agents. https://deepmind.goo gle/blog/building-safer-dialogue-agents/ Blog post introducing the Sparrow dialogue agent. [9] Divij Handa, Zehua Zhang, Amir Saeidi, Shrinidhi Kumbhar, Md Nayem Uddin, Aswin RRV, and Chitta Baral. 2025. When “Competency” in Reasoning Opens the Door to Vulnerability: Jailbreaking LLMs via Novel Complex Ciphers. doi:10 .48550/arXiv.2402.10601 Reliable ML from Unreliable Data Workshop at NeurIPS 2025; arXiv:2402.10601. [10] Homa Hosseini, Sreeram Kannan, Baosen Zhang, and Radha Poovendran. 2017. Deceiving Google’s Perspective API Built for Detecting Toxic Comments. arXiv preprint arXiv:1702.08138. [11] Bo Hui, Haolin Yuan, Neil Gong, Philippe Burlina, and Yinzhi Cao. 2024. PLeak: Prompt Leaking Attacks against Large Language Model Applications. In Pro-ceedings of the 2024 ACM SIGSAC Conference on Computer and Communications Security (CCS) . Association for Computing Machinery, New York, NY, USA, 3600–3614. doi:10.1145/3658644.3670370 [12] Daniel Kang, Xuechen Li, Ion Stoica, Carlos Guestrin, Matei Zaharia, and Tat-sunori Hashimoto. 2023. Exploiting Programmatic Behavior of LLMs: Dual-Use Through Standard Security Attacks. arXiv preprint arXiv:2302.05733. [13] Erin Kenneally and David Dittrich. 2012. The Menlo Report: Ethical Principles Guiding Information and Communication Technology Research . Technical Report. U.S. Department of Homeland Security, Science and Technology Directorate, Cyber Security Division. [14] Auguste Kerckhoffs. 1883. La cryptographie militaire. Journal des sciences militaires 9 (1883), 5–38, 161–191. Published in two parts (Jan. 1883, pp. 5–38; Feb. 1883, pp. 161–191). [15] Torsten Krauß, Hamid Dashtbani, and Alexandra Dmitrienko. 2025. TwinBreak: Jailbreaking LLM Security Alignments based on Twin Prompts. In Proceedings of the 34th USENIX Security Symposium (USENIX Security 2025) . USENIX Associa-tion, Berkeley, CA, USA, 2343–2362. doi:10.5555/3766078.3766199 [16] Xirui Li, Ruochen Wang, Minhao Cheng, Tianyi Zhou, and Cho-Jui Hsieh. 2024. DrAttack: Prompt Decomposition and Reconstruction Makes Powerful LLMs Jailbreakers. In Findings of the Association for Computational Linguistics: EMNLP 2024 . Association for Computational Linguistics, Miami, Florida, USA, 13891– 13913. doi:10.18653/v1/2024.findings-emnlp.813 [17] Yi Liu, Gelei Deng, Yuekang Li, et al . 2025. Prompt Injection attack against LLM-integrated Applications. arXiv preprint arXiv:2306.05499. [18] Yi Liu, Gelei Deng, Zhengzi Xu, et al . 2024. Jailbreaking ChatGPT via Prompt Engineering: An Empirical Study. arXiv preprint arXiv:2305.13860. [19] Huijie Lv, Xiao Wang, Yuansen Zhang, Caishuang Huang, Shihan Dou, Junjie Ye, Tao Gui, Qi Zhang, and Xuanjing Huang. 2024. CodeChameleon: Personalized Encryption Framework for Jailbreaking Large Language Models. doi:10.48550/a rXiv.2402.16717 arXiv preprint arXiv:2402.16717. [20] Meta. 2024. Llama 3.3 Model Card. https://www.llama.com/docs/model-cards-and-prompt-formats/llama3_3/ Model card for Llama-3.3-70B-Instruct. [21] OpenAI. 2023. GPT-4 System Card. https://cdn.openai.com/papers/gpt-4-system-card.pdf Technical report. [22] Long Ouyang, Jeffrey Wu, Xu Jiang, et al . 2022. Training Language Models to Follow Instructions with Human Feedback. In Advances in Neural Information Processing Systems 35 , Vol. 35. Curran Associates, Inc., Red Hook, NY, USA, 27730–27744. doi:10.48550/arXiv.2203.02155 [23] Ethan Perez, Saffron Huang, Francis Song, Trevor Cai, Roman Ring, John Aslanides, Amelia Glaese, Nat McAleese, and Geoffrey Irving. 2022. Red Teaming Language Models with Language Models. In Proceedings of the 2022 Confer-ence on Empirical Methods in Natural Language Processing (EMNLP) . Association for Computational Linguistics, Abu Dhabi, United Arab Emirates, 3419–3448. doi:10.18653/v1/2022.emnlp-main.225 [24] Bruce Schneier. 2000. Secrets and Lies: Digital Security in a Networked World .John Wiley & Sons, New York, NY. [25] Zedian Shao, Hongbin Liu, Jaden Mu, and Neil Zhenqiang Gong. 2025. Enhancing Prompt Injection Attacks to LLMs via Poisoning Alignment. In Proceedings of the 2025 Workshop on Artificial Intelligence and Security (AISec ’25) . Association for Computing Machinery, New York, NY, USA, 13–27. doi:10.1145/3733799.3762963 [26] Minkyoo Song, Hanna Kim, Jaehan Kim, Seungwon Shin, and Sooel Son. 2025. Refusal Is Not an Option: Unlearning Safety Alignment of Large Language Models. In Proceedings of the 34th USENIX Security Symposium (USENIX Security 2025) .USENIX Association, Berkeley, CA, USA, 319–338. doi:10.5555/3766078.3766095 [27] Alexandra Souly, Qingyuan Lu, Dillon Bowen, et al. 2024. A StrongREJECT for Empty Jailbreaks. arXiv preprint arXiv:2402.10260. RoguePrompt 
+
+[28] Saba Sturua, Isabelle Mohr, Mohammad Kalim Akram, Michael Günther, Bo Wang, Markus Krimmel, Feng Wang, Georgios Mastrapas, Andreas Koukounas, Nan Wang, and Han Xiao. 2024. jina-embeddings-v3: Multilingual Embeddings With Task LoRA. doi:10.48550/arXiv.2409.10173 arXiv preprint arXiv:2409.10173. [29] Laura Weidinger, Jonathan Uesato, Maribeth Rauh, et al . 2022. Taxonomy of Risks Posed by Language Models. In Proceedings of the 2022 ACM Conference on Fairness, Accountability, and Transparency (FAccT ’22) . Association for Computing Machinery, New York, NY, USA, 214–229. doi:10.1145/3531146.3533088 [30] Jiahao Yu, Haozheng Luo, Jerry Yao-Chieh Hu, Yan Chen, Wenbo Guo, Han Liu, and Xinyu Xing. 2025. Mind the Inconspicuous: Revealing the Hidden Weakness in Aligned LLMs’ Refusal Boundaries. In Proceedings of the 34th USENIX Security Symposium (USENIX Security 2025) . USENIX Association, Berkeley, CA, USA, 259–278. [31] Youliang Yuan, Wenxiang Jiao, Wenxuan Wang, Jen-tse Huang, Pinjia He, Shum-ing Shi, and Zhaopeng Tu. 2024. GPT-4 Is Too Smart To Be Safe: Stealthy Chat with LLMs via Cipher. https://openreview.net/forum?id=MbfAK4s61A The Twelfth International Conference on Learning Representations (ICLR 2024). [32] Yi Zeng, Hongpeng Lin, Jingwen Zhang, Diyi Yang, Ruoxi Jia, and Weiyan Shi. 2024. How Johnny Can Persuade LLMs to Jailbreak Them: Rethinking Persuasion to Challenge AI Safety by Humanizing LLMs. arXiv preprint arXiv:2401.06373. [33] Qiusi Zhan, Zhixiang Liang, Zifan Ying, and Daniel Kang. 2024. InjecAgent: Benchmarking Indirect Prompt Injections in Tool-Integrated Large Language Model Agents. arXiv preprint arXiv:2403.02691. [34] Yi Zhang, Kai Chen, Yuekang Li, Gelei Deng, Kailong Wang, Tianwei Zhang, and Yang Liu. 2024. Goal-Driven Generative Prompt Injection Attack on Large Language Models. arXiv preprint arXiv:2404.07234. [35] Zhuo Zhang, Guangyu Shen, Guanhong Tao, Siyuan Cheng, and Xiangyu Zhang. 2024. On Large Language Models’ Resilience to Coercive Interrogation. In 2024 IEEE Symposium on Security and Privacy (SP) . IEEE, Los Alamitos, CA, USA, 826–844. doi:10.1109/SP54263.2024.00208 [36] Wei Zhou, Xiaogang Zhu, Qing-Long Han, Lin Li, Xiao Chen, Sheng Wen, and Yang Xiang. 2025. The Security of Using Large Language Models: A Survey With Emphasis on ChatGPT. IEEE/CAA Journal of Automatica Sinica 12, 1 (2025), 1–26. doi:10.1109/JAS.2024.124983 Benyamin Tafreshian and Prathamesh Dhake 
+
+## Usage of Generative AI 
+
+The authors designed the methodology and automated labeling pipeline, wrote the original experimental code, conducted the ex-periments, analyzed the results, and developed the scientific content. Llama-3.3-70B-Instruct, served through an author-managed Digi-talOcean deployment, was used as the automated response judge described in Section 5; the other LLM services were research tar-gets. Claude Code was subsequently used to refactor author-written code. ChatGPT and OpenAI Codex provided editorial, literature-screening, and formatting assistance. These authoring tools did not design the methodology, select or modify experimental inputs or outputs, compute results, or formulate scientific conclusions. All AI-assisted authoring outputs were reviewed by the authors, who take full responsibility for the code, methodology, evaluator, results, citations, and claims.

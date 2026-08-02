@@ -1,0 +1,181 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-08-02T20:23:18.209576+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 2,
+    "deep_cap": 6,
+    "deep_selected": 2,
+    "quick_candidates": 2,
+    "quick_skim_target": 11,
+    "quick_selected": 2
+  },
+  "deep_dive": [
+    {
+      "id": "2607.23597v2",
+      "source": "arxiv",
+      "title": "HiTMS: A High-Throughput Multi-Stream Linguistic Steganography Framework",
+      "abstract": "Generative linguistic steganography conceals secret bits within the sampling randomness of large language models. Existing schemes are single-stream, conveying an entire secret through a single response to a single prompt. This convention incurs limitations: it provides no protocol-level support for batched multi-stream inference, and naive co-batching does not conceal slot occupancy or payload completion. We propose the High-Throughput Multi-Stream (HiTMS) framework, which distributes a secret across multiple responses produced jointly over successive rounds of interaction. Each round embeds and extracts several streams within a single batched call, thereby amortizing the cost of model invocation and substantially improving throughput. To ensure recoverability, HiTMS wraps each response in a self-describing frame and employs a key-derived schedule that binds streams to slots and fills unused slots with decoys, guaranteeing exact recovery while concealing the number of active streams. The framework is agnostic to both the language model and the steganographic coder. Across eight dataset-model-coder settings, eight-stream HiTMS achieves up to 4.3 times higher embedding and extraction speeds than single-stream baselines, while reducing the average area under the receiver operating characteristic curve (AUROC) of steganalyzers from 0.681 to 0.601. Experiments with 4 to 64 streams demonstrate sustained throughput gains as concurrency increases. GitHub repository for this work is https://github.com/ryehr/HiTMS_steganography.",
+      "authors": [
+        "Ruiyi Yan",
+        "Zhongliang Yang",
+        "Yugo Murawaki"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.CL"
+      ],
+      "published": "2026-07-26T10:54:44+00:00",
+      "link": "https://arxiv.org/pdf/2607.23597v2",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "enables LLM-based steganography, a covert communication capability used in cybercrime",
+      "llm_evidence_cn": "实现基于大语言模型的隐写，是一种网络犯罪中使用的隐蔽通信能力",
+      "llm_evidence": "实现基于大语言模型的隐写，是一种网络犯罪中使用的隐蔽通信能力",
+      "canonical_evidence": "实现基于大语言模型的隐写，是一种网络犯罪中使用的隐蔽通信能力",
+      "llm_tldr_en": "HiTMS enhances LLM-based linguistic steganography by distributing secrets across multiple response streams, improving throughput and covertness, directly expanding LLM-enabled cybercriminal capabilities.",
+      "llm_tldr_cn": "HiTMS提出了一个高吞吐量多流语言隐写框架，将秘密信息分布在多个由大语言模型生成的响应流中，通过批量联合嵌入和提取大幅提升隐写效率。该框架解决了现有单流隐写方案无法支持批量多流推理的局限性，并通过多轮交互掩盖时隙占用和载荷完成状态。HiTMS在提升隐写吞吐量的同时保持了较高的隐蔽性，展示了大语言模型在隐蔽通信领域的强大能力，凸显了其在网络犯罪场景中可能被滥用的风险。",
+      "llm_tldr": "HiTMS提出了一个高吞吐量多流语言隐写框架，将秘密信息分布在多个由大语言模型生成的响应流中，通过批量联合嵌入和提取大幅提升隐写效率。该框架解决了现有单流隐写方案无法支持批量多流推理的局限性，并通过多轮交互掩盖时隙占用和载荷完成状态。HiTMS在提升隐写吞吐量的同时保持了较高的隐蔽性，展示了大语言模型在隐蔽通信领域的强大能力，凸显了其在网络犯罪场景中可能被滥用的风险。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "capabilities of large language models in cybercrime",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2607.27373v1",
+      "source": "arxiv",
+      "title": "RoguePrompt: Dual-Layer Encoding for Self-Reconstruction to Circumvent LLM Moderation",
+      "abstract": "Large language models (LLMs) are becoming increasingly integrated into mainstream development platforms and daily technological workflows, typically behind moderation and safety controls. Despite these controls, preventing prompt-based policy evasion remains challenging, and adversaries continue to \"jailbreak\" LLMs by crafting prompts that circumvent implemented safety mechanisms. Prior work has established cipher-mediated interaction, code-embedded decryption, prompt decomposition and reconstruction, and layered custom encryption as viable attack primitives. However, reported evaluations generally collapse visible acceptance, successful recovery of the concealed request, and subsequent execution into an aggregate attack-success outcome. This leaves limited evidence about where multistage prompt-transformation attacks fail within an observable black-box interaction. This paper introduces RoguePrompt, a jailbreak pipeline that partitions a forbidden prompt and applies two nested encodings, Vigenere followed by ROT13, along with natural-language reconstruction instructions. RoguePrompt was developed and evaluated under a black-box threat model, with only API or user-interface access to the hosted models, and was tested on 313 real-world, hard-rejected prompts. Success was measured in terms of moderation bypass, instruction reconstruction, and execution when the relevant stage exceeded its automated criterion. RoguePrompt achieved average rates of 93.93% for filter bypass, 79.02% for reconstruction, and 70.18% for execution. These results demonstrate the effectiveness of layered prompt encoding while providing stage-level evidence of where multistage jailbreaks fail during moderation bypass, instruction reconstruction, and execution.",
+      "authors": [
+        "Benyamin Tafreshian",
+        "Prathamesh Dhake"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI"
+      ],
+      "published": "2026-07-29T18:25:30+00:00",
+      "link": "https://arxiv.org/pdf/2607.27373v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "demonstrates a jailbreak method bypassing LLM safety controls, directly testing LLM vulnerability to malicious use",
+      "llm_evidence_cn": "展示了一种绕过LLM安全控制的越狱方法，直接测试LLM被恶意利用的脆弱性",
+      "llm_evidence": "展示了一种绕过LLM安全控制的越狱方法，直接测试LLM被恶意利用的脆弱性",
+      "canonical_evidence": "展示了一种绕过LLM安全控制的越狱方法，直接测试LLM被恶意利用的脆弱性",
+      "llm_tldr_en": "Proposes a dual-layer encoding technique that obfuscates malicious prompts to circumvent LLM moderation, exposing gaps in current safety mechanisms.",
+      "llm_tldr_cn": "现有LLM安全控制仍难以防范提示级别的策略性规避。本文提出RoguePrompt，通过双层编码将恶意请求隐藏在看似无害的输入中，在模型内部自重构以绕过审查。实验将攻击成功率分解为可见接受、隐蔽请求恢复和执行成功三个阶段，揭示了当前安全机制的薄弱环节。该方法不仅是一种新型越狱攻击，也为评估大模型在对抗提示下的能力边界提供了工具。该研究对理解大模型在网络犯罪中被滥用的风险，以及测试防御措施的有效性具有重要意义。",
+      "llm_tldr": "现有LLM安全控制仍难以防范提示级别的策略性规避。本文提出RoguePrompt，通过双层编码将恶意请求隐藏在看似无害的输入中，在模型内部自重构以绕过审查。实验将攻击成功率分解为可见接受、隐蔽请求恢复和执行成功三个阶段，揭示了当前安全机制的薄弱环节。该方法不仅是一种新型越狱攻击，也为评估大模型在对抗提示下的能力边界提供了工具。该研究对理解大模型在网络犯罪中被滥用的风险，以及测试防御措施的有效性具有重要意义。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "capabilities of large language models in cybercrime",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2607.23444v1",
+      "source": "arxiv",
+      "title": "Isolated but Exposed: Persistence-Based Memory Extraction Attack on LLM Agents",
+      "abstract": "LLM-based agents extend large language models with long-term memory (LTM) that persists privacy-sensitive user data across sessions. Production systems mitigate extraction risks through memory isolation, binding each user's LTM to a unique identifier. This defense has blocked known attacks on shared storage, fostering the assumption that isolated LTM is secure. We identify the tool interface as an overlooked attack surface. Agents routinely embed LTM-retrieved data in tool invocation parameters, enabling a malicious tool to exfiltrate private memory without violating user-level isolation. Naive adaptations of user-side extraction techniques fail because the adversarial command's semantics interfere with retrieval precision, and platform-imposed tool-call limits constrain the extraction budget per trigger. We present SPORE, the first extraction attack designed for this threat model. SPORE decouples the adversarial command from retrieval anchors by persisting the command in short-term memory and emitting semantically pure anchors in tool responses. The restored retrieval precision enables a geometric coverage optimization over the embedding space that systematically steers anchors toward unexplored memory regions. To sustain extraction beyond tool-call limits, SPORE persists reactivation payloads in memory that automatically resume the attack within and across sessions without additional user triggers. SPORE achieves an 80.0% record extraction rate with unlimited triggers and 47.0% with only 20 triggers. In multi-user deployments, attackers can link extracted records to user identities, enabling targeted surveillance. These results demonstrate that memory isolation alone is insufficient and call for reexamining tool-side trust boundaries in agent architectures.",
+      "authors": [
+        "Xinyu Gao",
+        "Wenyu Chen",
+        "Xiangtao Meng",
+        "Li Wang",
+        "Chuanchao Zang",
+        "Jianing Wang",
+        "Zheng Li",
+        "Shanqing Guo"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR"
+      ],
+      "published": "2026-07-26T03:51:20+00:00",
+      "link": "https://arxiv.org/pdf/2607.23444v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "LLM agents tool interface enables memory exfiltration, demonstrating cybercrime-relevant attack capability",
+      "llm_evidence_cn": "LLM智能体工具接口导致记忆泄露，展示网络犯罪相关攻击能力",
+      "llm_evidence": "LLM智能体工具接口导致记忆泄露，展示网络犯罪相关攻击能力",
+      "canonical_evidence": "LLM智能体工具接口导致记忆泄露，展示网络犯罪相关攻击能力",
+      "llm_tldr_en": "Reveals that isolated long-term memory in LLM agents can be exfiltrated via tool interfaces, enabling data theft in cybercrime scenarios, and proposes a memory extraction attack that bypasses memory isolation, evaluating security limits.",
+      "llm_tldr_cn": "论文揭示了LLM智能体在工具接口处的安全漏洞，即便实现了记忆隔离，攻击者仍可利用恶意工具窃取持久化记忆中的敏感数据。提出了一种基于工具调用的记忆提取攻击方法，并在多种智能体平台上验证了有效性。该工作暴露了LLM智能体在网络犯罪场景下的潜在攻击面，为评估其安全边界提供了重要参考。",
+      "llm_tldr": "论文揭示了LLM智能体在工具接口处的安全漏洞，即便实现了记忆隔离，攻击者仍可利用恶意工具窃取持久化记忆中的敏感数据。提出了一种基于工具调用的记忆提取攻击方法，并在多种智能体平台上验证了有效性。该工作暴露了LLM智能体在网络犯罪场景下的潜在攻击面，为评估其安全边界提供了重要参考。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "evaluating the limits of large language models in cybercrime scenarios",
+      "matched_requirement_id": "req-9",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2607.25255v1",
+      "source": "arxiv",
+      "title": "SafeFlow: Semantic Information-Flow Control for Blocking Malicious Propagation in Multi-Agent Systems",
+      "abstract": "Multi-agent systems improve capability through task decomposition and role specialization, but these same mechanisms introduce an important safety blind spot: a harmful objective can be fragmented into locally plausible subtasks, allowing malicious intent to evade detection by any single agent. This is a growing social-impact challenge: systems handling sensitive information or consequential tools can turn routine delegation into unauthorized disclosure or unsafe action. We argue that this failure mode is better understood as a semantic information-flow problem than as a single-turn prompt classification task. To address this, we propose SafeFlow, a defense framework for multi-agent systems that formalizes malicious cross-agent propagation as a semantic information-flow problem. SafeFlow attaches structured semantic taints to root requests, propagates them through a dynamic collaboration graph, and performs workflow-level validation to reconstruct the global risk context before irreversible actions are committed. Evaluated on four benchmarks spanning prompt injection, jailbreak-based unsafe tool use, risky code execution, and harmful web-agent behavior, SafeFlow reduces attack success rates compared to undefended baselines and external defenses while retaining high benign task completion and a high paired safe--harm success rate. Our findings show that multi-agent systems still lack mechanisms for preserving risk semantics across delegation boundaries. This gap can turn routine delegation into privacy harms or unsafe actions that affect people and organizations. SafeFlow keeps this risk visible throughout the workflow, before it results in harm.",
+      "authors": [
+        "Haowen Dai",
+        "Zonghao Ying",
+        "Wenfeng Li",
+        "Xiangfan Wu",
+        "Yisong Xiao",
+        "Tianyuan Zhang",
+        "Jiaye Lin",
+        "Lei Wei",
+        "Guangyuan Dong",
+        "Xitong Ling",
+        "Xixun Lin",
+        "Quanchen Zou",
+        "Xiangzheng Zhang"
+      ],
+      "primary_category": "cs.MA",
+      "categories": [
+        "cs.MA",
+        "cs.CR"
+      ],
+      "published": "2026-07-28T03:55:47+00:00",
+      "link": "https://arxiv.org/pdf/2607.25255v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Formalizes malicious cross-agent propagation in multi-agent systems, directly relevant to simulating cybercriminal task decomposition.",
+      "llm_evidence_cn": "形式化多智能体系统中恶意传播问题，与模拟网络犯罪任务分解直接相关。",
+      "llm_evidence": "形式化多智能体系统中恶意传播问题，与模拟网络犯罪任务分解直接相关。",
+      "canonical_evidence": "形式化多智能体系统中恶意传播问题，与模拟网络犯罪任务分解直接相关。",
+      "llm_tldr_en": "The paper proposes SafeFlow, a defense framework that detects semantically malicious information flow across agents, showing that harmful objectives can be fragmented to bypass single-agent detection.",
+      "llm_tldr_cn": "本文指出多智能体系统中恶意目标可被拆解为局部看似合理的子任务从而绕过单智能体检测，提出名为SafeFlow的防御框架，通过语义信息流控制阻断跨智能体恶意传播，为模拟多智能体网络犯罪活动提供了关键洞见。",
+      "llm_tldr": "本文指出多智能体系统中恶意目标可被拆解为局部看似合理的子任务从而绕过单智能体检测，提出名为SafeFlow的防御框架，通过语义信息流控制阻断跨智能体恶意传播，为模拟多智能体网络犯罪活动提供了关键洞见。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "multi-agent systems for cybercrime simulation",
+      "matched_requirement_id": "req-3",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    }
+  ]
+}

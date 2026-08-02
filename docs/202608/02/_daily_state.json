@@ -1,0 +1,73 @@
+{
+  "date": "20260802",
+  "date_label": "",
+  "generated_at": "2026-08-02 20:28:53 UTC",
+  "recommend_exists": true,
+  "run_count": 1,
+  "papers": [
+    {
+      "paper_id": "2607.23597v2",
+      "route": "202608/02/2607.23597v2-hitms-a-high-throughput-multi-stream-linguistic-steganography-framework",
+      "title": "HiTMS: A High-Throughput Multi-Stream Linguistic Steganography Framework",
+      "section": "deep",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "ca"
+        }
+      ],
+      "score": 9.0,
+      "evidence": "实现基于大语言模型的隐写，是一种网络犯罪中使用的隐蔽通信能力",
+      "first_seen_at": "2026-08-02 20:28:53 UTC",
+      "updated_at": "2026-08-02 20:28:53 UTC"
+    },
+    {
+      "paper_id": "2607.27373v1",
+      "route": "202608/02/2607.27373v1-rogueprompt-dual-layer-encoding-for-self-reconstruction-to-circumvent-llm-moderation",
+      "title": "RoguePrompt: Dual-Layer Encoding for Self-Reconstruction to Circumvent LLM Moderation",
+      "section": "deep",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "ca"
+        }
+      ],
+      "score": 8.0,
+      "evidence": "展示了一种绕过LLM安全控制的越狱方法，直接测试LLM被恶意利用的脆弱性",
+      "first_seen_at": "2026-08-02 20:28:53 UTC",
+      "updated_at": "2026-08-02 20:28:53 UTC"
+    },
+    {
+      "paper_id": "2607.23444v1",
+      "route": "202608/02/2607.23444v1-isolated-but-exposed-persistence-based-memory-extraction-attack-on-llm-agents",
+      "title": "Isolated but Exposed: Persistence-Based Memory Extraction Attack on LLM Agents",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "ca"
+        }
+      ],
+      "score": 7.0,
+      "evidence": "LLM智能体工具接口导致记忆泄露，展示网络犯罪相关攻击能力",
+      "first_seen_at": "2026-08-02 20:28:53 UTC",
+      "updated_at": "2026-08-02 20:28:53 UTC"
+    },
+    {
+      "paper_id": "2607.25255v1",
+      "route": "202608/02/2607.25255v1-safeflow-semantic-information-flow-control-for-blocking-malicious-propagation-in-multi-agent-systems",
+      "title": "SafeFlow: Semantic Information-Flow Control for Blocking Malicious Propagation in Multi-Agent Systems",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "ca"
+        }
+      ],
+      "score": 7.0,
+      "evidence": "形式化多智能体系统中恶意传播问题，与模拟网络犯罪任务分解直接相关。",
+      "first_seen_at": "2026-08-02 20:28:53 UTC",
+      "updated_at": "2026-08-02 20:28:53 UTC"
+    }
+  ]
+}

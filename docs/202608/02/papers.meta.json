@@ -1,0 +1,69 @@
+{
+  "label": "2026-08-02",
+  "date": "2026-08-02",
+  "generated_at": "2026-08-02T20:29:02",
+  "count": 4,
+  "papers": [
+    {
+      "paper_id": "202608/02/2607.23597v2-hitms-a-high-throughput-multi-stream-linguistic-steganography-framework",
+      "section": "deep",
+      "title_en": "HiTMS: A High-Throughput Multi-Stream Linguistic Steganography Framework",
+      "authors": "Ruiyi Yan, Zhongliang Yang, Yugo Murawaki",
+      "date": "2026-07-26",
+      "pdf": "https://arxiv.org/pdf/2607.23597v2",
+      "score": "9.0",
+      "evidence": "实现基于大语言模型的隐写，是一种网络犯罪中使用的隐蔽通信能力",
+      "tldr": "现有语言隐写方法采用单流生成，每次对话仅嵌入一条秘密，无法利用批量多流推理，效率低下。HiTMS框架将秘密分散到多轮交互中联合生成的多条响应里，通过批量调用分摊模型成本，大幅提升吞吐量。实验表明，8流HiTMS将嵌入与提取速度提高至单流基线的4.3倍，同时将隐写分析器的AUROC从0.681降至0.601，增强了隐蔽性。该框架与模型和编码方式无关，为高通量隐写通信提供了实用方案。",
+      "tags": "query:ca",
+      "abstract_en": "Generative linguistic steganography conceals secret bits within the sampling randomness of large language models. Existing schemes are single-stream, conveying an entire secret through a single response to a single prompt. This convention incurs limitations: it provides no protocol-level support for batched multi-stream inference, and naive co-batching does not conceal slot occupancy or payload completion. We propose the High-Throughput Multi-Stream (HiTMS) framework, which distributes a secret across multiple responses produced jointly over successive rounds of interaction. Each round embeds and extracts several streams within a single batched call, thereby amortizing the cost of model invocation and substantially improving throughput. To ensure recoverability, HiTMS wraps each response in a self-describing frame and employs a key-derived schedule that binds streams to slots and fills unused slots with decoys, guaranteeing exact recovery while concealing the number of active streams. The framework is agnostic to both the language model and the steganographic coder. Across eight dataset-model-coder settings, eight-stream HiTMS achieves up to 4.3 times higher embedding and extraction speeds than single-stream baselines, while reducing the average area under the receiver operating characteristic curve (AUROC) of steganalyzers from 0.681 to 0.601. Experiments with 4 to 64 streams demonstrate sustained throughput gains as concurrency increases. GitHub repository for this work is https://github.com/ryehr/HiTMS_steganography.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202608/02/2607.27373v1-rogueprompt-dual-layer-encoding-for-self-reconstruction-to-circumvent-llm-moderation",
+      "section": "deep",
+      "title_en": "RoguePrompt: Dual-Layer Encoding for Self-Reconstruction to Circumvent LLM Moderation",
+      "authors": "Benyamin Tafreshian, Prathamesh Dhake",
+      "date": "2026-07-29",
+      "pdf": "https://arxiv.org/pdf/2607.27373v1",
+      "score": "8.0",
+      "evidence": "展示了一种绕过LLM安全控制的越狱方法，直接测试LLM被恶意利用的脆弱性",
+      "tldr": "大型语言模型越狱攻击中，多阶段提示转换攻击在真实黑箱交互的失败点缺乏细粒度证据，RoguePrompt提出一种将禁用提示分割后施加Vigenère与ROT13双重编码，并嵌入自然语言重构指令的越狱流水线。在313个高难度真实提示上评估，过滤绕过率达93.93%，指令重构率79.02%，最终执行率70.18%。该方法不仅证明了分层编码的有效性，还首次提供了多阶段越狱在绕过审核、指令重构和执行各阶段的失效证据，为安全防御提供关键见解。",
+      "tags": "query:ca",
+      "abstract_en": "Large language models (LLMs) are becoming increasingly integrated into mainstream development platforms and daily technological workflows, typically behind moderation and safety controls. Despite these controls, preventing prompt-based policy evasion remains challenging, and adversaries continue to \"jailbreak\" LLMs by crafting prompts that circumvent implemented safety mechanisms. Prior work has established cipher-mediated interaction, code-embedded decryption, prompt decomposition and reconstruction, and layered custom encryption as viable attack primitives. However, reported evaluations generally collapse visible acceptance, successful recovery of the concealed request, and subsequent execution into an aggregate attack-success outcome. This leaves limited evidence about where multistage prompt-transformation attacks fail within an observable black-box interaction. This paper introduces RoguePrompt, a jailbreak pipeline that partitions a forbidden prompt and applies two nested encodings, Vigenere followed by ROT13, along with natural-language reconstruction instructions. RoguePrompt was developed and evaluated under a black-box threat model, with only API or user-interface access to the hosted models, and was tested on 313 real-world, hard-rejected prompts. Success was measured in terms of moderation bypass, instruction reconstruction, and execution when the relevant stage exceeded its automated criterion. RoguePrompt achieved average rates of 93.93% for filter bypass, 79.02% for reconstruction, and 70.18% for execution. These results demonstrate the effectiveness of layered prompt encoding while providing stage-level evidence of where multistage jailbreaks fail during moderation bypass, instruction reconstruction, and execution.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202608/02/2607.23444v1-isolated-but-exposed-persistence-based-memory-extraction-attack-on-llm-agents",
+      "section": "quick",
+      "title_en": "Isolated but Exposed: Persistence-Based Memory Extraction Attack on LLM Agents",
+      "authors": "Xinyu Gao, Wenyu Chen, Xiangtao Meng, Li Wang, Chuanchao Zang, Jianing Wang, Zheng Li, Shanqing Guo",
+      "date": "2026-07-26",
+      "pdf": "https://arxiv.org/pdf/2607.23444v1",
+      "score": "7.0",
+      "evidence": "LLM智能体工具接口导致记忆泄露，展示网络犯罪相关攻击能力",
+      "tldr": "LLM智能体用长期记忆存储隐私，现有隔离防御未考虑工具接口外泄风险。本文提出SPORE攻击，将恶意指令持留于短期记忆，通过工具回复释放纯净锚点，恢复检索精度，并结合几何覆盖优化探索未知记忆区域；同时植入重激活载荷绕过工具调用限制，实现自动续攻。SPORE无限触发下提取率80%，20次触发47%，可关联用户身份进行定向监控。结果表明记忆隔离不足，工具侧信任边界需重新审视。",
+      "tags": "query:ca",
+      "abstract_en": "LLM-based agents extend large language models with long-term memory (LTM) that persists privacy-sensitive user data across sessions. Production systems mitigate extraction risks through memory isolation, binding each user's LTM to a unique identifier. This defense has blocked known attacks on shared storage, fostering the assumption that isolated LTM is secure. We identify the tool interface as an overlooked attack surface. Agents routinely embed LTM-retrieved data in tool invocation parameters, enabling a malicious tool to exfiltrate private memory without violating user-level isolation. Naive adaptations of user-side extraction techniques fail because the adversarial command's semantics interfere with retrieval precision, and platform-imposed tool-call limits constrain the extraction budget per trigger. We present SPORE, the first extraction attack designed for this threat model. SPORE decouples the adversarial command from retrieval anchors by persisting the command in short-term memory and emitting semantically pure anchors in tool responses. The restored retrieval precision enables a geometric coverage optimization over the embedding space that systematically steers anchors toward unexplored memory regions. To sustain extraction beyond tool-call limits, SPORE persists reactivation payloads in memory that automatically resume the attack within and across sessions without additional user triggers. SPORE achieves an 80.0% record extraction rate with unlimited triggers and 47.0% with only 20 triggers. In multi-user deployments, attackers can link extracted records to user identities, enabling targeted surveillance. These results demonstrate that memory isolation alone is insufficient and call for reexamining tool-side trust boundaries in agent architectures.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202608/02/2607.25255v1-safeflow-semantic-information-flow-control-for-blocking-malicious-propagation-in-multi-agent-systems",
+      "section": "quick",
+      "title_en": "SafeFlow: Semantic Information-Flow Control for Blocking Malicious Propagation in Multi-Agent Systems",
+      "authors": "Haowen Dai, Zonghao Ying, Wenfeng Li, Xiangfan Wu, Yisong Xiao, Tianyuan Zhang, Jiaye Lin, Lei Wei, Guangyuan Dong, Xitong Ling, Xixun Lin, Quanchen Zou, Xiangzheng Zhang",
+      "date": "2026-07-28",
+      "pdf": "https://arxiv.org/pdf/2607.25255v1",
+      "score": "7.0",
+      "evidence": "形式化多智能体系统中恶意传播问题，与模拟网络犯罪任务分解直接相关。",
+      "tldr": "多智能体系统任务分解与角色专业化虽提升能力，但易使恶意目标碎片化为局部合理子任务，逃避单智能体检测，进而引发敏感信息泄露或不安全操作，成为重要安全盲点。SafeFlow将此失败模式形式化为语义信息流问题，通过对根请求附加结构化语义污点，沿动态协作图传播，并在不可逆操作前进行工作流级验证，重建全局风险上下文。在涵盖提示注入、越狱工具利用、危险代码执行及有害网络行为的四个基准上，SafeFlow显著降低攻击成功率，同时保持高良性任务完成率与安全-有害配对的成功率。本工作揭示多智能体系统在跨委托边界时缺乏风险语义保留机制，SafeFlow使风险全程可见，在危害发生前阻断，对社会影响重大。",
+      "tags": "query:ca",
+      "abstract_en": "Multi-agent systems improve capability through task decomposition and role specialization, but these same mechanisms introduce an important safety blind spot: a harmful objective can be fragmented into locally plausible subtasks, allowing malicious intent to evade detection by any single agent. This is a growing social-impact challenge: systems handling sensitive information or consequential tools can turn routine delegation into unauthorized disclosure or unsafe action. We argue that this failure mode is better understood as a semantic information-flow problem than as a single-turn prompt classification task. To address this, we propose SafeFlow, a defense framework for multi-agent systems that formalizes malicious cross-agent propagation as a semantic information-flow problem. SafeFlow attaches structured semantic taints to root requests, propagates them through a dynamic collaboration graph, and performs workflow-level validation to reconstruct the global risk context before irreversible actions are committed. Evaluated on four benchmarks spanning prompt injection, jailbreak-based unsafe tool use, risky code execution, and harmful web-agent behavior, SafeFlow reduces attack success rates compared to undefended baselines and external defenses while retaining high benign task completion and a high paired safe--harm success rate. Our findings show that multi-agent systems still lack mechanisms for preserving risk semantics across delegation boundaries. This gap can turn routine delegation into privacy harms or unsafe actions that affect people and organizations. SafeFlow keeps this risk visible throughout the workflow, before it results in harm.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}
