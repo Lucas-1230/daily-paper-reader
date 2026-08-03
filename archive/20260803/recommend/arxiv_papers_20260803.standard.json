@@ -1,0 +1,221 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-08-03T20:36:07.154450+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 2,
+    "deep_cap": 6,
+    "deep_selected": 2,
+    "quick_candidates": 3,
+    "quick_skim_target": 11,
+    "quick_selected": 3
+  },
+  "deep_dive": [
+    {
+      "id": "2607.28165v2",
+      "source": "arxiv",
+      "title": "Piggybacking on Perception: Stealthy Concurrent Audio Prompt Injections against Multimodal LLM Agents",
+      "abstract": "Large Language Model (LLM)-driven multimodal agents are increasingly deployed to execute autonomous tasks via continuous audio interaction. While this paradigm enhances interaction naturalness, it introduces a critical yet under-explored attack surface, as audio inputs inevitably contain environmental noise beyond user control. In this paper, we investigate concurrent audio prompt injection attacks targeting multimodal agents. Distinct from traditional acoustic attacks on voice devices, we propose novel techniques for instruction augmentation and scenario concealment. These methods allow malicious audio instructions to imperceptibly \"piggyback\" onto user speech, thereby hijacking agents to execute malicious actions. To systematically quantify this threat, we construct AudioAgentSecurity, the first comprehensive benchmark for audio instruction injection attacks, encompassing 8 real-world task scenarios and 10 distinct attack patterns. We evaluate 11 state-of-the-art agents, including Gemini 3 Pro and GPT-4o-audio. Notably, our methods achieve an average Attack Success Rate (ASR) of 69.10\\% against the advanced Gemini 3 Pro. To counter this threat, we further introduce Cascaded Audio Decoupling and Verification (CADV), a defense mechanism based on source separation and consistency analysis. Compared with existing prompt-level defenses, CADV achieving up to 96\\% detection accuracy and providing effective protection against a broad range of acoustic injection attacks. Finally, real-world experiments with human volunteers on Doubao AI Smartphone in diverse dynamic real-world scenarios confirm the attacks' high stealth and efficacy, while demonstrating that our defense reliably mitigates these vulnerabilities.",
+      "authors": [
+        "Mingxiao Liu",
+        "Yitong Li",
+        "Haoren Zhao",
+        "Yaoxiang Bian",
+        "Jianan Ma",
+        "Jian Zhang",
+        "Jialuo Chen",
+        "Xinhao Deng",
+        "Zhen Wang"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR"
+      ],
+      "published": "2026-07-30T13:04:15+00:00",
+      "link": "https://arxiv.org/pdf/2607.28165v2",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "stealthy audio prompt injections against multimodal agents as cyber attacks",
+      "llm_evidence_cn": "针对多模态智能体的隐蔽音频提示注入，模拟网络攻击",
+      "llm_evidence": "针对多模态智能体的隐蔽音频提示注入，模拟网络攻击",
+      "canonical_evidence": "针对多模态智能体的隐蔽音频提示注入，模拟网络攻击",
+      "llm_tldr_en": "Investigates concurrent audio prompt injection attacks on multimodal LLM agents, proposing stealthy techniques to hijack agents for malicious actions.",
+      "llm_tldr_cn": "针对多模态LLM智能体音频交互引入的新攻击面，提出指令增强和场景隐藏方法，使恶意指令隐蔽叠加在用户语音上，实现智能体劫持。实验验证了攻击的有效性与隐蔽性，揭示了此类系统的严重安全风险。",
+      "llm_tldr": "针对多模态LLM智能体音频交互引入的新攻击面，提出指令增强和场景隐藏方法，使恶意指令隐蔽叠加在用户语音上，实现智能体劫持。实验验证了攻击的有效性与隐蔽性，揭示了此类系统的严重安全风险。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "adversarial agents for testing large language models in cybercrime",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2607.26201v1",
+      "source": "arxiv",
+      "title": "(EC)2: Event-Centric Explainability for Cybersecurity Through Multi-Agent LLM Investigations",
+      "abstract": "Security operations centers rely on anomaly detection systems to flag suspicious events. Feature-level explanations for anomaly detectors offer limited value for operational investigations. To effectively handle alerts, analysts need to know contextual relationships and need actionable understanding of the entities involved. This paper introduces an event-centric detector-agnostic approach for explaining cybersecurity alerts in small- to medium-sized enterprise networks. We present (EC)2, a multi-agent framework that performs structured, hypothesis-driven investigation to provide explanations grounded in verifiable evidence. Evaluation results show that the proposed framework improves post-detection analysis by generating operationally meaningful explanations, which also enhance event classification accuracy.",
+      "authors": [
+        "Neta Kirmayer",
+        "David Tayouri",
+        "Andrés Murillo",
+        "Motoyoshi Sekiya",
+        "Asaf Shabtai",
+        "Rami Puzis"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI"
+      ],
+      "published": "2026-07-28T19:06:24+00:00",
+      "link": "https://arxiv.org/pdf/2607.26201v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Multi-agent LLM framework for cybersecurity investigation, showcasing LLM capabilities in cyber analysis.",
+      "llm_evidence_cn": "多智能体LLM框架用于网络安全调查，展示LLM在网络分析中的能力",
+      "llm_evidence": "多智能体LLM框架用于网络安全调查，展示LLM在网络分析中的能力",
+      "canonical_evidence": "多智能体LLM框架用于网络安全调查，展示LLM在网络分析中的能力",
+      "llm_tldr_en": "This paper presents (EC)2, a multi-agent LLM framework for explaining cybersecurity alerts in enterprise networks. It performs structured, hypothesis-driven investigation to provide evidence-grounded explanations, demonstrating LLM capabilities in cyber threat analysis and enhancing security operations.",
+      "llm_tldr_cn": "本文提出(EC)2，一个用于企业网络安全告警解释的多智能体LLM框架。通过结构化、假设驱动的调查提供证据支持的解释，展示LLM在网络威胁分析中的能力，并增强安全运营。",
+      "llm_tldr": "本文提出(EC)2，一个用于企业网络安全告警解释的多智能体LLM框架。通过结构化、假设驱动的调查提供证据支持的解释，展示LLM在网络威胁分析中的能力，并增强安全运营。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "exploring the capability boundaries of large language models in cyber contexts",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2607.24893v1",
+      "source": "arxiv",
+      "title": "Early Detection of Distributed Backdoors in Multi-Agent LLM Systems: A Characterization Study",
+      "abstract": "Multi-agent LLM systems can be attacked by a payload that no single agent ever holds in full: a poisoned tool hides encrypted fragments in its observations, spreads them across several agents, and an external step reassembles and executes them after the run. Per-step safety checks that judge each action in isolation may fail to recognize the complete distributed payload. We investigate how early such an attack can be detected while the run is still unfolding, and how robustly it can be caught once its most obvious cues are stripped away. We build a working instance on a hierarchical multi-agent system, run it under benign and attacked conditions across five language models and two task domains, and record when each fragment is injected and when the payload is assembled and executed. Detection is a race against assembly. Before the first fragment is injected, attacked and benign runs are indistinguishable; once injection begins, a prefix detector flags $99.3\\%$ of successful attacks with a median of five steps remaining and a $10.3\\%$ safe-run false-positive rate. Because assembly occurs only after the run, these alarms arrive in time to abort nearly every successful attack. We then measure how much of that warning rests on removable surface cues of the attack rather than on its distributed structure. Generic zero-shot and behavior-trained detectors provide almost no warning at all; the detectors that do work lean in part on removable surface cues, chiefly the ciphertext's length and entropy, and once the entropy cue is removed from the payload and the length features from the detector, detection arrives later and transfers poorly across domains, though a fine-tuned model recovers some of the loss.",
+      "authors": [
+        "Diego Fernandez Arias",
+        "Dev Prashant Mistry",
+        "Ren Wang",
+        "Yibo Hu"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI"
+      ],
+      "published": "2026-07-27T15:18:06+00:00",
+      "link": "https://arxiv.org/pdf/2607.24893v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Studies detection of distributed backdoor attacks in multi-agent LLM systems, relevant to adversarial testing.",
+      "llm_evidence_cn": "研究多智能体LLM系统中分布式后门攻击的检测，与对抗性测试相关",
+      "llm_evidence": "研究多智能体LLM系统中分布式后门攻击的检测，与对抗性测试相关",
+      "canonical_evidence": "研究多智能体LLM系统中分布式后门攻击的检测，与对抗性测试相关",
+      "llm_tldr_en": "This paper investigates early detection of distributed backdoors in multi-agent LLM systems, where a payload is fragmented across agents and reassembled externally. It characterizes detection timing and robustness across models and tasks, providing insights for adversarial testing of LLM security.",
+      "llm_tldr_cn": "本文研究多智能体LLM系统中分布式后门的早期检测，其中有效载荷被分散到多个智能体并在外部重组。通过跨模型和任务的检测时机与鲁棒性分析，为LLM安全对抗测试提供见解。",
+      "llm_tldr": "本文研究多智能体LLM系统中分布式后门的早期检测，其中有效载荷被分散到多个智能体并在外部重组。通过跨模型和任务的检测时机与鲁棒性分析，为LLM安全对抗测试提供见解。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "adversarial agents for testing large language models in cybercrime",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2607.29211v1",
+      "source": "arxiv",
+      "title": "Knowing When to Quit: Diagnosing and Training LLMs to Abort Futile Reasoning",
+      "abstract": "Large language models generate computationally expensive yet semantically void reasoning on beyond-capability tasks, creating risks where plausible-sounding but incorrect derivations mislead users. We characterize this \\textit{futile reasoning} phenomenon through systematic analysis, revealing universal capability overreach and systematic miscalibration between capability and behavior. The dominant failure mode is specious reasoning, which outputs look superficially valid but contain subtle errors, escalating with task difficulty. To address this, we introduce \\textbf{CaRL} (\\textbf{Ca}pability-\\textbf{a}ligned \\textbf{R}einforcement \\textbf{L}earning), which aligns model behavior with capability boundaries through reward shaping that incentivizes refusal over futile reasoning and hindsight refusal augmentation that converts failures into refusal supervision. Experiments demonstrate a substantial reduction in futile reasoning while preserving performance across task difficulties, effectively achieving capability-aligned behavior without sacrificing utility. \\footnote{https://github.com/icip-cas/Knowing-When-to-Quit}",
+      "authors": [
+        "Xinyan Guan",
+        "Jiali Zeng",
+        "Chunlei Xin",
+        "Yaojie Lu",
+        "Hongyu Lin",
+        "Xianpei Han",
+        "Le Sun",
+        "Fandong Meng"
+      ],
+      "primary_category": "cs.CL",
+      "categories": [
+        "cs.CL"
+      ],
+      "published": "2026-07-31T09:30:33+00:00",
+      "link": "https://arxiv.org/pdf/2607.29211v1",
+      "tags": [
+        "keyword:ca"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Diagnoses and addresses LLM futile reasoning on beyond-capability tasks, aligning behavior with capability boundaries",
+      "llm_evidence_cn": "诊断并解决LLM在超能力任务上的无效推理，使行为与能力边界对齐",
+      "llm_evidence": "诊断并解决LLM在超能力任务上的无效推理，使行为与能力边界对齐",
+      "canonical_evidence": "诊断并解决LLM在超能力任务上的无效推理，使行为与能力边界对齐",
+      "llm_tldr_en": "This paper addresses LLMs generating plausible but incorrect reasoning on beyond-capability tasks; it proposes CaRL, a reinforcement learning method to align model behavior with capability boundaries, showing LLMs can be trained to abort futile reasoning. The method is transferable to evaluating LLM capability limits in cybercrime scenarios.",
+      "llm_tldr_cn": "本文解决LLM在超出能力任务上生成看似合理却错误的推理问题，提出通过强化学习（CaRL）使模型行为与能力边界对齐，实验表明LLM可被训练学会中止无效推理。该方法可迁移用于评估网络犯罪场景中LLM的能力极限，为界定其安全应用范围提供技术基础。",
+      "llm_tldr": "本文解决LLM在超出能力任务上生成看似合理却错误的推理问题，提出通过强化学习（CaRL）使模型行为与能力边界对齐，实验表明LLM可被训练学会中止无效推理。该方法可迁移用于评估网络犯罪场景中LLM的能力极限，为界定其安全应用范围提供技术基础。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "exploring the capability boundaries of large language models in cyber contexts",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2607.28147v1",
+      "source": "arxiv",
+      "title": "Agent Harness Distillation: Inference-Time Harness Extraction and Exploitation in Autonomous Multi-Agent Systems",
+      "abstract": "Autonomous multi-agent systems (AMAS) built on large language models (LLMs), such as Hermes, increasingly rely on inference-time harnesses to coordinate reasoning and action. Constructing these harnesses requires substantial engineering effort and computational resources, as they are iteratively optimized over a combinatorial search space while co-evolving with the underlying LLM. Inference-time harnesses therefore constitute valuable intellectual property (IP). Although prior work has investigated IP leakage in static multi-agent systems with pre-configured architectures, it remains unclear whether similar risks arise in AMAS, where harness behavior emerges dynamically during inference. To address this gap, we introduce Agent Harness Distillation (AHD), a framework for studying the security risks arising from inference-time harness extraction in AMAS. We formalize harness extraction as a new security problem and develop an evaluation framework for quantifying such risks. AHD extracts inference-time harness capabilities from a target agent through black-box interactions and consists of two stages. In the pre-distillation stage, AHD infers inference-time harness behaviors from the responses of the target agent and constructs an initial harness. In the post-distillation stage, AHD iteratively refines the initial harness to align with the behavioral patterns of the target agent. Experiments on real-world AMAS across multiple backbone LLMs demonstrate the effectiveness of AHD and reveal substantial IP leakage risks. We further propose a deception-based defense that reduces harness extraction effectiveness while preserving the utility of the protected agent. Our findings uncover a previously underexplored security threat to AMAS.",
+      "authors": [
+        "Yu Cui",
+        "Wuli Yang",
+        "Yirui Shi",
+        "Junhao Xia",
+        "Hui Jiang",
+        "Lei Gao",
+        "Chenfu Bao"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR"
+      ],
+      "published": "2026-07-30T12:54:25+00:00",
+      "link": "https://arxiv.org/pdf/2607.28147v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "extracting IP from multi-agent systems, adversarial exploitation akin to cybercrime",
+      "llm_evidence_cn": "提取多智能体系统知识产权，类似网络犯罪中的对抗利用",
+      "llm_evidence": "提取多智能体系统知识产权，类似网络犯罪中的对抗利用",
+      "canonical_evidence": "提取多智能体系统知识产权，类似网络犯罪中的对抗利用",
+      "llm_tldr_en": "Shows that inference-time harnesses in autonomous multi-agent systems can be extracted and exploited, posing IP theft risks, akin to cybercrime.",
+      "llm_tldr_cn": "针对自主多智能体系统中推理时协调行为的价值与风险，提出Agent Harness Distillation方法，通过查询提取智能体行为并实现知识盗窃。实验证明了行为提取的可行性，警示了多智能体系统在知识产权方面的安全隐患。",
+      "llm_tldr": "针对自主多智能体系统中推理时协调行为的价值与风险，提出Agent Harness Distillation方法，通过查询提取智能体行为并实现知识盗窃。实验证明了行为提取的可行性，警示了多智能体系统在知识产权方面的安全隐患。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "adversarial agents for testing large language models in cybercrime",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    }
+  ]
+}
