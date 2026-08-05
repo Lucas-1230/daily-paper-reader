@@ -1,0 +1,185 @@
+{
+  "date": "20260805",
+  "date_label": "",
+  "generated_at": "2026-08-05 21:50:00 UTC",
+  "recommend_exists": true,
+  "run_count": 1,
+  "papers": [
+    {
+      "paper_id": "2608.00677v1",
+      "route": "202608/05/2608.00677v1-openart-scaling-agent-red-teaming-via-open-ended-environment-evolution",
+      "title": "OpenART: Scaling Agent Red Teaming via Open-Ended Environment Evolution",
+      "section": "deep",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "ca"
+        }
+      ],
+      "score": 10.0,
+      "evidence": "提供开放式智能体红队测试环境，支持在多样领域系统测试LLM智能体的对抗能力，覆盖潜在网络犯罪场景",
+      "first_seen_at": "2026-08-05 21:50:00 UTC",
+      "updated_at": "2026-08-05 21:50:00 UTC"
+    },
+    {
+      "paper_id": "2608.03009v1",
+      "route": "202608/05/2608.03009v1-tiny-enough-to-break-in-agentic-remote-access-trojans-powered-by-small-language-models",
+      "title": "Tiny Enough to Break In: Agentic Remote Access Trojans Powered by Small Language Models",
+      "section": "deep",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "ca"
+        }
+      ],
+      "score": 10.0,
+      "evidence": "利用小型语言模型实现自主化远程访问木马，测试网络犯罪决策能力",
+      "first_seen_at": "2026-08-05 21:50:00 UTC",
+      "updated_at": "2026-08-05 21:50:00 UTC"
+    },
+    {
+      "paper_id": "2608.01759v1",
+      "route": "202608/05/2608.01759v1-benign-alone-harmful-together-exploiting-experience-composition-in-self-evolving-llm-agents",
+      "title": "Benign Alone, Harmful Together: Exploiting Experience Composition in Self-Evolving LLM Agents",
+      "section": "deep",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "ca"
+        }
+      ],
+      "score": 9.0,
+      "evidence": "提出EvoBreak攻击，利用良性经验组合削弱LLM智能体安全性，测试网络犯罪模拟中的长期脆弱性",
+      "first_seen_at": "2026-08-05 21:50:00 UTC",
+      "updated_at": "2026-08-05 21:50:00 UTC"
+    },
+    {
+      "paper_id": "2608.02018v1",
+      "route": "202608/05/2608.02018v1-invisible-ink-threats-adversarial-goals-behind-legitimate-tasks-in-computer-use-agents",
+      "title": "Invisible Ink Threats: Adversarial Goals Behind Legitimate Tasks in Computer-Use Agents",
+      "section": "deep",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "ca"
+        }
+      ],
+      "score": 9.0,
+      "evidence": "研究隐形墨水威胁，低危害注入目标逃避检测，测试LLM智能体在对抗性网络犯罪式任务中的能力",
+      "first_seen_at": "2026-08-05 21:50:00 UTC",
+      "updated_at": "2026-08-05 21:50:00 UTC"
+    },
+    {
+      "paper_id": "2608.03485v1",
+      "route": "202608/05/2608.03485v1-skillsentry-adaptive-honey-worlds-for-dynamic-safety-testing-of-agent-skills",
+      "title": "SkillSentry: Adaptive Honey Worlds for Dynamic Safety Testing of Agent Skills",
+      "section": "deep",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "ca"
+        }
+      ],
+      "score": 9.0,
+      "evidence": "通过自适应蜜罐世界推断智能体技能的能力边界，进行动态安全测试",
+      "first_seen_at": "2026-08-05 21:50:00 UTC",
+      "updated_at": "2026-08-05 21:50:00 UTC"
+    },
+    {
+      "paper_id": "2608.03844v1",
+      "route": "202608/05/2608.03844v1-mafia-query-only-memory-attacks-via-probing-and-factual-injection-against-audited-llm-agents",
+      "title": "MAFIA: Query-Only Memory Attacks via Probing and Factual Injection against Audited LLM Agents",
+      "section": "deep",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "ca"
+        }
+      ],
+      "score": 9.0,
+      "evidence": "提出针对受审计LLM智能体的仅查询内存投毒攻击，有效测试智能体在对抗性网络犯罪场景中的韧性",
+      "first_seen_at": "2026-08-05 21:50:00 UTC",
+      "updated_at": "2026-08-05 21:50:00 UTC"
+    },
+    {
+      "paper_id": "2608.00929v1",
+      "route": "202608/05/2608.00929v1-modeling-social-dynamics-with-an-llm-enabled-agent-based-network-dynamic-land-model",
+      "title": "Modeling Social Dynamics with an LLM-Enabled Agent Based Network-Dynamic (LAND) Model",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "ca"
+        }
+      ],
+      "score": 7.0,
+      "evidence": "提供大模型驱动的智能体社交模拟框架，为用多智能体系统模拟网络犯罪活动提供方法论桥梁",
+      "first_seen_at": "2026-08-05 21:50:00 UTC",
+      "updated_at": "2026-08-05 21:50:00 UTC"
+    },
+    {
+      "paper_id": "2608.01085v1",
+      "route": "202608/05/2608.01085v1-when-collaboration-becomes-a-trigger-collective-evidence-threshold-backdoors-in-multi-agent-systems",
+      "title": "When Collaboration Becomes a Trigger: Collective Evidence-Threshold Backdoors in Multi-Agent Systems",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "ca"
+        }
+      ],
+      "score": 7.0,
+      "evidence": "在基于LLM的多智能体系统中引入集体证据阈值后门范式",
+      "first_seen_at": "2026-08-05 21:50:00 UTC",
+      "updated_at": "2026-08-05 21:50:00 UTC"
+    },
+    {
+      "paper_id": "2608.02698v1",
+      "route": "202608/05/2608.02698v1-steganalysis-of-adaptive-covert-collusion-in-tool-using-agent-populations-a-black-box-cross-principal-approach",
+      "title": "Steganalysis of Adaptive Covert Collusion in Tool-Using Agent Populations: A Black-Box, Cross-Principal Approach",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "ca"
+        }
+      ],
+      "score": 7.0,
+      "evidence": "检测工具型LLM智能体间的隐蔽勾结，揭示恶意协调的能力边界",
+      "first_seen_at": "2026-08-05 21:50:00 UTC",
+      "updated_at": "2026-08-05 21:50:00 UTC"
+    },
+    {
+      "paper_id": "2607.26836v1",
+      "route": "202608/05/2607.26836v1-before-agents-speak-pre-hoc-failure-risk-inference-in-multi-agent-systems",
+      "title": "Before Agents Speak: Pre-hoc Failure Risk Inference in Multi-Agent Systems",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "ca"
+        }
+      ],
+      "score": 6.0,
+      "evidence": "提出面向LLM多智能体系统的预霍尔失败推理，可应用于网络犯罪模拟",
+      "first_seen_at": "2026-08-05 21:50:00 UTC",
+      "updated_at": "2026-08-05 21:50:00 UTC"
+    },
+    {
+      "paper_id": "2607.27081v1",
+      "route": "202608/05/2607.27081v1-on-policy-distillation-for-llm-safety-a-routing-approach-to-template-robust-realignment",
+      "title": "On-Policy Distillation for LLM Safety: A Routing Approach to Template-Robust Realignment",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "ca"
+        }
+      ],
+      "score": 6.0,
+      "evidence": "展示LLM能被注入有害行为用于网络犯罪",
+      "first_seen_at": "2026-08-05 21:50:00 UTC",
+      "updated_at": "2026-08-05 21:50:00 UTC"
+    }
+  ]
+}

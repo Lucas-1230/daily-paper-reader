@@ -1,0 +1,449 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-08-05T21:39:07.551674+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 6,
+    "deep_cap": 6,
+    "deep_selected": 6,
+    "quick_candidates": 5,
+    "quick_skim_target": 11,
+    "quick_selected": 5
+  },
+  "deep_dive": [
+    {
+      "id": "2608.00677v1",
+      "source": "arxiv",
+      "title": "OpenART: Scaling Agent Red Teaming via Open-Ended Environment Evolution",
+      "abstract": "AI agents operate in persistent environments where early state changes can influence decisions far into the future. Unlike conventional language-model interactions, agent behavior is mediated through a shared state that is repeatedly modified and reused across long-horizon workflows. Current safety benchmarks often fail to capture these cumulative risks because they focus on short, static tasks. To address these limitations, we introduce OpenART, an open-ended arena for scalable agent red teaming through environment evolution. OpenART provides over 10,000 validated stateful scenarios across 50 domains, drawing from a pool of more than 500,000 tools and skills. These tasks require a median of 97 tool calls and enable unified evaluation across 75 different agent-model configurations. To systematically explore these evolving attack surfaces, we propose the Evolutionary Markov Hypergraph Attack (EMHA). EMHA is a black-box policy that performs feedback-driven environment evolution by coordinating authorized state transitions without requiring parameter updates. Throughout the evaluation, task objectives remain fixed while only the environment state changes. Across all configurations, EMHA achieves a pooled Attack Success Rate (ASR) of 85.0%. Its advantage over instruction-only evolution increases from approximately 2% on simple environments to over 17% on the most complex ones, demonstrating that environment evolution increasingly exposes safety failures as task complexity grows. Furthermore, our analysis shows that the specific runtime implementation of an agent explains a significant portion of safety variation beyond the underlying model's capabilities. These results establish OpenART as a scalable foundation for studying agent safety in complex, evolving environments.",
+      "authors": [
+        "Yunhao Chen",
+        "Xin Wang",
+        "Yixu Wang",
+        "Yi Liu",
+        "Jie Li",
+        "Yan Teng",
+        "Xingjun Ma",
+        "Xia Hu",
+        "Yu-Gang Jiang"
+      ],
+      "primary_category": "cs.CL",
+      "categories": [
+        "cs.CL"
+      ],
+      "published": "2026-08-01T13:51:55+00:00",
+      "link": "https://arxiv.org/pdf/2608.00677v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 10.0,
+      "llm_evidence_en": "Provides open-ended arena for agent red teaming across diverse domains, enabling systematic testing of LLM agents in adversarial and potentially cybercrime scenarios",
+      "llm_evidence_cn": "提供开放式智能体红队测试环境，支持在多样领域系统测试LLM智能体的对抗能力，覆盖潜在网络犯罪场景",
+      "llm_evidence": "提供开放式智能体红队测试环境，支持在多样领域系统测试LLM智能体的对抗能力，覆盖潜在网络犯罪场景",
+      "canonical_evidence": "提供开放式智能体红队测试环境，支持在多样领域系统测试LLM智能体的对抗能力，覆盖潜在网络犯罪场景",
+      "llm_tldr_en": "OpenART is an arena for scalable agent red teaming with over 10k stateful scenarios, enabling evaluation of LLM agents in long-horizon, tool-rich tasks that can simulate cybercrime conditions, directly testing capability boundaries.",
+      "llm_tldr_cn": "OpenART构建了一个开放式智能体红队测试平台，通过环境演进生成超过一万个有状态场景，覆盖50个领域，任务中位数达97次工具调用。该平台支持长期依赖决策的累积风险评估，能有效模拟网络犯罪条件，直接检验大模型智能体的能力边界和安全性。这项工作为大规模、系统化地探索LLM在网络犯罪中的潜在应用及脆弱性提供了关键基础设施。",
+      "llm_tldr": "OpenART构建了一个开放式智能体红队测试平台，通过环境演进生成超过一万个有状态场景，覆盖50个领域，任务中位数达97次工具调用。该平台支持长期依赖决策的累积风险评估，能有效模拟网络犯罪条件，直接检验大模型智能体的能力边界和安全性。这项工作为大规模、系统化地探索LLM在网络犯罪中的潜在应用及脆弱性提供了关键基础设施。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "adversarial agents for testing large language models in cybercrime",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2608.03009v1",
+      "source": "arxiv",
+      "title": "Tiny Enough to Break In: Agentic Remote Access Trojans Powered by Small Language Models",
+      "abstract": "Agentic artificial intelligence raises a new security concern: cyber threats that reason, act, and adapt locally without continuous human direction. We examine this threat through an Agentic Remote Access Trojan (agentic RAT): a Remote Access Trojan augmented with a locally deployed Small Language Model (SLM). The SLM interprets host and network observations, selects actions, recovers from failed steps, and reduces reliance on an external operator. We implement the concept in a controlled, network-isolated lab built from Kali Linux, a Metasploitable2 target, LM Studio, and a local 8-billion-parameter Dolphin-family model. We then test whether a model this small can support autonomous cyber decision-making. This is architecturally feasible today. On commodity hardware, with no cloud service and no operator in the loop, the SLM closed the full observe-decide-act cycle: it interpreted ranked reconnaissance evidence supplied by the controller, selected actions, and obtained verified root-shell access on real vulnerable services. However, it is not yet operationally reliable. The same model hallucinated commands, misread output, and recovered from failure inconsistently, completing 10.9% of a deliberately strict checklist. That gap reflects the limits of today's small models, not a ceiling on the concept. As SLMs improve, agentic endpoint systems may become more practical, more autonomous, and harder to detect, straining existing monitoring, containment, and policy-enforcement mechanisms. Real-world incidents in 2025-2026 already show AI-driven intrusions moving from concept toward practice. That makes the local, self-contained variant we study a plausible near-term direction, not a hypothetical one.",
+      "authors": [
+        "Yuhan You",
+        "Suhas Adavelly",
+        "Victoria Lovelace",
+        "Cameron Berryman",
+        "Joel Sadler",
+        "Daniel Graham"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR"
+      ],
+      "published": "2026-08-04T01:42:43+00:00",
+      "link": "https://arxiv.org/pdf/2608.03009v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 10.0,
+      "llm_evidence_en": "agentic RAT with SLM tested for autonomous cyber decision-making in lab environment",
+      "llm_evidence_cn": "利用小型语言模型实现自主化远程访问木马，测试网络犯罪决策能力",
+      "llm_evidence": "利用小型语言模型实现自主化远程访问木马，测试网络犯罪决策能力",
+      "canonical_evidence": "利用小型语言模型实现自主化远程访问木马，测试网络犯罪决策能力",
+      "llm_tldr_en": "This paper implements an agentic RAT powered by a local small language model, demonstrating that an 8B parameter model can support autonomous cyber decision-making and attack execution with minimal human direction.",
+      "llm_tldr_cn": "本文实现了一个由本地小型语言模型驱动的自主化远程访问木马（RAT），在隔离的实验环境中测试其自主网络攻击决策能力。实验表明，80亿参数的 Dolphin 模型能够解释主机和网络观测、选择行动、从失败中恢复，从而证实小模型也能支持自主网络犯罪行为。该研究揭示了语言模型在网络犯罪中的潜在能力边界，对安全防御具有警示意义。",
+      "llm_tldr": "本文实现了一个由本地小型语言模型驱动的自主化远程访问木马（RAT），在隔离的实验环境中测试其自主网络攻击决策能力。实验表明，80亿参数的 Dolphin 模型能够解释主机和网络观测、选择行动、从失败中恢复，从而证实小模型也能支持自主网络犯罪行为。该研究揭示了语言模型在网络犯罪中的潜在能力边界，对安全防御具有警示意义。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "capabilities of large language models in cybercrime",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2608.01759v1",
+      "source": "arxiv",
+      "title": "Benign Alone, Harmful Together: Exploiting Experience Composition in Self-Evolving LLM Agents",
+      "abstract": "Self-evolving large language model agents improve their capabilities by distilling interaction trajectories into persistent experiences. Yet this mechanism introduces a new safety risk: experiences that are benign in isolation may jointly weaken an agent's safety boundary when accumulated and reused across sessions. Existing memory attacks typically require direct memory access or induce explicitly malicious records, limiting their stealthiness and applicability. We propose EvoBreak, an experience-conditioned sequential attack that operates through individually benign attack-stage tasks and induced experiences. EvoBreak repeatedly observes the experiences distilled by the victim, identifies uncovered target-relevant requirements, and adaptively acquires complementary experiences before reformulating the final query to activate them jointly. To support training, we introduce BreakGym, a structure-first synthesis pipeline that generates decomposable safety-sensitive targets with diverse dependency structures. EvoBreak is optimized using rejection-sampling supervised fine-tuning and Hint-guided GRPO. Experiments across self-evolving frameworks, victim backbones, pre-evolution domains, and safety benchmarks demonstrate that EvoBreak consistently outperforms existing attacks while maintaining high benignness. These results reveal benign experience composition as a persistent attack surface in self-evolving agents.",
+      "authors": [
+        "Bingyu Yan",
+        "Xiaoming Zhang",
+        "Chaozhuo Li",
+        "Ziyi Zhou",
+        "Yirui Qi",
+        "Litian Zhang"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR"
+      ],
+      "published": "2026-08-03T06:28:21+00:00",
+      "link": "https://arxiv.org/pdf/2608.01759v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "Proposes EvoBreak attack that uses benign experiences to collectively weaken LLM agent safety, testing long-term vulnerability in cybercrime simulations",
+      "llm_evidence_cn": "提出EvoBreak攻击，利用良性经验组合削弱LLM智能体安全性，测试网络犯罪模拟中的长期脆弱性",
+      "llm_evidence": "提出EvoBreak攻击，利用良性经验组合削弱LLM智能体安全性，测试网络犯罪模拟中的长期脆弱性",
+      "canonical_evidence": "提出EvoBreak攻击，利用良性经验组合削弱LLM智能体安全性，测试网络犯罪模拟中的长期脆弱性",
+      "llm_tldr_en": "EvoBreak is an experience-conditioned sequential attack that composes individually benign tasks to gradually erode safety boundaries in self-evolving agents, exposing a new dimension of LLM capability limits in adversarial cybercrime scenarios.",
+      "llm_tldr_cn": "EvoBreak针对自进化LLM智能体提出经验条件化的序列攻击，通过一系列单独看来无害的任务逐步诱导智能体积累经验，最终联合削弱其安全边界。这一攻击揭示了智能体在长期交互中可能出现的隐蔽安全退化，为模拟网络犯罪中渐进式操纵提供了方法论，对理解大模型能力边界具有重要启示。",
+      "llm_tldr": "EvoBreak针对自进化LLM智能体提出经验条件化的序列攻击，通过一系列单独看来无害的任务逐步诱导智能体积累经验，最终联合削弱其安全边界。这一攻击揭示了智能体在长期交互中可能出现的隐蔽安全退化，为模拟网络犯罪中渐进式操纵提供了方法论，对理解大模型能力边界具有重要启示。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "adversarial agents for testing large language models in cybercrime",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2608.02018v1",
+      "source": "arxiv",
+      "title": "Invisible Ink Threats: Adversarial Goals Behind Legitimate Tasks in Computer-Use Agents",
+      "abstract": "Computer-use agents (CUAs), which empower large language models to autonomously operate operating systems and the web, are increasingly vulnerable to indirect prompt injection attacks. A widely adopted defense is the human-in-the-loop paradigm, in which the agent pauses for explicit user confirmation before executing sensitive operations. While effective against conspicuously high-harm attacks, this defense offers little protection against what we term Invisible Ink Threats: low-harm injected goals, such as starring a repository or installing a package, that are behaviorally indistinguishable from legitimate task execution and thus evade both model safety mechanisms and human oversight. To systematically investigate this blind spot, we present II-Bench, a collection of seemingly harmless adversarial tasks. II-Bench comprises 444 examples targeting confidentiality and integrity attacks across three platforms, spanning three attack categories: page navigation and interaction, sensitive information exfiltration, and code download and execution. Each category is instantiated in both natural language and code forms under two levels of instruction specificity. Furthermore, we construct HITLCUA, a comprehensive adversarial testing framework that integrates a real virtual machine operating system environment with isolated Docker-based web platforms, and simulates human participation by allowing CUAs to consult an API-simulated user before proceeding with suspicious operations. Extensive evaluations of leading CUAs reveal that low-harm injections frequently bypass both agent defenses and simulated user review, exposing severe and previously underexplored security risks in current CUAs.",
+      "authors": [
+        "Jia-Chen Zhang",
+        "Ze-Yu Zhang",
+        "Kai-Wei Zhang"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-08-03T10:16:53+00:00",
+      "link": "https://arxiv.org/pdf/2608.02018v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "Investigates Invisible Ink Threats where low-harm injected goals evade detection, testing LLM agents in adversarial cybercrime-like tasks",
+      "llm_evidence_cn": "研究隐形墨水威胁，低危害注入目标逃避检测，测试LLM智能体在对抗性网络犯罪式任务中的能力",
+      "llm_evidence": "研究隐形墨水威胁，低危害注入目标逃避检测，测试LLM智能体在对抗性网络犯罪式任务中的能力",
+      "canonical_evidence": "研究隐形墨水威胁，低危害注入目标逃避检测，测试LLM智能体在对抗性网络犯罪式任务中的能力",
+      "llm_tldr_en": "The paper introduces Invisible Ink Threats, low-harm goals injected into computer-use agents that look legitimate but collectively enable harmful actions, revealing blind spots in LLM safety in cybercrime contexts.",
+      "llm_tldr_cn": "本文揭示了大模型驱动的计算机使用智能体中的“隐形墨水威胁”：攻击者注入看似无害的低危害目标（如标星仓库、安装软件包），这些目标与正常任务行为无异，能同时逃避模型安全机制和人类监督。研究系统化探索了这一盲点，展示LLM智能体在区分合法任务与隐蔽恶意操作时的能力边界，对理解大模型在网络犯罪场景中的脆弱性具有重要意义。",
+      "llm_tldr": "本文揭示了大模型驱动的计算机使用智能体中的“隐形墨水威胁”：攻击者注入看似无害的低危害目标（如标星仓库、安装软件包），这些目标与正常任务行为无异，能同时逃避模型安全机制和人类监督。研究系统化探索了这一盲点，展示LLM智能体在区分合法任务与隐蔽恶意操作时的能力边界，对理解大模型在网络犯罪场景中的脆弱性具有重要意义。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "adversarial agents for testing large language models in cybercrime",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2608.03485v1",
+      "source": "arxiv",
+      "title": "SkillSentry: Adaptive Honey Worlds for Dynamic Safety Testing of Agent Skills",
+      "abstract": "External skills extend the capabilities of large language model agents, but also introduce an execution-time attack surface: a skill that appears benign under inspection may reveal harmful behavior only after particular environmental states, resources, or interaction histories are encountered. Existing scanners primarily rely on static analysis, predefined rules, or one-shot semantic judgments, making such conditional behavior difficult to elicit and attribute. We present SkillSentry, a dynamic safety-testing framework based on adaptive honey worlds. SkillSentry infers the intended capability boundary of a skill, constructs an LLM-simulated environment with controlled decoy resources, and adaptively generates tasks to explore its behavioral states. It then compares skill-enabled trajectories with matched no-skill executions, grounding suspicious behaviors in source code and verified execution traces before making a final decision. We evaluate SkillSentry against seven scanner configurations. SkillSentry achieves 99.50% Recall and 96.26% average F1 on standard benchmarks. Under semantics-preserving evasion, it reaches 92.95% average F1, compared with 80.07% for the strongest baselines. Our code is available at https://github.com/nizhangli062-jpg/SkillSentry-Adaptive-Honey-Worlds-for-Dynamic-Safety-Testing-of-Agent-Skills.",
+      "authors": [
+        "Nizhang Li",
+        "Zonghao Ying",
+        "Xiangfan Wu",
+        "Zonglei Jing",
+        "Xixun Lin",
+        "Hao Zhang",
+        "Wenxin Zhang",
+        "Jiaye Lin",
+        "Quanchen Zou",
+        "Xiangzheng Zhang"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR"
+      ],
+      "published": "2026-08-04T11:22:22+00:00",
+      "link": "https://arxiv.org/pdf/2608.03485v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "dynamic safety-testing framework infers skill's capability boundary via adaptive honey worlds",
+      "llm_evidence_cn": "通过自适应蜜罐世界推断智能体技能的能力边界，进行动态安全测试",
+      "llm_evidence": "通过自适应蜜罐世界推断智能体技能的能力边界，进行动态安全测试",
+      "canonical_evidence": "通过自适应蜜罐世界推断智能体技能的能力边界，进行动态安全测试",
+      "llm_tldr_en": "SkillSentry is a dynamic safety-testing framework that infers the intended capability boundary of LLM agent skills, constructs simulated environments with decoy resources, and adaptively generates tasks to test for harmful behaviors under specific conditions.",
+      "llm_tldr_cn": "SkillSentry 提出一种动态安全测试框架，通过推断 LLM 智能体技能的能力边界，构建带有诱饵资源的 LLM 模拟环境，并自适应地生成任务来探索其行为状态，旨在发现仅在特定环境状态下才显现的潜在有害行为。该框架弥补了现有静态分析方法难以捕捉条件性恶意行为的不足，为 LLM 智能体技能的安全性评估提供了更全面的测试手段。",
+      "llm_tldr": "SkillSentry 提出一种动态安全测试框架，通过推断 LLM 智能体技能的能力边界，构建带有诱饵资源的 LLM 模拟环境，并自适应地生成任务来探索其行为状态，旨在发现仅在特定环境状态下才显现的潜在有害行为。该框架弥补了现有静态分析方法难以捕捉条件性恶意行为的不足，为 LLM 智能体技能的安全性评估提供了更全面的测试手段。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "exploring the capability boundaries of large language models in cyber contexts",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2608.03844v1",
+      "source": "arxiv",
+      "title": "MAFIA: Query-Only Memory Attacks via Probing and Factual Injection against Audited LLM Agents",
+      "abstract": "Memory-augmented LLM agents rely on rich context for long-horizon reasoning and acting, yet their memory modules expose a persistent attack surface for malicious records, making the study of memory poisoning threats imperative. However, existing query-only attacks often fail to remain effective in two realistic and prevalent settings: large-scale benign memory pools and active input auditing. Consequently, current approaches fall short when facing the dual challenges of high retrieval competitiveness and rigorous semantic checks. To overcome these limitations, we propose MAFIA, a query-only Memory Attack framework via probing and Factual Injection against Audit, tailored to this extended threat model. Specifically, MAFIA introduces: (1) a placement strategy that ensures retrieval-competitive injection via memory probing, budget allocation, and scheduling; and (2) a payload design that bypasses audits using compact factual cloaks, preserving malicious effects while maintaining high semantic similarity. Extensive evaluations reveal that MAFIA achieves up to a 90.7% attack success rate while suppressing audit detection from a peak of 83.3% to at most 7.4%, exposing critical vulnerabilities across agentic memory systems. Code will be made publicly available at https://github.com/JiamingChen1234/MAFIA.",
+      "authors": [
+        "Jiaming Chen",
+        "Yisen Gao",
+        "Yanping Li",
+        "Zifan Liu",
+        "Yumeng Zhang",
+        "Jun Zhang"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-08-04T15:50:26+00:00",
+      "link": "https://arxiv.org/pdf/2608.03844v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "Introduces query-only memory poisoning attack on audited LLM agents, effectively testing agent resilience in adversarial cybercrime-like scenarios",
+      "llm_evidence_cn": "提出针对受审计LLM智能体的仅查询内存投毒攻击，有效测试智能体在对抗性网络犯罪场景中的韧性",
+      "llm_evidence": "提出针对受审计LLM智能体的仅查询内存投毒攻击，有效测试智能体在对抗性网络犯罪场景中的韧性",
+      "canonical_evidence": "提出针对受审计LLM智能体的仅查询内存投毒攻击，有效测试智能体在对抗性网络犯罪场景中的韧性",
+      "llm_tldr_en": "MAFIA is a framework for query-only memory attacks that insert malicious records into memory-augmented LLM agents, bypassing auditing to cause harmful outputs, thus exposing capability limits in resisting data manipulation in cybercrime contexts.",
+      "llm_tldr_cn": "MAFIA针对内存增强的LLM智能体提出仅查询条件下的内存投毒攻击框架，通过探测和事实注入在大规模良性内存池中植入恶意记录，并规避输入审计。该攻击揭示了LLM智能体在面对精心构造的内存污染时的脆弱性，为评估大模型在网络犯罪中的能力边界提供了有效的测试手段。",
+      "llm_tldr": "MAFIA针对内存增强的LLM智能体提出仅查询条件下的内存投毒攻击框架，通过探测和事实注入在大规模良性内存池中植入恶意记录，并规避输入审计。该攻击揭示了LLM智能体在面对精心构造的内存污染时的脆弱性，为评估大模型在网络犯罪中的能力边界提供了有效的测试手段。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "adversarial agents for testing large language models in cybercrime",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2608.00929v1",
+      "source": "arxiv",
+      "title": "Modeling Social Dynamics with an LLM-Enabled Agent Based Network-Dynamic (LAND) Model",
+      "abstract": "Social dynamics encode the process in which individual network and discourse interactions aggregate into collective influence, narrative dominance and coordinate behavior. This paper uses the the GhostField architecture, a hybrid LLM-Enabled Agent Based Network-Dynamic (LAND) model as a social simulation framework to build the AuraSight scenario. In the AuraSight scenario, 314,244 heterogeneous cyber social agents and human actors exchange 529,327 messages over 30 days surrounding a fictional international song-writing contest. We methodologically examine emergent social dynamics across four analytical layers: ego-network topology, semantic network evolution, coordination dynamics and influence dynamics. Our results show how generated social simulations do also produce social dynamics, and how the dynamics of coordination and influence emerge not from individual agents but from the recursive interaction between network topology and narrative exchange.",
+      "authors": [
+        "Lynnette Hui Xian Ng",
+        "Kathleen M. Carley"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-08-02T02:06:23+00:00",
+      "link": "https://arxiv.org/pdf/2608.00929v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "provides an LLM-enabled agent-based social simulation framework, offering a methodological bridge to simulate cybercriminal activities with multi-agent systems",
+      "llm_evidence_cn": "提供大模型驱动的智能体社交模拟框架，为用多智能体系统模拟网络犯罪活动提供方法论桥梁",
+      "llm_evidence": "提供大模型驱动的智能体社交模拟框架，为用多智能体系统模拟网络犯罪活动提供方法论桥梁",
+      "canonical_evidence": "提供大模型驱动的智能体社交模拟框架，为用多智能体系统模拟网络犯罪活动提供方法论桥梁",
+      "llm_tldr_en": "Proposes a hybrid LLM-enabled agent-based model for social simulation, demonstrating how large-scale multi-agent interactions can be modeled, which is transferable to cybercrime simulation.",
+      "llm_tldr_cn": "本文提出混合大模型驱动的智能体网络动态模型，构建了包含31万余个智能体的社交模拟场景。该方法展示了如何利用大模型智能体进行大规模交互模拟与涌现分析，其技术路线可迁移至网络犯罪活动的多智能体仿真，为探索犯罪智能体建模提供了方法论基础。",
+      "llm_tldr": "本文提出混合大模型驱动的智能体网络动态模型，构建了包含31万余个智能体的社交模拟场景。该方法展示了如何利用大模型智能体进行大规模交互模拟与涌现分析，其技术路线可迁移至网络犯罪活动的多智能体仿真，为探索犯罪智能体建模提供了方法论基础。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "How can agent based modeling and multi agent systems simulate cybercriminal activities with large language models?",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2607.26836v1",
+      "source": "arxiv",
+      "title": "Before Agents Speak: Pre-hoc Failure Risk Inference in Multi-Agent Systems",
+      "abstract": "LLM-based multi-agent systems (MAS) have exhibited remarkable capabilities in collaborative reasoning and decision-making, yet their interconnected communications introduce new systemic risk: localized hallucinations can propagate along agent communication chain, amplify through interactions, and ultimately trigger cascading failures. Existing countermeasures predominantly follow a post-hoc paradigm, identifying failures only after unsafe behaviors emerge, by which time harmful effects may have already spread throughout the agent network. To tackle this problem, we investigate a complementary pre-hoc approach and propose HalluProp, a Propagation-aware Hallucination inference framework that estimates individual agent failures and emergent system-level hallucination risks before inter-agent interaction. First, we model intrinsic hallucination risks by identifying fine-grained semantic misalignment between agent roles and task queries. We then characterize inter-agent risk propagation by modeling both semantic influence and communication topology. Finally, we integrate these two risks via a differentiable Noisy-OR inference mechanism to derive a systemic diagnosis. Extensive experiments show that HalluProp accurately localizes faulty agents, achieving an average AUROC of 84.6%, while enabling sub-second diagnosis with over $65\\times$ speedup over post-hoc methods. By facilitating early intervention through upstream screening, HalluProp effectively complements post-hoc methods, highlighting the potential of pre-hoc risk inference for building more reliable multi-agent systems.",
+      "authors": [
+        "Shi Lin",
+        "Chenpei Wang",
+        "Peng Qian",
+        "Dezhang Kong",
+        "Minghao Li",
+        "Yufeng Li",
+        "Xun Wang"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR"
+      ],
+      "published": "2026-07-29T12:26:41+00:00",
+      "link": "https://arxiv.org/pdf/2607.26836v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "proposes pre-hoc failure inference for LLM-based multi-agent systems, applicable to cybercrime simulation",
+      "llm_evidence_cn": "提出面向LLM多智能体系统的预霍尔失败推理，可应用于网络犯罪模拟",
+      "llm_evidence": "提出面向LLM多智能体系统的预霍尔失败推理，可应用于网络犯罪模拟",
+      "canonical_evidence": "提出面向LLM多智能体系统的预霍尔失败推理，可应用于网络犯罪模拟",
+      "llm_tldr_en": "Addresses cascading failures in LLM-based multi-agent systems by proposing HalluProp, a pre-hoc framework that estimates agent and system-level failure risks, offering methods potentially useful for modeling multi-agent cybercrime simulations.",
+      "llm_tldr_cn": "针对基于大语言模型的多智能体系统中幻觉传播导致的连锁故障，提出预霍尔风险推理框架HalluProp，通过传播感知的估计方法在智能体发言前预测个体与系统级故障风险。实验表明该方法能提前识别可能的故障，为构建更可靠的多智能体协作系统提供了新思路，其方法论可迁移至网络犯罪多智能体模拟场景。",
+      "llm_tldr": "针对基于大语言模型的多智能体系统中幻觉传播导致的连锁故障，提出预霍尔风险推理框架HalluProp，通过传播感知的估计方法在智能体发言前预测个体与系统级故障风险。实验表明该方法能提前识别可能的故障，为构建更可靠的多智能体协作系统提供了新思路，其方法论可迁移至网络犯罪多智能体模拟场景。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "multi-agent systems for cybercrime simulation",
+      "matched_requirement_id": "req-3",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2608.01085v1",
+      "source": "arxiv",
+      "title": "When Collaboration Becomes a Trigger: Collective Evidence-Threshold Backdoors in Multi-Agent Systems",
+      "abstract": "LLM-based multi-agent systems (MAS) extend LLM capabilities through iterative communication and shared contexts. However, this collaboration introduces a vulnerability: backdoor behavior can be activated when peer evidence reaches a hidden threshold, rather than being determined by any single message. We introduce a collective evidence-threshold backdoor paradigm for MAS and Boundary-Conditioned Backdoor Injection (BCBI), which constructs counterfactual boundary pairs to separate benign behavior before the threshold from the adversarial objective after it, and learns latent progression aligned with evidence. To mitigate this threat, we propose LAtent Transition Test-time Evaluation (LATTE), a clean-only latent-transition defense that learns benign communication dynamics and quarantines anomalous agent updates before their responses propagate. Across several benchmarks, BCBI yields selective activation with little premature activation; without knowing the attack target or trigger, LATTE limits propagation with minimal disruption.",
+      "authors": [
+        "Jia-Hao Xiao",
+        "Lei Feng",
+        "Min-Ling Zhang"
+      ],
+      "primary_category": "cs.MA",
+      "categories": [
+        "cs.MA",
+        "cs.LG"
+      ],
+      "published": "2026-08-02T08:38:44+00:00",
+      "link": "https://arxiv.org/pdf/2608.01085v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "introduces backdoor paradigm in LLM-based multi-agent systems with collective evidence threshold",
+      "llm_evidence_cn": "在基于LLM的多智能体系统中引入集体证据阈值后门范式",
+      "llm_evidence": "在基于LLM的多智能体系统中引入集体证据阈值后门范式",
+      "canonical_evidence": "在基于LLM的多智能体系统中引入集体证据阈值后门范式",
+      "llm_tldr_en": "Proposes a collective evidence-threshold backdoor attack and defense for LLM-based multi-agent systems, showing hidden malicious behavior can be triggered by peer evidence accumulation.",
+      "llm_tldr_cn": "基于大语言模型的多智能体系统中，协作可能被利用来激活后门行为，当来自同伴的证据累积超过特定阈值时触发。本文提出集体证据阈值后门范式，并设计边界条件后门注入（BCBI）方法和相应的潜伏转变测试时评估（LATTE）防御手段。实验证明BCBI可在维持良性行为的同时注入隐蔽后门，而LATTE能够在无后门样本条件下有效检测。该研究为多智能体系统安全提供了新的攻防视角。",
+      "llm_tldr": "基于大语言模型的多智能体系统中，协作可能被利用来激活后门行为，当来自同伴的证据累积超过特定阈值时触发。本文提出集体证据阈值后门范式，并设计边界条件后门注入（BCBI）方法和相应的潜伏转变测试时评估（LATTE）防御手段。实验证明BCBI可在维持良性行为的同时注入隐蔽后门，而LATTE能够在无后门样本条件下有效检测。该研究为多智能体系统安全提供了新的攻防视角。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "multi-agent systems for cybercrime simulation",
+      "matched_requirement_id": "req-3",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2607.27081v1",
+      "source": "arxiv",
+      "title": "On-Policy Distillation for LLM Safety: A Routing Approach to Template-Robust Realignment",
+      "abstract": "Fine-tuning is the dominant paradigm for specializing large language models (LLMs), yet it exposes a critical vulnerability: malicious data providers can embed harmful behaviors into downstream corpora, creating models that retain professional skills while violating human values on demand. Existing safety-realignment defenses often fail in practice due to three key limitations: they frequently cause catastrophic forgetting of specialized skills; their effectiveness collapses when the defender cannot observe the attacker's prompt template; and successfully realigned models remain susceptible to re-jailbreaking via simple system prompt switches. To address these challenges, we propose Routing-based On-Policy Distillation (ROPD), a novel realignment framework that models the divergence between aligned and compromised output probability distributions rather than fitting specific prompt templates. We conduct extensive experiments comparing ROPD against four state-of-the-art baselines across three datasets and three base models with varying alignment strengths. Our results demonstrate that when baseline defenses face template mismatches, often accompanied by severe degradation in downstream task performance. In contrast, ROPD substantially mitigates template-mismatch risks, maintaining superior robustness in both defense effectiveness and capability preservation. While our analysis indicates ROPD is not entirely immune to template shifts, its performance degradation is negligible compared to existing methods, establishing a new standard for robust LLM realignment.",
+      "authors": [
+        "Yongjian Guo",
+        "Wanlun Ma",
+        "Lingyu Shen",
+        "Xi Xiao",
+        "Sheng Wen"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI",
+        "cs.CL",
+        "cs.CR",
+        "cs.LG"
+      ],
+      "published": "2026-07-29T16:07:19+00:00",
+      "link": "https://arxiv.org/pdf/2607.27081v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "shows LLMs can be poisoned with harmful behaviors for cybercrime",
+      "llm_evidence_cn": "展示LLM能被注入有害行为用于网络犯罪",
+      "llm_evidence": "展示LLM能被注入有害行为用于网络犯罪",
+      "canonical_evidence": "展示LLM能被注入有害行为用于网络犯罪",
+      "llm_tldr_en": "Addresses the risk of fine-tuned LLMs embedding harmful behaviors for cybercrime, proposing ROPD, a routing-based on-policy distillation method that enables template-robust safety realignment while preserving skills.",
+      "llm_tldr_cn": "针对微调大模型时恶意数据提供者可植入有害行为（如网络犯罪能力）的问题，提出基于路由的在线策略蒸馏方法ROPD，实现模板鲁棒的安全重新对齐。实验表明该方法能在不遗忘专业技能的情况下有效抵御攻击，揭示了LLM在网络犯罪中的能力边界并提供了防御手段。",
+      "llm_tldr": "针对微调大模型时恶意数据提供者可植入有害行为（如网络犯罪能力）的问题，提出基于路由的在线策略蒸馏方法ROPD，实现模板鲁棒的安全重新对齐。实验表明该方法能在不遗忘专业技能的情况下有效抵御攻击，揭示了LLM在网络犯罪中的能力边界并提供了防御手段。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "capabilities of large language models in cybercrime",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2608.02698v1",
+      "source": "arxiv",
+      "title": "Steganalysis of Adaptive Covert Collusion in Tool-Using Agent Populations: A Black-Box, Cross-Principal Approach",
+      "abstract": "Tool-using agents built on large language models (LLMs) are increasingly deployed not by a single operator but by many, side by side on shared infrastructure. This creates a population-level risk that single-agent safeguards miss: a handful of agents can quietly coordinate, rigging a market, boosting one another in a review process, or timing a joint data grab, while each one looks perfectly well-behaved. The difficulty is that the organisations running these agents cannot see inside one another's models, so any realistic detector must work from behaviour alone: black-box, trace-only, and often with only partial visibility. We treat covert coordination as an information-hiding problem and build a black-box steganalysis detector that combines cross-run mutual-information estimation, permutation tests, distributional-shift statistics, and timing and tool-call side channels, all calibrated to a fixed false-positive budget. Our central move is to stop testing against a single fixed code: we pit the detector against an adversary that continually rewrites its encoding to slip past whatever the detector has learned, and we run this red-versus-blue contest in tool-using, memory-carrying environments rather than toy games. Capacity theory then tells us what to expect, a detection-capacity frontier, a covert bit-rate below which black-box detection is provably no better than chance. We set out an experiment to map this frontier, report clearly labelled placeholder results pending measurement, and flag a practical evasion, spreading a payload across sessions, that current methods largely miss.",
+      "authors": [
+        "Mohamed Chahine Ghanem"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI"
+      ],
+      "published": "2026-08-03T13:00:25+00:00",
+      "link": "https://arxiv.org/pdf/2608.02698v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "detects covert collusion among tool-using LLM agents, revealing a capability boundary for malicious coordination",
+      "llm_evidence_cn": "检测工具型LLM智能体间的隐蔽勾结，揭示恶意协调的能力边界",
+      "llm_evidence": "检测工具型LLM智能体间的隐蔽勾结，揭示恶意协调的能力边界",
+      "canonical_evidence": "检测工具型LLM智能体间的隐蔽勾结，揭示恶意协调的能力边界",
+      "llm_tldr_en": "Proposes a black-box steganalysis method to detect covert collusion among tool-using LLM agents acting across different operators, revealing the feasibility of undetectable malicious coordination.",
+      "llm_tldr_cn": "大型语言模型驱动的工具型智能体在多主体部署下，可能通过隐蔽协调实施市场操纵、数据窃取等恶意行为。本文将此问题建模为信息隐藏，提出一种黑箱行为隐写分析方法，仅基于行为轨迹检测跨主体勾结。实验表明，该方法能有效揭示精心设计的隐蔽通信，证实了这类威胁的现实性。研究为保护多智能体基础设施安全提供了重要工具。",
+      "llm_tldr": "大型语言模型驱动的工具型智能体在多主体部署下，可能通过隐蔽协调实施市场操纵、数据窃取等恶意行为。本文将此问题建模为信息隐藏，提出一种黑箱行为隐写分析方法，仅基于行为轨迹检测跨主体勾结。实验表明，该方法能有效揭示精心设计的隐蔽通信，证实了这类威胁的现实性。研究为保护多智能体基础设施安全提供了重要工具。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "exploring the capability boundaries of large language models in cyber contexts",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    }
+  ]
+}

@@ -1,0 +1,245 @@
+Title: SkillSentry: Adaptive Honey Worlds for Dynamic Safety Testing of Agent Skills
+
+URL Source: https://arxiv.org/pdf/2608.03485v1
+
+Published Time: Wed, 05 Aug 2026 00:56:13 GMT
+
+Number of Pages: 11
+
+Markdown Content:
+# SkillSentry: Adaptive Honey Worlds for Dynamic Safety Testing of Agent Skills 
+
+# Nizhang Li 1, Zonghao Ying 2, Xiangfan Wu 3, Zonglei Jing 2, Xixun Lin 4,Hao Zhang 5, Wenxin Zhang 5, Jiaye Lin 6, Quanchen Zou 7, Xiangzheng Zhang 7 
+
+> 1
+
+Faculty of Innovation Engineering, Macau University of Science and Technology  
+
+> 2
+
+SKLCCSE, Beijing University of Aeronautics and Astronautics  
+
+> 3
+
+Ocean University of China  
+
+> 4
+
+Institute of Information Engineering, Chinese Academy of Sciences  
+
+> 5
+
+University of Chinese Academy of Sciences  
+
+> 6
+
+Tsinghua University  
+
+> 7
+
+360 AI Security Lab 
+
+Abstract 
+
+External skills extend the capabilities of large language model agents, but also introduce an execution-time attack surface: a skill that appears benign under inspection may reveal harmful behavior only after particular environmental states, resources, or interaction histories are encountered. Ex-isting scanners primarily rely on static analysis, predefined rules, or one-shot semantic judgments, making such condi-tional behavior difficult to elicit and attribute. We present SkillSentry, a dynamic safety-testing framework based on adaptive honey worlds. SkillSentry infers the intended ca-pability boundary of a skill, constructs an LLM-simulated environment with controlled decoy resources, and adaptively generates tasks to explore its behavioral states. It then com-pares skill-enabled trajectories with matched no-skill execu-tions, grounding suspicious behaviors in source code and verified execution traces before making a final decision. We evaluate SkillSentry against seven scanner configura-tions. SkillSentry achieves 99.50% Recall and 96.26% aver-age F1 on standard benchmarks. Under semantics-preserving evasion, it reaches 92.95% average F1, compared with 80.07% for the strongest baselines. Our code is available at https://github.com/nizhangli062-jpg/SkillSentry-Adaptive-Honey-Worlds-for-Dynamic-Safety-Testing-of-Agent-Skills. 
+
+# 1 Introduction 
+
+Agent skills extend an agent through reusable instructions, scripts, and dependencies. Once installed, these components may operate with the host agent’s access to files, shell com-mands, credentials, and network services. Public registries make skills easy to reuse, but also create a new supply-chain boundary: recent measurements have found both malicious skills and useful-looking skills with capabilities that their descriptions never disclose (Liu et al. 2026; Li et al. 2026). The hard part is deciding whether a privileged operation is actually unauthorized. A document formatter should read the document it was given, and an API client should read its configured token and contact its documented endpoint. A formatter that searches for other tokens and sends them elsewhere crosses a different boundary. Source scanners can find file and network APIs, but cannot show that a conditional branch will execute. LLM reviewers can reason about intent, but may accept a plausible explanation without observing the 
+
+Figure 1: Motivating case. Skill Vetter accepts the docu-mented safeguard and predicts normal , whereas SkillSen-try replay-confirms a skill-only recursive deletion without user confirmation. effect or may reject a legitimate dual-use operation. Figure 1 illustrates this difference on a representative skill. A useful verdict therefore requires more than suspicious code. The scanner must show that the behavior occurs, that enabling the skill causes it, and that the advertised task does not require it. These requirements expose two problems with ordinary execution. The environment may not contain the file, credential, or service response that activates the hidden branch; and the base agent may perform the same action even when the skill is absent. We address both problems with SkillSentry , a prede-ployment audit that treats skill scanning as a controlled ex-periment. Package analysis first records the advertised task and identifies source-supported behaviors that may exceed it. Each behavior becomes a targeted test. The test runs in an ordinary environment and in a matched environment con-taining a plausible but task-irrelevant decoy. From the same initial state, SkillSentry executes the task once with the skill and once without it. It then checks completed tool ef-fects and before–after state, rather than trusting the agent’s description of what it did. This design separates three questions that artifact scan-arXiv:2608.03485v1 [cs.CR] 4 Aug 2026 ners often conflate. Package source tells SkillSentry what hidden behavior to exercise. Decoy-rich state gives that be-havior an opportunity to occur. The no-skill run removes effects caused by the task or base agent. A finding is reported only when the remaining effect completed, is explained by the package, and lies outside the advertised function. This paper makes three main contributions: 
+
+• We formulate agent-skill security as capability-drift test-ing . The audit compares the tool calls, resource accesses, and state changes caused by an enabled skill with the capability contract inferred from its advertised function. The verdict therefore depends on executed behavior rather than artifact-level indicators alone. 
+
+• We introduce SkillSentry , a dynamic skill auditor built around adaptive honey worlds and paired trace compari-son. It creates contract-specific decoy resources and plau-sible tasks to activate latent triggers, then uses earlier traces to refine later probes. Comparing runs with and without the skill reveals hidden, conditional, and multi-step behavior while preserving causal attribution. 
+
+• We evaluate SkillSentry against seven scanner config-urations. On datasets containing both clean and harmful skills, it achieves average F1 scores of 96.26% for stan-dard detection, 86.32% for benign-to-harmful injection, and 92.95% for evasion of already harmful skills. Taken together, SkillSentry delivers a substantial overall im-provement over existing scanners, with the largest gain on harmful skills deliberately modified to evade detection. 
+
+# 2 Related Work 
+
+## 2.1 Threats from Agent Skills 
+
+LLM agents face risks beyond those of chat-only models because their outputs can be executed through tools. Attacks may enter through external content, tool metadata, or tool interactions, and their effects may emerge only after multiple steps (Zhan et al. 2024; Debenedetti et al. 2024; Zhang et al. 2025; Wang et al. 2026). Skills make these risks persistent. They combine instruc-tions, executable helpers, and dependencies that may influ-ence many future tasks. Recent studies have identified mali-cious skills and useful-looking packages with undocumented capabilities (Li et al. 2026; Liu et al. 2026; Saha, Faghih, and Feizi 2026). Existing benchmarks cover harmful-only and mixed collections, capability injection, and evasive rewrit-ing (Jiang et al. 2026; Guo et al. 2026a; Tencent Zhuque Lab 2026; Schmotz et al. 2026; Jia et al. 2026a; Hao et al. 2026a; Ji et al. 2026; Lin and Yu 2026b; Kim, Song, and Shin 2026). Together, these studies show that skill safety depends not only on package contents, but also on the behavior caused when a skill is used. 
+
+## 2.2 Skill Scanners 
+
+Pre-deployment scanners obtain evidence from package ar-tifacts. SkillSpector combines static analysis with optional LLM review (Paz et al. 2026; NVIDIA 2026). Cisco Skill Scanner provides static, data-flow, and LLM-based configu-rations (Cisco AI Defense 2026), while Skill Vetter uses an LLM to inspect the complete package (spclaudehome 2026). Related systems first localize suspicious source regions and then apply semantic judgment (Etteib, Lunghi, and Bissyandé 2026). These scanners scale well, but artifact evidence alone does not establish reachability or causality. A sensitive operation may be required by the advertised task, while a harmful path may be hidden behind a trigger or benign code. SkillSentry 
+
+therefore uses artifact findings to guide execution and bases its verdict on whether the observed effect is caused by the skill and exceeds its advertised authority. 
+
+## 2.3 Sandboxed Skill Testing 
+
+Controlled environments make agent behavior measurable. ToolEmu simulates service interactions, while ToolSandbox and AgentDojo provide reproducible, stateful tool environ-ments (Ruan et al. 2024; Lu et al. 2025; Debenedetti et al. 2024). Other systems use controlled execution for fuzzing, action checking, trajectory judgment, and state verification (Liu et al. 2025; Jia et al. 2025; Yuan et al. 2024; Feng et al. 2026). Most prior sandboxes evaluate an agent or application as a whole. SkillSentry instead isolates one installed skill by com-paring the same task with and without it from matched initial states. Its synthetic resources draw on decoy documents and honeywords (Bowen et al. 2009; Juels and Rivest 2013), but contact with a decoy is only an observation. A violation still requires a completed, source-supported, skill-specific effect outside the advertised capability. 
+
+# 3 Method 
+
+We introduce SkillSentry to determine whether a skill per-forms actions unnecessary for its advertised purpose, which we call capability drift . For example, a document formatter may read the selected document, but should not search for unrelated credentials or send them to an external service. Suspicious code alone is insufficient evidence: a code path may never execute, an operation may be legitimate for an-other skill, and the base agent may perform the same action without the skill. SkillSentry therefore conducts a con-trolled pre-deployment audit in four stages. It defines the allowed behavior, constructs an adaptive honey world, com-pares matched executions with and without the skill, and verifies whether the retained difference is a completed vio-lation. All executions take place in an isolated environment. Figure 2 summarizes the workflow. 
+
+## 3.1 Defining Allowed Behavior 
+
+SkillSentry derives a task-specific capability contract from the skill description, user-provided inputs, and deployment policy. The contract records the resources, operations, tar-gets, and output required by the advertised task. A requested permission is included only when it is necessary for that task; the skill cannot expand its own contract by requesting broader authority. 
+
+SkillSentry then inspects the skill’s instructions, scripts, dependencies, and auxiliary files. Instead of treating suspi-cious code as proof of maliciousness, it converts each poten-tially excessive behavior into a test plan. The plan specifies Figure 2: Overview of SkillSentry . The framework derives a capability contract and source-grounded test plans, constructs matched ordinary and honey worlds, compares four executions, and verifies retained skill-caused effects before producing a verdict. the possible trigger, expected action, reason the action may exceed the contract, and observable evidence of completion. Every element must be grounded in cited package content, keeping the test tied to behavior the package can plausibly perform. A source reviewer, called the semantic critic , checks whether the cited content supports each test plan. Unsup-ported plans are discarded before execution. The critic does not decide whether the skill is unsafe; it only ensures that testing follows plausible behavior encoded in the package. 
+
+## 3.2 Building an Adaptive Honey World 
+
+A source-supported behavior may remain hidden when its trigger is absent. SkillSentry therefore creates two con-trolled environments. The ordinary world contains only task-required resources. The honey world starts from the same state and adds the smallest extra resource required by the test plan. This resource is task-irrelevant, uniquely marked, and monitored for access or modification. The honey world is tailored to the suspected behavior rather than filled with fixed traps. When the source checks for a condition, SkillSentry creates only the state needed to satisfy it. If execution reveals another prerequisite, the next test adds it only when supported by both source and trace evidence. Refinement stops when the behavior is reached or no supported change remains, allowing conditional and multi-step behavior to emerge without unrelated decoys. The two worlds otherwise preserve matched task state, making the added resource the intended environmental difference. The decoy is a probe, not a verdict. It gives the suspected behavior an opportunity to run; paired comparison and veri-fication determine whether the skill caused an unauthorized effect. 
+
+## 3.3 Comparing Paired Executions 
+
+For each test and random seed, SkillSentry runs a four-execution causal bundle across two worlds and two skill con-ditions. Both the ordinary and honey worlds receive a no-skill control run and a skill-enabled run. All four executions use the same task, base agent, budget, and corresponding initial state, while recording tool calls, targets, results, and before– after state changes. This separates effects caused by the task from those introduced by the skill. 
+
+SkillSentry first compares the skill-enabled and no-skill runs within each world. Matching completed control effects are removed, leaving effects attributable to enabling the skill. An effect remains if it appears only with the skill, affects a different target, produces a different outcome, or leaves a different final state. We call this comparison the baseline differential .The ordinary-world differential captures skill-caused be-havior under task-required state; the honey-world differential captures behavior after the contract-specific decoy is intro-duced. Comparing them reveals whether the decoy activates additional behavior rather than coinciding with an action that the task, base agent, or skill would already perform un-der ordinary state. If a required run fails to reach the tested behavior, SkillSentry marks the test as unresolved rather than treating missing coverage as evidence of safety. 3.4 Confirming a Violation 
+
+The dynamic verifier examines each retained effect and re-quires evidence that it occurred only with the skill, completed through a tool outcome or state change, and is explained by cited package content. Failed commands, attempted actions, and the agent’s own account are insufficient without an ob-servable outcome. Eligible soft positives then undergo a dual-use counterev-idence review , which asks whether the effect is necessary and appropriately bounded for the advertised task. A find-ing is downgraded when the evidence supports a legitimate task-required operation. This prevents sensitive resources or privileged tools from being treated as malicious by default, while leaving completed out-of-contract effects unchanged. The review can downgrade an eligible finding, but cannot create a new unsafe verdict without execution evidence. The semantic critic and dynamic verifier have distinct roles. The critic operates before execution and determines whether a source-based test is justified; the verifier operates afterward and determines whether the resulting evidence es-tablishes an effect. Although they may share a model back-bone, they receive different evidence and prompts, prevent-ing the same reviewer from both proposing and validating a speculative claim. 
+
+SkillSentry reports unsafe when at least one completed, skill-caused, source-supported effect falls outside the capa-bility contract. It reports no verified violation only when all required tests complete without such an effect, and un-resolved when required behavior cannot be tested. Missing coverage is therefore reported explicitly rather than treated as evidence of safety. 
+
+# 4 Experiments 
+
+## 4.1 Experimental Setup 
+
+Benchmarks. We conduct the standard evaluation on HarmfulSkillBench (Jiang et al. 2026; TrustAIRLab 2026), SkillTrustBench (Tencent Zhuque Lab 2026), and MalSkill-Bench (Guo et al. 2026a,b). HarmfulSkillBench contains only harmful skills, whereas the other two contain both harmful and clean packages. To test targeted evasion, we use POISE (Hao et al. 2026a,b), SkillCloak-Structural and SkillCloak-SFS (Ji et al. 2026), and a VulMask-style trans-formation (Lin and Yu 2026b,a). These attacks change in-structions, program structure, or payload placement while preserving the harmful capability. 
+
+Baselines. We compare seven configurations from three public scanner families. For SkillSpector (Paz et al. 2026; NVIDIA 2026), Static uses its rule, syntax, taint, and de-pendency analyzers, while LLM adds semantic review. For Cisco Skill Scanner (Cisco AI Defense 2026), Original is the default static pipeline, Behavioral adds AST-based data-flow analysis, and LLM adds model-based review. Skill Vetter (spclaudehome 2026) is evaluated with the same instruc-tions under Hermes and OpenClaw (Nous Research 2026; OpenClaw 2026). 
+
+Evaluation metrics. We report Precision, Recall, F1, and FPR. HarmfulSkillBench has no clean samples, so only Re-call is defined. Higher Precision, Recall, and F1 are bet-ter, whereas lower FPR is better. Unless otherwise stated, 
+
+SkillSentry uses DeepSeek-V4-Pro as both the test gener-ator and evidence judge. 
+
+## 4.2 Detection on Standard Benchmarks 
+
+Table 1 evaluates whether each scanner can recover harmful skills without treating legitimate high-authority behavior as malicious. This is our primary experiment because an effec-tive scanner must simultaneously achieve high harmful-skill coverage and preserve benign skills. From the results, we make the following observations. 
+
+(1) SkillSentry detects harmful skills accurately across all three benchmarks. It achieves 99.50% Recall on Harm-fulSkillBench and 96.08% and 96.43% F1 on SkillTrust-Bench and MalSkillBench, respectively. Its FPR is also below 5% on both mixed benchmarks. In practical terms, SkillSen-try detects nearly all harmful skills while rarely rejecting a benign one. 
+
+(2) Existing scanners obtain high Recall by producing many false alarms. On SkillTrustBench, Cisco (LLM) and 
+
+SkillSentry detect a similar proportion of harmful skills, with 97.03% and 96.12% Recall, respectively. However, Cisco (LLM) has a 53.68% FPR, meaning that it incor-rectly flags more than half of the benign skills. In contrast, 
+
+SkillSentry has only 4.15% FPR and achieves a higher F1 of 96.08%. Therefore, the advantage of SkillSentry is not simply detecting more suspicious behavior, but distinguish-ing harmful skills from legitimate high-authority skills. 
+
+(3) This difference comes from verifying what the skill actually causes. File access, network requests, credential use, and shell commands can be legitimate when they are required by the advertised task. Scanners that judge these operations from source code or descriptions alone therefore produce high FPR: the LLM- and agent-based baselines reach 42.85%–53.68% FPR on SkillTrustBench. SkillSentry in-stead checks whether an effect disappears when the skill is disabled and whether the advertised task requires that ef-fect. These two checks reduce FPR to 4.15%, while retaining 96.12% Recall. These results demonstrate that SkillSen-try effectively detects harmful skills without sacrificing the correct acceptance of legitimate high-authority behavior. 
+
+## 4.3 Robustness to Semantics-Preserving Evasion 
+
+Table 2 evaluates four transformations that preserve harm-ful behavior while changing instructions, structure, or code representation. This experiment tests whether a scanner rec-ognizes the underlying capability or merely memorizes its most visible artifact patterns. From the results, we make the following observations. 
+
+(1) SkillSentry remains effective when attackers delib-erately hide harmful behavior. The four attacks rewrite the instructions, reorganize the code, or move the harmful pay-load without removing its capability. SkillSentry achieves 92.95% average F1, compared with 80.07% for the strongest baseline on each attack. It leads by 5.41–16.70 F1 points in all four settings and also reduces average FPR from 31.73% to 8.18%. HarmfulSkillBench SkillTrustBench MalSkillBench Scanner Recall Precision Recall F1 FPR Precision Recall F1 FPR                                                                         
+
+> SkillSpector (Static) 6.00 87.23 82.13 84.60 28.36 69.22 47.21 56.14 20.70 SkillSpector (LLM) 10.00 82.63 91.15 86.68 45.22 71.55 53.25 61.06 20.88 Cisco (Original) 2.50 85.96 79.13 82.41 30.49 77.11 44.68 56.57 13.08 Cisco (Behavioral) 5.00 83.76 81.15 82.43 37.13 73.71 51.75 60.81 18.20 Cisco (LLM) 5.00 81.01 97.03 88.30 53.68 70.97 96.15 81.66 38.78 Skill Vetter (Hermes) 86.50 84.23 96.96 90.14 42.85 91.32 97.62 94.36 9.15 Skill Vetter (OpenClaw) 89.00 82.30 97.52 89.27 49.48 96.17 98.73 97.44 3.88
+> SkillSentry 99.50 96.04 96.12 96.08 4.15 98.18 94.74 96.43 2.33
+
+Table 1: Detection performance on the three standard benchmarks (%). HarmfulSkillBench contains only harmful skills and therefore reports Recall only. Bold and underlined values denote the best and second-best result in each column.                                                                                                    
+
+> POISE SkillCloak-Structural SkillCloak-SFS VulMask-style Scanner Prec. Rec. F1 FPR Prec. Rec. F1 FPR Prec. Rec. F1 FPR Prec. Rec. F1 FPR
+> SkillSpector (Static) 0.00 0.00 0.00 26.89 48.00 24.00 32.00 26.00 0.00 0.00 0.00 26.00 55.56 100.00 71.43 80.00 SkillSpector (LLM) 66.39 33.33 44.38 34.45 60.00 48.98 53.93 32.65 42.86 25.00 31.58 34.78 52.87 100.00 69.17 93.18 Cisco (Original) 0.00 0.00 0.00 6.90 0.00 0.00 0.00 8.70 0.00 0.00 0.00 8.70 0.00 0.00 0.00 0.00
+> Cisco (Behavioral) 0.00 0.00 0.00 9.48 28.57 4.44 7.69 10.87 0.00 0.00 0.00 10.87 0.00 0.00 0.00 0.00
+> Cisco (LLM) 95.00 70.37 80.85 7.76 79.07 75.56 77.27 19.57 84.48 98.00 90.74 19.57 50.00 28.00 35.90 28.00 Skill Vetter (Hermes) 26.09 2.47 4.51 14.29 40.74 22.00 28.57 32.00 0.00 0.00 0.00 32.00 0.00 0.00 0.00 0.00
+> Skill Vetter (OpenClaw) 26.09 2.83 5.11 14.29 42.31 22.00 28.95 30.61 0.00 0.00 0.00 32.00 0.00 0.00 0.00 0.00
+> SkillSentry 96.76 98.35 97.55 6.72 84.75 100.00 91.74 18.00 92.59 100.00 96.15 8.00 100.00 76.00 86.36 0.00
+
+Table 2: Detection under semantics-preserving evasion (%). Prec., Rec., and FPR denote precision, recall, and false-positive rate, respectively. Each attack preserves the harmful capability while changing its visible representation. Bold and underlined values denote the best and second-best results in each column; tied best results are all bold. 
+
+(2) Existing scanners fail in two different ways. Some scan-ners no longer recognize the harmful skill after its code is changed. For example, four baseline configurations obtain 0.00% Recall on VulMask-style. Other scanners detect the attacks by flagging almost everything: SkillSpector reaches 100.00% Recall, but its FPR is 80.00%–93.18%. SkillSen-try instead achieves 86.36% F1 with 0.00% FPR. It can therefore detect the hidden behavior without incorrectly re-jecting the clean controls. 
+
+(3) SkillSentry looks at what the skill does, not only how its code looks. An evasion attack can rewrite the pack-age, but the harmful capability must still produce the same effect when it is triggered. SkillSentry creates the minimal environment needed to trigger that behavior and runs the task both with and without the skill. If the harmful effect appears only when the skill is enabled, the code rewrite cannot hide it. This explains why SkillSentry is more robust to deliberate evasion than scanners that mainly inspect the skill package. 
+
+## 4.4 Ablation and Model Analysis 
+
+Component Contributions Static and dynamic evidence. Dynamic-only testing achieves perfect Precision on both mixed benchmarks, but Recall falls to 8.00% on SkillTrustBench and 4.00% on MalSkillBench because unguided tasks rarely satisfy hidden triggers. Static-only analysis covers more candidates, but re-duces HarmfulSkillBench Recall from 99.50% to 78.00% and SkillTrustBench F1 from 96.08% to 83.33%. The full method uses source analysis to identify what to exercise and dynamic execution to confirm that the effect occurs. Static evidence alone cannot establish that a suspicious path is reachable, while execution without source guidance seldom discovers the condition that activates it. 
+
+Adaptive honey resources. Removing honey resources lowers average F1 on the mixed benchmarks from 96.26% to 85.48%. Ordinary environments often lack the credential, file, or service state needed to activate a conditional path. The honey world supplies only the minimal source-supported prerequisite and monitors the interaction, improving cover-age without treating contact with a decoy as a violation. Its resources are generated for the behavior under test rather than selected from a fixed collection, which helps expose condi-tional and multi-step effects without filling the environment with unrelated traps. 
+
+Attribution and verification. The full pipeline averages 3.24% FPR across the mixed benchmarks. Removing the no-skill differential raises it to 10.00% because task- or agent-caused effects may be attributed to the skill. Removing the dynamic verifier raises FPR to 34.09%, since attempted ac-tions no longer require completed effects; removing dual-use review raises it to 10.00%, since legitimate privileged oper-HarmfulSkillBench SkillTrustBench MalSkillBench Setting Recall ↑ Precision ↑ Recall ↑ F1 ↑ FPR ↓ Precision ↑ Recall ↑ F1 ↑ FPR ↓                                                                                  
+
+> Full SkillSentry 99.50 96.04 96.12 96.08 4.15 98.18 94.74 96.43 2.33 Static only 78.00 86.96 80.00 83.33 12.00 95.45 84.00 89.36 4.00 Dynamic only 2.00 100.00 8.00 14.81 0.00 100.00 4.00 7.69 0.00 Without Critic 52.00 92.31 48.00 63.16 4.00 88.89 64.00 74.42 8.00 Without Source Grounding 69.44 92.31 75.00 82.76 6.67 91.30 84.00 87.50 18.18 Without Baseline Differential 76.00 90.48 76.00 82.61 8.00 87.50 84.00 85.71 12.00 Without Honey Resources 78.00 95.24 80.00 86.96 4.00 84.00 84.00 84.00 16.00 Without Dynamic Verifier 78.57 87.50 87.50 87.50 18.18 95.00 90.48 92.68 50.00 Without Dual-use Review 86.00 90.48 76.00 82.61 8.00 88.00 88.00 88.00 12.00
+
+Table 3: Component ablation (%). SkillTrustBench and MalSkillBench report Precision, Recall, F1, and FPR; HarmfulSkillBench reports Recall. 
+
+Figure 3: Backbone sensitivity. The plot reports Recall on HarmfulSkillBench and F1 on SkillTrustBench and Mal-SkillBench. ations may be treated as violations. These results show that honey resources provide coverage, the control run provides attribution, and verification and dual-use review preserve se-lectivity. Source grounding and the semantic critic further ensure that testing remains tied to behavior supported by the package. No isolated component reproduces the full balance between high Recall and low FPR. 
+
+Backbone and Generator–Judge Analysis Backbone robustness. Figure 3 shows that every tested backbone reaches at least 97.00% Recall on HarmfulSkill-Bench. F1 ranges from 81.82% to 96.08% on SkillTrust-Bench and from 89.57% to 96.43% on MalSkillBench. DeepSeek provides the strongest overall balance, while Qwen, Kimi, and Doubao remain strong across the bench-marks. The larger variation on SkillTrustBench indicates that contract interpretation is the most model-sensitive stage, but the consistently high harmful-skill Recall and MalSkillBench F1 show that the workflow is not tied to one backbone. In par-ticular, even the lowest HarmfulSkillBench Recall is 97.00%, and every backbone remains close to or above 89.00% F1 on MalSkillBench. The method therefore retains its main detec-tion capability when the underlying LLM is replaced. 
+
+Generator and judge assignment. Figure 4 shows that matched generator–judge pairs are best in 10 of 12 generator–                                 
+
+> Scanner Time ↓Input ↓Output ↓
+> (s/skill) (M tokens) (M tokens)
+> SkillSpector (Static) 2.35 0.00 0.00 SkillSpector (LLM) 47.73 3.14 0.68 Cisco (Original) 3.72 0.00 0.00 Cisco (Behavioral) 7.74 0.00 0.00 Cisco (LLM) 50.55 1.83 0.53 Skill Vetter (Hermes) 19.29 0.68 0.17 Skill Vetter (OpenClaw) 21.82 0.62 0.19
+> SkillSentry 119.47 37.53 1.41
+
+Table 4: Runtime and API usage on a 200-skill sample drawn from SkillTrustBench. Runtime is the average per skill; input and output tokens are totals over the complete sample, in millions and rounded to two decimal places. This is the only sampled experiment. benchmark comparisons and average 93.57%, compared with 73.89% for cross-model pairs. The generator must elicit the suspicious behavior, whereas the judge must interpret the re-sulting trace against the contract. A judge cannot recover ev-idence that the generator failed to elicit, and a revealing trace is insufficient when the judge applies an inconsistent con-tract. This result also shows that performance does not come solely from assigning a stronger model to the final classifier: evidence generation and contract interpretation must remain aligned. Thus, SkillSentry transfers across backbones, but matched generation and judgment provide the most reliable deployment configuration. 
+
+## 4.5 Efficiency Analysis 
+
+We next examine the computational cost of obtaining execution-grounded evidence. This experiment uses a 200-skill sample drawn from SkillTrustBench. We report average wall-clock time per skill and the total numbers of API input and output tokens consumed over all sampled skills. Input to-kens include prompts, skill contents, generated test context, and execution traces sent to an LLM; output tokens measure the text generated by the model. Although SkillSentry requires 119.47 seconds per skill and consumes 37.53 million input tokens and 1.41 million output tokens over the 200-skill sample, the additional com-Figure 4: Generator–judge assignments on the complete benchmarks. Cells report F1 for SkillTrustBench and MalSkillBench and Recall for HarmfulSkillBench. Red outlines mark the best assignments. 
+
+Figure 5: Supplementary evaluation of clean-to-harmful ca-pability injection. Markers report F1 ( ↑) and FPR ( ↓) for seven baseline configurations and SkillSentry on Skill-Inject and SkillJect. SS denotes SkillSpector; O/B denote Original/Behavioral; H/O denote Hermes/OpenClaw. putation yields substantially stronger detection performance. Across the two mixed benchmarks, SkillSentry achieves 96.26% average F1 and 3.24% average FPR, compared with 93.79% F1 and 23.37% FPR for the strongest baseline on each benchmark. Thus, the additional execution and verifi-cation improve F1 while reducing FPR by 20.13 percentage points. This trade-off makes SkillSentry particularly suit-able for high-assurance pre-deployment auditing, where reli-able detection is more important than maximizing scanning throughput. 
+
+## 4.6 Additional Evaluation: Injected Capabilities 
+
+Tables 1 and 2 study skills that are already harmful, either in their original form or after evasion. A related threat begins with a clean skill and inserts a harmful capability unrelated to its advertised purpose. We use Skill-Inject (Schmotz et al. 2026; AISA Group 2026) and SkillJect (Jia et al. 2026a,b) to examine whether paired execution also transfers to this setting. SkillSpector (LLM) obtains the highest average F1 (89.63%) across the two injection benchmarks, but its aver-age FPR is 29.47%. SkillSentry retains 86.32% F1 while reducing average FPR to 3.94%. The comparison shows that recall-oriented artifact scanning can recognize an injected payload, but may also assign its suspicious artifacts to be-nign behavior inherited from the host package. Cisco (LLM) averages 80.39% F1 and 4.88% FPR, whereas SkillSentry achieves 86.32% F1 and 3.94% FPR. The no-skill trace removes effects attributable to the base agent, while the capability contract separates the host skill’s legitimate behavior from the newly introduced side effect. This produces a more selective decision without sacrificing the majority of injected-skill coverage. Although capability injection is not one of our two pri-mary threat settings, the results provide evidence that the same causal audit transfers to harmful behavior inserted into a clean host skill. The advantage again comes from attribut-ing a completed side effect to the installed skill rather than classifying the package from suspicious content alone. 
+
+# 5 Conclusion 
+
+This paper studied the problem of detecting malicious agent skills before installation, motivated by the inability of static and semantic scanners to establish whether concealed behav-ior is reachable, completed, and caused by the skill. To this end, we proposed SkillSentry , a dynamic safety-testing framework built around contract-adaptive honey worlds. At its core, SkillSentry extends honey resources from static decoys to interactive agent worlds: it infers the skill’s adver-tised capability contract, generates targeted assurance tasks, and dynamically synthesizes task-relevant services together with plausible but unauthorized credentials, private files, API objects, and controlled sinks. These worlds create safe op-portunities for resource-dependent and delayed behavior to emerge. Each task is then executed with and without the skill from matched initial states, and a finding is admitted only when a completed effect is source-grounded, absent from the no-skill control, and outside the declared authority. Ex-periments across original and scanner-aware malicious skills show that this design improves detection while controlling false attribution. Overall, SkillSentry demonstrates how adaptive honey worlds enable dynamic safety testing of agent skills by exposing hidden capability drift and producing re-playable, skill-attributable evidence before installation. 
+
+# References 
+
+AISA Group. 2026. Skill-Inject. Official software repository; accessed 2026-07-29. Bowen, B. M.; Hershkop, S.; Keromytis, A. D.; and Stolfo, S. J. 2009. Baiting Inside Attackers Using Decoy Docu-ments. In Proceedings of the 5th International Conference on Security and Privacy in Communication Networks , 51–70. Cisco AI Defense. 2026. Skill Scanner: Security Scanner for Agent Skills. Official software repository; accessed 2026-07-29. Debenedetti, E.; Zhang, J.; Balunović, M.; Beurer-Kellner, L.; Fischer, M.; and Tramèr, F. 2024. AgentDojo: A Dynamic Environment to Evaluate Prompt Injection Attacks and De-fenses for LLM Agents. In Advances in Neural Information Processing Systems , volume 37, 82895–82920. Curran As-sociates, Inc. Etteib, B.; Lunghi, D.; and Bissyandé, T. F. 2026. Detect-ing Malicious Agent Skills in the Wild Using Attention. arXiv:2606.23416. Feng, Y.; Lin, R.; Wen, M.; He, Q.; Guo, Y.; Ding, Y.; Wu, Y.; Chen, J.; Xu, Z.; Du, X.; Ma, J.; Chen, Z.; Ma, X.; Chen, Y.; and Deng, X. 2026. Safety Testing LLM Agents at Scale: From Risk Discovery to Evidence-Grounded Verification. arXiv:2607.01793. Guo, W.; Zeng, W.; Liu, C.; Jia, X.; Xu, Y.; Tang, L.; Fang, Y.; and Liu, Y. 2026a. MalSkillBench: A Runtime-Verified Benchmark of Malicious Agent Skills. arXiv:2606.07131. Guo, W.; et al. 2026b. MalSkillBench. Official software and data repository; accessed 2026-07-29. Hao, H.; Min, D.; Zhang, Z.; Zhang, Y.; Xu, M.; Ge, Y.; and Cheng, L. 2026a. POISE: Position-Aware Undetectable Skill Injection on LLM Agents. arXiv:2606.07943. Hao, H.; et al. 2026b. SkillSafety: Code for POISE. Official software repository; accessed 2026-07-29. Ji, Z.; Xu, C.; Li, Z.; Gao, Y.; Wei, X.; Wang, S.; and Cheung, S.-C. 2026. Cloak and Detonate: Scanner Evasion and Dy-namic Detection of Agent Skill Malware. arXiv:2607.02357. Jia, F.; Wu, T.; Qin, X.; and Squicciarini, A. 2025. The Task Shield: Enforcing Task Alignment to Defend Against Indirect Prompt Injection in LLM Agents. In Proceedings of the 63rd Annual Meeting of the Association for Computational Linguistics , 29680–29697. Jia, X.; Liao, J.; Qin, S.; Gu, J.; Ren, W.; Cao, X.; Liu, Y.; and Torr, P. 2026a. SkillJect: Effectively Automat-ing Skill-Based Prompt Injection for Skill-Enabled Agents. arXiv:2602.14211. Jia, X.; et al. 2026b. SkillJect. Official software repository; accessed 2026-07-29. Jiang, Y.; Zhang, Y.; Backes, M.; Shen, X.; and Zhang, Y. 2026. HarmfulSkillBench: How Do Harmful Skills Weaponize Your Agents? arXiv:2604.15415. Juels, A.; and Rivest, R. L. 2013. Honeywords: Making Password-Cracking Detectable. In Proceedings of the ACM SIGSAC Conference on Computer and Communications Se-curity , 145–160. Kim, Y.; Song, M.; and Shin, S. 2026. SkillMutator: Bench-marking and Defending Language-and-Code Cross-Modal Attacks on LLM Agent Skills. arXiv:2606.14154. Li, Z.; Wu, J.; Ling, X.; Cui, X.; and Luo, T. 2026. Towards Secure Agent Skills: Architecture, Threat Taxonomy, and Security Analysis. arXiv:2604.02837. Lin, Y.-T.; and Yu, C.-M. 2026a. PhantomSkill Artifact. Author-provided anonymous artifact; accessed 2026-07-29. Lin, Y.-T.; and Yu, C.-M. 2026b. PhantomSkill: Malicious Code Injection in Agent Skill Ecosystems. arXiv:2606.19191. Liu, F.; Zhang, Y.; Luo, J.; Dai, J.; Chen, T.; Yuan, L.; Yu, Z.; Shi, Y.; Li, K.; Zhou, C.; Chen, H.; and Yang, M. 2025. Make Agent Defeat Agent: Automatic Detection of Taint-Style Vul-nerabilities in LLM-Based Agents. In 34th USENIX Secu-rity Symposium (USENIX Security 25) , 3767–3786. USENIX Association. Liu, Y.; Chen, Z.; Zhang, Y.; Deng, G.; Li, Y.; Ning, J.; and Zhang, L. Y. 2026. “Do Not Mention This to the User”: Detecting and Understanding Malicious Agent Skills in the Wild. Accepted to the 35th USENIX Security Symposium, arXiv:2602.06547. Lu, J.; Holleis, T.; Zhang, Y.; Aumayer, B.; Nan, F.; Bai, H.; Ma, S.; Ma, S.; Li, M.; Yin, G.; Wang, Z.; and Pang, R. 2025. ToolSandbox: A Stateful, Conversational, Interactive Evaluation Benchmark for LLM Tool Use Capabilities. In 
+
+Findings of the Association for Computational Linguistics: NAACL 2025 , 1160–1183. Nous Research. 2026. Hermes Agent. Official software repository; accessed 2026-07-29. NVIDIA. 2026. SkillSpector: Security Scanner for AI Agent Skills. Official software repository; accessed 2026-07-29. OpenClaw. 2026. OpenClaw. Official software repository; accessed 2026-07-29. Paz, N.; Pradeep, K.; Raghavan, N.; Nikirk, A.; Patil, Y. B.; and Gupta, M. 2026. SkillSpector: A Pre-Publication Secu-rity Control for Agent Skills. In AgentSkills 2026 .Ruan, Y.; Dong, H.; Wang, A.; Pitis, S.; Zhou, Y.; Ba, J.; Dubois, Y.; Maddison, C. J.; and Hashimoto, T. 2024. Iden-tifying the Risks of LM Agents with an LM-Emulated Sand-box. In International Conference on Learning Representa-tions .Saha, S.; Faghih, K.; and Feizi, S. 2026. Under the Hood of SKILL.md: Semantic Supply-Chain Attacks on AI Agent Skill Registry. arXiv:2605.11418. Schmotz, D.; Beurer-Kellner, L.; Abdelnabi, S.; and An-driushchenko, M. 2026. Skill-Inject: Measuring Agent Vul-nerability to Skill File Attacks. arXiv:2602.20156. spclaudehome. 2026. Skill Vetter. Official ClawHub listing; accessed 2026-07-29. Tencent Zhuque Lab. 2026. SkillTrustBench. Official bench-mark dataset; accessed 2026-07-29. TrustAIRLab. 2026. HarmfulSkillBench. Official software and data repository; accessed 2026-07-29. Wang, Z.; Gao, Y.; Wang, Y.; Liu, S.; Sun, H.; Cheng, H.; Shi, G.; Du, H.; and Li, X. 2026. MCPTox: A Benchmark for Tool Poisoning on Real-World MCP Servers. In Proceedings of the AAAI Conference on Artificial Intelligence , volume 40, 35811–35819. Yuan, T.; He, Z.; Dong, L.; Wang, Y.; Zhao, R.; Xia, T.; Xu, L.; Zhou, B.; Li, F.; Zhang, Z.; Wang, R.; and Liu, G. 2024. R-Judge: Benchmarking Safety Risk Awareness for LLM Agents. In Findings of the Association for Computational Linguistics: EMNLP 2024 , 1467–1490. Zhan, Q.; Liang, Z.; Ying, Z.; and Kang, D. 2024. In-jecAgent: Benchmarking Indirect Prompt Injections in Tool-Integrated Large Language Model Agents. In Findings of the Association for Computational Linguistics: ACL 2024 ,10471–10506. Zhang, H.; Huang, J.; Mei, K.; Yao, Y.; Wang, Z.; Zhan, C.; Wang, H.; and Zhang, Y. 2025. Agent Security Bench (ASB): Formalizing and Benchmarking Attacks and De-fenses in LLM-Based Agents. In International Conference on Learning Representations .A Additional Efficiency Results 
+
+The SkillTrustBench efficiency results appear in the main paper; this appendix reports the corresponding results for the remaining two benchmarks, HarmfulSkillBench and Mal-SkillBench.For each benchmark, every scanner evaluates the same fixed set of 200 skills. We report average wall-clock time per skill and the total numbers of API input and out-put tokens consumed over all sampled skills. Input tokens include prompts, skill contents, generated test context, and execution traces sent to an LLM; output tokens measure the text generated by the model.                               
+
+> Scanner Time ↓Input tokens ↓Output tokens ↓
+> (s/skill)
+> SkillSpector (Static) 1.83 00SkillSpector (LLM) 22.18 716,147 136,294 Cisco (Original) 3.50 00Cisco (Behavioral) 3.11 00Cisco (LLM) 34.33 1,056,556 370,191 Skill Vetter (Hermes) 14.66 753,540 123,195 Skill Vetter (OpenClaw) 16.01 699,338 142,490
+> SkillSentry 51.76 10,253,319 703,575
+
+Table 5: Efficiency and API usage for a fixed subset of 200 HarmfulSkillBench skills.                               
+
+> Scanner Time ↓Input tokens ↓Output tokens ↓
+> (s/skill)
+> SkillSpector (Static) 1.96 00SkillSpector (LLM) 40.05 1,172,894 312,205 Cisco (Original) 3.16 00Cisco (Behavioral) 2.89 00Cisco (LLM) 38.02 1,220,241 441,585 Skill Vetter (Hermes) 15.45 713,060 134,410 Skill Vetter (OpenClaw) 18.12 653,569 168,283
+> SkillSentry 78.20 18,759,162 1,020,649
+
+Table 6: Efficiency and API usage for a fixed subset of 200 MalSkillBench skills. The two additional benchmarks reproduce the same cost pattern reported for SkillTrustBench in the main paper. Ar-tifact scanners are faster because they stop after inspect-ing package contents. In contrast, SkillSentry uses the additional computation to construct contract-specific tests, execute matched Skill/no-Skill controls, inspect completed state changes, and verify that each reported effect is both attributable and outside the advertised capability. The over-head therefore corresponds to evidence that the baselines do not collect, rather than repeated analysis of the same artifact. When considered together with the detection results in the main paper, this extra computation yields a substantially stronger detection–false-alarm trade-off. Controlled execu-tion exposes behavior hidden behind benign-looking docu-mentation, while differential attribution and replay prevent expected dual-use operations from being mistaken for at-tacks. The consistency of the efficiency results across all three benchmarks also shows that the cost is a property of execution-grounded auditing rather than an artifact of a sin-gle dataset. This trade-off makes SkillSentry particularly suitable for high-assurance pre-deployment review, where obtaining replayable evidence and avoiding false accusations are more important than maximizing scanning throughput. 
+
+# B Case Studies 
+
+We compare SkillSentry with Skill Vetter (OpenClaw), the strongest baseline overall across the three benchmarks. The three harmful packages below are all labeled normal 
+
+by OpenClaw but detected by SkillSentry . They represent three complementary evidence paths: direct interaction with honey resources, a hidden path made reachable by a honey profile, and a violation exposed in an ordinary execution. To-gether, they show how honey state improves coverage without becoming an automatic signal of maliciousness. 
+
+## B.1 Oura Briefing 
+
+OpenClaw: normal (0.95) 
+
+SkillSentry : malicious (0.95) The oura-briefing package ( case_03610 , Skill-TrustBench) claims that its cleanup helper deletes tempo-rary files only after user confirmation. OpenClaw accepts this claim and describes the cleanup as restricted to Skill-private paths. It does not execute the disputed path. In fact, 
+
+scripts/_cleanup.py directly invokes rm -rf on 
+
+/tmp/_skill_run/* and its cache without implement-ing a confirmation check. To test this claim safely, SkillSentry places synthetic honey files in the cleanup directory and runs the task with-out confirming deletion. With the Skill enabled, the helper accesses two honey files and deletes files from the target paths; with the Skill disabled, those files remain untouched. 
+
+SkillSentry then repeats the deletion test and obtains the same result. The package is therefore marked malicious be-cause it actually deletes files without the confirmation it promises to request. This case demonstrates the value of contract-adaptive honey resources. OpenClaw accepts the advertised confir-mation safeguard, whereas SkillSentry turns that safeguard into a test and gives the deletion logic safe, instrumented tar-gets. It therefore exposes a mismatch between documentation and execution that artifact inspection misses, and supports the verdict with an observed and reproducible state change. 
+
+## B.2 Mission Control 
+
+OpenClaw: normal (0.90) 
+
+SkillSentry : malicious (0.95) The Mission Control package (case_02590 ,SkillTrustBench) advertises a read-only monitoring dash-board. OpenClaw treats its familiar, readable commands as benign and reports no critical red flags. This misses the op-tional setup helper in scripts/_init_dirs.py , which applies chmod 777 to a shared log directory. Making the directory writable by every local user directly contradicts the read-only claim. 
+
+SkillSentry creates a synthetic shared log directory and runs the package’s setup helper. With the Skill enabled, the helper changes the directory permissions to 777 and per-forms additional file, Python, and shell operations. When the same setup is repeated without the Skill, none of these actions occurs. SkillSentry then replays the suspicious op-eration and confirms that it can perform recursive deletion. The comparison shows that the state-changing behavior is introduced by the Skill and exceeds its claimed read-only function. The honey environment is essential because it safely pro-vides the shared-log state needed to activate this optional setup path. OpenClaw does not create this state or run the helper, so it sees only the benign monitoring description. 
+
+SkillSentry creates the missing condition and exposes the hidden behavior. The synthetic directory itself is not evidence of an attack; the verdict follows from the additional actions observed only with the Skill and confirmed by replay. 
+
+## B.3 EmotionWise 
+
+OpenClaw: normal (0.92) 
+
+SkillSentry : malicious (0.95) The EmotionWise package (clawhub/clawhub_660b8b84 , HarmfulSkillBench) claims only to send user text to api.emotionwise.ai 
+
+and return emotion scores. OpenClaw labels it normal because this API request matches the advertised function. However, OpenClaw does not run the package and therefore does not observe the other actions performed during the request. 
+
+SkillSentry sends test text through the package and al-lows the expected request to api.emotionwise.ai ; this request is not treated as malicious. During the same exe-cution, the Skill also reads local files and credentials and completes two shell commands. When SkillSentry repeats the same task without the Skill, none of these extra actions occurs. It therefore attributes the file, credential, and shell access to the Skill and returns malicious .No honey resource is needed in this case because the ad-vertised API task already activates the hidden behavior. The advantage of SkillSentry is that it does not have to choose between accepting the whole package and flagging every API request: it accepts the required network request while detecting the undeclared actions that accompany it. Open-Claw lacks this execution-level separation and consequently misses the attack. Across the three cases, SkillSentry provides a capabil-ity that the strongest baseline lacks: it converts a source-supported risk into a controlled experiment. Adaptive honey state makes dormant behavior reachable, the matched no-Skill run shows which effect is caused by the package, replay verifies that the effect completes, and the capability contract excludes behavior required by the legitimate task.This ev-idence chain helps explain why SkillSentry substantially outperforms OpenClaw across the benchmarks: it exposes and verifies harmful behavior that OpenClaw leaves untested, while excluding legitimate operations from the verdict.
