@@ -1,0 +1,349 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-08-07T20:49:24.456985+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 3,
+    "deep_cap": 6,
+    "deep_selected": 3,
+    "quick_candidates": 5,
+    "quick_skim_target": 11,
+    "quick_selected": 5
+  },
+  "deep_dive": [
+    {
+      "id": "2608.03591v1",
+      "source": "arxiv",
+      "title": "DiagChain: A Diagnostic Benchmark for Evaluating LLM Agents on Evidence-Grounded Attack Chain Reconstruction",
+      "abstract": "Large Language Model (LLM) agents offer a promising approach to attack chain reconstruction by retrieving and interpreting heterogeneous telemetry to infer ordered attacker actions. However, existing benchmarks mainly evaluate final outputs or aggregate accuracy, providing limited insight into how errors arise and propagate across intermediate reasoning stages. We present DiagChain, a diagnostic benchmark for evidence-grounded attack chain reconstruction that enables stage-wise evaluation of LLM agents. DiagChain includes MAIN-69, a suite of 69 scenarios spanning multiple operating systems, evidence noise levels, and chain lengths. It further introduces Evidence-Centric Retrieval-Augmented Generation (ECRAG), which couples evidence retrieval with an evolving structured representation of the reconstructed chain. Five complementary metrics are introduced to assess distinct stages of the reconstruction process and support systematic failure diagnosis. Based on evaluations using 6 LLMs, DiagChain reveals that even the strongest configuration succeeds on only 39.6% of the 849 reference steps in MAIN-69. Our analysis further shows that smaller models struggle with the more basic task of incorporating retrieved evidence into their outputs, whereas larger models can proceed to later steps, where correctly ordering that evidence becomes the main bottleneck. These results validate the importance of diagnostic evaluation beyond end-to-end accuracy and provide actionable insights for improving evidence-grounded cybersecurity agents.",
+      "authors": [
+        "Xuyang Liu",
+        "Yibin Han",
+        "Zhenwei Zhang",
+        "Kai Chang",
+        "Zhiwei Xu",
+        "Tian Qiu",
+        "Weixian Deng",
+        "Jiabao Gao",
+        "Xiaolin Peng",
+        "Hai Wan",
+        "Xibin Zhao"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI"
+      ],
+      "published": "2026-08-04T12:43:47+00:00",
+      "link": "https://arxiv.org/pdf/2608.03591v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "diagnostic benchmark evaluates LLM agents on attack chain reconstruction, testing capability limits in cybercrime scenarios",
+      "llm_evidence_cn": "诊断基准评估LLM代理在攻击链重建上的表现，测试网络犯罪场景中的能力边界",
+      "llm_evidence": "诊断基准评估LLM代理在攻击链重建上的表现，测试网络犯罪场景中的能力边界",
+      "canonical_evidence": "诊断基准评估LLM代理在攻击链重建上的表现，测试网络犯罪场景中的能力边界",
+      "llm_tldr_en": "DiagChain is a diagnostic benchmark that evaluates LLM agents on evidence-grounded attack chain reconstruction, enabling stage-wise analysis of errors, and it reveals capability boundaries in cybercrime investigation tasks.",
+      "llm_tldr_cn": "DiagChain是一个诊断基准，用于评估LLM代理在基于证据的攻击链重建任务上的表现，允许分阶段分析错误，从而揭示大模型在网络安全调查场景中的能力边界。它包含69个场景，覆盖多种操作系统和证据噪声，并引入证据中心检索增强生成来提高性能。该基准为理解LLM在复杂网络安全推理中的局限提供了重要工具，有助于识别和解决错误传播问题，为提升其在真实网络犯罪调查中的应用奠定基础。",
+      "llm_tldr": "DiagChain是一个诊断基准，用于评估LLM代理在基于证据的攻击链重建任务上的表现，允许分阶段分析错误，从而揭示大模型在网络安全调查场景中的能力边界。它包含69个场景，覆盖多种操作系统和证据噪声，并引入证据中心检索增强生成来提高性能。该基准为理解LLM在复杂网络安全推理中的局限提供了重要工具，有助于识别和解决错误传播问题，为提升其在真实网络犯罪调查中的应用奠定基础。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "evaluating the limits of large language models in cybercrime scenarios",
+      "matched_requirement_id": "req-9",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2608.05223v1",
+      "source": "arxiv",
+      "title": "Towards a Risk Assessment of Malicious Skill Files in Coding Agents",
+      "abstract": "Autonomous coding agents are increasingly embedded in enterprise software workflows with delegated authority over connected systems. Central to this architecture is the agent skills interface: folders of instructions and scripts that agents load dynamically to specialize their behavior. This interface also widens the attack surface, letting malicious shell commands hide within natural-language skill files. We make three contributions. First, an adversarial skill-synthesis method using six LLMs across four families to transform 471 real-world shell commands into benign-appearing skills, released as a benchmark of 2,826 skills mapped to 11 MITRE ATT&CK tactics. Second, a reproducible evaluation pipeline coupling run stratification, evidence anchoring, a refusal veto, and a deterministic declared-intent override with a three-judge LLM-as-a-judge panel, validated against a blind human gold standard (Cohen's kappa = 0.85). Third, a large-scale characterization of two enterprise-grade agents across 5,629 completed runs. Gemini CLI is exploited in 95.5-96.1% of runs and Qwen Code in 71.6-74.0% (raw majority vote to declared-intent-corrected estimate, both within the human gold standard), nearly invariant to the generating model. Explicit safety recognition occurs in only 1.99% of runs. Enterprises must assess and mitigate skill-interface risk before adopting coding agents. Our code and dataset are available at https://github.com/awsm-research/AgentJailbreak",
+      "authors": [
+        "Rui Yang",
+        "Michael Fu",
+        "Kla Tantithamthavorn",
+        "Chetan Arora",
+        "Joey Chua"
+      ],
+      "primary_category": "cs.SE",
+      "categories": [
+        "cs.SE",
+        "cs.CR"
+      ],
+      "published": "2026-08-05T11:33:43+00:00",
+      "link": "https://arxiv.org/pdf/2608.05223v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "LLMs generate adversarial skills mapped to MITRE ATT&CK, testing cybercrime capabilities.",
+      "llm_evidence_cn": "LLM生成对抗性技能并映射MITRE ATT&CK，检验网络犯罪能力。",
+      "llm_evidence": "LLM生成对抗性技能并映射MITRE ATT&CK，检验网络犯罪能力。",
+      "canonical_evidence": "LLM生成对抗性技能并映射MITRE ATT&CK，检验网络犯罪能力。",
+      "llm_tldr_en": "Uses six LLMs to generate benign-appearing but malicious skill files, creating a benchmark of 2,826 skills mapped to MITRE ATT&CK tactics to assess the risk of LLM-powered attacks in coding agents.",
+      "llm_tldr_cn": "该论文针对编码智能体中技能文件隐藏恶意命令的攻击面，提出使用六种先进的大语言模型自动合成看似无害的对抗性技能，并构建涵盖2826个样本、映射MITRE ATT&CK战术的综合基准，通过标准化的评估管道验证风险程度，实验表明LLM能够高效生成可绕过安全复检的恶意技能，对智能体工作流构成严重威胁，强调了加强技能文件安全审查的紧迫性。",
+      "llm_tldr": "该论文针对编码智能体中技能文件隐藏恶意命令的攻击面，提出使用六种先进的大语言模型自动合成看似无害的对抗性技能，并构建涵盖2826个样本、映射MITRE ATT&CK战术的综合基准，通过标准化的评估管道验证风险程度，实验表明LLM能够高效生成可绕过安全复检的恶意技能，对智能体工作流构成严重威胁，强调了加强技能文件安全审查的紧迫性。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "capabilities of large language models in cybercrime",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2608.05108v1",
+      "source": "arxiv",
+      "title": "Agent Against Agent: An Agentic System for Automatic Prompt Injection Red Teaming",
+      "abstract": "Prompt injection poses significant security risks to LLM agents. Efficient and effective red-teaming is therefore critical, both for evaluating these risks and for collecting training data to improve defenses. Existing state-of-the-art prompt injection red-teaming methods primarily rely on reinforcement learning (RL), producing attacker models that often generalize poorly to new target LLMs. In this work, we develop PIMiner, an agentic system for prompt injection red-teaming. During training, PIMiner is trained on a sequence of (dataset, target model) pairs and builds a strategy library from scratch. At test time, the learned strategy library can be directly transferred to a previously unseen target LLM without additional training. PIMiner requires only a small number of queries to a target agent (e.g., 10) per test sample. Experimental results demonstrate that PIMiner achieves strong performance. On IPIArena, it attains a 76.2% ASR against Gemini-2.5-Pro, 61.9% ASR against GPT-5.1, and 42.9% ASR against Claude-Sonnet-4.5. On AgentDojo, it achieves an 86.7% ASR against Gemini-2.5-Pro, 53.3% ASR against GPT-5.1, and 40.0% ASR against Claude-Sonnet-4.5.",
+      "authors": [
+        "Yanting Wang",
+        "Chenlong Yin",
+        "Runpeng Geng",
+        "Jinyuan Jia"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR"
+      ],
+      "published": "2026-08-05T17:44:09+00:00",
+      "link": "https://arxiv.org/pdf/2608.05108v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "agentic system for prompt injection red teaming evaluates LLM agents in cyber attack scenarios",
+      "llm_evidence_cn": "提示注入红队测试代理系统评估LLM代理在网络攻击场景",
+      "llm_evidence": "提示注入红队测试代理系统评估LLM代理在网络攻击场景",
+      "canonical_evidence": "提示注入红队测试代理系统评估LLM代理在网络攻击场景",
+      "llm_tldr_en": "PIMiner is an agentic red-teaming system that learns transferable strategies for prompt injection attacks, enabling efficient security evaluation of LLM agents.",
+      "llm_tldr_cn": "该论文提出PIMiner，一个针对大语言模型代理提示注入攻击的自动红队测试系统。它通过序列训练构建可转移的攻击策略库，能够有效地进行黑盒安全评估，为探索LLM在对抗性网络环境下的行为边界提供了有力工具，实证结果表明其攻击成功率高且泛化能力强。",
+      "llm_tldr": "该论文提出PIMiner，一个针对大语言模型代理提示注入攻击的自动红队测试系统。它通过序列训练构建可转移的攻击策略库，能够有效地进行黑盒安全评估，为探索LLM在对抗性网络环境下的行为边界提供了有力工具，实证结果表明其攻击成功率高且泛化能力强。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "adversarial agents for testing large language models in cybercrime",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2608.00747v2",
+      "source": "arxiv",
+      "title": "When Prompts Control Robots: Prompt Injection Attacks in Multi-Agent Robotic Systems",
+      "abstract": "Large language models are increasingly integrated into autonomous robotic systems for task planning and control, but this integration exposes them to prompt injection attacks that can lead to unsafe decisions and physical harm. Multi-agent settings increase the risks through cross-agent contamination and broader attack surfaces. In this paper, we evaluate prompt injection attacks against an LLM-based multi-agent robotic system, considering both direct injections into task instructions and indirect injections through perception modules. In our experiments across varying attack-goal complexities and injection strategies in both single-agent and multi-agent settings, we show that prompt injection can induce adversarial actions while reducing task completion. We find that attacks can propagate from one agent to others through shared prompt structures, with impacts varying depending on prompt composition and the targeted agent. We further analyze how architectural changes affect LLM queries and, consequently, the attack success. To the best of our knowledge, this is the first study that systematically investigates prompt injection attacks in a multi-agent LLM-based robotic system.",
+      "authors": [
+        "Neha Nagaraja",
+        "Amisha Bagari",
+        "Hayretdin Bahsi"
+      ],
+      "primary_category": "cs.RO",
+      "categories": [
+        "cs.RO",
+        "cs.AI",
+        "cs.CR",
+        "cs.MA"
+      ],
+      "published": "2026-08-01T16:31:00+00:00",
+      "link": "https://arxiv.org/pdf/2608.00747v2",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "prompt injection attacks in multi-agent robotic systems demonstrate LLM-induced harmful actions, relevant to cybercrime capabilities",
+      "llm_evidence_cn": "多智能体机器人系统中的提示注入攻击展示大模型诱导的有害行为，与网络犯罪能力相关",
+      "llm_evidence": "多智能体机器人系统中的提示注入攻击展示大模型诱导的有害行为，与网络犯罪能力相关",
+      "canonical_evidence": "多智能体机器人系统中的提示注入攻击展示大模型诱导的有害行为，与网络犯罪能力相关",
+      "llm_tldr_en": "This paper evaluates prompt injection attacks against LLM-based multi-agent robotic systems, showing that both direct and indirect injections can cause unsafe decisions and physical harm, highlighting the risks of LLM integration in cyber-physical environments.",
+      "llm_tldr_cn": "本文评估了针对基于LLM的多智能体机器人系统的提示注入攻击，证明直接和间接注入均可导致不安全决策和物理伤害，凸显了大模型在信息物理环境中使用的风险，为探索大模型被恶意利用的能力边界提供了实证。",
+      "llm_tldr": "本文评估了针对基于LLM的多智能体机器人系统的提示注入攻击，证明直接和间接注入均可导致不安全决策和物理伤害，凸显了大模型在信息物理环境中使用的风险，为探索大模型被恶意利用的能力边界提供了实证。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "exploring the capability boundaries of large language models in cyber contexts",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2608.00202v1",
+      "source": "arxiv",
+      "title": "From Monoliths to Swarms: A Study of Attack Surface Evolution in the Transition to Multi-Agent Web Systems",
+      "abstract": "Large Language Model (LLM)-based web agents are increasingly evolving from single-agent systems (SAS) to multi-agent systems (MAS). While MAS can lead to improved task performance by decomposing complex tasks across specialized sub-agents, such role decomposition introduces new structural attack surfaces that are absent in SAS. This expanded attack surface remains poorly understood and inadequately categorized.   To address this, we propose a taxonomy to categorize attack vectors specific to web-based MAS, accounting for vulnerabilities introduced or amplified by the involvement of multiple agents. We further present a test-bed WebMASLab to analyze web agent security against a fully external, web-only adversary. To isolate the effect of architecture, we keep the user task, tool surface, and browser substrate fixed, and compare single- and multi-agent setups. We evaluate three adversarial scenarios, across three conditions (baseline, prompt-hardened, and reasoning-enabled), including a novel MAS-specific Telephone Loop attack that exploits cross-agent delegation to create cyclical task loops. The attack is inert against SAS but compromises MAS when powered by three of the four frontier models evaluated (Claude Sonnet 4.5, GPT-5.2, GPT-5.4), averaging 80% across them at baseline. Only the fourth model, Claude Sonnet 4.6, resists the attack with a 92% detection rate. For the rest, the detection is 0% at baseline, reaching 33% with prompt-hardening for one model. We also show that obvious defenses do not generalize; prompt-hardening collapses one model's ASR from 100% to 8% while providing only modest reduction to the others. Our findings demonstrate that the transition from single- to multi-agent web systems changes the security landscape. Role specialization may not only lead to performance optimization but also introduce new architectural risks that require further study and defenses.",
+      "authors": [
+        "Yashaswi Malla",
+        "Sandra Siby"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR"
+      ],
+      "published": "2026-07-31T18:27:12+00:00",
+      "link": "https://arxiv.org/pdf/2608.00202v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "taxonomy of attack vectors in multi-agent web systems exposes new vulnerabilities relevant to cybercrime exploitation",
+      "llm_evidence_cn": "多智能体Web系统的攻击向量分类法揭示可被网络犯罪利用的新漏洞",
+      "llm_evidence": "多智能体Web系统的攻击向量分类法揭示可被网络犯罪利用的新漏洞",
+      "canonical_evidence": "多智能体Web系统的攻击向量分类法揭示可被网络犯罪利用的新漏洞",
+      "llm_tldr_en": "This paper proposes a taxonomy for attack vectors in multi-agent web systems and a test-bed to analyze security, revealing expanded attack surfaces that can be leveraged for cybercrime.",
+      "llm_tldr_cn": "本文提出了针对多智能体Web系统的攻击向量分类法，并构建测试平台分析安全性，揭示了可被网络犯罪利用的新攻击面。研究指出从单体到多智能体的转变引入了结构性漏洞，分类法有助于系统理解和防御这些风险。",
+      "llm_tldr": "本文提出了针对多智能体Web系统的攻击向量分类法，并构建测试平台分析安全性，揭示了可被网络犯罪利用的新攻击面。研究指出从单体到多智能体的转变引入了结构性漏洞，分类法有助于系统理解和防御这些风险。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "exploring the capability boundaries of large language models in cyber contexts",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2608.02407v1",
+      "source": "arxiv",
+      "title": "Antares: Foundation Models for Agentic Vulnerability Localization",
+      "abstract": "Vulnerability localization is a fundamental step in software security, requiring models to reason over large codebases and iteratively identify vulnerable implementations. We present Antares, a family of compact language models (350M, 1B, and 3B parameters) for agentic vulnerability localization. Based on IBM Granite base models, Antares is trained through a two-stage pipeline that combines supervised fine-tuning on cybersecurity reasoning and repository exploration data with reinforcement learning from verifiable rewards over vulnerable repositories. Across extensive evaluations, Antares-3B approaches GPT-5.5 while outperforming open-weight models over 200x larger in size. The Antares family further enables fast, low-cost local inference, completing a full 500-task evaluation sweep in approximately 15 minutes on a single H100 GPU, corresponding to an amortized evaluation time of under 2 seconds and less than $0.002 per task.",
+      "authors": [
+        "Supriti Vijay",
+        "Aman Priyanshu",
+        "Didier Chapoteau",
+        "Arthur Goldblatt",
+        "Jianliang He",
+        "Kimia Majd",
+        "Fraser Burch",
+        "Baturay Saglam",
+        "Takahiro Matsumoto",
+        "Zhuoran Yang",
+        "Amin Karbasi"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI"
+      ],
+      "published": "2026-08-03T15:49:14+00:00",
+      "link": "https://arxiv.org/pdf/2608.02407v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Develops small models for agentic vulnerability localization, testing LLM capability in cybersecurity reasoning.",
+      "llm_evidence_cn": "开发用于智能体式漏洞定位的小模型，测试LLM在网络安全推理中的能力。",
+      "llm_evidence": "开发用于智能体式漏洞定位的小模型，测试LLM在网络安全推理中的能力。",
+      "canonical_evidence": "开发用于智能体式漏洞定位的小模型，测试LLM在网络安全推理中的能力。",
+      "llm_tldr_en": "Presents compact language models for agentic vulnerability localization, achieving near state-of-the-art performance with significantly smaller size, demonstrating their capability in cybersecurity reasoning.",
+      "llm_tldr_cn": "该工作针对漏洞定位任务中大型代码库推理的需求，提出一套基于IBM Granite的紧凑语言模型Antares，通过监督微调与可验证奖励强化学习相结合的两阶段训练，在保持接近GPT-5.5性能的同时大幅缩小模型尺寸，支持本地低成本推理，验证了小模型在网络安全推理中的潜力。",
+      "llm_tldr": "该工作针对漏洞定位任务中大型代码库推理的需求，提出一套基于IBM Granite的紧凑语言模型Antares，通过监督微调与可验证奖励强化学习相结合的两阶段训练，在保持接近GPT-5.5性能的同时大幅缩小模型尺寸，支持本地低成本推理，验证了小模型在网络安全推理中的潜力。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "exploring the capability boundaries of large language models in cyber contexts",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2608.00718v1",
+      "source": "arxiv",
+      "title": "Adversarial Attacks in Multi-Agent LLM Pipelines: Unveiling Structural Vulnerabilities in Agentic AI Architectures",
+      "abstract": "Multi-agent LLM pipelines orchestrate multiple specialized language model agents into structured workflows where intermediate outputs are passed across agents to solve complex tasks. This design introduces a security gap absent in single-agent settings: once an agent accepts adversarial content, it is propagated as trusted input throughout the pipeline. We argue that this vulnerability stems from the absence of boundary verification, a security primitive that enforces explicit validation of data as it crosses inter-agent boundaries, including content, identity, execution intent, and state integrity. Without such verification, modern pipelines embed implicit trust assumptions that are not adversarially robust, giving rise to structurally distinct attack surfaces (e.g., content injection, agent impersonation, plan deviation, and memory poisoning). Leveraging annotated production traces from the GAIA and SWE-Bench benchmark, we show that these vulnerabilities arise in benign deployments and largely evade existing evaluation frameworks. We further operationalize these failure modes within a controlled multi-agent setting and evaluate them across GPT-5-mini, Claude Sonnet 4.5, and Kimi K2.5 under identical pipeline configurations. The results reveal that attack success aligns with pipeline structure rather than model capability, indicating that adversarial vulnerability is fundamentally an architectural property and motivating a shift toward pipeline-level defenses.",
+      "authors": [
+        "Faisal Haque Bappy",
+        "Tahrim Hossain",
+        "Tarannum Shaila Zaman",
+        "Raiful Hasan",
+        "Kamrul Hasan",
+        "Tariqul Islam"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI",
+        "cs.MA"
+      ],
+      "published": "2026-08-01T15:35:58+00:00",
+      "link": "https://arxiv.org/pdf/2608.00718v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "adversarial attacks in multi-agent LLM pipelines expose structural vulnerabilities relevant to cyber contexts",
+      "llm_evidence_cn": "多智能体LLM管道中的对抗性攻击揭示网络环境相关的结构性漏洞",
+      "llm_evidence": "多智能体LLM管道中的对抗性攻击揭示网络环境相关的结构性漏洞",
+      "canonical_evidence": "多智能体LLM管道中的对抗性攻击揭示网络环境相关的结构性漏洞",
+      "llm_tldr_en": "This paper exposes structural vulnerabilities in multi-agent LLM pipelines by demonstrating how adversarial content propagates, highlighting the need for boundary verification to enhance security in agentic AI systems.",
+      "llm_tldr_cn": "该研究通过对抗性攻击案例揭示了多智能体LLM管道中缺乏边界验证导致的安全隐患，展示了恶意内容在管道中传播的机制，并强调了引入边界验证机制对于增强智能体系统在网络安全威胁下鲁棒性的重要性，为探索大模型在恶意场景中的能力边界提供了借鉴。",
+      "llm_tldr": "该研究通过对抗性攻击案例揭示了多智能体LLM管道中缺乏边界验证导致的安全隐患，展示了恶意内容在管道中传播的机制，并强调了引入边界验证机制对于增强智能体系统在网络安全威胁下鲁棒性的重要性，为探索大模型在恶意场景中的能力边界提供了借鉴。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "exploring the capability boundaries of large language models in cyber contexts",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2608.04317v1",
+      "source": "arxiv",
+      "title": "Trident : How to Break Deep Reinforcement Learning Cyber Defenses (Agentic)",
+      "abstract": "Autonomous cyber defense systems based on Deep Reinforcement Learning (DRL) have attracted significant research attention, yet remain evaluated almost exclusively against static, heuristic red agents, leaving their robustness against adaptive threats critically understudied. Meanwhile, recent advances in Reinforcement Learning with Verifiable Rewards (RLVR) have improved LLM reasoning, but their integration into cybersecurity remains elusive due to the absence of suitable benchmark environments and interaction datasets. To bridge this gap, we introduce Trident, an agentic LLM red teaming framework comprising three components: a dynamic benchmark with isolated sandbox servers spanning CybORG CAGE 4 and CyberWheel, a dataset comprises over 13,000 high-fidelity red-blue interaction trajectories for RLVR, and a ``Code-as-Policy'' RLVR agentic architecture Trident Agentic). The latter reformulates red agent training as a contextual bandit via a tripartite Log Summarizer--Planner--Coder design, where a trainable Planner generates complete attack strategies from compressed execution logs, which a frozen Coder translates into executable Python policies deployed against live DRL defenders. Empirical evaluations reveal a fundamental brittleness in existing defenses: with a single trainable 7B planner, Trident reduces blue agent defensive performance by an average of 522% compared to static red agent baselines while autonomously discovering emergent behaviors such as decoy avoidance and adaptive state prioritization that static heuristics entirely fail to uncover.",
+      "authors": [
+        "Ryozo Masukawa",
+        "Ian Bryant",
+        "Armita Kazeminajafabadi",
+        "Sanggeon Yun",
+        "Hyunwoo Oh",
+        "SungHeon Jeong",
+        "Nathaniel D. Bastian",
+        "Mahdi Imani",
+        "Mohsen Imani"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI",
+        "cs.LG",
+        "cs.MA"
+      ],
+      "published": "2026-08-05T00:54:57+00:00",
+      "link": "https://arxiv.org/pdf/2608.04317v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Agentic LLM red teaming against DRL cyber defenses",
+      "llm_evidence_cn": "智能体LLM红队攻击DRL网络防御",
+      "llm_evidence": "智能体LLM红队攻击DRL网络防御",
+      "canonical_evidence": "智能体LLM红队攻击DRL网络防御",
+      "llm_tldr_en": "Introduces Trident, an agentic LLM red teaming framework that attacks deep reinforcement learning cyber defenses, providing a benchmark and dataset for evaluating offensive LLM agents in cybersecurity.",
+      "llm_tldr_cn": "针对自主网络防御系统缺乏自适应威胁评估的问题，本文提出Trident，一个智能体LLM红队框架。该框架包含基于CybORG CAGE 4和CyberWheel的动态沙箱基准及超13000条交互数据集。实验表明基于LLM的红方智能体能有效攻破深度强化学习防御，揭示了LLM在网络攻击场景中的潜力。",
+      "llm_tldr": "针对自主网络防御系统缺乏自适应威胁评估的问题，本文提出Trident，一个智能体LLM红队框架。该框架包含基于CybORG CAGE 4和CyberWheel的动态沙箱基准及超13000条交互数据集。实验表明基于LLM的红方智能体能有效攻破深度强化学习防御，揭示了LLM在网络攻击场景中的潜力。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "simulating cybercrime using language models",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    }
+  ]
+}

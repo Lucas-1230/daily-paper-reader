@@ -41,17 +41,17 @@
 <section class="dpr-home-dashboard-card dpr-home-report-card">
   <div class="dpr-home-dashboard-header">
     <div>
-      <span class="dpr-home-dashboard-kicker">2026-08-05</span>
+      <span class="dpr-home-dashboard-kicker">2026-08-07</span>
       <h3 class="dpr-home-dashboard-title">今日汇总</h3>
     </div>
-    <strong class="dpr-home-dashboard-count">共 11 篇</strong>
+    <strong class="dpr-home-dashboard-count">共 8 篇</strong>
   </div>
   <dl class="dpr-home-dashboard-stats">
     <div class="dpr-home-dashboard-stat"><dt>累计更新</dt><dd>1 次</dd></div>
-    <div class="dpr-home-dashboard-stat"><dt>精读</dt><dd>6</dd></div>
+    <div class="dpr-home-dashboard-stat"><dt>精读</dt><dd>3</dd></div>
     <div class="dpr-home-dashboard-stat"><dt>速读</dt><dd>5</dd></div>
   </dl>
-  <p class="dpr-home-dashboard-body">最近更新：2026-08-05 21:50:00 UTC<br>状态：成功</p>
+  <p class="dpr-home-dashboard-body">最近更新：2026-08-07 20:56:51 UTC<br>状态：成功</p>
 </section>
 <section class="dpr-home-dashboard-card dpr-home-brief-card">
   <div class="dpr-home-dashboard-header">
@@ -62,9 +62,9 @@
     <strong class="dpr-home-dashboard-count">AI</strong>
   </div>
   <div class="dpr-home-dashboard-body">
-<p>AI安全攻防日新月异：今日精读发现两大“矛”与“盾”的突破——用自我进化的开放世界自动红队测试AI，以及用小到足以藏身的语言模型打造难以察觉的远程木马。</p>
-<p>最值得关注的是，针对多智能体系统的“触发器后门”和“工具调用隐写合谋”也出现了新的黑盒检测方法。</p>
-<p>建议关注AI安全的小伙伴，从小模型攻击和自动进化测试两个方向切入，审视你的多智能体系统是否扛得住“狡猾围猎”。</p>
+<p>今日聚焦AI Agent安全攻防：从攻击链诊断到恶意技能文件评估，直击智能体安全前沿。</p>
+<p>《DiagChain》与《Towards a Risk Assessment》两篇精读分别揭示了LLM Agent在攻击链重建的推理瓶颈和代码智能体中嵌入恶意技能的隐蔽风险，均获9.0高分。</p>
+<p>建议安全从业者重点跟进针对Agent系统的诊断基准与风险量化框架，这将是下一代AI安全评测的基石。</p>
   </div>
 </section>
 <section class="dpr-home-dashboard-card dpr-home-deep-card">
@@ -73,12 +73,12 @@
       <span class="dpr-home-dashboard-kicker">今日累计</span>
       <h3 class="dpr-home-dashboard-title">精读推荐</h3>
     </div>
-    <strong class="dpr-home-dashboard-count">6 篇</strong>
+    <strong class="dpr-home-dashboard-count">3 篇</strong>
   </div>
   <div class="dpr-home-dashboard-body">
-<ul class="dpr-home-dashboard-paper-list"><li><span class="dpr-home-dashboard-paper-title" title="OpenART: Scaling Agent Red Teaming via Open-Ended Environment Evolution">OpenART: Scaling Agent Red Teaming via Open-Ended Environment Evolution</span></li><li><span class="dpr-home-dashboard-paper-title" title="Tiny Enough to Break In: Agentic Remote Access Trojans Powered by Small Language Models">Tiny Enough to Break In: Agentic Remote Access Trojans Powered by Small Language Models</span></li><li><span class="dpr-home-dashboard-paper-title" title="Benign Alone, Harmful Together: Exploiting Experience Composition in Self-Evolving LLM Agents">Benign Alone, Harmful Together: Exploiting Experience Composition in Self-Evolving LLM Agents</span></li></ul>
+<ul class="dpr-home-dashboard-paper-list"><li><span class="dpr-home-dashboard-paper-title" title="DiagChain: A Diagnostic Benchmark for Evaluating LLM Agents on Evidence-Grounded Attack Chain Reconstruction">DiagChain: A Diagnostic Benchmark for Evaluating LLM Agents on Evidence-Grounded Attack Chain Reconstruction</span></li><li><span class="dpr-home-dashboard-paper-title" title="Towards a Risk Assessment of Malicious Skill Files in Coding Agents">Towards a Risk Assessment of Malicious Skill Files in Coding Agents</span></li><li><span class="dpr-home-dashboard-paper-title" title="Agent Against Agent: An Agentic System for Automatic Prompt Injection Red Teaming">Agent Against Agent: An Agentic System for Automatic Prompt Injection Red Teaming</span></li></ul>
   </div>
-  <div class="dpr-home-dashboard-tags"><span class="dpr-home-dashboard-tag">ca <strong>6</strong></span></div>
+  <div class="dpr-home-dashboard-tags"><span class="dpr-home-dashboard-tag">ca <strong>3</strong></span></div>
 </section>
 <section class="dpr-home-dashboard-card dpr-home-skim-card">
   <div class="dpr-home-dashboard-header">
@@ -89,7 +89,7 @@
     <strong class="dpr-home-dashboard-count">5 篇</strong>
   </div>
   <div class="dpr-home-dashboard-body">
-<ul class="dpr-home-dashboard-paper-list"><li><span class="dpr-home-dashboard-paper-title" title="Modeling Social Dynamics with an LLM-Enabled Agent Based Network-Dynamic (LAND) Model">Modeling Social Dynamics with an LLM-Enabled Agent Based Network-Dynamic (LAND) Model</span></li><li><span class="dpr-home-dashboard-paper-title" title="When Collaboration Becomes a Trigger: Collective Evidence-Threshold Backdoors in Multi-Agent Systems">When Collaboration Becomes a Trigger: Collective Evidence-Threshold Backdoors in Multi-Agent Systems</span></li><li><span class="dpr-home-dashboard-paper-title" title="Steganalysis of Adaptive Covert Collusion in Tool-Using Agent Populations: A Black-Box, Cross-Principal Approach">Steganalysis of Adaptive Covert Collusion in Tool-Using Agent Populations: A Black-Box, Cross-Principal Approach</span></li></ul>
+<ul class="dpr-home-dashboard-paper-list"><li><span class="dpr-home-dashboard-paper-title" title="When Prompts Control Robots: Prompt Injection Attacks in Multi-Agent Robotic Systems">When Prompts Control Robots: Prompt Injection Attacks in Multi-Agent Robotic Systems</span></li><li><span class="dpr-home-dashboard-paper-title" title="Antares: Foundation Models for Agentic Vulnerability Localization">Antares: Foundation Models for Agentic Vulnerability Localization</span></li><li><span class="dpr-home-dashboard-paper-title" title="Trident : How to Break Deep Reinforcement Learning Cyber Defenses (Agentic)">Trident : How to Break Deep Reinforcement Learning Cyber Defenses (Agentic)</span></li></ul>
   </div>
   <div class="dpr-home-dashboard-tags"><span class="dpr-home-dashboard-tag">ca <strong>5</strong></span></div>
 </section>

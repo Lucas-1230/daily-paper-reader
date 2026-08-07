@@ -1,0 +1,137 @@
+{
+  "date": "20260807",
+  "date_label": "",
+  "generated_at": "2026-08-07 20:56:51 UTC",
+  "recommend_exists": true,
+  "run_count": 1,
+  "papers": [
+    {
+      "paper_id": "2608.03591v1",
+      "route": "202608/07/2608.03591v1-diagchain-a-diagnostic-benchmark-for-evaluating-llm-agents-on-evidence-grounded-attack-chain-reconstruction",
+      "title": "DiagChain: A Diagnostic Benchmark for Evaluating LLM Agents on Evidence-Grounded Attack Chain Reconstruction",
+      "section": "deep",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "ca"
+        }
+      ],
+      "score": 9.0,
+      "evidence": "诊断基准评估LLM代理在攻击链重建上的表现，测试网络犯罪场景中的能力边界",
+      "first_seen_at": "2026-08-07 20:56:51 UTC",
+      "updated_at": "2026-08-07 20:56:51 UTC"
+    },
+    {
+      "paper_id": "2608.05223v1",
+      "route": "202608/07/2608.05223v1-towards-a-risk-assessment-of-malicious-skill-files-in-coding-agents",
+      "title": "Towards a Risk Assessment of Malicious Skill Files in Coding Agents",
+      "section": "deep",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "ca"
+        }
+      ],
+      "score": 9.0,
+      "evidence": "LLM生成对抗性技能并映射MITRE ATT&CK，检验网络犯罪能力。",
+      "first_seen_at": "2026-08-07 20:56:51 UTC",
+      "updated_at": "2026-08-07 20:56:51 UTC"
+    },
+    {
+      "paper_id": "2608.05108v1",
+      "route": "202608/07/2608.05108v1-agent-against-agent-an-agentic-system-for-automatic-prompt-injection-red-teaming",
+      "title": "Agent Against Agent: An Agentic System for Automatic Prompt Injection Red Teaming",
+      "section": "deep",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "ca"
+        }
+      ],
+      "score": 8.0,
+      "evidence": "提示注入红队测试代理系统评估LLM代理在网络攻击场景",
+      "first_seen_at": "2026-08-07 20:56:51 UTC",
+      "updated_at": "2026-08-07 20:56:51 UTC"
+    },
+    {
+      "paper_id": "2608.00747v2",
+      "route": "202608/07/2608.00747v2-when-prompts-control-robots-prompt-injection-attacks-in-multi-agent-robotic-systems",
+      "title": "When Prompts Control Robots: Prompt Injection Attacks in Multi-Agent Robotic Systems",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "ca"
+        }
+      ],
+      "score": 7.0,
+      "evidence": "多智能体机器人系统中的提示注入攻击展示大模型诱导的有害行为，与网络犯罪能力相关",
+      "first_seen_at": "2026-08-07 20:56:51 UTC",
+      "updated_at": "2026-08-07 20:56:51 UTC"
+    },
+    {
+      "paper_id": "2608.02407v1",
+      "route": "202608/07/2608.02407v1-antares-foundation-models-for-agentic-vulnerability-localization",
+      "title": "Antares: Foundation Models for Agentic Vulnerability Localization",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "ca"
+        }
+      ],
+      "score": 7.0,
+      "evidence": "开发用于智能体式漏洞定位的小模型，测试LLM在网络安全推理中的能力。",
+      "first_seen_at": "2026-08-07 20:56:51 UTC",
+      "updated_at": "2026-08-07 20:56:51 UTC"
+    },
+    {
+      "paper_id": "2608.04317v1",
+      "route": "202608/07/2608.04317v1-trident--how-to-break-deep-reinforcement-learning-cyber-defenses-agentic",
+      "title": "Trident : How to Break Deep Reinforcement Learning Cyber Defenses (Agentic)",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "ca"
+        }
+      ],
+      "score": 7.0,
+      "evidence": "智能体LLM红队攻击DRL网络防御",
+      "first_seen_at": "2026-08-07 20:56:51 UTC",
+      "updated_at": "2026-08-07 20:56:51 UTC"
+    },
+    {
+      "paper_id": "2608.00202v1",
+      "route": "202608/07/2608.00202v1-from-monoliths-to-swarms-a-study-of-attack-surface-evolution-in-the-transition-to-multi-agent-web-systems",
+      "title": "From Monoliths to Swarms: A Study of Attack Surface Evolution in the Transition to Multi-Agent Web Systems",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "ca"
+        }
+      ],
+      "score": 6.0,
+      "evidence": "多智能体Web系统的攻击向量分类法揭示可被网络犯罪利用的新漏洞",
+      "first_seen_at": "2026-08-07 20:56:51 UTC",
+      "updated_at": "2026-08-07 20:56:51 UTC"
+    },
+    {
+      "paper_id": "2608.00718v1",
+      "route": "202608/07/2608.00718v1-adversarial-attacks-in-multi-agent-llm-pipelines-unveiling-structural-vulnerabilities-in-agentic-ai-architectures",
+      "title": "Adversarial Attacks in Multi-Agent LLM Pipelines: Unveiling Structural Vulnerabilities in Agentic AI Architectures",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "ca"
+        }
+      ],
+      "score": 6.0,
+      "evidence": "多智能体LLM管道中的对抗性攻击揭示网络环境相关的结构性漏洞",
+      "first_seen_at": "2026-08-07 20:56:51 UTC",
+      "updated_at": "2026-08-07 20:56:51 UTC"
+    }
+  ]
+}
