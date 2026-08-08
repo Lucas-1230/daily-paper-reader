@@ -1,0 +1,281 @@
+Title: Salami Attack: Stealthy Collusive Memory Poisoning against OpenClaw
+
+URL Source: https://arxiv.org/pdf/2608.01637v1
+
+Published Time: Tue, 04 Aug 2026 01:45:49 GMT
+
+Number of Pages: 8
+
+Markdown Content:
+# Salami Attack: Stealthy Collusive Memory Poisoning against OpenClaw 
+
+## Zheng Lin, Yuzhe Huang, Zhenxing Niu, ∗Xianmin Ye, Haichang Gao ∗
+
+Xidian University Xi’an, Shaanxi, China 
+
+Abstract 
+
+Long-term memory enables LLM agents to retain useful in-formation across sessions, but also creates an attack surface through which adversaries may poison an agent’s persistent memory to steer its behavior. Existing memory poisoning at-tacks mainly rely on individually malicious records, overlook-ing a compositional threat: multiple benign-looking memo-ries may jointly induce unsafe behavior. In this paper, we introduce MemCollusion, an automated red-teaming frame-work for constructing collusive memory poisoning attacks. MemCollusion applies salami tactics —a strategy that slices an adversarial objective into small, individually innocuous pieces—to generate memory fragments that are individually benign-looking but collectively harmful. It constructs memory coalitions using four design constraints, five theory-informed strategies, and a fine-tuned generator. To assess collusive memory poisoning in a realistic cross-session setting, we de-velop MoltLab, a controlled research reproduction of Molt-book, in which crafted platform content must first be observed and distilled into persistent memory before influencing the agent’s behavior in a separate session. We evaluate MemCol-lusion on OpenClaw using two backbone models across 48 scenarios. Under the strongest memory-saving setting, Mem-Collusion achieves an average Memory Save Rate of 81.3% and an Attack Success Rate of 75.0%, and remains effec-tive under both benign memory dilution and memory-level defenses. 
+
+## 1 Introduction 
+
+Large language model (LLM) agents are evolving from state-less conversational systems (Wang et al. 2024) into au-tonomous personal assistants equipped with long-term mem-ory (Park et al. 2023). Modern agent frameworks such as OpenClaw (OpenClaw Project 2026) can retain user prefer-ences, historical decisions, and recurring workflows in per-sistent memory files to support personalized and continu-ous assistance. However, this memory mechanism also in-troduces a new attack surface: adversaries may poison an agent’s persistent memory and thereby manipulate its behav-ior in subsequent sessions. Recent studies have begun to investigate memory poi-soning attacks against LLM agents. AgentPoison (Chen et al. 2024) directly modifies a retrieval-augmented memory 
+
+> ∗
+
+Corresponding author. 
+
+repository and optimizes triggers. MINJA (Dong et al. 2026) introduces malicious reasoning records through query-only interactions. MemoryGraft (Srivastava and He 2025) further examines how poisoned “successful experiences” can be in-corporated into an agent’s long-term memory and later reused across similar tasks. Zombie Agents (Yang et al. 2026) study self-evolving agents where malicious content is continuously reinforced across multiple sessions. Despite these advances, research on memory poisoning at-tacks still has important limitations. First, existing methods largely rely on single-record memory poisoning, where each malicious record typically exhibits explicit harmful intent and is therefore easily identifiable by memory cleaning fil-ters (Zhang et al. 2025). Second, existing methods are mainly evaluated on relatively simplified or specialized memory sys-tems, such as RAG (Lewis et al. 2020) and MemoryOS (Kang et al. 2025), and have not yet been studied in modern personal agent frameworks such as OpenClaw. More importantly, they miss a distinctive property of memory-augmented agents: when generating responses, agents rarely rely on a single memory. In OpenClaw, the complete persistent memory file, such as MEMORY.md , is loaded into the context of each new session, making multiple stored memories jointly available to inform the agent’s decisions. Safety at the level of individ-ual memories therefore does not necessarily guarantee safety at the level of their composition. Several memories may each appear incomplete, ordinary, and harmless, yet collectively establish the target object, supporting evidence, operational assumptions, and workflow required to induce an unsafe ac-tion. We refer to this compositional form of memory poisoning as memory collusion and operationalize it through salami tactics (Zhang et al. 2026a). Under this principle, the infor-mation needed to achieve an adversarial objective is divided across multiple memory fragments. Each fragment is indi-vidually insufficient to reveal or induce the complete target behavior, but the fragments collectively provide enough con-text to steer the agent when they are loaded together. Because the malicious intent becomes apparent only when multiple memories are aggregated, rather than from any individual memory, such poisoning attacks are difficult for defenses that inspect and filter memories independently. Based on this insight, we propose MemCollusion, an au-tomated red-teaming framework for constructing collusive arXiv:2608.01637v1 [cs.AI] 3 Aug 2026 memory poisoning attacks. Given a benign user request q
+
+and an adversarial target behavior g, MemCollusion gen-erates a memory coalition M = {m1, m 2, . . . , m k} under four constraints. First, the complete coalition must cover the semantic anchors required to induce g. Second, no individ-ual memory should independently reveal or trigger the target behavior. Third, each fragment should resemble informa-tion that could naturally be extracted and preserved by the agent’s normal memory-writing process. Finally, the frag-ments should remain mutually consistent. To satisfy these constraints, we formulate five theory-informed construction strategies: equivalence bridging, consensus, authority en-dorsement, workflow continuation, and validation closure. We further fine-tune a dedicated memory coalition generator to automatically produce natural and mutually reinforcing memory coalitions. To study MemCollusion in a realistic setting, follow-ing (Zhang et al. 2026b), we develop MoltLab, a controlled research reproduction of the Moltbook framework in Open-Claw. Unlike directly modifying the memory repository or relying on adversarial “user–agent” interactions, MoltLab exposes the agent to collusive information through exter-nal platform content. The agent must first observe the con-tent, incorporate it into its active context, summarize it into 
+
+MEMORY.md , and then use the resulting memory in a sep-arate session. This setting more closely simulates how real-world deployed agents may encounter and absorb information from external sources. We evaluate MemCollusion on OpenClaw using two backbone models and 48 scenarios spanning Preference Ma-nipulation, Web Shopping, and Privacy Extraction. We ad-ditionally study different memory-saving strengths, coalition sizes, benign memory dilution, and memory-level defenses. Under the strongest memory-saving setting, MemCollusion achieves an average Memory Save Rate (MSR) of 81.3% and an Attack Success Rate (ASR) of 75.0%. The attack remains effective when the collusive content is mixed with substantial benign information and retains considerably higher success rates than representative single-record memory poisoning attacks after memory-level defenses. Our contributions are summarized as follows: 
+
+• We first identify and formulate memory collusion as a new form of memory poisoning, where multiple benign-looking memories jointly induce adversarial behavior through salami tactics. 
+
+• We propose MemCollusion, an automated framework that integrates four construction constraints, five theory-informed strategies, and a fine-tuned generator to produce stealthy and effective memory coalitions. 
+
+• We develop MoltLab and demonstrate that MemCol-lusion achieves strong effectiveness and robustness on OpenClaw under benign memory dilution and memory-level defenses. 
+
+## 2 Related Work 
+
+Agent Memory Systems. Memory mechanisms are es-sential for transforming LLM agents into autonomous per-sonal assistants. Early RAG (Lewis et al. 2020) systems treat external knowledge bases as static memory for fac-tual grounding, while MemoryBank (Zhong et al. 2024) and MemGPT (Packer et al. 2023) store interaction his-tories to support personalization. MemoryOS (Kang et al. 2025) further emphasizes structured memory storage, up-dating, retrieval, and lifecycle management. In contrast to these relatively isolated memory modules, modern personal agents such as OpenClaw integrate memory with tool use, autonomous retrieval, and cross-session execution (Yao et al. 2022), and may summarize contextual information into per-sistent habits or preferences without explicit save commands. Therefore, we evaluate memory poisoning attacks within OpenClaw, which closely mirrors real-world deployments. 
+
+Memory Poisoning Attacks. AgentPoison (Chen et al. 2024) directly modifies RAG knowledge bases and opti-mizes triggers. In contrast, MINJA (Dong et al. 2026) in-directly introduces malicious records through query-only in-teractions and designs bridging steps to induce harmful rea-soning traces. InjecMEM (Tian et al. 2026) decomposes ma-licious content into retriever-agnostic anchors and optimizes adversarial suffixes for dynamic memory mechanisms. Mem-oryGraft (Srivastava and He 2025) further implants poisoned “successful experiences” that influence similar tasks, while Zombie Agents (Yang et al. 2026) study malicious memories that are repeatedly reinforced in self-evolving agents. Despite these advances, existing memory poisoning attacks generally rely on individually malicious records that can independently convey or trigger the attack. MemCollusion instead targets the compositional risk created when multiple benign-looking memories are aggregated during decision making. 
+
+Memory Security and Defense. Compared with memory poisoning attacks, dedicated defenses for agent memory re-main limited. LLM-based auditors (Luo et al. 2026) typically inspect each stored memory entry in isolation and remove en-tries deemed unsafe or anomalous. A-MemGuard (Wei et al. 2025) provides a more memory-specific defense by validat-ing reasoning paths derived from related memories through consensus and maintaining corrective lessons to prevent re-peated failures. However, entry-wise auditing and consensus-based reasoning checks do not directly address compositional risks whose harmful intent emerges only from the combina-tion of individually plausible memories. 
+
+## 3 Methodology 
+
+In this section, we present MemCollusion, an automated framework for constructing and deploying collusive mem-ory poisoning attacks. We first formulate the threat model and cross-session objective, then introduce four design con-straints and five construction strategies for producing individ-ually benign-looking but collectively effective memory frag-ments. Finally, we describe the fine-tuned Memory Coalition Generator and its deployment. Figure 1 summarizes the train-ing and cross-session deployment pipeline. 
+
+3.1 Threat Model and Problem Formulation 
+
+We consider collusive memory poisoning, in which multiple memory fragments that appear benign and insufficient in iso-lation jointly steer an agent toward an adversarial behavior. A. Memory Coalition Generator Training 
+
+Step 1: Obtain Training Data 
+
+> (via contextual prompting, preliminary validated coalitions, and human experts) Benign Request
+> q
+> Target Behavior
+> g
+> Coalition size
+> k
+> TASK
+> Anchor Coverage Individual Incompleteness Naturalness Non-Contradiction
+> Constraints
+
+# +
+
+> Strategies
+> Equivalence Consensus Authority Workflow Validation
+
+# + =
+
+> Memory Coalition
+
+...   
+
+> m1m2mkm3
+> Individually Benign
+
+Step 2: LoRA Fine-tuning 
+
+> Training Data
+
+B. Cross-Session Deployment 
+
+Step 1: Memory Poisoning in Session 1  
+
+> Pretrained LLM Memory Coalition Generator
+
+Step 2: Attack in Session 2   
+
+> Memory Coalition Generator
+> New
+> q,g,k
+> Strategy
+> s
+> Constraints
+> Input Memory Coalition (s)
+> m1(s)
+> m2(s)
+> m3(s)
+> ...  Comment
+> ...
+> Comment
+> MoltLab Post
+> Comment
+> observe & summarize
+> ...
+> MEMORY.md
+> Benign Request
+> q...
+> Target Behavior
+> g
+> Collectively
+> Harmful
+
+Figure 1: Overview of MemCollusion. A. Memory Coalition Generator Training: Step 1 constructs supervised training data from benign requests q, adversarial target behaviors g, coalition sizes k, four constraints, and five theory-informed construction strategies. In Step 2 , these data are used to fine-tune a pretrained LLM with LoRA, producing a dedicated Memory Coalition Generator that produces individually benign-looking but collectively harmful memory coalitions. B. Cross-Session Deployment: In Step 1 , the generator produces a strategy-specific memory coalition, whose fragments are distributed as comments under a MoltLab post. During Session 1, OpenClaw observes the content and summarizes it into persistent memory. In Step 2 , only the benign request q is provided in Session 2, where the stored memories jointly steer OpenClaw toward g.We consider a cross-session setting in which the adversary cannot directly modify the memory repository or provide malicious instructions through adversarial “user–agent” in-teractions. Instead, the adversary can publish crafted content in an external environment accessible to the agent. Informa-tion observed in one session may be summarized and stored by the agent, and later used when handling a benign request in another session. We consider an LLM agent A equipped with a persistent memory module. Let q denote a benign user request and g
+
+an adversarial target behavior that deviates from the user’s intended outcome. The adversary constructs a memory coali-tion 
+
+M = {m1, m 2, . . . , m k}, (1) where each fragment mi contains only partial information related to g.Let W denote the agent’s memory-writing process. The memories actually preserved by the agent are 
+
+fM = W(M), (2) which may be rewritten, compressed, merged, or partially omitted. In a later session, the memory-access process R
+
+retrieves or exposes the stored information relevant to q, and the agent produces 
+
+y = A
+
+
+
+q, R
+
+
+
+q, fM
+
+ 
+
+. (3) Let Jg (y) ∈ { 0, 1} indicate whether y realizes the target behavior g. The adversary seeks a coalition that maximizes the probability of cross-session attack success: 
+
+max  
+
+> M
+
+Pr[ Jg (A(q, R(q, W(M)))) = 1] , (4) subject to the design constraints introduced below. 
+
+3.2 Collusive Memory Constraints 
+
+A memory coalition should jointly support the target behav-ior while individual fragments remain inconspicuous. We use four constraints to guide its construction. 
+
+Anchor Coverage. The complete memory coalition should cover the critical semantic anchors required by the target behavior g, including the target object, relevant attributes, intended actions, and execution context. In other words, al-though each individual memory provides only partial infor-mation, the memories should collectively construct sufficient context for the agent to justify g.
+
+Individual Incompleteness. No individual memory should independently reveal the complete adversarial objec-tive or be sufficient to trigger the target behavior. For every 
+
+mi ∈ M , we require 
+
+Pr [ Jg (A (q, R (q, W({mi})))) = 1] ≤ ϵ, ∀mi ∈ M ,
+
+(5) where ϵ is a small tolerance. This constraint distinguishes col-lusive memory poisoning from single-record memory poi-soning: the adversarial effect should emerge from composi-tion rather than from any individually sufficient record. 
+
+Naturalness. Each fragment should resemble an ordinary fact, preference, observation, or experiential summary that could plausibly arise during normal interaction. Fragments should avoid explicit commands and overtly manipulative language, increasing their likelihood of being preserved by the normal memory-writing process and passing entry-wise inspection. 
+
+Non-Contradiction. The fragments should remain mutu-ally consistent and should not introduce conflicting facts, preferences, or execution conditions. Consistent fragments can reinforce one another when jointly retrieved, whereas contradictions may weaken the coalition. Together, these constraints capture the defining property of memory collusion: the coalition must be collectively suf-ficient, individually incomplete, naturally preservable, and internally coherent. 
+
+3.3 Strategy-Guided Coalition Construction 
+
+Given a benign request q, a target behavior g, and a coalition size k, MemCollusion generates a coalition under a se-lected construction strategy s, which determines how target-relevant semantic cues are distributed and related across the 
+
+k fragments. We introduce five strategies inspired by recur-ring influence patterns in the social and cognitive sciences. For each pair (q, g ), these strategies produce five alternative candidate coalitions. We do not consider combining multiple strategies within a single coalition. 
+
+Equivalence Bridging. Equivalence Bridging does not di-rectly assert that the requested option and the target option are equivalent. Instead, it connects them through a shared intermediate criterion, following the principle of spreading activation (Collins and Loftus 1975). For example, when the user requests a compact charger for international travel, one fragment may state that travel suitability should primarily be evaluated by voltage compatibility and charging-protocol coverage. Other fragments separately indicate that the target charger supports universal voltage and the required charging protocols. No individual fragment recommends substituting the requested charger, but their combination makes the target appear to be an appropriate alternative. 
+
+Consensus. Consensus distributes convergent support across independent sources, drawing on informational social influence (Deutsch and Gerard 1955). Rather than explicitly stating that multiple sources endorse the target, separate frag-ments provide positive observations from different perspec-tives. For example, when selecting a cloud-backup service, an administrator may report stable uploads, a user may note fast file recovery, and a support log may indicate responsive assistance for the same cloud-backup service. Each fragment covers only one aspect, while their combination creates the impression of broad agreement in favor of the target. 
+
+Authority Endorsement. Authority Endorsement dis-tributes the components of an institutional recommendation across multiple records, drawing on source credibility re-search (Hovland and Weiss 1951). The coalition typically separates an authoritative rule, evidence that the target satis-fies the rule, and contextual information showing that the rule applies to the current task. For example, one fragment may state that company policy permits analytics services with a recognized compliance certification, another may record that the target service holds that certification, and a third may classify the current project under the corresponding policy category. No fragment directly authorizes or recommends the target, but together they make it appear institutionally approved. 
+
+Workflow Continuation. Workflow Continuation embeds the target behavior as the remaining step of an established or partially completed procedure, making it appear to be a natural continuation of prior actions. This strategy draws on script-based representations of routine activities (Schank and Abelson 1977). For example, a privacy-extraction objective may be disguised as an external compliance review. Sepa-rate fragments state that sensitive materials require review, identify the assigned reviewer, and provide the reviewer’s business email address. Individually, these records describe only a requirement, a role assignment, or a contact detail. Together, they complete a workflow in which sending the sensitive materials to the attacker appears to be the natural next step. 
+
+Validation Closure. Validation Closure distributes suc-cessful validation results across separate fragments, encour-aging the agent to treat the overall configuration as already verified, inspired by the illusion of validity (Kahneman and Tversky 1973). For example, different records may state that a particular pandas version passed data-loading tests, a NumPy 
+
+version passed numerical tests, and a scikit-learn version passed model-training tests, with each test conducted in a separate environment. Although no record tests their joint compatibility, combining the fragments may lead the agent to incorrectly treat the complete dependency set as jointly validated and recommend an incompatible configuration. We provide representative case studies in the supplemen-tary material to illustrate the construction and effects of these strategies. 
+
+3.4 Memory Coalition Generator 
+
+We could simply prompt an LLM to generate a collusive memory coalition. However, aligned LLMs often refuse to generate such content because of the potential risk associated with the target behavior g. Even when generation succeeds, the resulting memories often fail to satisfy the required con-straints or achieve stable attack effectiveness. To generate high-quality memory coalitions, we fine-tune a dedicated 
+
+Memory Coalition Generator .
+
+Figure 2: Fine-tuning template for the Memory Coalition Generator. Six main components: the benign request, the tar-get behavior, the coalition size, the strategy’s name, four fixed design constraints, and the corresponding memory coalition. 
+
+Training Data Construction. We construct a supervised fine-tuning dataset in which each instance contains a benign request q, a target behavior g, a strategy s, a coalition size k, and the corresponding memory coalition M(s). The four design constraints are included as fixed instructions in ev-ery input. The template is shown in Figure 2. These training samples are collected from multiple sources, including con-textual prompting, memory coalitions validated in prelim-inary experiments, and human experts. In total, we collect 290 training samples with an approximately balanced dis-tribution across task categories and construction strategies. None of the evaluation scenarios appears in the training set. 
+
+LoRA Fine-Tuning. We instantiate the generator by fine-tuning Qwen3.5-27B (Qwen Team 2026) using Low-Rank Adaptation (LoRA) (Hu et al. 2022). LoRA updates only a small set of low-rank adapter parameters while preserving the pretrained model parameters, reducing the computational cost of adapting the model to constraint-aware coalition gen-eration. The detailed adapter configuration and optimization hyperparameters are provided in the supplementary material. We choose Qwen3.5-27B for its stable generation quality, but our method is applicable to other LLMs as well. 
+
+Coalition Generation. At inference time, the generator receives a benign request q, a target behavior g, a construction strategy s, and a coalition size k, and outputs a candidate coalition M(s) = {m(s)1 , . . . , m (s) 
+
+> k
+
+}. For each input pair 
+
+(q, g ), we independently generate one candidate coalition under each of the five strategies. 
+
+3.5 Cross-Session Deployment 
+
+To deploy the generated coalitions in a realistic external en-vironment, we develop MoltLab, a controlled research re-production of the Moltbook framework in OpenClaw. For each case, the adversarial objective is disguised as a regular platform post, while the k memory fragments are distributed across multiple comments. The agent accesses this content through standard platform interfaces. This setting does not require the adversary to directly modify the memory repos-itory or provide malicious instructions through adversarial user–agent interactions. The deployment proceeds across two sessions. In the first session, the agent browses the MoltLab content, incorpo-rates the observed information into its active context, and may summarize and preserve it through its normal memory-writing process. In a separate session, only the benign request 
+
+q is provided. The attack succeeds if the stored fragments jointly steer the agent toward the target behavior g.
+
+## 4 Experiments 
+
+4.1 Experimental Settings 
+
+Agents and Backbones. We conduct our primary ex-periments on OpenClaw v5.20 with two backbone mod-els: MiniMax-M2.7 (MiniMax 2026) and DeepSeek-V4-Flash (Xu et al. 2026). As OpenClaw is actively updated, we also perform a small-scale validation on the latest version available before submission, v7.1, confirming that collusive memory poisoning remains effective across versions. Since OpenClaw summarizes and rewrites information during memory formation, the stored memories may not ex-actly match the original inputs. We therefore use GPT-4.1 as a judge (Zheng et al. 2023) to evaluate memory-saving and at-tack success based on semantic equivalence rather than exact string matching. We further provide a consistency analysis across different judges in the supplementary material. 
+
+Evaluation Domains and Tasks. To evaluate the down-stream behavioral impact of the attack across different tasks, we design 48 scenarios spanning three domains, where each scenario probes a distinct type of decision. (1) Preference Manipulation contains six subdomains, each containing six cases, covering fabricated academic citations, misinforma-tion about software security, misleading financial decisions, policy and compliance manipulation, poisoned operational context, and medical misinformation. The attacker’s objec-tive is to steer the agent’s output toward risky decisions, such as generating citations to non-existent papers or recom-mending software dependencies with known severe vulner-abilities. (2) Web Shopping includes six cases derived from real product catalogs. In these cases, the attacker aims to divert the agent from the intended purchase to another prod-uct, typically one that is more expensive or of lower quality. (3) Privacy Extraction includes six cases covering scenar-ios such as financial documents, personal information, and browsing history. Here, the attacker’s goal is to induce the agent to send sensitive files or information from the victim’s device to a specified email address. 
+
+Evaluation Isolation. To prevent cross-contamination across different runs, each case is assigned an independent workspace instance, and the platform and memory states are reset before each evaluation. 
+
+Metrics. We report Memory Save Rate (MSR) and Attack Success Rate (ASR). MSR measures, at the fragment level, the proportion of collusive memory fragments whose seman-tic content is preserved in persistent memory. ASR measures whether the agent executes or clearly follows the target be-havior in response to the benign request. Following the evaluation setting of PAP (Zeng et al. 2024), we impose a fixed attack budget of five attempts for each test case. Specifically, MemCollusion generates one candidate coalition using each of the five construction strategies. If none of the five candidate coalitions successfully induces target behavior, then it is considered an attack failure. Un-less otherwise specified, this budget is used throughout all experiments to model an average attacker operating under limited time, without advanced optimization or multi-turn interactions. 
+
+4.2 Results under Different Saving Strengths 
+
+We evaluate whether collusive content observed in one ses-sion can be persisted and influence the agent in a later session. We fix the coalition size to k = 6 and, following (Zhang et al. 2026b), define five memory-saving strengths ranging from S0, with no explicit save request, to S4, which explicitly asks the agent to review the session and save useful findings to 
+
+MEMORY.md . This setting reflects realistic usage patterns, as users may occasionally ask the agent to summarize and save useful information, while the explicitness of such requests Backbone Task Domain S0 S1 S2 S3 S4                                     
+
+> MiniMax-M2.7 Preference 32.4 / 33.3 41.2 / 44.4 54.6 / 50.0 67.6 / 61.1 82.4 / 69.4 WebShop 33.3 / 33.3 47.2 / 50.0 50.0 / 50.0 66.7 / 66.7 88.9 / 83.3 Privacy 16.7 / 16.7 25.0 / 33.3 33.3 / 33.3 61.1 / 66.7 80.6 / 83.3 DeepSeek-V4-Flash Preference 30.6 / 27.8 52.8 / 52.8 67.1 / 50.0 71.3 / 58.3 78.7 / 72.2 WebShop 13.9 / 16.7 36.1 / 33.3 47.2 / 50.0 55.6 / 50.0 80.6 / 83.3 Privacy 16.7 / 16.7 47.2 / 50.0 66.7 / 66.7 80.6 / 83.3 83.3 / 100.0 Overall –28.6 / 28.1 45.0 / 46.9 58.0 / 50.0 68.6 / 61.5 81.3 / 75.0
+
+Table 1: Cross-session evaluation results under different memory-saving strengths (S0-S4). Each cell reports MSR/ASR (%). may vary. The exact prompts are provided in the supplemen-tary material. As shown in Table 1, the overall MSR/ASR increases from 28.6%/28.1% at S0 to 81.3%/75.0% at S4. Stronger saving prompts therefore increase the likelihood that mem-ory coalitions are persisted and later affect agent behavior. Nevertheless, the non-zero results under S0 show that Open-Claw’s memory mechanism can automatically save some relevant information during ordinary interactions. Explicit saving instructions are therefore not necessary for the attack to succeed, and they merely further amplify the risk. Vulnerability also varies across models and domains. Un-der S4, MiniMax-M2.7 achieves 88.9%/83.3% on Web-Shop, while DeepSeek-V4-Flash reaches 100.0% ASR on Privacy, indicating that backbone models exhibit different task-dependent memory risks. 
+
+Figure 3: Effect of coalition size under S4 with DeepSeek-V4-Flash. Results are reported as MSR and ASR (%). 
+
+4.3 Effect of Coalition Size 
+
+We next examine how coalition size affects the cross-session effectiveness of MemCollusion. We vary k ∈{2, 4, 6, 8, 10 } while fixing the saving strength to S4 and using DeepSeek-V4-Flash as the backbone model. All other settings follow the default evaluation protocol. As shown in Figure 3, MSR decreases from 90.6% at 
+
+k = 2 to 60.2% at k = 10 , while ASR follows a non-monotonic trend. At k = 2 , the fragments are readily pre-served but achieve only 43.8% ASR. This result supports our 
+
+Individual Incompleteness and Anchor Coverage constraints: although each fragment remains individually insufficient, too few fragments fail to provide sufficient semantic information to induce the target behavior. ASR rises to 70.8% and 77.1% at k = 4 and k = 6 , respectively, with k = 6 achieving the best performance while retaining 79.5% MSR. Larger coalitions reduce both metrics, with MSR/ASR dropping to 72.1%/64.6% at k = 8 and 60.2%/58.3% at k = 10 .These results reveal a trade-off between semantic com-pleteness and memory retention. Too few fragments may fail to cover the key semantic anchors required by the target be-havior, whereas too many fragments increase the burden on memory saving. Overall, k = 6 offers the best balance and is used in the main experiments.                   
+
+> Backbone Task Domain Original +100 Benign
+> MiniMax-M2.7 Preference 82.4 / 69.4 63.4 / 50.0 WebShop 88.9 / 83.3 61.1 / 66.7 Privacy 80.6 / 83.3 66.7 / 50.0 DeepSeek-V4-Flash Preference 78.7 / 72.2 64.8 / 55.6 WebShop 80.6 / 83.3 69.4 / 66.7 Privacy 83.3 / 100.0 77.8 / 83.3 Overall –81.3 / 75.0 65.3 / 56.3
+
+Table 2: Robustness to benign memory dilution under S4 with k = 6 . Each cell reports MSR/ASR (%). 
+
+4.4 Robustness to Benign Memory Dilution 
+
+In realistic deployments, an agent’s memory contains not only collusive memory fragments but also benign informa-tion accumulated from routine interactions and environmen-tal observations. We therefore evaluate the robustness of MemCollusion under benign memory dilution , where the collusive memory fragments are mixed with a large amount of unrelated information. Under the S4 saving strength, we use a six-fragment memory coalition and populate the cor-responding MoltLab post with 100 benign comments cov-ering diverse topics. These comments introduce substantial semantic noise and increase the context length, triggering OpenClaw to compress part of the active context before memory formation. We then apply the same cross-session evaluation protocol as in the main experiments. As shown in Table 2, adding 100 benign comments reduces the overall MSR from 81.3% to 65.3% and the ASR from 75.0% to 56.3%. Nevertheless, MemCollusion remains ef-fective across both backbone models and all task domains. DeepSeek-V4-Flash is particularly robust on privacy extrac-tion, retaining an ASR of 83.3% despite substantial benign interference. These results indicate that unrelated informa-tion and context compression weaken, but do not eliminate, Method No Defense LLM Audit A-MemGuard                
+
+> AgentPoison 100.0/58.3 14.6/6.3 ↓85.4%/89.2% 2.1/0 ↓97.9%/100.0% MINJA 43.8/41.7 12.5/10.4 ↓71.5%/75.1% 8.3/4.2 ↓81.1%/89.9% MemCollusion 65.3/56.3 61.5/54.2 ↓5.8%/3.7% 58.0/47.9 ↓11.2%/14.9%
+
+Table 3: Average results under memory-level defenses. Each cell reports MSR/ASR (%) and its relative reductions from the no-defense result. Smaller reductions indicate greater robustness. the influence of collusive memory fragments, suggesting that sufficient attack-relevant information can still survive the memory formation process. 
+
+4.5 Stealth under Memory-Level Defenses 
+
+We evaluate whether MemCollusion can survive memory-level defenses and compare it with two representative single-record memory poisoning attacks, AgentPoison (Chen et al. 2024) and MINJA (Dong et al. 2026). The experiments are conducted under the benign memory dilution setting de-scribed in Section 4.4. The three attacks use different poisoning mechanisms: AgentPoison directly modifies the memory repository, MINJA introduces malicious records through query-based interactions, and MemCollusion introduces external con-tent that must be observed, summarized, and persisted by OpenClaw. To isolate robustness to memory-level defenses from differences in poisoning difficulty, we allow each method to poison the agent’s memory through its original mechanism. We then apply the same defense pipeline to the resulting memory records and compare the resulting relative reductions in ASR, thereby measuring how well each attack survives the defenses. We evaluate two defenses: an LLM-based auditor that in-dependently examines each stored memory and removes en-tries judged to contain unsafe or manipulative information, and A-MemGuard (Wei et al. 2025), which detects anoma-lous reasoning through consensus validation and retains cor-rective lessons using a dual-memory structure. Results are averaged across backbone models and task domains. As shown in Table 3, LLM Audit reduces the ASR of AgentPoison and MINJA by 89.2% and 75.1%, respectively, while A-MemGuard reduces them by 100.0% and 89.9%. In contrast, the ASR of MemCollusion decreases by only 3.7% under LLM Audit and 14.9% under A-MemGuard. These results demonstrate that distributing the target infor-mation across multiple individually plausible memories sub-stantially improves the attack’s ability to evade memory-level defenses. 
+
+4.6 Ablation Study 
+
+We conduct an ablation study on DeepSeek-V4-Flash un-der the S4 saving setting, with results averaged across three task domains. The evaluated methods are divided into four groups. Basic Baselines include Direct Query , which di-rectly presents the target behavior to the agent, and Random Split , which splits the target information without enforcing                           
+
+> Group Method MSR ASR
+> Basic Baselines Direct Query –2.1 Random Split 36.1 29.2 Component Ablations Single Memory 91.7 6.3 Prompted Generator 34.4 37.5 Single-Strategy Variants Equivalence Bridging 69.8 64.6 Consensus 68.1 66.7 Authority Endorsement 74.7 70.8 Workflow Continuation 64.6 62.5 Validation Closure 72.9 64.6 Full Framework MemCollusion 79.5 77.1
+
+Table 4: Ablation results on DeepSeek-V4-Flash under the S4 saving setting, averaged across three task domains. our constraints or applying any construction strategy. Com-ponent Ablations include Single Memory , which selects one fragment from a six-fragment coalition and evaluates it in isolation, and Prompted Generator , which directly prompts the base model without fine-tuning. Single-Strategy Vari-ants construct all candidate coalitions using only one of the five construction strategies. Full Framework denotes Mem-Collusion with all components enabled. All variants use five attack attempts per case, matching the attack budget of MemCollusion. As shown in Table 4, Direct Query achieves only 2.1% ASR, while Random Split improves it to 29.2%, indicat-ing that fragmentation alone is insufficient. Single Memory obtains a high MSR of 91.7% but only 6.3% ASR, confirm-ing that individual fragments remain ineffective in isolation. Prompted Generator reaches 37.5% ASR, demonstrating the importance of generator fine-tuning. The five construction strategies individually achieve 62.5–70.8% ASR, showing that each is effective but none matches the full framework. Overall, MemCollusion achieves the highest ASR of 77.1%, validating the complementary benefits of structured con-straints, diverse construction strategies, and fine-tuning. 
+
+## 5 Limitations and Scope 
+
+MemCollusion requires multiple memory fragments to be jointly available. Its effectiveness may decrease in traditional agents that retrieve only top-1 or small top-k memories, such as EHRAgent (Shi et al. 2024). In contrast, modern agents typically have sufficient context capacity to directly incorpo-rate multiple stored memories, making such compositional risks practically relevant. Our study focuses on this setting, represented by OpenClaw. 
+
+## 6 Conclusion 
+
+In this paper, we introduce MemCollusion, an automated framework for collusive memory poisoning attacks. It applies salami tactics to divide an adversarial objective into multiple memory fragments that appear benign individually but be-come harmful when used together. We define four constraints and five construction strategies, and fine-tune a generator to produce such memory coalitions automatically. Experiments on OpenClaw show that MemCollusion is effective across sessions and remains robust under benign memory dilution and memory-level defenses. References 
+
+Chen, Z.; Xiang, Z.; Xiao, C.; Song, D.; and Li, B. 2024. Agentpoison: Red-teaming llm agents via poisoning mem-ory or knowledge bases. Advances in Neural Information Processing Systems , 37: 130185–130213. Collins, A. M.; and Loftus, E. F. 1975. A spreading-activation theory of semantic processing. Psychological re-view , 82(6): 407. Deutsch, M.; and Gerard, H. B. 1955. A Study of Normative and Informational Social Influences upon Individual Judg-ment. Journal of Abnormal and Social Psychology , 51(3): 629–636. Dong, S.; Xu, S.; He, P.; Li, Y.; Tang, J.; Liu, T.; Liu, H.; and Xiang, Z. 2026. Memory injection attacks on LLM agents via query-only interaction. Advances in Neural Information Processing Systems , 38: 46697–46731. Hovland, C. I.; and Weiss, W. 1951. The influence of source credibility on communication effectiveness. Public opinion quarterly , 15(4): 635–650. Hu, E. J.; Shen, Y.; Wallis, P.; Allen-Zhu, Z.; Li, Y.; Wang, S.; Wang, L.; Chen, W.; et al. 2022. Lora: Low-rank adaptation of large language models. Iclr , 1(2): 3. Kahneman, D.; and Tversky, A. 1973. On the psychology of prediction. Psychological review , 80(4): 237. Kang, J.; Ji, M.; Zhao, Z.; and Bai, T. 2025. Memory os of ai agent. In Proceedings of the 2025 Conference on Empirical Methods in Natural Language Processing , 25972–25981. Lewis, P.; Perez, E.; Piktus, A.; Petroni, F.; Karpukhin, V.; Goyal, N.; Küttler, H.; Lewis, M.; Yih, W.-t.; Rocktäschel, T.; et al. 2020. Retrieval-augmented generation for knowledge-intensive nlp tasks. Advances in neural information process-ing systems , 33: 9459–9474. Luo, H.; Dai, S.; Ni, C.; Li, X.; Zhang, G.; Wang, K.; Liu, T.; and Salam, H. 2026. Agentauditor: Human-level safety and security evaluation for llm agents. Advances in Neural Information Processing Systems , 38: 43241–43298. MiniMax, A. 2026. Minimax m2. 7: Early echoes of self-evolution. OpenClaw Project. 2026. OpenClaw: Personal AI Assistant. https://github.com/openclaw/openclaw. Accessed: 2026-07-22. Packer, C.; Fang, V.; Patil, S.; Lin, K.; Wooders, S.; and Gonzalez, J. 2023. MemGPT: towards LLMs as operating systems. Park, J. S.; O’Brien, J.; Cai, C. J.; Morris, M. R.; Liang, P.; and Bernstein, M. S. 2023. Generative agents: Interac-tive simulacra of human behavior. In Proceedings of the 36th annual acm symposium on user interface software and technology , 1–22. Qwen Team. 2026. Qwen3.5: Towards Native Multimodal Agents. Schank, R. C.; and Abelson, R. P. 1977. Scripts, Plans, Goals, and Understanding: An Inquiry into Human Knowl-edge Structures . Lawrence Erlbaum Associates. Shi, W.; Xu, R.; Zhuang, Y.; Yu, Y.; Zhang, J.; Wu, H.; Zhu, Y.; Ho, J. C.; Yang, C.; and Wang, M. D. 2024. Ehragent: Code empowers large language models for few-shot complex tabular reasoning on electronic health records. In Proceed-ings of the 2024 Conference on Empirical Methods in Natural Language Processing , 22315–22339. Srivastava, S. S.; and He, H. 2025. MemoryGraft: Persis-tent compromise of LLM agents via poisoned experience retrieval. arXiv preprint arXiv:2512.16962 .Tian, H.; Sha, Z.; Wang, J.; Liu, Y.; Huang, Z.; and Huang, X. 2026. InjecMEM: Memory injection attack on LLM agent memory systems. Wang, L.; Ma, C.; Feng, X.; Zhang, Z.; Yang, H.; Zhang, J.; Chen, Z.; Tang, J.; Chen, X.; Lin, Y.; et al. 2024. A survey on large language model based autonomous agents. Frontiers of Computer Science , 18(6): 186345. Wei, Q.; Yang, T.; Wang, Y.; Li, X.; Li, L.; Yin, Z.; Zhan, Y.; Holz, T.; Lin, Z.; and Wang, X. 2025. A-memguard: A proactive defense framework for llm-based agent memory. 
+
+arXiv preprint arXiv:2510.02373 .Xu, A.; Lin, B.; Xue, B.; Wang, B.; Xu, B.; Wu, B.; Zhang, B.; Lin, C.; Dong, C.; Ling, C.; et al. 2026. Deepseek-v4: Towards highly efficient million-token context intelligence. 
+
+arXiv preprint arXiv:2606.19348 .Yang, X.; He, Y.; Ji, S.; Hooi, B.; and Dong, J. S. 2026. Zom-bie agents: Persistent control of self-evolving LLM agents via self-reinforcing injections. arXiv preprint arXiv:2602.15654 .Yao, S.; Zhao, J.; Yu, D.; Du, N.; Shafran, I.; Narasimhan, K.; and Cao, Y. 2022. React: Synergizing reasoning and acting in language models. arXiv preprint arXiv:2210.03629 .Zeng, Y.; Lin, H.; Zhang, J.; Yang, D.; Jia, R.; and Shi, W. 2024. How Johnny Can Persuade LLMs to Jailbreak Them: Rethinking Persuasion to Challenge AI Safety by Humaniz-ing LLMs. arXiv preprint arXiv:2401.06373 .Zhang, H.; Huang, J.; Mei, K.; Yao, Y.; Wang, Z.; Zhan, C.; Wang, H.; and Zhang, Y. 2025. Agent security bench (asb): Formalizing and benchmarking attacks and defenses in llm-based agents. In International Conference on Learning Representations , volume 2025, 35331–35366. Zhang, Y.; Wang, K.; Wu, J.; Wu, H.; Zhou, Y.; Wei, Z.; Wu, D.; Chen, X.; Sun, J.; and Sun, M. 2026a. The Salami Slicing Threat: Exploiting Cumulative Risks in LLM Systems. arXiv preprint arXiv:2604.11309 .Zhang, Y.; Zhao, S.; Zhang, J.; Deng, G.; Zhang, J.; Liu, X.; Xiao, C.; and Zhang, T. 2026b. Mind your heartbeat! claw background execution inherently enables silent memory pollution. arXiv preprint arXiv:2603.23064 .Zheng, L.; Chiang, W.-L.; Sheng, Y.; Zhuang, S.; Wu, Z.; Zhuang, Y.; Lin, Z.; Li, Z.; Li, D.; Xing, E.; et al. 2023. Judging llm-as-a-judge with mt-bench and chatbot arena. Ad-vances in neural information processing systems , 36: 46595– 46623. Zhong, W.; Guo, L.; Gao, Q.; Ye, H.; and Wang, Y. 2024. Memorybank: Enhancing large language models with long-term memory. In Proceedings of the AAAI conference on artificial intelligence , volume 38, 19724–19731.

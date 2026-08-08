@@ -1,0 +1,127 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-08-08T20:45:12.543315+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 3,
+    "deep_cap": 6,
+    "deep_selected": 3,
+    "quick_candidates": 0,
+    "quick_skim_target": 11,
+    "quick_selected": 0
+  },
+  "deep_dive": [
+    {
+      "id": "2608.00143v1",
+      "source": "arxiv",
+      "title": "Symbolic Attack Chain Generation from Atomic Red Team Techniques: An Empirical Study of Predicate Representation Granularity",
+      "abstract": "Automated attack chain generation is critical for modern cybersecurity, yet manual construction fails to scale as adversary behaviors expand. While classical AI planning using PDDL offers a formal method to automate this process, it relies on the accurate translation of techniques into symbolic predicates. Current state-of-the-art systems like AURORA employ a nine-category Attack Action Linking Model (AALM), but the necessity of this specific granularity remains unvalidated. This work investigates the impact of predicate representation granularity on plan validity, cost, and fidelity. Utilizing a pipeline where a Large Language Model (LLM) performs translation and the Fast Downward engine performs deterministic reasoning, the study compares the full nine-category AALM against a reduced five-category scheme derived empirically from Atomic Red Team (ART) execution evidence. Results from a sixteen-technique corpus demonstrate that plan validity and cost are largely insensitive to granularity, with 81.3% identical outcomes across both schemes. The findings suggest that higher granularity primarily enhances the internal structural resolution of a plan's justification rather than the viability of the generated attack chain itself.",
+      "authors": [
+        "Ramya Varunsegar"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI"
+      ],
+      "published": "2026-07-31T15:35:06+00:00",
+      "link": "https://arxiv.org/pdf/2608.00143v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "uses LLM to translate attack techniques into symbolic predicates for automated attack chain generation, exploring LLM capabilities in cyber attack planning",
+      "llm_evidence_cn": "使用LLM将攻击技术转化为符号谓词，实现自动化攻击链生成，探索LLM在网络攻击规划中的能力",
+      "llm_evidence": "使用LLM将攻击技术转化为符号谓词，实现自动化攻击链生成，探索LLM在网络攻击规划中的能力",
+      "canonical_evidence": "使用LLM将攻击技术转化为符号谓词，实现自动化攻击链生成，探索LLM在网络攻击规划中的能力",
+      "llm_tldr_en": "Investigates how predicate representation granularity affects LLM-based attack chain generation, showing that appropriate granularity improves plan validity and fidelity, highlighting LLM potential and limits in cyber attack simulation.",
+      "llm_tldr_cn": "针对手动构建攻击链难以扩展的问题，本研究利用大语言模型将Atomic Red Team技术转化为符号谓词，并结合经典规划引擎生成攻击链。实证分析了不同谓词表示粒度对计划有效性、成本和保真度的影响，发现适当粒度能提升计划质量。该工作揭示了大语言模型在网络攻击模拟中的能力与局限，为自动化安全评估提供了参考。",
+      "llm_tldr": "针对手动构建攻击链难以扩展的问题，本研究利用大语言模型将Atomic Red Team技术转化为符号谓词，并结合经典规划引擎生成攻击链。实证分析了不同谓词表示粒度对计划有效性、成本和保真度的影响，发现适当粒度能提升计划质量。该工作揭示了大语言模型在网络攻击模拟中的能力与局限，为自动化安全评估提供了参考。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "exploring the capability boundaries of large language models in cyber contexts",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2608.04741v1",
+      "source": "arxiv",
+      "title": "LoginTrap: Uncovering Task-Agnostic Phishing-Style Indirect Prompt Injection Attacks against LLM-based Web Agents",
+      "abstract": "LLM-based web agents automate user tasks by observing webpages and executing browser actions on behalf of users. As these agents operate on real web services, login becomes a sensitive authentication boundary because it involves credentials and sensitive information. Existing work shows that malicious webpage content can manipulate web agent actions, but it has not fully examined whether such content can induce login and cause end-to-end private data leakage. We study this attack surface and present LoginTrap, a task-agnostic login-inducing attack against LLM-based web agents. LoginTrap assumes a black box attacker that controls the webpage context and the induced login flow without knowing the user task or web agent internals. Under this threat model, LoginTrap uses webpage context to generate page-specific indirect injections through a fuzzing-inspired process, making login appear as a plausible prerequisite for continuing the task and guiding the agent to a controlled login page. We conduct a comprehensive analysis of LoginTrap across realistic web agent executions. The results show that LoginTrap reaches 86\\% average end-to-end attack success across LLM backbones and remains effective across agent architectures and defenses. These findings identify login inducement as a systematic authentication boundary risk and motivate further research on authentication-aware defenses for web agents.",
+      "authors": [
+        "Longtao Guo",
+        "Zelin Zhang",
+        "Kaifeng Huang",
+        "Yang Shi"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR"
+      ],
+      "published": "2026-08-05T12:08:16+00:00",
+      "link": "https://arxiv.org/pdf/2608.04741v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "Phishing-style attack that induces LLM web agents to leak login credentials",
+      "llm_evidence_cn": "诱导LLM网络智能体泄露登录凭据的钓鱼式攻击",
+      "llm_evidence": "诱导LLM网络智能体泄露登录凭据的钓鱼式攻击",
+      "canonical_evidence": "诱导LLM网络智能体泄露登录凭据的钓鱼式攻击",
+      "llm_tldr_en": "Presents LoginTrap, a task-agnostic attack that manipulates LLM web agents into performing a login flow, leaking private data.",
+      "llm_tldr_cn": "本文提出LoginTrap，一种任务无关的登录诱导攻击，通过控制网页上下文和登录流，在不了解用户任务的情况下诱使LLM网络智能体执行登录并泄露私密数据。实验证明该攻击可导致端到端数据泄露，暴露了智能体在认证边界上的严重风险。",
+      "llm_tldr": "本文提出LoginTrap，一种任务无关的登录诱导攻击，通过控制网页上下文和登录流，在不了解用户任务的情况下诱使LLM网络智能体执行登录并泄露私密数据。实验证明该攻击可导致端到端数据泄露，暴露了智能体在认证边界上的严重风险。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "capabilities of large language models in cybercrime",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2608.01637v1",
+      "source": "arxiv",
+      "title": "Salami Attack: Stealthy Collusive Memory Poisoning against OpenClaw",
+      "abstract": "Long-term memory enables LLM agents to retain useful information across sessions, but also creates an attack surface through which adversaries may poison an agent's persistent memory to steer its behavior. Existing memory poisoning attacks mainly rely on individually malicious records, overlooking a compositional threat: multiple benign-looking memories may jointly induce unsafe behavior. In this paper, we introduce MemCollusion, an automated red-teaming framework for constructing collusive memory poisoning attacks. MemCollusion applies salami tactics---a strategy that slices an adversarial objective into small, individually innocuous pieces---to generate memory fragments that are individually benign looking but collectively harmful. It constructs memory coalitions using four design constraints, five theory-informed strategies, and a fine-tuned generator. To assess collusive memory poisoning in a realistic cross-session setting, we develop MoltLab, a controlled research reproduction of Moltbook, in which crafted platform content must first be observed and distilled into persistent memory before influencing the agent's behavior in a separate session. We evaluate MemCollusion on OpenClaw using two backbone models across 48 scenarios. Under the strongest memory-saving setting, MemCollusion achieves an average Memory Save Rate of 81.3% and an Attack Success Rate of 75.0%, and remains effective under both benign memory dilution and memory-level defenses.",
+      "authors": [
+        "Zheng Lin",
+        "Yuzhe Huang",
+        "Zhenxing Niu",
+        "Xianmin Ye",
+        "Haichang Gao"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-08-03T03:17:26+00:00",
+      "link": "https://arxiv.org/pdf/2608.01637v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Automated red-teaming framework for collusive memory poisoning, testing LLM agent vulnerabilities",
+      "llm_evidence_cn": "用于共谋记忆投毒的自动红队框架，测试LLM智能体漏洞",
+      "llm_evidence": "用于共谋记忆投毒的自动红队框架，测试LLM智能体漏洞",
+      "canonical_evidence": "用于共谋记忆投毒的自动红队框架，测试LLM智能体漏洞",
+      "llm_tldr_en": "Introduces MemCollusion, a red-teaming framework that uses salami tactics to generate seemingly benign but collectively harmful memory fragments to poison LLM agent memory, revealing safety weaknesses.",
+      "llm_tldr_cn": "提出MemCollusion，一种自动化红队框架，采用萨拉米战术将恶意目标切分为若干看似无害的记忆片段，共同导致LLM智能体不安全行为，暴露了长期记忆带来的安全风险。",
+      "llm_tldr": "提出MemCollusion，一种自动化红队框架，采用萨拉米战术将恶意目标切分为若干看似无害的记忆片段，共同导致LLM智能体不安全行为，暴露了长期记忆带来的安全风险。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "adversarial agents for testing large language models in cybercrime",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": []
+}

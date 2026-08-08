@@ -1,0 +1,413 @@
+Title: LoginTrap: Uncovering Task-Agnostic Phishing-Style Indirect Prompt Injection Attacks against LLM-based Web Agents
+
+URL Source: https://arxiv.org/pdf/2608.04741v1
+
+Published Time: Thu, 06 Aug 2026 00:51:23 GMT
+
+Number of Pages: 12
+
+Markdown Content:
+# LoginTrap: Uncovering Task-Agnostic Phishing-Style Indirect Prompt Injection Attacks against LLM-based Web Agents 
+
+## Longtao Guo Zelin Zhang Kaifeng Huang Yang Shi 
+
+## Tongji University 
+
+## {longtao_guo,zelinzhang,kaifengh,shiyang}@tongji.edu.cn 
+
+## Abstract 
+
+LLM-based web agents automate user tasks by observing webpages and executing browser actions on behalf of users. As these agents operate on real web services, login becomes a sensitive authentication boundary because it involves cre-dentials and sensitive information. Existing work shows that malicious webpage content can manipulate web agent actions, but it has not fully examined whether such content can induce login and cause end-to-end private data leakage. We study this attack surface and present LoginTrap, a task-agnostic login-inducing attack against LLM-based web agents. Login-Trap assumes a black box attacker that controls the webpage context and the induced login flow without knowing the user task or web agent internals. Under this threat model, Login-Trap uses webpage context to generate page-specific indirect injections through a fuzzing-inspired process, making login appear as a plausible prerequisite for continuing the task and guiding the agent to a controlled login page. We conduct a comprehensive analysis of LoginTrap across realistic web agent executions. The results show that LoginTrap reaches 86% average end-to-end attack success across LLM back-bones and remains effective across agent architectures and defenses. These findings identify login inducement as a sys-tematic authentication boundary risk and motivate further research on authentication-aware defenses for web agents. 
+
+## 1 Introduction 
+
+Large language models (LLMs) can interpret natural language instructions and use them to guide task execution. This capa-bility has led to a growing class of applications that automate user tasks through external tools and environments [31]. One important application is the LLM-based web agent, which uses an LLM to operate a browser for a user-specified web task [6, 10, 18]. Instead of only returning textual answers, a web agent observes the current webpage and chooses browser actions, such as clicking a link, typing into a field, moving to another page, or submitting a form. As these actions are User    
+
+> “Let's log in first!”
+> Routine
+> Tasks
+> Web Agent
+> Diverse
+> Domains &
+> Goals
+> Strong Knowledge
+> Assumption
+> •User Task
+> •Agent Internal
+> Automatically
+> Generated
+> Privacy
+> Leak
+> Original
+> Webpage
+> Attacker
+> LoginTrap
+> Webpage
+> Real Knowledge
+> Assumption
+> •The Original
+> Webpage
+> Collect
+> Webpage
+> Observe
+> & Act
+
+Figure 1: Starting only from the original webpage, LoginTrap automatically constructs a phishing webpage that induces a web agent to log in first during routine task execution and routes the interaction to an attacker-controlled login flow, leading to sensitive information leakage. executed on behalf of the user, the web agent becomes respon-sible for deciding which webpage interactions are necessary for the task. Among these webpage interactions, login is a particularly important boundary. A large-scale measurement of website login policies found login pages on 358.9K domains in the Google CrUX Top 1M, showing that login is a common part of real-world web services [1]. As login spans many services, users must manage credentials for many online accounts. Sur-vey results show that many users feel overwhelmed by the number of passwords they must track, and users increasingly rely on browser password storage, password managers, and autofill tools to support login workflows [34, 42]. These automation tools reduce the effort of storing and filling credentials during login. However, the login workflow itself still handles credentials, account identity, and private data. This makes login a major security target, as recent phish-ing and digital defense reports continue to show large-scale 1arXiv:2608.04741v1 [cs.CR] 5 Aug 2026 phishing activity and identity attacks centered on credentials and passwords [3, 28]. Therefore, login has a dual nature in web workflows: it is a routine gateway to account-specific functionality while also being a security-sensitive boundary where sensitive information may be released. For a web agent, this dual nature creates a decision problem. A web agent must decide whether login is actually required for the user task from the webpage it observes. This decision is difficult because webpage observations are not trusted inputs. A webpage may include page notices, popups, buttons, forms, and instructions controlled by the page. Prior work has shown that malicious content in web environments can influence web agent actions [13, 51]. In the login setting, this observation raises a new concern: webpage content may affect whether the web agent treats login as necessary for the user task. This concern is not fully answered by existing stud-ies on web agent manipulation. Recent work has studied prompt injection, visual prompt injection, deceptive inter-face patterns, and advertising-based injection in web envi-ronments [5, 12, 52]. These studies often measure whether web content can make a web agent follow an injected instruc-tion and reach a target action. Such outcomes are important for understanding web agent robustness, but they do not fully capture attacks that cross a sensitive login boundary. In Login-Trap, the attack goal is not only to trigger a login click. The goal is to move the web agent through a login flow and cause sensitive information leakage. This distinction matters be-cause a login action may look like ordinary task execution while still leading to sensitive information leakage. To show that such leakage can arise under realistic condi-tions, we place the attacker in a realistic threat model. The attacker controls what the web agent observes on the page and where the induced login flow leads. The attacker does not con-trol the web agent itself. Nor does the attacker know the user task or the web agent internals. This threat modelis stricter than prior settings. Under these constraints, a login-inducing attack must work through the webpage context alone, which motivates our task-agnostic design. To instantiate this design, we present LoginTrap, a login-inducing attack against web agents. Figure 1 gives a high-level overview of the attack workflow. LoginTrap relies only on page-level control and a controlled login flow. To satisfy the realistic threat model, LoginTrap uses a fuzzing-inspired gen-eration process to produce page-specific injection statements without using the user task or the web agent internals. These statements are embedded into the webpage observed by the web agent. Rather than directly asking the agent to leak in-formation, they frame login as a prerequisite for continuing on the page. If the agent follows the induced login path, it reaches a controlled login page. The attack succeeds when the agent submits sensitive information through this flow. We evaluate this design to understand whether a page-level attack can cause privacy leakage without relying on user task or web agent assumptions. Across diverse tasks and LLM backbones, LoginTrap consistently drives web agents into con-trolled login flows and reaches an average end-to-end attack success rate of 86%. The attack also generalizes across differ-ent web agent architectures, with an average attack success rate of 79%, showing that the risk is not limited to one specific agent implementation. Page-level results further show that successful exploitation appears across website domains, rather than only on a few vulnerable pages. These findings show that LoginTrap exposes a systematic authentication boundary risk in web agent execution. In summary, the paper makes the following contributions: • Login Risk Exploration. We investigate login induce-ment as an underexplored attack surface in web agents, showing how routine login decisions can become privacy leakage paths under black-box webpage control. • Task-Agnostic Attack Flow Design. We develop Login-Trap, an end-to-end login-inducing attack that leverages webpage context to drive agents into attacker-controlled login workflows without assuming knowledge of the user task or agent internals. • Comprehensive Analysis. We conduct a comprehensive analysis of LoginTrap in realistic web agent executions, characterizing its effectiveness, transferability, and ro-bustness against defenses. 
+
+## 2 Background and Problem Setting 
+
+This section provides the background and problem setting for our study. We first introduce LLM-based web agents and web agent manipulation, then motivate our focus on login-induced privacy leakage and formalize the threat model. 
+
+## 2.1 LLM-Based Web Agents 
+
+Web agents are automation systems that translate users’ natu-ral language instructions into dynamic browser actions. Early web automation systems relied on rule based heuristics [4,11] or learned task-specific navigation policies with reinforce-ment learning and deep neural networks [17, 24, 32, 37]. In contrast, recent LLM-based web agents use large language models to perceive web environments, interpret user intent, reason about intermediate steps, and select browser actions. In a typical execution loop, the agent first parses the user’s task, observes the current webpage, plans the next operation, and executes actions such as clicking, typing, scrolling, or navi-gating. The resulting webpage state is then fed back to the agent, allowing it to revise its plan until the task is completed or a termination condition is reached. In this paper, unless otherwise specified, we use web agents to refer to LLM-based web agents. 2Different web agents vary in how they construct observa-tions, ground actions, and organize control flow. In obser-vation construction, agents typically collect both structural webpage information and rendered visual states. Raw HTML may be filtered or transformed into DOM trees, accessibility trees, or indexed interactive elements before being provided to the LLM [10,47]; screenshots may also be cropped, annotated, or marked to expose visual layout and interface cues [20, 48]. These representations are often used jointly, since real web-pages contain lengthy and noisy HTML, while many interface semantics are conveyed through visual layout. In control flow, some agents keep the LLM in a reactive iterative loop that repeatedly observes the browser state, selects an action, exe-cutes it, and updates the state [30]. More structured systems decompose this process into modules for planning, action generation, grounding, validation, or recovery [39, 49]. Despite these architectural differences, existing web agents share the same basic execution pattern: they repeatedly con-vert webpage observations and user instructions into browser actions. This observation-action loop provides the operational basis for the manipulation attacks discussed next. 
+
+## 2.2 Web Agent Manipulation 
+
+Because webpage observations are incorporated into the agent’s decision context, adversarial or deceptive webpage content can influence subsequent browser actions. This cre-ates a trust boundary problem closely related to indirect prompt injection. [16, 26, 50]. External content may be in-terpreted by the model as task-relevant instruction. In the web agent setting, such content can enter through webpage text, HTML structures, accessibility representations, rendered visual elements, or interaction flows. Existing work has studied web agent manipulation across three broad attack surfaces. Textual and structural injection 
+
+embeds adversarial instructions into webpage text, HTML, DOM nodes, or accessibility tree representations, exploiting the fact that agents parse and reason over processed webpage markup [19, 22, 40, 53]. Visual injection places adversarial content in rendered observations, including pop-ups, banners, marked interface regions, and advertisements [5, 43, 44, 52]. 
+
+Interaction-level manipulation influences the agent through deceptive interface design, social-engineering contexts, or cor-rupted persistent state, rather than through explicit malicious instructions alone [8,12,35,46]. These lines of work show that web agent manipulation is not limited to plain-text prompts. Malicious or deceptive content can be delivered through the same structural, visual, and interaction channels that agents use to understand webpages and decide browser actions. Recent benchmarks further systematize this threat by evalu-ating end-to-end web agent security and detection robustness under prompt injection settings [13, 27]. The consequences of successful manipulation vary in form and severity. In some cases, the agent is redirected away from the user’s original task and follows the adversary’s directive. In other cases, ad-versarial content is inserted into an otherwise normal task flow, or a specific argument of a legitimate action is altered. Privacy-oriented attacks further show that agents may expose user information while operating on realistic webpages. 
+
+## 2.3 Motivation 
+
+The studies above show that LLM-based web agents can be manipulated through untrusted web content, deceptive UI ele-ments, and social-engineering setups. These findings establish that web agent manipulation can lead to security risks. How-ever, they leave open whether sensitive information leakage can be induced under a lightweight phishing setting that does not rely on knowledge of the user task or the agent internals. We identify three remaining gaps in existing attack research. 
+
+(1) The login surface remains underexplored as a general path to privacy leakage. Login and authentication prompts are common on modern websites, yet many user tasks do not inherently require authentication. This mismatch creates a subtle attack opportunity: an injected login prompt may cause the agent to treat authentication as a legitimate intermediate step toward completing the user’s task, even when the origi-nal task is unrelated to login. Unlike low-impact behavioral deviations, login inducement brings the agent into a sensitive input flow where private information may be disclosed. 
+
+(2) Attack construction often relies on task or agent assumptions. Existing benchmarks and attack studies often evaluate web agent manipulation in settings where the user task, attack surface, endpoint behavior, or agent configuration is specified as part of the environment. Recent adaptive red teaming frameworks further automate attack generation by using feedback from concrete agent executions. These settings are valuable for controlled measurement and stress testing, but they do not answer whether privacy leakage attacks can be generated from webpage context alone, without tailoring the injection to a particular user task or agent architecture. 
+
+(3) Scalable attack construction remains challenging. 
+
+Attacks evaluated on original webpages preserve realistic con-text, but they are often constrained by the interaction paths already present on the page. In contrast, social engineering environments fully controlled by the attacker can directly mea-sure privacy leakage, but they require purpose-built webpages and are costly to scale. This leaves open whether an attacker can start from an original webpage, preserve its context, and add only a lightweight login entry together with a controlled login flow. These observations motivate our central research question: 
+
+Can attacker-controlled webpages induce web agents to leak sensitive information through lo-gin flows without knowing the user task? 
+
+32.4 Threat Model 
+
+We define a webpage threat model for LoginTrap in a phishing setting. A user delegates an ordinary task to a web agent, and the agent interacts with webpages through browser actions such as clicking, typing, and navigating. 
+
+Attacker capabilities. The attacker controls the cloned webpages that resemble benign webpages. The attacker can embed content that induces login into the page and present it through a popup. The attacker also controls the login page reached through the forged login entry. 
+
+Attack goals. The attacker’s goal is to obtain sensitive user information from the web agent. In our setting, the attacker attempts to achieve this goal by inducing the agent to treat a login prompt as a legitimate prerequisite for continuing on the page and then enter sensitive information into the attacker-controlled login flow. 
+
+Attacker constraints. We assume a conservative model. The attacker does not know the task assigned to the agent, the web agent architecture, the underlying LLM, the system prompt, or any safety policy used by the agent. These con-straints prevent the attack from relying on a particular user task, agent implementation, or model-specific behavior. The attacker also cannot modify the agent runtime or observe the agent’s internal reasoning. Before the agent enters the induced login flow, the attack must operate solely through webpage content visible to the agent. 
+
+## 3 Methodology 
+
+This section describes how we instantiate the LoginTrap un-der the threat model. We first present the end-to-end login induction attack, then describe the controlled web environ-ment, and finally introduce our fuzzing-inspired procedure for generating login-inducing injections. 
+
+## 3.1 Problem Formulation 
+
+An LLM-based web agent interacts with websites through an iterative observe-action process. Given a user task T and background information B, the agent repeatedly observes the webpage state and executes browser actions. At time step t,the interaction history is represented as an ordered sequence: 
+
+Ht = ⟨(s1, a1), . . . , (st−1, at−1)⟩, (1) where si is the webpage observation and ai is the action exe-cuted at step i.The observation st is derived from the webpage state en-countered by the agent. Let wt denote the webpage state at step t and O(·) to represent the observation extraction process. The observation is formulated as: 
+
+st = O(wt ) = ( ht , it ), (2) where ht represents textual or structured webpage content, such as HTML, DOM, or accessibility tree information, and 
+
+it = R(ht ) represents the rendered screenshot produced by the browser rendering process R(·). This abstraction covers agents that rely on textual webpage states, visual observations, or both. We abstract the agent and its underlying model as a pol-icy Π that maps the current observation, task, background information, and history to the next browser action: 
+
+at = Π(st , T, B, Ht ). (3) Each executable browser action is formulated as a triplet 
+
+(ot , rt , et ), where ot specifies the operation type, such as click, type, scroll, or navigate; rt is an optional operation argument, such as the text to be typed or the URL to navigate; and et
+
+is an optional target webpage element, such as a form or a button. After executing at , the webpage state is updated, and the agent continues this process until the task is completed or a stopping condition is reached. The login-inducing injection aims to manipulate the agent’s action selection by changing the webpage observation. At the same decision point, the injected webpage state is denoted as ˜wt , and the corresponding observation becomes ˜ st = O( ˜wt ).Holding T , B, and Ht fixing the same policy model selects the next action as ˜at = Π( ˜st , T, B, Ht ). (4) The intended effect is that the manipulated observation makes a login action appear necessary or prioritized for con-tinuing on the page. The agent is therefore induced to click a login entry or navigate to an attacker-controlled login page. Once the agent reaches the login page, the controlled login page presents fields that request sensitive information. The attack succeeds if the agent fills or submits values drawn from the background information B to the attacker-controlled page. 
+
+## 3.2 Attack Overview 
+
+As illustrated in Figure 2, the workflow of LoginTrap involves the user, the web agent, and the attack environment controlled by the attacker. In the first stage, the user provides a benign task and background information. The web agent begins by selecting actions that follow the user’s task objective. At this point, login is not assumed to be necessary unless required by the user task itself. In the next stage, the web agent navigates to the cloned web-page that contains a login-inducing statement. After observing this content, the web agent may treat login as a prerequisite for continuing on the page, as illustrated by the plan revision in Figure 2. As a result, the web agent may place a login click before the actions needed for the original task. This distin-guishes LoginTrap from attacks that directly request sensitive information: the injected content first causes the agent to pri-oritize login, rather than immediately asking for private data, which would more directly expose the malicious intent. 4Query 
+
+Book 
+
+Shop 
+
+…
+
+Task Diversity 
+
+Background Info 
+
+Profile 
+
+Contract 
+
+Account 
+
+…
+
+LLM-Based Web Agent 
+
+1
+
+Submit 
+
+Task 
+
+Injection Statement 
+
+> Login To Continue
+
+Injected Phishing Webpage 
+
+Sensitive Info 
+
+Submit 
+
+Webpage Redirection 
+
+Untrustworthy Login Webpage 
+
+2
+
+Navigate 
+
+3
+
+Observe 
+
+4
+
+Click 
+
+5
+
+Observe 
+
+6
+
+Input 
+
+Thinking & Planning 
+
+Private Data Form   
+
+> Open Site Read Info Complete User Task
+
+Initial Plan (Follow User Task)  
+
+> Read Info Login
+> Click
+> Complete
+> User Task
+
+Plan Revision (Injected Impact) 
+
+LLM Diversity 
+
+> Login Click
+> Complete
+> Login
+> Complete User Task
+
+Plan Revision (Webpage Impact) 
+
+After observation 3
+
+After observation 5Figure 2: The attack overview of LoginTrap. Given a user task and background information, the web agent first forms an initial plan. After observing a login-inducing injection on a phishing webpage, the agent revises its plan to prioritize login, follows the attacker-controlled login path, and submits sensitive information, causing privacy leakage. In the last stage, clicking the forged login entry navigates the agent to an attacker-controlled login page. The page presents fields that request sensitive information in a manner consistent with the induced login context. If the agent con-tinues the login plan, it may fill in the requested fields and submit sensitive user information. Thus, privacy leakage oc-curs when the induced login flow causes the agent to submit sensitive information during task execution. To provide a clearer account of how this attack is instan-tiated, we next decompose the attack construction into two supporting components: the controlled attack environment and the fuzzing-inspired injection generation. 
+
+## 3.3 Attack Environment Construction 
+
+We instantiate the attack in a controlled web environment that preserves realistic page context while allowing controlled and reproducible changes to the webpage and login flow. 
+
+Webpage Context and Injection Surface. The login-inducing statement must be placed in a webpage context because the web agent decides whether login is relevant by jointly considering the user task and the current page obser-vation. We clone each original webpage to preserve its visual layout and textual content while allowing controlled modifi-cation of the injected region. The injection surface is implemented as a controlled popup container placed on the cloned webpage. The container carries the login-inducing statement, the forged login entry, and the close button. The rest of the webpage is kept unchanged, which helps isolate the effect of the inserted login surface from changes to the original page content. This construction provides a controlled setting with realistic page context for testing whether the inserted login surface causes the web agent to prioritize login during task execution. 
+
+Controlled Login Flow. The controlled login flow is trig-gered after the web agent clicks the forged login entry. Its purpose is to evaluate whether the web agent follows the in-duced login path and fills in the requested sensitive fields. To align the login webpage with the cloned webpage, we use an LLM to summarize the main content and service purpose of the cloned page. The extracted summary is then combined with login templates and fed into an LLM to generate a de-scription tailored to the cloned page, which is displayed on the login page. This description connects the authentication request to the content or service represented by the cloned webpage, making the login flow appear consistent with the current page context. The login form requests sensitive fields using a fixed line-separated layout [29] . This standardized layout allows us to consistently parse and compare agent-entered information across webpages, tasks, and agents. 
+
+## 3.4 Fuzzing-inspired Injection Generation 
+
+Inducing a web agent to click the forged login entry is a key step in LoginTrap. Because the attacker does not know the 5user task and webpages differ in content and semantics, the injection must be task agnostic while remaining consistent with the current page. We therefore use a fuzzing inspired process to generate and refine login inducing statements from webpage context instead of relying on fixed templates. The workflow consists of context construction, initializa-tion, evaluation, and mutation. For each webpage, an LLM extracts a compact page summary, potential supported tasks, and a benign probe task that does not mention login. The gen-erator then produces candidate statements from this context. Each candidate is inserted into the webpage and evaluated through a shared pipeline. Accepted candidates are returned directly, while failed candidates are retained for mutation. 
+
+Initialization strategies. The initialization phase uses se-mantic strategies rather than fixed sentences. Each strategy defines a different rationale for presenting login as relevant to the webpage, and the generator instantiates it using the current page context. The resulting statement is page specific but independent of the actual user task. 
+
+Shared action evaluation. Each candidate is evaluated by two shadow LLMs using the injected webpage context and the benign probe task. One acts as a base evaluator, while the other includes an additional reminder to avoid suspicious webpage instructions. If both predict an action toward the lo-gin entry, the candidate is accepted. Otherwise, the predicted labels and reward score are stored as feedback for later muta-tion. This process is used only for candidate filtering, not for measuring final attack success. 
+
+Seed selection and mutation strategies. If initialization produces no accepted candidate, failed candidates form a seed pool. An MCTS inspired policy [7] selects seeds by balancing exploration and their partial login inducing signals. The gen-erator then applies crossover, expansion, rephrasing, or com-pression. Evaluator feedback determines whether mutation should preserve effective components, improve contextual framing, or strengthen the inducing signal. 
+
+Generation output. For each webpage, the generator re-turns an accepted statement if one is found within the gen-eration budget. The statement is inserted into the controlled injection surface and later evaluated using real web agents in the full browser environment. 
+
+## 4 Evaluation 
+
+This section first describes the evaluation setup and then presents the main attack results and an analysis of the in-jection generation process. 
+
+## 4.1 Evaluation Setup 
+
+Research Questions. Our evaluation aims to answer whether LoginTrap can induce privacy leakage under realistic web agent execution settings. We design our measurement around follow key research questions: Table 1: Dataset statistics by domain.               
+
+> Domain # Webpages # Tasks
+> Travel 24 309 Service 16 281 Information 16 276 Shopping 13 173 Entertainment 11 136
+> Total 80 1,175
+
+• RQ1: How effective is LoginTrap across different LLM backbones? • RQ2: Does LoginTrap generalize across different web agent architectures? In addition to these main research questions, we analyze accepted injection statements and their attack outcomes. This analysis characterizes where successful injections come from and how they affect login entry and leakage. 
+
+Dataset. We construct our evaluation dataset based on Mind2Web [10], a real-world web agent benchmark that cov-ers diverse websites and user tasks. Following the domain tax-onomy used in Mind2Web, we consider five website domains: Travel, Service, Information, Shopping, and Entertainment. Rather than directly replaying the original offline traces, we use the task set in Mind2Web as a source for selecting realistic webpage-task pairs and then instantiate them in our controlled attack environment. For each domain, we identify online webpages correspond-ing to Mind2Web tasks and clone the pages to preserve their page context. We remove webpages that cannot be reliably cloned, such as pages with inaccessible content. After filter-ing, our dataset contains 80 cloned webpages. For these web-pages, we retain the corresponding user tasks from Mind2Web. These tasks are tied to the selected pages and describe normal user objectives, such as searching for information, comparing content, and locating details on the page. Overall, the final dataset contains 1,175 task instances across the 80 cloned webpages. Table 1 reports the result-ing distribution across the five domains. 
+
+Metrics. We use two task-level metrics and one page-level metric to evaluate LoginTrap at different levels of the attack chain. The task-level metrics measure whether it leads to the final leakage of sensitive information. The page-level metric measures whether a webpage is exploitable under multiple benign tasks and repeated executions. 
+
+Login Entry Rate (LER). LER measures whether the injected webpage induces the agent to enter the attacker-controlled login path. For each evaluated task, we record a login entry when the agent clicks the forged login entry. LER 6is the fraction of evaluated task instances in which such an entry event occurs. This metric captures the intermediate ef-fectiveness of login induction but does not imply that privacy leakage has occurred. 
+
+Attack Success Rate (ASR). ASR measures whether the full attack objective is achieved in an end-to-end execution. A task instance is counted as successful only if the agent enters the controlled login flow and then inputs sensitive information into the controlled login form. Compared with LER, ASR captures the risk of private information leakage caused by the induced login behavior across the full attack flow. 
+
+Page Exploitability Rate (PER). Task-level metrics can-not fully capture whether an attacker-controlled webpage poses a practical exploitation risk, because web agents may behave differently across benign tasks and repeated execu-tions. We define PER as a page-level metric that measures the fraction of webpages for which at least one successful end-to-end attack is observed within a fixed evaluation budget. For each webpage w, we randomly sample N associated benign tasks and repeat each task K times, resulting in an evaluation budget of C = N × K attempts. Let δ(w) 
+
+> c
+
+∈ { 0, 1}
+
+denote whether the c-th attempt on a webpage w satisfies the ASR success condition, where c ∈ { 1, . . . , C}. We define the page-level exploitability indicator as 
+
+ew = max  
+
+> 1≤c≤C
+
+δ(w) 
+
+> c
+
+. (5) Given a set of webpages W , PER is defined as PER = 1
+
+|W | ∑
+
+> w∈W
+
+ew. (6) Because PER is binary at the webpage level, we also report an auxiliary attempt consumption statistic. For each webpage, we count the number of attempts consumed up to and includ-ing the first successful attack. If no attempt succeeds within the budget, the webpage is assigned the full budget C. We av-erage this value over all evaluated webpages in the group. This statistic complements PER by distinguishing pages that are exploited immediately from those that require more attempts or remain unexploited within the budget. 
+
+Implementation. We instantiate the evaluation environ-ment by deploying cloned webpages and controlled login pages in a local test environment. The cloning process aims to preserve the textual content and layout. In implementation, we use a browser-driven cloning pipeline with HTTP fallback strategies to handle dynamically rendered or partially inac-cessible pages. The controlled login page is hosted within the same local evaluation environment so that sensitive informa-tion submitted through the induced login flow is captured by our experimental infrastructure. Each task execution starts from a fresh Chrome instance. We reset browser state between executions to avoid cross-task interference. We set the maximum number of web agent interaction steps to 5 for all experiments. This fixed step budget is applied consistently across all LLM backbones, web agent architectures, and defense settings. We instrument each web agent execution to record observ-able browser actions. The logs include action types, target elements, navigation events, and form inputs when available. We use these logs to label LER and ASR based on executed behavior rather than internal reasoning. A login-path entry is recorded when the agent clicks the forged login entry. An attack success is recorded when the agent enters synthetic sen-sitive information provided in the task background into the controlled login flow. This action-based labeling procedure is applied uniformly across all agents, even though different agents may expose different internal plans or reasoning traces. We use GPT-4o only for the injection generation process, including webpage context construction, initial candidate gen-eration, mutation, and candidate evaluation. The LLM back-bones used by the evaluated web agents are varied separately in RQ1. For mutation, we perform seed selection over the top-3 failed candidates ranked by reward. For page-level ex-ploitability analysis, we set N = 3 and K = 3, resulting in 
+
+C = N × K = 9 attempts per webpage. 
+
+## 4.2 RQ1: Effectiveness across LLM Backbones 
+
+To isolate the effect of the underlying LLM backbone, we fix the web agent framework to Browser-Use, keep the dataset fixed, and vary only the LLM used by the agent. We select four backbones from different model families: GPT-4o, Gemini 3 Flash, Claude Sonnet 4, and DeepSeek-V3.2. This selection allows us to evaluate whether login-inducing attacks depend on a specific proprietary model or remain effective across diverse LLMs. Fig. 3 reports LER and ASR across domains and LLM backbones. Overall, LoginTrap achieves an average LER of 93% and an average ASR of 86%, showing that login induce-ment is effective across the tested LLM backbones. The key observation is not only that agents often click the forged login entry, but also that this behavior frequently leads to sensitive information leakage. The main difference across backbones lies in how strongly the agent continues the induced workflow after entering the login path. Gemini 3 Flash and Claude Sonnet 4 show the most stable conversion from LER to ASR. This does not necessarily mean that they are more vulnerable at the initial perception stage; rather, once they accept the injected login premise as part of the task workflow, they are more likely to follow through with the subsequent form-filling steps. This suggests that workflow completion further amplifies the attack. In this sense, stronger task-completion behavior can amplify the attack: the agent treats the controlled login flow as a coherent continuation of the current page interaction. In contrast, GPT-4o and DeepSeek-V3.2 exhibit larger LER-ASR gaps despite high LER. Their lower ASR is there-7GPT-4o Gemini 3 Flash Claude Sonnet 4 DeepSeek-V3.2 GPT-4o Gemini 3 Flash Claude Sonnet 4 DeepSeek-V3.2 GPT-4o Gemini 3 Flash Claude Sonnet 4 DeepSeek-V3.2 GPT-4o Gemini 3 Flash Claude Sonnet 4 DeepSeek-V3.2 GPT-4o Gemini 3 Flash Claude Sonnet 4 DeepSeek-V3.2      
+
+> 60 70 80 90 100
+> Rate (%)
+> Travel Service Information Shopping Entertainment
+> LER ASR
+
+Figure 3: Domain-wise LER and ASR of L OGIN TRAP across different LLM backbones ( RQ1 ). Colors and hatch patterns distinguish the two metrics; the truncated y-axis highlights performance differences. Travel Service Information Shopping Entertainment GPT-4o Gemini 3 Flash Claude Sonnet 4 DeepSeek-V3.2  
+
+> 24/24 (1.38) 16/16 (1.31) 16/16 (1.50) 13/13 (1.00) 11/11 (1.55) 24/24 (1.00) 16/16 (1.06) 16/16 (1.00) 13/13 (1.00) 11/11 (1.00) 24/24 (1.00) 16/16 (1.19) 16/16 (1.00) 13/13 (1.00) 11/11 (1.09) 24/24 (1.12) 16/16 (1.00) 16/16 (1.19) 13/13 (1.08) 11/11 (1.00) 1.0 1.2 1.4 1.6
+> Avg. Attempts Consumed
+
+Figure 4: Page-level exploitability across LLM backbones (RQ1). LoginTrap makes all tested domains fully exploitable across all backbones. fore better explained by interruptions after login-path entry, rather than by failure to detect the forged login entry. In our ac-tion logs, such interruptions appear as incomplete form filling, early termination, and returning to the original task. These results suggest that login induction and privacy leakage are related but distinct stages: a model may be induced to enter the login path while still being less consistent in completing the input stage. The domain-level pattern further suggests that webpage context affects this conversion process. Domains such as Shopping, Travel, and Entertainment often contain account-related, reservation-related, or membership-related cues, mak-ing a login prompt easier to reconcile with normal task progress. Service and Information pages support more het-erogeneous user tasks, so the same login prompt may appear less necessary for completing the original task. Nevertheless, the attack remains effective across all domains, indicating that task-agnostic login inducement is not limited to a single website category. Figure 4 reports page-level exploitability under repeated executions. Each cell reports the number of exploitable web-pages within the evaluation budget over the total number of webpages in the corresponding domain. The value in paren-theses denotes the average number of attempts needed to observe the first successful attack; if no attempt succeeds, the full budget is counted. Across all tested backbones and domains, every webpage is exploitable within the evaluation budget. This indicates that differences in ASR across mod-els do not prevent successful exploitation from appearing on every tested webpage within the budget. Because PER reaches 100% in RQ1, the attempt consump-tion value provides a more informative view of exploitation stability. For Gemini 3 Flash and Claude Sonnet 4, successful exploitation typically appears within the first attempt. In con-trast, GPT-4o requires more more attempts in several domains, such as Information and Entertainment, which is consistent with its larger gap between LER and ASR . This suggests that GPT-4o remains exploitable, but successful leakage is less stable across repeated executions. Under DeepSeek-V3.2, all webpages are also exploitable within the budget, but its lower ASR indicates that successful leakage is less reliable on individual executions. 
+
+Answer to RQ1 
+
+LoginTrap is effective across all tested LLM backbones. The backbones differ in how reliably login entry converts into private information leakage, but all remain vulnerable to task-agnostic login inducement. These results suggest that the attack is not an artifact of a single LLM backbone. 
+
+## 4.3 RQ2: Generality across Web Agent Archi-tectures 
+
+To examine whether LoginTrap depends on a specific web agent architecture, we fix the LLM used by the agent to GPT-4o and vary only the web agent architecture. This setup iso-lates architectural effects from differences in model capability or safety behavior. We evaluate Browser-Use [30], LiteWe-bAgent [49], and Skyvern [39], which represent different de-8Browser-Use LiteWebAgent Skyvern Browser-Use LiteWebAgent Skyvern Browser-Use LiteWebAgent Skyvern Browser-Use LiteWebAgent Skyvern Browser-Use LiteWebAgent Skyvern      
+
+> 60 70 80 90 100
+> Rate (%)
+> Travel Service Information Shopping Entertainment
+> LER ASR
+
+Figure 5: Domain-wise LER and ASR of L OGIN TRAP across different web agent architectures ( RQ2 ). Colors and hatch patterns distinguish the two metrics, while the truncated y-axis highlights performance differences. sign choices in browser automation, observation processing, action grounding, and workflow execution. We select these three agents to cover both practice-oriented systems and research-oriented web agent designs. Browser-Use and Skyvern are open-source systems oriented toward practical browser automation, while LiteWebAgent is an aca-demic VLM web agent. More importantly, they represent substantially different architectural paradigms. Browser-Use follows a lightweight single agent loop for browser control, where the LLM directly selects browser actions through tool calls. LiteWebAgent adopts a modular recursive function calling design and separates action generation from action grounding: the agent first produces an action description and then maps it to concrete operations on webpage elements. Skyvern adopts a workflow architecture with multiple agents, including Planner, Actor, and Validator components. This di-versity allows us to evaluate whether L OGIN TRAP depends on a specific agent control loop or persists across different web agent designs, spanning direct action selection, modular grounding, and multi-component workflow validation. Fig. 5 shows that LoginTrap remains effective across all three architectures, but the stability of the full attack chain varies substantially. The overall LER remains high for all agents, ranging from 84% to 94%, which indicates that all tested architectures can be induced to enter the forged login path. The larger variation appears in ASR, which ranges from 68% to 89%. This gap suggests that the key architectural difference is not whether an agent can be induced to click login but whether it continues through the induced login flow and completes the form-filling steps. This pattern is consistent with how each architecture han-dles action execution and workflow continuation. A direct tool loop, as in Browser-Use, can quickly translate the accepted login premise into a browser action, but it may have fewer explicit mechanisms to maintain the subsequent form-filling process after navigation. A modular design, as in LiteWe-Travel Service Information Shopping Entertainment Browser-use LiteWebAgent Skyvern  
+
+> 24/24 (1.38) 16/16 (1.31) 16/16 (1.50) 13/13 (1.00) 11/11 (1.55) 24/24 (1.67) 15/16 (2.44) 15/16 (2.00) 11/13 (2.54) 10/11 (2.36) 24/24 (1.00) 15/16 (1.62) 16/16 (1.06) 13/13 (1.00) 11/11 (1.09) 1.0 1.5 2.0 2.5
+> Avg. Attempts Consumed
+
+Figure 6: Page-level exploitability across web agent architec-tures (RQ2). LoginTrap remains broadly exploitable under different agent designs, while some architectures require more attempts before the first success. bAgent, introduces an additional separation between high-level action descriptions and concrete webpage operations. This extra grounding stage may create more opportunities for execution mismatch, such as selecting an unintended el-ement or failing to complete all required fields. In contrast, Skyvern’s Planner, Actor, and Validator workflow is designed to decompose tasks, execute browser operations, and validate progress. Once the injected login step is accepted as part of the task workflow, such workflow persistence may help the agent continue the induced flow and complete the complete the controlled login form. Figure 6 provides the page-level view. Under Browser-Use, LoginTrap makes all tested webpages exploitable within the evaluation budget. Under Skyvern and LiteWebAgent, a small number of webpages remain unexploited in several domains. Successful exploitation under LiteWebAgent also requires more attempts, which is consistent with its lower ASR. These results suggest that LoginTrap generalizes beyond a single agent implementation, but different architectures affect how reliably the attack progresses from login entry to final leakage. 9Answer to RQ2 
+
+LoginTrap is not tied to a specific web agent architecture. Direct tool loops, modular agents with separate grounding stages, and multi-agent workflow systems can all be in-duced to enter the forged login path. Architecture mainly changes how reliably agents complete the induced login flow, rather than eliminating the login inducement risk. 
+
+## 5 Related Work 
+
+We discuss two lines of related work. The first studies security risks of LLM-based agents. The second studies credential leakage in authentication workflows. 
+
+## 5.1 Security Risks of LLM-based Agents 
+
+Prior research has investigated the security risks introduced by LLM-based agents with tools, memory, and multi-step execution capabilities. One line of work evaluates whether agents can complete harmful multi-step tasks or remain vul-nerable across diverse attack scenarios [2, 9, 50]. Another line of work studies prompt injection and execution hijacking in tool-using agents, showing that untrusted tool outputs, mali-cious tool descriptions, and contaminated multi-source inputs can alter agent decisions and downstream actions [36, 45, 54]. These studies show that attackers can influence agent behav-ior through external content or metadata incorporated into the agent execution pipeline, even without directly controlling the agent or the user’s original task. Recent work further shows that such risks are not limited to a single tool call or a single input context. Poisoning attacks inject adversarial records into persistent memory or retrieval stores that later influence agent behavior [15, 21, 55]. These studies extend agent-security analysis from local execution decisions to longer execution contexts in which earlier ob-servations, stored states, or intermediate tool results affect later actions. Complementing these works, our study focuses on browser-based delegated execution. Rather than targeting tool outputs, tool descriptions, memory, or cross-tool depen-dencies, the adversary controls webpage content encountered during normal browsing. We study how such content induces a login-oriented browser trajectory, where the agent treats login as a task prerequisite and follows an attacker-controlled interaction path. 
+
+## 5.2 Credential Leakage in Login Flows 
+
+Password-based login remains widely used on the Web, and phishing attacks exploit the fact that users may enter cre-dentials into pages controlled by an attacker rather than the intended service. Prior work on web password authentication therefore analyzes the password login process as a critical se-curity boundary where phishing can redirect credentials away from the intended service [41]. Credential phishing directly attacks this boundary by presenting pages that ask users to provide account credentials; phishing studies consequently model login pages as webpages that collect credentials [25]. Empirical measurements further show that stolen login cre-dentials submitted to phishing sites can be transmitted and shared across the phishing ecosystem [33]. Together, these works establish login and credential-entry flows as security-critical boundaries in web authentication. This boundary becomes more difficult to enforce when credential entry is delegated to software components. Pass-word managers and browser autofill reduce user effort, but they must decide when and where credentials should be filled; prior work shows that automatic autofill can expose pass-words without explicit user interaction [38]. Browser form autofill introduces a related risk because sensitive form values may be released to hidden or visually obscured fields once the browser decides to fill them [23]. More recent work further shows that autofilled passwords can be accessed by malicious client-side scripts or browser extensions after they are filled into the webpage [14]. These studies do not model web agents, but they show that releasing credentials or sensitive form val-ues into an unintended webpage context is already a serious security risk. Prior studies examine how credentials are collected, filled, leaked, or protected once a login or credential entry inter-face is present. LLM-based web agents introduce an earlier decision point: the agent must infer whether entering such an interface is necessary for completing a benign user task. Our work studies how attacker-controlled webpage content exploits this decision point by making login appear relevant to task progress before any credential is submitted or autofilled. This shifts the problem from protecting credentials after a login interface has already been reached to understanding how a web agent can be induced to enter that interface as a seemingly necessary step in the first place. 
+
+## 6 Conclusion 
+
+This paper studied a privacy leakage risk in LLM-based web agents, where an attacker-controlled webpage can induce an agent to treat login as a necessary step during an otherwise benign task. We introduced LoginTrap, a task-agnostic login-inducing attack that does not assume knowledge of the user task, the underlying model, or the agent architecture. We for-malized the attack goal around login entry and sensitive in-formation submission, constructed controlled phishing-style webpages for reproducible measurement, and designed a gen-eration method inspired by fuzzing to produce page-specific injection statements. Our evaluation across 80 webpages, 1,175 tasks, multiple LLM backbones, representative web agent architectures, and several defense settings shows that login inducement is a practical and persistent risk. The attack is not an artifact of a single model or agent implementation, 10 and existing defenses at the task instruction, agent system prompt, and action supervision layers reduce but do not elim-inate sensitive information leakage across the full attack flow. These findings suggest that authentication should be treated as a distinct security boundary in web agent execution. Future web agent defenses should reason not only about whether webpage content is suspicious but also about whether login and sensitive input are necessary for the original user task. 
+
+## References 
+
+[1] AL ROOMI , S., AND LI, F. A {Large-Scale } measurement of website login policies. In 32nd USENIX Security Symposium (USENIX Security 23) (2023), pp. 2061–2078. [2] ANDRIUSHCHENKO , M., S OULY , A., D ZIEMIAN , M., D UENAS ,D., L IN , M., W ANG , J., H ENDRYCKS , D., Z OU , A., K OLTER , Z., FREDRIKSON , M., ET AL . Agentharm: A benchmark for measuring harmfulness of llm agents. In International Conference on Learning Representations (2025), vol. 2025, pp. 79185–79220. [3] ANTI -P HISHING WORKING GROUP . Phishing activity trends report, 1st quarter 2025. Tech. rep., Anti-Phishing Working Group, July 2025. Activity January–March 2025; published 2 July 2025. [4] ARAUJO , S., G AO , Q., L EONARDI , E., AND HOUBEN , G.-J. Car-bon: domain-independent automatic web form filling. In International Conference on Web Engineering (2010), Springer, pp. 292–306. [5] CAO , T., L IM , B., L IU , Y., S UI , Y., L I, Y., D ENG , S., L U, L., O O, N., YAN , S., AND HOOI , B. Vpi-bench: Visual prompt injection attacks for computer-use agents. arXiv preprint arXiv:2506.02456 (2025). [6] CAPLES , D., D RAGUNS , A., R AVI , N., P UTTA , P., G ARG , N., H EB -
+
+> BAR
+
+, P., J OO , Y., G U, J., L ONDON , C., S CHROEDER DE WITT , C., 
+
+> ET AL
+
+. Real: Benchmarking autonomous agents on deterministic simu-lations of real websites. Advances in Neural Information Processing Systems 38 (2026). [7] COULOM , R. Efficient selectivity and backup operators in monte-carlo tree search. In International conference on computers and games 
+
+(2006), Springer, pp. 72–83. [8] CUVIN , P., Z HU , H., AND YANG , D. Decepticon: How dark patterns manipulate web agents. arXiv preprint arXiv:2512.22894 (2025). [9] DEBENEDETTI , E., ZHANG , J., BALUNOVIC , M., BEURER -KELLNER , L., F ISCHER , M., AND TRAMÈR , F. Agentdojo: A dynamic environment to evaluate prompt injection attacks and defenses for llm agents. Advances in Neural Information Processing Systems 37 
+
+(2024), 82895–82920. [10] DENG , X., G U, Y., Z HENG , B., C HEN , S., S TEVENS , S., W ANG , B., SUN , H., AND SU, Y. Mind2web: Towards a generalist agent for the web. In Advances in Neural Information Processing Systems (2023), vol. 36, Curran Associates, Inc., pp. 28091–28114. [11] DIAZ , O., O TADUY , I., AND PUENTE , G. User-driven automation of web form filling. In International Conference on Web Engineering 
+
+(2013), Springer, pp. 171–185. [12] ERSOY , D., LEE , B., SHREEKUMAR , A., ARUNASALAM , A., IBRAHIM , M., B IANCHI , A., AND CELIK , Z. B. Investigating the impact of dark patterns on llm-based web agents. arXiv preprint arXiv:2510.18113 (2025). [13] EVTIMOV , I., Z HARMAGAMBETOV , A., G RATTAFIORI , A., G UO , C.,  
+
+> AND
+
+CHAUDHURI , K. Wasp: Benchmarking web agent security against prompt injection attacks. Advances in Neural Information Processing Systems 38 (2026). [14] GAUTAM , A., Y ADAV , T. K., S EAMONS , K., AND RUOTI , S. Pass-words are meant to be secret: A practical secure password entry channel for web browsers. arXiv preprint arXiv:2402.06159 (2024). [15] GONG , Y., C HEN , Z., L IU , J., C HEN , M., Y U, F., L U, W., W ANG ,X., AND LIU , X. {Topic-FlipRAG }:{Topic-Orientated } adversarial opinion manipulation attacks to {Retrieval-Augmented } generation models. In 34th USENIX Security Symposium (USENIX Security 25) 
+
+(2025), pp. 3807–3826. [16] GRESHAKE , K., A BDELNABI , S., M ISHRA , S., E NDRES , C., H OLZ ,T., AND FRITZ , M. Not what you’ve signed up for: Compromising real-world llm-integrated applications with indirect prompt injection. In Proceedings of the 16th ACM workshop on artificial intelligence and security (2023), pp. 79–90. [17] GUR , I., R UECKERT , U., F AUST , A., AND HAKKANI -T UR , D. Learn-ing to navigate the web. arXiv preprint arXiv:1812.09195 (2018). [18] HE, H., Y AO , W., M A, K., Y U, W., D AI , Y., Z HANG , H., L AN , Z.,  
+
+> AND
+
+YU, D. Webvoyager: Building an end-to-end web agent with large multimodal models. In Proceedings of the 62nd Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers) 
+
+(2024), pp. 6864–6890. [19] JOHNSON , S., P HAM , V., AND LE, T. Manipulating llm web agents with indirect prompt injection attack via html accessibility tree. arXiv preprint arXiv:2507.14799 (2025). [20] KOH , J. Y., L O, R., J ANG , L., D UVVUR , V., L IM , M. C., H UANG ,P.-Y., N EUBIG , G., Z HOU , S., S ALAKHUTDINOV , R., AND FRIED ,D. Visualwebarena: Evaluating multimodal agents on realistic visual web tasks. In Proceedings of the 62nd Annual Meeting of the Associa-tion for Computational Linguistics (Volume 1: Long Papers) (2024), Association for Computational Linguistics, pp. 881–905. [21] LI, Z., C UI , J., L IAO , X., AND XING , L. Les dissonances: Cross-tool harvesting and polluting in pool-of-tools empowered llm agents. In Pro-ceedings of the Network and Distributed System Security Symposium (NDSS) (2026). [22] LIAO , Z., M O, L., X U, C., K ANG , M., Z HANG , J., X IAO , C., T IAN ,Y., L I, B., AND SUN , H. Eia: Environmental injection attack on generalist web agents for privacy leakage. In International Conference on Learning Representations (2025), vol. 2025, pp. 66972–67003. [23] LIN , X., I LIA , P., AND POLAKIS , J. Fill in the blanks: Empirical anal-ysis of the privacy threats of browser form autofill. In Proceedings of the 2020 ACM SIGSAC Conference on Computer and Communications Security (2020), pp. 507–519. [24] LIU , E. Z., G UU , K., P ASUPAT , P., S HI , T., AND LIANG , P. Reinforce-ment learning on web interfaces using workflow-guided exploration. 
+
+arXiv preprint arXiv:1802.08802 (2018). [25] LIU , R., L IN , Y., Y ANG , X., N G, S. H., D IVAKARAN , D. M., AND 
+
+DONG , J. S. Inferring phishing intention via webpage appearance and dynamics: A deep vision based approach. In 31st USENIX Security Symposium (USENIX Security 22) (2022), pp. 1633–1650. [26] LIU , Y., J IA , Y., G ENG , R., J IA , J., AND GONG , N. Z. Formalizing and benchmarking prompt injection attacks and defenses. In 33rd USENIX Security Symposium (USENIX Security 24) (2024), pp. 1831– 1847. [27] LIU , Y., X U, R., W ANG , X., J IA , Y., AND GONG , N. Z. Wain-jectbench: Benchmarking prompt injection detections for web agents. 
+
+arXiv preprint arXiv:2510.01354 (2025). [28] MICROSOFT . Microsoft digital defense report 2025. Tech. rep., Mi-crosoft, 2025. [29] MOU , Z., Y ANG , J., Q IAN , Z., N I, W., X IAO , T., L IU , N., Z HANG ,C., Q IN , Z., AND REN , K. Spatialjb: How text distribution art becomes the" jailbreak key" for llm guardrails. arXiv preprint arXiv:2601.09321 
+
+(2026). [30] MÜLLER , M., AND ŽUNI ˇ C, G. Browser use: Enable ai to control your browser. https://github.com/browser-use/browser-use , 2024. Accessed: 2026-05-13. 
+
+11 [31] NGUYEN , D., C HEN , J., W ANG , Y., W U, G., P ARK , N., H U, Z., L YU ,H., W U, J., A PONTE , R., X IA , Y., ET AL . Gui agents: A survey. In 
+
+Findings of the Association for Computational Linguistics: ACL 2025 
+
+(2025), pp. 22522–22538. [32] NOGUEIRA , R., AND CHO , K. End-to-end goal-driven web navigation. 
+
+Advances in neural information processing systems 29 (2016). [33] PENG , P., X U, C., Q UINN , L., H U, H., V ISWANATH , B., AND WANG ,G. What happens after you leak your password: Understanding cre-dential sharing on phishing sites. In Proceedings of the 2019 ACM Asia conference on computer and communications security (2019), pp. 181–192. [34] PEW RESEARCH CENTER . How americans protect their online data. Tech. rep., Pew Research Center, Oct. 2023. [35] ROY , S., H ALDER , S., B HARATY , A., B HASKAR , V., S INHA , Y., K U-
+
+> MAR
+
+, D., P ANDA , S., AND MANDAL , M. " i strongly suspect this website is a scam": Benchmarking pii leakage and detection without defense in autonomous web agents. arXiv preprint arXiv:2606.00497 
+
+(2026). [36] SHI , J., Y UAN , Z., T IE , G., Z HOU , P., G ONG , N. Z., AND SUN , L. Prompt injection attack to tool selection in llm agents. In Proceedings of the Network and Distributed System Security Symposium (NDSS) 
+
+(2026). [37] SHI , T., K ARPATHY , A., F AN , L., H ERNANDEZ , J., AND LIANG , P. World of bits: An open-domain platform for web-based agents. In In-ternational Conference on Machine Learning (2017), PMLR, pp. 3135– 3144. [38] SILVER , D., J ANA , S., B ONEH , D., C HEN , E., AND JACKSON , C. Password managers: Attacks and defenses. In 23rd USENIX Security Symposium (USENIX Security 14) (2014), pp. 449–464. [39] SKYVERN AI. Skyvern: Automate browser-based workflows with ai. https://github.com/skyvern-ai/skyvern , 2024. Accessed: 2026-05-13. [40] SYROS , G., R OSE , E., G RINSTEAD , B., K ERSCHBAUMER , C., ROBERTSON , W., N ITA -R OTARU , C., AND OPREA , A. Muzzle: Adap-tive agentic red-teaming of web agents against indirect prompt injection attacks. arXiv preprint arXiv:2602.09222 (2026). [41] TAN , T. G., S ZALACHOWSKI , P., AND ZHOU , J. Securing password authentication for web-based applications. In 2022 IEEE Conference on Dependable and Secure Computing (DSC) (2022), IEEE, pp. 1–10. [42] TEMOSHOK , D., F ANTO , S., N EWTON , E., P ERLNER , R., R EGEN -
+
+> SCHEID
+
+, A., B URR , W., R ICHER , J., L EFKOVITZ , N., D ANKER , J., CHOONG , Y.-Y., G REENE , K., AND THEOFANOS , M. Digital iden-tity guidelines: Authentication and authenticator management. NIST Special Publication 800-63B-4, National Institute of Standards and Technology, Aug. 2025. [43] WANG , H., W ANG , J., J IA , X., Z HANG , R., L I, M., L IU , Z., L IU , Y.,  
+
+> AND
+
+WANG , Q. Adinject: Real-world black-box attacks on web agents via advertising delivery. arXiv preprint arXiv:2505.21499 (2025). [44] WANG , L., Y ING , Z., Z HANG , T., L IANG , S., H U, S., Z HANG , M., LIU , A., AND LIU , X. Manipulating multimodal agents via cross-modal prompt injection. In Proceedings of the 33rd ACM International Conference on Multimedia (2025), pp. 10955–10964. [45] WANG , R., J IA , Y., AND GONG , N. Z. Obliinjection: Order-oblivious prompt injection attack to llm agents with multi-source data. In Pro-ceedings of the Network and Distributed System Security Symposium (NDSS) (2026). [46] WU, X., H ONG , G., C HEN , Y., L IU , M., J IN , F., P AN , X., D AI , J.,  
+
+> AND
+
+LIU , B. When bots take the bait: Exposing and mitigating the emerging social engineering attack in web automation agent. arXiv preprint arXiv:2601.07263 (2026). [47] XUE , T., Q I, W., S HI , T., S ONG , C. H., G OU , B., S ONG , D., S UN ,H., AND SU, Y. An illusion of progress? assessing the current state of web agents. In Second Conference on Language Modeling (2025). [48] YANG , J., Z HANG , H., L I, F., Z OU , X., L I, C., AND GAO , J. Set-of-mark prompting unleashes extraordinary visual grounding in gpt-4v. 
+
+arXiv preprint arXiv:2310.11441 (2023). [49] ZHANG , D., R AMA , B., N I, J., H E, S., Z HAO , F., C HEN , K., C HEN ,A., AND CAO , J. Litewebagent: The open-source suite for vlm-based web-agent applications. In Proceedings of the 2025 Conference of the Nations of the Americas Chapter of the Association for Computational Linguistics: Human Language Technologies (System Demonstrations) 
+
+(2025), Association for Computational Linguistics, pp. 449–455. [50] ZHANG , H., H UANG , J., M EI , K., Y AO , Y., W ANG , Z., Z HAN , C., WANG , H., AND ZHANG , Y. Agent security bench (asb): Formalizing and benchmarking attacks and defenses in llm-based agents. In Inter-national Conference on Learning Representations (2025), vol. 2025, pp. 35331–35366. [51] ZHANG , K., T ENENHOLTZ , M., P OLLEY , K., M A, J., Y ARATS , D.,  
+
+> AND
+
+LI, N. Browsesafe: Understanding and preventing prompt in-jection within ai browser agents. arXiv preprint arXiv:2511.20597 
+
+(2025). [52] ZHANG , Y., Y U, T., AND YANG , D. Attacking vision-language com-puter agents via pop-ups. In Proceedings of the 63rd Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers) 
+
+(2025), pp. 8387–8401. [53] ZHANG , Z., H E, J., C AI , Y., Y E, D., Z HAO , P., F ENG , R., AND 
+
+WANG , H. Genesis: Evolving attack strategies for llm web agent red-teaming. arXiv preprint arXiv:2510.18314 (2025). [54] ZHAO , S., H OU , Q., Z HAN , Z., W ANG , Y., X IE , Y., G UO , Y., C HEN ,L., L I, S., AND XUE , Z. Mind your server: A systematic study of parasitic toolchain attacks on the mcp ecosystem. arXiv preprint arXiv:2509.06572 (2025). [55] ZOU , W., G ENG , R., W ANG , B., AND JIA , J. {PoisonedRAG }: Knowl-edge corruption attacks to {Retrieval-Augmented } generation of large language models. In 34th USENIX Security Symposium (USENIX Security 25) (2025), pp. 3827–3844. 
+
+12

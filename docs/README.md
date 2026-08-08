@@ -41,17 +41,17 @@
 <section class="dpr-home-dashboard-card dpr-home-report-card">
   <div class="dpr-home-dashboard-header">
     <div>
-      <span class="dpr-home-dashboard-kicker">2026-08-07</span>
+      <span class="dpr-home-dashboard-kicker">2026-08-08</span>
       <h3 class="dpr-home-dashboard-title">今日汇总</h3>
     </div>
-    <strong class="dpr-home-dashboard-count">共 8 篇</strong>
+    <strong class="dpr-home-dashboard-count">共 3 篇</strong>
   </div>
   <dl class="dpr-home-dashboard-stats">
     <div class="dpr-home-dashboard-stat"><dt>累计更新</dt><dd>1 次</dd></div>
     <div class="dpr-home-dashboard-stat"><dt>精读</dt><dd>3</dd></div>
-    <div class="dpr-home-dashboard-stat"><dt>速读</dt><dd>5</dd></div>
+    <div class="dpr-home-dashboard-stat"><dt>速读</dt><dd>0</dd></div>
   </dl>
-  <p class="dpr-home-dashboard-body">最近更新：2026-08-07 20:56:51 UTC<br>状态：成功</p>
+  <p class="dpr-home-dashboard-body">最近更新：2026-08-08 20:49:55 UTC<br>状态：成功</p>
 </section>
 <section class="dpr-home-dashboard-card dpr-home-brief-card">
   <div class="dpr-home-dashboard-header">
@@ -62,9 +62,9 @@
     <strong class="dpr-home-dashboard-count">AI</strong>
   </div>
   <div class="dpr-home-dashboard-body">
-<p>今日聚焦AI Agent安全攻防：从攻击链诊断到恶意技能文件评估，直击智能体安全前沿。</p>
-<p>《DiagChain》与《Towards a Risk Assessment》两篇精读分别揭示了LLM Agent在攻击链重建的推理瓶颈和代码智能体中嵌入恶意技能的隐蔽风险，均获9.0高分。</p>
-<p>建议安全从业者重点跟进针对Agent系统的诊断基准与风险量化框架，这将是下一代AI安全评测的基石。</p>
+<p>从精读两篇高分安全论文，看攻防前沿：红队自动化攻击链生成与LLM智能体新型注入攻击防御。</p>
+<p>一篇量化了谓词表示粒度对攻击链逻辑推断的决定性影响，另一篇设计了不依赖任务的LoginTrap诱饵，巧妙捕获针对网页智能体的钓鱼式间接注入。</p>
+<p>建议关注将符号推理与LLM安全结合的研究范式，动手复现细小粒度攻击图与陷阱防御的工程设计。</p>
   </div>
 </section>
 <section class="dpr-home-dashboard-card dpr-home-deep-card">
@@ -76,7 +76,7 @@
     <strong class="dpr-home-dashboard-count">3 篇</strong>
   </div>
   <div class="dpr-home-dashboard-body">
-<ul class="dpr-home-dashboard-paper-list"><li><span class="dpr-home-dashboard-paper-title" title="DiagChain: A Diagnostic Benchmark for Evaluating LLM Agents on Evidence-Grounded Attack Chain Reconstruction">DiagChain: A Diagnostic Benchmark for Evaluating LLM Agents on Evidence-Grounded Attack Chain Reconstruction</span></li><li><span class="dpr-home-dashboard-paper-title" title="Towards a Risk Assessment of Malicious Skill Files in Coding Agents">Towards a Risk Assessment of Malicious Skill Files in Coding Agents</span></li><li><span class="dpr-home-dashboard-paper-title" title="Agent Against Agent: An Agentic System for Automatic Prompt Injection Red Teaming">Agent Against Agent: An Agentic System for Automatic Prompt Injection Red Teaming</span></li></ul>
+<ul class="dpr-home-dashboard-paper-list"><li><span class="dpr-home-dashboard-paper-title" title="Symbolic Attack Chain Generation from Atomic Red Team Techniques: An Empirical Study of Predicate Representation Granularity">Symbolic Attack Chain Generation from Atomic Red Team Techniques: An Empirical Study of Predicate Representation Granularity</span></li><li><span class="dpr-home-dashboard-paper-title" title="LoginTrap: Uncovering Task-Agnostic Phishing-Style Indirect Prompt Injection Attacks against LLM-based Web Agents">LoginTrap: Uncovering Task-Agnostic Phishing-Style Indirect Prompt Injection Attacks against LLM-based Web Agents</span></li><li><span class="dpr-home-dashboard-paper-title" title="Salami Attack: Stealthy Collusive Memory Poisoning against OpenClaw">Salami Attack: Stealthy Collusive Memory Poisoning against OpenClaw</span></li></ul>
   </div>
   <div class="dpr-home-dashboard-tags"><span class="dpr-home-dashboard-tag">ca <strong>3</strong></span></div>
 </section>
@@ -86,12 +86,12 @@
       <span class="dpr-home-dashboard-kicker">今日累计</span>
       <h3 class="dpr-home-dashboard-title">速读推荐</h3>
     </div>
-    <strong class="dpr-home-dashboard-count">5 篇</strong>
+    <strong class="dpr-home-dashboard-count">0 篇</strong>
   </div>
   <div class="dpr-home-dashboard-body">
-<ul class="dpr-home-dashboard-paper-list"><li><span class="dpr-home-dashboard-paper-title" title="When Prompts Control Robots: Prompt Injection Attacks in Multi-Agent Robotic Systems">When Prompts Control Robots: Prompt Injection Attacks in Multi-Agent Robotic Systems</span></li><li><span class="dpr-home-dashboard-paper-title" title="Antares: Foundation Models for Agentic Vulnerability Localization">Antares: Foundation Models for Agentic Vulnerability Localization</span></li><li><span class="dpr-home-dashboard-paper-title" title="Trident : How to Break Deep Reinforcement Learning Cyber Defenses (Agentic)">Trident : How to Break Deep Reinforcement Learning Cyber Defenses (Agentic)</span></li></ul>
+<p class="dpr-home-dashboard-empty">今日暂无推荐。</p>
   </div>
-  <div class="dpr-home-dashboard-tags"><span class="dpr-home-dashboard-tag">ca <strong>5</strong></span></div>
+
 </section>
 </div>
 

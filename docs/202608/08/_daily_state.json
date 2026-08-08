@@ -1,0 +1,57 @@
+{
+  "date": "20260808",
+  "date_label": "",
+  "generated_at": "2026-08-08 20:49:55 UTC",
+  "recommend_exists": true,
+  "run_count": 1,
+  "papers": [
+    {
+      "paper_id": "2608.00143v1",
+      "route": "202608/08/2608.00143v1-symbolic-attack-chain-generation-from-atomic-red-team-techniques-an-empirical-study-of-predicate-representation-granularity",
+      "title": "Symbolic Attack Chain Generation from Atomic Red Team Techniques: An Empirical Study of Predicate Representation Granularity",
+      "section": "deep",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "ca"
+        }
+      ],
+      "score": 9.0,
+      "evidence": "使用LLM将攻击技术转化为符号谓词，实现自动化攻击链生成，探索LLM在网络攻击规划中的能力",
+      "first_seen_at": "2026-08-08 20:49:55 UTC",
+      "updated_at": "2026-08-08 20:49:55 UTC"
+    },
+    {
+      "paper_id": "2608.04741v1",
+      "route": "202608/08/2608.04741v1-logintrap-uncovering-task-agnostic-phishing-style-indirect-prompt-injection-attacks-against-llm-based-web-agents",
+      "title": "LoginTrap: Uncovering Task-Agnostic Phishing-Style Indirect Prompt Injection Attacks against LLM-based Web Agents",
+      "section": "deep",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "ca"
+        }
+      ],
+      "score": 9.0,
+      "evidence": "诱导LLM网络智能体泄露登录凭据的钓鱼式攻击",
+      "first_seen_at": "2026-08-08 20:49:55 UTC",
+      "updated_at": "2026-08-08 20:49:55 UTC"
+    },
+    {
+      "paper_id": "2608.01637v1",
+      "route": "202608/08/2608.01637v1-salami-attack-stealthy-collusive-memory-poisoning-against-openclaw",
+      "title": "Salami Attack: Stealthy Collusive Memory Poisoning against OpenClaw",
+      "section": "deep",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "ca"
+        }
+      ],
+      "score": 8.0,
+      "evidence": "用于共谋记忆投毒的自动红队框架，测试LLM智能体漏洞",
+      "first_seen_at": "2026-08-08 20:49:55 UTC",
+      "updated_at": "2026-08-08 20:49:55 UTC"
+    }
+  ]
+}
