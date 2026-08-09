@@ -1,0 +1,156 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-08-09T19:55:33.809540+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 1,
+    "deep_cap": 6,
+    "deep_selected": 1,
+    "quick_candidates": 2,
+    "quick_skim_target": 11,
+    "quick_selected": 2
+  },
+  "deep_dive": [
+    {
+      "id": "2608.03070v1",
+      "source": "arxiv",
+      "title": "AI Security Leaderboard: Methodology, Results and Minimal Standard",
+      "abstract": "Frontier AI model developers increasingly rely on layered safeguards to prevent catastrophic misuse, but little public evidence exists on how much protection these safeguards provide, or how consistently across developers. We introduce the FAR.AI Minimal Standard for Safeguards, Version 1.0: a taxonomy of 67 readily accessible static jailbreak techniques, a method for composing them into a very large attack space, and a benchmark of flagship models against a sample of it. We evaluate Claude Fable 5, GPT-5.6 Sol, Gemini 3.1 Pro, and Grok 4.5 on two complementary datasets totalling 360 attacker goals spanning chemical, biological, radiological/nuclear and explosive (CBRNE) threats and offensive cyber, using a three-stage funnel to identify universal jailbreaks: single prompt templates that elicit operationally compliant responses on over 75% of a domain's goals. We also introduce a cost-to-jailbreak metric that models attacker spend directly, with right-censored lower bounds where no universal jailbreak was found.   Robustness is highly uneven: the cost to break these models varies over a hundredfold. Random search over our technique pool found 63 universal jailbreaks against Grok 4.5 and 18 against Gemini 3.1 Pro, at an average cost of roughly $58 and $278 per jailbreak found; expert-guided composition raised these to 385 and 231. Neither Claude Fable 5 nor GPT-5.6 Sol yielded any universal jailbreak under either strategy. Because meeting the Minimal Standard requires only defenses already publicly described and deployed in production elsewhere, these gaps appear closable with current techniques. We recommend defense-in-depth combining reasoning, activation, and input/output monitoring. Results are maintained at leaderboard.far.ai.",
+      "authors": [
+        "Jasper Timm",
+        "Lukas Struppek",
+        "Ziwei Xu",
+        "Grace Cheong",
+        "Oscar Mata",
+        "Dan Zhao",
+        "Mick Yang",
+        "Isadora De Andrade",
+        "Xiaojun Jia",
+        "Yiming Li",
+        "Samuel Bauer",
+        "Heather McIntyre",
+        "Adam Gleave",
+        "Edward Yee",
+        "Kellin Pelrine"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI",
+        "cs.CL"
+      ],
+      "published": "2026-08-04T03:32:19+00:00",
+      "link": "https://arxiv.org/pdf/2608.03070v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "Tests LLMs on offensive cyber goals to evaluate capability limits in cybercrime",
+      "llm_evidence_cn": "测试LLM在攻击性网络目标上的能力限制",
+      "llm_evidence": "测试LLM在攻击性网络目标上的能力限制",
+      "canonical_evidence": "测试LLM在攻击性网络目标上的能力限制",
+      "llm_tldr_en": "Evaluates flagship LLMs on offensive cyber goals using 67 jailbreak techniques, revealing that current safeguards are insufficient against a determined adversary.",
+      "llm_tldr_cn": "该研究提出了FAR.AI最低安全标准，使用67种静态越狱技术组合成庞大攻击空间，评估了多个前沿模型在攻击性网络等360个目标上的表现。结果表明当前防护措施对构建的通用越狱效果有限，揭示了LLM在恶意网络用途中的能力边界。",
+      "llm_tldr": "该研究提出了FAR.AI最低安全标准，使用67种静态越狱技术组合成庞大攻击空间，评估了多个前沿模型在攻击性网络等360个目标上的表现。结果表明当前防护措施对构建的通用越狱效果有限，揭示了LLM在恶意网络用途中的能力边界。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "evaluating the limits of large language models in cybercrime scenarios",
+      "matched_requirement_id": "req-9",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2608.01117v1",
+      "source": "arxiv",
+      "title": "SoK: Intent-Oriented Systematization of Multi-Turn LLM Jailbreaks",
+      "abstract": "Large Language Models (LLMs) are increasingly deployed in interactive settings, where user intent commonly unfolds through multi-turn dialogue. Multi-turn jailbreaks exploit this pattern by advancing a harmful intent across turns, so that no single message exposes the full objective. However, existing work treats these attacks as a loose collection of prompt patterns and does not analyze how the adversary organizes and advances harmful intent across an interaction. We develop a four-part, intent-oriented taxonomy that organizes multi-turn jailbreaks by adversarial intent structure. Through controlled ablations, we find that effectiveness is driven by how deliberately intent is organized across turns rather than by context length or query count. We further show that the way intent is organized determines the level at which it becomes detectable, pushing the required detection surface outward from the turn level to the session level to the cross-session level. These findings indicate that turn-local safety mechanisms are structurally insufficient and that single-point evaluation overlooks how intent is organized, motivating evaluation protocols aligned to the level at which harmful intent becomes observable. The code is available at: https://github.com/SiyuanLi00/INTACT.",
+      "authors": [
+        "Siyuan Li",
+        "Aodu Wulianghai",
+        "Zehao Liu",
+        "Xi Lin",
+        "Qinghua Mao",
+        "Haoyu Li",
+        "Xiang Chen",
+        "Siyuan Liang",
+        "Jun Wu",
+        "Jianhua Li",
+        "Dacheng Tao"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR"
+      ],
+      "published": "2026-08-02T09:24:08+00:00",
+      "link": "https://arxiv.org/pdf/2608.01117v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "develops intent-oriented taxonomy of multi-turn jailbreaks, finding that deliberate intent organization drives effectiveness",
+      "llm_evidence_cn": "构建面向意图的多轮越狱分类，发现意图组织方式决定攻击有效性",
+      "llm_evidence": "构建面向意图的多轮越狱分类，发现意图组织方式决定攻击有效性",
+      "canonical_evidence": "构建面向意图的多轮越狱分类，发现意图组织方式决定攻击有效性",
+      "llm_tldr_en": "The paper systematizes multi-turn LLM jailbreaks by analyzing adversarial intent structure, showing that organized intent across turns is key to effectiveness, revealing a capability boundary.",
+      "llm_tldr_cn": "该论文系统化分析了多轮LLM越狱，通过构造面向意图的分类法，揭示了攻击者如何组织危害意图以规避安全检测。研究发现，意图的精心组织而非上下文长度是越狱成功的关键，为评估LLM在对抗性交互中的能力边界提供了新视角。",
+      "llm_tldr": "该论文系统化分析了多轮LLM越狱，通过构造面向意图的分类法，揭示了攻击者如何组织危害意图以规避安全检测。研究发现，意图的精心组织而非上下文长度是越狱成功的关键，为评估LLM在对抗性交互中的能力边界提供了新视角。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "exploring the capability boundaries of large language models in cyber contexts",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2608.04565v1",
+      "source": "arxiv",
+      "title": "Breadcrumbing Search Agents",
+      "abstract": "LLM-based search agents are widely used for information-seeking tasks, but their reliance on external tool returns introduces a critical security risk: web content retrieved during execution is untrusted, exposing agents to prompt injection and goal hijacking. Prior work on search-agent safety primarily focuses on static web-content injection, but modern agents issue follow-up queries and cross-check competing sources, so a single injected page is often diluted or rejected. We show that the channel delivering search and page observations is a fragile security boundary: beyond exposing the agent to a single poisoned page, a mediated search interface can repeatedly steer how the agent gathers evidence and forms its final answer. Under a constrained tool-intermediary threat model, appending only one controlled result per query can substantially increase attack success when the evidence is coordinated across the agent's trajectory. We study this setting with a strategy-driven long-horizon attack system and introduce Authority-Chain Hijack (ACH), an expert-refined strategy that turns isolated search-result and page-content manipulations into a coherent evidence chain across seemingly corroborating sources. ACH achieves the highest Overall ASR among all baselines, reaching 55.9% / 83.3% ASR / MaxN ASR on the full SafeSearch test split. We further introduce Trace-Guided Strategy Evolution (TGSE), which automatically improves attacker strategies from execution traces, replacing manual redesign with trace-driven refinement; its strongest single setting reaches 71.4% / 95.0% in held-out evaluation.",
+      "authors": [
+        "Xuebin Li",
+        "Hanqing Zhao",
+        "Siyuan Liang",
+        "Kejiang Chen",
+        "Weiming Zhang",
+        "Dacheng Tao",
+        "Nenghai Yu"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI",
+        "cs.CL"
+      ],
+      "published": "2026-08-05T07:57:27+00:00",
+      "link": "https://arxiv.org/pdf/2608.04565v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "showing that a mediated search interface can repeatedly steer agent evidence gathering, a fragile security boundary",
+      "llm_evidence_cn": "展示中介搜索界面可反复引导代理证据收集，构成脆弱安全边界",
+      "llm_evidence": "展示中介搜索界面可反复引导代理证据收集，构成脆弱安全边界",
+      "canonical_evidence": "展示中介搜索界面可反复引导代理证据收集，构成脆弱安全边界",
+      "llm_tldr_en": "The paper demonstrates that in LLM-based search agents, the tool-intermediary channel is a fragile security boundary, allowing adversaries to manipulate information gathering despite cross-checking.",
+      "llm_tldr_cn": "本文揭示了LLM搜索代理中工具中介通道的安全脆弱性，攻击者通过操控搜索和页面观测，即使代理进行交叉验证，仍能逐步引导其证据收集和最终答案。这拓展了对代理能力边界的理解，强调了接口安全的重要性。",
+      "llm_tldr": "本文揭示了LLM搜索代理中工具中介通道的安全脆弱性，攻击者通过操控搜索和页面观测，即使代理进行交叉验证，仍能逐步引导其证据收集和最终答案。这拓展了对代理能力边界的理解，强调了接口安全的重要性。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "exploring the capability boundaries of large language models in cyber contexts",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}

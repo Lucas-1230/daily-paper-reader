@@ -1,0 +1,57 @@
+{
+  "date": "20260809",
+  "date_label": "",
+  "generated_at": "2026-08-09 20:00:20 UTC",
+  "recommend_exists": true,
+  "run_count": 1,
+  "papers": [
+    {
+      "paper_id": "2608.03070v1",
+      "route": "202608/09/2608.03070v1-ai-security-leaderboard-methodology-results-and-minimal-standard",
+      "title": "AI Security Leaderboard: Methodology, Results and Minimal Standard",
+      "section": "deep",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "ca"
+        }
+      ],
+      "score": 9.0,
+      "evidence": "测试LLM在攻击性网络目标上的能力限制",
+      "first_seen_at": "2026-08-09 20:00:20 UTC",
+      "updated_at": "2026-08-09 20:00:20 UTC"
+    },
+    {
+      "paper_id": "2608.01117v1",
+      "route": "202608/09/2608.01117v1-sok-intent-oriented-systematization-of-multi-turn-llm-jailbreaks",
+      "title": "SoK: Intent-Oriented Systematization of Multi-Turn LLM Jailbreaks",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "ca"
+        }
+      ],
+      "score": 7.0,
+      "evidence": "构建面向意图的多轮越狱分类，发现意图组织方式决定攻击有效性",
+      "first_seen_at": "2026-08-09 20:00:20 UTC",
+      "updated_at": "2026-08-09 20:00:20 UTC"
+    },
+    {
+      "paper_id": "2608.04565v1",
+      "route": "202608/09/2608.04565v1-breadcrumbing-search-agents",
+      "title": "Breadcrumbing Search Agents",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "ca"
+        }
+      ],
+      "score": 6.0,
+      "evidence": "展示中介搜索界面可反复引导代理证据收集，构成脆弱安全边界",
+      "first_seen_at": "2026-08-09 20:00:20 UTC",
+      "updated_at": "2026-08-09 20:00:20 UTC"
+    }
+  ]
+}
