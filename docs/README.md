@@ -41,17 +41,17 @@
 <section class="dpr-home-dashboard-card dpr-home-report-card">
   <div class="dpr-home-dashboard-header">
     <div>
-      <span class="dpr-home-dashboard-kicker">2026-08-09</span>
+      <span class="dpr-home-dashboard-kicker">2026-08-10</span>
       <h3 class="dpr-home-dashboard-title">今日汇总</h3>
     </div>
-    <strong class="dpr-home-dashboard-count">共 3 篇</strong>
+    <strong class="dpr-home-dashboard-count">共 2 篇</strong>
   </div>
   <dl class="dpr-home-dashboard-stats">
     <div class="dpr-home-dashboard-stat"><dt>累计更新</dt><dd>1 次</dd></div>
     <div class="dpr-home-dashboard-stat"><dt>精读</dt><dd>1</dd></div>
-    <div class="dpr-home-dashboard-stat"><dt>速读</dt><dd>2</dd></div>
+    <div class="dpr-home-dashboard-stat"><dt>速读</dt><dd>1</dd></div>
   </dl>
-  <p class="dpr-home-dashboard-body">最近更新：2026-08-09 20:00:20 UTC<br>状态：成功</p>
+  <p class="dpr-home-dashboard-body">最近更新：2026-08-10 20:53:40 UTC<br>状态：成功</p>
 </section>
 <section class="dpr-home-dashboard-card dpr-home-brief-card">
   <div class="dpr-home-dashboard-header">
@@ -62,9 +62,7 @@
     <strong class="dpr-home-dashboard-count">AI</strong>
   </div>
   <div class="dpr-home-dashboard-body">
-<p>今日精读AI安全排行榜重磅论文，速览LLM越狱与搜索智能体研究。</p>
-<p>最值一看：《AI安全排行榜》首次提出最小安全标准，揭开模型防御力真面目。</p>
-<p>想守住AI底线？从这份排行榜的评估方法学起，自己动手测测看。</p>
+<p>今日聚焦AI智能体安全：精读的《SynChain》探讨如何诱导计算机操作智能体自行构造攻击链，速读的《CyberForge》则关注为安全训练注入可验证漏洞。最值得关注的方向是让AI系统成为攻击链条的设计者，而非被动防御者，这为智能体风险评测带来新视角。建议进一步了解如何用类似方法检验日常使用的AI助手是否存在连锁执行风险。</p>
   </div>
 </section>
 <section class="dpr-home-dashboard-card dpr-home-deep-card">
@@ -76,7 +74,7 @@
     <strong class="dpr-home-dashboard-count">1 篇</strong>
   </div>
   <div class="dpr-home-dashboard-body">
-<ul class="dpr-home-dashboard-paper-list"><li><span class="dpr-home-dashboard-paper-title" title="AI Security Leaderboard: Methodology, Results and Minimal Standard">AI Security Leaderboard: Methodology, Results and Minimal Standard</span></li></ul>
+<ul class="dpr-home-dashboard-paper-list"><li><span class="dpr-home-dashboard-paper-title" title="SynChain: Inducing Computer-Use Agent Systems to Construct Their Own Attack Chains">SynChain: Inducing Computer-Use Agent Systems to Construct Their Own Attack Chains</span></li></ul>
   </div>
   <div class="dpr-home-dashboard-tags"><span class="dpr-home-dashboard-tag">ca <strong>1</strong></span></div>
 </section>
@@ -86,12 +84,12 @@
       <span class="dpr-home-dashboard-kicker">今日累计</span>
       <h3 class="dpr-home-dashboard-title">速读推荐</h3>
     </div>
-    <strong class="dpr-home-dashboard-count">2 篇</strong>
+    <strong class="dpr-home-dashboard-count">1 篇</strong>
   </div>
   <div class="dpr-home-dashboard-body">
-<ul class="dpr-home-dashboard-paper-list"><li><span class="dpr-home-dashboard-paper-title" title="SoK: Intent-Oriented Systematization of Multi-Turn LLM Jailbreaks">SoK: Intent-Oriented Systematization of Multi-Turn LLM Jailbreaks</span></li><li><span class="dpr-home-dashboard-paper-title" title="Breadcrumbing Search Agents">Breadcrumbing Search Agents</span></li></ul>
+<ul class="dpr-home-dashboard-paper-list"><li><span class="dpr-home-dashboard-paper-title" title="CyberForge: Verified Vulnerability Injection at Repository Level for Cybersecurity Agent Training">CyberForge: Verified Vulnerability Injection at Repository Level for Cybersecurity Agent Training</span></li></ul>
   </div>
-  <div class="dpr-home-dashboard-tags"><span class="dpr-home-dashboard-tag">ca <strong>2</strong></span></div>
+  <div class="dpr-home-dashboard-tags"><span class="dpr-home-dashboard-tag">ca <strong>1</strong></span></div>
 </section>
 </div>
 

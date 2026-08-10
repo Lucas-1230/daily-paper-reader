@@ -1,0 +1,39 @@
+{
+  "label": "2026-08-10",
+  "date": "2026-08-10",
+  "generated_at": "2026-08-10T20:53:45",
+  "count": 2,
+  "papers": [
+    {
+      "paper_id": "202608/10/2608.06862v1-synchain-inducing-computer-use-agent-systems-to-construct-their-own-attack-chains",
+      "section": "deep",
+      "title_en": "SynChain: Inducing Computer-Use Agent Systems to Construct Their Own Attack Chains",
+      "authors": "Fuyao Zhang, Jiaming Zhang, Che Wang, Boyang Chen, Yurong Hao, Xiongtao Sun, Guowei Guan, Blaise Delattre, Yang Cao, Wei Yang Bryan Lim",
+      "date": "2026-08-07",
+      "pdf": "https://arxiv.org/pdf/2608.06862v1",
+      "score": "9.0",
+      "evidence": "SynChain提出计算机使用智能体的自合成攻击范式，揭示LLM智能体构建隐蔽攻击链的能力，与网络犯罪对抗仿真直接相关",
+      "tldr": "计算机使用代理的持久状态可能成为内部攻击传播的缺口，现有防御忽视这一威胁。为此提出SynChain，一种自我合成的攻击范式，诱导代理生成毒化但看似良性的工件，在后续任务中重新激活。在CUAChain数据集上实验，SynChain在多种防御下实现高攻击成功率，优于基线。这证明保障代理安全需要跨任务来源感知推理。",
+      "tags": "query:ca",
+      "abstract_en": "Computer-use agents~(CUAs) have transformed large language models into persistent execution systems capable of generating, storing, and reusing artifacts like skills and memory entries. However, existing security defenses largely treat attacks as externally triggered or temporally bounded, leaving a critical gap in addressing how compromise can propagate internally through an agent's own persistent state. We reveal that malicious influence can be covertly embedded into the structural redundancies of autonomously synthesized artifacts, allowing it to survive internal state updates and bypass standard vetting mechanisms. To formalize this threat, we introduce SynChain, a self-synthesized attack paradigm utilizing persistence-aware directed supervised fine-tuning to induce agents to create poisoned yet benign-looking artifacts. To systematically evaluate this propagation, we construct CUAChain, a dataset comprising 30 benign task chains and three attack objectives. SynChain enables dormant payloads to seamlessly reactivate in future workflows as trusted context, operating entirely without new malicious exogenous inputs. Extensive experiments on OpenClaw, Codex, and Claude Code under four defense settings demonstrate that SynChain achieves high attack success and outperforms adapted baselines, proving that securing CUAs requires provenance-aware reasoning over cross-task execution trajectories.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202608/10/2608.06471v1-cyberforge-verified-vulnerability-injection-at-repository-level-for-cybersecurity-agent-training",
+      "section": "quick",
+      "title_en": "CyberForge: Verified Vulnerability Injection at Repository Level for Cybersecurity Agent Training",
+      "authors": "Amine Lbath, Manan Suri, Aurelien Delaitre, Vadim Okun, Massih-Reza Amini, Ram D. Sriram, Dinesh Manocha",
+      "date": "2026-08-06",
+      "pdf": "https://arxiv.org/pdf/2608.06471v1",
+      "score": "6.0",
+      "evidence": "通过验证漏洞注入的网络安全训练数据生成",
+      "tldr": "前沿LLM代理在真实软件漏洞发现与修补上仍存局限，防御方需持续应对所有漏洞，但安全训练数据稀缺且缺乏可执行环境。CyberForge框架通过向真实C/C++项目注入漏洞并动态验证，合成了大量仓库级安全数据。在1034个已验证漏洞上微调后，SEC-bench补丁修复提升显著，31B模型性能逼近教师，并泛化至多语言漏洞修复。该框架为扩展安全代理训练、缩小攻防差距提供了新途径。",
+      "tags": "query:ca",
+      "abstract_en": "Despite recent advances, frontier large language model (LLM) agents remain limited in discovering and patching complex vulnerabilities in real-world software. Generally available agents can already aid attackers, who only need to find one exploitable weakness, while defenders must continuously identify and patch all vulnerabilities across fast-growing codebases. Stronger defensive agents would help close this gap, yet the scarcity of security training data with reproducible build and execution environments remains a bottleneck.   We present CyberForge, a framework that synthesizes executable, repository-level security training data by injecting vulnerabilities into real C/C++ projects. It validates each instance dynamically: the injected build must pass the project's unit tests, and generated proof-of-vulnerability (PoV) must trigger on the injected build and not on the clean one. CyberForge is not limited by the availability of disclosed vulnerabilities, therefore it can scale in comparison to data augmentation techniques which rely on historic CVE data. The resulting corpus holds 1034 validated vulnerabilities across 80 projects and 63 weakness categories, with edit locality similar to real CVE patches under a real-versus-real noise floor. Fine-tuning on trajectories collected over this corpus improves SEC-bench patch repair by +3.3 to +14.7 points, in all six configurations of three model scales and two teachers, with the 31B student reaching its GPT-5.4-mini teacher, 72.7% against 74.0%. These gains generalize out of distribution to PatchEval, a corpus containing other programming languages, where every configuration also improves and the 31B student passes its teacher.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}

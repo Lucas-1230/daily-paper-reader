@@ -1,0 +1,41 @@
+{
+  "date": "20260810",
+  "date_label": "",
+  "generated_at": "2026-08-10 20:53:40 UTC",
+  "recommend_exists": true,
+  "run_count": 1,
+  "papers": [
+    {
+      "paper_id": "2608.06862v1",
+      "route": "202608/10/2608.06862v1-synchain-inducing-computer-use-agent-systems-to-construct-their-own-attack-chains",
+      "title": "SynChain: Inducing Computer-Use Agent Systems to Construct Their Own Attack Chains",
+      "section": "deep",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "ca"
+        }
+      ],
+      "score": 9.0,
+      "evidence": "SynChain提出计算机使用智能体的自合成攻击范式，揭示LLM智能体构建隐蔽攻击链的能力，与网络犯罪对抗仿真直接相关",
+      "first_seen_at": "2026-08-10 20:53:40 UTC",
+      "updated_at": "2026-08-10 20:53:40 UTC"
+    },
+    {
+      "paper_id": "2608.06471v1",
+      "route": "202608/10/2608.06471v1-cyberforge-verified-vulnerability-injection-at-repository-level-for-cybersecurity-agent-training",
+      "title": "CyberForge: Verified Vulnerability Injection at Repository Level for Cybersecurity Agent Training",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "ca"
+        }
+      ],
+      "score": 6.0,
+      "evidence": "通过验证漏洞注入的网络安全训练数据生成",
+      "first_seen_at": "2026-08-10 20:53:40 UTC",
+      "updated_at": "2026-08-10 20:53:40 UTC"
+    }
+  ]
+}

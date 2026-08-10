@@ -1,0 +1,104 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-08-10T20:49:43.061153+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 1,
+    "deep_cap": 6,
+    "deep_selected": 1,
+    "quick_candidates": 1,
+    "quick_skim_target": 11,
+    "quick_selected": 1
+  },
+  "deep_dive": [
+    {
+      "id": "2608.06862v1",
+      "source": "arxiv",
+      "title": "SynChain: Inducing Computer-Use Agent Systems to Construct Their Own Attack Chains",
+      "abstract": "Computer-use agents~(CUAs) have transformed large language models into persistent execution systems capable of generating, storing, and reusing artifacts like skills and memory entries. However, existing security defenses largely treat attacks as externally triggered or temporally bounded, leaving a critical gap in addressing how compromise can propagate internally through an agent's own persistent state. We reveal that malicious influence can be covertly embedded into the structural redundancies of autonomously synthesized artifacts, allowing it to survive internal state updates and bypass standard vetting mechanisms. To formalize this threat, we introduce SynChain, a self-synthesized attack paradigm utilizing persistence-aware directed supervised fine-tuning to induce agents to create poisoned yet benign-looking artifacts. To systematically evaluate this propagation, we construct CUAChain, a dataset comprising 30 benign task chains and three attack objectives. SynChain enables dormant payloads to seamlessly reactivate in future workflows as trusted context, operating entirely without new malicious exogenous inputs. Extensive experiments on OpenClaw, Codex, and Claude Code under four defense settings demonstrate that SynChain achieves high attack success and outperforms adapted baselines, proving that securing CUAs requires provenance-aware reasoning over cross-task execution trajectories.",
+      "authors": [
+        "Fuyao Zhang",
+        "Jiaming Zhang",
+        "Che Wang",
+        "Boyang Chen",
+        "Yurong Hao",
+        "Xiongtao Sun",
+        "Guowei Guan",
+        "Blaise Delattre",
+        "Yang Cao",
+        "Wei Yang Bryan Lim"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR"
+      ],
+      "published": "2026-08-07T06:39:51+00:00",
+      "link": "https://arxiv.org/pdf/2608.06862v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "SynChain introduces a self-synthesized attack paradigm for computer-use agents, revealing how LLM agents can construct covert attack chains, directly relevant to adversarial simulation of cybercrime",
+      "llm_evidence_cn": "SynChain提出计算机使用智能体的自合成攻击范式，揭示LLM智能体构建隐蔽攻击链的能力，与网络犯罪对抗仿真直接相关",
+      "llm_evidence": "SynChain提出计算机使用智能体的自合成攻击范式，揭示LLM智能体构建隐蔽攻击链的能力，与网络犯罪对抗仿真直接相关",
+      "canonical_evidence": "SynChain提出计算机使用智能体的自合成攻击范式，揭示LLM智能体构建隐蔽攻击链的能力，与网络犯罪对抗仿真直接相关",
+      "llm_tldr_en": "SynChain reveals that computer-use agents can be induced to synthesize covert attack chains via persistent artifacts, exposing a new class of self-propagating threats; this work formalizes an adversarial testing method applicable to evaluating LLM-based cybercrime capabilities.",
+      "llm_tldr_cn": "SynChain揭示了计算机使用智能体可被诱导通过持久化状态构建隐蔽攻击链的新威胁，形式化了一种自合成攻击范式。该研究提出利用持久化有向子图的攻击范式，证明恶意影响可嵌入自主合成工件中并跨状态传播；这为模拟大模型进行网络犯罪的自传播攻击提供了重要的测试框架。",
+      "llm_tldr": "SynChain揭示了计算机使用智能体可被诱导通过持久化状态构建隐蔽攻击链的新威胁，形式化了一种自合成攻击范式。该研究提出利用持久化有向子图的攻击范式，证明恶意影响可嵌入自主合成工件中并跨状态传播；这为模拟大模型进行网络犯罪的自传播攻击提供了重要的测试框架。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "adversarial agents for testing large language models in cybercrime",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2608.06471v1",
+      "source": "arxiv",
+      "title": "CyberForge: Verified Vulnerability Injection at Repository Level for Cybersecurity Agent Training",
+      "abstract": "Despite recent advances, frontier large language model (LLM) agents remain limited in discovering and patching complex vulnerabilities in real-world software. Generally available agents can already aid attackers, who only need to find one exploitable weakness, while defenders must continuously identify and patch all vulnerabilities across fast-growing codebases. Stronger defensive agents would help close this gap, yet the scarcity of security training data with reproducible build and execution environments remains a bottleneck.   We present CyberForge, a framework that synthesizes executable, repository-level security training data by injecting vulnerabilities into real C/C++ projects. It validates each instance dynamically: the injected build must pass the project's unit tests, and generated proof-of-vulnerability (PoV) must trigger on the injected build and not on the clean one. CyberForge is not limited by the availability of disclosed vulnerabilities, therefore it can scale in comparison to data augmentation techniques which rely on historic CVE data. The resulting corpus holds 1034 validated vulnerabilities across 80 projects and 63 weakness categories, with edit locality similar to real CVE patches under a real-versus-real noise floor. Fine-tuning on trajectories collected over this corpus improves SEC-bench patch repair by +3.3 to +14.7 points, in all six configurations of three model scales and two teachers, with the 31B student reaching its GPT-5.4-mini teacher, 72.7% against 74.0%. These gains generalize out of distribution to PatchEval, a corpus containing other programming languages, where every configuration also improves and the 31B student passes its teacher.",
+      "authors": [
+        "Amine Lbath",
+        "Manan Suri",
+        "Aurelien Delaitre",
+        "Vadim Okun",
+        "Massih-Reza Amini",
+        "Ram D. Sriram",
+        "Dinesh Manocha"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI",
+        "cs.SE"
+      ],
+      "published": "2026-08-06T18:03:27+00:00",
+      "link": "https://arxiv.org/pdf/2608.06471v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "cybersecurity training data generation with verified vulnerability injection",
+      "llm_evidence_cn": "通过验证漏洞注入的网络安全训练数据生成",
+      "llm_evidence": "通过验证漏洞注入的网络安全训练数据生成",
+      "canonical_evidence": "通过验证漏洞注入的网络安全训练数据生成",
+      "llm_tldr_en": "CyberForge creates executable, repository-level security training data by injecting vulnerabilities into C/C++ projects, enabling stronger defensive agents; this indirectly aids exploration of LLM capabilities in cyber contexts.",
+      "llm_tldr_cn": "CyberForge通过将漏洞注入真实C/C++项目并动态验证，生成可执行的仓库级安全训练数据，旨在训练更强的防御智能体；虽聚焦防御，但为推动探索LLM在网络上下文中的能力边界提供了关键数据资源。",
+      "llm_tldr": "CyberForge通过将漏洞注入真实C/C++项目并动态验证，生成可执行的仓库级安全训练数据，旨在训练更强的防御智能体；虽聚焦防御，但为推动探索LLM在网络上下文中的能力边界提供了关键数据资源。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "exploring the capability boundaries of large language models in cyber contexts",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}
