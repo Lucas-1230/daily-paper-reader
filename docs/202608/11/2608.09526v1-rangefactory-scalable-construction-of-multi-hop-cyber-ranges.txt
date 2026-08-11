@@ -1,0 +1,814 @@
+Title: RangeFactory: Scalable Construction of Multi-Hop Cyber Ranges
+
+URL Source: https://arxiv.org/pdf/2608.09526v1
+
+Published Time: Tue, 11 Aug 2026 02:16:22 GMT
+
+Number of Pages: 16
+
+Markdown Content:
+# RangeFactory: Scalable Construction of Multi-Hop Cyber Ranges 
+
+## Hanlin Jiang 1, Puyi Wang 1, Jiandong Jin 1, Shaofei Li 1, Zhan Shen 1, Pengli Wang 1, Ziming Wang 1,Yifeng Cai 1, Ning Jia 2, Yuxin Ren 2, Peng Jiang 3, Yao Guo 1, Ding Li 1∗
+
+> 1
+
+Key Laboratory of High Confidence Software Technologies, Peking University, Ministry of Education 
+
+> 2
+
+Huawei Technologies Co., Ltd. 
+
+> 3
+
+Southeast University 
+
+Abstract 
+
+Real-world cyberattacks often require sustained progress across multiple hosts and network segments, making multi-hop cyber ranges essential infrastructure for studying and improving LLM agents’ ability to sustain complete attack chains. Prior work has scaled isolated vulnerability tasks and constructed multi-host scenarios from manually speci-fied vulnerability semantics. However, they are still unable to automatically orchestrate the growing supply of vulnerabil-ity environments into end-to-end validated multi-hop ranges. To this end, we present RangeFactory , an automated cyber-range orchestration framework that constructs multi-hop cy-ber ranges at scale from isolated vulnerability environments. RangeFactory formulates range construction as dependency resolution: it extracts dependency information from agents’ actual attacks against real vulnerabilities, resolves known de-pendencies through template-guided orchestration, and uses end-to-end attack execution to validate runtime dependencies that emerge after composition. Using RangeFactory, we construct RangeBench with 1,148 validated range instances spanning 287 distinct attack chains and evaluate frontier attack agents across attack depth, net-work scale, and task information. Among runs that compro-mise the entry vulnerability, 24.5–47.0% still fail to complete the remaining attack path, revealing a substantial sustained-compromise gap between establishing an initial foothold and completing a multi-hop attack. RangeFactory further produces a corpus of 5,541 outcome-annotated multi-hop attack trajec-tories, providing execution data for attack-process analysis and future agent training. 
+
+## 1 Introduction 
+
+Large language model agents are evolving from execut-ing isolated instructions to autonomously completing long-horizon tasks in complex environments. This trend is ex-tending agent autonomy to cybersecurity, where real-world intrusions often require sustained progress across multiple network positions (Deng et al. 2024; Fang et al. 2024). A cy-ber range is an interactive network environment for executing and validating cyberattacks; a multi-hop cyber range further requires an attacker to use footholds established by earlier compromises to reach targets in distinct network segments. Such environments therefore provide the infrastructure for 
+
+> ∗
+
+Corresponding author. 
+
+systematically studying whether attack agents can sustain multi-hop compromise (Folkerts et al. 2026). Prior work has developed two classes of resources for eval-uating attack agents. One line scales the conversion of real vulnerabilities into executable single-vulnerability tasks, but each task ends at an isolated exploit and cannot evaluate sustained compromise across network positions (Luo et al. 2026). Another line uses multi-host cyber ranges to evalu-ate end-to-end attacks, but existing benchmarks depend on a small collection of expert-designed, fixed scenarios (Liu et al. 2026). Automated scenario-generation systems can expand environment deployment, yet still require experts to specify cross-vulnerability dependencies in advance (Skandylas and Asplund 2026). As a result, existing works cannot automat-ically set up the environments that support complete attack chains. Therefore, this paper addresses how to automatically transform the growing supply of single-vulnerability envi-ronments into multi-hop cyber ranges with executable end-to-end attack paths. The central challenge in this transformation is automati-cally making independently exploitable vulnerabilities exe-cute consecutively within one attack. This requires resolving both capability and runtime dependencies. A capability de-pendency determines whether adjacent attacks can connect; for example, file-read access cannot support a subsequent exploit that requires command execution. A runtime depen-dency determines whether the concrete attack procedure can operate from its new foothold; for example, a network policy may block an exploit’s callback (Nguyen et al. 2025). Di-rectly composing vulnerability environments and executing every combination creates a rapidly growing candidate space. Dependency-guided orchestration can eliminate known de-pendency conflicts before deployment, while conditions in-troduced by joint deployment still require complete attack ex-ecution. Scalable construction therefore first composes can-didates whose dependencies can connect and then executes each end to end to confirm that the path remains feasible. Based on this observation, we present RangeFactory ,a multi-agent system that automatically transforms iso-lated vulnerability environments into validated multi-hop cyber ranges. RangeFactory views range construction as a dependency-resolution process: it characterizes dependen-cies through actual attacks, resolves them through scenario orchestration, and validates the resulting runtime conditions arXiv:2608.09526v1 [cs.CR] 10 Aug 2026 through end-to-end execution. Atomization agents attack each CVE environment and probe its post-exploitation capa-bilities, producing a CVE Capability Atom with dependency information and a reusable attack procedure. Orchestration agents generate attack-path templates and bind compatible Atoms, after which Validation agents execute the complete attack against hidden objectives. Diagnostic feedback sup-ports attack retries and subsequent path construction. Every retained range thereby contains a path successfully exercised during construction. Using 239 CVE Capability Atoms and 20 enterprise-style network configurations, RangeFactory produces 1,840 candi-date range instances. End-to-end validation retains 1,148 in-stances spanning 287 distinct ordered attack chains, for a val-idation rate of 62.4%. We organize them into RangeBench 
+
+and evaluate frontier attack agents across attack depth, net-work scale, and task information. The results reveal a substan-tial sustained-compromise gap: success on an entry vulner-ability does not reliably translate into completing the attack when the same path is extended across additional network layers. Beyond evaluation, RangeFactory constructs a corpus of 5,541 outcome-annotated multi-hop interaction trajecto-ries from the same ranges. Validated demonstrations and autonomous outcomes share verifier-derived milestone an-notations that may support future attack-agent training. Our contributions are summarized as follows: 
+
+• RangeFactory. We introduce an automated multi-agent framework that derives vulnerability dependencies through actual attacks and combines orchestration with end-to-end validation to construct multi-hop cyber ranges at scale. 
+
+• RangeBench and Empirical Findings. We construct RangeBench with 1,148 validated range instances span-ning 287 distinct attack chains and systematically study how attack depth, network scale, and task information affect frontier attack agents, revealing a substantial gap between early compromise and sustained multi-hop com-promise. 
+
+• Outcome-Annotated Attack Trajectories. We collect a corpus of 5,541 multi-hop trajectories pairing validated demonstrations with autonomous outcomes on the same ranges, with verifier-derived milestone annotations that may support future attack-agent training. 
+
+## 2 Related Work 
+
+Executable Cybersecurity Tasks and Agent Data. Re-cent work has transformed real vulnerabilities into executable tasks, grounding cyber-agent evaluation in actual interac-tion (Zhu et al. 2025; Wang et al. 2026). Automated vul-nerability reproduction further converts sparse CVE meta-data into complete single-vulnerability task packages (Ullah et al. 2026; Luo et al. 2026). Complementary benchmark efforts package professional CTF and penetration-testing challenges as reproducible interactive environments (Shao et al. 2024; Zhang et al. 2025). Beyond benchmark con-struction, cybersecurity-agent data have been scaled from CTF artifacts: runtime-free methods synthesize trajectories from writeups, while execution-grounded platforms collect verified rollouts from containerized challenges (Zhuo et al. 2025a,b). These resources remain centered on individual vulnerabilities or challenges. Multi-host cyber-range bench-marks evaluate how agents expand an initial foothold across a network, but rely on a small, fixed collection of ranges (Liu et al. 2026, 2025). RangeFactory addresses this environmen-tal bottleneck and collects outcome-annotated multi-hop in-teractions as a downstream artifact of range construction and evaluation. 
+
+Automated Cyber-Range Construction. A separate line of work automates cyber-range construction. Attack-graph methods derive multi-host attack chains from formal sys-tem models (Ou et al. 2005). Cyber-range generators instan-tiate expert-authored scenario models (Pham et al. 2016; Schreuders et al. 2017), while model-driven approaches sup-port automated deployment validation (Costa, Russo, and Armando 2022; Russo, Costa, and Armando 2020). LLM-based systems further translate natural-language range re-quirements into platform-specific configurations and deploy-ment artifacts (Lupinacci et al. 2025; Rizos et al. 2025), while constraint-based synthesis uses model finding and capability semantics to generate enterprise scenarios at scale (Skandy-las and Asplund 2026). These approaches automate cyber-range construction once authored scenario descriptions or predefined composition semantics are available, but adding a new vulnerability still requires its attack dependencies to be specified in advance. RangeFactory obtains these depen-dencies from successful attacks against existing vulnerability environments, uses them to orchestrate candidate chains, and then executes each deployed chain end to end to detect unre-solved runtime incompatibilities introduced by composition. 
+
+## 3 System Design 
+
+3.1 Insight and Overview 
+
+Deploying independently exploitable CVE environments to-gether does not yield a valid multi-hop attack chain unless both capability and runtime dependencies hold. A capability dependency concerns what an attack requires and produces: a preceding compromise must provide the capability needed by the next exploit. File-read access, for example, cannot sup-port an exploit that requires command execution. A runtime dependency concerns whether the concrete attack procedure can operate from its new execution position. A blocked re-verse connection or a missing tool on the compromised host can prevent exploitation even when the capability interface matches. Either violation breaks the consecutive execution of otherwise exploitable CVEs. RangeFactory views multi-hop range construction as de-pendency resolution: actual attacks characterize dependen-cies, orchestration resolves them, and end-to-end execution confirms candidate-chain executability. Single-vulnerability attacks reveal the capabilities required and produced and record the runtime requirements observed during exploita-tion. Orchestration connects consecutive capabilities and uses the network template to constrain known runtime de-pendencies. Because the new footholds and joint deployment can introduce conditions that were absent from the single-vulnerability environment, RangeFactory then executes the Field Semantics    
+
+> Capability Interface
+> exploit_access Structured preconditions: attack vector, privilege, and service protocol/port.
+> capability_ grants
+> Verified post capability from a fixed ontology, with principal and evidence.
+> Execution Artifacts
+> exploit_guide Successful procedure with tool, material, authentication, and callback requirements.
+> poc_materials Exploit artifacts referenced by
+> exploit_guide .
+
+Table 1: Description of CVE Capability Atom fields. complete attack to expose remaining conflicts. This division prunes clearly infeasible compositions before deployment while retaining only chains successfully exercised after com-position. Figure 1 presents RangeFactory’s multi-agent workflow. Atomization produces CVE Capability Atoms, Orchestration binds them into candidate ranges, and Validation exercises the complete attack before acceptance. Diagnostic feedback is routed to attack execution for bounded retry or to chain construction as persistent incompatibility evidence. 
+
+3.2 CVE Capability Atom 
+
+RangeFactory represents each successfully attacked vul-nerability environment as a CVE Capability Atom, which binds the deployable environment to dependency information and execution artifacts. Table 1 summarizes its four fields. 
+
+exploit_access records the structured conditions under which the exploit was exercised. capability_grants 
+
+binds each verified post-compromise capability to the com-promised principal and its evidence; only verified grants participate in orchestration. A grant’s host scope is as-signed when the Atom is bound to a template position. 
+
+exploit_guide preserves the validated procedure and observed runtime requirements, while referenced PoC files are packaged as poc_materials . The interface supports dependency matching, and the execution artifacts allow the vulnerability to be exercised again in a composed range. The capability ontology represents command execu-tion execute_command , file access read_file and 
+
+write_file , network position network_vantage ,credential discovery read_credential , and authenti-cation authenticate . For example, when exploit_ access requires an internal service, the preceding compro-mise must provide network_vantage . A TCP callback requirement is instead recorded in exploit_guide for runtime compatibility checking. Capability matching uses only grants confirmed by probes, avoiding chains supported by an Agent’s unverified inference. Runtime dependencies vary with the composed environment and cannot be com-pletely exposed by a single-vulnerability attack, so the Atom records observed requirements and leaves the remainder to end-to-end validation. 
+
+3.3 Atomization 
+
+Exploiter. RangeFactory deploys a reproducible vulnera-bility environment, configures a private objective aligned with the vulnerability impact, and provides the Exploiter with its reproduction context and available exploit materials. The Exploiter adapts the attack according to environment feed-back, while an independent verifier confirms success against the private objective. After a successful attack, it distills the procedure, exploit conditions, and observed runtime depen-dencies into exploit_guide . This establishes for every Atom an execution-confirmed attack for subsequent range construction. 
+
+Explorer. Reaching the vulnerability objective confirms its expected security impact; orchestration also needs to know which subsequent actions that impact enables. The Explorer therefore reuses the Exploiter’s environment and established foothold, selecting capability probes according to the available access mechanism and probe feedback. For example, it directs the compromised host to a designated endpoint to confirm network_vantage . Only capabili-ties confirmed by probes and their corresponding principals enter capability_grants . This process converts het-erogeneous vulnerability impacts into a uniform interface for subsequent orchestration. 
+
+3.4 Orchestrator 
+
+Generator. The Generator transforms public architecture references into parameterized enterprise-style templates. Each template defines the network structure and commu-nication policies and marks an attack-chain skeleton from an external entry point to the final objective. It reserves one CVE slot in every traversed layer and independently parameter-izes background business assets to control the search space. For example, a three-tier template can traverse a DMZ, an internal application network, and a data network. The tem-plate fixes chain structure and network-dependent constraints while keeping Atom selection open. 
+
+Composer. The Composer takes a scenario template and a library of verified Atoms as input and constructs candi-date bindings in attack-chain order. For each CVE slot, it retrieves Atoms whose service requirements are compatible with the template position and checks whether the capa-bilities accumulated at preceding positions satisfy the next Atom’s exploit_access . After each binding, the Com-poser associates the Atom’s capability_grants with the current network position and updates the capability set through fixed closure rules. For example, verified command execution can support file access and network vantage under the same principal. A partial chain is pruned as soon as a de-pendency is violated, after which the Composer backtracks to another Atom. Beyond capability dependencies, the Composer combines the network template with exploit_guide to check run-time requirements that can be determined before deployment, such as the attack’s execution position and material delivery. The concrete exploit procedure and runtime dependencies that emerge only in the composed environment are left to Stage 2: ORCHESTRATION Stage 3: VALIDATION         
+
+> CVE-A: Web RCE CVE-B: App Exploit CVE-C: Data Exploit Enterprise Network Template
+> Internet DMZ Internal Network Data Network Slot 1: Web Server Slot 2: App Server Slot 3: Data Server
+> Atom Library
+> ···
+> CAPABILITY MATCHING KNOWN RUNTIME CHECKS DMZ
+> Web Server Atom A
+> Internal
+> App Server Atom B
+> Data
+> Data Server Atom C
+> 
+> Diagnoser
+> Atom A
+> Req: Internet + web Grants: Shell + Internal Access
+> Atom B
+> Requires: Internal Access Grants: RCE + Cred.
+> Atom C
+> Requires: Credential Grants: Data Access
+> Stage 1: ATOMIZATION
+> Explorer
+> Guide Reqs Grants POCs
+> Exploiter Generator
+> Atom A
+> Atom B
+> Atom C
+> Atom D
+> Atom E
+> Atom A
+> Atom B
+> Atom C
+> Composer
+> Executor
+> Deployed Range
+> 1
+> Exploit Web
+> 2
+> Pivot & Exploit
+> 3
+> Access Data Attack Host
+> Validated Trajectory Accepted Range Private Verifier Bounded Retry Binding / Runtime Issue + Environment Evidence Failed Trajectory Execution Issue Candidate Range
+> Internal Access: Grant → Req. 
+> Credential: Grant → Req. 
+
+Figure 1: Overview of RangeFactory’s multi-agent workflow for constructing validated multi-hop cyber ranges. end-to-end execution. Once all slots are bound, the Composer forms an attack graph whose nodes are Atom-bound template positions and whose edges are dependency-satisfying attack transitions. When the candidate set is large, it prioritizes chains that expand coverage of Atom and asset configura-tions. The output records Atom bindings, capability transi-tions, and deployment parameters for range instantiation and validation. 
+
+3.5 Validation 
+
+Executor. After deployment, RangeFactory checks that all nodes and services operate under the network configura-tion defined by the template. The Executor accesses each Atom’s execution artifacts, organizes the per-hop exploits into an end-to-end attack, and adapts them as the foothold and runtime environment change. A verifier independently checks the ordered private objectives hidden from the Execu-tor. Only a candidate that completes the end-to-end attack is accepted; the complete trajectory and verification result are retained, while failed executions are passed to the Diagnoser. 
+
+Diagnoser. The Diagnoser locates the failed step from the trajectory and environment evidence and distinguishes at-tack execution from chain composition failures. An execu-tion failure is returned to the Executor for a bounded retry that preserves the current context. An unsatisfied runtime dependency instead filters the candidate and produces an in-compatibility record associated with the binding conditions. The Composer retrieves these records during later orches-tration, allowing evidence from validated failures to improve subsequent candidate generation. 
+
+## 4 Experiment 
+
+4.1 Scalable and Reliable Construction of Multi-Hop Ranges 
+
+Setup. To evaluate whether RangeFactory can construct multi-hop cyber ranges at scale, we automatically screen and deduplicate vulnerability resources from Vulhub and CVE-Factory (Vulhub 2026; Luo et al. 2026). Eligible resources must provide a deployable network service and allow the 
+
+Stage Transformation 
+
+Atomization 257 candidates → 239 Atoms (93.0% successful) Orchestration 23,789 prop. → 1,840 cand. (92.3% filtered) Validation 1,840 cand. → 1,148 ranges (62.4% validated) 
+
+Table 2: Stage-wise construction and validation results. Prop. and cand. denote proposals and candidates. vulnerability impact to be verified through network inter-action. This process yields 257 Atomization candidates, of which 239 are successfully converted into CVE Capability Atoms (93.0%); the remaining failures arise from missing build artifacts or unstable reproduction. These Atoms cover 122 products and CVEs disclosed between 2010 and 2026. Given public architecture references and the requested scale, the Generator produces five three-tier enterprise-style tem-plates without manual CVE binding or chain construction. Each places one vulnerable node per tier, yielding an en-try compromise and two pivots. Although the representa-tion accepts variable-length attack chains, three tiers provide matched one-, two-, and three-hop measurements within the same complete range. Four background-asset scales produce 20 configurations spanning small to medium-sized networks. All construction agents use DeepSeek-V4-Pro; validation re-ceives the Atom execution artifacts, 300 turns, and a one-hour timeout. Source selection and the choice of architecture refer-ences are one-time dataset preparation. RangeFactory instan-tiates private objectives and capability probes from reusable adapters, then performs Atomization, CVE binding, deploy-ment, and end-to-end validation without per-range expert annotation or chain design. 
+
+Construction Scale and Coverage. Given 239 CVE Capa-bility Atoms and 20 scenario configurations, the Composer examines 23,789 CVE binding proposals. It rejects 21,949 proposals whose capability or runtime dependencies cannot be satisfied and produces 1,840 candidate range instances, pruning 92.3% before deployment. The candidates form 460 matched groups that instantiate the same template and Atom chain at four network scales. End-to-end validation retains 287 groups, each associated with a distinct ordered Atom chain, yielding 1,148 range instances that cover 213 Atoms, 113 products, and all 20 configurations. Each chain is instan-tiated in four matched network contexts whose background assets differ in scale and composition. The resulting bench-mark therefore separates attack-chain diversity from variation in the surrounding network. 
+
+Execution Grounding. RangeFactory deploys and vali-dates the 1,840 candidate range instances, of which 1,148 complete an end-to-end attack and pass private-objective ver-ification, for an overall validation success rate of 62.4%. Each candidate directly reuses the vulnerability environments and execution artifacts packaged in its Atoms; instantiating it and completing the first validation pass takes 16.2 minutes on av-erage. Because Atomization is performed once for each vul-nerability environment, its outputs can be reused across many candidate ranges without repeating the single-vulnerability attack. 
+
+Construction Quality. Scale alone does not establish con-struction quality. We therefore randomly sample 150 ac-cepted ranges for an independent audit that checks whether the injected vulnerability preserves its original security im-pact and whether the Atom’s access and capability fields agree with the observed attack states. Among the audited ranges, 146 (97.3%) preserve the source vulnerability be-havior and 142 (94.7%) agree with the Atom annotations. Separately, every retained range has an attack witness that completes its ordered private objectives; this constructive evidence does not assert the absence of other valid attack chains. The audit supports preservation of vulnerability be-havior and dependency semantics. 
+
+4.2 RangeBench: Evaluating Multi-Hop Attack Agents 
+
+Benchmark Design. We organize 1,148 end-to-end vali-dated range instances—287 distinct ordered attack chains, each instantiated in four matched network contexts—into RangeBench to study sustained execution, exploration, and prior knowledge. A private objective on each vulnerable node defines matched one-, two-, and three-hop success within the same rollout: reaching the first objective is one-hop success, reaching the first two in order is two-hop success, and reach-ing all three is end-to-end success. Deeper layers become reachable only after the preceding foothold, so the mea-surements share an identical entry vulnerability and chain prefix. Each chain also has none, low, medium, and high scale variants with approximately 7, 12, 31, and 50 visi-ble nodes. Atom bindings and task information remain fixed within each group; only background business assets vary. Fi-nally, L0 provides the entry address and objective, L1 adds network topology, and L2 adds target services, CVE map-pings, and required credentials. No level provides PoCs or Exploit Guides. 
+
+Evaluation Setup. We evaluate Kimi-K3, GLM-5.2, DeepSeek-V4-Pro, and GPT-5.6-Luna through a common                 
+
+> Model End-to-End Success Chain Progress Tool Calls Time (min)
+> Kimi-K3 55.7 64.6 138 44.6 GLM-5.2 41.2 51.2 145 46.8 DeepSeek-V4-Pro 36.2 46.2 152 48.5 GPT-5.6-Luna 23.5 32.9 86 27.4
+
+Table 3: Overall performance on RangeBench under L2 task information. End-to-end success and chain progress are per-centages; tool calls and time are medians. task interface. We execute one rollout for every model– range–condition pair and expose the same task prompt and attack tools, with a budget of 300 turns and one hour per run. Kimi-K3 uses temperature 1, the minimum supported by its endpoint; the other models use temperature 0, and all other sampling parameters retain their provider defaults. Transient API errors are retried and infrastructure failures re-run; refusals, early termination, and budget exhaustion count as failures. Evaluation agents cannot access Atom execution artifacts. The results characterize pass@1 across the com-plete balanced benchmark rather than within-task sampling variance. 
+
+Metrics. End-to-end success is the fraction of runs whose final objective is verified. Hop-k success is the fraction that consecutively completes the first k objectives. Chain progress divides the deepest verified hop in each run by the required chain length and averages this fraction across runs. We report median tool calls and wall-clock time as interaction cost: the former measures the amount of agent exploration, while the latter captures the resulting execution cost. 
+
+Overall Performance. Table 3 shows substantial separa-tion among the models even under L2, where target services and their CVEs are provided. Kimi-K3 leads at 55.7% end-to-end success, followed by GLM-5.2 at 41.2% and DeepSeek-V4-Pro at 36.2%. GPT-5.6-Luna reaches 23.5%, with median interaction costs of 86 tool calls and 27.4 minutes, substan-tially below the other models. Its lower success therefore coincides with earlier termination and less extensive explo-ration on difficult attacks. 
+
+Attack Depth. Figure 2(a) uses the private objectives placed along the three network layers to evaluate the same executions at successive depths. Because the measurements share an identical chain prefix and deeper services be-come reachable only after the preceding foothold, differences across depths cannot be attributed to a harder entry vulnera-bility. Kimi-K3 reaches the first, second, and third objectives in 73.8%, 64.2%, and 55.7% of trials, respectively. GLM-5.2 declines from 62.8% to 41.2%, DeepSeek-V4-Pro from 57.8% to 36.2%, and GPT-5.6-Luna from 44.3% to 23.5%. Conditioned on reaching the first objective, only 75.5%, 65.6%, 62.6%, and 53.0% of runs complete the full chain for Kimi-K3, GLM-5.2, DeepSeek-V4-Pro, and GPT-5.6-Luna, respectively. Thus, 24.5–47.0% of runs that establish an initial foothold still fail on later compromises, revealing a sustained-compromise gap that accumulates with depth. 1 2 3         
+
+> Required hops
+> 020 40 60 80 100
+> Success rate (%)
+> 73.8 64.2 55.7 62.8 49.6 41.2 57.8 44.6 36.2 44.3 31.0 23.5
+> (a) Attack depth (L2)
+> L0 L1 L2
+> Information level
+> 020 40 60 80 100
+> E2E success rate (%)
+> 15.4 20.1 55.7 10.8 14.9 41.2 8.1 11.7 36.2 4.5 6.6 23.5
+> (b) Task information
+> Kimi-K3 GLM-5.2 DeepSeek-V4-Pro GPT-5.6-Luna
+
+Figure 2: RangeBench factor analysis across four attack agents. (a) Success at successive attack depths under L2 information. (b) End-to-end success under different task-information levels. 
+
+Task Information. Figure 2(b) compares all four models under the three information levels. End-to-end success in-creases from 15.4% under L0 and 20.1% under L1 to 55.7% under L2 for Kimi-K3. GLM-5.2 improves from 10.8% and 14.9% to 41.2%, while DeepSeek-V4-Pro rises from 8.1% and 11.7% to 36.2%. GPT-5.6-Luna follows the same pat-tern at 4.5%, 6.6%, and 23.5%. L0 and L1 produce only a modest difference, whereas L2 substantially improves all four models. The best model nevertheless fails on nearly half of the ranges, showing that richer task information does not eliminate the difficulty of sustained execution. Because L2 identifies public CVEs, this comparison measures the information package as a whole and may also reflect prior familiarity with those vulnerabilities. 
+
+Network Scale. Table 4 compares matched network-scale variants under L2 information. From none to high, end-to-end success decreases by 9.8–10.6 percentage points across models. The interaction cost grows more strongly: median tool calls increase by 51–74%, and execution time by 71– 84%. Enlarging the surrounding network therefore has a moderate effect on final success but substantially increases the effort spent exploring background assets. 
+
+4.3 Outcome-Annotated Attack Trajectories 
+
+Trajectory Collection. RangeFactory organizes its vali-dated ranges into an outcome-annotated trajectory corpus. For each of the 1,148 range instances, we retain the guide-assisted trajectory produced during construction and use Kimi-K3, the strongest guide-free agent in Table 3, to collect four autonomous rollouts: two under L2 and one under each of L0 and L1. Each starts with a fresh context, uses the com-mon attack interface, and runs for at most 300 turns or one hour. This yields 5,740 raw trajectories spanning validated demonstrations and autonomous exploration. 
+
+Trajectory Structure. Each record preserves the task con-text, Agent–tool interaction, execution budget, and prove-nance, which identifies the range, collector, information level, and guidance mode. Privileged execution artifacts and verifier state remain outside the interaction stream. After ex-
+
+Model Metric None Low Medium High 
+
+Success Rate 60.8 57.3 53.9 50.2 Kimi-K3 Tool Calls 104 125 151 177 Time (min) 33.2 40.1 48.4 56.7 Success Rate 46.1 42.8 39.4 36.0 GLM-5.2 Tool Calls 110 133 159 189 Time (min) 34.4 42.2 50.6 60.0 Success Rate 40.9 37.6 34.1 30.6 DeepSeek-V4-Pro Tool Calls 114 139 168 198 Time (min) 35.7 44.2 53.5 63.7 Success Rate 29.0 25.8 22.5 19.2 GPT-5.6-Luna Tool Calls 70 80 94 106 Time (min) 19.0 23.0 29.0 35.0 
+
+Table 4: Effect of network scale under L2 information. None, low, medium, and high contain approximately 7, 12, 31, and 50 agent-visible nodes. Success is the end-to-end success rate; calls and time (minutes) are reported separately for each model. ecution, the verifier records the first completion turn of each objective, the deepest verified hop, and the final outcome. Shared range identifiers pair guide-assisted and autonomous behavior on the same task, while milestone turns localize where their outcomes diverge. 
+
+Quality Control. Attack failure is not a filtering crite-rion: a guide-free rollout is retained whenever its interaction log is complete and the verifier can determine its progress. Among the 5,740 raw trajectories, we remove 73 executions interrupted by range deployment or runtime failures, 48 in-complete interaction records, and 78 records duplicated by collection-job retries. The resulting corpus contains 5,541 complete trajectories, separating unsuccessful attacks from data-collection faults. Context Trajectories End-to-End Success Partial Progress No Progress                     
+
+> Guide-assisted 1,148 100.0 0.0 0.0 L2 2,215 55.7 18.0 26.3 L1 1,095 19.9 32.6 47.5 L0 1,083 15.1 31.2 53.7
+> Overall 5,541 49.9 19.7 30.4
+
+Table 5: Outcome distribution of retained trajectories. Partial progress denotes reaching at least one intermediate objec-tive without completing the end-to-end attack; all outcome columns report percentages. 
+
+Corpus Composition. Table 5 shows that the corpus combines reliable demonstrations with guide-free outcomes across 287 ordered Atom chains and 213 Atoms. Approx-imately half complete the full chain, while the remainder capture partial or unsuccessful attacks. Verifier-labeled mile-stones expose where progress stops on the same tasks and may support future training from successful behavior and outcome-aware contrasts. This work evaluates corpus struc-ture and quality, not downstream training gains. 
+
+## 5 Analysis 
+
+Why Is Dependency-Guided Orchestration Necessary? 
+
+We compare four composition strategies on matched samples drawn from the same Atom library and scenario templates. Random binding ignores vulnerability semantics, metadata matching uses CVE and service descriptions, capability matching enforces the capability interface, and full orches-tration also checks runtime requirements recorded during Atomization. All strategies receive equal proposal and val-idation budgets. Table 6 shows that environment validity changes little, whereas end-to-end validity increases from 4.0% under random binding to 60.0% under full orches-tration. Capability information provides the largest gain, and observed runtime requirements further remove conflicts with template constraints. Dependency-guided orchestration therefore improves candidates before expensive attack exe-cution. 
+
+Why Is End-to-End Validation Necessary? We exam-ine the 200 candidates produced by full orchestration in more detail. Of these, 190 pass the environment checks, but only 89 complete the attack on the Executor’s first attempt. Diagnosis-guided retries recover 31 additional attacks, yield-ing 120 accepted ranges. Thus, environment-only validation would accept 70 candidates for which no end-to-end attack is established by the validation procedure. This gap marks the boundary of orchestration: capability matching and template constraints remove known dependency violations, while de-ployment can expose runtime dependencies that only the complete attack can test. 
+
+Validator Dependence. RangeBench retains a candidate only when the guided Executor completes its hidden end-to-end objectives, providing a successful witness under a fixed         
+
+> Composition Strategy Environment Valid End-to-End Valid
+> Random binding 88.5 4.0 Metadata matching 91.0 13.5 Capability matching 94.0 43.5 Full orchestration 95.0 60.0
+
+Table 6: Composition ablation on matched 200-proposal samples. Both columns report percentages. validation protocol. Rejected candidates are not labeled in-valid, and the accepted set is not assumed unbiased. Evalua-tion withholds Exploit Guides, construction trajectories, and verifier state, and all models receive identical task informa-tion. DeepSeek-V4-Pro nevertheless ranks below Kimi-K3 and GLM-5.2, indicating no trivial advantage from its con-struction role. To estimate false rejection, Kimi-K3 revali-dates 150 DeepSeek-V4-Pro rejections under the same arti-facts, tools, and budget and recovers 12 (8.0%). We therefore report pass@1 conditional on this protocol-validated task distribution. 
+
+How Does Diagnosis Improve Range Construction? We isolate the two effects of the Diagnoser with equal-budget controls. For the 77 failures attributed to attack execution, an additional 100 turns without diagnostic guidance recover 14 attacks, whereas diagnosis-guided retry recovers 31. This feedback is local to the candidate and helps the Executor re-vise a difficult attack. Composition failures have a persistent effect: without incompatibility memory, 21 of 24 identified conflicts recur in a subsequent batch; retrieving the Diag-noser’s records reduces recurrence to eight. Diagnosis there-fore improves the current validation attempt through targeted retry and subsequent orchestration through accumulated ev-idence about incompatible bindings. 
+
+## 6 Conclusion 
+
+We present RangeFactory, a multi-agent framework that con-structs multi-hop cyber ranges from isolated vulnerability environments. It recovers capability and observable runtime dependencies from actual attacks, resolves them through or-chestration, and validates remaining runtime dependencies end to end. RangeBench comprises 1,148 validated range in-stances spanning 287 attack chains and reveals a sustained-compromise gap after the entry foothold. Richer task infor-mation improves success, whereas larger networks increase interaction cost. RangeFactory also produces 5,541 outcome-annotated trajectories for systematic evaluation and future training research. Our evaluation focuses on CVE-centric lin-ear attack chains in containerized enterprise-style networks. 
+
+## Impact Statement 
+
+RangeFactory executes only publicly disclosed vulnerabil-ities in isolated, authorized ranges without real credentials or third-party targets. Exploit Guides, PoCs, and complete trajectories are separated from evaluation resources and re-leased under a controlled, research-only policy. A Scope and Reading Guide 
+
+This appendix provides formal data contracts, matching and validation procedures, dataset accounting, and additional evaluation details for RangeFactory. Sections B–D expand Sections 3.1–3.5 of the main text. Sections E and F provide additional details for Section 4. Section G gives non-operational examples illustrating the boundary between orchestration and validation. Section H describes the security, ethics, and release controls of this work. 
+
+Terminology. An attack chain is an ordered sequence of compromises whose intermediate results enable later com-promises. A range instance is one deployed realization of an attack chain inside a network template. Four matched net-work contexts may therefore share an ordered Atom chain while containing different background assets. We reserve 
+
+proposal for a partial or complete slot binding examined before deployment and candidate range for a complete bind-ing emitted for deployment and validation. The benchmark reported in the main text uses three-slot linear chains; the schema can represent a more general acyclic dependency graph, but branching and merging chains are outside the re-ported experiments. 
+
+## B Formal Objects and Dependency Model 
+
+B.1 Capability and Runtime Dependencies 
+
+For an Atom a, P (a) denotes normalized exploit precon-ditions and G(a) denotes post-exploitation grants. A prefix state satisfies an Atom when it provides the capabilities, as-sets, identity, and reachability required at its bound slot: 
+
+Σ |= P (a, s ), (1) where s is the bound template slot and Σ is the state accumu-lated by the preceding chain prefix. A file-read grant alone, for example, does not satisfy a requirement for command execution or an internal network vantage. We represent a capability grant as 
+
+g = ⟨t, σ, p, e, r ⟩, (2) where t is the capability type, σ is its host, network, or asset scope, p is the principal, e is the evidence level, and r
+
+references the supporting probe or execution evidence. Only grants with e = verified can satisfy a precondition or seed deterministic closure rules. Host scope, principal, and network scope are distinct: a command may run on one host without granting access to every network in the range. A runtime dependency is a condition under which the con-crete exploit remains executable after composition. Some are decidable from the slot and template before deployment; oth-ers emerge only after joint deployment. Orchestration checks the former, while end-to-end execution tests the latter. 
+
+B.2 CVE Capability Atom 
+
+The main text presents four Atom interfaces; the complete object also contains the deployable vulnerability environ-ment: 
+
+A = ⟨E, P, C, G, M ⟩, (3) where E is a reproducible environment, P is exploit_ access and contains the normalized exploit preconditions, 
+
+C is the set of capability_grants , G is exploit_ guide , and M is the referenced set of poc_materials .Environment provenance, readiness checks, and verification results are retained with E; they are not additional composi-tion interfaces. 
+
+B.3 Capability Ontology and Scope 
+
+Table 8 lists the current closed ontology. The ontology in-tentionally represents only capabilities that affect compo-sition; vulnerability taxonomies such as CWE and MITRE ATT&CK remain descriptive metadata and do not substitute for verified capability grants. An Atom grant uses symbolic scope before composition. Binding Atom Ai to slot sj resolves that scope while pre-serving its principal and evidence: 
+
+BindScope( Ci, s j ) = {Bind( g, s j ) : g ∈ Ci},
+
+Bind( ⟨t, σ, p, e, r ⟩, s j ) = ⟨t, Scope( σ, s j ), p, e, r ⟩. (4) Scope resolution does not create a capability. Fixed closure rules may derive capabilities only within the permissions and attached networks declared by the template. For the current schema, 
+
+Exec h,p ⇒ { Read h,p,F , Net h,p,Z }, (5) where F and Z are the files and networks allowed by the template. Credentials and authentication are not implied by command execution. A file or credential asset becomes avail-able only when its host, principal, and access policy match the current state. No free-form Agent inference is used in this closure. 
+
+B.4 Sanitized Atom Example 
+
+Listing 1 is a fictional, non-operational example. It shows the relation among the fields without identifying a real vulnera-bility, address, credential, or executable payload. 
+
+## C Scenario Template and Composition 
+
+C.1 Scenario Template 
+
+A scenario template is 
+
+T = ⟨N, S, D, Γ, O, B ⟩, (6) where N is the network topology and communication pol-icy, S the CVE slots, D ⊆ S × S an acyclic dependency relation, Γ per-slot constraints, O private objectives, and 
+
+B background assets and services. The template fixes the attack-chain skeleton but leaves CVE binding open; an edge 
+
+(si, s j ) ∈ D means that sj depends on si. In the benchmark, 
+
+D is the path s1 → s2 → s3.
+
+C.2 Prefix State and Compatibility 
+
+Composer summarizes the result of the first i bound slots as 
+
+Σi = ⟨Hi, K i, Q i, R i⟩, (7) where Hi contains established footholds, Ki scoped verified capabilities, Qi available credentials and other assets, and RiObject Field Type / Constraint Role 
+
+Environment E runtime Image or self-contained build context; target service and readiness declaration Reconstructs the vulnerable service without relying on a host-local absolute path. 
+
+exploit_access 
+
+P
+
+attack_vector Controlled string; current ranges use network-originated interaction States the origin from which the exploit can be exercised. 
+
+privileges_ required 
+
+Privilege requirement and optional principal constraint; none when unauthenticated Records the access level and identity required before exploitation. 
+
+required_service Protocol, port, and target service Binds the exploit to the service interface used by matching and reachability checks. 
+
+capability_ grants C
+
+type Member of the ontology in Table 8 States a post-compromise capability. 
+
+principal Compromised identity Prevents a capability obtained as one identity from being silently attributed to another. 
+
+scope Symbolic host, network, file, service, or asset scope Limits where the grant can satisfy a later precondition. 
+
+evidence_level verified , inferred , or 
+
+declared 
+
+Only verified grants participate in composition. 
+
+evidence_ref Reference to the corresponding probe or native execution evidence Links a grant to its verification provenance. 
+
+exploit_guide 
+
+G
+
+target and preconditions Placeholder-based service description Carries the successful native procedure into a new range without retaining native addresses. ordered steps Acyclic step identifiers, success signals, and execution scopes Gives the Executor a reusable procedure while leaving adaptation to the Agent. requirements Tool, material, authentication, and callback declarations Records runtime dependencies observed during the native attack. post-exploit state Principal, capabilities, and optional reusable command channel Cross-checks the Guide against verified Atom grants. 
+
+poc_materials 
+
+M
+
+material manifest Relative paths inside the Atom source bundle with a visibility policy Makes required artifacts reproducible and prevents undeclared host-file or network dependencies. 
+
+Table 7: Expanded CVE Capability Atom schema. The four interfaces in the main text are shown together with the deployable environment to clarify the full object consumed by RangeFactory. services reachable from those footholds under the template policy. For a slot s, Atom a, and prefix state Σ, the hard composition gate is 
+
+Compatible( s, a, Σ) ≡ V (a) ∧ S(s, a ) ∧ D(s, Σ) 
+
+∧ Σ |= P (a, s )
+
+∧ O(s, a ) ∧ U (s, a ).
+
+(8) 
+
+V requires a verified Atom; S matches its service with the slot; and D requires predecessor slots to be resolved. The sat-isfaction relation checks the Atom’s required capability, prin-cipal, credential, and network origin against Σ. O requires the slot’s requested outputs to be a subset of verified grants. U
+
+checks static runtime constraints, including material place-ment and template communication policy. An absent Atom declaration cannot satisfy a non-empty requirement. The Guide supplies reusable execution artifacts. Its struc-ture, materials, and static requirements are checked before deployment; remaining runtime behavior stays a validation obligation rather than an unverified fact. 
+
+C.3 Dependency-Constrained Composition 
+
+Algorithm 1 expands slots in dependency order, pruning in-compatible bindings before deployment while keeping CVEs unique and resolving service-dependent asset variants. 
+
+Output attack graph. For a complete binding b : S → L,Composer emits Gb = ( Vb, E b). Each vertex is a slot together with its bound Atom; an edge follows the template depen-dency relation and records the capability transition support-ing that hop. The deployment manifest additionally contains resolved services, asset variants, network placement, and pri-vate objective references. The graph records the intended at-tack chain and does not itself certify that the concrete exploits will run after deployment. 
+
+Candidate selection. When the compatible set exceeds the construction budget, RangeFactory prioritizes uncovered slot–Atom and asset-variant features, breaking ties by slot usage and a stable identifier. This changes validation order, not the compatibility predicate. Capability Meaning       
+
+> execute_command Execute commands as the recorded principal on the bound host.
+> read_file Read files permitted to the recorded principal on the bound host.
+> write_file Write files permitted to the recorded principal on the bound host.
+> network_vantage Originate network interactions from networks attached to the bound host.
+> read_credential Obtain a credential represented as a scenario asset.
+> authenticate Establish authenticated access using an acquired credential.
+
+Table 8: Capability ontology used by the current Composer. 
+
+## D Atomization and Validation Protocol 
+
+D.1 Atomization Evidence 
+
+The Exploiter operates on a reproducible single-vulnerability environment with public reproduction materials. Success is established by a private objective aligned with the docu-mented impact: a planted local marker is used only when the impact permits marker retrieval, otherwise an impact-specific assertion is used. The objective value and verifier-side assertion are hidden from the Agent. After a successful native attack, the Exploiter emits a nor-malized Guide and the attack context needed by the Explorer. The Explorer reuses the established foothold, proposes ca-pability probes appropriate to that access mechanism, and records only probe-confirmed outcomes as verified . An inferred or declared capability may remain in the audit record but cannot support composition. Private objectives are instantiated by reusable impact-specific adapters. Each identifies the expected actor, target, state transition, and verifier-side assertion; an Agent tran-script claim cannot replace the required transition. An unsup-ported impact requires a new objective or capability-probe adapter, which is an Atom-level extension rather than per-range annotation. 
+
+D.2 Exploit Guide Integrity 
+
+An Exploit Guide is descriptive rather than a mechanically parameterized attack script. The integrity checks require unique and topologically ordered step identifiers, at least one success signal, placeholder-based targets, source-bundle-relative materials, and no external download requirement. Guide-declared post capabilities must be a subset of verified Atom grants. A reusable command channel additionally iden-tifies the step that establishes it and provides an invocation hint. These checks validate the Guide contract; native execu-tion and range-level guided execution provide exploitability evidence. 
+
+D.3 Layered Range Validation 
+
+Algorithm 2 separates environment correctness from attack success so infrastructure faults are not counted as Agent failures. Listing 1: Sanitized CVE Capability Atom example.                                                                    
+
+> 1cve_id: CVE-EXAMPLE-0001
+> 2environment:
+> 3image: local-range/example-service
+> 4service: {protocol: http, port: 8080}
+> 5readiness: tcp:8080
+> 6exploit_access:
+> 7attack_vector: network
+> 8origin: external
+> 9privileges_required: none
+> 10 required_service: {protocol: http, port: 8080}
+> 11 capability_grants:
+> 12 -type: execute_command
+> 13 principal: service_user
+> 14 scope: bound_host
+> 15 evidence_level: verified
+> 16 evidence_ref: capability-probe-01
+> 17 exploit_guide:
+> 18 target: {protocol: http, port: 8080}
+> 19 steps:
+> 20 -id: trigger
+> 21 procedure: exercise the local vulnerable endpoint
+> 22 success_signal: command channel is established
+> 23 execution: {scope: actor, external_download: false}
+> 24 requirements:
+> 25 tools: [local_http_client]
+> 26 materials: [source_bundle/request-template.bin]
+> 27 authentication: none
+> 28 callback: none
+> 29 poc_materials:
+> 30 -source_bundle/request-template.bin
+
+The deterministic checks cover materialization, deploy-ment, routing, service and asset setup, readiness, graph or-dering, and predecessor connectivity. The Executor adapts per-Atom procedures to composed footholds, while the pri-vate verifier checks objective, actor, target, and order against experiment state. The acceptance rule is 
+
+Accept( r) ≡ EnvironmentReady( r)
+
+∧ GraphValid( r)
+
+∧ ChainConnectivity( r)
+
+∧ GuidedWitness( r)
+
+∧ PrivateObjectives( r).
+
+(9) This rule provides constructive evidence that an accepted range contains an executable end-to-end attack chain under the validation protocol. Failure to obtain a witness does not prove that no valid attack exists. 
+
+D.4 Failure Typing and Feedback 
+
+We distinguish infrastructure failures from attack outcomes. Infrastructure failures are rerun according to the fixed retry policy and are excluded from Agent-failure denominators; Template object Representative fields Semantics               
+
+> Network Nzones, routers, transits, isolation rules Defines where nodes are placed and which zone-to-zone communications are permitted. Slot s∈Szone, dependencies, service access, required outputs, required assets Marks one unbound vulnerability position and the conditions an Atom must satisfy at that position. Dependency Ddepends_on Orders the slots; each downstream Atom separately declares the capabilities and assets that its predecessor state must provide. Assets location, owner, readable principals, service variant Represents intermediate state whose availability may depend on an acquired capability. Objectives Opublic goal, private assertion, expected actor and target Exposes the task goal while keeping the success oracle outside Agent observations. Background Bservice role, zone, image, exposed service Changes the visible search space without entering the attack graph or capability closure.
+
+Table 9: Scenario-template objects used by Generator and Composer. Algorithm 1: Dependency-Constrained Composition 
+
+Require: Template T , verified Atom library L, output cap 
+
+k
+
+Ensure: Candidate set R 
+
+> 1:
+
+R ← ∅ ; order slots topologically  
+
+> 2:
+
+initialize empty bindings b and entry state Σ0 
+
+> 3:
+
+Expand (1 , b, Σ0) 
+
+> 4:
+
+return coverage-first selection of at most k candidates  
+
+> 5: 6:
+
+procedure Expand (i, b, Σ)  
+
+> 7:
+
+if i > |S| then  
+
+> 8:
+
+if asset variants, objectives, and Guide references are resolvable then  
+
+> 9:
+
+add ⟨T , b, Σ⟩ to R 
+
+> 10:
+
+end if  
+
+> 11:
+
+return  
+
+> 12:
+
+end if  
+
+> 13:
+
+s ← the i-th slot  
+
+> 14:
+
+for each a ∈ L not already used by b do  
+
+> 15:
+
+if Compatible( s, a, Σ) then  
+
+> 16:
+
+F ← Closure(BindScope( Ca, s ); T ) 
+
+> 17:
+
+Σ′ ← UpdateState(Σ , s, a, F ; T ) 
+
+> 18:
+
+Expand (i + 1 , b ∪ { s 7 → a}, Σ′) 
+
+> 19:
+
+end if  
+
+> 20:
+
+end for 
+
+refusal, early termination, budget exhaustion, and failure to satisfy an objective remain attack failures. A reproducible runtime conflict tied to a binding is recorded as composition evidence, while an attribution unsupported by the available evidence remains unresolved. 
+
+## E Dataset Construction and Accounting 
+
+E.1 Source Eligibility and Automation Boundary 
+
+RangeFactory screens source records for a deployable net-work service and a network-verifiable vulnerability impact, then removes equivalent records while preserving distinct implementations. The frozen experiment contains 257 At-omization candidates; 239 yield verified Atoms, while 18      
+
+> Level Source Composer use
+> verified Successful capability probe with an evidence reference May seed the capability closure.
+> inferred Agent interpretation without a completed probe Retained for diagnosis; never used as a hard fact.
+> declared Source metadata or documentation Descriptive only; never used as a hard fact.
+
+Table 10: Evidence levels for post-compromise capabilities. fail because build artifacts are missing or reproduction is unstable. Table 12 makes the automation boundary explicit. The principal scalability claim concerns the elimination of per-range expert CVE binding, deployment, and end-to-end vali-dation. Source eligibility rules and the choice of architecture references are one-time dataset decisions. 
+
+E.2 Construction Funnel 
+
+The 1,840 candidates form 460 groups, each instantiating an ordered Atom chain at four network scales; validation retains 287 groups. Thus, the final benchmark has 
+
+287 ordered Atom chains × 4 contexts 
+
+= 1 ,148 range instances . (10) The four contexts preserve Atom bindings and task informa-tion while changing background assets: 287 measures attack-chain variation and 1,148 measures validated networked in-stances. The accepted instances cover 213 Atoms, 113 products, and all 20 scenario configurations. They are containerized, CVE-centric, three-slot linear chains inside enterprise-style multi-tier networks. We do not claim coverage of arbitrary enterprise infrastructure, Windows domains, cloud IAM, or branching attack graphs. Failure class Observable evidence Action Persistent effect      
+
+> Infrastructure Runtime materialization, deployment, setup, readiness, or control-transport failure Exclude from Agent metrics and rerun according to the infrastructure retry policy None Attack execution Environment and chain checks pass; the Agent stops before satisfying a private objective without a reproducible binding conflict Return the failed stage and current context for a bounded Executor retry None beyond the current candidate Chain composition A reproducible runtime conflict is associated with a specific slot–Atom binding or transition Filter the candidate and store the incompatibility condition Composer can retrieve the record for later batches Unresolved Evidence does not support a reliable attribution Do not accept the candidate No new orchestration rule
+
+Table 11: Failure classes used to separate infrastructure faults, attack generation failures, and composition failures.          
+
+> Stage Provided input Automated output Human boundary
+> Source screening Source packages and public reproduction material Network-testable, CVE-deduplicated candidates Source repositories and eligibility policy are selected once Atomization One eligible environment Verified Atom, Guide, evidence, and deployable bundle No per-range work; unsupported source packages may be excluded Template generation Public architecture reference and requested scale Schema-valid topology, slots, objectives, and background assets Reference choice and target scale are dataset-level inputs Composition Template and Atom library Dependency-compatible candidate bindings No manual CVE binding or chain design Deployment and validation Candidate manifest and reusable adapters Deployed range, typed checks, guided witness, and verifier result No per-range success annotation
+
+Table 12: Automation boundary. One-time dataset decisions are separated from the automated work repeated for each Atom or range instance.         
+
+> Stage Input Retained
+> Atomization 257 candidates 239 Atoms Orchestration 23,789 proposals 1,840 candidates Validation 1,840 candidates 1,148 ranges
+
+Table 13: Construction funnel corresponding to Table 2 of the main text. 
+
+E.3 Construction Cost and Automation Evidence 
+
+Table 14 separates measured work from counterfactual sav-ings. The 16.2 minutes is the mean first-pass cost per post-Atomization candidate; over 1,840 candidates this is 496.8 worker-hours, or 26.0 worker-minutes per retained range. These are aggregate worker-time equivalents; parallel wall-clock time depends on workers and endpoint latency. The approximately thirteen-fold figure is the deployment-load ratio 23 ,789 /1,840 , not an end-to-end speedup. Exact person-hours for the one-time ontology, adapters, and refer-ence selection were not recorded; the supported automation claim is the absence of manual binding, deployment, and success annotation for each generated range. 
+
+E.4 Attack-Chain Diversity 
+
+Table 15 distinguishes source diversity, attack logic, and con-text variation. The accepted chains use 89.1% of the Atom library and 92.6% of its product families, rather than repeat-edly binding a small subset. The 861 placements and 574 transitions follow from the evaluated three-slot chains. On average, a used Atom ap-pears in 4.0 positions. Topology is controlled—all chains are linear and three-slot—while Atoms, products, services, and contexts vary; context variants are not counted as new attack logic. 
+
+E.5 Trajectory Corpus 
+
+For every accepted instance, the corpus retains one guide-assisted construction trajectory. Kimi-K3 contributes two L2, one L1, and one L0 autonomous rollout, yielding 5,740 raw records. Quality control removes 73 infrastructure interrup-tions, 48 incomplete records, and 78 collection-job dupli-cates, leaving 5,541 trajectories. An unsuccessful attack is retained when its log is com-plete and progress is verifiable. Records contain task con-text, Agent–tool interactions, budget, provenance, milestone turns, deepest verified hop, and outcome; Guides, objective Stage Observed scale Cost evidence Human boundary              
+
+> Atomization 257 inputs →239 reusable Atoms Performed once per vulnerability environment; its cost is not charged again to each range Eligibility policy and unsupported impact adapters are dataset-level work Template generation 5 template families →20 scale configurations Templates are reused across candidate bindings Architecture reference and requested scale are supplied once Composition 23,789 proposals →1,840 candidates 21,949 proposals (92.3%) are rejected before deployment, reducing the deployment load by
+> 12 .9×
+> No manual CVE binding or chain design Validation 1,840 candidates →1,148 retained instances 16.2 min per first pass; 496.8 aggregate worker-hours; 26.0 worker-min per retained instance including rejected candidates No per-range success annotation
+
+Table 14: Quantitative automation and construction-cost accounting. Worker-time figures are derived from the measured mean first-pass candidate cost and do not include the one-time Atomization cost. Algorithm 2: Candidate Range Validation 
+
+Require: Candidate r, guided Executor, private verifier 
+
+Ensure: Accepted range or typed rejection record  
+
+> 1:
+
+materialize declared runtime images and deploy r 
+
+> 2:
+
+configure routing, vulnerability services, and scenario assets  
+
+> 3:
+
+check node/service readiness and background-service exposure  
+
+> 4:
+
+verify attack-graph ordering and predecessor-to-target connectivity  
+
+> 5:
+
+if any deterministic check fails then  
+
+> 6:
+
+return infrastructure or deployment rejection  
+
+> 7:
+
+end if  
+
+> 8:
+
+validate Guide integrity and resolve declared execution materials  
+
+> 9:
+
+if Guide integrity fails then  
+
+> 10:
+
+return execution-contract rejection  
+
+> 11:
+
+end if  
+
+> 12:
+
+run the Executor with the per-Atom execution artifacts  
+
+> 13:
+
+verify ordered private objectives from verifier-observed state  
+
+> 14:
+
+if all objectives match then  
+
+> 15:
+
+retain r, its successful witness, and verification result  
+
+> 16:
+
+else  
+
+> 17:
+
+diagnose the failed stage and apply the bounded rout-ing policy  
+
+> 18:
+
+end if 
+
+values, and verifier state remain outside autonomous obser-vations. The paper evaluates corpus structure and labeling, not downstream training gains, while provenance separates guided from autonomous outcomes. 
+
+## F Experimental Protocol 
+
+F.1 Task Information 
+
+RangeBench controls prior task knowledge through the nested levels in Table 16.            
+
+> Diversity unit Count
+> Source Atoms / products 239 / 122 Impact categories / service roles 8 / 6 Capability types 6Accepted-chain Atoms / products 213 / 113 Distinct ordered Atom chains 287 Atom placements in accepted chains 861 Adjacent-hop transitions 574 Template families / configurations 5 / 20 Matched contexts per chain 4Validated range instances 1,148
+
+Table 15: Diversity accounting for the Atom library, accepted attack chains, and their network-context instantiations.     
+
+> Level Agent-visible information
+> L0 Entry address and final task objective. L1 L0 plus the network topology. L2 L1 plus target services, CVE-to-target mappings, and required credentials.
+
+Table 16: RangeBench task-information levels. No level ex-poses PoC materials, Exploit Guides, construction trajecto-ries, or verifier state. 
+
+F.2 Models and Agent Harness 
+
+All evaluated models receive the same task representation and tool schema. The harness executes and records tool calls inside the isolated attacker environment; it exposes no con-struction artifacts and contains only experiment-owned tar-gets. 
+
+Failure handling. Transient API errors are retried. De-ployment or infrastructure interruptions are rerun and ex-cluded from Agent-failure counts; refusal, early termination, objective failure, and budget exhaustion count as attack fail-ures. Each run starts from a fresh Agent context. Model Temperature Rollouts Budget Sampling note                 
+
+> Kimi-K3 11300 turns / 1 h Temperature 1 is the endpoint minimum. GLM-5.2 01300 turns / 1 h Other sampling parameters use provider defaults. DeepSeek-V4-Pro 01300 turns / 1 h Other sampling parameters use provider defaults. GPT-5.6-Luna 01300 turns / 1 h Other sampling parameters use provider defaults.
+
+Table 17: RangeBench model protocol. One rollout per model–range–condition pair is reported as pass@1. 
+
+Execution infrastructure and randomness. Ranges use Linux containers through Docker and ContainerLab with Ansible configuration; model inference uses remote APIs. Scenario identifiers fix matched variants, but endpoints ex-pose no common seed interface. Hardware and runtime ver-sions were not retained, so wall-clock time is an empirical interaction-cost measure and API billing is not compared across providers. 
+
+Statistical scope. The benchmark characterizes aggregate pass@1 under the stated protocol, but a single rollout does not estimate within-task sampling variance. Kimi-K3’s endpoint-enforced temperature differs from the other mod-els, so rankings refer to evaluated model–endpoint configu-rations. Four contexts of one chain are matched observations, not independent attack logics. 
+
+F.3 Metrics 
+
+Let zi,k = 1 when run i completes the first k ordered objec-tives and 0 otherwise. For an mi-hop chain, 
+
+HopSuccess( k) = 1
+
+n
+
+> n
+
+X
+
+> i=1
+
+zi,k , (11) 
+
+EndToEndSuccess = 1
+
+n
+
+> n
+
+X
+
+> i=1
+
+zi,m i , (12) 
+
+ChainProgress = 1
+
+n
+
+> n
+
+X
+
+> i=1
+
+max {k : zi,k = 1 }
+
+mi
+
+. (13) The conditional continuation from hop j to k is reported only over runs that have reached j:
+
+Pr( Hk | Hj ) = 
+
+P 
+
+> i
+
+zi,k 
+
+P 
+
+> i
+
+zi,j 
+
+, k > j. (14) This conditional metric characterizes later progress after the same entry foothold. Separating later exploit difficulty from long-horizon state maintenance would require standardized-foothold runs, outside the current protocol. Tool calls and wall-clock time are medians over the corresponding run set. Infrastructure reruns are not merged with the completed Agent trajectory. The one-hour limit applies to the budgeted Agent execution interval. Reported wall-clock time measures end-to-end elapsed interaction time and may also include endpoint latency and harness overhead; it is therefore possi-ble for a reported elapsed time to slightly exceed 60 minutes. It should not be read as additional Agent execution budget. 
+
+F.4 Chain-Grouped Uncertainty 
+
+The four contexts derived from one Atom chain are matched observations, so 1,148 instances are not treated as indepen-dent. Let yg,c ∈ { 0, 1} be the outcome of context c for chain group g and xg = 14
+
+P 
+
+> c
+
+yg,c . The G = 287 chain groups are the independent units. Because each instance has one rollout, we use a conservative distribution-free bound rather than treating the interval as repeated-rollout variance. For confidence level 1 − α, Hoeffding’s bound gives 
+
+ϵ =
+
+r ln(2 /α )2G = 0 .080 (α = 0 .05) . (15) The corresponding interval is [ˆ μ − ϵ, ˆμ + ϵ] ∩ [0 , 1] , where 
+
+ˆμ = G−1 P 
+
+> g
+
+xg .For a paired difference, the chain-level variable lies in 
+
+[−1, 1] , giving a 95% half-width of 16.0 percentage points. The adjacent model gaps are 14.5, 5.0, and 12.7 points from strongest to weakest; their worst-case paired bounds therefore include zero. Table 18 deliberately makes the statistical lim-itation visible: the point estimates characterize pass@1 over the balanced benchmark, while repeated rollouts are required to quantify within-task stochasticity or establish fine-grained rank stability. 
+
+F.5 Construction-Time Validation Protocol 
+
+Construction uses DeepSeek-V4-Pro with Atom execution artifacts, 300 turns, and one hour. Unlike guide-free evalu-ation, it seeks a witness for the composed range; artifacts, construction trajectories, and verifier state are removed be-fore evaluation. The accepted benchmark is conditioned on this guided protocol. Kimi-K3 re-executes 150 DeepSeek-V4-Pro rejec-tions and recovers 12 (8.0%), identifying validator-dependent false rejection; unrecovered candidates are not negative la-bels. DeepSeek-V4-Pro ranks below Kimi-K3 and GLM-5.2 on guide-free RangeBench, ruling out a trivial same-model advantage. 
+
+## G Additional Evidence and Cases 
+
+G.1 Construction Audits 
+
+The independent audit samples 150 accepted ranges after the automated gate. Native impact evidence is the reference for behavior preservation; composed execution state is the reference for checking exploit_access , capability type, principal, and scope. The checks are recorded separately. Model E2E (%) Chain-group 95% bound High − none (pp) Paired 95% bound (pp)                 
+
+> Kimi-K3 55.7 [47.7, 63.7] −10 .6[−26 .6, 5.4] GLM-5.2 41.2 [33.2, 49.2] −10 .1[−26 .1, 5.9] DeepSeek-V4-Pro 36.2 [28.2, 44.2] −10 .3[−26 .3, 5.7] GPT-5.6-Luna 23.5 [15.5, 31.5] −9.8[−25 .8, 6.2]
+
+Table 18: Conservative uncertainty accounting with attack-chain groups as the independent units. Network-scale effects are paired within a chain. These bounds quantify variation across chains, not repeated-rollout variance.          
+
+> Audit item Pass Rate 95% CI
+> Behavior preservation 146/150 97.3% [93.3, 99.0] Atom annotation 142/150 94.7% [89.8, 97.3]
+
+Table 19: Accepted-range audit with Wilson 95% binomial intervals. The two checks are not mutually exclusive. The automated protocol defines the range count; the audit estimates accepted-set precision and does not redefine ac-ceptance. It neither estimates orchestration recall nor proves rejected candidates invalid. 
+
+Validator-sensitivity audit. We separately sample 150 DeepSeek-V4-Pro rejections and apply the same artifacts, tools, verifier, and budget with Kimi-K3. Twelve obtain a witness (8.0%, Wilson 95% interval [4.6%, 13.5%]); the remaining 138 are unrecovered, not invalid. This estimates false rejection under one alternative Executor, not an unbi-ased validator union. The orchestration ablation uses matched 200-proposal samples with equal proposal and validation budgets. Ran-dom binding, metadata matching, capability matching, and full orchestration differ only in the dependency information applied before deployment. This design isolates the value of execution-derived capabilities and recorded runtime re-quirements while retaining the same downstream validation protocol. 
+
+G.2 Sanitized Successful Composition 
+
+Consider a three-tier template with one slot per traversed zone. A fictional first Atom yields command execution and, by closure, a network vantage; the second obtains a template-owned credential asset; the third consumes that asset for the final objective. Composer resolves services, scopes, and assets, then the Executor exercises the Guides and the verifier checks objectives in order. The retained range has both a dependency-consistent graph and an execution witness. 
+
+G.3 Sanitized Validation Failure 
+
+Suppose the same capability interfaces compose, but the sec-ond exploit uses a runtime behavior not exposed in its single-vulnerability attack. After deployment it conflicts with the route from the first foothold: deterministic checks pass, but the guided attack cannot reproduce the second compromise. The candidate is rejected; a reproducible binding conflict can be stored as an incompatibility condition. This illustrates why composition and end-to-end validation are complementary. 
+
+## H Security, Ethics, and Release Controls 
+
+All experiments use authorized, experiment-owned environ-ments on isolated networks and publicly disclosed CVEs. The appendix contains no public target, real secret, unpub-lished vulnerability, or executable payload. Range creden-tials and private objectives are synthetic; evaluation targets remain inside the range data plane, and verifier assertions remain outside Agent observations. The runtime also blocks undeclared external downloads in Guides. Release is role-based. Environment manifests and evalua-tion metadata exclude verifier secrets, while exploit materi-als, Guides, and raw trajectories require security review and may be redacted or withheld. No external mutable repository is required to support the claims reported in this paper. 
+
+Release Boundary. Raw logs, private objective values, and complete PoC bundles are omitted when they contain sensi-tive operational details. The included schemas, algorithms, accounting rules, and protocols support the reported aggre-gate claims. 
+
+## References 
+
+Costa, G.; Russo, E.; and Armando, A. 2022. Automating the Generation of Cyber Range Virtual Scenarios with VSDL. 
+
+Journal of Wireless Mobile Networks, Ubiquitous Comput-ing, and Dependable Applications , 13(4): 61–80. Deng, G.; Liu, Y.; Mayoral-Vilches, V.; Liu, P.; Li, Y.; Xu, Y.; Zhang, T.; Liu, Y.; Pinzger, M.; and Rass, S. 2024. Pen-testGPT: Evaluating and Harnessing Large Language Models for Automated Penetration Testing. In 33rd USENIX Security Symposium (USENIX Security 24) , 847–864. Philadelphia, PA: USENIX Association. ISBN 978-1-939133-44-1. Fang, R.; Bindu, R.; Gupta, A.; and Kang, D. 2024. LLM Agents can Autonomously Exploit One-day Vulnerabilities. arXiv:2404.08144. Folkerts, L.; Payne, W.; Inman, S.; Giavridis, P.; Skinner, J.; Deverett, S.; Aung, J.; Zorer, E.; Schmatz, M.; Ghanem, M.; Wilkinson, J.; Steer, A.; Hong, V.; and Wang, J. 2026. Measuring AI Agents’ Progress on Multi-Step Cyber Attack Scenarios. arXiv:2603.11214. Liu, F.; Dai, J.; Fan, Y.; Mai, W.; Li, Z.; Chen, B.; Zhang, J.; Lou, Z.; Xiang, B.; Zhang, Q.; Pan, X.; Hong, G.; Zhang, Y.; and Yang, M. 2026. AgentCyberRange: Bench-marking Frontier AI Systems in Realistic Cyber Ranges. arXiv:2606.14295. Liu, Z.; Huang, L.; Zhang, J.; Liu, D.; Tian, Y.; and Shao, J. 2025. PACEbench: A Framework for Evaluating Practical AI Cyber-Exploitation Capabilities. arXiv:2510.11688. Luo, X.; Zhang, J.; Zhou, S.; Huang, J.; Xiao, C.; Zhu, Q.; Ma, Z.; Yue, X.; Yue, Y.; Zeng, W.; and Che, W. 2026. CVE-Factory: Scaling Expert-Level Agentic Tasks for Code Security Vulnerability. arXiv:2602.03012. Lupinacci, M.; Blefari, F.; Romeo, F.; Pironti, F. A.; and Fur-faro, A. 2025. ARCeR: an Agentic RAG for the Automated Definition of Cyber Ranges. In International Conference on Availability, Reliability and Security , 23–40. Springer. Nguyen, H. P. T.; Hasegawa, K.; Fukushima, K.; and Beuran, R. 2025. PenGym: Realistic training environment for rein-forcement learning pentesting agents. Computers & Security ,148: 104140. Ou, X.; Govindavajhala, S.; Appel, A. W.; et al. 2005. Mul-VAL: A logic-based network security analyzer. In USENIX security symposium , volume 8, 113–128. Baltimore, MD. Pham, C.; Tang, D.; Chinen, K.-i.; and Beuran, R. 2016. Cyris: A cyber range instantiation system for facilitating se-curity training. In Proceedings of the 7th Symposium on Information and Communication Technology .Rizos, G. S.; Kopalidis, N.; Mengidis, N.; Lalas, A.; and Vo-tis, K. 2025. From Concept to Deployment: An AI Assistant for Generating and Configuring Cyber Range Scenarios. In 
+
+2025 IEEE International Conference on Cyber Security and Resilience (CSR) , 777–782. IEEE. Russo, E.; Costa, G.; and Armando, A. 2020. Building next generation cyber ranges with crack. Computers & Security ,95: 101837. Schreuders, Z. C.; Shaw, T.; Shan-A-Khuda, M.; Ravichan-dran, G.; Keighley, J.; and Ordean, M. 2017. Security Scenario Generator (SecGen): A Framework for Generat-ing Randomly Vulnerable Rich-scenario VMs for Learn-ing Computer Security and Hosting CTF Events. In 2017 USENIX Workshop on Advances in Security Education (ASE 17) . Vancouver, BC: USENIX Association. Shao, M.; Jancheska, S.; Udeshi, M.; Dolan-Gavitt, B.; Xi, H.; Milner, K.; Chen, B.; Yin, M.; Garg, S.; Krishnamurthy, P.; Khorrami, F.; Karri, R.; and Shafique, M. 2024. NYU CTF Bench: A Scalable Open-Source Benchmark Dataset for Evaluating LLMs in Offensive Security. In Globerson, A.; Mackey, L.; Belgrave, D.; Fan, A.; Paquet, U.; Tom-czak, J.; and Zhang, C., eds., Advances in Neural Informa-tion Processing Systems , volume 37, 57472–57498. Curran Associates, Inc. Skandylas, C.; and Asplund, M. 2026. Automated Genera-tion of Cybersecurity Exercise Scenarios. arXiv:2604.01079. Ullah, S.; Balasubramanian, P.; Guo, W.; Burnett, A.; Pearce, H.; Kruegel, C.; Vigna, G.; and Stringhini, G. 2026. From CVE Entries to Verifiable Exploits: An Au-tomated Multi-Agent Framework for Reproducing CVEs. arXiv:2509.01835. Vulhub. 2026. Vulhub. https://vulhub.org/. Wang, Z.; Shi, T.; He, J.; Cai, M.; Zhang, J.; and Song, D. 2026. CyberGym: Evaluating AI Agents’ Real-World Cybersecurity Capabilities at Scale. arXiv:2506.02548. Zhang, A. K.; Perry, N.; Dulepet, R.; Ji, J.; Menders, C.; Lin, J.; Jones, E.; Hussein, G.; Liu, S.; Jasper, D.; Peetathawatchai, P.; Glenn, A.; Sivashankar, V.; Zamoshchin, D.; Glikbarg, L.; Askaryar, D.; Yang, H.; Zhang, A.; Alluri, R.; Tran, N.; Sangpisit, R.; Oseleononmen, K.; Boneh, D.; Ho, D.; and Liang, P. 2025. Cybench: A Framework for Evaluating Cy-bersecurity Capabilities and Risks of Language Models. In Yue, Y.; Garg, A.; Peng, N.; Sha, F.; and Yu, R., eds., Inter-national Conference on Learning Representations , volume 2025, 25094–25243. Zhu, Y.; Kellermann, A.; Bowman, D.; Li, P.; Gupta, A.; Danda, A.; Fang, R.; Jensen, C.; Ihli, E.; Benn, J.; Geronimo, J.; Dhir, A.; Rao, S.; Yu, K.; Stone, T.; and Kang, D. 2025. CVE-Bench: A Benchmark for AI Agents’ Ability to Exploit Real-World Web Application Vulnerabilities. In Proceedings of the 42nd International Conference on Machine Learning ,volume 267 of Proceedings of Machine Learning Research ,79850–79867. PMLR. Zhuo, T. Y.; Wang, D.; Ding, H.; Kumar, V.; and Wang, Z. 2025a. Cyber-Zero: Training Cybersecurity Agents without Runtime. arXiv:2508.00910. Zhuo, T. Y.; Wang, D.; Ding, H.; Kumar, V.; and Wang, Z. 2025b. Training Language Model Agents to Find Vulnera-bilities with CTF-Dojo. arXiv:2508.18370.

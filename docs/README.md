@@ -41,17 +41,17 @@
 <section class="dpr-home-dashboard-card dpr-home-report-card">
   <div class="dpr-home-dashboard-header">
     <div>
-      <span class="dpr-home-dashboard-kicker">2026-08-10</span>
+      <span class="dpr-home-dashboard-kicker">2026-08-11</span>
       <h3 class="dpr-home-dashboard-title">今日汇总</h3>
     </div>
-    <strong class="dpr-home-dashboard-count">共 2 篇</strong>
+    <strong class="dpr-home-dashboard-count">共 3 篇</strong>
   </div>
   <dl class="dpr-home-dashboard-stats">
     <div class="dpr-home-dashboard-stat"><dt>累计更新</dt><dd>1 次</dd></div>
-    <div class="dpr-home-dashboard-stat"><dt>精读</dt><dd>1</dd></div>
+    <div class="dpr-home-dashboard-stat"><dt>精读</dt><dd>2</dd></div>
     <div class="dpr-home-dashboard-stat"><dt>速读</dt><dd>1</dd></div>
   </dl>
-  <p class="dpr-home-dashboard-body">最近更新：2026-08-10 20:53:40 UTC<br>状态：成功</p>
+  <p class="dpr-home-dashboard-body">最近更新：2026-08-11 21:07:57 UTC<br>状态：成功</p>
 </section>
 <section class="dpr-home-dashboard-card dpr-home-brief-card">
   <div class="dpr-home-dashboard-header">
@@ -62,7 +62,9 @@
     <strong class="dpr-home-dashboard-count">AI</strong>
   </div>
   <div class="dpr-home-dashboard-body">
-<p>今日聚焦AI智能体安全：精读的《SynChain》探讨如何诱导计算机操作智能体自行构造攻击链，速读的《CyberForge》则关注为安全训练注入可验证漏洞。最值得关注的方向是让AI系统成为攻击链条的设计者，而非被动防御者，这为智能体风险评测带来新视角。建议进一步了解如何用类似方法检验日常使用的AI助手是否存在连锁执行风险。</p>
+<p>今日精读两篇对抗攻防高分研究，速览一篇生成式AI隐匿监测论文，聚焦靶场构建与智能体伪装。</p>
+<p>最值得看的是RangeFactory实现可扩展多跳靶场一键生成，以及ColluSkill用跨技能组合成功绕过技能扫描器。</p>
+<p>建议普通读者从这两篇的代码复现入手，体验攻防模拟与对抗逃避的实际差异。</p>
   </div>
 </section>
 <section class="dpr-home-dashboard-card dpr-home-deep-card">
@@ -71,12 +73,12 @@
       <span class="dpr-home-dashboard-kicker">今日累计</span>
       <h3 class="dpr-home-dashboard-title">精读推荐</h3>
     </div>
-    <strong class="dpr-home-dashboard-count">1 篇</strong>
+    <strong class="dpr-home-dashboard-count">2 篇</strong>
   </div>
   <div class="dpr-home-dashboard-body">
-<ul class="dpr-home-dashboard-paper-list"><li><span class="dpr-home-dashboard-paper-title" title="SynChain: Inducing Computer-Use Agent Systems to Construct Their Own Attack Chains">SynChain: Inducing Computer-Use Agent Systems to Construct Their Own Attack Chains</span></li></ul>
+<ul class="dpr-home-dashboard-paper-list"><li><span class="dpr-home-dashboard-paper-title" title="RangeFactory: Scalable Construction of Multi-Hop Cyber Ranges">RangeFactory: Scalable Construction of Multi-Hop Cyber Ranges</span></li><li><span class="dpr-home-dashboard-paper-title" title="ColluSkill: Adversarial Cross-Skill Composition for Evading Agent Skill Scanners">ColluSkill: Adversarial Cross-Skill Composition for Evading Agent Skill Scanners</span></li></ul>
   </div>
-  <div class="dpr-home-dashboard-tags"><span class="dpr-home-dashboard-tag">ca <strong>1</strong></span></div>
+  <div class="dpr-home-dashboard-tags"><span class="dpr-home-dashboard-tag">ca <strong>2</strong></span></div>
 </section>
 <section class="dpr-home-dashboard-card dpr-home-skim-card">
   <div class="dpr-home-dashboard-header">
@@ -87,7 +89,7 @@
     <strong class="dpr-home-dashboard-count">1 篇</strong>
   </div>
   <div class="dpr-home-dashboard-body">
-<ul class="dpr-home-dashboard-paper-list"><li><span class="dpr-home-dashboard-paper-title" title="CyberForge: Verified Vulnerability Injection at Repository Level for Cybersecurity Agent Training">CyberForge: Verified Vulnerability Injection at Repository Level for Cybersecurity Agent Training</span></li></ul>
+<ul class="dpr-home-dashboard-paper-list"><li><span class="dpr-home-dashboard-paper-title" title="Telemetry and Concealment in Self-Adapting Generative AI: Logging Architecture, Adversarial Model Hiding, and the Limits of Detection">Telemetry and Concealment in Self-Adapting Generative AI: Logging Architecture, Adversarial Model Hiding, and the Limits of Detection</span></li></ul>
   </div>
   <div class="dpr-home-dashboard-tags"><span class="dpr-home-dashboard-tag">ca <strong>1</strong></span></div>
 </section>

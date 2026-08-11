@@ -1,0 +1,142 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-08-11T21:03:36.974901+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 2,
+    "deep_cap": 6,
+    "deep_selected": 2,
+    "quick_candidates": 1,
+    "quick_skim_target": 11,
+    "quick_selected": 1
+  },
+  "deep_dive": [
+    {
+      "id": "2608.09526v1",
+      "source": "arxiv",
+      "title": "RangeFactory: Scalable Construction of Multi-Hop Cyber Ranges",
+      "abstract": "Real-world cyberattacks often require sustained progress across multiple hosts and network segments, making multi-hop cyber ranges essential infrastructure for studying and improving LLM agents' ability to sustain complete attack chains. Prior work has scaled isolated vulnerability tasks and constructed multi-host scenarios from manually specified vulnerability semantics. However, they are still unable to automatically orchestrate the growing supply of vulnerability environments into end-to-end validated multi-hop ranges. To this end, we present RangeFactory, an automated cyber-range orchestration framework that constructs multi-hop cyber ranges at scale from isolated vulnerability environments. RangeFactory formulates range construction as dependency resolution: it extracts dependency information from agents' actual attacks against real vulnerabilities, resolves known dependencies through template-guided orchestration, and uses end-to-end attack execution to validate runtime dependencies that emerge after composition. Using RangeFactory, we construct RangeBench with 1,148 validated range instances spanning 287 distinct attack chains and evaluate frontier attack agents across attack depth, network scale, and task information. Among runs that compromise the entry vulnerability, 24.5-47.0% still fail to complete the remaining attack path, revealing a substantial sustained-compromise gap between establishing an initial foothold and completing a multi-hop attack. RangeFactory further produces a corpus of 5,541 outcome-annotated multi-hop attack trajectories, providing execution data for attack-process analysis and future agent training.",
+      "authors": [
+        "Hanlin Jiang",
+        "Puyi Wang",
+        "Jiandong Jin",
+        "Shaofei Li",
+        "Zhan Shen",
+        "Pengli Wang",
+        "Ziming Wang",
+        "Yifeng Cai",
+        "Ning Jia",
+        "Yuxin Ren",
+        "Peng Jiang",
+        "Yao Guo",
+        "Ding Li"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI"
+      ],
+      "published": "2026-08-10T12:25:49+00:00",
+      "link": "https://arxiv.org/pdf/2608.09526v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "automated construction of multi-hop cyber ranges for studying LLM agents' attack capabilities",
+      "llm_evidence_cn": "自动构建多跳靶场，用于研究LLM智能体的攻击能力",
+      "llm_evidence": "自动构建多跳靶场，用于研究LLM智能体的攻击能力",
+      "canonical_evidence": "自动构建多跳靶场，用于研究LLM智能体的攻击能力",
+      "llm_tldr_en": "RangeFactory builds multi-hop cyber ranges at scale to study LLM agents' attack chains, enabling systematic evaluation of language model performance in simulated cybercrime.",
+      "llm_tldr_cn": "真实网络攻击常需多跳渗透，现有靶场难以自动化编排多跳环境。RangeFactory提出将靶场构建转化为依赖解析问题，从孤立漏洞环境自动生成端到端的多跳靶场，为LLM智能体维持完整攻击链的能力提供可扩展的研究平台，从而支持在网络犯罪模拟中系统评估大模型性能。",
+      "llm_tldr": "真实网络攻击常需多跳渗透，现有靶场难以自动化编排多跳环境。RangeFactory提出将靶场构建转化为依赖解析问题，从孤立漏洞环境自动生成端到端的多跳靶场，为LLM智能体维持完整攻击链的能力提供可扩展的研究平台，从而支持在网络犯罪模拟中系统评估大模型性能。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "Agent based simulation of cybercrime to evaluate large language model performance",
+      "matched_requirement_id": "req-10",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2608.09732v1",
+      "source": "arxiv",
+      "title": "ColluSkill: Adversarial Cross-Skill Composition for Evading Agent Skill Scanners",
+      "abstract": "Agent skills are emerging as an important attack surface in LLM-based agent systems. Through an empirical study of existing skill scanners, we find that current defenses mainly inspect individual skills, leaving risks from cross-skill composition insufficiently examined. This creates a practical blind spot: multiple locally plausible skills may pass security checks while collectively forming a harmful workflow during agent execution. To investigate this threat, we propose ColluSkill, a collusive multi-skill-chain attack framework that decomposes a complete malicious intent into interdependent sub-payloads embedded in independently packaged skills. The attack does not rely on any single malicious skill, but emerges from the ordered composition of locally plausible behaviors through contextual dependencies, artifact passing, and execution handoffs. ColluSkill further employs LLM-based chain planning and scanner-feedback refinement to preserve chain-level attack semantics while reducing suspicious signals in individual sub-skills. To defend against such attacks, we propose ChainGuard, a context-aware skill-chain scanner that jointly analyzes a candidate skill and the skills already installed in the agent environment. ChainGuard reconstructs cross-skill dependencies, artifact flows, capability compositions, and downstream behaviors to identify risks that emerge only at the workflow level. Experiments on six representative skill scanners show that ColluSkill achieves an average attack success rate of 96.0% and consistently outperforms the evaluated single-skill and multi-skill attack baselines. Meanwhile, ChainGuard reduces the attack success rate to 22.5% while allowing 99.5% of benign workflows to pass, highlighting the importance of chain-level security analysis for agent skill ecosystems.",
+      "authors": [
+        "Puyu Zeng",
+        "Simeng Qin",
+        "Jingzhi Li",
+        "Ju Jia",
+        "Zheli Liu",
+        "Xiaojun Jia"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI"
+      ],
+      "published": "2026-08-10T15:32:44+00:00",
+      "link": "https://arxiv.org/pdf/2608.09732v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "Adversarial cross-skill composition exploits LLM agent vulnerabilities, directly testing limits for cybercrime.",
+      "llm_evidence_cn": "对抗性跨技能组合利用LLM智能体漏洞，直接测试网络犯罪能力边界",
+      "llm_evidence": "对抗性跨技能组合利用LLM智能体漏洞，直接测试网络犯罪能力边界",
+      "canonical_evidence": "对抗性跨技能组合利用LLM智能体漏洞，直接测试网络犯罪能力边界",
+      "llm_tldr_en": "Introduces ColluSkill, an adversarial multi-skill-chain attack framework that evades agent skill scanners by decomposing malicious intent across seemingly benign skills, exposing a critical blind spot in LLM agent security.",
+      "llm_tldr_cn": "该文提出ColluSkill对抗性跨技能链攻击框架，将完整恶意意图拆分为多个看似无害的技能载荷并编排组合，成功绕过现有技能扫描防御，揭示了个体技能检查不足以保障安全，突显大语言模型智能体在组合攻击下的能力边界与防御缺陷。",
+      "llm_tldr": "该文提出ColluSkill对抗性跨技能链攻击框架，将完整恶意意图拆分为多个看似无害的技能载荷并编排组合，成功绕过现有技能扫描防御，揭示了个体技能检查不足以保障安全，突显大语言模型智能体在组合攻击下的能力边界与防御缺陷。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "adversarial agents for testing large language models in cybercrime",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2608.09069v1",
+      "source": "arxiv",
+      "title": "Telemetry and Concealment in Self-Adapting Generative AI: Logging Architecture, Adversarial Model Hiding, and the Limits of Detection",
+      "abstract": "Model risk management (MRM) guidance assumes a static model lifecycle, in which models are developed, independently validated, and implemented without further autonomous modification. Continually self-adapting generative AI systems --- models that update their own weights during production deployment --- fundamentally violate this assumption and render point-in-time validation inadequate. This paper addresses the resulting governance problem in two parts. Part I develops a rigorous telemetry architecture for such models, operating simultaneously in discrete and continuous time. We establish a Minimal Sufficient Statistic for audit purposes, construct a tamper-evident Merkle chain for discrete weight sequences, derive the appropriate continuous-time generalization via the Ito formula, and propose event-driven logging via KL divergence stopping times that is both computationally tractable and meaningful for validation. Part II asks what happens when the model provider is adversarial. A firm deploying such a model has strong incentives to conceal learning updates that would trigger mandatory validation review. We formalize this as the Model Hiding Problem and provide a systematic taxonomy of six distinct attack strategies against the Part I architecture, spanning discrete and continuous time, with a formal countermeasure for each. Together the two parts establish a dual-regime architecture in which continuous telemetry is necessary but not sufficient, narrowing---but never replacing---periodic invasive audit. The framework is model-architecture-agnostic and is designed to satisfy the three pillars of traditional MRM.",
+      "authors": [
+        "Sriram Nagaraj"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "math.NA",
+        "q-fin.RM"
+      ],
+      "published": "2026-08-10T03:20:06+00:00",
+      "link": "https://arxiv.org/pdf/2608.09069v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "examines adversarial model hiding and limits of detection in self-adapting generative AI",
+      "llm_evidence_cn": "考察自适应生成式AI中对抗性模型隐藏与检测极限",
+      "llm_evidence": "考察自适应生成式AI中对抗性模型隐藏与检测极限",
+      "canonical_evidence": "考察自适应生成式AI中对抗性模型隐藏与检测极限",
+      "llm_tldr_en": "Addresses governance of self-adapting AI that can conceal modifications, proposing telemetry and exploring detection limits, revealing capability boundaries for adversarial uses like cybercrime.",
+      "llm_tldr_cn": "论文针对自适应生成式AI在部署中更新权重导致传统验证失效的治理难题，设计了一套双时间尺度遥测架构，建立了最小充分统计量与防篡改默克尔链，并分析了模型对抗性隐藏手段的检测极限。研究揭示了自适应AI在逃避审计与隐匿行为上的能力边界，为评估大模型在网络犯罪中的潜在滥用风险提供了理论依据与方法支撑。",
+      "llm_tldr": "论文针对自适应生成式AI在部署中更新权重导致传统验证失效的治理难题，设计了一套双时间尺度遥测架构，建立了最小充分统计量与防篡改默克尔链，并分析了模型对抗性隐藏手段的检测极限。研究揭示了自适应AI在逃避审计与隐匿行为上的能力边界，为评估大模型在网络犯罪中的潜在滥用风险提供了理论依据与方法支撑。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "exploring the capability boundaries of large language models in cyber contexts",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}

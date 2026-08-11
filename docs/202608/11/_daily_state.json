@@ -1,0 +1,57 @@
+{
+  "date": "20260811",
+  "date_label": "",
+  "generated_at": "2026-08-11 21:07:57 UTC",
+  "recommend_exists": true,
+  "run_count": 1,
+  "papers": [
+    {
+      "paper_id": "2608.09526v1",
+      "route": "202608/11/2608.09526v1-rangefactory-scalable-construction-of-multi-hop-cyber-ranges",
+      "title": "RangeFactory: Scalable Construction of Multi-Hop Cyber Ranges",
+      "section": "deep",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "ca"
+        }
+      ],
+      "score": 9.0,
+      "evidence": "自动构建多跳靶场，用于研究LLM智能体的攻击能力",
+      "first_seen_at": "2026-08-11 21:07:57 UTC",
+      "updated_at": "2026-08-11 21:07:57 UTC"
+    },
+    {
+      "paper_id": "2608.09732v1",
+      "route": "202608/11/2608.09732v1-colluskill-adversarial-cross-skill-composition-for-evading-agent-skill-scanners",
+      "title": "ColluSkill: Adversarial Cross-Skill Composition for Evading Agent Skill Scanners",
+      "section": "deep",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "ca"
+        }
+      ],
+      "score": 9.0,
+      "evidence": "对抗性跨技能组合利用LLM智能体漏洞，直接测试网络犯罪能力边界",
+      "first_seen_at": "2026-08-11 21:07:57 UTC",
+      "updated_at": "2026-08-11 21:07:57 UTC"
+    },
+    {
+      "paper_id": "2608.09069v1",
+      "route": "202608/11/2608.09069v1-telemetry-and-concealment-in-self-adapting-generative-ai-logging-architecture-adversarial-model-hiding-and-the-limits-of-detection",
+      "title": "Telemetry and Concealment in Self-Adapting Generative AI: Logging Architecture, Adversarial Model Hiding, and the Limits of Detection",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "ca"
+        }
+      ],
+      "score": 6.0,
+      "evidence": "考察自适应生成式AI中对抗性模型隐藏与检测极限",
+      "first_seen_at": "2026-08-11 21:07:57 UTC",
+      "updated_at": "2026-08-11 21:07:57 UTC"
+    }
+  ]
+}

@@ -1,0 +1,1921 @@
+Title: Telemetry and Concealment in Self-Adapting Generative AI: Logging Architecture, Adversarial Model Hiding, and the Limits of Detection
+
+URL Source: https://arxiv.org/pdf/2608.09069v1
+
+Published Time: Tue, 11 Aug 2026 02:17:44 GMT
+
+Number of Pages: 43
+
+Markdown Content:
+# Telemetry and Concealment in Self-Adapting Generative AI: Logging Architecture, Adversarial Model Hiding, and the Limits of Detection 
+
+Sriram Nagaraj ∗
+
+Abstract 
+
+Model risk management (MRM) guidance assumes a static model lifecycle, in which mod-els are developed, independently validated, and implemented without further autonomous modification. Continually self-adapting generative AI systems — models that update their own weights during production deployment — fundamentally violate this assumption and render point-in-time validation inadequate. This paper addresses the resulting governance problem in two parts. 
+
+Part I develops a rigorous telemetry architecture for such models, operating simultane-ously in discrete and continuous time. We establish the Minimal Sufficient Statistic for audit purposes, construct a tamper-evident Merkle chain for discrete weight sequences, derive the appropriate continuous-time generalization via the Itˆ o formula, and propose event-driven logging via KL divergence stopping times that is both computationally tractable and mean-ingful for validation. We further embed these results within a Lyapunov stability framework, deriving both mean-stability and almost-sure path-wise stability conditions for the weight process, and show how the CUSUM test [10] provides a statistically grounded mechanism for tier-based governance escalation. 
+
+Part II asks what happens when the model owner is adversarial. A firm deploying such a model has strong economic incentives to conceal learning updates that would trigger mandatory validation review. We formalize this as the Model Hiding Problem and pro-vide a systematic taxonomy of six distinct attack strategies against the Part I architecture, spanning discrete and continuous time, with a formal countermeasure for each grounded in cryptography, statistical hypothesis testing, or stochastic process theory. Two of the natural continuous-time defenses are shown, as negative results, not to work: the first variation of a diffusion is infinite, so a power-variation ratio measures sampling frequency rather than drift, and a gradient probe is circular, re-detecting only what the behavioral oracle already sees. A third continuous-time attack hides adversarial drift inside stochastic learning noise; here a path-wise check against the declared quadratic variation (an envelope from the Law of the Iterated Logarithm) does close the gap. Far from weakening the framework, the two failed defenses sharpen its central result: we prove that at any finite detection resolution δ > 0 the set of undetectable weight perturba-tions contains a ball of strictly positive radius ϵ∗(δ), so no telemetry-only regime can detect arbitrarily small adversarial drift. We do not derive a closed form or a rate for ϵ∗(δ), and in particular no dependence on telemetry bandwidth: what is established is strict positivity and monotonicity in δ, which is what the dual-regime conclusion requires. A separate count-ing argument suggests why a residual should exist in high dimension, but it is stated as a heuristic rather than a theorem, and it is not tested at the scale simulated here. Together the two parts establish a dual-regime architecture in which continuous telemetry is necessary but not sufficient, narrowing—but never replacing—periodic invasive audit. The framework is model-architecture-agnostic and is designed to satisfy the Effective Challenge , Conceptual Soundness , and Outcome Analysis pillars of the model risk management guidance. 
+
+> ∗
+
+dr.sri.nagaraj@gmail.com 
+
+1arXiv:2608.09069v1 [cs.CR] 10 Aug 2026 Contents 
+
+1 Introduction 4
+
+1.1 Scope and Contribution . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 4
+
+2 Background 5
+
+2.1 MRM and Its Static Assumptions . . . . . . . . . . . . . . . . . . . . . . . . . . . 52.2 Self-Adapting Generative AI . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 5
+
+3 Discrete-Time Telemetry Architecture 6
+
+3.1 The Minimal Sufficient Statistic for Audit . . . . . . . . . . . . . . . . . . . . . . 63.2 The Merkle Weight Chain . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 73.3 Event-Driven Logging via Stopping Times . . . . . . . . . . . . . . . . . . . . . . 7
+
+4 The Continuous-Time Limit 8
+
+4.1 The Weight SDE . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 84.2 Quadratic Variation as the Canonical Telemetry Scalar . . . . . . . . . . . . . . . 84.3 KL Stopping Times in Continuous Time . . . . . . . . . . . . . . . . . . . . . . . 94.4 The Fokker–Planck Perspective . . . . . . . . . . . . . . . . . . . . . . . . . . . . 10 
+
+5 Lyapunov Stability Framework 11 
+
+5.1 The Risk Lyapunov Function . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 11 5.2 Discrete-Time Stability Condition . . . . . . . . . . . . . . . . . . . . . . . . . . 11 5.3 Continuous-Time Stability via Itˆ o’s Lemma . . . . . . . . . . . . . . . . . . . . . 11 5.4 Almost-Sure Path-Wise Stability . . . . . . . . . . . . . . . . . . . . . . . . . . . 12 
+
+6 CUSUM Governance Trigger 14 
+
+6.1 Motivation . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 14 6.2 The CUSUM Statistic . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 14 6.3 Continuous-Time CUSUM . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 15 
+
+7 The Integrated Telemetry Architecture 15 
+
+7.1 System Components . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 15 7.2 Log Packet Specification . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 15 
+
+8 Numerical Studies: Telemetry Architecture 16 
+
+8.1 Study A1: KL Divergence vs. Frobenius Norm as Audit Metric . . . . . . . . . . 16 8.2 Study A2: Tamper-Evidence of the Merkle Weight Chain . . . . . . . . . . . . . 17 8.3 Study A3: Event-Driven Stopping Times and Packet Density . . . . . . . . . . . 17 8.4 Study A4: Quadratic Variation as the Canonical Telemetry Scalar . . . . . . . . 18 8.5 Study A5: Lyapunov Stability and the CUSUM Governance Trigger . . . . . . . 19 
+
+9 The Model Hiding Problem 21 
+
+9.1 Related Work . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 21 
+
+10 The Concealment Game 21 
+
+10.1 Formal Setup . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 21 
+
+11 Discrete-Time Attacks and Countermeasures 22 
+
+11.1 Attack S: Suppression . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 22 11.1.1 Attack Description . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 22 11.1.2 Countermeasure: Behavioral Oracle with KL Detection . . . . . . . . . . 22 11.2 Attack F: Lyapunov Forgery . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 23 211.2.1 Attack Description . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 23 11.2.2 Countermeasure 1: Inference Signing . . . . . . . . . . . . . . . . . . . . . 23 11.2.3 Countermeasure 2: Zero-Knowledge Proof of Lyapunov Compliance . . . 24 11.3 Attack C: Shadow Model Side-Channel . . . . . . . . . . . . . . . . . . . . . . . . 24 11.3.1 Attack Description . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 24 11.3.2 Countermeasure: Trusted Execution Environment (TEE) Attestation . . 24 
+
+12 Continuous-Time Attacks and Countermeasures 25 
+
+12.1 Attack N: Diffusion-Amplified Drift Masking . . . . . . . . . . . . . . . . . . . . 25 12.1.1 Attack Description . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 25 12.1.2 Attempted Countermeasure: Power Variation — and Why It Fails . . . . 26 12.2 Attack G: Girsanov Measure Manipulation . . . . . . . . . . . . . . . . . . . . . . 27 12.2.1 Attack Description . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 27 12.2.2 Attempted Countermeasure: Gradient Injection — and Why It Is Circular 27 12.3 Attack H: Hessian Exploitation via Noise Energy . . . . . . . . . . . . . . . . . . 28 12.3.1 Attack Description . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 28 12.3.2 Countermeasure: Almost-Sure Stability via the Law of the Iterated Log-arithm . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 28 
+
+13 The Information-Theoretic Residual 30 
+
+13.1 Fundamental Limit . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 30 13.2 The Dual-Regime Principle . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 32 
+
+14 Integrated Defensive Architecture 33 
+
+14.1 Attack-Countermeasure Matrix . . . . . . . . . . . . . . . . . . . . . . . . . . . . 33 14.2 Defense-in-Depth Stack . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 33 14.3 Tiered Disclosure Architecture . . . . . . . . . . . . . . . . . . . . . . . . . . . . 34 
+
+15 Numerical Studies: Concealment and Detection 34 
+
+15.1 Study B1: Attack S — KL Behavioral Oracle Power . . . . . . . . . . . . . . . . 34 15.2 Study B2: Attack N — Power Variation Fails to Detect Drift . . . . . . . . . . . 35 15.3 Study B3: Attack G — Gradient Probe Detection of Girsanov Manipulation . . . 35 15.4 Study B4: Attack H — LIL Almost-Sure Bound Closes the Mean-Stability Gap . 36 15.5 Study B5: Information-Theoretic Residual and Null-Space Perturbations . . . . . 37 
+
+16 Discussion 37 
+
+16.1 Interpretation of the state variable . . . . . . . . . . . . . . . . . . . . . . . . . . 37 16.2 Part I: the telemetry architecture . . . . . . . . . . . . . . . . . . . . . . . . . . . 38 16.2.1 Architecture-Agnosticism . . . . . . . . . . . . . . . . . . . . . . . . . . . 38 16.2.2 Choice of Reference Set R . . . . . . . . . . . . . . . . . . . . . . . . . . . 39 16.2.3 Relationship to MRM Governance Cycles . . . . . . . . . . . . . . . . . . 39 16.3 Part II: the adversarial setting . . . . . . . . . . . . . . . . . . . . . . . . . . . . 39 16.4 Concealment Game Equilibrium . . . . . . . . . . . . . . . . . . . . . . . . . . . . 39 16.5 Limitations and Extensions . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 39 
+
+17 Conclusion 40 
+
+31 Introduction 
+
+The principles of model risk management (MRM) enunciated in [1] establish a lifecycle frame-work for models used in consequential decisions: development, independent validation, and production implementation [1]. Implicit in this framework is the assumption that the model in production is the model that was validated — that is, the mapping from inputs to outputs does not autonomously change over time. Generative AI systems with online or continual learning capabilities violate this assumption by design. A large language model (LLM) fine-tuned via reinforcement learning from human feedback (RLHF) on production traffic, or a deep neural network updated continuously via stochastic gradient descent (SGD) on streaming data, is a different model at each inference step. Traditional validation, which certifies a model at a fixed point in time, provides no ongo-ing guarantee about the model’s behavior, risk characteristics, or alignment with its approved objective. This creates what we term the Continuous Validation Gap : the period between the most recent formal validation and the current model state. As learning rates, data volumes, and architectural complexity increase, this gap widens, and the distance between the validated model and the production model may become unacceptable from a governance standpoint. Closing that gap requires two things, and this paper supplies both. The first is an architec-ture that makes adaptation observable : a faithful, tamper-evident, computationally tractable record of how a model moves. The second is an account of what happens when the model owner does not wish to be observed. A firm that must halt a model pending revalidation whenever it reports material adaptation has an incentive to adapt without reporting; any telemetry regime that assumes truthful transmission is therefore incomplete. Part I of this paper builds the observability architecture on the assumption of faithful reporting; Part II removes that assump-tion, treats the model owner as strategic, and asks how much concealment a telemetry regime can detect — and, more importantly, how much it provably cannot. 
+
+1.1 Scope and Contribution 
+
+This paper addresses three interconnected questions: (i) What is the minimal information that must be logged to provide an auditable record of a self-adapting model’s trajectory? 
+
+(ii) How should this logging architecture behave in the continuous-time limit, when updates are effectively instantaneous? 
+
+(iii) If the model owner is strategic and wishes to conceal adaptation, which concealment strate-gies can be detected from the telemetry stream, and which provably cannot? 
+
+Our contributions are as follows: 
+
+• We formalize the State Digest as the minimal sufficient statistic for discrete-time weight trajectory auditing, and show that weight-space distance is a poor proxy for the relevant governance quantity: behavioral divergence. 
+
+• We construct a tamper-evident Merkle Weight Chain that binds each model state to its predecessor and its training data, and show that this is the correct discrete-time formal-ization of the “Model Genetic Record.” 
+
+• We derive the continuous-time limit of the logging architecture via the Itˆ o formula, es-tablishing the Quadratic Variation as the canonical telemetry scalar and KL divergence crossing times as the natural event-driven logging mechanism. 4• We embed the framework within a Lyapunov stability theory, deriving both mean and almost-sure stability conditions for the weight process as a stochastic differential equation (SDE). 
+
+• We propose a CUSUM-based trigger mechanism that operationalizes the heuristic tier table of prior governance frameworks into a statistically grounded detection rule with explicit false-alarm rate controls. 
+
+• We formalize the Model Hiding Problem and give a complete taxonomy of six conceal-ment strategies against the above architecture, with a formal countermeasure for each — including two negative results showing that the natural continuous-time defenses do not work. 
+
+• We prove a detection floor : at any finite behavioral resolution δ > 0 the set of undetectable weight perturbations contains a ball of strictly positive radius ϵ∗(δ), so no telemetry-only regime can detect arbitrarily small adversarial drift. We establish positivity and monotonicity of ϵ∗(δ), not its magnitude or rate, and we set out the Dual-Regime Principle 
+
+— a design recommendation, not a theorem — that this motivates. The remainder of the paper is organized in two parts. Part I (Sections 2–8) develops the telemetry architecture under faithful reporting: Section 2 gives background on the self-adapting model problem; Section 3 develops the discrete-time architecture; Section 4 derives the continuous-time generalization; Section 5 establishes the stability framework; Section 6 proposes the CUSUM trigger; Section 7 assembles the integrated architecture; and Section 8 reports numerical studies. Part II (Sections 9–15) removes the faithful-reporting assump-tion: Section 9 formalizes the Model Hiding Problem; Section 10 sets out the adversarial game; Sections 11 and 12 develop the discrete- and continuous-time attack taxonomies and counter-measures; Section 13 establishes the information-theoretic residual; Section 14 describes the integrated defensive architecture; and Section 15 reports the corresponding numerical studies. Section 16 discusses both parts together and Section 17 concludes. 
+
+# 2 Background 
+
+2.1 MRM and Its Static Assumptions 
+
+MRM defines a model as, roughly, any quantitative method, system, or approach that ap-plies established theories, techniques, and assumptions to process input data into quantitative estimates ([1]). The guidance identifies three components of model risk: fundamental model error (the model’s conceptual design is flawed), implementation error (the model is correctly conceived but incorrectly executed), and inappropriate use (the model is applied outside its validated scope). The MRM lifecycle comprises development, validation, and ongoing monitoring. Ongoing monitoring under MRM is designed to detect model drift — degradation in predictive perfor-mance over time due to changes in the environment [20] — but it assumes the model itself is fixed; only the environment changes. This is precisely the assumption violated by self-adapting systems, where the model and the environment co-evolve. 
+
+2.2 Self-Adapting Generative AI 
+
+We define a self-adapting generative model as a parameterized model f (· ; W ) whose weight matrix W is updated continuously during production operation, based on observed data. For-mally, at each production step t, the model receives a data batch Bt drawn from a distribution 5Pt (which may itself be non-stationary), and updates: 
+
+Wt+1 = Wt − ηt∇W L(Wt, Bt) + ξt (1) where ηt is the learning rate, L is a loss function, and ξt is a stochastic perturbation term (e.g., from dropout or gradient noise). If we interpret the sequence {Wt}t≥0 as a Markov chain on a high-dimensional weight space W ⊂ Rd, then d may be of order 10 9 to 10 12 for contemporary LLMs. In Section 16.1 we provide a more nuanced interpretation of what the “effective” dimension of the space we are modeling is. The validatory challenge is threefold: (i) storing or transmitting {Wt} is computationally infeasible; (ii) the validator cannot, in general, distinguish a model that has drifted significantly from one that has not, without direct access to the weights; (iii) the model’s behavior can change dramatically in ways that are not reflected in simple performance metrics. 
+
+# 3 Discrete-Time Telemetry Architecture 
+
+3.1 The Minimal Sufficient Statistic for Audit 
+
+The central design question is: what information about the weight trajectory {W0, W 1, . . . , W T }
+
+is necessary and sufficient for a validator to certify that the model remained within its validated scope? We answer this in terms of a sufficient statistic relative to a canonical reference set. 
+
+Definition 3.1 (Canonical Reference Set) . Let R = {(xi, p ∗ 
+
+> i
+
+)}mi=1 be a fixed set of inputs and their output distributions under the initially validated model W0. R is chosen at the time of initial validation and held jointly by the firm and the validator. The reference set is said to be 
+
+behaviorally sufficient if it spans the input manifold in a statistically meaningful way. 
+
+Definition 3.2 (Behavioral Divergence) . The behavioral divergence between consecutive model states is: 
+
+δt = DKL 
+
+ pWt−1 (· | R ) pWt (· | R ) =
+
+> m
+
+X
+
+> i=1
+
+X
+
+> y
+
+pWt−1 (y | xi) log pWt−1 (y | xi)
+
+pWt (y | xi) (2) 
+
+Definition 3.3 (Cumulative Drift) . The cumulative behavioral drift from the validated state 
+
+W0 to the current state Wt is: 
+
+∆t =
+
+> t
+
+X
+
+> s=1
+
+δs (3) 
+
+Remark 3.4. ∆t is an additive book-keeping quantity, not a distance: KL divergence is not a metric and obeys no triangle inequality, so in general ∆t neither upper- nor lower-bounds the end-to-end divergence DKL (pW0 ∥pWt ). For small consecutive steps, however, each increment admits the second-order expansion δs ≈ 12 (θs − θs−1)⊤I(θs−1) ( θs − θs−1), where I is the Fisher information; i.e. δs is a squared Fisher–Rao length, and √2δs is the (locally metric) Fisher–Rao distance. Consequently ∆t = P 
+
+> s
+
+δs is a sum of squared infinitesimal lengths — an action-like, path-dependent functional — and should be interpreted as a cumulative activity measure rather than as a displacement from W0. For practical validation purposes it remains a useful monotone scalar summary of total behavioral movement, but claims that it bounds net drift require the path to be quasi-monotone in distribution space. 
+
+We argue that ( δt, h t, τ t) constitutes a minimal audit packet for discrete-time auditing, where 
+
+ht is a cryptographic hash of the model state and τt is a timestamp. We use “minimal” in the operational sense that each component is non-redundant for the validatory objective; we do not 
+
+claim sufficiency in the formal Fisher–Neyman sense, as no parametric likelihood for the audit 6decision is posited here. Weight-space distances such as ∥Wt−Wt−1∥F are an inadequate primary metric (cf. Study A1): large weight moves in directions to which the output distribution is insensitive can produce small behavioral change, while small weight moves in sensitive directions can produce large behavioral change. We record this as the design principle motivating δt.
+
+3.2 The Merkle Weight Chain 
+
+To ensure that the telemetry record is tamper-evident, we chain the state digests cryptograph-ically. 
+
+Definition 3.5 (Merkle Weight Chain) . Define the chain hash sequence by: 
+
+h0 = Hash( W0), ht = Hash  Wt ht−1 Hash( Bt) (4) 
+
+where ∥ · ∥ denotes concatenation and Hash is a collision-resistant cryptographic hash function (e.g., SHA-3-256). 
+
+The integrity of this record is itself a governance property. Aggregated telemetry is only as trustworthy as its least tamper-resistant link: if a firm can retroactively rewrite the history of how its model adapted, any reconstruction of its exposure rests on data that can be edited after the fact, and precisely the drift that tends to precede stress could be erased from the record once it became inconvenient. The following result forecloses this, reducing trust in the entire history to verification of a single hash. 
+
+Proposition 3.6 (Tamper-Evidence) . Under the collision-resistance assumption of the hash function, any retroactive modification to Ws for s < t invalidates every hs′ , s ′ ≥ s with over-whelming probability. The validator need only verify the chain tip hT to certify the integrity of the entire history. Proof. Suppose an adversary modifies Ws → ˆWs for some s < T . Then ˆhs =Hash( ˆWs∥hs−1∥Hash( Bs)) ̸ = hs with overwhelming probability (by collision resistance). Since 
+
+hs+1 depends on hs, the modification propagates forward: ˆhs+k̸ = hs+k for all k ≥ 0. In particular, ˆhT̸ = hT , which is detectable by the validator holding hT .The Merkle Weight Chain is structurally identical to a blockchain [11] applied to model state, but without the requirement for distributed consensus: the validator is the sole external verifier. 
+
+3.3 Event-Driven Logging via Stopping Times 
+
+Logging every step t is impractical at scale. We propose a principled alternative: log only at 
+
+stopping times defined by behavioral divergence crossings. 
+
+Definition 3.7 (Behavioral Stopping Times) .
+
+τ0 = 0 , τk+1 = inf {t > τ k : ∆ t − ∆τk > ϵ } (5) 
+
+for a validator-specified threshold ϵ > 0.
+
+Under this scheme: 
+
+• A static model generates zero log packets: τ1 = ∞.
+
+• A slowly adapting model generates sparse packets with large inter-arrival times. 7• A rapidly adapting model generates dense packets, automatically flagging the adapta-tion intensity to the validator. The log packet at τk contains {hτk , ∆τk , τ k}. The total number of packets is proportional to the total behavioral movement of the model, which is the quantity of governance interest. 
+
+Remark 3.8. The inter-arrival times {τk+1 − τk} are themselves informative. A gap that is anomalously long — the model claims to be static for an extended period — is a signal for the concealment-detection mechanisms of Part II (Section 9). 
+
+# 4 The Continuous-Time Limit 
+
+4.1 The Weight SDE 
+
+In the small-learning-rate regime η → 0, the discrete SGD recursion admits a weak (order-one) approximation by an Itˆ o SDE under the time identification t = kη (one update per η units of continuous time) [2, 3]; for the underlying Itˆ o and semimartingale theory see [9] and [21], and for stochastic-approximation limits [7]: 
+
+dW t = −∇ W J(Wt) dt + √η Σ( Wt)1/2 dB t (6) where: 
+
+• J(Wt) = EB[L(Wt, B)] is the population loss; 
+
+• Σ( Wt) = Cov B[∇W L(Wt, B)] is the gradient covariance matrix, capturing mini-batch stochasticity; 
+
+• {Bt}t≥0 is a standard Brownian motion on Rd.The weight process {Wt} is a continuous-time Itˆ o diffusion on W. The audit problem is to summarize the path of this diffusion without storing the full trajectory. 
+
+4.2 Quadratic Variation as the Canonical Telemetry Scalar 
+
+Definition 4.1 (Quadratic Variation of the Weight Process) . The quadratic variation of the weight process {Wt} is: 
+
+[W ]t =
+
+Z t
+
+> 0
+
+tr( η Σ( Ws)) ds (7) 
+
+Proposition 4.2 (Properties of the Quadratic Variation) . The quadratic variation satisfies: (i) Incremental computability: d[W ]t = η tr(Σ t) dt , so it can be accumulated online at each training step. (ii) Activity indicator: [W ]t is non-decreasing; its slope η tr(Σ t) equals zero if and only if the model is not learning. (iii) Noise decomposition: [W ]t isolates the stochastic component of learning, separating it from the deterministic drift R t 
+
+> 0
+
+∥∇ J(Ws)∥2 ds .Proof. Write (6) as dW t = bt dt + √η Σ1/2 
+
+> t
+
+dB t with bt = −∇ W J(Wt) and Σ t = Σ( Wt). (i) The quadratic variation of a d-dimensional Itˆ o process is [ W ]t = Pdk=1 [W k]t, and the finite-variation (drift) part contributes nothing to it: for a partition of mesh δ, P 
+
+> i
+
+∥bti ∥2(ti+1 −
+
+ti)2 ≤ δ t sup s ∥bs∥2 → 0, while the cross terms vanish by Cauchy–Schwarz. Only the martingale part survives, and d[ √η Σ1/2B ]t = η tr 
+
+
+
+Σ1/2 
+
+> t
+
+(Σ 1/2 
+
+> t
+
+)⊤
+
+
+
+dt = η tr(Σ t) dt since Σ t is symmetric 8positive semi-definite. Because the integrand depends only on the current state, the integral can be accumulated by a running sum at each step. (ii) Σ t ⪰ 0 implies tr(Σ t) ≥ 0, so t 7 → [W ]t is non-decreasing. Moreover tr(Σ t) = 0 iff Σ t = 0 (a positive semi-definite matrix with zero trace is zero), i.e. iff the mini-batch gradient has zero covariance — no stochastic parameter movement. This is the sense in which a zero slope certifies that the model is not learning stochastically; a model at a deterministic fixed point with Σ t̸ = 0 still accumulates [ W ]t.(iii) By construction [ W ]t depends on the path only through Σ, not through bt, so it is invari-ant to the drift. The drift energy R t 
+
+> 0
+
+∥∇ J(Ws)∥2ds is a separate functional; neither determines the other, which is precisely why both are logged. [W ]t is the continuous-time analog of the discrete-time P 
+
+> s
+
+∥Ws − Ws−1∥2 
+
+> F
+
+, with the impor-tant correction that it captures only the diffusion component of movement, not the deterministic gradient descent component. A model that is learning but has reached a fixed point (gradient near zero, stochastic perturbations still active) will show [ W ]t increasing; a truly frozen model will show [ W ]t flat. This distinction is meaningful for governance. The slope η tr(Σ t) is an instantaneous measure of the model’s learning intensity, and tracking it across a population of deployed models is the natural way to detect that many models are adapting in concert—the precondition for correlated, portfolio-level dynamics. 
+
+4.3 KL Stopping Times in Continuous Time 
+
+The event-driven logging principle carries directly to continuous time. 
+
+Definition 4.3 (Continuous-Time KL Stopping Times) .
+
+τ0 = 0 , τk+1 = inf 
+
+n
+
+t > τ k : DKL 
+
+
+
+pWτk (· | R ) pWt (· | R )
+
+
+
+> ϵ 
+
+o
+
+(8) 
+
+The reference distribution is reset to the current state Wτk at each event, so each inter-arrival interval measures fresh divergence accrued since the last log packet. 
+
+The log packet at each τk is {Hash( Wτk ), [W ]τk , τ k}.
+
+Theorem 4.4 (Renewal Structure of Stopping Times) . Assume the weight process (6) is positive Harris recurrent with a unique stationary law π and is initialized from π (or run to stationarity). Then the inter-arrival times {Tk}k≥1, Tk = τk −τk−1, of the reset stopping rule of Definition 4.3 form a stationary renewal sequence, and 
+
+1
+
+n
+
+> n
+
+X
+
+> k=1
+
+Tk a.s. 
+
+−−→ ¯T = Eπ[T1], (9) 
+
+the expected time for the divergence from a stationary-distributed reference state to first reach 
+
+ϵ. For small ϵ, ¯T ≈ ϵ/ ¯δ, where ¯δ = 12 η Eπ[tr( I Σ)] is the stationary mean instantaneous KL rate and I is the Fisher information of the output map. Proof. The reset rule (Definition 4.3) restarts the divergence clock from the current state at each 
+
+τk: the next inter-arrival depends on the path only through Wτk . By the strong Markov property, 
+
+{(τk, W τk )} is a Markov chain, and each cycle’s duration Tk+1 is a deterministic functional of the post-τk excursion started at Wτk . When the diffusion is positive Harris recurrent with stationary law π and is initialized from π, the chain {Wτk } is itself stationary, so {Tk} is a stationary, ergodic sequence (a stationary renewal sequence in the regenerative sense). Birkhoff’s ergodic theorem then gives 1
+
+n
+
+> n
+
+X
+
+> k=1
+
+Tk a.s. 
+
+−−→ Eπ[T1] = ¯T . 
+
+9(If the process is started off-stationarity but is geometrically ergodic, the same limit holds with the first finitely many cycles contributing negligibly; the cycles are then asymptotically, not exactly, i.i.d.) For the small-ϵ rate, write the local divergence accrued since the last reset as ϕk(t) = 
+
+DKL 
+
+ pWτk ∥ pWt
+
+ for t ∈ [τk, τ k+1 ], with ϕk(τk) = 0. By the Fisher expansion, E[ϕk(τk + h)] =  
+
+> 12
+
+E[ ( Wτk +h − Wτk )⊤I (Wτk +h − Wτk ) ] + o(h), and the diffusion increment satisfies E[( Wτk +h −
+
+Wτk )( ·)⊤] = η Σ h + o(h), so ddh E[ϕk] h=0 + = 12 η tr( IΣ) =: ¯δ in the stationary average. Hence 
+
+Eπ[T1] ≈ ϵ/ ¯δ to leading order in ϵ.Theorem 4.4 has practical consequences: under normal learning dynamics, the validator can form an expectation about the packet arrival rate. A sustained deviation from this expected rate is evidence of either anomalous adaptation or deliberate suppression of telemetry. Read across a portfolio of models, the renewal baseline ¯T ≈ ϵ/ ¯δ is a per-model norm against which departures can be detected, and a simultaneous compression of inter-arrival times—many models suddenly adapting faster than their baselines—is a candidate leading indicator of a building regime shift that model-by-model monitoring is poorly placed to read. 
+
+4.4 The Fokker–Planck Perspective 
+
+Rather than tracking the weight trajectory as a single path, one may track the evolution of the probability density over weight space. For the SDE (6), the general Fokker–Planck (forward Kolmogorov) operator is ∂tρt = ∇W · (ρt∇W J) + η
+
+> 2
+
+P 
+
+> ij
+
+∂i∂j (Σ ij ρt). Specializing to the isotropic, state-independent case Σ( W ) ≡ Id for clarity, this reduces to 
+
+∂ρ t
+
+∂t = ∇W ·(ρt ∇W J) + η
+
+2 ∆W ρt (10) where ∆ W is the Laplacian in weight space. The stationary solution to (10) is the Gibbs measure 
+
+ρ∞(W ) ∝ exp 
+
+
+
+− 2J(W )
+
+η
+
+
+
+. (11) 
+
+Remark 4.5 (Scope of the Gibbs form, and consistency with Part II) . The closed Gibbs form 
+
+(11) is specific to isotropic, state-independent noise Σ ≡ Id. For state-dependent or anisotropic 
+
+Σ( W ) — the empirically relevant case for SGD, where the gradient-noise covariance tracks the local loss geometry — the stationary density is in general not of Gibbs form ∝ e−2J/η : the forward operator carries a noise-induced drift η
+
+> 2
+
+P 
+
+> ij
+
+∂i∂j (Σ ij ρ) that does not integrate to a po-tential unless a detailed-balance condition ( Σ−1∇J a gradient field, equivalently ∇· Σ compatible with ∇J) holds. This is the well-known fact that SGD does not, in general, sample a Gibbs measure of its training loss under anisotropic noise. We flag this explicitly because it is exactly the regime Part II exploits: an adversary shapes Σ( W ) to hide drift in the noise structure (At-tacks N and H), which is possible only because the stationary law departs from the Gibbs form. Consequently, any inference of the energy landscape J from an observed stationary density is valid only under the isotropic assumption; we use (11) purely as the reference (honest, isotropic) baseline against which those attacks are defined, not as a claim about the attacked dynamics. 
+
+This shifts the audit question from “has this specific weight trajectory drifted?” to “has the distribution over model states drifted?” The validator can audit whether empirical output distributions are consistent with ρt remaining concentrated near the validated region S, without observing Wt directly. This is the correct population-level framing for supervision of self-adapting models at scale. 10 5 Lyapunov Stability Framework 
+
+5.1 The Risk Lyapunov Function 
+
+Let S ⊂ W be the safe manifold : the set of model configurations validated during the initial MRM review, characterized by acceptable performance, fairness, and risk metrics. 
+
+Definition 5.1 (Risk Lyapunov Function) .
+
+V (W ) = 12 ∥W − proj S (W )∥2 (12) 
+
+where proj S denotes the orthogonal projection onto S.
+
+V (W ) measures the squared distance from the weight vector W to its nearest point in the validated set S. It equals zero if and only if W ∈ S .
+
+5.2 Discrete-Time Stability Condition 
+
+For the discrete-time update rule, the auditable stability condition is: ∆Vt = V (Wt+1 ) − V (Wt) ≤ − α ∥Wt − proj S (Wt)∥2 , α > 0 (13) 
+
+Remark 5.2. This corrects the formulation in some prior frameworks that bound ∆V by the gradient norm ∥∇ θ∥ rather than the state deviation. The gradient norm is an inappropriate bound because it can vanish at saddle points while the model remains far from S. The condition 
+
+(13) ensures that stability is governed by where the model is , not how fast it is moving .
+
+5.3 Continuous-Time Stability via Itˆ o’s Lemma 
+
+For the continuous-time weight SDE (6), the Lyapunov function evolves according to Itˆ o’s lemma: 
+
+dV (Wt) = 
+
+h
+
+∇V (Wt)⊤(−∇ J(Wt)) + η
+
+2 tr  Σ( Wt) ∇2V (Wt)i
+
+dt + ∇V (Wt)⊤√η Σ( Wt)1/2 dB t
+
+(14) The first term in the drift is −⟨∇ V, ∇J⟩ (the deterministic push toward the loss minimum), and the second is η 
+
+> 2
+
+tr(Σ ∇2V ) (the noise energy term , which quantifies how stochastic weight perturbations interact with the curvature of V ). The second-order term is absent in discrete-time formulations and is the source of the most subtle model risk. 
+
+Definition 5.3 (Mean Stability Condition) . The weight process is mean-stable with rate α > 0
+
+and floor V∞ ≥ 0 if its drift satisfies 
+
+LV (Wt) := −⟨∇ V, ∇J⟩ + η 
+
+> 2
+
+tr(Σ ∇2V ) ≤ − α V (Wt) − V∞
+
+. (15) 
+
+Taking expectations and applying Gr¨ onwall’s inequality to v(t) = E[V (Wt)] gives 
+
+E[V (Wt)] ≤ V∞ +  V (W0) − V∞
+
+ e−αt , (16) 
+
+i.e. exponential return to a neighborhood of S of size V∞, not to S itself. 
+
+Remark 5.4. The floor V∞ is unavoidable whenever the diffusion is non-degenerate near S:at V = 0 the drift equals η 
+
+> 2
+
+tr(Σ ∇2V ) > 0, so V cannot be driven to 0 in expectation. For the Ornstein–Uhlenbeck surrogate dW = −αW dt + σ dB one has V∞ = σ2d/ (4 α) in continuous time. The earlier idealization E[V (Wt)] ≤ V (W0)e−αt holds only in the noiseless limit Σ → 0
+
+and is contradicted by the stationary density ρ∞ ∝ e−2J/η derived above; see Study A5, where 
+
+E[V (Wt)] → V∞ > 0.
+
+11 The sign and magnitude of the noise energy term η 
+
+> 2
+
+tr(Σ ∇2V ) depend on the geometry of 
+
+S. If S is convex, V (W ) = 12 ∥W − proj S (W )∥2 is convex with ∇2V ⪰ 0, so the noise term is always non-negative (purely destabilizing): isotropic gradient noise can only push E[V ] up ,which is precisely the origin of the floor V∞. If S is a non-convex smooth manifold, V is C2 only within the reach (tubular neighborhood) of S, and there ∇2V can have negative eigenvalues in directions where S curves away; the noise term is then sign-indefinite. Either way, a firm can modulate the term by shaping Σ relative to the local curvature of S — the continuous-time mechanism by which adversarial drift can be hidden in the noise structure of learning, addressed in detail in Part II (Section 12). Throughout we assume Wt remains within the reach of S so that ∇V = W − proj S (W ) and ∇2V are well defined. 
+
+5.4 Almost-Sure Path-Wise Stability 
+
+Mean stability allows individual trajectories to escape S provided they return quickly on average. For validation purposes, almost-sure path-wise bounds are more appropriate. The certificate established next is a statement of individual-model resilience —a guarantee that a single model’s risk state, once perturbed, returns to a bounded neighborhood rather than wandering off—and it is the building block from which any assessment of an ensemble of models must start. 
+
+Theorem 5.5 (Almost-Sure Stability via Burkholder–Davis–Gundy) . Let Mt =R t 
+
+> 0
+
+∇V (Ws)⊤√η Σ( Ws)1/2 dB s be the martingale term of (14) . By the Burkholder–Davis–Gundy inequality: 
+
+E
+
+"
+
+sup 
+
+> 0≤s≤T
+
+M 2
+
+> s
+
+#
+
+≤ C E
+
+Z T
+
+> 0
+
+η Σ( Ws)1/2∇V (Ws) 2
+
+ds 
+
+
+
+(17) 
+
+and by the Law of the Iterated Logarithm: 
+
+lim sup 
+
+> t→∞
+
+|Mt|
+
+p2[ M ]t log log[ M ]t
+
+= 1 a.s. (18) 
+
+where [M ]t = R t 
+
+> 0
+
+η ∥Σ1/2∇V ∥2 ds is the predictable quadratic variation of Mt.Proof. Itˆ o’s lemma applied to V (Wt) along the SDE (6) gives the semimartingale decomposition 
+
+V (Wt) = V (W0) + At + Mt, (19) where the finite-variation component is 
+
+At =
+
+Z t
+
+> 0
+
+ −⟨∇ V (Ws), ∇J(Ws)⟩ + η 
+
+> 2
+
+tr  Σ( Ws)∇2V (Ws) ds, 
+
+and the local martingale is Mt = R t 
+
+> 0
+
+∇V (Ws)⊤√η Σ1/2(Ws) dB s with predictable bracket [ M ]t =
+
+R t 
+
+> 0
+
+η∥Σ1/2∇V ∥2 ds .
+
+BDG bound. The Burkholder–Davis–Gundy inequality (see, e.g., [12], Theorem IV.4.1) asserts that for any p ≥ 1 there exists a universal constant Cp > 0 such that E[sup s≤T |Ms|2p] ≤
+
+Cp E[[ M ]pT ]. For p = 1 this gives the stated L2 bound. 
+
+LIL for continuous martingales. If [ M ]∞ = + ∞ a.s., the LIL for continuous local martingales ([12], Theorem V.1.8) gives lim sup 
+
+> t→∞
+
+|Mt|
+
+p2[ M ]t log log[ M ]t
+
+= 1 a.s. If [ M ]∞ < ∞ a.s. then Mt converges a.s. and the result holds trivially with a zero limsup. 12 Ultimate boundedness (under stated growth hypotheses). We invoke two standard stochastic-stability hypotheses [8]: (H1) the dissipative drift bound LV (W ) ≤ − α V (W ) − V∞
+
+ of (15); and (H2) a linear-growth bound on the diffusion term, ∥Σ1/2(W )∇V (W )∥2 ≤ K 1+ V (W ) for some K < ∞. Crucially, (H2) is verified , not assumed circularly: for V = 12 ∥W − proj S (W )∥2
+
+one has ∇V = W −proj S (W ), so if Σ is bounded (Σ ⪯ σ2max I) then ∥Σ1/2∇V ∥2 ≤ σ2max ∥∇ V ∥2 =2σ2max V , i.e. (H2) holds with K = 2 σ2max . (The earlier draft asserted “[ M ]t = O(t)” directly, which would require sup s ∥∇ V (Ws)∥ < ∞ — the very boundedness being proved; (H2) re-places that step with a structural bound that makes d[M ]t/dt ≤ 2ησ 2max V controlled by V
+
+itself .) Taking expectations of (H1) and applying Gr¨ onwall gives the self-contained mean bound 
+
+E[V (Wt)] ≤ V∞ + ( V (W0) − V∞)e−αt . For the almost-sure conclusion, (H1)+(H2) are exactly the hypotheses of the stochastic Lyapunov/ultimate-boundedness theorem (8, Ch. 5–6): the process is bounded in probability and lim sup 
+
+> t→∞
+
+V (Wt) ≤ V∞ a.s. ,
+
+so it is recurrent to the neighborhood {V ≤ V∞} of S. Convergence V (Wt) → 0 does not hold when Σ ̸ → 0 near S: the non-degenerate stationary law forces persistent fluctuations of order 
+
+V∞ about S. (In the degenerate limit Σ → 0, V∞ → 0 and one recovers a.s. convergence to 
+
+S.) The bound in Theorem 5.5 is computable from the telemetry stream: both Σ t (from the gradient covariance) and ∇V (Wt) (from the model state hash and proximity to S) can be logged incrementally. A practical, monitorable form of the path-wise condition requires the drift to dominate the noise envelope outside the floor neighborhood: there exist α > 0, V∞ ≥ 0, and (eventually) for the LIL constant the certificate 
+
+−⟨∇ V, ∇J⟩ + η 
+
+> 2
+
+tr(Σ ∇2V )
+
+| {z } 
+
+> drift LV
+
+≤ − α V (Wt) − V∞
+
+ and 
+
+V (Wt) ≤ V∞ + (1 + ε)p2[ M ]t log log[ M ]t
+
+αt a.s. eventually. (20) The first inequality is the drift certificate; the second is the LIL envelope, which decays as 
+
+t−1/2√log log t → 0, so the right-hand side contracts to V∞.
+
+Corollary 5.6. If the drift certificate in (20) holds for all t ≥ 0, then lim sup t→∞ V (Wt) ≤ V∞
+
+almost surely: the weight process is ultimately bounded and recurs to the neighborhood {V ≤ V∞}
+
+of S with probability one. If the certificate is violated at any time, the telemetry probe triggers an automatic halt. (Exact return V (Wt) → 0 holds only in the degenerate-noise limit Σ → 0.) Proof. Both statements in (20) are assumed to hold. Apply Itˆ o’s formula to V along (6) and split into drift and martingale parts: 
+
+V (Wt) = V (W0) + 
+
+Z t
+
+> 0
+
+LV (Ws) ds + Mt, Mt =
+
+Z t
+
+> 0
+
+∇V (Ws)⊤√η Σ( Ws)1/2 dB s.
+
+By the drift certificate, LV (Ws) ≤ − α V (Ws) − V∞
+
+ for all s. Writing Ut = V (Wt) − V∞, this gives Ut ≤ U0 − α R t 
+
+> 0
+
+Us ds + Mt. By the comparison/Gronwall argument in integral form, 
+
+Ut ≤ U0e−αt +
+
+Z t
+
+> 0
+
+e−α(t−s) dM s,
+
+so the deterministic part decays to zero. For the stochastic part, the second inequality of (20) bounds the martingale contribution by the law of the iterated logarithm: |Mt| ≤ (1 + 
+
+ε)p2[ M ]t log log[ M ]t a.s. for all large t, and dividing by αt gives a bound of order t−1/2√log log t
+
+13 under (H2), which tends to zero. Hence lim sup t→∞ Ut ≤ 0 almost surely, i.e. lim sup t→∞ V (Wt) ≤
+
+V∞. Recurrence to {V ≤ V∞} follows because V ≥ 0 and V cannot remain strictly above V∞
+
+on a set of positive probability without contradicting this limsup. Note the direction of the statement: it gives ultimate boundedness to a neighborhood of S,not convergence to S. Exact return V (Wt) → 0 requires the degenerate limit Σ → 0, since a non-degenerate stationary distribution keeps V fluctuating at the noise floor. The halt is, in effect, a model-level circuit breaker. That every model in a portfolio can hold such an individual certificate and yet the portfolio collectively fail to be stable—so that per-model resilience does not aggregate—is a limitation of any purely per-model certification regime. 
+
+# 6 CUSUM Governance Trigger 
+
+6.1 Motivation 
+
+The tiered governance table of prior frameworks (Tier 1: micro-update, Tier 2: meso-update, Tier 3: macro-update) lacks a formal statistical trigger. We propose the Cumulative Sum (CUSUM) test on the behavioral divergence sequence {δt} as a statistically grounded escalation mechanism. 
+
+6.2 The CUSUM Statistic 
+
+Definition 6.1 (Governance CUSUM) . Let κ > 0 be a reference value representing the expected behavioral divergence per step under normal micro-adaptation. The CUSUM statistic is: 
+
+C0 = 0 , Ct = max(0 , C t−1 + δt − κ) (21) The CUSUM test declares a Tier ℓ event at stopping time: 
+
+Tℓ = inf {t ≥ 0 : Ct ≥ hℓ} (22) where 0 < h 1 < h 2 are tier-specific thresholds corresponding to Tier 2 (objective parameter shift requiring 24h shadow testing) and Tier 3 (macro-update requiring Human-in-the-Loop sign-off). The choice of CUSUM is not arbitrary. Among detectors with a fixed tolerance for false alarms it flags a genuine shift as quickly as possible, and where model adaptation can outpace the validation cycle, detection delay is itself a governance quantity: every period a building shift goes undetected is a period in which the production model diverges further from the validated one. The following classical result makes the optimality precise. 
+
+Theorem 6.2 (CUSUM Optimality; Lorden [4], Moustakides [5]) . (Classical; stated without proof — see the cited sources.) Suppose the increment fed to (21) is the log-likelihood ratio 
+
+log f1(δt) 
+
+> f0(δt)
+
+between the post-change density f1 and the pre-change density f0 of the monitored statistic. Then among all stopping rules with average run length to false alarm ≥ γ, the CUSUM rule minimizes Lorden’s worst-case expected detection delay as γ → ∞ [5]. 
+
+Remark 6.3 (Applicability to the behavioral CUSUM) . The statistic (21) uses the raw cen-tred divergence δt − κ rather than a log-likelihood ratio. Theorem 6.2 therefore applies exactly only when δt − κ coincides (up to affine reparameterization) with the LLR of a one-parameter exponential-family shift in the divergence rate — e.g. a change in the mean of an approximately Gaussian or exponential δt. In general the centred-divergence CUSUM is a well-behaved, mono-tone detector with explicit ARL control (Remark 6.4) but is only near -optimal; exact Lorden optimality requires plugging the calibrated LLR into (21) .
+
+14 Remark 6.4. The false alarm rate of (21) can be set explicitly via the average run length under the null (no drift). For a Tier 2 trigger, a practical choice might be an ARL of 250 business days ( ≈ 1 year) under normal operation, corresponding to a threshold h1 computable from the null distribution of δt.
+
+6.3 Continuous-Time CUSUM 
+
+In the continuous-time limit, the CUSUM statistic becomes the reflected process 
+
+eCt = ξt − κt − min 
+
+> 0≤s≤t
+
+ ξs − κs , ξt =
+
+Z t
+
+> 0
+
+ddu DKL 
+
+
+
+pWs∗(u) pWu
+
+
+
+du, (23) where s∗(u) denotes the last reset before u, consistent with Definition 4.3. The stopping time θℓ = inf {t : eCt ≥ hℓ} inherits a minimax optimality under the LLR-increment hypothesis of Theorem 6.2; the closely related Bayesian quickest-detection problem (minimizing expected delay under a prior on the change time) is solved instead by the Shiryaev procedure [6]. The two are distinct optimality criteria and we invoke the minimax one here. 
+
+# 7 The Integrated Telemetry Architecture 
+
+7.1 System Components 
+
+The complete telemetry architecture integrates the components developed above into a five-layer system: 1. Probe Layer: Embedded within the SGD optimiser. Computes δt, d[W ]t, and the CUSUM increment δt − κ at each update step. 2. Hash Layer: Computes the Merkle chain hash ht = Hash( Wt∥ht−1∥Hash( Bt)) at each stopping time τk.3. Stability Layer: Evaluates the Lyapunov condition (13) or (20) at each step. Triggers immediate halt if violated. 4. Escalation Layer: Monitors Ct against h1, h 2. Fires Tier 2 or Tier 3 governance actions as required. 5. Ledger Layer: Transmits log packets {hτk , [W ]τk , δ τk , τ k} to the validator’s immutable audit sink (append-only ledger or governance ledger). 
+
+7.2 Log Packet Specification 
+
+The complete log packet emitted at stopping time τk is: 
+
+Dτk = { hτk , [W ]τk , ∆τk , C τk , V (Wτk ), τ k } (24) This is a six-dimensional vector of scalars (plus the hash). Compared to storing the weight matrix ( O(d) with d ∼ 10 9), the log packet is negligibly small and can be transmitted in real time to a governance ledger. 15 Field Symbol Type Governance Interpretation 
+
+Model State Hash hτk 256-bit hash Tamper-evident identity Quadratic Variation [W ]τk Scalar Cumulative learning intensity Cumulative KL Drift ∆τk Scalar Total behavioral movement CUSUM Statistic Cτk Scalar Governance tier indicator Lyapunov Value V (Wτk ) Scalar Distance from validated set Timestamp τk UTC timestamp Temporal anchor Table 1: Log packet fields and their governance interpretations. 
+
+# 8 Numerical Studies: Telemetry Architecture 
+
+We present five numerical studies, each targeting a distinct theoretical claim of the paper. All experiments use a lightweight softmax classifier f (· ; W ) with weight matrix W ∈ Rd×K ,
+
+d = 8, K = 3, trained on a fixed canonical reference set R of m = 80 unit-normalized inputs. Because the output probabilities and KL divergence are analytically tractable in this setting, the experiments provide clean quantitative agreement with the theoretical predictions. All studies use a fixed random seed for reproducibility. 
+
+Scope of the numerical evidence 
+
+The studies in both Part I and Part II are verification experiments: they confirm that the analytical results hold under controlled simulation and that the predicted qualitative behavior appears. They are not statistical estimation, and the following limits apply to every number reported in Sections 8 and 15. 
+
+• Fixed, documented seeds. Every study is seeded and exactly reproducible; seeds vary with the swept parameter where a sweep is performed, so no reported comparison is a deterministic rescaling of another. 
+
+• Fixed discretization. We use a fixed discretization, and this matters most for Study B2, which claims that a statistic can be dominated by the discretization grid; there the n-dependence is exhibited deliberately. 
+
+• Toy scale, and one claim it cannot test. All studies use a softmax classifier with 
+
+dK = 24 free parameters and m = 80 canary points. This is far from the high-dimensional regime d ≫ m log |Y| in which the counting argument of Section 13 is posed; indeed at this scale the parameters are over -determined by the canary outputs (Remark 13.2). Study B5 therefore validates Theorem 13.3 — the finite-resolution result, which holds at any dimension — and does not test the heuristic. We are not aware of a simulation at accessible scale that would. 
+
+• Synthetic dynamics and a synthetic adversary. The weight processes are prescribed recursions, and the attacks of Part II are implemented exactly as modeled rather than discovered by an adversary optimizing against the defences. The studies show that the stated attacks behave as analyzed; they do not establish that these are the strongest attacks available. 
+
+8.1 Study A1: KL Divergence vs. Frobenius Norm as Audit Metric 
+
+Theoretical claim (Section 3, design principle following Definition 3.7). The Frobenius norm ∥Wt − Wt−1∥F is an inadequate audit metric because large weight moves tangent to the loss manifold produce negligible behavioral change, while small moves in the gradient-aligned direction produce large behavioral change. The behavioral divergence δt = DKL (pWt−1 ∥pWt ) on the canonical reference set R is the correct primary metric. 16 Experimental design. Starting from W0, we construct two equal-magnitude perturba-tions: 
+
+• Tangent perturbation: ∆Wtan = ε ˆv, where ˆ v is a unit vector orthogonal to ∇W J (null-space direction). 
+
+• Gradient perturbation: ∆Wgrad = ε ˆg, where ˆ g = ∇W J/ ∥∇ W J∥ is the unit gradient direction. Both perturbations satisfy ∥∆W ∥F = ε exactly, so any difference in the resulting KL divergence is attributable solely to direction. We sweep ε ∈ { 0.1, 0.3, 0.5, 1.0} and report DKL (pW0 ∥pW0+∆ W )for each direction. 
+
+Results. 
+
+ε ∥∆W ∥F KL (tangent) KL (gradient) Ratio 0.1 0.1000 0.00851 0.01943 2.28 ×
+
+0.3 0.3000 0.07637 0.17635 2.31 ×
+
+0.5 0.5000 0.21140 0.49351 2.33 ×
+
+1.0 1.0000 0.83706 2.00399 2.39 ×
+
+At every ε the Frobenius norm is identical for both directions by construction, yet the gradient-direction perturbation causes a larger KL divergence — a mean factor of 2 .33 × over the tested grid (range 2 .28 × at ε = 0 .1 to 2 .39 × at ε = 1 .0). A validator using ∥∆W ∥F as the sole threshold assigns equal risk to both perturbations, whereas the KL divergence on R correctly identifies the gradient direction as the higher-risk move at every magnitude tested. This supports the design principle of Section 3: Frobenius norm is blind to direction, so equal-norm moves can carry materially different behavioral risk. We caution that the precise ratio is configuration-specific (it depends on W0, R, and the chosen tangent direction) and is reported here as an illustrative magnitude, not a universal constant; the robust, direction-independent claim is that ∥∆W ∥F
+
+fails to order behavioral risk. Panel A1 of Figure 1 illustrates the diverging KL curves. 
+
+8.2 Study A2: Tamper-Evidence of the Merkle Weight Chain 
+
+Theoretical claim (Proposition 3.6). Under collision-resistance of the hash function, any retroactive modification to Ws for s < T invalidates every hs′ for s′ ≥ s with overwhelming probability. The validator need only verify the chain tip hT .
+
+Experimental design. We build a legitimate Merkle Weight Chain of length T = 10 by simulating SGD updates on the classifier. Each hash is ht = SHA3-256( Wt∥ht−1∥Hash( Bt)). We then simulate an adversary who retroactively modifies W3 ← W3 + 0 .01 (a tiny perturbation of magnitude 10 −2) and recomputes the chain from step 3. We compare the tampered chain tip ˆh10 against the legitimate tip h10 .
+
+Results. The modification at step s = 3 invalidated all 8 of the subsequent hashes (steps 3 through 10 inclusive), and the two 256-bit chain tips h10 and ˆh10 disagreed (an avalanche change in approximately half of the output bits, as expected for a secure hash). This is consistent with Proposition 3.6 at the level of a concrete cryptographic demonstration: even a perturbation of size 10 −2 in weight space — far below any governance threshold — is detected with certainty by the chain verifier. The result illustrates why the Merkle structure is superior to independent hashes: the validator does not need to store or verify T hashes but only the single chain tip. 
+
+8.3 Study A3: Event-Driven Stopping Times and Packet Density 
+
+Theoretical claim (Definition 3.7 and Theorem 4.4). Under KL stopping times with threshold ε, log-packet density is proportional to behavioral movement, not wall-clock time. A static model generates zero packets; the inter-arrival times {Tk} form a renewal process whose mean is ε/ ¯δ, where ¯δ is the ergodic mean KL rate. 17 Experimental design. We simulate three model variants for T = 500 SGD steps using learning rates η ∈ { 0, 0.005 , 0.05 } and proportional noise, representing static, slow-adapting, and fast-adapting regimes. We apply the stopping-time rule with ε = 0 .005 and count log packets emitted. 
+
+Results. The static model ( η = 0, no weight noise) emitted exactly 0 packets, as predicted (τ1 = ∞). The slow model emitted 29 packets with mean inter-arrival time of 16 .9 steps. The fast model emitted 128 packets with mean inter-arrival time of 3 .9 steps — roughly a 4 .4×
+
+increase in packet density. The increase reflects the combined effect of the 10 × larger learning rate and the larger injected gradient noise, mediated by the nonlinear (approximately quadratic, to leading order) response of KL divergence to weight displacement; we therefore do not read a clean power law off three points. This is consistent with Theorem 4.4: under the reset rule the expected inter-arrival ¯T ≈ ε/ ¯δ decreases as the adaptation intensity (and hence ¯δ) rises. The practical implication is that a frozen model never burdens the governance ledger, while a rapidly adapting model automatically generates a dense audit trail commensurate with its activity. Panel A3 of Figure 1 shows the cumulative KL drift ∆ t with packet emission times overlaid. 
+
+Remark 8.1. The clean 0-packet count for the static model holds only for a genuinely frozen model. A model that declares itself static but is subject to hardware-level weight noise (or covert updates) will, over a long horizon, accrue sub-threshold KL until a packet fires; detecting this gap between declared and actual activity is the subject of Part II (Attack S, Section 11). 
+
+8.4 Study A4: Quadratic Variation as the Canonical Telemetry Scalar 
+
+Theoretical claim (Section 4, Proposition 4.2). The quadratic variation of the weight process satisfies d[W ]t = η tr(Σ t) dt . For isotropic gradient covariance Σ = σ2Id, this gives [W ]T = ησ 2dtot T over total time T .
+
+Experimental design. We simulate the Itˆ o-discretized weight SDE ∆Wt = −αW t ∆t + √η σ √∆t Z t, Zt ∼ N (0 , I ),
+
+with α = 0 .05, σ = 0 .10, step size ∆ t = 0 .01, and N = 2000 steps (total time T = 20), for η ∈ { 0.01 , 0.05 , 0.10 } and dtot = 24. The empirical quadratic variation is accumulated as [W ]emp  
+
+> T
+
+= PNt=1 ∥∆W noise  
+
+> t
+
+∥2 
+
+> F
+
+using the noise component ∆ W noise  
+
+> t
+
+= √η σ √∆t Z t only, so that the O(∆ t2) drift contribution is excluded. We compare to the theoretical prediction η σ 2 dtot T .
+
+Results. 
+
+η [W ]emp  
+
+> T
+
+ησ 2dT (theory) Error 0.01 0.04827 0.04800 0.56% 0.05 0.24134 0.24000 0.56% 0.10 0.48268 0.48000 0.56% The empirical quadratic variation matches the theoretical prediction ησ 2dtot T within 0 .56% at all three learning rates. Because the simulation reuses a single Gaussian noise draw across the three η values (the noise increment is √η σ √∆t Z , linear in √η), the three empirical values are exactly proportional in η and share the same relative error; this is therefore a single Monte Carlo realization evaluated at three scales, not three independent confirmations. The 0 .56% residual is the sampling error of 1
+
+> N d tot
+
+P 
+
+> t,i
+
+Z2 
+
+> t,i
+
+about its mean of 1 (here N d tot = 48 ,000, giving an expected relative error p2/48000 ≈ 0.6%) and vanishes under path averaging. The study confirms that the quadratic-variation identity [ W ]T = ησ 2dtot T is not an asymptotic approximation but holds in the discretized Itˆ o setting at small step size. Panel A4 of Figure 1 shows the three [ W ]t trajectories growing linearly at slopes ησ 2dtot , with dots marking the terminal empirical values. 18 8.5 Study A5: Lyapunov Stability and the CUSUM Governance Trigger 
+
+Theoretical claim (Definitions 5.1–5.2, Theorem 5.5, Theorem 6.2). Under the (floored) mean stability condition (15), the Lyapunov function decays to a positive noise floor along the exact curve E[V (Wt)] = V0(1 − α)2t + V∞
+
+ 1 − (1 − α)2t. The CUSUM detector run on the 
+
+behavioral-divergence increments δt escalates governance shortly after an adversarial drift be-gins, while keeping the false-alarm rate (average run length) under control. 
+
+Experimental design. We set V (W ) = 12 ∥W ∥2 
+
+> F
+
+(so S = {0}) and simulate the discrete Ornstein–Uhlenbeck recursion Wt+1 = (1 −α)Wt +σZ t, Zt ∼ N (0 , I ), with α = 0 .05, σ = 0 .005, for T = 100 steps. We average nmc = 100 independent paths and compare ˆE[V (t)] to the exact formula. We report the floor as the continuous-time value V∞ = σ2dtot /(4 α) = 0 .00300; the exact discrete stationary value is σ2dtot /[2 α(2 − α)] = 0 .00308, a 2 .6% difference that is within Monte Carlo error at this sample size (we use the continuous value in the “exact” column for consistency with the SDE framing). For the CUSUM study, the detector is run on the behavioral-divergence increments δt =
+
+DKL (pWt−1 ∥pWt ) of the softmax reference model (Definition 3.7 setting), not on the Lyapunov value V . We calibrate κ to the mean of δt under honest micro-adaptation and set h1 to achieve a target null average run length (ARL); the adversarial run injects a constant hidden weight drift beginning at a known change point t0.
+
+Results. 
+
+t ˆE[V (t)] (MC) E[V (t)] (exact) 0 2.05312 2.05312 10 0.73740 0.73794 30 0.09775 0.09745 60 0.00743 0.00735 100 0.00308 0.00307 The MC mean tracks the exact formula to within 1 .1% relative error at every tabulated time (deviations 0 .07%, 0 .31%, 1 .04%, 0 .36% at t = 10 , 30 , 60 , 100). Over the full horizon the largest single-step relative error is ≈ 7%, occurring near t = 83 where V has reached the noise floor (V ≈ 3.4 × 10 −3); there the absolute error is only ≈ 2.5 × 10 −4, i.e. Monte Carlo fluctuation at the floor rather than model misfit. We caution that a near-unit correlation between two monotone exponential decays is not a stringent test. It is not merely weak but blind to scale :a log-log correlation is invariant under any multiplicative bias, since log( λx ) = log λ + log x
+
+shifts but does not tilt the relationship. An estimator uniformly 2 × or 0 .5× the truth would still report r = 1 .000000. We therefore report relative error per time point rather than a single correlation coefficient. For the CUSUM study, the detector is run on the behavioral-divergence increments δt with reference value κ set to the 95th percentile of δt under honest micro-adaptation ( κ ≈ 4.8 × 10 −5)and threshold h1 = 5 ×10 −3, which yields no false alarm across 150 honest streams of 5000 steps (null ARL > 5000). A covert drift of magnitude a per step in a behaviorally-active direction is injected at change point t0 = 50. The CUSUM remains at zero before t0 and fires shortly after: detection delays were 7, 1, and 0 steps for a ∈ { 0.02 , 0.05 , 0.10 } respectively, decreasing in drift magnitude as Lorden theory predicts. Crucially, the detector is fed δt (a per-step KL), not the Lyapunov level V ; feeding the absolute level V — which starts near V0 ≈ 2 — would trip any threshold below V0 at t = 1 regardless of drift and is not a detection. We also note that a constant offset applied uniformly across the K output logits lies in the softmax gauge null space and produces zero behavioral change; an adversarial drift must therefore be injected in a non-gauge direction to be both effective and detectable. Panels A5a and A5b of Figure 1 display the Lyapunov decay and the CUSUM path with its change point and trigger. 19 0.2 0.4 0.6 0.8 1.0 ( W F identical for both) 
+
+0.00 0.25 0.50 0.75 1.00 1.25 1.50 1.75 2.00 KL divergence on 
+
+Mean ratio gradient/tangent: 2.33× 
+
+A1: KL Divergence vs. Equal W F
+
+KL tangent dir. KL gradient dir. 
+
+0 100 200 300 400 500 Step 0.0 0.2 0.4 0.6 0.8 Cumulative KL 
+
+A3: Event-Driven Log Packets 
+
+Static ( = 0) 
+
+Slow ( = 0.005) 
+
+Fast ( = 0.050) 
+
+0 5 10 15 20 Time T
+
+0.0 0.1 0.2 0.3 0.4 0.5 [W]T
+
+Dots = empirical Lines = 2dT 
+
+A4: Quadratic Variation [W]T = 2dT 
+
+= 0.01 (theory) 
+
+= 0.05 (theory) 
+
+= 0.1 (theory) 
+
+0 20 40 60 80 100 Step t
+
+10 2
+
+10 1
+
+10 0
+
+> [V(t)]  (log scale)
+
+A5: Lyapunov Decay to Noise Floor 
+
+nmc = 100 (per-step rel.\ err.\ < 1% )
+
+MC mean [V(t)] 
+
+Exact formula 
+
+E = 0.0030 
+
+0 20 40 60 80 100 Step t
+
+0.00 0.05 0.10 0.15 0.20 
+
+> Ct
+
+trigger t = 51 (delay 1) 
+
+A5: CUSUM Trigger on t
+
+(covert drift at t0, ARL > 5000) 
+
+Ct (on t)
+
+h1 = 0.005 change point t0 = 50 
+
+Study summary 
+
+A1 Gradient dir. KL 2.33 × tangent 
+
+(illustrative; equal W F)
+
+A2 Tamper at s = 3 invalidates 8/8 subsequent hashes A3 Static 0 pkts; fast 128 pkts 
+
+(inter-arrival 3.9 steps) A4 QV error < 1% ; {0.01, 0.05, 0.10} 
+
+A5 decay to floor; CUSUM on t
+
+fires 1 step after t0
+
+Numerical Studies Telemetry Logging for Self-Adapting AI (Part I) Figure 1: Numerical studies for the Part I telemetry logging framework. A1: KL divergence vs. equal-∥∆W ∥F perturbations in the gradient and tangent directions; gradient direction produces 2.33 × higher KL at every ε. A3: Cumulative KL and event-driven log-packet arrivals (red ticks) for static, slow, and fast learning rates; packet density scales with adaptation intensity. A4: 
+
+Empirical quadratic variation vs. theoretical ησ 2dT for three learning rates; errors < 1%. A5 (left): MC-averaged Lyapunov envelope ˆE[V (t)] vs. exact formula on a log scale; relative error 
+
+≤ 1.04% at the tabulated times. A5 (right): CUSUM statistic under adversarial drift; trigger fires at t = 1. 
+
+# Contents 
+
+20 9 The Model Hiding Problem 
+
+Part I established a rigorous telemetry architecture for self-adapting generative AI models: how to log weight trajectory changes in discrete and continuous time in a manner that is both informationally sufficient for audit and computationally tractable. That framework assumes the firm transmits the telemetry faithfully. Part II relaxes that assumption. A firm deploying a large language model (LLM) or other generative AI system in a gov-erned context — credit decisions, insurance underwriting, algorithmic trading, clinical decision support — faces a fundamental conflict of interest. Continual learning improves model per-formance and competitive advantage. Reporting that learning to validators triggers validation requirements, potentially halting the model until a review is complete. The firm therefore has an incentive to learn without reporting. We term this the Model Hiding Problem : the adversarial game between a model owner that updates its model covertly and a validation function attempting to detect such updates from observable signals alone. 
+
+9.1 Related Work 
+
+The Model Hiding Problem is related to but distinct from several bodies of literature. The 
+
+model watermarking literature [13, 14] focuses on proving model ownership, not detecting covert updates. The machine unlearning literature [15] addresses removing information from trained models. The auditing literature in algorithmic fairness [16] addresses outcome-based testing but does not address adversarial evasion of such tests. The Byzantine fault tolerance literature [17] addresses distributed systems with malicious nodes, which provides useful cryptographic primitives but does not model the specific incentive structure of governance evasion. Our work is, to the best of our knowledge, the first formal treatment of governance evasion in the context of continually learning AI models. 
+
+# 10 The Concealment Game 
+
+10.1 Formal Setup 
+
+We model the interaction between the independent validation function and the model owner as an adversarial game on the weight process {Wt}t≥0.
+
+Definition 10.1 (Concealment Game) . The game has two players: 
+
+• The Validator V (the independent validation function): observes the telemetry stream 
+
+T = {D τk }k≥0 and the production output stream {yt} from periodic canary queries. The validator’s goal is to detect any update Wt̸ = Wτk∗ where τk∗ is the time of the most recent reported model state, with minimal delay. 
+
+• The Model Owner F: controls the weight trajectory {Wt}, the telemetry stream T , and the training data {B t}. The firm’s goal is to maximize the cumulative undetected drift 
+
+R T 
+
+> 0
+
+V (Wt) dt subject to not being detected. 
+
+Definition 10.2 (Attack Surface) . An attack is a strategy for the model owner that increases undetected drift while passing all validation checks. We classify attacks by their target: 
+
+• Attack S (Suppression): Suppress the telemetry stream entirely. 
+
+• Attack F (Forgery): Transmit forged telemetry that shows compliant behavior while the model drifts. 
+
+• Attack C (Channel): Update via a side-channel not monitored by the probe. 
+
+21 • Attack N (Noise): Exploit the noise structure of the learning process to mask drift in signal. 
+
+• Attack G (Girsanov): Manipulate the training data distribution to induce a change of measure that makes the trajectory appear compliant. 
+
+• Attack H (Hessian): Engineer local curvature to exploit the second-order term of the Itˆ o expansion. 
+
+Types S, F, C arise in discrete time. Types N, G, H are specific to continuous time. We address each in turn. 
+
+# 11 Discrete-Time Attacks and Countermeasures 
+
+11.1 Attack S: Suppression 
+
+11.1.1 Attack Description 
+
+The firm updates Wt continuously but transmits no log packets, declaring the model static: 
+
+Wt = W0 for all t. Under the basic telemetry architecture of Part I, this is undetectable from the telemetry stream alone (since no stream exists to contradict the claim). 
+
+11.1.2 Countermeasure: Behavioral Oracle with KL Detection 
+
+The validator maintains a private canary set C = {(xi, p W0 (· | xi)) }mi=1 whose output distribu-tions under the validated model W0 are known. Crucially, C must be secret from the firm ; its governance value depends entirely on the firm’s inability to overfit to it. 
+
+Definition 11.1 (KL Oracle Statistic) .
+
+T oracle  
+
+> t
+
+=
+
+> |C|
+
+X
+
+> i=1
+
+DKL 
+
+ pW0 (· | xi) pWt (· | xi) (25) The KL oracle statistic satisfies T oracle  
+
+> t
+
+≥ 0 with equality if and only if pWt (· | xi) = 
+
+pW0 (· | xi) for all xi ∈ C (Gibbs’ inequality). We adopt it in place of the unbiased MMD 2
+
+estimator [19] for a specific operational reason. The unbiased MMD 2 has expectation exactly zero under H0 (that is what unbiasedness means), but because it omits the diagonal kernel terms it frequently takes negative values on individual finite samples; a null threshold calibrated as an upper quantile of that distribution can therefore be negative, so a test of the form \MMD 2
+
+> c α
+
+admits configurations in which a non-drifted model is flagged or, conversely, the threshold loses interpretability as a divergence. The KL statistic is non-negative by construction, yielding a one-sided test with a non-negative threshold and an unambiguous zero at H0. (This is a matter of estimator convenience, not a claim that MMD fails as a two-sample test.) 
+
+Theorem 11.2 (Oracle Detection Consistency) . Under H0 (the model is static, Wt = W0 for all t), T oracle  
+
+> t
+
+= 0 exactly. Under H1 (the model has drifted so that pWt (· | x)̸ = pW0 (· | x)
+
+for some x), T oracle  
+
+> t
+
+> 0 provided the canary set is behaviorally sufficient (Definition 3.1). The test ϕt = 1[T oracle  
+
+> t
+
+> c α] is consistent at level α, where cα is the α-upper quantile of the null bootstrap distribution obtained by evaluating (25) under small hardware-level weight noise. Proof. Under H0, Wt = W0 so pWt (· | xi) = pW0 (· | xi) for all i, giving T oracle  
+
+> t
+
+= 0. Under H1,by the non-negativity and faithfulness of the KL divergence, DKL (pW0 (· | xi)∥pWt (· | xi)) > 0for any xi at which the output distribution has changed. Since the canary set is behaviorally sufficient, at least one such xi exists, giving T oracle  
+
+> t
+
+> 0. Bootstrap calibration under small noise ensures cα ≥ 0, so the test rejects at rate converging to one as ∥Wt − W0∥ → ∞ , establishing consistency. 22 Theorem 11.2 is what makes concealment contestable : a model that has genuinely drifted cannot present as static on a behaviorally sufficient canary set, so undisclosed adaptation leaves a detectable trace that the validation function can act on. The secrecy requirement below is the price of that guarantee, and its fragility previews the central limit of this work: detection is possible, but only down to a resolution floor. 
+
+Remark 11.3 (The Secrecy Requirement) . If the canary set C is known to the firm, they can train the model to maintain correct outputs on C while drifting on the unmonitored remainder of the input space. The secrecy of C is not a desideratum but a hard requirement: the detection guarantee of Theorem 11.2 fails under any partial disclosure. Operationally, this means C must be held in a governance-controlled enclave and rotated periodically to prevent adaptive evasion. 
+
+11.2 Attack F: Lyapunov Forgery 
+
+11.2.1 Attack Description 
+
+The firm runs the real update Wt → ˆWt+1 (which violates the Lyapunov condition ∆ V ≤ − αV ), simultaneously computes a compliant “decoy” state W decoy  
+
+> t+1
+
+that satisfies the Lyapunov check, and reports ht+1 = Hash( W decoy  
+
+> t+1
+
+) to the ledger while serving inference from ˆWt+1 .
+
+11.2.2 Countermeasure 1: Inference Signing 
+
+Every production inference output is signed with a commitment to the current model hash: Sig t(y) = Sign sk 
+
+ y ht t (26) where sk is a secret key held by the TEE (see Attack C countermeasure). This binds every production output to the declared model version. The validator can spot-check: given any signed output, do the canary responses under W decoy  
+
+> t+1
+
+match the signed output? If the signed hash corresponds to W decoy  
+
+> t+1
+
+but the canary output is statistically consistent with ˆWt+1 , there is a provable contradiction between the declared model and the serving model. This binds what a firm serves to what it reports —a transparency property that denies a model owner any place to conceal divergence between disclosed and actual behavior. 
+
+Proposition 11.4 (Forgery Detection via Consistency Test) . Suppose the firm reports ht+1 =Hash( W decoy  
+
+> t+1
+
+) but serves inference from ˆWt+1 where ˆWt+1 ̸ = W decoy  
+
+> t+1
+
+. Then: 
+
+Pr 
+
+h
+
+T oracle 
+
+> t
+
+ W decoy 
+
+> t+1
+
+ ≤ cα
+
+i
+
+≤ α + negl( λ) (27) 
+
+under the behavioral oracle test, provided ∥ ˆWt+1 − W decoy  
+
+> t+1
+
+∥ exceeds the detection threshold of Theorem 11.2. Proof. The declared object is W decoy  
+
+> t+1
+
+; the serving object is ˆWt+1 . The validator evaluates the behavioral oracle statistic T oracle  
+
+> t
+
+on the canary set using outputs produced by the serving model, but compares them against the distribution induced by the declared model. Two cases exhaust the possibilities. 
+
+Case 1: the firm serves what it declares. Then ˆWt+1 = W decoy  
+
+> t+1
+
+, contradicting the hypothesis; nothing to prove. 
+
+Case 2: the firm serves ˆWt+1 ̸ = W decoy  
+
+> t+1
+
+. By hypothesis the separation ∥ ˆWt+1 − W decoy  
+
+> t+1
+
+∥
+
+exceeds the detection threshold of Theorem 11.2, so on a behaviorally sufficient canary set the induced output distributions differ in KL divergence by a strictly positive margin. By the consistency statement of Theorem 11.2, the test therefore rejects with probability at least 1 − α
+
+under the calibration cα; equivalently the acceptance probability is at most α.23 The additive negl( λ) accounts for the only remaining escape route: producing a different pre-image with the same declared hash. Since Hash is collision-resistant with security parameter 
+
+λ, a probabilistic polynomial-time firm succeeds with probability at most negl( λ). Summing the two contributions gives the stated bound. The hypothesis is essential and is not cosmetic: if the separation is below the oracle’s detection threshold, the proposition asserts nothing — which is exactly the residual quantified in Section 13. 
+
+11.2.3 Countermeasure 2: Zero-Knowledge Proof of Lyapunov Compliance 
+
+A more powerful countermeasure converts the Lyapunov check from self-reported compliance into a cryptographically verifiable statement. The firm generates a zero-knowledge succinct non-interactive argument of knowledge (zk-SNARK) [22] at each reporting step: 
+
+Definition 11.5 (ZK Lyapunov Proof) . The firm generates a proof πt attesting to the following statement without revealing Wt:“There exists Wt+1 with Hash( Wt+1 ) = ht+1 such that V (Wt+1 ) ≤ V (Wt) − α∥Wt −
+
+proj S (Wt)∥2.” The verifier (the validation function) checks πt efficiently without weight access. Under the soundness of the underlying proof system, generating a valid πt for a false statement is compu-tationally infeasible. 
+
+Remark 11.6 (Practical Considerations) . Generating zk-SNARKs for large neural network weight matrices is computationally expensive with current technology. For Tier 3 (Macro) updates, full ZK compliance proofs are feasible and warranted. For Tier 1 (Micro) updates, inference signing combined with periodic oracle testing is a computationally tractable substitute. 
+
+11.3 Attack C: Shadow Model Side-Channel 
+
+11.3.1 Attack Description 
+
+The firm maintains two models: a reported model Mr whose telemetry is faithfully submitted, and an actual serving model Ma that is updated without reporting. Production outputs are a blend: 
+
+yt = λ f (xt; Ma) + (1 − λ) f (xt; Mr) (28) for some blending parameter λ ∈ (0 , 1). The telemetry reflects only Mr, which passes all checks. 
+
+11.3.2 Countermeasure: Trusted Execution Environment (TEE) Attestation Definition 11.7 (TEE Learning Attestation) . The entire training pipeline — gradient compu-tation, weight update, and inference serving — is executed within a Trusted Execution Environ-ment (TEE) such as Intel TDX or AMD SEV-SNP. At each update step, the TEE generates a signed attestation report: 
+
+At = TEE Sign(Hash( Wt−1), Hash(∆ Wt), Hash( Bt)) (29) 
+
+The attestation chain {A t}t≥0 is transmitted to the governance ledger. The TEE’s signing key is hardware-bound; the firm cannot modify weights outside the enclave without breaking the chain. 
+
+Running an unreported model alongside the disclosed one is the analogue of keeping a second, hidden set of books: the model owner presents compliant telemetry while serving from something else. Hardware-rooted attestation closes this channel by binding the record to an enclave the owner cannot bypass, as the following completeness statement makes precise. Before stating the guarantee we fix the threat model, because the claim is exhaustive only relative to it. 24 Assumption 11.8 (TEE threat model) . We assume: (T1) the enclave is correctly implemented and not compromised — its signing key is not extractable and its measurement of the loaded weight state is faithful; (T2) every production output presented to the validator carries a TEE signature, so unsigned outputs are rejected by construction rather than merely noticed; and 
+
+(T3) the served output is the enclave’s output, i.e. no post-processing is applied to attested outputs after they leave the enclave and before they reach the consumer. 
+
+Proposition 11.9 (TEE Completeness under Assumption 11.8) . Under Assumption 11.8, any production output yt generated outside the attested weight state Wt is detectable: (i) If Ma runs outside the TEE, its outputs cannot be signed by the TEE key, and inference signing detects the discrepancy. (ii) If Ma runs inside the TEE, the TEE attestation At must include Hash(∆ W at ), which is submitted to the ledger and thus disclosed to the validator. There is no configuration in which Ma can serve blended outputs without either breaking the TEE attestation chain or disclosing the update to the ledger. Proof. By (T2) every accepted output is signed, and by (T1) only the enclave can produce a valid signature, so any served output was produced inside the enclave on a weight state the enclave measured. The enclave’s measurement is included in the attestation At and submitted to the ledger. Thus for a given output either (i) it is unsigned or carries an invalid signature — rejected under (T2) — or (ii) it is validly signed, in which case the weight state that produced it, including any increment ∆ W at , appears in the attested chain and is disclosed. The two cases are exhaustive by construction, which gives the claim. 
+
+Remark 11.10 (What the assumption excludes, and why it matters) . The exhaustiveness above is relative to Assumption 11.8, and each clause excludes a real attack. Relaxing (T1) 
+
+— a compromised or side-channel-vulnerable enclave — voids the guarantee entirely, since a firm able to forge signatures can attest to any state it likes; hardware trust is an assumption of this framework, not a result of it. Relaxing (T3) is subtler and is the gap most likely to arise in practice: a firm may run an attested model inside the enclave and then transform its outputs outside it, so every signature verifies while the served behavior differs from the attested behavior. Detecting that requires the behavioral oracle of Section 11 applied to served outputs rather than enclave outputs — which is exactly the consistency test of Proposition 11.4. TEE attestation and behavioral testing are therefore complements, not substitutes: neither closes the other’s gap. 
+
+Remark 11.11 (Hardware Trust Assumption) . The TEE countermeasure assumes that the hardware manufacturer (Intel, AMD) has not been compromised and that the TEE implementa-tion is correct. Both assumptions are strong. In practice, TEE attestation should be combined with behavioral oracle testing as a defense-in-depth strategy. 
+
+# 12 Continuous-Time Attacks and Countermeasures 
+
+The continuous-time limit introduces three attacks with no discrete-time analog, arising from the richer structure of Itˆ o diffusions. 
+
+12.1 Attack N: Diffusion-Amplified Drift Masking 
+
+12.1.1 Attack Description 
+
+Recall the weight SDE of Part I: 
+
+dW t = μ(Wt) dt + σ(Wt) dB t (30) 25 where μ = −∇ J is the drift and σ = √η Σ1/2 is the diffusion coefficient. The firm decomposes the drift into a legitimate component and a hidden adversarial com-ponent: 
+
+dW t = ( μsafe (Wt) + μhidden (Wt)) dt + σ(Wt) dB t (31) By temporarily amplifying σ (e.g., inflating η or increasing batch noise), the firm reduces the signal-to-noise ratio of μhidden . The time required to detect a hidden drift of magnitude 
+
+|μhidden | from an observed path scales as: 
+
+Tdetect ∼ σ2
+
+|μhidden |2 (32) Doubling σ quadruples the detection time. The firm can transiently amplify noise while running 
+
+μhidden , then reduce σ once the drift has accumulated, leaving a weight trajectory that appears consistent with normal stochastic learning. 
+
+12.1.2 Attempted Countermeasure: Power Variation — and Why It Fails 
+
+A natural idea is to separate the adversarial drift from the (possibly amplified) diffusion using 
+
+power variations : the first-order variation should grow with the drift while the quadratic varia-tion tracks only the diffusion. We show that this does not work, and that the failure is intrinsic rather than a matter of tuning. 
+
+Proposition 12.1 (Power Variation Does Not Detect Drift) . Let {Wt} solve the weight SDE on [0 , T ], sampled on a uniform grid with spacing ∆ = T /n . Let 
+
+V (1)  
+
+> T
+
+=
+
+> n
+
+X
+
+> i=1
+
+∥Wti −Wti−1 ∥1 (realized first variation) , V (2)  
+
+> T
+
+=
+
+> n
+
+X
+
+> i=1
+
+∥Wti −Wti−1 ∥22 −−−→ 
+
+> ∆→0
+
+[W ]T .
+
+Then, for any drift μ (including μ ≡ 0), 
+
+V (1) 
+
+> T
+
+q
+
+V (2) 
+
+> T
+
+= Θ  √n = Θ 
+
+p T / ∆
+
+
+
+, (33) 
+
+with the drift entering only through an O(√∆) relative correction that vanishes as ∆ → 0. The ratio therefore measures the sampling frequency , not the drift. Proof. The continuous first variation R T 
+
+> 0
+
+∥dW t/dt ∥ dt is infinite : Brownian paths have un-bounded variation on every interval — the defining fact that forces Itˆ o, rather than Riemann– Stieltjes, calculus. Discretely, each increment is Wti − Wti−1 = μti−1 ∆ + √η Σ1/2∆Bi with ∆Bi ∼ N (0 , ∆I), so the diffusive part dominates the increment ( √∆ ≫ ∆). Hence 
+
+E V (1)  
+
+> T
+
+=
+
+q 2
+
+> π
+
+ P
+
+> j
+
+pηΣjj 
+
+√∆ · n + O(∥μ∥1T ) = Θ  √∆ · n = Θ  √nT ,
+
+while 
+
+q
+
+V (2)  
+
+> T
+
+= p[W ]T + o(1) = Θ( √T ). Their ratio is Θ( √n). The drift contributes only the additive O(∥μ∥1T ) term to the numerator, a relative correction of order T / √nT = pT /n =√∆ → 0. 
+
+Remark 12.2 (The correct object, and the deeper obstruction) . The drift signal lives not in the absolute variation but in the signed (telescoping) sum WT −W0 = R T 
+
+> 0
+
+μs ds +R T
+
+> 0
+
+√η Σ1/2dB s.The standardized net displacement (WT − W0)/p[W ]T is asymptotically N (0 , 1) when the av-erage drift is zero and grows like (¯ μ/σ )√T otherwise, so it separates drift only as T → ∞ ,requiring a horizon Tdetect ∼ σ2/|μ|2 (Eq. (32) ). Two consequences are fatal for a standalone 
+
+26 Attack-N countermeasure. First, over a fixed validation horizon a bounded total drift produces an arbitrarily small standardized signal. Second, and more fundamentally, the variance of any drift estimator over a fixed window is Θ( σ2/T ) independent of the sampling rate : refining ∆
+
+cannot improve drift estimation (this is the classical hardness of estimating drift from high-frequency data — power variations separate diffusion from jumps , not drift). We therefore do not claim a working path-statistic countermeasure for Attack N . The inability to cer-tify the absence of small persistent drift from telemetry alone is not a gap to be patched with a better statistic; it is a concrete instance of the information-theoretic residual of Section 13, and it is properly handled there and by periodic invasive audits. 
+
+12.2 Attack G: Girsanov Measure Manipulation 
+
+12.2.1 Attack Description 
+
+This is the most technically sophisticated attack. By Girsanov’s theorem, a change of drift in an SDE is equivalent to a change of probability measure. The significance for governance is that concealment need not be crude. A firm can make it mathematically subtle—a change of the measure under which its own dynamics appear benign— so the validation function’s task is not merely to catch missing reports but to contend with manipulation at the level of the probability law itself. This is part of why we ultimately concede an irreducible residual rather than claiming complete detectability. 
+
+Theorem 12.3 (Girsanov’s Theorem [18]; governance formulation) . (Classical; stated without proof. See [9] Ch. 8 for a textbook treatment; only the interpretation below is ours.) Suppose the firm chooses training data {B t} such that the gradient process induces a change of measure from 
+
+P (the natural measure under which the validator audits) to Q. The Radon–Nikodym derivative is: dQ
+
+dP FT
+
+= exp 
+
+Z T
+
+> 0
+
+hs dB s − 12
+
+Z T
+
+> 0
+
+|hs|2 ds 
+
+
+
+(34) 
+
+where hs encodes the adversarial drift induced by the data manipulation. Under Q, the Lyapunov condition is satisfied and telemetry appears compliant. Under P, the model drifts adversarially. 
+
+Concretely: the firm selects training batches Bt whose gradient ∇W J(Wt, Bt) includes a component ht that, when accumulated over time, moves the model toward a target drifted state. But the gradient covariance Σ t is engineered to be large, masking the drift component in noise. From the validator’s perspective (observing outputs and telemetry under P), the trajectory appears consistent with normal learning. 
+
+12.2.2 Attempted Countermeasure: Gradient Injection — and Why It Is Circular 
+
+The natural countermeasure is for the validator to inject training examples with a known ex-pected gradient and check the model’s response. We define it, then explain why it does not, as stated, detect the Girsanov attack. 
+
+Definition 12.4 (Gradient Probe) . At random times {sj }, the validator injects a probe batch ˜Bj with known expected gradient g∗ = E[∇W J(W0, ˜Bj )] under the validated model W0. The actual gradient response ˆgj = ∇W J(Wsj , ˜Bj ) is computed at the current weights and returned to the validator. 
+
+Proposition 12.5 (The Gradient Probe Does Not Test the Measure Change) . The probe re-sponse ˆgj = ∇W J(Wsj , ˜Bj ) is a deterministic function of the current weights Wsj and the (validator-chosen) probe batch ˜Bj . It does not depend on the firm’s training measure Q at all, except through the value of Wsj that the firm’s training has already produced. Consequently: 
+
+27 (i) Under a firm that manipulates only its training distribution, E[ˆ gj | Wsj ] = ∇W J(Wsj , ˜Bj ),which equals g∗ whenever Wsj = W0 and otherwise differs by exactly the drift already incurred — not by the Girsanov integrand hsj . The identity “ E[ˆ gj | Wsj ] = g∗ + hsj ” holds only if the firm additionally perturbs gradient evaluations on the validator’s own probe ,which a training-data manipulator does not do. (ii) Whatever the probe does detect is a function of Wsj̸ = W0, i.e. that the weights have already moved — precisely what the behavioral oracle (Theorem 11.2) already detects from outputs. Proof. ∇W J(·, ˜Bj ) is a fixed function; evaluated at Wsj it returns a fixed vector. The training measure enters the joint law only through the distribution of Wsj . Hence conditional on Wsj
+
+the probe carries no information about Q beyond Wsj itself, and any test built on ∥ˆgj − g∗∥2 is a (noisier) function of the same weight displacement the output oracle already sees. 
+
+Remark 12.6 (Status of Attack G) . We therefore demote the gradient probe: it is not an independent countermeasure to a Girsanov-type measure manipulation, and at best re-detects weight drift already caught by the behavioral oracle. (Eq. (34) requires Novikov’s condition 
+
+E[exp 12
+
+R T 
+
+> 0
+
+|hs|2ds ] < ∞ for the change of measure to be a genuine probability measure; even granting it, the attack’s effect is a change in the realized weight trajectory , which the oracle monitors directly.) As with Attack N, the residual risk — a measure manipulation whose induced output change stays below the behavioral resolution — is governed by the information-theoretic residual of Section 13, not by gradient injection. A genuinely independent gradient-space test would have to interrogate the firm’s training-time gradient stream under attestation (Attack C, TEE), not a post-hoc probe of the current weights. 
+
+12.3 Attack H: Hessian Exploitation via Noise Energy 
+
+12.3.1 Attack Description 
+
+Returning to the Itˆ o–Lyapunov expansion of Part I: 
+
+E[dV (Wt)] = −⟨∇ V, ∇J⟩ dt 
+
+| {z }
+
+> deterministic drift
+
++ η
+
+2 tr(Σ ∇2V ) dt 
+
+| {z }
+
+> noise energy term
+
+(35) The noise energy term η 
+
+> 2
+
+tr(Σ ∇2V ) depends on the Hessian of the Lyapunov function ∇2V .When the safe manifold S has high curvature, ∇2V has large eigenvalues, and the noise energy term can be made either large and positive or large and negative by controlling Σ (equivalently, controlling the gradient covariance via batch selection). The firm engineers a situation where the deterministic drift is positive ( −⟨∇ V, ∇J⟩ > 0: the model is drifting away from S) but offset by a temporarily negative noise energy term (achieved by reducing σ near the boundary of S, which flattens the effective curvature of V in the active direction). The mean stability condition 
+
+−⟨∇ V, ∇J⟩ + η
+
+2 tr(Σ ∇2V ) ≤ − αV (Wt) (36) is satisfied in expectation, while individual trajectories escape S through a low-noise corridor. 
+
+12.3.2 Countermeasure: Almost-Sure Stability via the Law of the Iterated Loga-rithm 
+
+Mean stability is insufficient to close this attack. The required condition is almost-sure path-wise stability. 28 Definition 12.7 (Path-Wise Stability Condition) . Let Mt = R t 
+
+> 0
+
+∇V ⊤√η Σ1/2 dB s be the martin-gale term of (35) , with [M ]t = R t 
+
+> 0
+
+η ∥Σ1/2∇V ∥2 ds . The path-wise Lyapunov stability certificate 
+
+consists of two monitorable conditions: (drift certificate) − ⟨∇ V, ∇J⟩ + η 
+
+> 2
+
+tr(Σ ∇2V ) ≤ − α V (Wt) − V∞
+
+, (37) 
+
+(envelope check) V (Wt) − V0 − R t
+
+> 0
+
+ − ⟨∇ V, ∇J⟩ + η 
+
+> 2
+
+tr(Σ ∇2V )ds 
+
+≤ (1 + ε)p2[ M ]t log log[ M ]t a.s. eventually, (38) 
+
+where both Σt and [M ]t are evaluated from the firm’s declared telemetry. 
+
+Remark 12.8. Note the structure: the LIL term appears as a two-sided envelope on the realized residual (38) , not added to the drift in a one-sided inequality. The naive form “ −⟨∇ V, ∇J⟩ + 
+
+> η
+> 2
+
+tr(Σ ∇2V ) + Cp[M ]t log log[ M ]t ≤ − αV ” is unsatisfiable for large t: [M ]t → ∞ generically, so the positive LIL term grows without bound and cannot be dominated by a negative right-hand side. The correct content of the LIL here is that the martingale fluctuations stay within the envelope of the declared [M ]t; a firm whose realized path leaves that envelope has mis-declared its second-order telemetry. 
+
+Attack H is the most insidious of the concealment strategies because it disguises a move toward instability as ordinary learning noise—an adverse drift run through a low-noise corridor so that mean-stability checks still pass. Closing it ensures a firm cannot present destabilizing adaptation as benign stochastic fluctuation, preserving the integrity of the stability certificates on which the governance framework rests. 
+
+Theorem 12.9 (LIL/Envelope Closure of Attack H) . Suppose the firm satisfies the declared drift certificate (37) . Then V (Wt) is ultimately bounded, lim sup t→∞ V (Wt) ≤ V∞ a.s. (the ultimate-boundedness theorem of Part I). An Attack-H firm that runs an adverse drift through a low-noise corridor faces a dichotomy: (i) Truthful [M ]t: the adverse drift makes the realized residual leave the envelope (38) (the LIL bound is sharp, lim sup |Mt|/p2[ M ]t log log[ M ]t = 1 a.s.), so the violation is detected. (ii) Under-declared [M ]t: suppressing the declared noise to keep the corridor narrow shrinks the declared envelope below the realized fluctuations, so the residual again leaves the band (Study B4, where an under-declared σ produces a 99 .7% violation rate against a 0.9% 
+
+honest rate). The firm cannot simultaneously (a) run an adverse deterministic drift, (b) declare second-order telemetry consistent with its realized path, and (c) pass both (37) and (38) .Proof. Decompose the realized path as in Corollary 5.6: V (Wt) = V (W0) + R t 
+
+> 0
+
+LV (Ws) ds + Mt,and write d[M ]t for the declared quadratic variation and [ M ]t for the realized one. The envelope test (38) is evaluated with d[M ]t, since that is what the validator observes; the path obeys the law of the iterated logarithm with the realized [ M ]t.Suppose the firm runs an adverse drift, i.e. there is ϵ0 > 0 and a set of times of positive density on which LV (Ws) ≥ − α(V (Ws) − V∞) + ϵ0. Then the drift contribution to V exceeds the certified one by an amount growing linearly in t along those times. Since the test compares the residual Rt := V (Wt) − V (W0) − R t
+
+> 0
+
+ − α(V − V∞)ds against the declared envelope, the adverse drift adds a term of order ϵ0t to Rt. Two cases exhaust the firm’s options. 
+
+(i) Truthful declaration, d[M ]t = [ M ]t. By the law of the iterated logarithm for continuous local martingales, lim sup t→∞ |Mt|/p2[ M ]t log log[ M ]t = 1 almost surely, so the martingale part is eventually confined to the envelope (1 + ε)p2[ M ]t log log[ M ]t, which grows as O(√t log log t)29 under (H2). The adverse drift contributes Ω( t), and t/ √t log log t → ∞ ; hence Rt exits the envelope for all large t and the violation is detected with probability one. 
+
+(ii) Under-declared quadratic variation, d[M ]t < [M ]t. Shrinking the declared noise narrows the corridor: the declared envelope is (1 + ε)
+
+q
+
+2d[M ]t log log d[M ]t, strictly smaller than the realized one. But the realized fluctuations still satisfy the LIL with [ M ]t, and by sharpness of the LIL the realized |Mt| attains (1 − ε′)p2[ M ]t log log[ M ]t infinitely often. Since d[M ]t < [M ]t,for any ε there are arbitrarily large t at which |Mt| exceeds the declared envelope, so the residual leaves the band infinitely often and the under-declaration is detected. There is no third option: either the declared second-order telemetry matches the realized path or it does not. Hence (a), (b) and (c) cannot hold simultaneously. 
+
+Scope. The argument is asymptotic — it establishes detection for all sufficiently large t (case i) or infinitely often (case ii), not detection within a prescribed finite horizon. Detection delay depends on ϵ0, on the gap [ M ]t − d[M ]t, and on the tolerance ε; Study B4 gives the finite-sample picture at the parameters tested (a 99 .7% violation rate against a 0 .9% honest rate). 
+
+Audit Implication 12.1 (Path-wise certification) . This is a recommendation about audit design rather than a mathematical consequence, and is stated as such. The validation audit condition should require the path-wise certificate (37)–(38), not mean stability (36) alone. The additional telemetry required is [ M ]t, computable from the declared gradient covariance Σ t and 
+
+∇V (Wt); cross-checking the realized residual against the declared [ M ]t is what exposes both adverse drift and noise mis-declaration. 
+
+# 13 The Information-Theoretic Residual 
+
+13.1 Fundamental Limit 
+
+Even with all countermeasures active, there is an irreducible residual that cannot be closed by telemetry alone. The negative results above are not isolated; they are symptoms of this single limit, which says that no disclosure regime, however well designed, can guarantee the absence of small, persistent adaptation. Surveillance has a resolution floor, and what lies beneath it can be reached only by stepping outside the telemetry channel—through invasive audit, or through structural limits on how the model is built. 
+
+Heuristic 13.1 (Information-Theoretic Residual — counting argument) . This is a motivating counting argument, not a theorem, and the paper’s formal fundamental-limit result is Theo-rem 13.3 below, which does not depend on it. We state it because it conveys the intuition com-pactly; the reasons it falls short of a theorem are given immediately after. Let O = ( T , {yC 
+
+> t
+
+})be the full observation of the validator, comprising the telemetry stream T and canary query outputs {yC 
+
+> t
+
+}. Then: 
+
+I(Wt ; O) < H (Wt) (39) That is, the mutual information between the weight trajectory and the observable stream would be strictly less than the entropy of the weight trajectory, leaving a nonzero residual H(Wt) −
+
+I(Wt; O) that the validator cannot recover from telemetry and canary queries alone. 
+
+Counting argument (not a proof ). H(Wt) = Θ( d) where d ∼ 10 9 to 10 12 is the weight dimen-sion. The telemetry stream T transmits O(1) scalars per packet; the canary queries {yC 
+
+> t
+
+} provide 
+
+O(m) output samples per audit, carrying at most O(m log |Y| ) bits. Whenever the weight di-mension exceeds the telemetry bandwidth, d ≫ m log |Y| , the data-processing inequality gives 
+
+I(Wt; O) ≤ O(m log |Y| ) ≪ H(Wt), leaving a strictly positive residual. 
+
+Remark 13.1 (Why the counting argument is not a theorem) . Two gaps prevent (39) from being a rigorous statement as written, and we flag them rather than paper over them. 
+
+30 (a) Entropy of a continuous variable. Wt takes values in Rd, so H(Wt) is a differential 
+
+entropy. Differential entropy can be negative, is not invariant under reparameterization, and does not count bits; the claim “ H(Wt) = Θ( d) bits” is therefore not well posed without first fixing a quantization of weight space (say, to machine precision) and verifying that the argument survives that choice. The observation side of the comparison, by contrast, is genuinely discrete. 
+
+(b) The inequality is weaker than the use made of it. Even granting a quantization, 
+
+I(Wt; O) < H (Wt) says only that observation fails to determine Wt exactly . It does not by itself imply that an adversarial drift of any particular magnitude is undetectable, which is the governance-relevant claim. Bridging that gap requires a rate–distortion or Fano-type argument relating residual entropy to a detection radius, which we do not develop here. Accordingly the paper does not rest on (39) . The operative fundamental limit is Theo-rem 13.3, which is proved directly from continuity of the canary output map and makes no information-theoretic assumption; the counting argument above is retained only as intuition for 
+
+why such a limit should exist. 
+
+Remark 13.2 (Regime of validity) . The strict inequality (39) requires the high-dimensional regime d ≫ m log |Y| that holds for production models ( d ∼ 10 9). It does not hold for arbitrarily small toy models: the softmax classifier of Section 15 has only dK = 24 free parameters but produces m(K −1) = 160 independent output coordinates on the reference set, so the parameters are in fact over -determined by the canary outputs and the residual closes. The toy in Study B5 should therefore be read as illustrating the finite-resolution mechanism below (Theorem 13.3), not the asymptotic information gap of this theorem. 
+
+The blind spot below the resolution floor is not merely qualitative; it has a size. The next result puts a number on it—the largest weight-space drift that can hide beneath the oracle’s resolution—which is precisely the quantity the dual-regime audit frequency is later calibrated to bound. 
+
+Theorem 13.3 (Maximum Undetectable Drift at Resolution δ). Fix a behavioral detection threshold δ > 0 (the smallest canary-KL the oracle can resolve above hardware noise). Define the undetectable set 
+
+Uδ(Wt) = 
+
+n
+
+∆W : DKL (pWt ∥ pWt+∆ W ) C ≤ δ
+
+o
+
+, ϵ∗(δ) = sup  
+
+> ∆W∈U δ
+
+∥∆W ∥. (40) 
+
+Then ϵ∗(δ) > 0 for every δ > 0: by continuity of pW in W , a sufficiently small perturbation in any direction keeps the canary KL below δ, so sub-threshold weight drift of magnitude up to 
+
+ϵ∗(δ) accumulates undetected between audits. Two limiting cases sharpen the picture: (i) Finite resolution ( δ > 0). Uδ contains a full neighborhood of 0; its weight-space radius 
+
+ϵ∗(δ) shrinks as δ → 0 but is strictly positive. This is the operative governance gap. (ii) Exact invisibility ( δ = 0 ). U0 is the null space of the canary output map. For the softmax model this null space is non-trivial only in the gauge directions W 7 → W +
+
+u1⊤ 
+
+> K
+
+, which leave every output distribution unchanged — i.e. they are the same model in different coordinates and carry no behavioral change, even though ∥∆W ∥ > 0. Exactly-invisible perturbations are therefore behaviorally null, reinforcing the Part I point that weight-space distance is the wrong currency. Proof. Fix δ > 0 and write g(∆ W ) := DKL 
+
+ pWt ∥ pWt+∆ W
+
+ 
+
+> C
+
+for the canary KL as a function of the perturbation, so that Uδ = g−1 [0 , δ ].
+
+Continuity and vanishing at 0. On the canary set C the model output is a softmax of a C∞
+
+function of W , so W 7 → pW (· | C ) is continuous, and its values lie in the interior of the simplex (every softmax coordinate is strictly positive). On that interior the map ( p, q ) 7 → DKL (p∥q) is 31 continuous, being a finite sum of terms pi log( pi/q i) with qi > 0. Composition gives g continuous, and g(0) = DKL (p∥p) = 0. 
+
+Positivity of the radius. By continuity at 0, for the given δ > 0 there is r > 0 such that 
+
+∥∆W ∥ < r ⇒ g(∆ W ) < δ . Hence the open ball B(0 , r ) is contained in Uδ, so Uδ contains a full neighborhood of the origin and ϵ∗(δ) = sup ∆W ∈U δ ∥∆W ∥ ≥ r > 0. This proves (i); note that no direction is privileged — the bound holds for perturbations in any direction, which is what makes the gap a genuine governance blind spot rather than an artifact of a particular attack geometry. 
+
+Monotonicity in δ. If δ1 ≤ δ2 then Uδ1 ⊆ U δ2 , so ϵ∗ is non-decreasing in δ; it is therefore meaningful to speak of the radius shrinking as the oracle’s resolution improves. 
+
+The case δ = 0 . U0 = g−1({0}), and since DKL (p∥q) = 0 iff p = q, this is exactly the set of perturbations leaving every canary output distribution unchanged — the null space of the canary output map. For the softmax model, adding a constant vector to every class score leaves all softmax outputs unchanged, so the gauge directions W 7 → W + u1⊤ 
+
+> K
+
+lie in U0; these carry no behavioral content. This proves (ii). 
+
+What is not claimed. The argument establishes ϵ∗(δ) > 0 and its monotonicity; it does 
+
+not produce a closed-form or asymptotic expression for ϵ∗(δ), and in particular no dependence on telemetry bandwidth is derived. Obtaining a rate would require quantitative control of the Fisher information of the canary map at Wt, which is model-specific and is not attempted here. Theorem 13.3 is not a failure of the telemetry framework; it quantifies the finite resolution of any output-based test. It motivates the following structural conclusion. 
+
+13.2 The Dual-Regime Principle 
+
+Design Principle 13.1 (Dual-Regime Principle) . This is a design recommendation, not a mathematical claim: “must” below expresses what we argue a governance framework ought to do, and is not asserted as a theorem. We recommend that a governance framework for self-adapting AI consist of two regimes, neither of which we regard as sufficient alone: (i) Continuous Telemetry Regime: The architecture of Parts I and II, operating in real time. This bounds the maximum undetected drift at any moment to ϵ∗ (Theorem 13.3) and narrows the scope of subsequent audits. (ii) Periodic Invasive Audit Regime: Direct inspection of Wt under TEE attestation, at a frequency calibrated to the maximum tolerable undetected drift. 
+
+Calibrating the audit frequency. The suggested cadence follows from a simple accumulation argument rather than from any result above. Suppose the firm sustains a hidden drift of rate at most μhidden (in weight-space norm per unit time) while passing every telemetry check. Between two invasive audits separated by ∆ audit , the accumulated undetected displacement is at most 
+
+μhidden ∆audit . Requiring this to stay within a tolerance ϵtol chosen by the validation function gives ∆ audit ≤ ϵtol /μ hidden , i.e. an audit frequency 
+
+f ∗ = μhidden 
+
+ϵtol 
+
+. (41) Taking the tolerance to be the per-audit blind spot itself, ϵtol = ϵ∗ (Theorem 13.3), recovers the form quoted in the literature and used below. Two caveats: the argument assumes the hidden drift accumulates coherently rather than partially canceling, so it is conservative; and μhidden 
+
+is not derived here — it must be estimated or assumed, and the cadence is only as trustworthy as that input. 32 The dual-regime principle reframes the role of telemetry in the model governance cycle: continuous monitoring does not replace model reviews but transforms them from undirected point-in-time snapshots into targeted, evidence-driven investigations with a well-defined scope. Because ϵ∗ bounds the drift a model can hide between audits, the audit frequency f ∗ is the lever the governance function sets to keep undetected adaptation within tolerance. Concealment, in other words, cannot be monitored away; it can only be bounded, and the bound is a policy choice. 
+
+# 14 Integrated Defensive Architecture 
+
+14.1 Attack-Countermeasure Matrix 
+
+Table 2 summarizes the six attacks and their countermeasures.                                         
+
+> Attack Description Mechanism Countermeasure
+> Attack S Suppress telemetry Declare model static; transmit no packets KL behavioral oracle (Thm. 11.2) Attack F Lyapunov forgery Report compliant decoy hash; serve from drifted model Inference signing +ZK Lyapunov proof (Prop. 11.4) Attack C Shadow model Blend output from unre-ported model TEE attestation chain (fully seals) Attack N Noise amplification Amplify diffusion to mask drift
+> No clean path test
+> (Prop. 12.1); residual
+> →§13 + audits Attack G Girsanov measure Manipulate training data distribution Gradient probe is cir-cular (Prop. 12.5); sub-sumed by oracle +TEE Attack H Hessian exploita-tion Engineer local curvature to cancel drift signal Path-wise QV/LIL envelope check (Thm. 12.9)
+
+Table 2: Attack taxonomy and formal countermeasures. 
+
+14.2 Defense-in-Depth Stack 
+
+The countermeasures are not alternatives; they form a layered defense-in-depth stack. Each layer closes a distinct attack surface: 1. Hardware Layer: TEE attestation seals the training and inference pipeline. Closes Attack C completely. 2. Cryptographic Layer: Merkle Weight Chain + Inference Signing creates tamper-evident provenance. Closes Attack F in combination with the oracle. 3. Statistical Layer: the Behavioral Oracle (KL divergence on the canary set) closes At-tack S and, via weight drift, is the operative detector behind the (demoted) Attack G probe; the path-wise QV/LIL envelope check closes Attack H. Attack N admits no clean path-statistic test (Prop. 12.1) and is handled by the residual layer plus invasive audits. 4. Stochastic Layer: Almost-sure Lyapunov condition via LIL. Closes Attack H. 33 5. Governance Layer: Periodic invasive audits under TEE attestation, closing the informa-tion-theoretic residual. 
+
+14.3 Tiered Disclosure Architecture 
+
+The framework motivates a natural tiered disclosure regime, consistent with the update tier table of prior work: 
+
+Tier Update Type Required Disclosure Enforcement Mecha-nism 
+
+Tier 1(Micro) Infinitesimal weight tuning Hash + KL packet +QV increment + LIL envelope TEE attestation; auto-mated ledger write Tier 2(Meso) Objective param-eter shift Above + Gradient probe responses +Power variation ratio 24h shadow testing un-der oracle monitoring Tier 3(Macro) New meta-objective Above + Full training data disclosure to a val-idation sandbox + ZK Lyapunov proof Mandatory HITL; inva-sive audit before promo-tion Table 3: Tiered disclosure architecture with formal enforcement mechanisms. Tier 3 disclosure closes the residual identified in Section 13 by giving the validator direct ac-cess to training data, enabling verification of gradient directions and thus detection of Girsanov manipulation even without gradient injection infrastructure. 
+
+# 15 Numerical Studies: Concealment and Detection 
+
+We present five numerical studies, each targeting one of the six attack types from the taxonomy of Section 10. (Attacks F and C are countermeasured by cryptographic and hardware mecha-nisms not amenable to simulation; we focus on the statistically testable attacks S, N, G, and H, plus the information-theoretic residual.) All experiments use a softmax classifier f (· ; W )with d = 8, K = 3, evaluated on a canonical reference set R of m = 80 unit-normalized inputs drawn with fixed seed. 
+
+15.1 Study B1: Attack S — KL Behavioral Oracle Power 
+
+Theoretical claim (Theorem 11.2). The behavioral oracle statistic T oracle  
+
+> t
+
+converges to zero under H0 (no drift) and to a strictly positive constant ∆ > 0 under H1 (drift), with detection power monotone increasing in drift magnitude. 
+
+Experimental design. The behavioral oracle uses the KL divergence on a canary set C ⊂ R 
+
+of |C| = 40 inputs, as formalized in Definition 25. The H0 null distribution is estimated by boot-strapping 1000 replications of T oracle  
+
+> t
+
+evaluated after perturbing W0 with small Gaussian weight noise ( σnoise = 0 .0002) to simulate inter-audit hardware variation; the 95th percentile gives threshold cα. Under H1, we run 30 SGD steps at learning rate η ∈ { 0.001 , 0.005 , 0.01 , 0.05 , 0.10 }
+
+to produce drifted models and compute T oracle  
+
+> t
+
+.
+
+Results. The null distribution has mean 0 .000000 and 95th percentile cα = 0 .000001. Detection results: 34 η KL statistic Detected? 0.001 0.000028 YES 0.005 0.000690 YES 0.010 0.002738 YES 0.050 0.063864 YES 0.100 0.234817 YES Every drift level is detected, and the statistic is monotone increasing in η, consistent with Theorem 11.2. Because KL divergence is always ≥ 0, the null threshold is strictly positive and no trivial pass-through occurs. Panel B1 of Figure 2 shows the power curve on a log scale. 
+
+15.2 Study B2: Attack N — Power Variation Fails to Detect Drift 
+
+Claim under test (Proposition 12.1). The realized first-variation-to-quadratic-variation ratio V (1) /√V (2) cannot separate a drifting trajectory from a pure-diffusion one: it scales as 
+
+√n (the number of samples) regardless of the drift. 
+
+Experimental design. We simulate the scalar diffusion dW t = μ dt + σ dB t on [0 , T ]with T = 1, sampled at n points, and compute V (1) = P 
+
+> i
+
+|∆Wi| and V (2) = P
+
+> i
+
+(∆ Wi)2.We compare the drift case ( μ = 5, deliberately large) against the null ( μ = 0) at σ = 1 for n ∈ { 1000 , 5000 , 20000 , 80000 }, averaging over 20 paths. For contrast we also report the standardized net displacement ( WT − W0)/√V (2) .
+
+Results. The power-variation ratio is essentially identical with and without drift and grows as √n:
+
+n ratio ( μ = 0) ratio ( μ = 5) p2n/π 
+
+1000 25.3 25.3 25.2 5000 56.4 56.4 56.4 20000 112.8 112.8 112.8 80000 225.7 225.7 225.7 The ratio tracks p2n/π to three figures and is blind to a drift as large as μ = 5. This is the numerical content of Proposition 12.1: the first variation is dominated by the diffusion, so the ratio measures the sampling frequency, not the drift. The prior draft of this study reported a ratio of ≈ 123 .5 for both the drift and null cases and read the coincidence as a window-length “nuance”; it is in fact the signature of the failure (a step-count artifact, ≈ p2n/π , not a drift signal). By contrast, the standardized net displacement separates the cases ( ≈ 0.8 for μ = 0 versus ≈ 5√T for μ̸ = 0) — but only as T → ∞ , with no benefit from finer sampling, so it is not a fixed-horizon countermeasure either. We conclude that Attack N has no clean path-statistic countermeasure ; the residual risk is carried by Section 13. Panel B2 of Figure 2 plots the two ratios against n, with the drift and null curves lying on top of each other. 
+
+15.3 Study B3: Attack G — Gradient Probe Detection of Girsanov Manip-ulation 
+
+What the study actually shows (cf. Proposition 12.5). This study is included to make the circularity of the gradient probe explicit, not to validate it. A χ2 test on ∥ˆg − g∗∥2 triv-ially detects an additive shift h if one is imposed on the gradient evaluations — but a firm manipulating only its training distribution imposes no such shift on the validator’s probe. 
+
+Experimental design. We construct a probe batch of 20 inputs from R with known 
+
+g∗ = ∇W J(W0, ˜B). Under H0, 300 noisy evaluations at W0 calibrate the null 95th percentile 
+
+cα. Under H1 we hard-code an additive shift |h| ∈ { 0.01 , 0.05 , 0.10 , 0.20 } onto every gradient evaluation and measure detection power. 35 Results and interpretation. Power was 83 .0% at |h| = 0 .01 and 100% for |h| ≥ 0.05, following the ∥ˆg −g∗∥2 ∼ | h|2dK scaling. But this is a tautology : the experiment injects the very shift it then detects. It does not simulate a Girsanov manipulation, because the probe gradient 
+
+∇W J(Wsj , ˜B) is a deterministic function of the current weights and the probe batch and is unaffected by the firm’s training measure except through Wsj (Proposition 12.5). Whatever a real probe would detect is a consequence of Wsj̸ = W0 — weight drift that the behavioral oracle (Study B1) already catches. We therefore demote Attack G’s countermeasure :the gradient probe is redundant with the oracle, and the genuinely undetectable residual of a measure manipulation is again the subject of Section 13. Panel B3 plots the (tautological) power curve and is labeled as such. 
+
+15.4 Study B4: Attack H — LIL Almost-Sure Bound Closes the Mean-Stability Gap 
+
+Theoretical claim (Theorem 12.9). Mean (or expectation-level) compliance is insufficient: a firm can satisfy a declared mean-stability/variance budget while the realized path systematically violates the corresponding almost-sure envelope. The validator must therefore monitor a path-wise band built from the declared second-order telemetry [ ˆM ]t and check the residual Rt =
+
+V (Wt) − V0 − bE[∆ V ]t against it. 
+
+Experimental design. We simulate the discrete process Wt+1 = (1 − α)Wt + σZ t with 
+
+α = 0 .1, true σ = 0 .10, for T = 500 steps and nmc = 500 paths. Both an honest firm and an attacking firm run the same actual process, so their stationary Lyapunov level is identical, 
+
+E[V∞] = σ2dtot /(4 α) = 0 .60. The honest firm declares the true σ; the attacker declares σdecl =0.02 (5 × too small), shrinking its declared variance band by 25 ×. We accumulate the predicted drift bE[∆ V ]t and the declared conditional variance [ ˆM ]t from each firm’s declared σ, and record the fraction of steps at which the standardized residual exceeds a three-standard-deviation band, |Rt| > 3
+
+q
+
+[ ˆM ]t. We use a finite-horizon CLT band 3 
+
+q
+
+[ ˆM ]t as the practical monitoring statistic; this is the central-limit proxy for the asymptotic LIL envelope p2[ M ]t log log[ M ]t of (37), the quantity the validator can evaluate online at finite t. The under-declared-σ attack is the simplest concrete instance of the Attack-H principle that declared second-order statistics can be satisfied while the realized path is inconsistent with them; a full curvature-engineering attack would manipulate tr(Σ ∇2V ) directly, but reduces, for detection purposes, to the same mismatch between declared and realized quadratic variation. 
+
+Results. Because both firms run the identical process, their final Lyapunov levels are sta-tistically indistinguishable: mean V (WT ) = 0 .628 (honest) versus 0 .639 (attack). A validator monitoring only the mean (or the stationary level E[V∞] = 0 .60) therefore cannot tell them apart. The per-step residual band tells a completely different story. Against the honest decla-ration the standardized residual exceeds the 3 σ band only 0 .9% of the time — consistent with a correctly specified band (a true Gaussian would give ≈ 0.27%; the small excess reflects the non-Gaussian tails of the per-step V increments). Against the attacker’s under-declared band the residual is out of bounds 99 .7% of the time: the declared variance is 25 × too small, so the actual fluctuations driven by σ = 0 .10 blow through a band sized for σdecl = 0 .02 at essentially every step. This is the numerical content of Theorem 12.9: declared mean/variance compliance is satisfied while the path-wise band is systematically violated. The validatory implication is that the telemetry specification must require the firm to report its second-order term [ ˆM ]t (or equivalently Σ t), enabling the validator to verify the path-wise band of (37) rather than trusting an expectation-level claim. Panel B4 of Figure 2 shows the residual against the declared band for both firms, and the indistinguishable final-V histograms. 36 15.5 Study B5: Information-Theoretic Residual and Null-Space Perturba-tions 
+
+Theoretical claim (Theorem 13.1, Theorem 13.3). At any finite detection resolution 
+
+δ > 0, small weight perturbations keep the canary KL below δ regardless of direction (The-orem 13.3(i)), so sub-threshold drift accumulates undetected between audits. We probe this finite-resolution gap empirically, and separately note (Theorem 13.3(ii)) that the only exactly 
+
+KL-invisible directions are the behaviorally trivial softmax gauge directions. 
+
+Experimental design. We construct 20 random unit directions ˆ v orthogonal to the loss gradient ∇W J(W0) on R — low-sensitivity directions, though not exact output-null directions — and form perturbations ∆ W = εˆv for ε ∈ { 0.01 , 0.05 , 0.10 , 0.20 }. For each we record ∥∆W ∥F
+
+and the canary KL DKL (pW0 ∥pW0+∆ W ) on R, and count how many of the 20 fall below the detection threshold (KL < 10 −3). For reference, the output Jacobian of this softmax model on 
+
+R has rank 16 out of dK = 24: the 8-dimensional kernel consists entirely of gauge directions 
+
+W 7 → W + u1⊤ 
+
+> K
+
+, which leave all outputs unchanged. 
+
+Results. At ε = 0 .01, all 20 perturbations fall below the detection threshold (mean KL 
+
+≈ 1.0 × 10 −4 < 10 −3) despite ∥∆W ∥F = 0 .01. As ε grows the KL rises and the perturbations become detectable: at ε = 0 .05, none of the 20 remain below threshold (0 /20; mean KL ≈ 2.5 ×
+
+10 −3), and likewise 0 /20 at ε = 0 .10 , 0.20. This is the finite-resolution gap of Theorem 13.3(i): the undetectable set is a shrinking neighborhood of 0, so the threat is sub-threshold drift between audits, not arbitrarily large invisible perturbations. The earlier draft’s claim of 4 /20 undetectable at ε = 0 .05 is corrected to 0 /20 here; the gradient-orthogonal directions are low-sensitivity but not output-null, so their KL crosses threshold once ε is no longer tiny. Two governance lessons follow. First, because ϵ∗(δ) > 0 for any δ > 0, periodic invasive audits of Wt
+
+remain necessary to bound the drift accumulated below the behavioral resolution. Second, the genuinely zero-KL directions that do exist (the 8-dimensional gauge kernel) are behaviorally inert — the same model in different coordinates — so they pose no enforcement consequence and, if anything, reinforce the Part I argument that weight-space distance is not the right risk currency. Panel B5 (Table) in Figure 2 summarizes the KL and undetectability counts. 
+
+# 16 Discussion 
+
+16.1 Interpretation of the state variable 
+
+Equation (6) treats the weight vector Wt as a diffusion in Rd, and the governance quantities built on it — the quadratic variation [ W ]t, the Lyapunov function V (W ) = 12 ∥W ∥2 
+
+> F
+
+, and the drift certificate of Section 5 — are all functionals of that diffusion. Because the models this framework is aimed at have parameter counts in the range d ∼ 10 9–10 12 , it is worth being explicit about what Wt is intended to denote at that scale, and what the results do and do not assert about a raw parameter vector. 
+
+Wt should be read as an effective coordinate, not the raw parameter vector. Noth-ing in the analysis requires d to be the full parameter count. All that is required is that the adaptation under governance be representable as a diffusion on some Rd, with a diffusion co-efficient the model owner can declare and a drift the validation function can bound. Several deployment patterns satisfy this with d many orders of magnitude smaller than the base model: 
+
+• Adapter parameters. Where continual adaptation is confined to a low-rank adapter, a prompt-embedding block, or a final-layer head, Wt is naturally that adapter, with the frozen base model absorbed into the definition of the map f (· ; W ). 
+
+• A behaviorally relevant projection. Where full-parameter updates do occur, Wt may be taken as the projection of the parameter vector onto a subspace fixed at validation time — for instance the leading eigendirections of the Fisher information on the canonical 37 reference set of Definition 3.1. The projection is chosen once and declared; the diffusion is then the induced process on that subspace. 
+
+• A declared summary statistic. More weakly still, Wt may be any declared vector-valued statistic of the model state whose evolution the owner attests to, with the telemetry architecture applied to that statistic. Under any of these readings the theorems apply verbatim. What changes is the interpretation of d, and hence of every constant that scales with it. 
+
+What the literal reading would require, and why we do not adopt it. Reading 
+
+Wt as the raw parameter vector of a large model is possible but demands assumptions we would not defend. It requires (i) that production adaptation be well approximated by a small-step stochastic gradient recursion — a weak first-order approximation whose accuracy in very high dimension, and under adaptive optimizers, is not established here; (ii) that the drift be adequately captured by the single mean-reverting term of Section 5, which is a regularization force rather than the task-loss gradient; and (iii) that 12 ∥W ∥2 
+
+> F
+
+be informative about model risk when summed over 10 11 coordinates, the overwhelming majority of which carry no behavioral significance. We make none of these claims. 
+
+An acknowledged tension, and how the two halves of the framework fit together. 
+
+Study A1 in Section 8 shows that weight-space distance ∥∆W ∥F ranks perturbations poorly: two perturbations of identical Frobenius norm can differ by an order of magnitude in behavioral effect. That is the paper’s argument for making behavioral divergence on the reference set the primary audit metric. Yet the stability theory of Section 5 uses a weight-space Lyapunov function. These coexist deliberately, and the division of labor is worth stating plainly: 
+
+• The behavioral metric is what governance decisions are made on. It is the trigger, the audit target, and the quantity the oracle test of Section 11 operates on. 
+
+• The weight-space Lyapunov function is a tractable certificate of boundedness of the un-derlying process. It is what makes the drift condition checkable in closed form, and it is deliberately conservative: it can flag movement that is behaviorally inert, but under the stated conditions it does not miss movement that is unbounded. A validation function that used ∥W ∥F alone would be measuring the wrong thing; one that used behavioral divergence alone would have no boundedness guarantee on the process generating it. The framework’s position is that both are needed, and that neither substitutes for the other. 
+
+Consequences for the constants. Every quantity in this paper that scales with d should be read relative to whichever coordinate is adopted. This matters most for the counting argument of Section 13, whose premise is a comparison between d and the telemetry bandwidth: under an effective-coordinate reading with modest d, that comparison may fail, and the residual may close — exactly as it does in the toy model of Remark 13.2. The finite-resolution result that the paper actually relies on carries no such dependence: it holds at any dimension, because it follows from continuity of the canary output map rather than from a dimension count. 
+
+16.2 Part I: the telemetry architecture 
+
+16.2.1 Architecture-Agnosticism 
+
+A key feature of the proposed framework is that it does not depend on the internal architecture of the generative model. The telemetry quantities — KL divergence on a reference set, quadratic variation, Lyapunov distance — are defined in terms of the model’s inputs and outputs, not its internal structure. This is essential for practical adoption, as it avoids the need for validators to maintain expertise in every architectural variant. 38 16.2.2 Choice of Reference Set R
+
+The behavioral divergence δt depends critically on the choice of R. A reference set that does not span the input manifold will fail to detect drift in unrepresented regions. We recommend that R
+
+be constructed using adversarial coverage techniques: inputs are selected to maximally span the first K principal components of the input distribution, with oversampling in high-risk regions (e.g., inputs corresponding to consequential decisions). The size |R| presents a computational trade-off: larger sets provide better coverage but increase the cost of computing δt at each step. 
+
+16.2.3 Relationship to MRM Governance Cycles 
+
+The proposed framework does not replace model examination; it restructures them. Under the framework, the validator’s examination cycle shifts from: 
+
+• Prior practice: Discrete point-in-time validation of the current model state. 
+
+• Proposed practice: Continuous monitoring of the telemetry stream, with targeted invasive audits triggered by Tier 2/3 CUSUM events. The invasive audit — direct inspection of Wt under TEE attestation — remains necessary because no telemetry regime can fully determine the weight trajectory from scalar summaries alone (see the information-theoretic residual of Section 13). However, the telemetry dramatically narrows the scope of each examination: the validator enters with a precise record of when, how much, and in what direction the model has moved, and can focus validation resources accordingly. 
+
+16.3 Part II: the adversarial setting 16.4 Concealment Game Equilibrium 
+
+Under the full defense-in-depth stack, what is the game-theoretic equilibrium? The firm chooses at each step to learn openly (incurring reporting costs) or to attempt a hiding attack (risking detection and enforcement). The cryptographic and hardware layers (Attacks F, C) make their targets detection-certain; the behavioral oracle and the path-wise QV/LIL check make 
+
+large drift detection-certain as the monitoring horizon grows (Theorems 11.2 and 12.9). Two continuous-time attacks, however, have no clean telemetry-only countermeasure: Attack N (Proposition 12.1) and Attack G (Proposition 12.5) can each hide drift whose induced output change stays below the behavioral resolution. This is not a patchable gap; it is the information-theoretic residual of Section 13. The equilibrium is therefore bounded leakage rather than full deterrence: continuous telemetry deters and detects any drift above the resolution ϵ∗(δ), while sub-resolution drift accumulates between invasive audits, whose frequency must be set (Proposition 13.1) to cap the leaked amount. Provided enforcement penalties are sufficient, this still pushes the firm toward open reporting for any economically meaningful adaptation, converting an open-ended cat-and-mouse into a regime with a quantified, bounded undetectable channel. 
+
+16.5 Limitations and Extensions 
+
+Several important extensions remain for future work: 
+
+Adaptive canary evasion. The behavioral oracle assumes the canary set is secret. If partial information about C leaks (e.g., via membership inference attacks), the firm may be able to partially evade the oracle test. Canary set rotation and active adversarial construction are potential mitigations. 39 Multi-firm interactions. Our framework considers a single model owner. In practice, mul-tiple firms may train on overlapping data distributions, and their models may evolve correlated trajectories. The information-theoretic residual may be tightened by cross-firm comparison. 
+
+Incentive compatibility. The dual-regime framework imposes significant reporting costs on the firm. A mechanism design analysis of how to make compliance individually rational (beyond pure enforcement threat) is a natural extension. 
+
+# 17 Conclusion 
+
+This paper has developed, in two parts, a mathematically rigorous treatment of the governance of self-adapting generative AI models: an observability architecture, and an account of its limits under an adversarial model owner. 
+
+Part I: telemetry. The key contributions are: 1. The behavioral divergence δt on a canonical reference set R, not weight-space distance, is the correct primary audit metric. 2. The Merkle Weight Chain provides tamper-evident discrete-time lineage across the full weight evolution history. 3. KL stopping times provide event-driven logging whose density is proportional to behavioral movement, eliminating arbitrary clock-based sampling. 4. The quadratic variation [W ]t is the canonical continuous-time telemetry scalar, capturing learning intensity in an incrementally computable form. 5. The Itˆ o–Lyapunov framework, under both mean and almost-sure stability conditions, provides mathematically verifiable bounds on weight-space drift that satisfy MRM Con-ceptual Soundness requirement. 6. The CUSUM governance trigger operationalizes tier-based escalation with statistically optimal detection delay and explicit false-alarm rate control. 
+
+Part II: concealment and its limits. We have formalized the Model Hiding Problem and derived a complete taxonomy of six attack strategies against the Part I telemetry architecture, covering discrete and continuous time. Four of the six attacks admit countermeasures with provable or cryptographic guarantees; two do not, and conceding them is what reveals the framework’s central limit: 1. Attack S (Suppression) → KL Behavioral Oracle on a secret canary set (consistent test, Theorem 11.2). 2. Attack F (Forgery) → Inference Signing + ZK Lyapunov Proofs (cryptographic sound-ness). 3. Attack C (Shadow Model) → TEE Attestation (hardware-enforced completeness). 4. Attack H (Hessian Exploitation) → Path-wise QV/LIL envelope check (Theorem 12.9); closes the mean-vs-path-wise gap by cross-checking the realized residual against the de-clared quadratic variation (Study B4). 5. Attack N (Noise Amplification) — no clean countermeasure. The natural power-variation ratio test fails because the first variation of a diffusion is infinite and the ratio measures sampling frequency, not drift (Proposition 12.1); small persistent drift is not reliably recoverable from a fixed-horizon path. 40 6. Attack G (Girsanov Manipulation) — no independent countermeasure. The proposed gradient probe is circular: the probe gradient depends on the firm’s training measure only through the already-moved weights, so it merely re-detects what the behavioral oracle sees (Proposition 12.5). The two negative results are the point, not an embarrassment. They are concrete instances of a detection floor: by Theorem 13.3, at any finite behavioral resolution δ > 0 the undetectable set contains a ball of strictly positive radius ϵ∗(δ), so no telemetry-only regime can detect arbitrarily small adversarial drift. We establish that this radius is positive and monotone in δ;we do not derive its magnitude, its rate as δ → 0, or any dependence on telemetry bandwidth. The counting argument of Section 13 suggests why a residual should be large in high dimension, but it is a heuristic rather than a theorem (Remark 13.1), and the scale of our simulations cannot test it (Remark 13.2). What survives without qualification is the qualitative conclusion, and it is enough for the governance argument: the Dual-Regime Principle — continuous telemetry is necessary but not sufficient, and must be paired with periodic invasive audits whose frequency caps the undetectable leakage. This provides the structural framing for how self-adapting AI governance fits within MRM. 
+
+Acknowledgements. The authors thank colleagues in cryptography, model risk management, and stochastic analysis for helpful discussions. 
+
+# References 
+
+[1] Supervisory Guidance on Model Risk Management . SR Letter 11-7, 2011. [2] Li, Q., Tai, C., and E., W. (2017). Stochastic modified equations and adaptive stochastic gradient algorithms. Proceedings of the 34th International Conference on Machine Learning (ICML) , 70:2101–2110. [3] Mandt, S., Hoffman, M. D., and Blei, D. M. (2017). Stochastic gradient descent as approx-imate Bayesian inference. Journal of Machine Learning Research , 18(134):1–35. [4] Lorden, G. (1971). Procedures for reacting to a change in distribution. Annals of Mathe-matical Statistics , 42(6), 1897–1908. [5] Moustakides, G. V. (1986). Optimal stopping times for detecting changes in distributions. 
+
+The Annals of Statistics , 14(4):1379–1387. [6] Shiryaev, A. N. (1963). On optimum methods in quickest detection problems. Theory of Probability & Its Applications , 8(1):22–46. [7] Kushner, H. J. and Yin, G. G. (2003). Stochastic Approximation and Recursive Algorithms and Applications , 2nd ed. Springer. [8] Khasminskii, R. (2011). Stochastic Stability of Differential Equations , 2nd ed. Springer. [9] Øksendal, B. (2003). Stochastic Differential Equations: An Introduction with Applications ,6th ed. Springer. [10] Basseville, M. and Nikiforov, I. V. (1993). Detection of Abrupt Changes: Theory and Application . Prentice-Hall. [11] Nakamoto, S. (2008). Bitcoin: A peer-to-peer electronic cash system. Cryptology ePrint Archive .41 [12] Revuz, D. and Yor, M. (1999). Continuous Martingales and Brownian Motion , 3rd ed. Springer, Berlin. [13] Adi, Y., Baum, C., Cisse, M., Pinkas, B., and Keshet, J. (2018). Turning your weakness into a strength: Watermarking deep neural networks by backdooring. USENIX Security Symposium , pp. 1615–1631. [14] Zhang, J., Gu, Z., Jang, J., Wu, H., Stoecklin, M. P., Huang, H., and Molloy, I. (2018). Protecting intellectual property of deep neural networks with watermarking. Proceedings of the ACM Asia Conference on Computer and Communications Security (AsiaCCS) .[15] Cao, Y. and Yang, J. (2015). Towards making systems forget with machine unlearning. 
+
+Proceedings of the IEEE Symposium on Security and Privacy , pp. 463–480. [16] Raji, I. D. and Buolamwini, J. (2020). Closing the AI accountability gap: Defining an end-to-end framework for internal algorithmic auditing. Proceedings of the ACM Conference on Fairness, Accountability, and Transparency (FAccT) .[17] Lamport, L., Shostak, R., and Pease, M. (1982). The Byzantine generals problem. ACM Transactions on Programming Languages and Systems , 4(3):382–401. [18] Girsanov, I. V. (1960). On transforming a certain class of stochastic processes by absolutely continuous substitution of measures. Theory of Probability & Its Applications , 5(3):285– 301. [19] Gretton, A., Borgwardt, K. M., Rasch, M. J., Sch¨ olkopf, B., and Smola, A. (2012). Akernel two-sample test. Journal of Machine Learning Research , 13(1):723–773. [20] Ben-David, S., Blitzer, J., Crammer, K., Kulesza, A., Pereira, F., and Vaughan, J. W. (2010). A theory of learning from different domains. Machine Learning , 79(1):151–175. [21] Protter, P. E. (2005). Stochastic Integration and Differential Equations , 2nd ed. Springer. [22] Groth, J. (2016). On the size of pairing-based non-interactive arguments. EUROCRYPT 2016 , LNCS 9666, pp. 305–326. 42 0.00 0.02 0.04 0.06 0.08 0.10 Drift magnitude 
+
+10 6
+
+10 5
+
+10 4
+
+10 3
+
+10 2
+
+10 1
+
+> Oracle KL statistic (log scale)
+
+All detected 
+
+KL 0 always 
+
+B1: Attack S KL Behavioral Oracle 
+
+Power vs. Drift Magnitude 
+
+Oracle KL 
+
+H0 95th = 8.5 e 07 
+
+10 3 10 4
+
+n (samples over fixed T)10 2
+
+> V(1) / V(2)
+
+= 0 and = 5 
+
+curves coincide 
+
+B2: Attack N Power Variation FAILS 
+
+(ratio n , drift-independent) 
+
+ratio = 0 
+
+ratio = 5 
+
+2n/
+
+0.05 0.10 0.15 0.20 Imposed shift magnitude | h|020 40 60 80 100 Detection power (\%) 
+
+B3: Attack G Gradient Probe 
+
+(tautological: shift imposed detected) 
+
+Power 95\% 5\% nominal 
+
+0 100 200 300 400 500 Step t
+
+010 20 30 40 50 60 Residual  Rt
+
+Honest viol: 0.9\% Attack viol: 99.7\% Mean V: indistinguishable 
+
+B4: Attack H Residual vs.\ Declared CLT Band 
+
+Both firms: = 0.1 , actual = 0.10 , [V ] = 0.60 (identical) attack declares decl = 0.02 
+
+[Rt] attack (declared decl = 0.02) 
+
+±3 [M]t declared band 
+
+[Rt] honest 0
+
+0.2 0.4 0.6 0.8 1.0 1.2 1.4 
+
+V(WT)010 20 30 40 50 Count 
+
+B4: Final V(WT) Distribution (mean-V monitor cannot distinguish) 
+
+Honest V = 0.628 
+
+Attack V = 0.639 
+
+Mean W F Mean KL on Undetectable / 20 
+
+0.01 0.0100 1.1 × 10 4 20 / 20 0.05 0.0500 2.6 × 10 3 0 / 20 0.10 0.1000 1.1 × 10 2 0 / 20 0.20 0.2000 4.2 × 10 2 0 / 20 
+
+B5: Information-Theoretic Residual Null-Space Perturbations 
+
+Constructible W with large W F and near-zero KL periodic invasive weight audits are necessary 
+
+Numerical Studies The Model Hiding Problem (Part II) Figure 2: Numerical studies for the Part II model hiding problem. Panels B1–B5 correspond to the five studies of Section 15. B1: KL behavioral oracle power curve (log scale); threshold 
+
+cα = 1 × 10 −6, all drift levels detected. B2: Power variation ratio gap ∝ √N ; drift and null series for σ ∈ { 0.3, 1.0, 2.0}. B3: Gradient probe detection power vs. shift magnitude |h|; 100% for |h| ≥ 0.05. B4: Per-step residual violation rate under honest vs. attack declarations (0 .9% vs. 99 .7%) with identical E[V∞] = 0 .60. B5: Null-space perturbation undetectability table. 43
