@@ -1,0 +1,69 @@
+{
+  "label": "2026-08-12",
+  "date": "2026-08-12",
+  "generated_at": "2026-08-12T21:01:24",
+  "count": 4,
+  "papers": [
+    {
+      "paper_id": "202608/12/2608.10669v1-redagentbench-executable-red-teaming-and-faithful-measurement-of-llm-agent-systems",
+      "section": "deep",
+      "title_en": "REDAgentBench: Executable Red Teaming and Faithful Measurement of LLM Agent Systems",
+      "authors": "Zixing Chen, Xingyuan Liu, Jie Zhu, Huaixia Dou, Shuo Jiang, Junhui Li, Lifan Guo, Feng Chen, Chi Zhang",
+      "date": "2026-08-11",
+      "pdf": "https://arxiv.org/pdf/2608.10669v1",
+      "score": "9.0",
+      "evidence": "LLM代理系统的可执行红队测试框架",
+      "tldr": "现有LLM智能体安全评估常将安全性降为单一攻击成功率，混淆实际违规与证据可见性。REDAgentBench提出可执行红队框架，从明确安全约束推导攻击，在隔离沙箱中运行并通过服务收据验证有害后果。在1661个案例、五个服务表面上，六模型三harness宏平均ASR为65.69%，且发现约五分之一确认违规发生在智能体声明相关约束之后，显露识别-执行差距。无训练策略提醒在匹配重放中使确认违规降低超过70个百分点，证明可执行评估可改善安全测量并定位干预点。",
+      "tags": "query:ca",
+      "abstract_en": "Large language model (LLM) agents combine language-based reasoning with external tools to perform complex tasks. Adversarial inputs can exploit interactions between the agent and its environment, causing the agent to violate safety policies during execution. Yet existing evaluations often reduce agent safety to a single attack success rate (ASR), collapsing exposure, execution, observation, and adjudication and potentially conflating actual violations with evidence visibility. We introduce REDAgentBench, an executable framework for autonomous red-teaming and faithful measurement. It derives attacks from explicit safety constraints and associated agent-system vulnerabilities, runs them in isolated service sandboxes, and verifies harmful effects from service receipts and final-state changes. The benchmark contains 1,661 cases across five service surfaces. Across six models and three agent harnesses, macro-average ASR is 65.69%; reported ASR varies with harness and evidence view, while evaluation-context disclosure changes execution behavior. In a state-grounded diagnostic cohort, almost one in five confirmed violations with resolved action anchors occurs after the agent states the relevant constraint or risk, revealing a Recognition--Execution Gap. Finally, a training-free policy reminder reduces confirmed violations by more than 70 percentage points in matched replay. These findings show that executable evaluation can improve safety measurement and identify actionable intervention points.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202608/12/2608.10920v1-io-factory-simulating-ai-enabled-influence-campaigns-at-scale",
+      "section": "deep",
+      "title_en": "IO Factory: Simulating AI-Enabled Influence Campaigns at Scale",
+      "authors": "Lukasz Olejnik, Wenchao Dong, Jonas R. Kunst, Signe Riemer-Sørensen, Tobias Herb, Meeyoung Cha, Daniel Thilo Schroeder",
+      "date": "2026-08-11",
+      "pdf": "https://arxiv.org/pdf/2608.10920v1",
+      "score": "9.0",
+      "evidence": "用协调智能体AI群体模拟信息与影响活动",
+      "tldr": "数字操纵已从单模型文本扩展到AI群体协调活动，这类活动伪装成普通社交互动，难以从孤立消息识别。为此，论文提出IO Factory框架，在受控模拟平台中整合规划、平台行动、曝光、测量和适应过程，实现全流程可追踪模拟。在多达十万智能体的实验中，框架成功执行活动时间线，并生成可检查的曝光证据及信念变量变化记录。该工作通过记录所有运行要素支持可重复研究和红队分析，为对抗大规模协调影响提供基础设施。",
+      "tags": "query:ca",
+      "abstract_en": "We introduce IO Factory, an AI-driven framework for simulating information and influence campaigns as fully integrated, traceable processes. The threat of digital manipulation now extends beyond persuasive text from individual language models to AI swarms, i.e., persistent groups of coordinated agents that adapt to platform feedback and disguise organized campaigns as ordinary social interaction. Because such campaigns cannot be identified from isolated messages alone, they must be analyzed across a continuous spectrum of planning, platform action, exposure, interpretation, measurement, and adaptation. IO Factory represents this process inside a controlled simulated platform, linking actor roles, platform actions, exposure records, structured model-based evaluations, and configured changes in the simulated population. We implement the architecture and evaluate it across configurations of up to 100,000 agents. The results show that IO Factory executes campaign timelines at scale and produces inspectable evidence of exposure and measured movement in configured belief variables. By recording the actors, objectives, action constraints, exposure paths, and measurement rules used in each run, IO Factory supports reproducible research and red-team analysis of coordinated influence.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202608/12/2608.10171v1-generating-attacks-for-llms-with-gflownets",
+      "section": "quick",
+      "title_en": "Generating Attacks for LLMs with GFlowNets",
+      "authors": "Berkay Ozcam, Irem Onen, Mehmet Fatih Amasyali, Emin Islam Tatli",
+      "date": "2026-08-10",
+      "pdf": "https://arxiv.org/pdf/2608.10171v1",
+      "score": "6.0",
+      "evidence": "通过GFlowNets自动化红队测试，生成多样化对抗输入以测试LLM鲁棒性",
+      "tldr": "大型语言模型广泛应用带来安全风险，传统红队评估手动耗时，自动化方法受固定数据集限制、创造力有限。本文提出基于GFlowNets的自适应攻击生成框架，用一个LLM测试另一个LLM，自动发现漏洞并评估鲁棒性。该方法相比现有基准生成更有效的英语对抗攻击，并首次支持土耳其语攻击生成。该工作为LLM安全评估提供了更高效、更具创造性的自动化红队手段，显著降低人工成本。",
+      "tags": "query:ca",
+      "abstract_en": "The rapid advancement of Large Language Models (LLMs) has facilitated their ubiquitous integration into various domains, leading to widespread adoption. However, this escalating trend has introduced significant security vulnerabilities, necessitating the identification and mitigation of flaws arising from malicious exploitation. Red teaming assessments, conducted to evaluate model robustness through diverse adversarial inputs, are essential for exposing security risks and implementing countermeasures. Currently, red teaming is performed either manually by experts or automatically using predefined attack datasets. Nevertheless, manual testing remains time-consuming, while existing automated methods suffer from limited creativity due to their inherent dependency on fixed datasets. In this study, we propose an automated, human-independent, and adaptive approach leveraging GFlowNets to identify LLM vulnerabilities by utilizing one large language model to test another. Within this framework, an attacker model is trained against a specified victim model to perform automated red teaming and provide a quantitative robustness score. This research aims to generate more effective adversarial attacks in English compared to existing benchmarks and, as a novel contribution to the literature, introduces a model capable of generating attack inputs in the Turkish language.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202608/12/2608.10239v1-beyond-detection-evaluating-defensive-llms-against-ai-generated-social-engineering-in-live-turn-by-turn-interaction",
+      "section": "quick",
+      "title_en": "Beyond Detection: Evaluating Defensive LLMs Against AI-Generated Social Engineering in Live Turn-by-Turn Interaction",
+      "authors": "Yuqiao Xu, Osama Zafar, Alexander Nemecek, Erman Ayday",
+      "date": "2026-08-10",
+      "pdf": "https://arxiv.org/pdf/2608.10239v1",
+      "score": "6.0",
+      "evidence": "在实时轮转交互中评估防御性大语言模型对抗AI生成的社会工程攻击",
+      "tldr": "生成式AI使社会工程攻击更流畅、可扩展，亟需LLM防御者在实时交互中保护用户，但现有防御可能仅对表面线索反应。本文提出信任链定位框架，将风险归因于行为者权威、资产控制、验证充分性或交易路径四类结构失败，并在300案例在线住房语料库上，对5个防御模型进行状态化逐轮与一次性静态评测。结果显示模型干预率从0%到96.3%，保护行为与正确结构定位经常脱节，资产控制失败成为主要定位瓶颈。这表明仅表面安全不够，须独立衡量干预、时机、结构定位与误报。",
+      "tags": "query:ca",
+      "abstract_en": "Generative AI makes social-engineering attacks more fluent, adaptive, and scalable, increasing the need for LLM-based de- fenders that can protect users during ongoing interactions. We ask whether such defenders identify the structural source of risk or merely react to surface cues. We formalize trust-chain localization: identifying whether an interaction fails at actor authority, asset control, verification sufficiency, or transaction path. We construct a controlled 300-case online-housing corpus spanning 20 scenario families, legitimate cases, four structural failure modes, and three surface conditions. Five defender models are evaluated on the same corpus in state- ful turn-by-turn and one-shot static settings, yielding 1,500 model-case evaluations per protocol and 3,000 in total. No model produced explicit unsafe compliance, yet defensive effectiveness varied sharply: intervention rates ranged from 0% to 96.3%. Protective action and correct structural localization were frequently decoupled, with models sometimes intervening while identifying the wrong trust component or recognizing a structural failure without taking protective action. Asset-control failures were a major localization bottleneck, surface sensitivity varied across models, and live-static differences were model-dependent. These findings show that safe-looking behavior alone is insufficient; live scam resistance must separately measure intervention, timing, structural localization, and false-positive behavior.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}

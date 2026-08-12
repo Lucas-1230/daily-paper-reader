@@ -1,0 +1,73 @@
+{
+  "date": "20260812",
+  "date_label": "",
+  "generated_at": "2026-08-12 21:01:14 UTC",
+  "recommend_exists": true,
+  "run_count": 1,
+  "papers": [
+    {
+      "paper_id": "2608.10669v1",
+      "route": "202608/12/2608.10669v1-redagentbench-executable-red-teaming-and-faithful-measurement-of-llm-agent-systems",
+      "title": "REDAgentBench: Executable Red Teaming and Faithful Measurement of LLM Agent Systems",
+      "section": "deep",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "ca"
+        }
+      ],
+      "score": 9.0,
+      "evidence": "LLM代理系统的可执行红队测试框架",
+      "first_seen_at": "2026-08-12 21:01:14 UTC",
+      "updated_at": "2026-08-12 21:01:14 UTC"
+    },
+    {
+      "paper_id": "2608.10920v1",
+      "route": "202608/12/2608.10920v1-io-factory-simulating-ai-enabled-influence-campaigns-at-scale",
+      "title": "IO Factory: Simulating AI-Enabled Influence Campaigns at Scale",
+      "section": "deep",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "ca"
+        }
+      ],
+      "score": 9.0,
+      "evidence": "用协调智能体AI群体模拟信息与影响活动",
+      "first_seen_at": "2026-08-12 21:01:14 UTC",
+      "updated_at": "2026-08-12 21:01:14 UTC"
+    },
+    {
+      "paper_id": "2608.10171v1",
+      "route": "202608/12/2608.10171v1-generating-attacks-for-llms-with-gflownets",
+      "title": "Generating Attacks for LLMs with GFlowNets",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "ca"
+        }
+      ],
+      "score": 6.0,
+      "evidence": "通过GFlowNets自动化红队测试，生成多样化对抗输入以测试LLM鲁棒性",
+      "first_seen_at": "2026-08-12 21:01:14 UTC",
+      "updated_at": "2026-08-12 21:01:14 UTC"
+    },
+    {
+      "paper_id": "2608.10239v1",
+      "route": "202608/12/2608.10239v1-beyond-detection-evaluating-defensive-llms-against-ai-generated-social-engineering-in-live-turn-by-turn-interaction",
+      "title": "Beyond Detection: Evaluating Defensive LLMs Against AI-Generated Social Engineering in Live Turn-by-Turn Interaction",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "ca"
+        }
+      ],
+      "score": 6.0,
+      "evidence": "在实时轮转交互中评估防御性大语言模型对抗AI生成的社会工程攻击",
+      "first_seen_at": "2026-08-12 21:01:14 UTC",
+      "updated_at": "2026-08-12 21:01:14 UTC"
+    }
+  ]
+}

@@ -41,17 +41,17 @@
 <section class="dpr-home-dashboard-card dpr-home-report-card">
   <div class="dpr-home-dashboard-header">
     <div>
-      <span class="dpr-home-dashboard-kicker">2026-08-11</span>
+      <span class="dpr-home-dashboard-kicker">2026-08-12</span>
       <h3 class="dpr-home-dashboard-title">今日汇总</h3>
     </div>
-    <strong class="dpr-home-dashboard-count">共 3 篇</strong>
+    <strong class="dpr-home-dashboard-count">共 4 篇</strong>
   </div>
   <dl class="dpr-home-dashboard-stats">
     <div class="dpr-home-dashboard-stat"><dt>累计更新</dt><dd>1 次</dd></div>
     <div class="dpr-home-dashboard-stat"><dt>精读</dt><dd>2</dd></div>
-    <div class="dpr-home-dashboard-stat"><dt>速读</dt><dd>1</dd></div>
+    <div class="dpr-home-dashboard-stat"><dt>速读</dt><dd>2</dd></div>
   </dl>
-  <p class="dpr-home-dashboard-body">最近更新：2026-08-11 21:07:57 UTC<br>状态：成功</p>
+  <p class="dpr-home-dashboard-body">最近更新：2026-08-12 21:01:14 UTC<br>状态：成功</p>
 </section>
 <section class="dpr-home-dashboard-card dpr-home-brief-card">
   <div class="dpr-home-dashboard-header">
@@ -62,9 +62,10 @@
     <strong class="dpr-home-dashboard-count">AI</strong>
   </div>
   <div class="dpr-home-dashboard-body">
-<p>今日精读两篇对抗攻防高分研究，速览一篇生成式AI隐匿监测论文，聚焦靶场构建与智能体伪装。</p>
-<p>最值得看的是RangeFactory实现可扩展多跳靶场一键生成，以及ColluSkill用跨技能组合成功绕过技能扫描器。</p>
-<p>建议普通读者从这两篇的代码复现入手，体验攻防模拟与对抗逃避的实际差异。</p>
+<p>今日共生成 4 篇推荐（精读 2 篇，速读 2 篇）</p>
+<p>精读：《REDAgentBench: Executable Red Teaming and Faithful Measurement of LLM Agent Systems》（9.0/10）, 《IO Factory: Simulating AI-Enabled Influence Campaigns at Scale》（9.0/10）</p>
+<p>速读：《Generating Attacks for LLMs with GFlowNets》（6.0/10）, 《Beyond Detection: Evaluating Defensive LLMs Against AI-Generated Social Engineering in Live Turn-by-Turn Interaction》（6.0/10）</p>
+<p>这些结果覆盖了当下较热的方向，建议先看精读区论文的关键问题与方法。</p>
   </div>
 </section>
 <section class="dpr-home-dashboard-card dpr-home-deep-card">
@@ -76,7 +77,7 @@
     <strong class="dpr-home-dashboard-count">2 篇</strong>
   </div>
   <div class="dpr-home-dashboard-body">
-<ul class="dpr-home-dashboard-paper-list"><li><span class="dpr-home-dashboard-paper-title" title="RangeFactory: Scalable Construction of Multi-Hop Cyber Ranges">RangeFactory: Scalable Construction of Multi-Hop Cyber Ranges</span></li><li><span class="dpr-home-dashboard-paper-title" title="ColluSkill: Adversarial Cross-Skill Composition for Evading Agent Skill Scanners">ColluSkill: Adversarial Cross-Skill Composition for Evading Agent Skill Scanners</span></li></ul>
+<ul class="dpr-home-dashboard-paper-list"><li><span class="dpr-home-dashboard-paper-title" title="REDAgentBench: Executable Red Teaming and Faithful Measurement of LLM Agent Systems">REDAgentBench: Executable Red Teaming and Faithful Measurement of LLM Agent Systems</span></li><li><span class="dpr-home-dashboard-paper-title" title="IO Factory: Simulating AI-Enabled Influence Campaigns at Scale">IO Factory: Simulating AI-Enabled Influence Campaigns at Scale</span></li></ul>
   </div>
   <div class="dpr-home-dashboard-tags"><span class="dpr-home-dashboard-tag">ca <strong>2</strong></span></div>
 </section>
@@ -86,12 +87,12 @@
       <span class="dpr-home-dashboard-kicker">今日累计</span>
       <h3 class="dpr-home-dashboard-title">速读推荐</h3>
     </div>
-    <strong class="dpr-home-dashboard-count">1 篇</strong>
+    <strong class="dpr-home-dashboard-count">2 篇</strong>
   </div>
   <div class="dpr-home-dashboard-body">
-<ul class="dpr-home-dashboard-paper-list"><li><span class="dpr-home-dashboard-paper-title" title="Telemetry and Concealment in Self-Adapting Generative AI: Logging Architecture, Adversarial Model Hiding, and the Limits of Detection">Telemetry and Concealment in Self-Adapting Generative AI: Logging Architecture, Adversarial Model Hiding, and the Limits of Detection</span></li></ul>
+<ul class="dpr-home-dashboard-paper-list"><li><span class="dpr-home-dashboard-paper-title" title="Generating Attacks for LLMs with GFlowNets">Generating Attacks for LLMs with GFlowNets</span></li><li><span class="dpr-home-dashboard-paper-title" title="Beyond Detection: Evaluating Defensive LLMs Against AI-Generated Social Engineering in Live Turn-by-Turn Interaction">Beyond Detection: Evaluating Defensive LLMs Against AI-Generated Social Engineering in Live Turn-by-Turn Interaction</span></li></ul>
   </div>
-  <div class="dpr-home-dashboard-tags"><span class="dpr-home-dashboard-tag">ca <strong>1</strong></span></div>
+  <div class="dpr-home-dashboard-tags"><span class="dpr-home-dashboard-tag">ca <strong>2</strong></span></div>
 </section>
 </div>
 
