@@ -1,0 +1,39 @@
+{
+  "label": "2026-08-13",
+  "date": "2026-08-13",
+  "generated_at": "2026-08-13T21:04:15",
+  "count": 2,
+  "papers": [
+    {
+      "paper_id": "202608/13/2608.10281v1-from-prompt-injection-to-web-exploitation-revisiting-classic-vulnerabilities-in-llm-integrated-applications",
+      "section": "quick",
+      "title_en": "From Prompt Injection to Web Exploitation: Revisiting Classic Vulnerabilities in LLM-Integrated Applications",
+      "authors": "Spiros Tsigkopoulos, Christoforos Ntantogian",
+      "date": "2026-08-10",
+      "pdf": "https://arxiv.org/pdf/2608.10281v1",
+      "score": "6.0",
+      "evidence": "系统化LLM介导的Web攻击，展示LLM如何促成经典Web漏洞利用",
+      "tldr": "LLM集成到Web应用后，用户输入可通过模型间接影响后端操作，使经典Web漏洞以中介攻击形式重现。论文提出LLM2X攻击面分类，系统梳理LLM2SQLi、LLM2XSS、LLM2SSRF等八类变体，并构建TicketOracle实验评估LLM2SSRF。结果发现不同LLM易感性差异显著，风险取决于不安全架构和模型行为。研究为LLM集成应用安全提供系统性分析框架与跨层缓解建议。",
+      "tags": "query:ca",
+      "abstract_en": "Large Language Models are increasingly integrated into web applications through chatbots, tool-calling pipelines, and agentic workflows. In these systems, user input may influence not only generated text, but also backend actions such as database queries, HTTP requests, file operations, template rendering, or API calls. This paper introduces LLM-mediated web attacks, a class of attacks in which attacker-controlled input is transformed by an LLM-integrated application and then reaches traditional web-application sinks. We systematize this attack surface through representative LLM2X variants, including LLM2SQLi, LLM2XSS, LLM2SSTI, LLM2CommandInjection, LLM2IDOR, LLM2CSRF, LLM2XXE, and LLM2SSRF. Our analysis shows that the LLM usually does not create the underlying vulnerability itself; rather, it acts as a mediation layer, and in some tool-enabled settings as a confused deputy, carrying attacker influence into components that trust model-generated or model-influenced content. As an experimental case study, we implement TicketOracle, a Flask-based LLM-integrated web application for evaluating LLM2SSRF across five attack scenarios and seven LLMs. Our results show substantial variation in susceptibility across models, suggesting that exploitation depends both on insecure application architecture and model-specific behavior. We conclude with mitigation strategies across the prompt, model, application, and network layers.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202608/13/2608.10530v1-on-understanding-identifying-and-mitigating-vulnerabilities-in-agentic-large-language-models",
+      "section": "quick",
+      "title_en": "On Understanding, Identifying, and Mitigating Vulnerabilities in Agentic Large Language Models",
+      "authors": "Md Jafrin Hossain, Mohammad Arif Hossain, Nirwan Ansari",
+      "date": "2026-08-11",
+      "pdf": "https://arxiv.org/pdf/2608.10530v1",
+      "score": "6.0",
+      "evidence": "综述了智能体LLM的安全漏洞",
+      "tldr": "代理LLM已从无状态对话转向自主代理，在多步规划、工具调用和代码执行中拥有真实权限，安全风险显著增加，但研究未跟上。本文按PRISMA 2020指南系统筛选743条记录，保留85篇论文，发现攻击研究是防御的3.9倍，感知层漏洞占66%，而行动层仅4.7%，代码执行仅3.5%。作者提出四层分类法映射13类漏洞，识别七个以遏制为中心的开放问题，指出架构耦合与弱隔离是漏洞跨层传播的根源。",
+      "tags": "query:ca",
+      "abstract_en": "Large Language Models (LLMs) have undergone a shift from stateless conversational interfaces to autonomous agents capable of multi-step planning, tool invocation, code execution, and maintaining persistent memory. When these agents operate with real-world privileges---calling APIs, modifying files, and querying databases---a compromised reasoning step can trigger unauthorized data access, irreversible state changes, or cascading failures, yet the security research community has not kept pace. To quantify the state of the field, we conducted a systematic literature review under PRISMA 2020 guidelines across six databases, screening 743 records and retaining 85 papers (2023--2025) on agentic LLM security. Attack research outpaces defense work by 3.9:1. Perception-layer vulnerabilities (prompt injection, jailbreaking, adversarial perturbations) dominate, accounting for 66\\% of papers, while action-layer vulnerabilities (tool misuse, code injection, sandbox escape) appear in only 4.7\\%, misaligned with real-world risk. Code execution security accounts for 3.5\\%, and tool-augmented agents 12\\%. We contribute a four-layer taxonomy mapping 13 vulnerability types across perception, brain, action, and interaction layers, and identify seven open problems centered on containment. Agentic LLM insecurity stems from architectural coupling, where weak isolation allows vulnerabilities to propagate across layers.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}

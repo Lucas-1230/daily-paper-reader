@@ -1,0 +1,91 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-08-13T21:01:28.605433+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 0,
+    "deep_cap": 6,
+    "deep_selected": 0,
+    "quick_candidates": 2,
+    "quick_skim_target": 11,
+    "quick_selected": 2
+  },
+  "deep_dive": [],
+  "quick_skim": [
+    {
+      "id": "2608.10281v1",
+      "source": "arxiv",
+      "title": "From Prompt Injection to Web Exploitation: Revisiting Classic Vulnerabilities in LLM-Integrated Applications",
+      "abstract": "Large Language Models are increasingly integrated into web applications through chatbots, tool-calling pipelines, and agentic workflows. In these systems, user input may influence not only generated text, but also backend actions such as database queries, HTTP requests, file operations, template rendering, or API calls. This paper introduces LLM-mediated web attacks, a class of attacks in which attacker-controlled input is transformed by an LLM-integrated application and then reaches traditional web-application sinks. We systematize this attack surface through representative LLM2X variants, including LLM2SQLi, LLM2XSS, LLM2SSTI, LLM2CommandInjection, LLM2IDOR, LLM2CSRF, LLM2XXE, and LLM2SSRF. Our analysis shows that the LLM usually does not create the underlying vulnerability itself; rather, it acts as a mediation layer, and in some tool-enabled settings as a confused deputy, carrying attacker influence into components that trust model-generated or model-influenced content. As an experimental case study, we implement TicketOracle, a Flask-based LLM-integrated web application for evaluating LLM2SSRF across five attack scenarios and seven LLMs. Our results show substantial variation in susceptibility across models, suggesting that exploitation depends both on insecure application architecture and model-specific behavior. We conclude with mitigation strategies across the prompt, model, application, and network layers.",
+      "authors": [
+        "Spiros Tsigkopoulos",
+        "Christoforos Ntantogian"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR"
+      ],
+      "published": "2026-08-10T22:24:16+00:00",
+      "link": "https://arxiv.org/pdf/2608.10281v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "systematizes LLM-mediated web attacks, showing how LLMs enable classic web exploits",
+      "llm_evidence_cn": "系统化LLM介导的Web攻击，展示LLM如何促成经典Web漏洞利用",
+      "llm_evidence": "系统化LLM介导的Web攻击，展示LLM如何促成经典Web漏洞利用",
+      "canonical_evidence": "系统化LLM介导的Web攻击，展示LLM如何促成经典Web漏洞利用",
+      "llm_tldr_en": "Systematizes LLM-mediated web attacks (LLM2X) showing how attacker input can be transformed by LLM-integrated apps to trigger SQLi, XSS, SSTI, command injection, and other classic web exploits.",
+      "llm_tldr_cn": "本文针对LLM集成Web应用带来的新攻击面，系统化LLM介导的Web攻击（LLM2X），包括SQL注入、XSS、模板注入、命令注入等变体，展示攻击者输入如何经LLM转换后到达传统Web漏洞接收点。实验分析验证了这些攻击的可行性。该研究直接关联大语言模型在网络犯罪中的能力边界，表明LLM可被用于执行Web利用，是评估其网络犯罪潜力的重要参考。",
+      "llm_tldr": "本文针对LLM集成Web应用带来的新攻击面，系统化LLM介导的Web攻击（LLM2X），包括SQL注入、XSS、模板注入、命令注入等变体，展示攻击者输入如何经LLM转换后到达传统Web漏洞接收点。实验分析验证了这些攻击的可行性。该研究直接关联大语言模型在网络犯罪中的能力边界，表明LLM可被用于执行Web利用，是评估其网络犯罪潜力的重要参考。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "capabilities of large language models in cybercrime",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2608.10530v1",
+      "source": "arxiv",
+      "title": "On Understanding, Identifying, and Mitigating Vulnerabilities in Agentic Large Language Models",
+      "abstract": "Large Language Models (LLMs) have undergone a shift from stateless conversational interfaces to autonomous agents capable of multi-step planning, tool invocation, code execution, and maintaining persistent memory. When these agents operate with real-world privileges---calling APIs, modifying files, and querying databases---a compromised reasoning step can trigger unauthorized data access, irreversible state changes, or cascading failures, yet the security research community has not kept pace. To quantify the state of the field, we conducted a systematic literature review under PRISMA 2020 guidelines across six databases, screening 743 records and retaining 85 papers (2023--2025) on agentic LLM security. Attack research outpaces defense work by 3.9:1. Perception-layer vulnerabilities (prompt injection, jailbreaking, adversarial perturbations) dominate, accounting for 66\\% of papers, while action-layer vulnerabilities (tool misuse, code injection, sandbox escape) appear in only 4.7\\%, misaligned with real-world risk. Code execution security accounts for 3.5\\%, and tool-augmented agents 12\\%. We contribute a four-layer taxonomy mapping 13 vulnerability types across perception, brain, action, and interaction layers, and identify seven open problems centered on containment. Agentic LLM insecurity stems from architectural coupling, where weak isolation allows vulnerabilities to propagate across layers.",
+      "authors": [
+        "Md Jafrin Hossain",
+        "Mohammad Arif Hossain",
+        "Nirwan Ansari"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI"
+      ],
+      "published": "2026-08-11T06:11:26+00:00",
+      "link": "https://arxiv.org/pdf/2608.10530v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Surveys security vulnerabilities in agentic LLMs",
+      "llm_evidence_cn": "综述了智能体LLM的安全漏洞",
+      "llm_evidence": "综述了智能体LLM的安全漏洞",
+      "canonical_evidence": "综述了智能体LLM的安全漏洞",
+      "llm_tldr_en": "A systematic review of agentic LLM security, identifying attack and defense trends in autonomous agents.",
+      "llm_tldr_cn": "LLM从对话接口转向自主智能体后，安全研究滞后。本文通过系统文献综述梳理了2023-2025年间智能体LLM安全的研究现状，发现攻击研究多于防御。该综述为理解智能体LLM能力边界和安全风险提供了全面视角。",
+      "llm_tldr": "LLM从对话接口转向自主智能体后，安全研究滞后。本文通过系统文献综述梳理了2023-2025年间智能体LLM安全的研究现状，发现攻击研究多于防御。该综述为理解智能体LLM能力边界和安全风险提供了全面视角。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "exploring the capability boundaries of large language models in cyber contexts",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}
