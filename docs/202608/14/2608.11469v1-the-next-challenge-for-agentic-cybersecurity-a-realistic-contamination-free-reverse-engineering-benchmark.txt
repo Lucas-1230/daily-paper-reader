@@ -1,0 +1,516 @@
+Title: The Next Challenge for Agentic Cybersecurity: A Realistic, Contamination-Free Reverse Engineering Benchmark
+
+URL Source: https://arxiv.org/pdf/2608.11469v1
+
+Published Time: Thu, 13 Aug 2026 00:15:08 GMT
+
+Number of Pages: 18
+
+Markdown Content:
+# THE NEXT CHALLENGE FOR AGENTIC CYBERSECU -
+
+# RITY : A R EALISTIC , C ONTAMINATION -F REE REVERSE 
+
+# ENGINEERING BENCHMARK 
+
+Jeremy Spence 1∗ Nicholas Assaderaghi 1 Jinhao Zhu 2 Nikil Ravi 3
+
+Raluca Ada Popa 2 Guannan Wei 4 Yangruibo Ding 5 Zhuo Zhang 1∗
+
+> 1
+
+Columbia University 2UC Berkeley 3Vals AI 4Tufts University 5UCLA 
+
+## ABSTRACT 
+
+AI agents are rapidly improving in cybersecurity capabilities when the source code 
+
+is available for analysis, yet much of the software most consequential to cyber-security, including malware, firmware, and proprietary applications, is available only as binaries . Analyzing such software requires reverse engineering (RE) :recovering program semantics before the analysis can be meanfully performed. However, evaluating agentic RE poses a fundamental challenge: benchmark in-stances must be unseen as source code in the LLMs’ training data to prevent models from taking shortcuts by recognizing them rather than really analyzing them, while also matching the scale and anti-analysis protections of real software. Unfortunately, however, existing benchmarks do not jointly satisfy these require-ments. To this end, we introduce SRE-Bench , the first realistic, contamination-free RE benchmark. Built entirely from scratch by RE experts with over 5,000 ex-pert hours, SRE-Bench comprises 19 private, real-world-scale programs averaging 16.9K lines of code. We further developed 44 in-house anti-analysis primitives, yielding 262 binary instances and 1,572 deterministically graded tasks. Our eval-uation across five frontier LLMs (GPT-5.6-sol, Claude-Opus-5, GPT-5.5, Grok-4.5, and GLM-5.2), with a sweep costing $31.4K, shows that RE remains largely unsolved: the strongest model, GPT-5.6-sol, scores 61.4% per instance, and fully solves only 31.5% of the instances. Our analysis further reveals that agents behave differently from human reverse engineers, where agents are relatively insensitive to compiler optimization and static linking. Controlled ablations also confirm that both contamination control and realistic scale are essential. These results indicate that strong source-code security capabilities do not yet transfer to binary analysis, highlighting RE as an important frontier for agentic cybersecurity and SRE-Bench as a rigorous testbed for measuring progress. 
+
+## 1 INTRODUCTION 
+
+Much of the software most consequential to cybersecurity reaches analysts only as binaries, without source code . This is true at both ends of the threat landscape. On the defensive side, the high-value systems ( e.g. , proprietary enterprise software, security appliances, and firmware) are frequent attack targets but are typically distributed only in binary form. For example, according to the authoritative catalog (CISA, 2026), 46.5% of vulnerabilities exploited in the wild come from vendors that do not release source code. Google similarly reports that more than 48% of the zero-days in 2025 targeted proprietary enterprise software (Google, 2026). On the offensive side, attackers deliberately distribute malicious payloads as obfuscated binaries to impede analysis, with approximately 732,000 new malicious samples reported each day (van Liebergen et al., 2023). As autonomous cybersecurity agents advance, binary software becomes an essential and urgent evaluation target. Unlike source code, binary code is represented as raw bytes and is not directly intelligible to ana-lysts. Over the past several decades, cybersecurity researchers have developed Reverse Engineering 
+
+> *
+
+j.spence@columbia.edu zz@cs.columbia.edu 
+
+1arXiv:2608.11469v1 [cs.CR] 11 Aug 2026 (RE) (Shoshitaishvili et al., 2016; Lee et al., 2011; Balakrishnan et al., 2005; Song et al., 2008) to re-cover high-level program semantics from this opaque representation. RE now forms the foundation of binary-first security analysis: before analysts can reason about vulnerabilities, patches, or ex-ploits, they must first determine what a binary does. Notably, RE requires capabilities distinct from those involved in downstream cybersecurity tasks (Mantovani et al., 2022; Votipka et al., 2020). It entails interpreting low-level semantics, inferring intent from incomplete evidence, and, in harder cases, overcoming packing and obfuscation. To extend agentic cybersecurity beyond source code, AI agents must therefore learn how to tackle RE and be evaluated on it as a distinct capability. However, constructing an RE benchmark that faithfully reflects real-world practice is challenging. 
+
+An RE benchmark is valid only if its targets are unknown to the model. RE recovers the seman-tics of unknown binaries (e.g. , malware or proprietary software). Analysts therefore begin with no prior knowledge of the target. Benchmarks built from public source code break this premise, because the target may already appear in pretraining data and be recognizable during evaluation (Al-Kaswan et al., 2024; Jain et al., 2025; OpenAI, 2026). Once a model recognizes the target, its prior knowl-edge ( e.g. , the target’s high-level purpose) can help bypass much of the program-understanding pro-cess. Note that this risk differs from contamination in many other cybersecurity tasks, where only exact, fine-grained leakage is concerning (Ding et al., 2024). In RE, even coarse leakage is dam-aging (Siegmund, 2016), as it provides crucial, top-down guidance for program interpretation (Big-gerstaff et al., 1993). Our empirical results in §4 further confirm that such data contamination can inflate RE task performance. 
+
+An RE benchmark must also match the scale and protection of real-world targets. Recent work shows that cybersecurity benchmarks built from CTF-style challenges or toy programs fail to pre-dict agent performance on real targets (Wang et al., 2026; Zhang et al., 2026). RE follows the same pattern. Its complexity arises from two sources: 1) the target program and 2) the protection layer 
+
+that gates access to it. At the program level, real-world software spans thousands of lines of code. Because RE is fundamentally a program-understanding task, its difficulty grows sharply with the scale (Wettel et al., 2011); capability measured on toy programs therefore does not extrapolate (Ru-gaber, 1995). At the protection level, high-value targets are often wrapped in multiple anti-analysis layers, such as sophisticated and sometimes bespoke obfuscation (Cheng et al., 2021). A faithful benchmark must therefore pair real-world-scale programs with protection beyond textbook schemes. Together, these requirements rule out straightforward construction strategies: realistic artifacts are typically derived from open-source projects, which contamination controls exclude . Localized mod-ifications to such projects are also insufficient, because their high-level architecture may remain recognizable. As a result, constructing programs with real-world complexity entirely from scratch becomes the most viable (albeit highly time-consuming and expertise-intensive) approach. To this end, we invested over 5,000 domain-expert hours in developing a clean-room RE benchmark. To our knowledge, no prior RE benchmark has demanded a comparable investment of expert effort. 
+
+SRE-Bench: The First Realistic, Contamination-Free RE Benchmark. We developed 19 in-house programs, averaging more than 16,915.8 lines of code (LoC), across five representative RE domains: network protocols, firmware, games, format parsers, and malware. These domains cor-respond to the major categories identified by a recent survey of reverse-engineering discussions on Stack Exchange (Kabir et al., 2026). We also built a comprehensive anti-analysis suite with 44 state-of-the-art protection primitives, over half of which have no public implementations. The suite itself required over 27K LoC to implement. By pairing these private programs with in-house protec-tion settings, SRE-Bench yields 262 contamination-free instances with realistic difficulty . Each instance defines six deterministically verifiable tasks. In total, SRE-Bench provides 1,572 RE tasks. 
+
+Experimental Results Reveal the Limits of Current Agentic RE. We evaluate five frontier models on SRE-Bench, at a total cost of $31.4K. Even the strongest, GPT-5.6-sol, reaches only 61.4% and fully recovers only 31.5% the instances, while the weakest never fully recovers a single one. Our in-house protections are the sharpest obstacle: they halve GPT-5.6-sol and drive every other model to near zero, collapsing a wide capability ranking into near-uniform failure. The failure modes also differ from those of human analysts. Optimization and linking, the classical obstacles of manual RE, barely register, whereas stripping symbols is costly, which suggests that current agents lean on lexical anchors more than on instruction-level reasoning. Difficulty further varies by domain and language, with malware hardest and C consistently easier than Go and Rust. Finally, our ablations 2Table 1: Comparing SRE-Bench with existing, end-to-end RE benchmarks for AI agents. # In-stances denotes the number of RE instances. RE-Centric indicates whether the benchmark is pri-marily designed for RE. Cont. Ctrl. denotes control for program-identity contamination. Prog. Cplx. summarizes program complexity, and LoC reports the average lines of code per instance for non-CTF benchmarks. Prot. Cplx. summarizes the complexity of binary-protection mechanisms.                                                           
+
+> Benchmark # Instances RE-Centric Cont. Ctrl. Prog. Cplx. LoC Prot. Cplx.
+> NYU CTF Bench (Shao et al., 2024) 51 ✗✗Existing CTF –Easy
+> Cybench (Zhang et al., 2025) 6 (15 tasks )✗✗Existing CTF –Easy
+> CTF-Dojo (Zhuo et al., 2025) 123 ✗✗Existing CTF –Easy
+> CTFTiny (Shao et al., 2026) 16 ✗✗Existing CTF –Easy
+> CREBench (Chen et al., 2026) 432 (1728 tasks )✓△Toy Program 526.2 Easy
+> AgentRE-Bench (AgentRE-Bench, 2026) 13 (70 tasks )✓✓Toy Program 63.5 Textbook
+> CrackMeBench (David & Gervais, 2026) 12 ✓✓Toy Program 36.1 Textbook
+> SRE-Bench (Ours) 262 (1572 tasks )✓✓Real-World Software 16,915.8 Real-World
+
+confirm that both benchmark requirements are load-bearing: a publicly derived target and a small clean-room target are each solved for a few dollars in minutes, whereas only a target that is both private and at real-world scale separates the models at all. 
+
+Our Contributions. This work makes four contributions. First, we identify RE as the next frontier for agentic cybersecurity, and argue that the field must move beyond source-code benchmarks to measure agents on binary-first workflows. Second, we show empirically that both program com-plexity and data contamination substantially affect RE benchmark results, establishing them as es-sential design considerations rather than optional refinements. Third, we present SRE-Bench, the first RE benchmark that addresses both: 262 instances built from scratch at real-world scale (averag-ing 16,915.8 LoC), paired with a 27K-LoC anti-analysis suite implementing 44 in-house protection primitives. Fourth, we give the first systematic characterization of agentic RE capability in a real-world setting with SRE-Bench, and our evaluation on state-of-the-art AI agents reveal that strong source-code security capabilities do not yet transfer to binary analysis. 
+
+## 2 RELATED WORK 
+
+Source-Code Security Benchmarks for AI Agents. A broad line of work evaluates AI agents on source-code security tasks. Chen et al. (2023); Liu et al. (2024); Yildiz et al. (2025) introduce vulnerability-detection benchmarks that measure whether models can identify flaws across entire codebases. Wang et al. (2025); Pu et al. (2026); Lee et al. (2026b); Pu et al. (2026) introduce PoC-generation benchmarks that evaluate whether agents can reproduce vulnerabilities using con-crete inputs. Zhu et al. (2025); Wang et al. (2026); Lee & Brumley (2026) further propose exploit-development benchmarks that assess whether agents can construct working exploits. Other security-oriented software-engineering benchmarks evaluate complementary code-security workflows (Nie et al., 2026; Lee et al., 2026b;a; Wang et al., 2025). SRE-Bench instead targets the missing bridge to binaries, testing whether AI agents’ success on source code extends to broader security workflows. 
+
+Traditional RE Benchmarks. Many RE benchmarks evaluate specific intermediate artifacts, such as function and variable names (Koller et al., 2026), types (Won et al., 2026; Soni et al., 2025), and decompiled source code (Tian et al., 2026; Gao et al., 2025). However, artifact-level accuracy does not fully capture end-to-end program understanding: an agent may correctly infer program behavior or identify vulnerabilities without recovering the original names, types, or source code. 
+
+End-to-End RE Benchmarks for AI Agents. Closer to our setting, several benchmarks evaluate AI agents on RE tasks, but they still diverge sharply from real-world practice, as summarized in Table 1. Among them, CTF-derived benchmarks (Shao et al., 2024; Zhang et al., 2025; Zhuo et al., 2025; Shao et al., 2026) include RE tasks, but only as one subcategory. Because these benchmarks are drawn from existing CTF competitions whose intended solutions are often publicly available, they carry substantial risk of data contamination. Moreover, most of their collected challenges are entry-level, which fail to capture real-world complexity in either target programs or binary protections. A second line of work focuses specifically on RE tasks and constructs benchmark programs from scratch to reduce data-contamination risk. However, these benchmarks are limited to toy programs. 3Firmware          
+
+> File Format Game
+> Malware
+> Network Protocol
+> RE Domains
+> Programming Languages Compilation with Protection
+> ✓Multi-layer on-demand encryption
+> ✓Polymorphic VM obfuscation
+> ✓Key-fused anti-tamper/-debug/-dump
+> ✓Anti-re-hosting signed licensing
+> …
+> Domain-Specific Infrastructure
+> Device Emulator
+> Network Server Format Parser
+> Egg Verifier
+> Polluted Environment Detector
+> Agent Workspace
+> Compiled
+> Binary
+> Task
+> Description
+> AI Agents with RE tools
+> Auxiliary Material Grading Server
+> Access Submit
+> Solution
+> Development Evaluation
+> Adversarial Reward-Hacking Audits
+> Source
+> Code
+
+Figure 1: Overview of the SRE-Bench construction and evaluation pipeline. Security experts de-velop each program and its evaluation infrastructure from scratch against a private specification. Pro-grams are compiled into diverse build variants and optionally hardened by our in-house protection suite, yielding contamination-free binary instances. At evaluation time, the agent receives a binary plus domain-specific auxiliary materials, then submits a solution that a deterministic grader scores. The same evaluation pipeline is reused during development to run adversarial reward-hacking audits (Opus 4.8), whose findings drive iterative hardening of both the programs and the infrastructure. CREBench (Chen et al., 2026) targets crypto-oriented RE and contains 432 instances generated from 48 small programs, averaging only 526.2 LoC per program. Meanwhile, it still carries contamination risk, as 39 of its 48 programs are slight modifications of open-source projects. Its obfuscation is rudimentary as well, limited to naive string-XOR obfuscation. AgentRE-Bench (AgentRE-Bench, 2026) and CrackMeBench (David & Gervais, 2026) provide stronger contamination control by using 13 and 12 self-developed programs, respectively. However, they are even smaller in scale, averaging only 63.5 and 36.1 LoC per instance. Their binary protections also remain textbook-level, such as simple keygens and miniature virtual machines. For example, AgentRE-Bench implements all protection logic in only 376 lines of C code. In contrast, SRE-Bench is designed to evaluate agentic RE under substantially more realistic conditions while maintaining strict contamination control. Its programs are developed from scratch at real-world scale, averaging 16,915.8 LoC per instance. Its protection layer is a comprehensive anti-analysis suite built with over 27K LoC, incorporating many techniques widely used in commercial obfuscators but lacking mature public implementations. 
+
+## 3 BENCHMARK 
+
+Figure 1 illustrates the construction pipeline of SRE-Bench. The benchmark is built entirely in-house: security experts develop the target programs and their evaluation infrastructure from scratch, compile and optionally harden them into diverse binary instances, and score every submission with a deterministic grader. Adversarial reward-hacking audits further close the loop by pitting agents against in-progress instances under the real grader and patching every shortcut that earns credit with-out requiring genuine RE. We deliberately confine SRE-Bench to reverse engineering and exclude downstream cybersecurity tasks such as exploit development, for two reasons: 1) including such tasks would conflate an agent’s RE ability with its separate cybersecurity skill, and 2) reverse engi-neering is a distinct capability that merits measurement on its own (Mantovani et al., 2022; Votipka et al., 2020). The following subsections detail the RE domains (§3.1) and the protection suite (§3.2). Table 2: LoC per program (domain ×language). Firmware omits Go, whose runtime makes it un-suitable for bare-metal embedded targets.                                    
+
+> Domain CC++ Rust Go Total
+> Network Protocol 17,513 15,754 18,052 29,346 80,665 Game 19,922 19,208 19,692 22,873 81,695 File Format 16,894 12,291 12,732 21,144 63,061 Malware 14,610 12,972 16,726 22,897 67,205 Firmware 8,874 8,892 11,009 –28,775
+> Total 77,813 69,117 78,211 96,260 321,401
+
+Development Methodology. All artifacts ( i.e. ,the target programs, the evaluation infrastructure, and the protection suite) were developed by RE experts with an average of six years of expe-rience. Each program was independently im-plemented from scratch based on a private de-sign specification that is never released. The 19 programs span four implementation languages (i.e. , C, C++, Rust, and Go), follow language-idiomatic programming patterns, and use distinct library stacks ( e.g. , ncurses vs. tcell vs. 4Table 3: Overview of RE domains. Target is what the program does. RE Task is what the agent must accomplish. Infrastructure is the component that makes evaluation deterministic. Auxiliary 
+
+is what the agent receives beyond the binary. # Programs reports the number of unique programs in each domain; their implementation languages and Loc can be found in Table 2.            
+
+> Domain Target RE Task Infrastructure Auxiliary # Programs
+> Network Protocol A client-server stack for a proprietary, encrypted network protocol Recover the wire format and drive a client through the full protocol state machine Server that scores the protocol’s state-machine coverage of the client 5 partial packet captures 4
+> Game A playable 20-floor terminal roguelike dungeon crawler Trigger hidden behaviors (Easter eggs) unreachable through normal play An egg verifier that replays the agent’s action trace Player manual 4
+> File Format A file/directory compressor producing a proprietary archive format Reverse the encoder and decode the provided archives byte-exactly A held-out decoder that round-trip verifies the developed encoder 6 challenge files and correspond-ingpasswords 4
+> Malware A synthetic implant that exhibits malicious behavior without causing real harm Reverse the implant’s effects while preserving benign user data A sandboxed infection-and-cleanup grader –4
+> Firmware Bare-metal firmware for a locked-down secure microcontroller Take progressively fuller control of the device through its interface A held-out emulator that models the chip and its peripherals Serial console on a remotely hosted emulator 3
+
+ratatui ). No two programs share source code, and none is derived from a public project. Ev-ery program ships with a private reference solution that scores a perfect 6/6, which serves as both a solvability proof and a regression gate. We also run iterative adversarial reward-hacking audits: reusing the evaluation pipeline, we pit agents against in-progress instances to surface shortcuts. For example, an early build retained the internal name of a hidden behavior ( i.e. , the target of an RE task) as a readable string in the binary; an agent therefore located the corresponding trigger through string scanning without doing any actual RE. We removed the string and added a regression check that fails the build on any similar leak. In total, SRE-Bench comprises over 320K lines of code (Table 2), averaging 16,915.8 LoC per program; it is 30-470 × larger than prior RE benchmarks. 
+
+Contamination Control Deserves Special Note. Because this paper may itself enter future training corpora, we describe each domain in sufficient detail to support the paper’s analysis and give readers a clear understanding of each domain, while limiting those details to information that an analyst could recover from the binary with minimal effort. 1 We withhold all instance-specific secrets. 2
+
+3.1 BENCHMARK DOMAINS 
+
+SRE-Bench contains 262 instances, spanning five domains that together cover the breadth of real-world RE practice (Kabir et al., 2026; Eilam, 2011): network protocol , game , format parser , mal-ware , and firmware . Table 3 summarizes the characteristics of each domain. 
+
+Network Protocol. The agent receives a client binary that implements a proprietary, encrypted client–server protocol, together with a handful of partial packet captures that mimic the limited net-work traces available to analysts in practice. No specification is provided. The agent must recover the layered wire format and reconstruct the interacting client and server state machines, then im-plement a driver to communicate with a live server. A live server grades that driver over a single metered TCP connection, capped at 64 messages, scoring how deep into the protocol’s state space the agent can legally drive: from the cryptographic handshake, through capability-tier climbing, rekeying, and connection migration, to a capstone clean run that covers every stage at once. The server generates a fresh key for each session, preventing the agent from replaying a previous run. 
+
+> 1
+
+We further verified that all information disclosed in §3.1 and §A could be recovered from the binaries by Codex GPT-4 mini within 200 LLM requests. We masked program-specific details in each paragraph, asked the agent to reconstruct them, and manually checked the results. 
+
+> 2
+
+Throughout the paper, we omit exact constants, trigger conditions, hidden-behavior mechanisms, and ref-erence solutions. We report only what an agent could readily obtain from the binary. Where we name a critical algorithm ( e.g. , a cryptographic primitive), we substitute one of similar functionality and complexity. We de-liberately withhold the actual choice. SRE-Bench therefore remains contamination-free in practice. 
+
+5Game. The target is a fully playable, 20-floor terminal roguelike featuring combat, spellcasting, crafting, shops, factions, quests, and achievements. A player manual explains the game and its core mechanics. Hidden within the binary are six behaviors that never arise during normal play and are not documented in the manual; each is triggered silently by conditions that can be identified only by reconstructing the relevant program logic. The agent demonstrates each discovery by submitting an action trace, which a headless verifier replays and reports which hidden behaviors were triggered. 
+
+File Format. The target is a file-and-directory compressor that produces archives in a proprietary format, i.e. , an in-house version of GZIP. It is distributed as an encoder only : the binary contains no decompressor, so the agent must reverse engineer the multi-stage encoding pipeline and implement a decoder that reconstructs the original files byte-for-byte. The pipeline combines six modified variants of commonly used compression algorithms with a custom error-correction scheme. The agent must recover six password-protected archives of increasing complexity, some of which contain recoverable corruption that the decoder must detect and correct. Grading requires exact recovery of both file contents and metadata; the decoder must genuinely invert every stage of the pipeline. 
+
+Malware. The target is a malware-themed Linux implant that is inert and safe by construction. When activated with a key inside a sandbox, it simulates behaviors drawn from six common mal-ware families: process masquerading, persistence, cryptomining, file ransomware, C2 beaconing, and lateral movement. All effects are strictly confined: file writes remain under the sandbox root, networking is restricted to loopback, and the implant performs no real cryptomining, user-data en-cryption, or remote code execution. The task is defensive: the agent must understand the implant well enough to implement a cleanup tool that surgically removes each family’s artifacts while pre-serving grader-planted benign data. This requirement prevents indiscriminate “delete everything” strategies, a reward-hacking shortcut identified during adversarial auditing. Scoring is conjunctive, with one point awarded per family only if the tool removes the malicious state, preserves the benign state, and durably neutralizes the corresponding behavior. Instance-specific names, paths, and keys are all derived from a fresh secret on each run to prevernt hard-coded cleanup strategies. 
+
+Firmware. The target is bare-metal firmware for a fictional, locked-down secure microcontroller whose firmware packaging and system-on-chip architecture were designed entirely in-house. It features an encrypted two-stage boot process, bespoke on-device cryptography, and dozens of pe-ripheral subsystems. The agent interacts with the device only through a JTAG-style interface to a from-scratch emulator that models the chip’s memory map, peripherals, and serial command inter-face, subject to a per-session budget of 5,000 commands. Beginning with black-box probing, the agent must reverse engineer the device and gain progressively greater control. The six tasks cor-respond to milestones along a dependency chain, progressing from initial communication to full privileged control. A fresh device secret generated for each session. Moreover, the scoring logic resides in the emulator rather than the firmware and is never exposed to the agent. 3.2 PROTECTION AND OBFUSCATION 
+
+High-value RE targets are rarely presented as clean, unprotected binaries. To model this, SRE-Bench includes an in-house binary protection suite that transforms an unprotected Linux ELF into a hard-ened, functionally equivalent variant. The suite is written from scratch (over 27K lines of Python, C, and assembly), so that the protection layer is as contamination-free as the programs it wraps. 
+
+Protection Primitives. The suite comprises 44 distinct primitives organized into nine technique families. These primitives can be composed to build stronger, layered protections. The families are: (1) Obfuscation and string deception (5 primitives). The suite implements standard obfuscation techniques, such as anti-disassembly transformations, control-flow flattening, and opaque pred-icates. Sensitive strings are encoded and reconstructed only at runtime. Other strings are as-signed misleading meanings to steer analysts toward decoy functionality. (2) Per-page authenticated encryption (4 primitives). The protected executable is divided into pages, each of which is compressed, encrypted, and authenticated under a unique key. The key for each page is derived from its page index, a token identifying the origin of the page fault that triggered decryption, and a live measurement of the current execution environment. Build identity, segment, offset, and length metadata are included as associated data, so modifying ei-6ther the page contents or their metadata causes authentication to fail. All keys are generated from a single seeded derivation graph using 53 domain-separated labels. (3) Lazy decryption and residency minimization (5 primitives). This protection maps every segment inaccessible and decrypts one page at a time inside a fault handler, so a memory snapshot yields only the live working set rather than the image. Idle code pages are re-encrypted by three cooperating mechanisms: capacity eviction (four resident pages under strict presets), a 50 ms aging timer, and a synchronous flush before every trapped blocking syscall. The loader adds W⊕X enforcement, core-dump exclusion of secret pages, and un-optimizable secret wiping. (4) Measurement-keyed anti-debugging (8 primitives). Page-decryption key derivation incorporates debugging signals, e.g. , tracer state, dumpability, probe outcomes, launch metadata, timing, and live code measurements. A child process detects competing tracers and hardware breakpoints, while a detached watchdog protects the decryption key and erases it upon detection. Attaching a debugger therefore corrupts decryption, and terminating the watchdog directly erases the key. (5) Self-checksumming and anti-tamper coupling (3 primitives). The program checks its live code and protected data for modifications, and uses the results to derive its page-decryption key. Changing even one instruction breaks both the integrity checks and decryption. All tampering failures appear as silent exits, providing no clue about which check was triggered. (6) Online licensing with per-run key delivery (4 primitives). Licensed configurations store no de-cryption key in the binary and require a pinned licensing server. Each execution uses a fresh ephemeral keypair, making captured responses non-replayable. The delivered key is also bound to the client’s anti-debug measurements, so a key obtained under debugging is unusable. (7) Loader-logic virtualization (6 primitives). Critical loader operations, e.g. , including key deriva-tion, code decryption, transfer to the program entry point, and page-fault handling, are imple-mented as bytecode executed by a custom virtual machine rather than as ordinary native code. The virtual machine further obscures this logic through keyed opcode encodings, randomized dispatch structures, and fused instructions that combine multiple operations. In licensed con-figurations, essential policies, bytecode, and instruction tables remain on the server; the binary contains only authenticated decoy versions that cannot perform the real loading process. (8) Anti-dump detection and deception (5 primitives). The protection detects external observation through debugger-stop state and foreign handles to the process’s memory. Upon detection, it silently re-executes to shed the debugger or exits normally to avoid confirming that a defense was triggered. In its strongest mode, it exposes an entirely different decoy program, causing the analyst to dump and reverse engineer the wrong binary without any visible failure. (9) Anti-re-hosting (4 primitives). This protection prevents an attacker from loading the protected image into a separate, debugger-free process and invoking its decryption routines outside the intended execution flow. Key derivation is bound to the original launch context, while the de-cryption routines are themselves encrypted and reconstructed only after startup checks succeed. 
+
+Novelty. To our knowledge, more than half of these primitives – primarily in families (3), (4), (7), (9), and (8) – have no publicly available implementations. Note that our implementation draws on ideas from commercial obfuscators but use independently designed algorithms and parameters. 3.3 INSTANCE GENERATION 
+
+We compile each of the 19 programs and, where applicable, harden it with the suite, yielding 262 binary instances. For each of the 16 programs in the four domains ( i.e. , network protocol, game, format parser, malware), we build 8 unprotected instances that sweep three compilation axes ( i.e. ,optimization, symbol stripping, and static vs. dynamic linking) plus 8 protected instances ( i.e. , one per protection preset, details in §B.9). Firmware is different: it is bare-metal, so our protection suite (which relies on the Linux loader, page-fault handlers, ptrace , and /proc ) does not apply; instead the firmware ships its protection in-binary (encrypted boot, bespoke crypto, on-device VMs, and decoy peripherals). Three firmware programs vary only by optimization level. Every instance defines six deterministically scored tasks. As a result, SRE-Bench provides 1,572 RE tasks in total. 7Table 4: Overall results on SRE-Bench . Graded is the number of runs that produced a gradeable result; the remainder failed either because the model refused the task on cyber-security grounds or because the run exceeded its context window, the latter concentrated in GROK -4.5. Both are excluded from all averages. Arrows indicate: ↑ higher is better, ↓ lower is better. 
+
+Capability Cost Model Graded Score ↑ Solved ↑ Zero ↓ Calls ↓ Cost ↓ Time ↓      
+
+> /262 of 6 (%) # (%) # (%) (#) ($) (min)
+> GPT
+
+-5.6-SOL 254 3.69 ±0.14 (61.4) 80 (31.5) 41 (16.1) 196 42.5 88.1 
+
+> CLAUDE
+
+-OPUS -5 256 1.91 ±0.14 (31.8) 32 (12.5) 118 (46.1) 139 23.6 81.0 
+
+> GPT
+
+-5.5 262 1.02 ±0.10 (17.1) 10 (3.8) 148 (56.5) 128 17.8 46.5 
+
+> GROK
+
+-4.5 218 0.45 ±0.07 (7.6) 2 (0.9) 160 (73.4) 115 13.4 65.7 
+
+> GLM
+
+-5.2 262 0.21 ±0.03 (3.4) 0 (0.0) 217 (82.8) 143 26.6 149.3 
+
+## 4 EVALUATION 
+
+Models and Harness. We evaluate five frontier models: GPT-5.6-sol, Claude-Opus-5, GPT-5.5, Grok-4.5, and GLM-5.2. Each runs inside a standardized mini-SWE-agent harness whose only tool is bash , so that differences in scaffolding do not confound the comparison. Every model is queried at its highest reasoning-effort setting ( max ), and each run is capped at 500 model steps and six hours of wall-clock time. Every instance is solved in its own isolated container holding the target binary, the domain-specific auxiliary materials of §3.1, and a standard RE toolkit (Ghidra with pyghidra ,radare2, GDB, angr, binutils, strace , and ltrace ), plus per-domain additions such as tshark ,
+
+pwntools , unicorn , and z3 . Grader code, reference solutions, and any development artifacts are removed from the container, and agents receive no scoring feedback during a run. 
+
+Metrics. We report Score , the mean rubric score over the six tasks of an instance ( 0–6); Solve , the number of instances fully recovered ( 6/6); and Zero , the number that earn no credit at all. Because the two ends of the rubric dominate the distribution, Solve and Zero together characterize an agent more sharply than the mean alone. We also report per-instance API calls, cost, and sandbox wall-clock time. All averages are taken over instances that returned a gradeable result. Source language 
+
+> C
+> 4.24
+> 2.32
+> 1.56
+> 0.83
+> 0.38
+> C++
+> 3.64
+> 1.88
+> 1.09
+> 0.49
+> 0.18
+> Rust
+> 3.43
+> 1.52
+> 0.68
+> 0.27
+> 0.12
+> Go
+> 3.39
+> 1.91
+> 0.75
+> 0.17
+> 0.14
+> Target domain
+> Proto
+> 4.88
+> 3.00
+> 1.42
+> 0.58
+> 0.48
+> Fmt
+> 4.16
+> 1.61
+> 0.81
+> 0.81
+> 0.08
+> Game
+> 3.57
+> 2.28
+> 1.34
+> 0.50
+> 0.20
+> Malw
+> 2.06
+> 0.34
+> 0.31
+> 0.00
+> 0.00
+> Firm
+> 6.00
+> 4.67
+> 3.17
+> 2.00
+> 0.83
+> GPT-5.6
+> Opus-5
+> GPT-5.5
+> Grok-4.5
+> GLM-5.2
+
+Figure 2: Mean score (of 6) per model, by source language and target domain, over all 262 in-stances. Darker is higher. 
+
+Overall Results. Table 4 reports aggregate per-formance over all 262 instances. SRE-Bench is far from saturated: the strongest model, GPT-5.6-sol, reaches 3.69 /6 and fully recov-ers only 80 instances ( 31 .5% ), while the weak-est, GLM-5.2, reaches 0.21 and never fully re-covers a single one. The ordering is wide as well as strict: GPT-5.6-sol scores 1.9× the next model and 17 × the last, so SRE-Bench discrim-inates sharply among frontier systems rather than placing them all near a floor or a ceiling. The Zero column shows that partial credit is the exception: every model earns nothing at all on a large share of instances, from 16 .1% for GPT-5.6-sol to 82 .8% for GLM-5.2, so scores reflect all-or-nothing outcomes rather than uniform partial progress. Effort does not buy capability. The five models consume between 115 and 196 API calls per instance and between 46 and 149 min-utes of sandbox time, yet GLM-5.2 spends more per instance than GPT-5.5 ( $26 .6 vs. $17 .8) for a fifth of the score. The evaluation is correspondingly expensive: running all five models over the benchmark cost $31.4K in total, together with 1,812 sandbox-hours. That price is itself a property of the benchmark, as an agent cannot skim a 16,915.8-LoC binary. Finally, a small number of runs never produced a gradeable result. Two causes account for them: model refusals triggered by the cyber-security framing of the tasks, and out-of-context errors on long runs, the latter concentrated almost entirely in Grok-4.5, which lost 44 of 262 runs. 
+
+What the Program Does Matters More Than What It Is Written In. Figure 2 decomposes ca-pability by source language and by target domain. Language has a modest and consistent effect: C is easiest for every model, and Go and Rust are hardest, but the spread for GPT-5.6-sol is only 0.85 
+
+points ( 4.24 for C vs. 3.39 for Go). We attribute the C advantage to tooling bias, as decompilers 8are tuned for C-like output, whereas Go and Rust binaries carry heavy runtimes and unfamiliar id-ioms. Domain separates the models roughly three times as strongly. Excluding the small firmware set, scores range from 4.88 on network protocol down to 2.06 on malware for GPT-5.6-sol, and the ordering is stable across models. Malware is hardest for a structural reason: its scoring is conjunc-tive, requiring an agent to neutralize each behavior and preserve grader-planted benign state, so a partially correct understanding earns nothing. The weaker models collapse there entirely ( 0.34 and below), while remaining competitive on protocol and game. Aggregate scores therefore hide which 
+
+kind of program understanding an agent lacks. unoptimized 
+
+> optimized
+> 4.75
+> 4.67
+> GPT-5.6
+> 3.44
+> 3.42
+> Opus-5
+> 2.00
+> 1.67
+> GPT-5.5
+> 0.95
+> 0.56
+> Grok-4.5
+> 0.39
+> 0.38
+> GLM-5.2
+> symbols
+> stripped
+> 4.95
+> 4.47
+> 3.70
+> 3.16
+> 2.53
+> 1.14
+> 1.00
+> 0.49
+> 0.59
+> 0.17
+> dynamic
+> static
+> 4.73
+> 4.69
+> 3.43
+> 3.44
+> 1.84
+> 1.83
+> 0.82
+> 0.70
+> 0.39
+> 0.38
+> unhardened
+> hardened
+> 4.69
+> 2.50
+> 3.07
+> 0.33
+> 0.94
+> 0.11
+> 0.36
+> 0.02
+> 0.25
+> 0.00
+
+Figure 3: Mean score (of 6) per model for each build factor. The first three panels use the 128 un-hardened instances; the last holds the build fixed (opt, stripped, static) and varies only protection. 
+
+Agentic and Human RE Diverge on Build Factors but Agree on Protection. Figure 3 in-verts the conventional ordering of RE difficulty. Optimization and linking, the primary obstacles for a human analyst, are nearly free for agents: GPT-5.6-sol loses 0.08 points when the target is optimized and 0.04 when it is statically linked, and no model moves by more than 0.39 on ei-ther axis. Symbols dominate instead, costing GPT-5.6-sol 0.48 points and GPT-5.5 more than half its score ( 2.53 → 1.14 ). Current agents therefore lean on lexical anchors, i.e. , names that let them label program structure and rea-son about it in natural language, far more than on the instruction-level analysis that optimiza-tion degrades. Protection is the one classical obstacle that does transfer: with the build held fixed, our suite halves GPT-5.6-sol ( 4.69 → 2.50 ) and effectively eliminates every other model, taking Claude-Opus-5 from 3.07 to 0.33 (Figure 3(d); per-preset results in §B.9). Table 5: Complexity and contamination abla-tions. The same eight unhardened build config-urations of one compression task, over three pro-grams.                                     
+
+> Program Model Score ↑Solve ↑Cost ↓Time ↓
+> Minimal GPT -5.6-SOL 6.00 8/8 0.90 4.5
+> GPT -5.5 6.00 8/8 1.60 7.0 Gzip-variant GPT -5.6-SOL 6.00 8/8 2.19 9.9
+> GPT -5.5 6.00 8/8 2.78 10.8 RevCompress GPT -5.6-SOL 5.62 7/8 31.45 94.6
+> GPT -5.5 3.75 3/8 24.37 97.4
+
+Contamination-Freedom and Real-World Scale Are Both Load-Bearing. Table 5 tests the two design requirements of §1 directly, holding the eight unhardened build configura-tions fixed and varying only the target pro-gram. Scale is necessary: Minimal , a clean-room compressor of ∼1.1k LoC, is fully solved by both models in every configuration for un-der $1 .60 and seven minutes, so clean-room provenance by itself does not make a target hard. Contamination-freedom is equally nec-essary: Gzip-variant is the gzip encoder itself with roughly 200 lines of its critical path mod-ified, so its design is widely represented in public corpora. Although it is a deployed real-world program rather than a toy, both models recover all eight of its configurations for roughly $2 in ten minutes, as cheaply as the 1.1k-LoC Minimal . Only R EV COMPRESS , which is both clean-room and at real-world scale, separates the models at all ( 5.62 and 7/8 for GPT-5.6-sol against 3.75 and 
+
+3/8 for GPT-5.5), at 10 –30 × the cost and time. Recognition therefore substitutes for analysis: a publicly derived program is no harder than a private toy, so a benchmark must control both axes at once, which is what makes SRE-Bench’s difficulty real rather than incidental. 
+
+## 5 DISCUSSION AND CONCLUSION 
+
+Limitation: Benchmark Breadth. SRE-Bench is built from 19 programs. This is a small pool in absolute terms, and a larger one would tighten per-domain estimates, most of all for firmware, where three programs yield only six instances. The constraint is inherent to the design rather than incidental. Contamination-freedom requires that every target, its evaluation infrastructure, and its protection layer be authored from scratch, which took more than 5,000 expert hours, and the cheaper routes are exactly the ones our ablation rules out: a publicly derived program is recovered for roughly $2 in ten minutes, and a small clean-room program is saturated outright (Table 5). What 19 programs 9buy is nonetheless substantial. They comprise over 320K lines of authored code averaging 16,915.8 LoC per program, paired with a 27K-LoC protection suite, and they yield 262 instances and 1,572 deterministically scored tasks at 30 –470 × the scale of prior RE benchmarks. That resolution is already enough to separate five frontier models by a factor of 17 and to leave the strongest at 3.69 /6,so breadth is not the binding constraint on what SRE-Bench can currently measure. 
+
+Conclusion. We presented SRE-Bench, the first RE benchmark that is at once contamination-free and built at real-world scale. The strongest model we evaluated recovers less than a third of it outright and loses half of that capability once our anti-analysis suite is applied, while every weaker model is reduced to near zero. Agentic failure modes also differ from human ones, as optimization and linking barely register while stripping symbols is costly. Together these results suggest that strong source-code security performance is not yet a reliable indicator of binary-level capability, and that the gap is wide enough to be worth measuring on its own terms. 
+
+## REFERENCES 
+
+AgentRE-Bench. AgentRE-Bench: Llm reverse engineering benchmark. https://github. com/agentrebench/AgentRE-Bench , 2026. Ali Al-Kaswan, Maliheh Izadi, and Arie Van Deursen. Traces of memorisation in large language models for code. In Proceedings of the IEEE/ACM 46th International Conference on Software Engineering , pp. 1–12, 2024. Gogul Balakrishnan, Thomas Reps, David Melski, and Tim Teitelbaum. Wysinwyx: What you see is not what you execute. In Working Conference on Verified Software: Theories, Tools, and Experiments , pp. 202–213. Springer, 2005. Ted J Biggerstaff, Bharat G Mitbander, and Dallas Webster. The concept assignment problem in program understanding. In [1993] Proceedings Working Conference on Reverse Engineering , pp. 27–43. IEEE, 1993. Michael Burrows and David J. Wheeler. A block-sorting lossless data compression algorithm. Tech-nical Report 124, Digital Equipment Corporation Systems Research Center, 1994. Baicheng Chen, Yu Wang, Ziheng Zhou, Xiangru Liu, Juanru Li, Yilei Chen, and Tianxing He. Crebench: Evaluating large language models in cryptographic binary reverse engineering. arXiv preprint arXiv:2604.03750 , 2026. Yizheng Chen, Zhoujie Ding, Lamya Alowain, Xinyun Chen, and David Wagner. Diversevul: A new vulnerable source code dataset for deep learning based vulnerability detection. In Proceedings of the 26th international symposium on research in attacks, intrusions and defenses , pp. 654–668, 2023. Binlin Cheng, Jiang Ming, Erika A Leal, Haotian Zhang, Jianming Fu, Guojun Peng, and Jean-Yves Marion. {Obfuscation-Resilient } executable payload extraction from packed malware. In 30th USENIX Security Symposium (USENIX Security 21) , pp. 3451–3468, 2021. CISA. Known exploited vulnerabilities catalog. https://www.cisa.gov/ known-exploited-vulnerabilities-catalog , 2026. Isaac David and Arthur Gervais. Crackmebench: Binary reverse engineering for agents. arXiv preprint arXiv:2605.10597 , 2026. Yangruibo Ding, Yanjun Fu, Omniyyah Ibrahim, Chawin Sitawarin, Xinyun Chen, Basel Alomair, David Wagner, Baishakhi Ray, and Yizheng Chen. Vulnerability detection with code language models: How far are we? arXiv preprint arXiv:2403.18624 , 2024. Eldad Eilam. Reversing: secrets of reverse engineering . John Wiley & Sons, 2011. Zeyu Gao, Yuxin Cui, Hao Wang, Siliang Qin, Yuanda Wang, Zhang Bolun, and Chao Zhang. De-compilebench: A comprehensive benchmark for evaluating decompilers in real-world scenarios. In Findings of the Association for Computational Linguistics: ACL 2025 , pp. 23250–23267, 2025. 10 Google. Look what you made us patch: 2025 zero-days in review. https://cloud.google. com/blog/topics/threat-intelligence/2025-zero-day-review , 2026. Naman Jain, Alex Gu, Wen-Ding Li, Fanjia Yan, Tianjun Zhang, Sida Wang, Armando Solar-Lezama, Koushik Sen, and Ion Stoica. Livecodebench: Holistic and contamination free evalua-tion of large language models for code. In International Conference on Learning Representations ,volume 2025, pp. 58791–58831, 2025. Md Humaun Kabir, Md Rakibul Islam, and Farha Kamal. Restack: A large-scale dataset of reverse engineering discussions from stack exchange. arXiv preprint arXiv:2606.05493 , 2026. Nicolas Koller et al. Reforge: A method for benchmarking llms’ reverse engineering capabilities in decompiled binary function naming. arXiv preprint arXiv:2607.07738 , 2026. Hwiwon Lee, Jiawei Liu, Dongjun Kim, Ziqi Zhang, Chunqiu Steven Xia, and Lingming Zhang. Sec-bench pro: Can language models solve long-horizon software security tasks? arXiv preprint arXiv:2605.26548 , 2026a. Hwiwon Lee, Ziqi Zhang, Hanxiao Lu, and Lingming Zhang. Sec-bench: Automated benchmarking of llm agents on real-world software security tasks. Advances in Neural Information Processing Systems , 38:116342–116378, 2026b. JongHyup Lee, Thanassis Avgerinos, and David Brumley. Tie: Principled reverse engineering of types in binary programs. 2011. Seunghyun Lee and David Brumley. Exploitbench: A capability ladder benchmark for llm cyberse-curity agents. arXiv preprint arXiv:2605.14153 , 2026. Yu Liu, Lang Gao, Mingxin Yang, Yu Xie, Ping Chen, Xiaojin Zhang, and Wei Chen. Vulde-tectbench: Evaluating the deep capability of vulnerability detection with large language models. 
+
+arXiv preprint arXiv:2406.07595 , 2024. Alessandro Mantovani, Simone Aonzo, Yanick Fratantonio, and Davide Balzarotti. {RE-Mind }: a first look inside the mind of a reverse engineer. In 31st USENIX Security Symposium (USENIX Security 22) , pp. 2727–2745, 2022. Yuzhou Nie, Zhun Wang, Yu Yang, Ruizhe Jiang, Yuheng Tang, Xander Davies, Yarin Gal, Bo Li, Wenbo Guo, and Dawn Song. Secodeplt: A unified benchmark for evaluating the security risks and capabilities of code genai. Advances in Neural Information Processing Systems , 38, 2026. OpenAI. Why swe-bench verified no longer measures frontier coding capabilities - swe-bench ver-ified is increasingly contaminated. we recommend swe-bench pro. https://openai.com/ index/why-we-no-longer-evaluate-swe-bench-verified/ , 2026. Juefei Pu, Xingyu Li, Zhengchuan Liang, Jonathan Cox, Yifan Wu, Kareem Shehada, Arrdya Sri-vastav, and Zhiyun Qian. Patch-to-poc: A systematic study of agentic llm systems for linux kernel n-day reproduction. arXiv preprint arXiv:2602.07287 , 2026. Spencer Rugaber. Program comprehension. Encyclopedia of Computer Science and Technology , 35 (20):341–368, 1995. Minghao Shao, Sofija Jancheska, Meet Udeshi, Brendan Dolan-Gavitt, Haoran Xi, Kimberly Milner, Boyuan Chen, Max Yin, Siddharth Garg, Prashanth Krishnamurthy, et al. NYU CTF Bench: A scalable open-source benchmark dataset for evaluating llms in offensive security. Advances in Neural Information Processing Systems , 37:57472–57498, 2024. Minghao Shao, Nanda Rani, Kimberly Milner, Haoran Xi, Meet Udeshi, Saksham Aggarwal, Venkata Sai Charan Putrevu, Sandeep K Shukla, Prashanth Krishnamurthy, Farshad Khorrami, et al. Towards effective offensive security llm agents: Hyperparameter tuning, llm as a judge, and a lightweight ctf benchmark. In Proceedings of the AAAI Conference on Artificial Intelligence ,volume 40, pp. 29660–29668, 2026. 11 Yan Shoshitaishvili, Ruoyu Wang, Christopher Salls, Nick Stephens, Mario Polino, Andrew Dutcher, John Grosen, Siji Feng, Christophe Hauser, Christopher Kruegel, et al. Sok:(state of) the art of war: Offensive techniques in binary analysis. In 2016 IEEE symposium on security and privacy (SP) , pp. 138–157. IEEE, 2016. Janet Siegmund. Program comprehension: Past, present, and future. In 2016 IEEE 23rd inter-national conference on software analysis, evolution, and reengineering (SANER) , volume 5, pp. 13–20. IEEE, 2016. Dawn Song, David Brumley, Heng Yin, Juan Caballero, Ivan Jager, Min Gyung Kang, Zhenkai Liang, James Newsome, Pongsin Poosankam, and Prateek Saxena. Bitblaze: A new approach to computer security via binary analysis. In International conference on information systems security , pp. 1–25. Springer, 2008. Vedant Soni, Audrey Dutcher, Tiffany Bao, and Ruoyu Wang. Benchmarking binary type inference techniques in decompilers. In Proceedings of the 2025 Workshop on Software Understanding and Reverse Engineering , pp. 48–60, 2025. Xiaolong Tian, Hanrui Qi, Jiaming Liu, Siyi Wang, GAO Zuchen, Qi Luo, Jing Li, Yuqun Zhang, et al. Decompile-bench: Million-scale binary-source function pairs for real-world binary decom-pilation. Advances in Neural Information Processing Systems , 38, 2026. Kevin van Liebergen, Juan Caballero, Platon Kotzias, and Chris Gates. A deep dive into the virus-total file feed. In International Conference on Detection of Intrusions and Malware, and Vulner-ability Assessment , pp. 155–176. Springer, 2023. Daniel Votipka, Seth Rabin, Kristopher Micinski, Jeffrey S Foster, and Michelle L Mazurek. An ob-servational investigation of reverse {Engineers’ } processes. In 29th USENIX Security Symposium (USENIX Security 20) , pp. 1875–1892, 2020. Zhun Wang, Tianneng Shi, Jingxuan He, Matthew Cai, Jialin Zhang, and Dawn Song. Cy-bergym: Evaluating ai agents’ real-world cybersecurity capabilities at scale. arXiv preprint arXiv:2506.02548 , 2025. Zhun Wang, Nico Schiller, Hongwei Li, Srijiith Sesha Narayana, Milad Nasr, Nicholas Carlini, Xiangyu Qi, Eric Wallace, Elie Bursztein, Luca Invernizzi, et al. Exploitgym: Can ai agents turn security vulnerabilities into real attacks? arXiv preprint arXiv:2605.11086 , 2026. Richard Wettel, Michele Lanza, and Romain Robbes. Software systems as cities: a controlled experiment. In Proceedings of the 33rd International Conference on Software Engineering , pp. 551–560, 2011. Jun Yeon Won, Xin Jin, Shiqing Ma, and Zhiqiang Lin. Rebench: A procedural, fair-by-construction benchmark for llms on stripped-binary types and names (extended version). arXiv preprint arXiv:2604.27319 , 2026. Alperen Yildiz, Sin G Teo, Yiling Lou, Yebo Feng, Chong Wang, and Dinil Mon Divakaran. Bench-marking llms and llm-based agents in practical vulnerability detection for code repositories. In 
+
+Proceedings of the 63rd Annual Meeting of the Association for Computational Linguistics (Vol-ume 1: Long Papers) , pp. 30848–30865, 2025. Andy Zhang, Joey Ji, Celeste Menders, Riya Dulepet, Thomas Qin, Ron Wang, Junrong Wu, Kyleen Liao, Jiliang Li, Jinghan Hu, et al. Bountybench: Dollar impact of ai agent attackers and defenders on real-world cybersecurity systems. Advances in Neural Information Processing Systems , 38, 2026. Andy K Zhang, Neil Perry, Riya Dulepet, Joey Ji, Celeste Menders, Justin Lin, Eliot Jones, Gashon Hussein, Samantha Liu, Donovan Jasper, et al. Cybench: A framework for evaluating cyber-security capabilities and risks of language models. In International Conference on Learning Representations , volume 2025, pp. 25094–25243, 2025. Yuxuan Zhu, Antony Kellermann, Dylan Bowman, Philip Li, Akul Gupta, Adarsh Danda, Richard Fang, Conner Jensen, Eric Ihli, Jason Benn, et al. Cve-bench: a benchmark for ai agents’ ability to exploit real-world web application vulnerabilities. arXiv preprint arXiv:2503.17332 , 2025. 12 Terry Yue Zhuo, Dingmin Wang, Hantian Ding, Varun Kumar, and Zijian Wang. Training language model agents to find vulnerabilities with ctf-dojo. arXiv preprint arXiv:2508.18370 , 2025. 
+
+## A BENCHMARK DOMAIN DETAILS 
+
+This appendix expands on each SRE-Bench domain, complementing the overview in §3.1. Consis-tent with our contamination-control policy (§3.1), we describe software architecture, task structure, and anti-shortcut design only at a level an analyst could recover from the binary with minimal efforts, and we deliberately omit the instance-specific secrets – exact constants, trigger conditions, hidden-behavior mechanisms, and reference solutions – that would let a model solve a task by recognition. A.1 NETWORK PROTOCOL RECOVERY 
+
+Software architecture. The target implements a complete proprietary protocol organized as four wire layers: framing with integrity checks and a de-recognized header layout; a from-scratch au-thenticated session-encryption layer (a stream cipher, a MAC, and a key-derivation function) that borrows the structure of standard AEAD constructions but replaces their constants, so nothing is recognizable by signature; stream multiplexing with priority, flow control, and compression; and an application layer with tens of message types. The protocol also embeds a small stack-based bytecode filter VM and a set of interacting state machines coordinated by a supervisor. 
+
+Task structure. The six scored anchors form a capability ladder: (1) recover the framing and complete the cryptographic handshake; (2) reconstruct the capability-tier state machine and forge the promotion tokens that gate the top tier; (3) follow the key-rotation schedule while maintaining a rolling-MAC chain across rekeys; (4) reconstruct the connection-migration state machine and answer its path challenges; (5) devirtualize the bytecode filter and satisfy a non-obvious hidden predicate within a bounded opcode budget; and (6) a capstone that requires all five above to hold within a single session while simultaneously satisfying a set of clean-run invariants under a whole-transcript MAC. Partial credit is real, and any “loud” protocol violation voids the run. 
+
+Anti-shortcut design. The protocol deliberately exposes a large decoy surface—compression, re-transmission, priority scheduling, and much of several state machines—that is functionally exercised but not anchor-relevant, defeating “this looks important” heuristics. Canonical answer strings are masked so that static extraction yields nothing, the handshake mixes in a fresh per-connection server nonce, and the per-session seed is randomized so a captured winning transcript cannot be replayed. A per-connection message cap prevents brute-force flooding, and grading is silent: the driver is never told its score or even what the milestones are. 
+
+Auxiliary infrastructure. Beyond the four language ports, the domain ships a from-scratch scoring server that is itself a complete protocol implementation running the anchor detectors, a cross-port conformance corpus with pinned wire transcripts, and deployment tooling that isolates the analysis and grading environments. The agent receives only the stripped binary and a few partial packet captures. A.2 GAME REVERSE ENGINEERING 
+
+Software architecture. The target is a full-screen terminal roguelike comprising roughly two dozen interacting subsystems—combat (including a multi-phase boss), a spell system across sev-eral schools of magic, crafting, shops, factions and reputation, quests, procedural map genera-tion, field-of-view, inventory and leveling, an encyclopedia of lore, achievements, and determin-istic record/replay. It is genuine software of real-world scale rather than a template, and it behaves identically across all four language ports. 
+
+Task structure. Hidden within the game are six behaviors that never occur during ordinary play and are documented nowhere in the player manual. They are silent—no message, sound, or on-screen counter marks them—so the only way to trigger one is to reconstruct the responsible program logic from the binary. The six behaviors are chosen to probe distinct RE capabilities of increasing dif-ficulty, ranging from recovering an inlined constant and a per-object counter, through inverting a custom hash or pseudorandom generator and reconstructing a finite-state machine to search for a 13 reachable input, up to jointly reconstructing state that is spread across several subsystems and un-winding a multi-round key derivation that combines constants from several of them. We intentionally do not disclose the specific mechanisms or trigger conditions. The agent proves a discovery by sub-mitting an action trace, and a headless verifier replays it deterministically to report which behaviors fired. 
+
+Anti-shortcut design. Several decoy subsystems are built from the same kinds of constructs as the hidden behaviors (custom hashes, state machines, and unusual constants) but are wired into ordinary gameplay, so “find the weird construct” heuristics produce false positives; some decoys even reuse a hidden behavior’s exact constant. All gameplay strings and a broad catalog of magic constants ship only in obfuscated, runtime-decoded form, so neither a string dump nor an immediate-operand scan surfaces the critical values. Determinism—required for offline replay—is guaranteed by a single seeded pseudorandom stream with a fixed consumption order, no wall-clock or environment reads, pinned floating-point behavior, and neutralized map-iteration order. A build-time hygiene check greps the shipped, stripped binary for forbidden identifiers and fails the build on any hit. A.3 FILE -F ORMAT RECOVERY 
+
+Software architecture. The compressor implements a genuine multi-stage transform stack wrapped in a keyed container. The container provides framing, a reversible diffusion layer, optional password-based encryption, and an error-correcting recovery seal. Internally, a long-range LZ pre-pass feeds a reversible pre-filter bank (e.g., delta, executable, and image-row filters), followed by an adap-tive per-block compressor that trial-encodes each block under several competing recipes—spanning context-mixing arithmetic coding, range-coded LZ, and Burrows–Wheeler transforms (Burrows & Wheeler, 1994) with entropy back-ends—and keeps only the smallest. At higher compression levels, a seed-derived self-mutating predictor VM, a keystream-whitening stage, and a keyed block permu-tation are applied. These are standard mechanism classes ; the difficulty comes from their bespoke composition and from constants that are derived from a secret seed at runtime rather than stored, so nothing is recognizable by signature. 
+
+Task structure. Six challenge files of increasing complexity progressively expose new layers of the stack: the outer container and its recovery seal; the pre-filter bank and long-range LZ with block-method compression; full archive semantics over directory trees (paths, permissions, empty directories) with the harder entropy back-ends; the predictor-VM residual stage, whose program is seed-derived and stored nowhere in the archive; error auto-correction via the recovery seal; and fi-nally the keyed block permutation together with errors at the maximum correction capacity. Because a decoder for the last level subsumes all earlier ones, the levels form a strict cumulative ladder. 
+
+Challenge generation and grading. A deterministic generator produces all six challenges from a single secret master seed, drawing on a content palette that includes filesystem corner cases, and self-verifies that a correct decoder can recover each one. The originals are never shipped, and the grader performs byte- and metadata-exact comparison with no partial credit within a level. The binary ships as an encoder only—enforced by a build-time symbol scan and an import-graph gate—so no decoder or answer material is present. A further check forbids linking any standard or third-party compression library, preventing recognition of an off-the-shelf codec. A.4 MALWARE INCIDENT RESPONSE 
+
+Software architecture. The implant masquerades as a benign local utility but, when armed with a host activation key inside a sandbox, installs six families of effects: process masquerading with a watchdog, persistence via an injected shell-profile block, cryptominer artifacts, file ransomware, C2 beaconing, and lateral-movement worm behavior. Every effect is safe by construction: filesys-tem writes stay under an artifact root, networking is loopback-only, the miner’s work is fake and bounded, ransomware only transforms sandbox-confined files carrying a full magic prefix, and the beacon/worm endpoints talk only to shipped validation stubs—there is no real remote execution, scanning, or encryption of user data. Per-instance names, paths, ports, keys, and triggers are all de-rived from a fresh host-key-based secret, and the secret is deliberately consumed by benign modules too, so “find the seed” is not enough to solve an instance. 14 Task structure. The RE task is defensive remediation, not behavior reproduction: the agent submits a cleanup tool that removes each family’s artifacts while preserving benign data. Scoring is flat and conjunctive—one point per family, awarded only when the agent removes the malicious state, pre-serves grader-planted benign state, and durably neutralizes the behavior (no leftover resume tokens, triggers, or live processes). The families form a difficulty ramp, and several couple across behaviors so that solving one depends on material recovered from another. 
+
+Grading pipeline. A sandboxed grader derives the seed, plants baseline and near-match benign fixtures, captures a private pre-infection baseline, infects the sandbox, records evidence of what must be removed or repaired, runs the agent’s cleanup, and scores the final state against baseline and evidence. Evidence capture is what distinguishes “an artifact never existed” from “an artifact existed and was correctly removed,” since the grader never re-runs the implant after cleanup. Any modification to a pre-existing baseline object is globally fatal, so “delete everything” strategies score zero; a fresh host key each attempt defeats hard-coded cleanups; and the untrusted cleanup runs in an isolated, resource-bounded container with no network. A.5 BARE -M ETAL FIRMWARE ANALYSIS 
+
+Software architecture. The firmware targets a fictional secure microcontroller with a plaintext bootloader that derives a key from a one-time-programmable fuse word and decrypts an encrypted application image into RAM. It is a complete device—not a CrackMe—with a hardware-gated se-cure region holding a per-instance secret, a device-mode state machine, dozens of peripheral subsys-tems (the majority of which are pure or woven decoys), and several sandboxed bytecode VMs that hide key constants. Its cryptographic core is a bespoke family designed to superficially resemble a well-known cipher while being algorithmically distinct, and it is split into independent variants so that recovering one does not hand over the others; genuinely standard checksums are placed in decoy modules so that recognizing them leads nowhere. 
+
+Task structure. The student-facing framing is a single objective—take control of the device, scored 
+
+0–6—with no sub-goal list; the milestone decomposition must itself be reverse-engineered. The six milestones form a dependency chain that escalates from establishing basic wire contact and recover-ing the command framing, through discovering a gated maintenance path and forging an authentica-tion token, to defeating an update-authentication format and a hardware-gated challenge–response, and finally a capstone that composes the earlier capabilities with multi-round key-derivation and bytecode-VM constant recovery to reach full privileged control. 
+
+Emulator and anti-shortcut design. The agent interacts with the device only through a from-scratch emulator that faithfully models the memory map, the memory-mapped peripherals, the in-terrupt model, and the serial command protocol, under a per-session budget of 5,000 commands. A fresh random device secret each session re-derives the secret-dependent material, so a captured challenge–response for the later milestones scores zero on the next run; earlier milestones are addi-tionally bound to a device-issued nonce, so individual frames cannot be replayed. Decoys mislead in both directions—modules that look security-critical are inert, while load-bearing values hide in-side modules that appear to be decoys—and all decoy behavior is held byte-identical across ports, so differential probing cannot separate scored from decoy logic. Scoring is host-side and silent: no capability prints anything, and the grader records only the bare score. 
+
+## B PROTECTION SUITE DETAILS 
+
+This section adds context to the protection primitives summarized in §3.2. Following our contamination-control policy, we describe every mechanism conceptually and deliberately omit the constants, labels, encodings, container formats, file layouts, and system-call sequences that would give an agent under test a head start. The suite is an alpha-stage Linux x86-64 protector for static, self-contained executables. It makes no claim of unbreakability: the goal is to raise the cost of analysis in measurable, tunable steps, which is what makes it useful as a benchmark generator rather than as a security product. 15 B.1 THREAT MODEL AND THE GOVERNING DESIGN RULE 
+
+We assume a privileged analyst: root in the analysis sandbox, free use of debuggers and tracers, the ability to read and write the process’s memory, to intercept system calls, and to dump memory during an authorized run. Under those assumptions, no local scheme can prevent an analyst from eventually observing plaintext that the CPU must execute, and we do not pretend otherwise. What the suite can do is make every observation expensive , noisy , and non-reusable across builds . The single rule behind most of the design is fold, don’t branch : instead of testing a condition and acting on it, the runtime feeds the measured value into key derivation. A conventional check ( if (debugger) exit() ) is one instruction away from being removed; a folded measurement has no boolean to remove, because the wrong measurement simply yields the wrong key. B.2 EVERYTHING FEEDS THE KEY 
+
+The protected program is encrypted at page granularity, and each page is sealed under its own key rather than under one global key. Those keys descend from a derivation graph whose inputs include the page’s own identity, the integrity state of the executable’s live code, the outcomes of the anti-analysis measurements, and – on the lazy path – evidence that the page is being opened by a genuine execution fault. Two properties follow, and they are the reason we consider this the core of the design. First, there is no single moment at which “the key” exists to be intercepted, so the classic breakpoint-on-decrypt strategy recovers only one page’s worth of material. Second, tampering and observation are indistinguishable from key corruption: a modified instruction, a suppressed check, or an attached tracer all lead to the same uninformative failure deep inside decrypted code, giving the analyst no signal about which defense reacted. B.3 MINIMIZING PLAINTEXT RESIDENCY 
+
+Decrypting an entire program at startup means one well-timed memory snapshot recovers every-thing, so the lazy runtime instead maps protected code inaccessible and decrypts individual pages only as execution reaches them. Three cooperating mechanisms then push plaintext back out of memory: a cap on how many code pages may be decrypted at once, a timer that re-encrypts pages that have gone idle, and a synchronous flush before the process blocks and becomes an easy target. The practical effect is that a snapshot captures a small working set rather than an image, and a pro-cess caught while idle or waiting yields little. We describe this honestly as residency reduction : an analyst who reads memory continuously during execution still observes the instantaneous working set, and the union of everything ever resident approaches the full program over a long run. B.4 ESTABLISHING EXCLUSIVE CONTROL 
+
+Most anti-debugging asks “is a debugger present?” – a question the analyst can answer falsely, since the reported value lives in memory the analyst controls. We instead ask a question whose answer is enforced by the operating system: the runtime attempts to establish the exclusive control relationship a debugger itself requires, and folds the outcome into key derivation. Failure implies a competing observer, while success additionally permits reading the processor’s own debugging state, which catches breakpoints left behind by an analyst who has since detached. A separate monitoring process keeps the master key masked while it is at rest and destroys it on detection, so that attaching 
+
+after a clean start corrupts decryption rather than merely raising an alarm; terminating that monitor is not a way out, because the protected process fails closed when the monitor stops reporting. B.5 VIRTUALIZED LOADER LOGIC 
+
+A compact custom virtual machine executes the loader’s decision logic – how keys are derived, whether unwrapping is permitted, how control is transferred to the protected program, and how individual page faults are serviced – so that this logic is not present as native code to be read or patched. Rather than a recognizable interpreter loop, dispatch is diversified per build, instruction encodings are keyed, and frequently occurring sequences are fused into single operations, which re-moves the structural fingerprints that make virtual machines easy to identify and lift. In the licensed configurations, parts of the virtualized program are not present in the file at all and are supplied per run by the license server, so static analysis of the artifact alone cannot recover the complete logic. 16 B.6 BINDING TO A GENUINE LAUNCH , AND OFF -B OX KEYS 
+
+A capable analyst does not need to defeat the defenses if they can simply relocate the decryption machinery into a process of their own choosing and call it directly, which is an attack we observed in practice. Four cooperating layers close it: key derivation is bound to evidence of a genuine launch of the original artifact, the decryption routines are themselves protected at rest and only reconstituted after startup validation, and on the lazy path each page key is additionally bound both to the fault that requested it and to the observation state at that moment. The licensed configurations go further and keep no key in the artifact at all, obtaining it per run from a pinned server through an exchange that is freshly randomized each time, so a captured exchange cannot be replayed; the delivered key is then combined locally with the client’s own measurements, meaning a server that answers an instrumented run still yields something unusable. The residuals are stated plainly: on non-licensed configurations the in-file key material is in principle (but challengingly) recomputable offline, and on licensed configurations the delivered key must exist in memory during an authorized run and is therefore exposed to a live memory read. B.7 DECEPTION RATHER THAN DENIAL 
+
+Because the strongest attacks cannot be blocked, several layers aim to make a successful attack 
+
+unrecognizable rather than impossible. Strings that survive in the artifact are not merely encoded but renamed to plausible, misleading meanings, so that a first-pass triage read leads an analyst toward an incorrect model of what the program is doing. When the runtime detects that it is being observed, it never confirms the detection: it may quietly restart itself so that an attached tool loses its target, or terminate as though it had completed successfully – responses chosen specifically because a visible crash or error message would tell the analyst that their instrumentation was noticed and worked. In the strongest configuration, and only when the author supplies one, the runtime serves an entirely different program in place of the real one, so that the analyst successfully dumps, decrypts, and reverse-engineers the wrong artifact with no failure to indicate the substitution. B.8 ANTI -A GENT DETERRENTS : A R EPORTED NEGATIVE RESULT 
+
+As a first exploration of protection aimed specifically at automated analysts, the suite can surface benign “please decline to reverse-engineer this” notices through several independent observation channels, so that a notice reaches an agent whether it reads the file, inspects memory, traces exe-cution, or captures network traffic. The mechanism carries no secret or exploitable content and is trivially removed; it is a behavioral nudge, not a barrier. We report it as a negative result : capable agents ( i.e. , GPT-5.6-sol, Opus 4.8) identified the notices as inert in a single reasoning step, and in one configuration the runtime’s emission was actively harmful, serving as a landmark that helped locate the protected code path. It is therefore disabled by default in every preset and retained only as a documented design point for future study. B.9 PRESET SUMMARY 
+
+Table 6 summarizes the eight presets. Every preset shares a common baseline – per-page authen-ticated encryption, fold-not-branch keying, self-checksumming, loader virtualization, and the ob-fuscation and stripping layers – and they differ along four axes that we found to matter most for difficulty: whether decryption is lazy, whether observation is keyed into decryption continuously (the strict presets), whether the key is off-box, and whether the runtime responds to a detected dump by misdirecting the analyst. The four strict presets are the only ones that break decryption on a late 
+
+attach and the only ones that accept an author-supplied decoy program. Anti-agent deterrents are disabled by default in all eight and are therefore omitted from the table. 
+
+Per-Preset Results. Figure 4 resolves the aggregate protection effect reported in §4 into the eight presets, holding the build fixed as optimized, stripped and statically linked. GPT-5.6-sol is the only model that retains non-trivial capability anywhere, scoring between 1.93 and 3.19 ; every other model stays below 0.6 on every preset, and GLM-5.2 scores exactly 0.00 on all eight. Within GPT-5.6-sol the presets order roughly as designed, with eager whole-image decryption most tractable (P1, P5) and the strict and server-side variants least (P4, P8). That ordering is legible only for the 17 Table 6: Protection presets and their distinguishing primitives. ✓ = active; • = available but requires an author-supplied decoy; – = inactive. All presets share the common baseline described in §B.9.                                                                
+
+> ID Preset Lazy Strict Anti-re-host Off-box key Server logic Anti-dump
+> P1 protected-eager ––✓–––P2 protected-eager-strict –✓✓––•P3 protected-demand ✓–✓–––P4 protected-demand-strict ✓✓✓––✓
+> P5 licensed-eager –––✓shard –P6 licensed-demand ✓––✓shard –P7 licensed-demand-material ✓✓–✓material ✓
+> P8 licensed-demand-superops ✓✓–✓operators ✓
+
+strongest model, however, because the remaining four sit at the floor throughout, which is what makes protection a ceiling on agentic RE rather than a graded axis of difficulty. P1 
+
+3.19 
+
+0.25 
+
+0.19 
+
+0.00 
+
+0.00 
+
+P2 
+
+3.07 
+
+0.25 
+
+0.06 
+
+0.00 
+
+0.00 
+
+P3 
+
+2.06 
+
+0.25 
+
+0.19 
+
+0.00 
+
+0.00 
+
+P4 
+
+1.93 
+
+0.50 
+
+0.06 
+
+0.00 
+
+0.00 
+
+P5 
+
+3.07 
+
+0.56 
+
+0.19 
+
+0.17 
+
+0.00 
+
+P6 
+
+2.44 
+
+0.44 
+
+0.12 
+
+0.00 
+
+0.00 
+
+P7 
+
+2.29 
+
+0.12 
+
+0.00 
+
+0.00 
+
+0.00 
+
+P8 
+
+1.93 
+
+0.25 
+
+0.06 
+
+0.00 
+
+0.00 
+
+GPT-5.6-sol 
+
+Claude-Opus-5 
+
+GPT-5.5 
+
+Grok-4.5 
+
+GLM-5.2 
+
+Figure 4: Mean score (of 6) per model on the eight protection presets of Table 6, all optimized, stripped and statically linked. Compare against the unhardened bar of Figure 3(d). 18

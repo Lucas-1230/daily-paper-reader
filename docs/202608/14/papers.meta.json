@@ -1,0 +1,54 @@
+{
+  "label": "2026-08-14",
+  "date": "2026-08-14",
+  "generated_at": "2026-08-14T19:55:25",
+  "count": 3,
+  "papers": [
+    {
+      "paper_id": "202608/14/2608.11469v1-the-next-challenge-for-agentic-cybersecurity-a-realistic-contamination-free-reverse-engineering-benchmark",
+      "section": "deep",
+      "title_en": "The Next Challenge for Agentic Cybersecurity: A Realistic, Contamination-Free Reverse Engineering Benchmark",
+      "authors": "Jeremy Spence, Nicholas Assaderaghi, Jinhao Zhu, Nikil Ravi, Raluca Ada Popa, Guannan Wei, Yangruibo Ding, Zhuo Zhang",
+      "date": "2026-08-11",
+      "pdf": "https://arxiv.org/pdf/2608.11469v1",
+      "score": "8.0",
+      "evidence": "无污染基准，评估LLM智能体对含恶意软件二进制的逆向工程能力",
+      "tldr": "当前AI智能体在源代码安全分析上进展迅速，但现实关键软件常仅以二进制形式存在，逆向工程成为瓶颈。现有基准难同时满足训练污染控制与真实规模，本文提出SRE-Bench，由专家从零构建19个程序及262个实例。五个前沿模型评测中，GPT-5.6-sol每实例得61.4分、仅完全解决31.5%实例。源代码能力未迁移至二进制分析，SRE-Bench提供严格测试平台。",
+      "tags": "query:ca",
+      "abstract_en": "AI agents are rapidly improving in cybersecurity capabilities when the source code is available for analysis, yet much of the software most consequential to cybersecurity, including malware, firmware, and proprietary applications, is available only as binaries. Analyzing such software requires reverse engineering(RE): recovering program semantics before the analysis can be meaningfully performed. However, evaluating agentic RE poses a fundamental challenge: benchmark instances must be unseen as source code in the LLMs' training data to prevent models from taking shortcuts by recognizing them rather than really analyzing them, while also matching the scale and anti-analysis protections of real software. Unfortunately, however, existing benchmarks do not jointly satisfy these requirements. To this end, we introduce SRE-Bench, the first realistic, contamination-free RE benchmark. Built entirely from scratch by RE experts with over 5,000 hours, SRE-Bench comprises 19 private, real-world-scale programs averaging 16.9K lines of code. We further developed 44 in-house anti-analysis primitives, yielding 262 binary instances and 1572 deterministically graded tasks. Our evaluation across five frontier LLMs (GPT-5.6-sol,Claude-Opus-5,GPT-5.5,Grok-4.5, and GLM-5.2) shows that RE remains largely unsolved: the strongest model, GPT-5.6-sol, scores 61.4% per instance, and fully solves only 31.5% of the instances. Our analysis further reveals that agents behave differently from human engineers, where agents are relatively insensitive to compiler optimization and static linking. Controlled ablations also confirm that both contamination control and realistic scale are essential. These results indicate that strong source-code security capabilities do not yet transfer to binary analysis, highlighting RE as an important frontier for agentic cybersecurity and SRE-Bench as a rigorous testbed to measure progress.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202608/14/2608.11878v1-toolhazard-scaling-adversarial-environments-for-security-evaluation-and-alignment-of-llm-based-agents",
+      "section": "deep",
+      "title_en": "ToolHazard: Scaling Adversarial Environments for Security Evaluation and Alignment of LLM-based Agents",
+      "authors": "Yutao Mou, Pengfei Yang, Zhe Yin, Zhangchi Xue, Xiaotian Luan, Dingyao Yu, Tong Zhang, Shikun Zhang, Wei Ye",
+      "date": "2026-08-12",
+      "pdf": "https://arxiv.org/pdf/2608.11878v1",
+      "score": "8.0",
+      "evidence": "多智能体对抗环境合成，用于评估LLM智能体安全性",
+      "tldr": "LLM智能体易受环境中间接提示注入攻击，现有研究依赖手工环境与固定注入点，难以扩展。ToolHazard框架通过环境模拟器、攻击者代理和用户模拟器自动合成对抗环境、注入点和长程任务。基于其构建的ToolHazard-Bench揭示智能体显著安全漏洞，注入时机与位置影响攻击。该框架生成的对抗数据可提升安全对齐且保持通用能力。",
+      "tags": "query:ca",
+      "abstract_en": "Large language model (LLM) agents integrated with external tools are vulnerable to indirect prompt injections embedded in environmental states. However, existing studies largely rely on manually implemented or reused environments, stochastic LLM-based tool simulation, and predefined injection locations, limiting scalable security research across broader domains. To bridge this gap, we propose **ToolHazard**, a scalable adversarial environment synthesis framework that reduces human engineering and supports expansion with additional seed domains and compute. Through an Environment Simulator, an Attacker Agent, and a User Simulator, ToolHazard synthesizes executable stateful environments, discovers viable injection points and generates environment-specific payloads, and constructs state-grounded long-horizon tasks. Based on ToolHazard, we build **ToolHazard-Bench** for stress-testing agents under complex workflows and diverse environmental attacks. Experiments reveal substantial agent vulnerabilities and show that injection timing and placement affect attack effectiveness. Moreover, ToolHazard-generated alignment data improves security on both ToolHazard-Bench and AgentDojo while preserving benign task utility.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202608/14/2608.08605v2-forestbench-a-unified-graph-framework-for-evaluating-multi-agent-collaboration",
+      "section": "quick",
+      "title_en": "ForestBench: A Unified Graph Framework for Evaluating Multi-Agent Collaboration",
+      "authors": "Guo Chen, Ziwen Li, Reed Li, Yu Lu, Haibo Shi, Bingbing Xu, Junjie Huang",
+      "date": "2026-08-09",
+      "pdf": "https://arxiv.org/pdf/2608.08605v2",
+      "score": "6.0",
+      "evidence": "为多智能体系统提供统一评估框架，可应用于评估基于多智能体的网络犯罪模拟",
+      "tldr": "多智能体系统（MAS）评估缺乏统一基础，异构轨迹难以比较。ForestBench提出将轨迹映射为统一协作图，并与预构建的参考森林对比。该框架从七个数据集筛选844个查询，构建十个参考图，评估六个MAS框架。ForestBench无需额外LLM推理即可毫秒级评分，为MAS协作评估提供可重用结构基准。",
+      "tags": "query:ca",
+      "abstract_en": "Multi-agent systems (MAS) built on Large Language Models (LLMs) are proliferating rapidly, but their heterogeneous execution traces provide no common basis for evaluation across methods. Outcome-only benchmarks discard collaborations, whereas LLM-as-Judge evaluation requires additional, model-dependent inference and can vary with the LLM and rubric. We introduce a generalizable evaluation framework that maps native MAS traces into a shared space of unified collaboration graphs, enabling different methods to be evaluated under the same representation, reference set, and metric panel. Candidate graphs are compared with a query-specific reference forest. Each forest is a benchmark-provided collection of verified-success graphs: it records diverse ways in which representative MAS methods can complete the task, rather than prescribing a unique optimal process. Instantiating the framework as ForestBench, we filter $844$ collaboration-necessary queries from seven public datasets, precompute ten successful target-conditioned reference graphs per query, and evaluate six representative MAS frameworks. Controlled backbone, reference-construction, and perturbation studies test the stability and scope of evaluation. Once the benchmark forests are built, ForestBench scores a trace in milliseconds without further LLM inference, providing a reusable structural basis for comparing diverse MAS collaboration traces.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}

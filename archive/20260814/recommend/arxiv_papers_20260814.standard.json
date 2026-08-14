@@ -1,0 +1,145 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-08-14T19:47:45.021643+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 2,
+    "deep_cap": 6,
+    "deep_selected": 2,
+    "quick_candidates": 1,
+    "quick_skim_target": 11,
+    "quick_selected": 1
+  },
+  "deep_dive": [
+    {
+      "id": "2608.11469v1",
+      "source": "arxiv",
+      "title": "The Next Challenge for Agentic Cybersecurity: A Realistic, Contamination-Free Reverse Engineering Benchmark",
+      "abstract": "AI agents are rapidly improving in cybersecurity capabilities when the source code is available for analysis, yet much of the software most consequential to cybersecurity, including malware, firmware, and proprietary applications, is available only as binaries. Analyzing such software requires reverse engineering(RE): recovering program semantics before the analysis can be meaningfully performed. However, evaluating agentic RE poses a fundamental challenge: benchmark instances must be unseen as source code in the LLMs' training data to prevent models from taking shortcuts by recognizing them rather than really analyzing them, while also matching the scale and anti-analysis protections of real software. Unfortunately, however, existing benchmarks do not jointly satisfy these requirements. To this end, we introduce SRE-Bench, the first realistic, contamination-free RE benchmark. Built entirely from scratch by RE experts with over 5,000 hours, SRE-Bench comprises 19 private, real-world-scale programs averaging 16.9K lines of code. We further developed 44 in-house anti-analysis primitives, yielding 262 binary instances and 1572 deterministically graded tasks. Our evaluation across five frontier LLMs (GPT-5.6-sol,Claude-Opus-5,GPT-5.5,Grok-4.5, and GLM-5.2) shows that RE remains largely unsolved: the strongest model, GPT-5.6-sol, scores 61.4% per instance, and fully solves only 31.5% of the instances. Our analysis further reveals that agents behave differently from human engineers, where agents are relatively insensitive to compiler optimization and static linking. Controlled ablations also confirm that both contamination control and realistic scale are essential. These results indicate that strong source-code security capabilities do not yet transfer to binary analysis, highlighting RE as an important frontier for agentic cybersecurity and SRE-Bench as a rigorous testbed to measure progress.",
+      "authors": [
+        "Jeremy Spence",
+        "Nicholas Assaderaghi",
+        "Jinhao Zhu",
+        "Nikil Ravi",
+        "Raluca Ada Popa",
+        "Guannan Wei",
+        "Yangruibo Ding",
+        "Zhuo Zhang"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI",
+        "cs.SE"
+      ],
+      "published": "2026-08-11T22:14:57+00:00",
+      "link": "https://arxiv.org/pdf/2608.11469v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "contamination-free benchmark for evaluating LLM agents on reverse engineering binaries including malware",
+      "llm_evidence_cn": "无污染基准，评估LLM智能体对含恶意软件二进制的逆向工程能力",
+      "llm_evidence": "无污染基准，评估LLM智能体对含恶意软件二进制的逆向工程能力",
+      "canonical_evidence": "无污染基准，评估LLM智能体对含恶意软件二进制的逆向工程能力",
+      "llm_tldr_en": "Proposes a realistic contamination-free benchmark to evaluate agentic AI's reverse engineering capabilities on binaries like malware, directly measuring LLM cybersecurity capability limits.",
+      "llm_tldr_cn": "现有AI智能体在源代码可用的网络安全任务中表现提升，但关键软件常仅为二进制形式，需要逆向工程。该文提出一个真实且无污染的基准，用于评估智能体对包括恶意软件在内的二进制程序的逆向工程能力，避免模型走捷径。实验旨在揭示LLM在此类网络犯罪相关任务中的真实能力边界。该工作为系统评估大模型网络犯罪技能提供了基准。",
+      "llm_tldr": "现有AI智能体在源代码可用的网络安全任务中表现提升，但关键软件常仅为二进制形式，需要逆向工程。该文提出一个真实且无污染的基准，用于评估智能体对包括恶意软件在内的二进制程序的逆向工程能力，避免模型走捷径。实验旨在揭示LLM在此类网络犯罪相关任务中的真实能力边界。该工作为系统评估大模型网络犯罪技能提供了基准。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "What are the capability limits of large language models when used for cybercrime?",
+      "matched_requirement_id": "req-7",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2608.11878v1",
+      "source": "arxiv",
+      "title": "ToolHazard: Scaling Adversarial Environments for Security Evaluation and Alignment of LLM-based Agents",
+      "abstract": "Large language model (LLM) agents integrated with external tools are vulnerable to indirect prompt injections embedded in environmental states. However, existing studies largely rely on manually implemented or reused environments, stochastic LLM-based tool simulation, and predefined injection locations, limiting scalable security research across broader domains. To bridge this gap, we propose **ToolHazard**, a scalable adversarial environment synthesis framework that reduces human engineering and supports expansion with additional seed domains and compute. Through an Environment Simulator, an Attacker Agent, and a User Simulator, ToolHazard synthesizes executable stateful environments, discovers viable injection points and generates environment-specific payloads, and constructs state-grounded long-horizon tasks. Based on ToolHazard, we build **ToolHazard-Bench** for stress-testing agents under complex workflows and diverse environmental attacks. Experiments reveal substantial agent vulnerabilities and show that injection timing and placement affect attack effectiveness. Moreover, ToolHazard-generated alignment data improves security on both ToolHazard-Bench and AgentDojo while preserving benign task utility.",
+      "authors": [
+        "Yutao Mou",
+        "Pengfei Yang",
+        "Zhe Yin",
+        "Zhangchi Xue",
+        "Xiaotian Luan",
+        "Dingyao Yu",
+        "Tong Zhang",
+        "Shikun Zhang",
+        "Wei Ye"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.CL"
+      ],
+      "published": "2026-08-12T10:05:09+00:00",
+      "link": "https://arxiv.org/pdf/2608.11878v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "multi-agent adversarial environment synthesis for security evaluation of LLM agents",
+      "llm_evidence_cn": "多智能体对抗环境合成，用于评估LLM智能体安全性",
+      "llm_evidence": "多智能体对抗环境合成，用于评估LLM智能体安全性",
+      "canonical_evidence": "多智能体对抗环境合成，用于评估LLM智能体安全性",
+      "llm_tldr_en": "Proposes ToolHazard, a scalable framework using Environment Simulator, Attacker Agent, and User Simulator to synthesize executable adversarial environments and discover indirect prompt injection points for LLM agent security evaluation.",
+      "llm_tldr_cn": "现有LLM智能体安全研究依赖手工环境或随机模拟，难以扩展到多个领域。该文提出ToolHazard框架，通过环境模拟器、攻击者智能体和用户模拟器协同合成可执行的对抗性状态环境，并自动发现间接提示注入点。实验表明该框架可扩展安全评估规模并支持后续对齐。该工作为在对抗性网络场景中测试LLM智能体能力边界提供了重要基础设施。",
+      "llm_tldr": "现有LLM智能体安全研究依赖手工环境或随机模拟，难以扩展到多个领域。该文提出ToolHazard框架，通过环境模拟器、攻击者智能体和用户模拟器协同合成可执行的对抗性状态环境，并自动发现间接提示注入点。实验表明该框架可扩展安全评估规模并支持后续对齐。该工作为在对抗性网络场景中测试LLM智能体能力边界提供了重要基础设施。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "adversarial agents for testing large language models in cybercrime",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2608.08605v2",
+      "source": "arxiv",
+      "title": "ForestBench: A Unified Graph Framework for Evaluating Multi-Agent Collaboration",
+      "abstract": "Multi-agent systems (MAS) built on Large Language Models (LLMs) are proliferating rapidly, but their heterogeneous execution traces provide no common basis for evaluation across methods. Outcome-only benchmarks discard collaborations, whereas LLM-as-Judge evaluation requires additional, model-dependent inference and can vary with the LLM and rubric. We introduce a generalizable evaluation framework that maps native MAS traces into a shared space of unified collaboration graphs, enabling different methods to be evaluated under the same representation, reference set, and metric panel. Candidate graphs are compared with a query-specific reference forest. Each forest is a benchmark-provided collection of verified-success graphs: it records diverse ways in which representative MAS methods can complete the task, rather than prescribing a unique optimal process. Instantiating the framework as ForestBench, we filter $844$ collaboration-necessary queries from seven public datasets, precompute ten successful target-conditioned reference graphs per query, and evaluate six representative MAS frameworks. Controlled backbone, reference-construction, and perturbation studies test the stability and scope of evaluation. Once the benchmark forests are built, ForestBench scores a trace in milliseconds without further LLM inference, providing a reusable structural basis for comparing diverse MAS collaboration traces.",
+      "authors": [
+        "Guo Chen",
+        "Ziwen Li",
+        "Reed Li",
+        "Yu Lu",
+        "Haibo Shi",
+        "Bingbing Xu",
+        "Junjie Huang"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-08-09T09:38:52+00:00",
+      "link": "https://arxiv.org/pdf/2608.08605v2",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Provides a unified evaluation framework for multi-agent systems, applicable to evaluating MAS-based cybercrime simulations",
+      "llm_evidence_cn": "为多智能体系统提供统一评估框架，可应用于评估基于多智能体的网络犯罪模拟",
+      "llm_evidence": "为多智能体系统提供统一评估框架，可应用于评估基于多智能体的网络犯罪模拟",
+      "canonical_evidence": "为多智能体系统提供统一评估框架，可应用于评估基于多智能体的网络犯罪模拟",
+      "llm_tldr_en": "Introduces ForestBench, a graph-based framework that maps multi-agent LLM traces into collaboration graphs for standardized evaluation of MAS performance.",
+      "llm_tldr_cn": "针对LLM多智能体系统执行轨迹异构、难以统一评估的问题，提出ForestBench框架。该框架将不同MAS的执行轨迹映射为统一的协作图表示，并与基准提供的参考森林进行比较，实现跨方法的标准化评估。该工作为多智能体协作（包括网络犯罪模拟场景）提供了可复用的评估工具。",
+      "llm_tldr": "针对LLM多智能体系统执行轨迹异构、难以统一评估的问题，提出ForestBench框架。该框架将不同MAS的执行轨迹映射为统一的协作图表示，并与基准提供的参考森林进行比较，实现跨方法的标准化评估。该工作为多智能体协作（包括网络犯罪模拟场景）提供了可复用的评估工具。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "multi-agent systems for cybercrime simulation",
+      "matched_requirement_id": "req-3",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}

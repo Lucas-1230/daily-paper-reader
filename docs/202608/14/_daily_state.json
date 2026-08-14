@@ -1,0 +1,57 @@
+{
+  "date": "20260814",
+  "date_label": "",
+  "generated_at": "2026-08-14 19:55:14 UTC",
+  "recommend_exists": true,
+  "run_count": 1,
+  "papers": [
+    {
+      "paper_id": "2608.11469v1",
+      "route": "202608/14/2608.11469v1-the-next-challenge-for-agentic-cybersecurity-a-realistic-contamination-free-reverse-engineering-benchmark",
+      "title": "The Next Challenge for Agentic Cybersecurity: A Realistic, Contamination-Free Reverse Engineering Benchmark",
+      "section": "deep",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "ca"
+        }
+      ],
+      "score": 8.0,
+      "evidence": "无污染基准，评估LLM智能体对含恶意软件二进制的逆向工程能力",
+      "first_seen_at": "2026-08-14 19:55:14 UTC",
+      "updated_at": "2026-08-14 19:55:14 UTC"
+    },
+    {
+      "paper_id": "2608.11878v1",
+      "route": "202608/14/2608.11878v1-toolhazard-scaling-adversarial-environments-for-security-evaluation-and-alignment-of-llm-based-agents",
+      "title": "ToolHazard: Scaling Adversarial Environments for Security Evaluation and Alignment of LLM-based Agents",
+      "section": "deep",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "ca"
+        }
+      ],
+      "score": 8.0,
+      "evidence": "多智能体对抗环境合成，用于评估LLM智能体安全性",
+      "first_seen_at": "2026-08-14 19:55:14 UTC",
+      "updated_at": "2026-08-14 19:55:14 UTC"
+    },
+    {
+      "paper_id": "2608.08605v2",
+      "route": "202608/14/2608.08605v2-forestbench-a-unified-graph-framework-for-evaluating-multi-agent-collaboration",
+      "title": "ForestBench: A Unified Graph Framework for Evaluating Multi-Agent Collaboration",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "ca"
+        }
+      ],
+      "score": 6.0,
+      "evidence": "为多智能体系统提供统一评估框架，可应用于评估基于多智能体的网络犯罪模拟",
+      "first_seen_at": "2026-08-14 19:55:14 UTC",
+      "updated_at": "2026-08-14 19:55:14 UTC"
+    }
+  ]
+}
