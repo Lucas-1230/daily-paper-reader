@@ -1,0 +1,212 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-08-16T19:32:30.951804+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 0,
+    "deep_cap": 6,
+    "deep_selected": 0,
+    "quick_candidates": 5,
+    "quick_skim_target": 11,
+    "quick_selected": 5
+  },
+  "deep_dive": [],
+  "quick_skim": [
+    {
+      "id": "2608.08131v1",
+      "source": "arxiv",
+      "title": "Compositional Threat Analysis of Latent Compromise in LLM Agent Systems: The Order 66 Scenario",
+      "abstract": "In the fictional Order 66, catastrophe does not arise from a powerful command alone: a trusted population is preconditioned, a short directive activates the concealed condition, and protective authority turns against the system. This paper translates that mechanism into an origin-neutral security analysis of tool-using large language model (LLM) agents. A representative scenario combines a deployed artifact or shared memory bearing a dormant destructive rule, a later email, document, update, or peer message that activates it, and an agent harness granting operational and recovery authority. We introduce a compositional model explaining why no component is catastrophic alone, yet their conjunction can produce correlated destructive action. We separate three population-reach routes --- release-time pre-positioning, post-release durable seeding, and peer replication --- from a common core of dormancy, activation, authority, reachable targets, and failed recovery. This yields defensive cut sets and shows why checkpoint scanning or prompt filtering cannot close every route. A two-class example shows that cross-class feedback can sustain spread even when both within-class reproduction terms are below one; isolation and persistence controls suppress the loop. Published work instantiates constituent mechanisms, while incidents demonstrate autonomous boundary crossing, malicious agent extensions, agent-assisted reconnaissance, and public-package propagation, but not the full dormant-implant composition. We found no public observation, in evidence reviewed through 5 August 2026, traversing the complete Order 66 graph. The result is neither dismissal nor prediction: the scenario is componentwise credible under stated assumptions, damage depends on the harness, and the strongest defenses are capability mediation, durable-state provenance, propagation isolation, and protected recovery.",
+      "authors": [
+        "Satoshi Matsuoka"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI",
+        "cs.MA"
+      ],
+      "published": "2026-08-08T13:35:35+00:00",
+      "link": "https://arxiv.org/pdf/2608.08131v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "compositional threat analysis of latent compromise in LLM agent systems",
+      "llm_evidence_cn": "LLM智能体系统中潜在妥协的组成威胁分析",
+      "llm_evidence": "LLM智能体系统中潜在妥协的组成威胁分析",
+      "canonical_evidence": "LLM智能体系统中潜在妥协的组成威胁分析",
+      "llm_tldr_en": "Models a fictional Order 66 scenario as a compositional threat pattern in LLM agent systems, where a dormant rule is activated by later messages. Proposes a compositional model explaining correlated destructive behavior. Provides security analysis for tool-using LLM agents.",
+      "llm_tldr_cn": "本文借虚构的Order 66场景，将LLM智能体系统中的潜在妥协建模为休眠规则被后续消息激活的组成威胁。作者提出组成模型，解释各组件单独无害、组合后产生相关破坏的机制。该分析为工具型LLM智能体的安全威胁建模提供了新视角，有助于探索其在网络环境中的脆弱性边界。",
+      "llm_tldr": "本文借虚构的Order 66场景，将LLM智能体系统中的潜在妥协建模为休眠规则被后续消息激活的组成威胁。作者提出组成模型，解释各组件单独无害、组合后产生相关破坏的机制。该分析为工具型LLM智能体的安全威胁建模提供了新视角，有助于探索其在网络环境中的脆弱性边界。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "exploring the capability boundaries of large language models in cyber contexts",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2608.08164v1",
+      "source": "arxiv",
+      "title": "STEMMA: An Adversarial Multi-Agent Framework for Evaluating Self-Identity Consistency in LLMs",
+      "abstract": "Knowledge Distillation is a widely adopted technique in the training and fine-tuning of large language models (LLMs) enabling transfer of structured information and functional behavior from a large teacher model to a smaller student model while significantly reducing computational costs. However, as the use of distillation increases in both scale and complexity it raises an important question about what kind of knowledge is really transferred from the teacher model. In this work, we argue that apart from the functional knowledge, student models also learn behavioral patterns, specifically how a model represents its own identity raising concerns about output homogeneity, model biases, and accountability. To address this challenge, we introduce STEMMA, a multi-modal and multi-agent framework in which role specific agents collaboratively probe self identification behavior in different models. We also contribute a set of adversarial prompts designed manually to evaluate identity consistency in LLMs. Our results show that to an extent most models are vulnerable to inconsistencies in self-representations.",
+      "authors": [
+        "Nuthakki Siva Gopala Krishna",
+        "Kanishka Jain"
+      ],
+      "primary_category": "cs.CL",
+      "categories": [
+        "cs.CL",
+        "cs.AI"
+      ],
+      "published": "2026-08-08T14:46:22+00:00",
+      "link": "https://arxiv.org/pdf/2608.08164v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "adversarial multi-agent framework for evaluating LLM properties",
+      "llm_evidence_cn": "对抗性多智能体框架用于评估大模型属性",
+      "llm_evidence": "对抗性多智能体框架用于评估大模型属性",
+      "canonical_evidence": "对抗性多智能体框架用于评估大模型属性",
+      "llm_tldr_en": "Addresses underexplored transfer of self-identity patterns in LLM distillation. Proposes STEMMA, an adversarial multi-agent framework for evaluating self-identity consistency. Shows student models inherit identity patterns, causing homogeneity and accountability issues.",
+      "llm_tldr_cn": "现有知识蒸馏研究忽视了模型自我身份等行为模式的迁移，可能引发同质化与问责风险。本文提出STEMMA对抗性多智能体框架，通过模拟智能体交互评估学生模型的身份一致性。实验表明学生模型会继承教师模型的身份表征，导致输出趋同和偏见。该框架为评估LLM行为继承提供了新方法，对提升模型问责性具有重要意义。",
+      "llm_tldr": "现有知识蒸馏研究忽视了模型自我身份等行为模式的迁移，可能引发同质化与问责风险。本文提出STEMMA对抗性多智能体框架，通过模拟智能体交互评估学生模型的身份一致性。实验表明学生模型会继承教师模型的身份表征，导致输出趋同和偏见。该框架为评估LLM行为继承提供了新方法，对提升模型问责性具有重要意义。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "adversarial agents for testing large language models in cybercrime",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2608.08468v1",
+      "source": "arxiv",
+      "title": "SkillsMetric: Mapping the Detection Boundary of Static Analysis for Malicious Agent Skills",
+      "abstract": "Agent Skills---structured packages of instructions and scripts that augment LLM-based agents---are rapidly proliferating, yet their security properties remain under-explored. We present \\textsc{SkillsMetric}, a five-stage static analysis framework that scores skill packages along pattern density, statistical anomaly, dataflow taint, import anomaly, and capability mismatch dimensions. We construct an adversarial evaluation dataset of 2{,}266 skills spanning 16~attack types across code-level, system-level, and semantic-level threats, and evaluate on the full SkillMD-138K corpus. Our framework achieves an AUC of 0.93 and 5-fold cross-validated F1 of 73.4\\%$\\pm$0.5\\%, with strong detection of data exfiltration (93\\%) and steganographic payloads (93\\%). Crucially, we identify fundamental blind spots: \\emph{host destruction} attacks using common shell commands evade all five stages (0\\% detection), and \\emph{prompt injection} via natural-language manipulation achieves only 42\\% detection. These findings establish that static analysis alone is insufficient for skill security, motivating defense-in-depth architectures that combine fast static pre-screening with semantic review.",
+      "authors": [
+        "Xinze Chen",
+        "Chi Zhang",
+        "Ping Ji",
+        "Yimin Liu"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI"
+      ],
+      "published": "2026-08-09T04:19:10+00:00",
+      "link": "https://arxiv.org/pdf/2608.08468v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Static analysis of malicious agent skills, covering 16 attack types, directly maps LLM cybercrime capabilities and detection limits.",
+      "llm_evidence_cn": "对恶意智能体技能的静态分析，覆盖16种攻击类型，直接关联LLM网络犯罪能力与检测极限。",
+      "llm_evidence": "对恶意智能体技能的静态分析，覆盖16种攻击类型，直接关联LLM网络犯罪能力与检测极限。",
+      "canonical_evidence": "对恶意智能体技能的静态分析，覆盖16种攻击类型，直接关联LLM网络犯罪能力与检测极限。",
+      "llm_tldr_en": "Presents SkillsMetric, a five-stage static analysis framework scoring agent skill packages, with an adversarial dataset of 2266 skills across 16 attack types. Achieves AUC 0.93 and strong detection of data exfiltration and steganography, mapping the boundary of static detection for malicious LLM agent skills.",
+      "llm_tldr_cn": "智能体技能包的安全属性尚未充分探索，恶意技能可能被用于网络犯罪。本文提出SkillsMetric五阶段静态分析框架，从模式密度、统计异常、数据流污染、导入异常和能力不匹配五个维度评分，并构建包含2266个恶意技能、覆盖16种攻击类型的对抗评估数据集。实验达到0.93的AUC和73.4%的F1，对数据窃取和隐写检测效果显著。该框架为评估LLM智能体网络犯罪能力提供了静态检测边界。",
+      "llm_tldr": "智能体技能包的安全属性尚未充分探索，恶意技能可能被用于网络犯罪。本文提出SkillsMetric五阶段静态分析框架，从模式密度、统计异常、数据流污染、导入异常和能力不匹配五个维度评分，并构建包含2266个恶意技能、覆盖16种攻击类型的对抗评估数据集。实验达到0.93的AUC和73.4%的F1，对数据窃取和隐写检测效果显著。该框架为评估LLM智能体网络犯罪能力提供了静态检测边界。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "capabilities of large language models in cybercrime",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2608.11949v1",
+      "source": "arxiv",
+      "title": "ExRole: From Team Trajectories to Executable Roles in Multi-Agent Language Models",
+      "abstract": "Roles provide an interpretable interface for organizing language-model agents, yet most multi-agent systems treat them as hand-written prompt labels disconnected from learned behavior and parameter updates. We argue that a useful role should instead be an executable control variable: it should summarize behavior predictive of future utility, guide subsequent interaction, and identify the trainable capacity responsible for that behavior. We introduce ExRole, a trajectory-to-role framework that learns future-aware role prototypes from prefix-local team traces, resolves them into readable instructions and token-aligned role markers, and optionally routes shared LoRA rank slots with turn-aligned credit. Across MuSiQue and 2WikiMultiHopQA, ExRole improves over single-agent search by 15.0/14.4 and 13.5/16.1 EM/F1 points, respectively. Against the strongest non-ExRole controls, the corresponding gains remain 11.5/11.6 and 7.7/9.7 points. Across both benchmarks, the controlled results consistently favor trajectory-induced role conditioning over role-free, manual, random, and shuffled alternatives. Role-Agent-Turn interventions further show that the induced roles capture transferable behavioral specialization beyond fixed agent identities or turn positions.",
+      "authors": [
+        "Zhou Liu",
+        "Chaoyang Han",
+        "Zewei Pan",
+        "Zeli Su",
+        "Wentao Zhang"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-08-12T11:35:31+00:00",
+      "link": "https://arxiv.org/pdf/2608.11949v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Learns executable roles from multi-agent trajectories, transferring to cybercrime agent simulation.",
+      "llm_evidence_cn": "从多智能体轨迹中学习可执行角色，可迁移到网络犯罪智能体模拟。",
+      "llm_evidence": "从多智能体轨迹中学习可执行角色，可迁移到网络犯罪智能体模拟。",
+      "canonical_evidence": "从多智能体轨迹中学习可执行角色，可迁移到网络犯罪智能体模拟。",
+      "llm_tldr_en": "Proposes ExRole, a trajectory-to-role framework that learns future-aware role prototypes from team traces, enabling executable roles in multi-agent LLMs; evaluated on reasoning QA benchmarks. This method could be adapted to structure cybercriminal agent roles in simulations.",
+      "llm_tldr_cn": "多智能体系统中的角色通常被当作手写提示标签，缺乏与学习行为的关联。本文提出ExRole框架，从团队轨迹中学习未来感知的角色原型，并将其解析为可执行指令和令牌对齐的角色标记。在MuSiQue和2WikiMultiHopQA数据集上的实验表明该方法能有效提升协作表现。该框架为组织语言模型智能体提供了可执行角色接口，可迁移至网络犯罪智能体模拟等应用。",
+      "llm_tldr": "多智能体系统中的角色通常被当作手写提示标签，缺乏与学习行为的关联。本文提出ExRole框架，从团队轨迹中学习未来感知的角色原型，并将其解析为可执行指令和令牌对齐的角色标记。在MuSiQue和2WikiMultiHopQA数据集上的实验表明该方法能有效提升协作表现。该框架为组织语言模型智能体提供了可执行角色接口，可迁移至网络犯罪智能体模拟等应用。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "multi-agent systems for cybercrime simulation",
+      "matched_requirement_id": "req-3",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2608.08795v1",
+      "source": "arxiv",
+      "title": "Toward Metacognitive One-Shot Indirect Prompt Injection: Strategy Abstraction Via Outcome-Conditioned Reflection",
+      "abstract": "Tool-using large language model (LLM) agents are vulnerable to indirect prompt injection (IPI), in which malicious instructions embedded in external observations manipulate subsequent agent decisions and actions. Most existing adaptive attacks rely on repeatedly querying and refining against the target agent, whereas realistic attackers may have only a single opportunity to interact with an unknown target agent. We propose SAVOR (Strategy Abstraction Via Outcome-Conditioned Reflection), which shifts attack adaptation from test-time iteration to offline strategy distillation. SAVOR performs outcome-conditioned reflection over successful and failed trajectories collected from disjoint training environments, validates context-conditioned candidate strategies, and iteratively consolidates them into a reusable strategy memory. At test time, the frozen memory guides the generation of a single payload for each unseen target, requiring only one target-agent query and no target-agent feedback. Across two benchmarks and three victim models, SAVOR attains the highest average attack success rate in all six settings, leading the strongest prior attack by 2.5 to 11.8 points and the same injection channel without strategy learning by 23.1 points on Agent Security Bench, which holds out attacker tools, and 28.6 points on OpenClaw-IPI, an executable benchmark we introduce that holds out attack goals and verifies attacks through tool interactions and execution receipts. A memory learned under one defense also transfers to another.",
+      "authors": [
+        "Sihan Hou",
+        "Xinmeng Hou",
+        "Zhijun Zhang",
+        "Zehao Wang",
+        "Xuhong Ren",
+        "Sibo Qin",
+        "Kuntharrgyal Khysru",
+        "Qing Guo"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.CL"
+      ],
+      "published": "2026-08-09T16:19:05+00:00",
+      "link": "https://arxiv.org/pdf/2608.08795v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Proposes SAVOR, a one-shot indirect prompt injection attack method for LLM agents",
+      "llm_evidence_cn": "提出SAVOR方法，针对LLM智能体的一次性间接提示注入攻击",
+      "llm_evidence": "提出SAVOR方法，针对LLM智能体的一次性间接提示注入攻击",
+      "canonical_evidence": "提出SAVOR方法，针对LLM智能体的一次性间接提示注入攻击",
+      "llm_tldr_en": "Proposes SAVOR, which shifts attack adaptation from test-time iteration to offline strategy distillation for one-shot indirect prompt injection against unknown LLM agents.",
+      "llm_tldr_cn": "现有间接提示注入攻击依赖对目标智能体的重复查询与优化，而现实攻击者可能只有一次交互机会。论文提出SAVOR方法，通过结果条件反射在离线阶段从成功与失败的轨迹中蒸馏攻击策略，将攻击适应从测试时迭代转移到离线策略学习。在未知目标智能体上，SAVOR实现了一次性间接提示注入，展示了对抗性策略抽象的有效性。",
+      "llm_tldr": "现有间接提示注入攻击依赖对目标智能体的重复查询与优化，而现实攻击者可能只有一次交互机会。论文提出SAVOR方法，通过结果条件反射在离线阶段从成功与失败的轨迹中蒸馏攻击策略，将攻击适应从测试时迭代转移到离线策略学习。在未知目标智能体上，SAVOR实现了一次性间接提示注入，展示了对抗性策略抽象的有效性。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "adversarial agents for testing large language models in cybercrime",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    }
+  ]
+}
