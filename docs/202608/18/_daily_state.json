@@ -1,0 +1,73 @@
+{
+  "date": "20260818",
+  "date_label": "",
+  "generated_at": "2026-08-18 20:57:43 UTC",
+  "recommend_exists": true,
+  "run_count": 1,
+  "papers": [
+    {
+      "paper_id": "2608.14216v1",
+      "route": "202608/18/2608.14216v1-mazerunner-nonlinear-task-and-clue-orchestration-for-llm-driven-black-box-automated-penetration-testing",
+      "title": "MazeRunner: Nonlinear Task and Clue Orchestration for LLM-driven Black-Box Automated Penetration Testing",
+      "section": "deep",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "ca"
+        }
+      ],
+      "score": 9.0,
+      "evidence": "多智能体LLM系统自主渗透测试模拟网络攻击",
+      "first_seen_at": "2026-08-18 20:57:43 UTC",
+      "updated_at": "2026-08-18 20:57:43 UTC"
+    },
+    {
+      "paper_id": "2608.15012v1",
+      "route": "202608/18/2608.15012v1-sysevolve-an-ai-native-safe-autonomous-adversarial-attack-defense-co-evolutionary-system",
+      "title": "SysEvolve: An AI-native, safe, autonomous adversarial attack-defense co-evolutionary system",
+      "section": "deep",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "ca"
+        }
+      ],
+      "score": 9.0,
+      "evidence": "AI智能体驱动的对抗性攻防协同进化系统",
+      "first_seen_at": "2026-08-18 20:57:43 UTC",
+      "updated_at": "2026-08-18 20:57:43 UTC"
+    },
+    {
+      "paper_id": "2608.13608v1",
+      "route": "202608/18/2608.13608v1-evaluating-agentic-learning-harness-capabilities-without-labels-via-the-scaling-hypothesis",
+      "title": "Evaluating Agentic Learning Harness Capabilities Without Labels via the Scaling Hypothesis",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "ca"
+        }
+      ],
+      "score": 6.0,
+      "evidence": "评估网络安全中智能体学习框架的能力",
+      "first_seen_at": "2026-08-18 20:57:43 UTC",
+      "updated_at": "2026-08-18 20:57:43 UTC"
+    },
+    {
+      "paper_id": "2608.16422v1",
+      "route": "202608/18/2608.16422v1-proving-the-utility-of-large-language-models-in-cybersecurity-simulations-a-comprehensive-examination",
+      "title": "Proving the Utility of Large Language Models in Cybersecurity Simulations: A Comprehensive Examination",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "ca"
+        }
+      ],
+      "score": 6.0,
+      "evidence": "使用LLM进行网络安全模拟并创建合成环境",
+      "first_seen_at": "2026-08-18 20:57:43 UTC",
+      "updated_at": "2026-08-18 20:57:43 UTC"
+    }
+  ]
+}

@@ -1,0 +1,69 @@
+{
+  "label": "2026-08-18",
+  "date": "2026-08-18",
+  "generated_at": "2026-08-18T20:57:56",
+  "count": 4,
+  "papers": [
+    {
+      "paper_id": "202608/18/2608.14216v1-mazerunner-nonlinear-task-and-clue-orchestration-for-llm-driven-black-box-automated-penetration-testing",
+      "section": "deep",
+      "title_en": "MazeRunner: Nonlinear Task and Clue Orchestration for LLM-driven Black-Box Automated Penetration Testing",
+      "authors": "Zhenyuan Li, Yi Jiang, Junjie Cheng, Yaokun Li, Jing Qiu, Shouling Ji",
+      "date": "2026-08-14",
+      "pdf": "https://arxiv.org/pdf/2608.14216v1",
+      "score": "9.0",
+      "evidence": "多智能体LLM系统自主渗透测试模拟网络攻击",
+      "tldr": "真实黑盒渗透测试非线性，攻击图需从反馈中逐步推断，现有代理常陷入深度优先、误诊失败和遗忘线索。MazeRunner采用三代理任务与线索编排，分离全局编排、上下文执行和失败审查，持续维护状态与证据。在10个HTB目标上完成47.7%子任务，优于PentestGPT-V2的36.2%和Claude Code的34.2%，在6个目标获用户级或更高权限，含2个root。该工作证明非线性编排与线索持久化能提升黑盒渗透测试的探索效率与成功率。",
+      "tags": "query:ca",
+      "abstract_en": "Penetration testing is essential yet resource-intensive. Although large language models (LLMs) show promise for automating security auditing, existing agents mainly execute end-to-end workflows in simplified linear scenarios. Real-world black-box testing is fundamentally nonlinear: the attack graph is initially unknown and must be incrementally inferred from environmental feedback. Observations may reveal multiple attack branches, failures are often ambiguous, and critical clues may span long action horizons. Existing agents therefore tend to become trapped in depth-first exploration, misdiagnose failures, and forget prior evidence. We present MazeRunner, an autonomous penetration testing system built on a three-agent task-and-clue orchestration framework. It separates global orchestration, context-intensive execution, and failure-oriented review while persistently maintaining task states and environmental evidence. This design supports action revision, prerequisite recovery, branch switching, and long-range clue correlation. We evaluate MazeRunner on 10 recently released HTB targets, limiting each system-target run to 20 million LLM tokens and preventing target-specific solution leakage. With Claude Sonnet 4.5, MazeRunner completes 47.7% of annotated subtasks, compared with 36.2% for PentestGPT-V2 and 34.2% for Claude Code. It achieves user-level or higher access on six targets, including root access on two; each same-model baseline reaches user-level access on only two targets and never obtains root access. Execution-trace analysis further shows that MazeRunner explores more attack branches and acquires shells more efficiently.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202608/18/2608.15012v1-sysevolve-an-ai-native-safe-autonomous-adversarial-attack-defense-co-evolutionary-system",
+      "section": "deep",
+      "title_en": "SysEvolve: An AI-native, safe, autonomous adversarial attack-defense co-evolutionary system",
+      "authors": "Yuhan Meng, Shaofei Li, Jionghao Huang, Jiandong Jin, Puyi Wang, Hanlin Jiang, Anis Yusof, Peng Jiang, Zhenkai Liang, Yao Guo, Ding Li",
+      "date": "2026-08-15",
+      "pdf": "https://arxiv.org/pdf/2608.15012v1",
+      "score": "9.0",
+      "evidence": "AI智能体驱动的对抗性攻防协同进化系统",
+      "tldr": "随着大语言模型推动攻击自主化，防御仍以人工为主，三层演化停滞。本文提出攻防AI智能体共演化思路，构建SysEvolve系统，由SysField靶场、SysSpear攻击与SysArmor防御协同组成自驱动对抗闭环。评估显示SysField以2.1%开销零丢失集采并组织257个CVE，SysSpear攻击成功提升超25%，SysArmor精度高10-1000倍且检测真实APT。该系统恢复三层演化，并揭示LLM智能体在多步组合、后渗透利用与环境干扰方面存在关键瓶颈。",
+      "tags": "query:ca",
+      "abstract_en": "The rapid advancement of large language models (LLMs) has created a growing asymmetry in cybersecurity, where attack accelerates toward autonomous execution while defense remains predominantly human-intensive. Despite substantial prior work across cyber ranges, AI-driven attack, and AI-driven defense, this asymmetry persists. We trace it to a deeper root cause, that evolution itself has stalled on both sides at three layers. To overcome this, we propose co-evolution as the integrating insight, where attack and defense AI agents autonomously and safely drive each other's evolution through adversarial confrontation. Based on this insight, we present \\sysevolve, comprising three co-designed components, \\sysfield, \\sysspear, and \\sysarmor. \\sysfield constructs realistic multi-host ranges. \\sysspear generates efficient, safe attack schemes. \\sysarmor performs real-time, interpretable defense. Together they form a self-driven adversarial loop restoring evolution at all three layers. In evaluation, \\sysfield achieves zero-loss collection at 2.1\\% overhead and orchestrates 257 CVEs into 1,148 ranges, \\sysspear improves attack success by over 25\\% over baseline LLMs, and \\sysarmor achieves 10--1000$\\times$ greater precision than prior systems and detects real APT attacks in production at Huawei and Sangfor. Our evaluation also reveals three findings about LLM agent capabilities. First, multi-step composition and larger topologies expose agent capability gaps hidden by single-step evaluations. Second, the bottleneck lies after initial access in post-compromise state utilization. Third, LLM agents are susceptible to environmental interference. When decoy endpoints are deployed in the range, agent timeouts triple and downstream completion disappears despite the success rates of initial accesses are unchanged.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202608/18/2608.13608v1-evaluating-agentic-learning-harness-capabilities-without-labels-via-the-scaling-hypothesis",
+      "section": "quick",
+      "title_en": "Evaluating Agentic Learning Harness Capabilities Without Labels via the Scaling Hypothesis",
+      "authors": "Aryan Luthra, Kshitij Jain, Siddharth Arya, Bobby Filar, Anna Bertiger",
+      "date": "2026-08-11",
+      "pdf": "https://arxiv.org/pdf/2608.13608v1",
+      "score": "6.0",
+      "evidence": "评估网络安全中智能体学习框架的能力",
+      "tldr": "网络安全中，持续学习harness通常依赖标记基准评估，但标签稀缺、过时且不具代表性，难以判断其实际有效性。本文基于缩放假设，用更强的教师模型提供稀疏采样修正，以学生模型向教师收敛的程度为harness打分。实验显示，教师相对提升与留出黄金标准提升显著相关，验证了该指标作为无标签代理的有效性；LLM法官在相似模型间无信号。该框架使无标签安全场景下评估并改进学习harness成为可能。",
+      "tags": "query:ca",
+      "abstract_en": "Agentic \"Continual Learning Harnesses\", systems that pair an LLM with retrieval or memory to improve from feedback without retraining, have shown growing value in cybersecurity. But their value is conventionally measured by gains against labeled benchmarks, an approach that often fails in operational security settings. Benchmark labels are scarce, stale, and unrepresentative, so a practitioner often cannot tell whether a given harness helps at all or which of two is better for their task. Traditional LLM-as-a-judge offers little signal because it is no stronger than the agent it evaluates, and distillation is unreliable on scarce, sporadic, and biased labels.   We propose a framework for evaluating learning harnesses end-to-end without a labeled benchmark, grounded in the scaling hypothesis. A stronger teacher model provides sparsely sampled corrections to a smaller student with a continual learning harness. We score a harness by how much its student converges toward the teacher over time. Across security tasks, model families, and harness designs, we show that improvement relative to the teacher correlates with improvement relative to a held-out gold standard, validating teacher-relative lift as a proxy for true harness uplift when labels are absent. We further show that LLM-as-a-judge between similarly powered models yields no usable signal. These results suggest that a teacher-sized model can be improved through the same harness when humans provide the same kind of sparse, high-precision corrections.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202608/18/2608.16422v1-proving-the-utility-of-large-language-models-in-cybersecurity-simulations-a-comprehensive-examination",
+      "section": "quick",
+      "title_en": "Proving the Utility of Large Language Models in Cybersecurity Simulations: A Comprehensive Examination",
+      "authors": "Stylianos Kampakis, Fabio Rovai, Marcos Charalambides, Theodosis Mourouzis, Chris Hicks",
+      "date": "2026-08-17",
+      "pdf": "https://arxiv.org/pdf/2608.16422v1",
+      "score": "6.0",
+      "evidence": "使用LLM进行网络安全模拟并创建合成环境",
+      "tldr": "随着网络攻击频率与复杂度持续上升，传统基于强化学习的网络安全模拟面临训练耗时、适应性不足等瓶颈。论文提出以YAML结构化网络配置，借助LLM自动生成合成环境并驱动RL代理训练，替代经典Double Q-learning与优先经验回放方法。在多个合成拓扑上，LLM实例化的Python代理实现94.5%的入侵成功率，并自动识别潜在漏洞，单次评估仅需0.02-0.06秒，较传统RL训练提速约2.5万至5万倍。研究表明LLM能显著提升网络安全仿真的效率与真实感，为构建智能鲁棒防御系统奠定基础。",
+      "tags": "query:ca",
+      "abstract_en": "Cyber threats continue to escalate in both frequency and sophistication, necessitating more adaptive and scalable defense strategies. This paper explores how Large Language Models (LLMs) can bolster cybersecurity simulations by automating the creation of synthetic environments and identifying latent vulnerabilities. We employ YAML as a structured representation format for simulating complex network configurations, thereby enabling Large Language Model-driven pipelines to support and improve reinforcement learning (RL) agent training. Comparative studies examine the advantages of LLM-based techniques over classical approaches such as Double Q-learning with Prioritized Experience Replay (PER), emphasizing increased efficiency, higher adaptability, and enhanced realism in cyberattack simulations. In empirical benchmarks across multiple synthetic topologies, LLM-instantiated Python agents achieved up to a 94.5% compromise rate while executing in 0.02-0.06 seconds per assessment---a ~25,000x to 50,000x speedup over traditional RL training cycles. Our findings underscore the transformative potential of integrating LLMs into cybersecurity research, ultimately paving the way for more intelligent and robust cyber-defense systems.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}
