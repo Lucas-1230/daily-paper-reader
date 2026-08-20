@@ -1,0 +1,41 @@
+{
+  "date": "20260820",
+  "date_label": "",
+  "generated_at": "2026-08-20 20:49:06 UTC",
+  "recommend_exists": true,
+  "run_count": 1,
+  "papers": [
+    {
+      "paper_id": "2608.18613v1",
+      "route": "202608/20/2608.18613v1-ctifoundry-an-agent-native-corpus-scaffold-for-cyber-threat-intelligence",
+      "title": "CTIFoundry: An Agent-Native Corpus Scaffold for Cyber Threat Intelligence",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "ca"
+        }
+      ],
+      "score": 7.0,
+      "evidence": "为网络威胁情报提供智能体原生语料库支架，使LLM智能体能进行多步调查",
+      "first_seen_at": "2026-08-20 20:49:06 UTC",
+      "updated_at": "2026-08-20 20:49:06 UTC"
+    },
+    {
+      "paper_id": "2608.14352v1",
+      "route": "202608/20/2608.14352v1-atlas-discovering-agent-strategies-through-llm-guided-abstraction-and-automata-learning",
+      "title": "ATLAS: Discovering Agent Strategies through LLM-Guided Abstraction and Automata Learning",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "ca"
+        }
+      ],
+      "score": 6.0,
+      "evidence": "从网络安全评估中的LLM智能体轨迹恢复可解释行为模型，帮助进行能力分析",
+      "first_seen_at": "2026-08-20 20:49:06 UTC",
+      "updated_at": "2026-08-20 20:49:06 UTC"
+    }
+  ]
+}

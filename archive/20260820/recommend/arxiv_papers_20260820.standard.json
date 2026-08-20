@@ -1,0 +1,100 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-08-20T20:46:40.427948+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 0,
+    "deep_cap": 6,
+    "deep_selected": 0,
+    "quick_candidates": 2,
+    "quick_skim_target": 11,
+    "quick_selected": 2
+  },
+  "deep_dive": [],
+  "quick_skim": [
+    {
+      "id": "2608.18613v1",
+      "source": "arxiv",
+      "title": "CTIFoundry: An Agent-Native Corpus Scaffold for Cyber Threat Intelligence",
+      "abstract": "Cyber threat intelligence (CTI) is increasingly consumed not by human analysts but by LLM agents that compose multi-step investigations at query time. The harness side of this shift has matured rapidly (planning loops, tool protocols, context management), but the corpus side has not: threat reports and vulnerability databases are still packaged for retrieval-augmented generation, as opaque chunks behind an embedding index. We argue that this substrate, not model capability, is the bottleneck on agentic CTI investigation, and present CTIFoundry, an agent-native corpus scaffold. At build time, CTIFoundry materializes the latent structure of a CTI corpus: a deterministic ontology graph over four authoritative knowledge bases (CVE, CWE, CAPEC, ATT&CK) whose official cross-references become typed, traversable edges; a span-grounded report layer whose canonical, alias-resolved cross-vendor entities index provenance-carrying chunks; and hybrid dense+lexical retrieval surfaces. At query time this structure is exposed through seven typed tools and three procedural skills mounted on a stock open-source agent harness. On the public CTIConnect benchmark, swapping only the action surface lifts the identically-harnessed agent by +0.19 to +0.28 overall F1 across a four-model, two-provider panel: a small model on CTIFoundry surpasses a flagship on the flat substrate, and the gain is not bought with search effort, since on both Claude models the scaffolded agent is more accurate at roughly half the tool calls. An ablation attributes it: typed structure carries the larger share, procedural skills convert structure into discipline, and the two compose super-additively, because skills bind only to structure that exists.",
+      "authors": [
+        "Yutong Cheng",
+        "Changze Li",
+        "Qian Cui",
+        "Wei Ding",
+        "Lingzhi Wang",
+        "Yan Chen",
+        "Peng Gao"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI",
+        "cs.CR"
+      ],
+      "published": "2026-08-19T07:00:29+00:00",
+      "link": "https://arxiv.org/pdf/2608.18613v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "provides an agent-native corpus scaffold for cyber threat intelligence to enable LLM agents to compose multi-step investigations",
+      "llm_evidence_cn": "为网络威胁情报提供智能体原生语料库支架，使LLM智能体能进行多步调查",
+      "llm_evidence": "为网络威胁情报提供智能体原生语料库支架，使LLM智能体能进行多步调查",
+      "canonical_evidence": "为网络威胁情报提供智能体原生语料库支架，使LLM智能体能进行多步调查",
+      "llm_tldr_en": "CTIFoundry is an agent-native corpus scaffold that materializes the latent structure of cyber threat intelligence into a deterministic ontology graph, addressing opaque chunked retrieval for LLM agents in multi-step investigations.",
+      "llm_tldr_cn": "本文指出网络威胁情报语料库仍以检索增强生成的模糊分块方式提供，阻碍了LLM智能体进行多步调查。为此提出CTIFoundry，在构建时从CVE、CWE、CAPEC、ATT&CK四个权威知识库构建确定性本体图，使智能体能够直接利用结构化威胁情报。实验表明该支架提升了智能体在CTI任务中的调查效率和准确性。该工作为智能体驱动的网络威胁情报分析提供了基础资源。",
+      "llm_tldr": "本文指出网络威胁情报语料库仍以检索增强生成的模糊分块方式提供，阻碍了LLM智能体进行多步调查。为此提出CTIFoundry，在构建时从CVE、CWE、CAPEC、ATT&CK四个权威知识库构建确定性本体图，使智能体能够直接利用结构化威胁情报。实验表明该支架提升了智能体在CTI任务中的调查效率和准确性。该工作为智能体驱动的网络威胁情报分析提供了基础资源。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "exploring the capability boundaries of large language models in cyber contexts",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2608.14352v1",
+      "source": "arxiv",
+      "title": "ATLAS: Discovering Agent Strategies through LLM-Guided Abstraction and Automata Learning",
+      "abstract": "Large Language Model (LLM)-based agents are increasingly used for complex tasks such as software testing and cybersecurity assessment. While these agents demonstrate impressive capabilities, their behavior is difficult to understand, explain, and analyze. Existing evaluations focus mainly on task success and execution traces, offering limited insight into the strategies employed by the agent. We present ATLAS (Automata Learning for Agent Trajectory Analysis and Strategy Discovery), an approach for recovering interpretable behavioral models from agent trajectories. ATLAS combines trace abstraction with automata learning to infer finite-state models that capture observed agent-environment interaction strategies. These models provide human-interpretable insights and support automated analyses of recurring behaviors, decision points, successful task-completion paths, and failure loops. As a proof of concept, we apply ATLAS to trajectories generated by an LLM-based penetration-testing agent. The resulting models expose high-level behavioral strategies for exploiting vulnerable machines that are difficult to identify from raw execution traces alone. We discuss how learned behavioral models can support explainability, model-guided exploration, auditing, and analysis of agentic systems. We further demonstrate symbolic model-based knowledge transfer from powerful frontier models to compact language models. In addition, we show how model transformations can derive concise explanations of agent behavior in a penetration-testing case study comprising 12 vulnerable machines. ATLAS highlights a new opportunity for model-driven engineering: transforming agent trajectories into explicit behavioral models that enable systematic understanding and analysis of otherwise opaque AI agents.",
+      "authors": [
+        "Ignacio D. Lopez-Miguel",
+        "Andreas Happe",
+        "Jürgen Cito",
+        "Ezio Bartocci",
+        "Bettina Könighofer",
+        "Martin Tappler"
+      ],
+      "primary_category": "cs.SE",
+      "categories": [
+        "cs.SE",
+        "cs.LG"
+      ],
+      "published": "2026-08-14T14:51:48+00:00",
+      "link": "https://arxiv.org/pdf/2608.14352v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "recovers interpretable behavioral models from LLM agent trajectories in cybersecurity assessment, aiding capability analysis",
+      "llm_evidence_cn": "从网络安全评估中的LLM智能体轨迹恢复可解释行为模型，帮助进行能力分析",
+      "llm_evidence": "从网络安全评估中的LLM智能体轨迹恢复可解释行为模型，帮助进行能力分析",
+      "canonical_evidence": "从网络安全评估中的LLM智能体轨迹恢复可解释行为模型，帮助进行能力分析",
+      "llm_tldr_en": "ATLAS proposes a method to automatically infer finite-state models from LLM agent trajectories in cybersecurity tasks, enabling human understanding of agent strategies and capability boundaries.",
+      "llm_tldr_cn": "本文针对LLM智能体在网络安全评估等复杂任务中行为难以理解的问题，提出ATLAS方法，结合轨迹抽象与自动机学习，从智能体与环境交互中恢复可解释的有限状态模型。该方法帮助分析人员理解智能体所采用的策略，从而评估其在网络安全场景下的能力边界。实验表明，ATLAS能够有效提取策略模型，为LLM智能体的安全性评估和调试提供了新工具。",
+      "llm_tldr": "本文针对LLM智能体在网络安全评估等复杂任务中行为难以理解的问题，提出ATLAS方法，结合轨迹抽象与自动机学习，从智能体与环境交互中恢复可解释的有限状态模型。该方法帮助分析人员理解智能体所采用的策略，从而评估其在网络安全场景下的能力边界。实验表明，ATLAS能够有效提取策略模型，为LLM智能体的安全性评估和调试提供了新工具。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "exploring the capability boundaries of large language models in cyber contexts",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}
