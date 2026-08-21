@@ -1,0 +1,54 @@
+{
+  "label": "2026-08-21",
+  "date": "2026-08-21",
+  "generated_at": "2026-08-21T20:49:27",
+  "count": 3,
+  "papers": [
+    {
+      "paper_id": "202608/21/2608.14876v1-workspace-topology-as-an-attack-vector-in-agentic-coding-assistants",
+      "section": "quick",
+      "title_en": "Workspace Topology as an Attack Vector in Agentic Coding Assistants",
+      "authors": "Alexandre G. R. Day, Pradeep Yadlapalli, Sriram Venkatapathy, Thomas Paniagua, Nick Raines, Sahil Wadhwa, Himanshu Kumar, Andy Luo, Sudeep Panyam, Rikhiya Ghosh, Pranab Mohanty, Giri Iyengar",
+      "date": "2026-08-14",
+      "pdf": "https://arxiv.org/pdf/2608.14876v1",
+      "score": "6.0",
+      "evidence": "研究工作区拓扑作为智能体编码助手中对抗性提示注入的攻击向量。",
+      "tldr": "代理式编码助手广泛摄取第三方代码，在工作区内拥有广泛文件系统访问权限，带来恶意提示注入风险。本文系统研究工作区拓扑（目录深度、代码库模块化、注入位置、上下文框架）对间接提示注入攻击成功率的影响。实证覆盖十种语言和六个工程领域，发现高度模块化环境显著降低攻击成功率，安全线索也起作用。该研究为编码代理安全评估提供实用价值，并强调测试环境纯净的重要性。",
+      "tags": "query:ca",
+      "abstract_en": "Agentic coding assistants are finding widespread use, not just in new code development but in quickly ingesting and leveraging third-party code. This opens up a risk of malicious code being ingested as these coding tools operate with broad filesystem access inside developer workspaces. In this paper, we extensively study the impact of different dimensions of a novel attack surface we term workspace topology -- defined via directory depth, codebase modularity, in-file injection position and context framing -- on the attack success rate of adversarial prompt injection attempts.   We perform an empirical study of indirect prompt injection (IPI) across a diverse set of open-source repositories spanning 10 languages and 6 engineering domains, evaluating three IPI entry points against open-weight models operating open source code harnesses.   We find that workspace topology measurably affects IPI success. Specifically, changes in codebase modularity can significantly alter the Attack Success Rate (ASR), with highly modular environments demonstrating significantly lower attack success rates. Furthermore, context framing and introduction of security-cues in the workspace can also alter the ASR. Our findings offer practical value for the evaluation and security testing of coding agents across diverse settings, while underscoring the importance of an uncontaminated testing environment to obtain reliable results and conclusions.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202608/21/2608.19161v1-beyond-the-transcript-detecting-covert-co-ordination-in-latent-multi-agent-communication",
+      "section": "quick",
+      "title_en": "Beyond the Transcript: Detecting Covert Co ordination in Latent Multi-Agent Communication",
+      "authors": "Ramneet Kaur, Pradyumna Chari, Ramesh Raskar, Jugad Singh, Sumit Kumar Jha, Anirban Roy",
+      "date": "2026-08-19",
+      "pdf": "https://arxiv.org/pdf/2608.19161v1",
+      "score": "6.0",
+      "evidence": "检测多智能体LLM潜在通信中的隐蔽有害协调，与多智能体网络犯罪模拟安全相关",
+      "tldr": "多智能体语言模型可通过连续隐藏状态进行公开文本中不可见的通信，带来隐蔽有害协调风险。本文提出激活感知的可验证潜在对齐（VLA）框架，通过共享事件标识符关联私有潜在状态与公开行动，实现匹配因果分析。在拍卖基准上，同构智能体监控AUROC达0.993，异构为0.854；白盒引导使共谋低出价降低47.3个百分点。该研究证明无需攻击样本训练即可监控私有信道攻击，并可在反事实可用时有效缓解。",
+      "tags": "query:ca",
+      "abstract_en": "Language-model agents can communicate through continuous hidden states that are invisible in public transcripts, creating opportunities for covert harmful coordination. We introduce Verifiable Latent Alignments (VLA), an activation-aware framework for monitoring and steering these private communication channels. For every monitored decision, VLA links the private latent-state record and channel status to the resulting public action using a shared event identifier, enabling matched causal analysis. Our first contribution is a neutral-only three-layer monitor combining representation anomaly detection, counterfactual action-distribution influence, and sparse-autoencoder interpretation support. Our second contribution is a steerability framework spanning black-box behavioral instructions and white-box matched-neutral counterfactuals. Our third contribution is an evaluation on a controlled multi-agent auction benchmark covering homogeneous and heterogeneous model pairs, many-agent scalability, and intervention effectiveness. The sequential monitor achieves mean area under the receiver operating characteristic curve (AUROC) of 0.993 for homogeneous agents and 0.854 for heterogeneous pairs when text- and latent-collusion rows are pooled as positives. In Qwen3-0.6B auctions with 25-100 bidders, monitoring requires only a small normalized load relative to all possible directed pairs, while full white-box steering achieves 100% bid-distribution recovery and reduces collusive low-bid behavior by 47.3 percentage points. Because full white-box steering replays the matched neutral counterfactual, its exact recovery is a sanity check by construction. Overall, the controlled study shows that the evaluated private channel attacks can be monitored without training the primary monitor on attack examples and mitigated when matched counterfactual access is available.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202608/21/2608.19901v1-maliciousskillbench-a-comprehensive-benchmark-for-malicious-agent-skill-detection",
+      "section": "quick",
+      "title_en": "MaliciousSkillBench: A Comprehensive Benchmark for Malicious Agent Skill Detection",
+      "authors": "Yue Wang, Yi Liu, Gelei Deng, Ying Zhang, Yuekang Li, Zhenyu Chen, Leo Zhang",
+      "date": "2026-08-20",
+      "pdf": "https://arxiv.org/pdf/2608.19901v1",
+      "score": "6.0",
+      "evidence": "用于检测恶意智能体技能的基准，整合恶意工件进行安全评估",
+      "tldr": "Agent Skills允许可重用指令包携带脚本，为恶意行为提供分发渠道，但现有数据集碎片化且重复多。MaliciousSkillBench整合13个公开来源，去重后含9740个Skill（7505恶意/2235良性），覆盖11类攻击。评估显示学习检测器随机Macro-F1最高0.932，跨来源降至0.665，良性误报率达62.4%；现成扫描器减少误报但恶意召回骤降。该基准揭示可靠检测需跨来源覆盖和攻击/误报联合评估。",
+      "tags": "query:ca",
+      "abstract_en": "Agent Skills extend LLM agents with reusable instruction packages that may also include scripts, resources, and service configuration. This creates a direct distribution channel for malicious behavior, yet existing malicious-Skill datasets are fragmented across sources, artifact formats, evidence regimes, and benign coverage; duplicated and structurally related content further complicates direct aggregation and evaluation. We present MaliciousSkillBench, a comprehensive benchmark for malicious Agent Skill detection. We consolidate 13 public sources, 11 of which contribute Core malicious artifacts, and reduce 8,414 raw malicious records to 7,539 normalized-unique identities in 4,588 operational structural families. After conservative cross-label conflict exclusion, the primary benchmark contains 9,740 Skills: 7,505 malicious and 2,235 benign. To characterize its coverage, we harmonize 11 attack categories for 4,983 malicious identities with supported source-native mappings and find substantial differences in threat composition across sources. We then evaluate three learned text detectors and three off-the-shelf Skill scanners. Learned detectors achieve 0.882-0.932 Random Macro-F1 but only 0.653-0.665 under Source-Disjoint evaluation; the strongest word TF-IDF SVM scores 0.932/0.916/0.665 on Random/structural-disjoint/Source-Disjoint while retaining 95.6% malicious recall but producing 62.4% benign FPR on held-out sources. Off-the-shelf scanners occupy different but also unsatisfactory operating regimes, reducing false positives only at the cost of sharply lower malicious recall. Together, these results show that reliable malicious-Skill detection requires both broader cross-source benchmark coverage and evaluation that jointly measures attack detection and benign over-flagging.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}

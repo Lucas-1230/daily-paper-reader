@@ -1,0 +1,57 @@
+{
+  "date": "20260821",
+  "date_label": "",
+  "generated_at": "2026-08-21 20:49:14 UTC",
+  "recommend_exists": true,
+  "run_count": 1,
+  "papers": [
+    {
+      "paper_id": "2608.14876v1",
+      "route": "202608/21/2608.14876v1-workspace-topology-as-an-attack-vector-in-agentic-coding-assistants",
+      "title": "Workspace Topology as an Attack Vector in Agentic Coding Assistants",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "ca"
+        }
+      ],
+      "score": 6.0,
+      "evidence": "研究工作区拓扑作为智能体编码助手中对抗性提示注入的攻击向量。",
+      "first_seen_at": "2026-08-21 20:49:14 UTC",
+      "updated_at": "2026-08-21 20:49:14 UTC"
+    },
+    {
+      "paper_id": "2608.19161v1",
+      "route": "202608/21/2608.19161v1-beyond-the-transcript-detecting-covert-co-ordination-in-latent-multi-agent-communication",
+      "title": "Beyond the Transcript: Detecting Covert Co ordination in Latent Multi-Agent Communication",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "ca"
+        }
+      ],
+      "score": 6.0,
+      "evidence": "检测多智能体LLM潜在通信中的隐蔽有害协调，与多智能体网络犯罪模拟安全相关",
+      "first_seen_at": "2026-08-21 20:49:14 UTC",
+      "updated_at": "2026-08-21 20:49:14 UTC"
+    },
+    {
+      "paper_id": "2608.19901v1",
+      "route": "202608/21/2608.19901v1-maliciousskillbench-a-comprehensive-benchmark-for-malicious-agent-skill-detection",
+      "title": "MaliciousSkillBench: A Comprehensive Benchmark for Malicious Agent Skill Detection",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "ca"
+        }
+      ],
+      "score": 6.0,
+      "evidence": "用于检测恶意智能体技能的基准，整合恶意工件进行安全评估",
+      "first_seen_at": "2026-08-21 20:49:14 UTC",
+      "updated_at": "2026-08-21 20:49:14 UTC"
+    }
+  ]
+}
