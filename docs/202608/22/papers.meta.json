@@ -1,0 +1,39 @@
+{
+  "label": "2026-08-22",
+  "date": "2026-08-22",
+  "generated_at": "2026-08-22T20:38:54",
+  "count": 2,
+  "papers": [
+    {
+      "paper_id": "202608/22/2608.17154v1-beyond-the-hype-evaluating-llm-integration-and-practical-limitations-in-security-operation-centers",
+      "section": "quick",
+      "title_en": "Beyond the Hype: Evaluating LLM Integration and Practical Limitations in Security Operation Centers",
+      "authors": "Elnaz Rabieinejad, Ali Dehghantanha, Fattane Zarrinkalam, Sarina Dastgerdy",
+      "date": "2026-08-17",
+      "pdf": "https://arxiv.org/pdf/2608.17154v1",
+      "score": "7.0",
+      "evidence": "评估安全运营中心中大模型的实际局限性，直接探索网络上下文中的能力边界。",
+      "tldr": "大型语言模型在安全运营中心（SOC）中用于告警上下文化、事件摘要等文本工作，但幻觉与不透明推理引发操作担忧。本文访谈二十位一线分析师、SOC经理和工具开发者，覆盖不同角色。发现模型在总结日志、起草初步线索等低风险可验证任务中节省时间，输出被视为草稿而非决策级结论，高风险决策信任有限且依赖临时人工监督。提出成熟度量表，并呼吁可审计性与透明解释机制以支持安全采用。",
+      "tags": "query:ca",
+      "abstract_en": "Large Language Models (LLMs) are increasingly being explored within Security Operation Centers (SOCs) to support text-heavy analytical work such as alert contextualization, incident summarization, and drafting investigative artifacts. Despite this interest, practitioners describe critical operational concerns, most notably hallucinations (plausible but incorrect outputs), opaque reasoning, and the verification effort required to safely use model-generated content in security workflows. In this paper, we present findings from semi-structured interviews with 20 SOC practitioners spanning frontline analysts, SOC managers, and tool developers. Participants report perceived time savings for low-stakes tasks that are quickly verifiable (e.g., summarizing logs or drafting initial investigative leads), but they consistently frame LLM outputs as preliminary drafts and suggestions rather than decision-grade conclusions. Participants also describe limited trust in LLMs for high-stakes security decisions due to unreliable outputs and unclear model reasoning, and they report relying primarily on ad-hoc verification norms and continuous human oversight rather than standardized mitigation procedures. Based on these interview-grounded accounts, we introduce a maturity rubric to characterize readiness for LLM integration and outline a research agenda emphasizing auditability and transparent explanation mechanisms to support safer adoption in SOC workflows.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202608/22/2608.15893v1-breaking-and-defending-llm-powered-social-media-bot-detection-systems",
+      "section": "quick",
+      "title_en": "Breaking and Defending LLM-Powered Social Media Bot Detection Systems",
+      "authors": "Nof Orenstein, Yoni Birman",
+      "date": "2026-08-16",
+      "pdf": "https://arxiv.org/pdf/2608.15893v1",
+      "score": "6.0",
+      "evidence": "针对大模型驱动机器人检测的对抗攻击，涉及网络上下文中的对抗智能体。",
+      "tldr": "社交媒体机器人持续威胁网络信任，促使LLM驱动的检测系统被广泛采用。这类系统虽能进行深层语义分析，但也引入了可被利用的新攻击面。本文提出两种针对语义与上下文弱点的对抗攻击策略，最高可使检测精度下降48%。防御方面，设计多LLM集成框架LSABRE，在强自适应攻击下仍保持86%的检测准确率，且方法可推广至钓鱼检测等更多LLM安全应用。",
+      "tags": "query:ca",
+      "abstract_en": "The rise of social media bots poses a persistent threat, enabling misinformation, opinion manipulation, and the erosion of trust in online platforms. To combat this, machine learning systems have been developed to detect and limit bot activity, but attackers continuously adapt through techniques such as adversarial learning and behavior imitation, fueling an ongoing arms race between bots and detection tools. Recent advances in large language models (LLMs) have significantly improved bot detection by enabling deeper semantic and contextual analysis of accounts and their content. However, this shift also introduces new attack surfaces, allowing adversaries to craft exploits that directly target the reasoning and generation mechanisms of LLM-based classifiers. Industry tools such as Anthropic's Claude Code Security similarly leverage LLMs for security-critical decisions, further motivating a careful study of their attack surfaces. In this work, we investigate both the offensive and defensive aspects of LLM-powered, threat-specific cybersecurity applications. While centered on the challenge of social media bot detection, our methodology and insights generalize to a broad class of LLM-powered cybersecurity systems, including phishing detection, email classification, and fraud analysis. We introduce two novel adversarial attack strategies that systematically exploit the semantic and contextual weaknesses of LLM-based classifiers, degrading their detection accuracy by up to 48%. To counter these threats, we propose a robust multi-LLM defense architecture designed to preserve detection reliability under adaptive adversarial conditions. Our solution, LSABRE (LLM-powered Social Adversarial Bot Recognition Ensemble), is a multi-LLM framework that substantially improves robustness across a range of attacks, maintaining 86% detection accuracy even under strong, adaptive adversarial pressure.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}

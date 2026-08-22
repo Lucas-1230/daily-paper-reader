@@ -1,0 +1,41 @@
+{
+  "date": "20260822",
+  "date_label": "",
+  "generated_at": "2026-08-22 20:38:40 UTC",
+  "recommend_exists": true,
+  "run_count": 1,
+  "papers": [
+    {
+      "paper_id": "2608.17154v1",
+      "route": "202608/22/2608.17154v1-beyond-the-hype-evaluating-llm-integration-and-practical-limitations-in-security-operation-centers",
+      "title": "Beyond the Hype: Evaluating LLM Integration and Practical Limitations in Security Operation Centers",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "ca"
+        }
+      ],
+      "score": 7.0,
+      "evidence": "评估安全运营中心中大模型的实际局限性，直接探索网络上下文中的能力边界。",
+      "first_seen_at": "2026-08-22 20:38:40 UTC",
+      "updated_at": "2026-08-22 20:38:40 UTC"
+    },
+    {
+      "paper_id": "2608.15893v1",
+      "route": "202608/22/2608.15893v1-breaking-and-defending-llm-powered-social-media-bot-detection-systems",
+      "title": "Breaking and Defending LLM-Powered Social Media Bot Detection Systems",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "ca"
+        }
+      ],
+      "score": 6.0,
+      "evidence": "针对大模型驱动机器人检测的对抗攻击，涉及网络上下文中的对抗智能体。",
+      "first_seen_at": "2026-08-22 20:38:40 UTC",
+      "updated_at": "2026-08-22 20:38:40 UTC"
+    }
+  ]
+}
