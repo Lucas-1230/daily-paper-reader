@@ -1,6 +1,9 @@
 * <a class="dpr-sidebar-root-link" href="#/">首页</a>
 * <a class="dpr-sidebar-root-link dpr-sidebar-noactive-link" href="javascript:void(0)" data-dpr-hash="#/tutorial/README">使用教程</a>
 * Daily Papers
+  * 2026-08-24 <!--dpr-date:20260824-->
+    * 精读区
+      * <a class="dpr-sidebar-item-link dpr-sidebar-item-structured" href="#/202608/24/2608.20966v1-structured-but-fragile-on-the-limits-of-llms-in-cybersecurity-decision-making" data-sidebar-item="{&quot;title&quot;: &quot;Structured but Fragile: On the Limits of LLMs in Cybersecurity Decision-Making&quot;, &quot;link&quot;: &quot;https://arxiv.org/abs/2608.20966v1-structured-but-fragile-on-the-limits-of-llms-in-cybersecurity-decision-making&quot;, &quot;score&quot;: &quot;8.0&quot;, &quot;tags&quot;: [{&quot;kind&quot;: &quot;query&quot;, &quot;label&quot;: &quot;ca&quot;}], &quot;evidence&quot;: &quot;LLM在网络安全决策中的局限性&quot;}">Structured but Fragile: On the Limits of LLMs in Cybersecurity Decision-Making</a>
   * 2026-08-22 <!--dpr-date:20260822-->
     * 速读区
       * <a class="dpr-sidebar-item-link dpr-sidebar-item-structured" href="#/202608/22/2608.17154v1-beyond-the-hype-evaluating-llm-integration-and-practical-limitations-in-security-operation-centers" data-sidebar-item="{&quot;title&quot;: &quot;Beyond the Hype: Evaluating LLM Integration and Practical Limitations in Security Operation Centers&quot;, &quot;link&quot;: &quot;https://arxiv.org/abs/2608.17154v1-beyond-the-hype-evaluating-llm-integration-and-practical-limitations-in-security-operation-centers&quot;, &quot;score&quot;: &quot;7.0&quot;, &quot;tags&quot;: [{&quot;kind&quot;: &quot;query&quot;, &quot;label&quot;: &quot;ca&quot;}], &quot;evidence&quot;: &quot;评估安全运营中心中大模型的实际局限性，直接探索网络上下文中的能力边界。&quot;}">Beyond the Hype: Evaluating LLM Integration and Practical Limitations in Security Operation Centers</a>

@@ -1,0 +1,53 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-08-24T20:43:49.844081+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 1,
+    "deep_cap": 6,
+    "deep_selected": 1,
+    "quick_candidates": 0,
+    "quick_skim_target": 11,
+    "quick_selected": 0
+  },
+  "deep_dive": [
+    {
+      "id": "2608.20966v1",
+      "source": "arxiv",
+      "title": "Structured but Fragile: On the Limits of LLMs in Cybersecurity Decision-Making",
+      "abstract": "Large language models (LLMs) are increasingly used in cybersecurity workflows, yet it remains unclear whether they can perform structured security reasoning or merely rely on superficial cues and prior knowledge. We study this question in the context of defence selection over attack graphs derived from real-world threat scenarios, including ransomware, supply-chain compromise, cloud abuse, Kubernetes attacks, POS malware, and ICS/OT intrusion. Given a budget constraint, LLMs must select security controls to minimise attacker success. We compare their strategies against each other and against a game-theoretic optimization baseline used as a normative reference for structured reasoning. Our results show that LLMs exhibit conditional competence. When explicit attack-graph structure is provided, they often produce coherent strategies close to the optimization baseline. However, their capabilities are fragile. LLM behaviour becomes increasingly fragile with graph complexity and is highly sensitive to framing. Small prompt changes can substantially alter rankings, and merely relabeling a poor strategy as ``optimal'' dramatically improves its evaluation. We further observe a non-monotonic relationship between formal risk and LLM judgement: strategies closest to the optimum are not necessarily ranked highest by LLM evaluators. To further probe reasoning ability, we ask LLMs to generate solvers for the same optimization problem. While the generated implementations recover the correct high-level formulation, they scale poorly compared to a purpose-built solver. Overall, our findings show that LLMs can approximate structured cybersecurity reasoning under controlled representations, but do not apply it robustly. This has important implications for the design and evaluation of AI-assisted security decision-support systems.",
+      "authors": [
+        "Pasquale Malacaria",
+        "Yunxiao Zhang"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI"
+      ],
+      "published": "2026-08-21T10:39:42+00:00",
+      "link": "https://arxiv.org/pdf/2608.20966v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "limits of LLMs in cybersecurity decision-making",
+      "llm_evidence_cn": "LLM在网络安全决策中的局限性",
+      "llm_evidence": "LLM在网络安全决策中的局限性",
+      "canonical_evidence": "LLM在网络安全决策中的局限性",
+      "llm_tldr_en": "Shows LLMs have conditional competence in structured security defense selection over attack graphs.",
+      "llm_tldr_cn": "该论文研究LLM在网络安全决策中的结构化推理能力，通过在真实威胁场景（勒索软件、供应链入侵等）的攻击图上选择防御措施，与博弈论优化基线对比。结果显示LLM表现出条件能力：在简单任务中有效，但在复杂场景中脆弱。该工作为评估LLM在网络犯罪相关安全决策中的能力边界提供了重要基准，强调了对其局限性的理解。",
+      "llm_tldr": "该论文研究LLM在网络安全决策中的结构化推理能力，通过在真实威胁场景（勒索软件、供应链入侵等）的攻击图上选择防御措施，与博弈论优化基线对比。结果显示LLM表现出条件能力：在简单任务中有效，但在复杂场景中脆弱。该工作为评估LLM在网络犯罪相关安全决策中的能力边界提供了重要基准，强调了对其局限性的理解。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "evaluating the limits of large language models in cybercrime scenarios",
+      "matched_requirement_id": "req-9",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": []
+}

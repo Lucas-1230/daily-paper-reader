@@ -1,0 +1,25 @@
+{
+  "date": "20260824",
+  "date_label": "",
+  "generated_at": "2026-08-24 20:51:11 UTC",
+  "recommend_exists": true,
+  "run_count": 1,
+  "papers": [
+    {
+      "paper_id": "2608.20966v1",
+      "route": "202608/24/2608.20966v1-structured-but-fragile-on-the-limits-of-llms-in-cybersecurity-decision-making",
+      "title": "Structured but Fragile: On the Limits of LLMs in Cybersecurity Decision-Making",
+      "section": "deep",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "ca"
+        }
+      ],
+      "score": 8.0,
+      "evidence": "LLM在网络安全决策中的局限性",
+      "first_seen_at": "2026-08-24 20:51:11 UTC",
+      "updated_at": "2026-08-24 20:51:11 UTC"
+    }
+  ]
+}

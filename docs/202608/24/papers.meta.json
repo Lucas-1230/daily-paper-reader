@@ -1,0 +1,24 @@
+{
+  "label": "2026-08-24",
+  "date": "2026-08-24",
+  "generated_at": "2026-08-24T20:51:20",
+  "count": 1,
+  "papers": [
+    {
+      "paper_id": "202608/24/2608.20966v1-structured-but-fragile-on-the-limits-of-llms-in-cybersecurity-decision-making",
+      "section": "deep",
+      "title_en": "Structured but Fragile: On the Limits of LLMs in Cybersecurity Decision-Making",
+      "authors": "Pasquale Malacaria, Yunxiao Zhang",
+      "date": "2026-08-21",
+      "pdf": "https://arxiv.org/pdf/2608.20966v1",
+      "score": "8.0",
+      "evidence": "LLM在网络安全决策中的局限性",
+      "tldr": "大语言模型在网络安全决策中能否进行结构化推理仍不明确。本文研究基于真实威胁场景（勒索软件、供应链、云滥用、Kubernetes、POS、ICS/OT）的攻击图防御选择任务，给定预算约束，对比大模型与博弈论优化基准。结果发现，大模型在显式提供攻击图结构时能生成接近最优策略，但能力脆弱：图复杂度和提示词变化导致排名显著波动，且评价与真实风险非单调，自生成求解器扩展性差。这表明大模型仅能近似结构化推理，辅助决策需谨慎评估。",
+      "tags": "query:ca",
+      "abstract_en": "Large language models (LLMs) are increasingly used in cybersecurity workflows, yet it remains unclear whether they can perform structured security reasoning or merely rely on superficial cues and prior knowledge. We study this question in the context of defence selection over attack graphs derived from real-world threat scenarios, including ransomware, supply-chain compromise, cloud abuse, Kubernetes attacks, POS malware, and ICS/OT intrusion. Given a budget constraint, LLMs must select security controls to minimise attacker success. We compare their strategies against each other and against a game-theoretic optimization baseline used as a normative reference for structured reasoning. Our results show that LLMs exhibit conditional competence. When explicit attack-graph structure is provided, they often produce coherent strategies close to the optimization baseline. However, their capabilities are fragile. LLM behaviour becomes increasingly fragile with graph complexity and is highly sensitive to framing. Small prompt changes can substantially alter rankings, and merely relabeling a poor strategy as ``optimal'' dramatically improves its evaluation. We further observe a non-monotonic relationship between formal risk and LLM judgement: strategies closest to the optimum are not necessarily ranked highest by LLM evaluators. To further probe reasoning ability, we ask LLMs to generate solvers for the same optimization problem. While the generated implementations recover the correct high-level formulation, they scale poorly compared to a purpose-built solver. Overall, our findings show that LLMs can approximate structured cybersecurity reasoning under controlled representations, but do not apply it robustly. This has important implications for the design and evaluation of AI-assisted security decision-support systems.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}
