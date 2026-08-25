@@ -1,0 +1,69 @@
+{
+  "label": "2026-08-25",
+  "date": "2026-08-25",
+  "generated_at": "2026-08-25T21:07:58",
+  "count": 4,
+  "papers": [
+    {
+      "paper_id": "202608/25/2608.21470v1-structural-inference-in-undocumented-mobile-databases-a-reproducible-benchmark-for-evaluating-agentic-reasoning-in-digital-forensics",
+      "section": "deep",
+      "title_en": "Structural Inference in Undocumented Mobile Databases: A Reproducible Benchmark for Evaluating Agentic Reasoning in Digital Forensics",
+      "authors": "Jeel Piyushkumar Khatiwala, Divyangkumar Patel, Weifeng Xu",
+      "date": "2026-08-21",
+      "pdf": "https://arxiv.org/pdf/2608.21470v1",
+      "score": "8.0",
+      "evidence": "评估LLM智能体在数字取证中推断无文档移动数据库关系结构的能力，属于网络犯罪调查任务。",
+      "tldr": "数字取证中，智能体大模型推断无文档移动数据库关系结构的能力缺乏系统评估，错误推断可能产生看似合理但证据不可靠的结果。本研究使用固定确定性评估管道，对比 Android SMS 与 Snapchat 数据库，考察智能体从原始数据库和自然语言提示重建表关系与连接路径的表现。结果显示规则模式下结构推断可靠，模式不规则时急剧下降，常产生执行成功但结构错误的连接。研究明确了无模式智能推理的适用边界，并强调取证中需额外验证。",
+      "tags": "query:ca",
+      "abstract_en": "Agentic large language models are increasingly used in digital forensic analysis, yet their ability to infer relational structure inside undocumented mobile application databases remains poorly understood. In forensic contexts, structurally incorrect inferences can yield results that appear plausible while remaining evidentially unsound. This work evaluates agentic structural inference as an isolated capability, treating execution success and structural correctness as distinct evaluation axes. It examines how an agent reconstructs table relationships, linking attributes, and executable join paths when given only a raw database and a natural-language investigative prompt. We apply a fixed, deterministic evaluation pipeline to two contrasting SQLite repositories: Android's SMS database with stable identifier propagation, and Snapchat's database with irregular schemas, ephemeral identifiers, and polymorphic relationships. Using expert-verified SQL ground truth, we evaluate (i) structural correctness of inferred relational links, (ii) execution coherence under multi-table reasoning, and (iii) robustness and failure modes of inferred structure when execution succeeds but relational interpretation diverges from expert ground truth. Evaluation is performed independently of semantic interpretation, with full queries and execution traces provided in the Appendix. Results show that structural inference remains reliable in regular schemas but degrades sharply as schema ambiguity increases, frequently producing structurally plausible yet incorrect joins that execute successfully. These findings clarify where schema-agnostic agentic reasoning can support forensic analysis, how its robustness degrades under realistic schema irregularities, and why additional verification remains essential before inferred relationships can be treated as reliable evidence.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202608/25/2608.23181v1-cyberfactory-scaling-cyber-security-capabilities-with-instances-from-the-wild",
+      "section": "quick",
+      "title_en": "CyberFactory: Scaling Cyber Security Capabilities with Instances from the Wild",
+      "authors": "Jian Yang, Haau-Sing Li, Shawn Guo, Zixi Zhao, Yibo Tan, Jiajun Wu, Aishan Liu, Xianglong Liu, Tianyu Zheng, Bryan Dai, Chengran Yang",
+      "date": "2026-08-24",
+      "pdf": "https://arxiv.org/pdf/2608.23181v1",
+      "score": "7.0",
+      "evidence": "用于训练LLM执行网络安全任务的开源框架，包括PoC生成和漏洞修补",
+      "tldr": "现有开源网络安全大模型训练存在明显短板：前沿开放权重模型缺少可复现训练方案，开源方案只覆盖孤立任务、缺乏可扩展 agentic 数据，扩展 agentic 推理还需强领域先验。CyberFactory 统一数据构建、轨迹合成与模型训练，把野外 CVE 等公开漏洞工件转化为可执行验证任务，用可复用漏洞分析技能引导教师生成 agentic 轨迹。训练出的 Aegis 在 CyberGym 一小时预算下 Pass@1 达到 52.4%，比 Qwen 3.5 基座提升 22.8 个百分点并超越通用骨干。该框架为开源安全能力复现提供了可行路径。",
+      "tags": "query:ca",
+      "abstract_en": "As large language models (LLMs) continue to advance in coding capabilities, their potential in cybersecurity has drawn increasing research attention, with closed-source LLMs (e.g., Mythos) delivering advanced cybersecurity capabilities. However, existing open-source efforts remain limited: frontier open-weight models do not provide reproducible cybersecurity training solutions, open-source training solutions focus on isolated tasks and lack scalable agentic data, and scaling agentic rollouts requires strong domain priors. In this work, we introduce \\textbf{CyberFactory}, a unified open-source framework that connects data construction, trajectory synthesis, and model training across proof-of-concept (PoC) generation, vulnerability patching, and cybersecurity question answering (CyberQA). CyberFactory transforms public vulnerability artifacts, including CVEs from the wild, into executable and verifiable task instances. It further uses a reusable vulnerability-analysis skill to guide the teacher through source inspection, problem solving with domain prior, and evidence-based validation. The resulting supervision is agentic: the model interacts with tools and target environments and revises its solutions according to execution feedback. Using these trajectories, we train and release \\modelname\\footnote{\\emph{Aegis} is, in Greek mythology, the protective shield of Zeus and Athena; the name reflects the model's defensive, security-oriented purpose.}, which internalizes the skill-guided procedure without requiring the skill at inference time. On CyberGym, \\modelname reaches 52.4% Pass@1 under a one-hour budget, improving over its Qwen~3.5 base model by +22.8 points and outperforming the evaluated general-purpose backbones under the same scaffold.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202608/25/2608.23185v1-towards-automated-cyber-threat-intelligence-elicitation-in-underground-forums",
+      "section": "quick",
+      "title_en": "Towards Automated Cyber Threat Intelligence Elicitation in Underground Forums",
+      "authors": "Lorenzo Bossi, Federico Saccani, Francesco Panebianco, Antonio Maci, Stefano Zanero, Stefano Longari, Michele Carminati",
+      "date": "2026-08-24",
+      "pdf": "https://arxiv.org/pdf/2608.23185v1",
+      "score": "7.0",
+      "evidence": "基于多智能体大语言模型的地下论坛主动威胁情报获取",
+      "tldr": "地下论坛CTI被动监控因用户警觉而失效，需转向主动获取。本文提出DarkBot，首个多智能体LLM系统，分解为参与门控、上下文问题生成和风格适应三个功能块。在100个CrimeBB对话中仅观察初始帖恢复72.8%已验证ATT&CK技术，并在真实论坛多获3.85个CTI实体且无安全事件。主动方法可有效补充被动监控，拓展CTI获取途径。",
+      "tags": "query:ca",
+      "abstract_en": "Cyber threat intelligence from underground forums has traditionally relied on passive monitoring. However, as users have become more aware of large-scale data collection, valuable intelligence has become increasingly rare in open forums, often migrating instead to private or harder-to-reach spaces, making passive approaches inadequate. Building on the intuition that relevant information can be obtained through active elicitation, this paper presents DarkBot, to the best of our knowledge, the first multi-agent LLM-based system for active CTI elicitation in underground forums. DarkBot decomposes the interaction task across eleven specialized agents organized into three functional blocks: engagement gating for relevance and safety filtering, context-aware question generation driven by MITRE ATT&CK tactics, and linguistic style adaptation to better align with real forum users. In a controlled evaluation across 100 CrimeBB conversations, the system recovered 72.8% of the validated MITRE ATT&CK techniques present in the original discussions by observing only the initial post at the start of each interaction, and it consistently outperformed a monolithic baseline. The proposed layered safety design contained all injected jailbreak attempts at the pipeline level. These results were further supported by real-world experiments: in a prospective matched deployment, threads assigned to DarkBot accumulated an average of 3.85 more CTI entities than their controls over seven days, and across 104 live forum conversations, the system elicited CTI-relevant disclosures without observed account suspensions, moderator interventions, or explicit accusations of automated participation.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202608/25/2608.21918v1-optimas-automatically-optimize-multi-agent-system",
+      "section": "quick",
+      "title_en": "OptiMAS: Automatically Optimize Multi-Agent System",
+      "authors": "Yuxin Cheng, Chang Liu, Hanxin Yu, Haochen Tan, Taiqiang Wu, Weiqiang Jin, Jie Ran, Kaibo Wang, Xiaoguang Li, Haoli Bai, Graziano Chesi, Ngai Wong",
+      "date": "2026-08-22",
+      "pdf": "https://arxiv.org/pdf/2608.21918v1",
+      "score": "6.0",
+      "evidence": "数据驱动优化多智能体系统的通用方法，可应用于网络犯罪模拟MAS",
+      "tldr": "自动演化多智能体系统可减少 LLM 智能体架构的手动设计，但现有搜索方法面临优化范围与进化稳定性之间的权衡。OptiMAS 提出基于统一 ReAct 基础设施的连续数据驱动优化范式，利用交互轨迹和任务反馈作为损失信号进行端到端演化，并通过双轨记忆机制保持长期改进。在多个基准和不同 LLM 骨干上，其精度优于或媲美手工系统和现有演化方法，为稳健的自动 MAS 演化迈出实用一步。",
+      "tags": "query:ca",
+      "abstract_en": "Automated evolution of Multi-Agent Systems (MAS) holds significant potential for reducing the manual effort required to design and optimize LLM-based agent architectures. However, extant search-based paradigms face a fundamental trade-off, where an expanded optimization scope exacerbates evolutionary instability, while discrete branch-and-discard search isolates insights across lineages. To address these limitations, we propose a continuous, data-driven optimization paradigm built upon a unified ReAct-based infrastructure that reconciles a broad optimization scope with operational stability. Under this paradigm, we present OptiMAS, a task-agnostic agentic optimizer that leverages textual interaction trajectories and task feedback as loss signals for end-to-end MAS evolution. Equipped with a novel dual-track memory mechanism, OptiMAS sustains performance improvement over extended optimization horizons. Evaluation on four heterogeneous agentic benchmarks with three varying scale and accessibility LLM backbones, demonstrates that OptiMAS consistently achieves competitive or superior accuracy relative to both domain-specialized hand-crafted systems and existing evolutionary methods. Our work establishes a practical milestone toward robust, automated MAS evolution.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}

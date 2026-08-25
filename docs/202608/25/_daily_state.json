@@ -1,0 +1,73 @@
+{
+  "date": "20260825",
+  "date_label": "",
+  "generated_at": "2026-08-25 21:07:46 UTC",
+  "recommend_exists": true,
+  "run_count": 1,
+  "papers": [
+    {
+      "paper_id": "2608.21470v1",
+      "route": "202608/25/2608.21470v1-structural-inference-in-undocumented-mobile-databases-a-reproducible-benchmark-for-evaluating-agentic-reasoning-in-digital-forensics",
+      "title": "Structural Inference in Undocumented Mobile Databases: A Reproducible Benchmark for Evaluating Agentic Reasoning in Digital Forensics",
+      "section": "deep",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "ca"
+        }
+      ],
+      "score": 8.0,
+      "evidence": "评估LLM智能体在数字取证中推断无文档移动数据库关系结构的能力，属于网络犯罪调查任务。",
+      "first_seen_at": "2026-08-25 21:07:46 UTC",
+      "updated_at": "2026-08-25 21:07:46 UTC"
+    },
+    {
+      "paper_id": "2608.23181v1",
+      "route": "202608/25/2608.23181v1-cyberfactory-scaling-cyber-security-capabilities-with-instances-from-the-wild",
+      "title": "CyberFactory: Scaling Cyber Security Capabilities with Instances from the Wild",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "ca"
+        }
+      ],
+      "score": 7.0,
+      "evidence": "用于训练LLM执行网络安全任务的开源框架，包括PoC生成和漏洞修补",
+      "first_seen_at": "2026-08-25 21:07:46 UTC",
+      "updated_at": "2026-08-25 21:07:46 UTC"
+    },
+    {
+      "paper_id": "2608.23185v1",
+      "route": "202608/25/2608.23185v1-towards-automated-cyber-threat-intelligence-elicitation-in-underground-forums",
+      "title": "Towards Automated Cyber Threat Intelligence Elicitation in Underground Forums",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "ca"
+        }
+      ],
+      "score": 7.0,
+      "evidence": "基于多智能体大语言模型的地下论坛主动威胁情报获取",
+      "first_seen_at": "2026-08-25 21:07:46 UTC",
+      "updated_at": "2026-08-25 21:07:46 UTC"
+    },
+    {
+      "paper_id": "2608.21918v1",
+      "route": "202608/25/2608.21918v1-optimas-automatically-optimize-multi-agent-system",
+      "title": "OptiMAS: Automatically Optimize Multi-Agent System",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "ca"
+        }
+      ],
+      "score": 6.0,
+      "evidence": "数据驱动优化多智能体系统的通用方法，可应用于网络犯罪模拟MAS",
+      "first_seen_at": "2026-08-25 21:07:46 UTC",
+      "updated_at": "2026-08-25 21:07:46 UTC"
+    }
+  ]
+}

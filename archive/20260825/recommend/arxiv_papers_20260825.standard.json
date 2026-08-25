@@ -1,0 +1,187 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-08-25T21:02:18.798770+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 1,
+    "deep_cap": 6,
+    "deep_selected": 1,
+    "quick_candidates": 3,
+    "quick_skim_target": 11,
+    "quick_selected": 3
+  },
+  "deep_dive": [
+    {
+      "id": "2608.21470v1",
+      "source": "arxiv",
+      "title": "Structural Inference in Undocumented Mobile Databases: A Reproducible Benchmark for Evaluating Agentic Reasoning in Digital Forensics",
+      "abstract": "Agentic large language models are increasingly used in digital forensic analysis, yet their ability to infer relational structure inside undocumented mobile application databases remains poorly understood. In forensic contexts, structurally incorrect inferences can yield results that appear plausible while remaining evidentially unsound. This work evaluates agentic structural inference as an isolated capability, treating execution success and structural correctness as distinct evaluation axes. It examines how an agent reconstructs table relationships, linking attributes, and executable join paths when given only a raw database and a natural-language investigative prompt. We apply a fixed, deterministic evaluation pipeline to two contrasting SQLite repositories: Android's SMS database with stable identifier propagation, and Snapchat's database with irregular schemas, ephemeral identifiers, and polymorphic relationships. Using expert-verified SQL ground truth, we evaluate (i) structural correctness of inferred relational links, (ii) execution coherence under multi-table reasoning, and (iii) robustness and failure modes of inferred structure when execution succeeds but relational interpretation diverges from expert ground truth. Evaluation is performed independently of semantic interpretation, with full queries and execution traces provided in the Appendix. Results show that structural inference remains reliable in regular schemas but degrades sharply as schema ambiguity increases, frequently producing structurally plausible yet incorrect joins that execute successfully. These findings clarify where schema-agnostic agentic reasoning can support forensic analysis, how its robustness degrades under realistic schema irregularities, and why additional verification remains essential before inferred relationships can be treated as reliable evidence.",
+      "authors": [
+        "Jeel Piyushkumar Khatiwala",
+        "Divyangkumar Patel",
+        "Weifeng Xu"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR"
+      ],
+      "published": "2026-08-21T03:41:58+00:00",
+      "link": "https://arxiv.org/pdf/2608.21470v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Evaluates LLM agents capability to infer relational structure in undocumented mobile databases for digital forensics, a cybercrime investigation task.",
+      "llm_evidence_cn": "评估LLM智能体在数字取证中推断无文档移动数据库关系结构的能力，属于网络犯罪调查任务。",
+      "llm_evidence": "评估LLM智能体在数字取证中推断无文档移动数据库关系结构的能力，属于网络犯罪调查任务。",
+      "canonical_evidence": "评估LLM智能体在数字取证中推断无文档移动数据库关系结构的能力，属于网络犯罪调查任务。",
+      "llm_tldr_en": "Presents a reproducible benchmark for evaluating agentic structural inference in digital forensics, treating execution success and structural correctness separately, revealing capability boundaries of LLM agents in reconstructing database schemas from raw data.",
+      "llm_tldr_cn": "针对数字取证中LLM智能体推断无文档移动应用数据库关系结构的能力缺乏明确评估的问题，提出了一个可复现的基准，将执行成功与结构正确性作为独立的评估维度。该基准考察智能体在仅给定原始数据库和自然语言调查提示时，重建表关系、链接属性和可执行连接路径的能力。实验揭示了智能体在此类取证任务中的表现与局限，为评估LLM在真实网络犯罪调查中的能力边界提供了依据。",
+      "llm_tldr": "针对数字取证中LLM智能体推断无文档移动应用数据库关系结构的能力缺乏明确评估的问题，提出了一个可复现的基准，将执行成功与结构正确性作为独立的评估维度。该基准考察智能体在仅给定原始数据库和自然语言调查提示时，重建表关系、链接属性和可执行连接路径的能力。实验揭示了智能体在此类取证任务中的表现与局限，为评估LLM在真实网络犯罪调查中的能力边界提供了依据。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "capabilities of large language models in cybercrime",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2608.23181v1",
+      "source": "arxiv",
+      "title": "CyberFactory: Scaling Cyber Security Capabilities with Instances from the Wild",
+      "abstract": "As large language models (LLMs) continue to advance in coding capabilities, their potential in cybersecurity has drawn increasing research attention, with closed-source LLMs (e.g., Mythos) delivering advanced cybersecurity capabilities. However, existing open-source efforts remain limited: frontier open-weight models do not provide reproducible cybersecurity training solutions, open-source training solutions focus on isolated tasks and lack scalable agentic data, and scaling agentic rollouts requires strong domain priors. In this work, we introduce \\textbf{CyberFactory}, a unified open-source framework that connects data construction, trajectory synthesis, and model training across proof-of-concept (PoC) generation, vulnerability patching, and cybersecurity question answering (CyberQA). CyberFactory transforms public vulnerability artifacts, including CVEs from the wild, into executable and verifiable task instances. It further uses a reusable vulnerability-analysis skill to guide the teacher through source inspection, problem solving with domain prior, and evidence-based validation. The resulting supervision is agentic: the model interacts with tools and target environments and revises its solutions according to execution feedback. Using these trajectories, we train and release \\modelname\\footnote{\\emph{Aegis} is, in Greek mythology, the protective shield of Zeus and Athena; the name reflects the model's defensive, security-oriented purpose.}, which internalizes the skill-guided procedure without requiring the skill at inference time. On CyberGym, \\modelname reaches 52.4% Pass@1 under a one-hour budget, improving over its Qwen~3.5 base model by +22.8 points and outperforming the evaluated general-purpose backbones under the same scaffold.",
+      "authors": [
+        "Jian Yang",
+        "Haau-Sing Li",
+        "Shawn Guo",
+        "Zixi Zhao",
+        "Yibo Tan",
+        "Jiajun Wu",
+        "Aishan Liu",
+        "Xianglong Liu",
+        "Tianyu Zheng",
+        "Bryan Dai",
+        "Chengran Yang"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.CL"
+      ],
+      "published": "2026-08-24T12:30:10+00:00",
+      "link": "https://arxiv.org/pdf/2608.23181v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Open-source framework for training LLMs on cybersecurity tasks including PoC generation and vulnerability patching",
+      "llm_evidence_cn": "用于训练LLM执行网络安全任务的开源框架，包括PoC生成和漏洞修补",
+      "llm_evidence": "用于训练LLM执行网络安全任务的开源框架，包括PoC生成和漏洞修补",
+      "canonical_evidence": "用于训练LLM执行网络安全任务的开源框架，包括PoC生成和漏洞修补",
+      "llm_tldr_en": "CyberFactory is an open-source framework that connects data construction, trajectory synthesis, and model training for cybersecurity capabilities.",
+      "llm_tldr_cn": "本文针对开源LLM在网络安全任务上能力有限的问题，提出统一开源框架CyberFactory，连接数据构建、轨迹合成与模型训练，在PoC生成、漏洞修补等任务上实现可扩展的智能体能力，为探索能力边界提供基础设施。",
+      "llm_tldr": "本文针对开源LLM在网络安全任务上能力有限的问题，提出统一开源框架CyberFactory，连接数据构建、轨迹合成与模型训练，在PoC生成、漏洞修补等任务上实现可扩展的智能体能力，为探索能力边界提供基础设施。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "exploring the capability boundaries of large language models in cyber contexts",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2608.21918v1",
+      "source": "arxiv",
+      "title": "OptiMAS: Automatically Optimize Multi-Agent System",
+      "abstract": "Automated evolution of Multi-Agent Systems (MAS) holds significant potential for reducing the manual effort required to design and optimize LLM-based agent architectures. However, extant search-based paradigms face a fundamental trade-off, where an expanded optimization scope exacerbates evolutionary instability, while discrete branch-and-discard search isolates insights across lineages. To address these limitations, we propose a continuous, data-driven optimization paradigm built upon a unified ReAct-based infrastructure that reconciles a broad optimization scope with operational stability. Under this paradigm, we present OptiMAS, a task-agnostic agentic optimizer that leverages textual interaction trajectories and task feedback as loss signals for end-to-end MAS evolution. Equipped with a novel dual-track memory mechanism, OptiMAS sustains performance improvement over extended optimization horizons. Evaluation on four heterogeneous agentic benchmarks with three varying scale and accessibility LLM backbones, demonstrates that OptiMAS consistently achieves competitive or superior accuracy relative to both domain-specialized hand-crafted systems and existing evolutionary methods. Our work establishes a practical milestone toward robust, automated MAS evolution.",
+      "authors": [
+        "Yuxin Cheng",
+        "Chang Liu",
+        "Hanxin Yu",
+        "Haochen Tan",
+        "Taiqiang Wu",
+        "Weiqiang Jin",
+        "Jie Ran",
+        "Kaibo Wang",
+        "Xiaoguang Li",
+        "Haoli Bai",
+        "Graziano Chesi",
+        "Ngai Wong"
+      ],
+      "primary_category": "cs.MA",
+      "categories": [
+        "cs.MA"
+      ],
+      "published": "2026-08-22T11:09:04+00:00",
+      "link": "https://arxiv.org/pdf/2608.21918v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "General method to optimize multi-agent systems via data-driven evolution, applicable to cybercrime simulation MAS",
+      "llm_evidence_cn": "数据驱动优化多智能体系统的通用方法，可应用于网络犯罪模拟MAS",
+      "llm_evidence": "数据驱动优化多智能体系统的通用方法，可应用于网络犯罪模拟MAS",
+      "canonical_evidence": "数据驱动优化多智能体系统的通用方法，可应用于网络犯罪模拟MAS",
+      "llm_tldr_en": "Proposes continuous optimization for MAS using task feedback; transferable to cybercrime simulation.",
+      "llm_tldr_cn": "本文针对多智能体系统优化中搜索不稳定和信息隔离的问题，提出OptiMAS框架，基于ReAct基础设施利用交互轨迹和任务反馈进行端到端优化，实现任务无关的MAS自动进化，可迁移至网络犯罪模拟场景。",
+      "llm_tldr": "本文针对多智能体系统优化中搜索不稳定和信息隔离的问题，提出OptiMAS框架，基于ReAct基础设施利用交互轨迹和任务反馈进行端到端优化，实现任务无关的MAS自动进化，可迁移至网络犯罪模拟场景。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "How can agent based modeling and multi agent systems simulate cybercriminal activities with large language models?",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2608.23185v1",
+      "source": "arxiv",
+      "title": "Towards Automated Cyber Threat Intelligence Elicitation in Underground Forums",
+      "abstract": "Cyber threat intelligence from underground forums has traditionally relied on passive monitoring. However, as users have become more aware of large-scale data collection, valuable intelligence has become increasingly rare in open forums, often migrating instead to private or harder-to-reach spaces, making passive approaches inadequate. Building on the intuition that relevant information can be obtained through active elicitation, this paper presents DarkBot, to the best of our knowledge, the first multi-agent LLM-based system for active CTI elicitation in underground forums. DarkBot decomposes the interaction task across eleven specialized agents organized into three functional blocks: engagement gating for relevance and safety filtering, context-aware question generation driven by MITRE ATT&CK tactics, and linguistic style adaptation to better align with real forum users. In a controlled evaluation across 100 CrimeBB conversations, the system recovered 72.8% of the validated MITRE ATT&CK techniques present in the original discussions by observing only the initial post at the start of each interaction, and it consistently outperformed a monolithic baseline. The proposed layered safety design contained all injected jailbreak attempts at the pipeline level. These results were further supported by real-world experiments: in a prospective matched deployment, threads assigned to DarkBot accumulated an average of 3.85 more CTI entities than their controls over seven days, and across 104 live forum conversations, the system elicited CTI-relevant disclosures without observed account suspensions, moderator interventions, or explicit accusations of automated participation.",
+      "authors": [
+        "Lorenzo Bossi",
+        "Federico Saccani",
+        "Francesco Panebianco",
+        "Antonio Maci",
+        "Stefano Zanero",
+        "Stefano Longari",
+        "Michele Carminati"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR"
+      ],
+      "published": "2026-08-24T12:33:02+00:00",
+      "link": "https://arxiv.org/pdf/2608.23185v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "multi-agent LLM-based system for active CTI elicitation in underground forums",
+      "llm_evidence_cn": "基于多智能体大语言模型的地下论坛主动威胁情报获取",
+      "llm_evidence": "基于多智能体大语言模型的地下论坛主动威胁情报获取",
+      "canonical_evidence": "基于多智能体大语言模型的地下论坛主动威胁情报获取",
+      "llm_tldr_en": "DarkBot is a multi-agent LLM system that actively elicits cyber threat intelligence from underground forums by decomposing tasks across eleven specialized agents. It addresses the limitation of passive monitoring as intelligence moves to private spaces. The system is structured into engagement gating, context enrichment, and response generation to interact safely and effectively in criminal forums.",
+      "llm_tldr_cn": "传统网络威胁情报收集依赖被动监控，但信息逐渐转入私密空间导致数据稀缺。本文提出DarkBot，首个基于多智能体LLM的主动情报获取系统，将交互任务分解给11个专业智能体，分为参与门控、上下文丰富和响应生成三个模块。该系统能在犯罪论坛中主动获取情报，展示了LLM在网络安全领域的应用潜力。",
+      "llm_tldr": "传统网络威胁情报收集依赖被动监控，但信息逐渐转入私密空间导致数据稀缺。本文提出DarkBot，首个基于多智能体LLM的主动情报获取系统，将交互任务分解给11个专业智能体，分为参与门控、上下文丰富和响应生成三个模块。该系统能在犯罪论坛中主动获取情报，展示了LLM在网络安全领域的应用潜力。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "capabilities of large language models in cybercrime",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    }
+  ]
+}
