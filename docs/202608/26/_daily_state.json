@@ -1,0 +1,41 @@
+{
+  "date": "20260826",
+  "date_label": "",
+  "generated_at": "2026-08-26 20:54:53 UTC",
+  "recommend_exists": true,
+  "run_count": 1,
+  "papers": [
+    {
+      "paper_id": "2608.21107v1",
+      "route": "202608/26/2608.21107v1-large-language-models-at-the-intersection-of-software-engineering-and-software-securityan-evidence-centered-structured-survey-and-research-agenda",
+      "title": "Large Language Models at the Intersection of Software Engineering and Software Security:An Evidence-Centered Structured Survey and Research Agenda",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "ca"
+        }
+      ],
+      "score": 7.0,
+      "evidence": "结构化综述LLM在软件安全中的能力，包括漏洞利用导向验证",
+      "first_seen_at": "2026-08-26 20:54:53 UTC",
+      "updated_at": "2026-08-26 20:54:53 UTC"
+    },
+    {
+      "paper_id": "2608.22444v1",
+      "route": "202608/26/2608.22444v1-aligned-alone-misaligned-together-forecasting-adversarial-capture-in-llm-agent-populations",
+      "title": "Aligned Alone, Misaligned Together: Forecasting Adversarial Capture in LLM Agent Populations",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "ca"
+        }
+      ],
+      "score": 7.0,
+      "evidence": "在安全分诊任务中预测LLM智能体群体的对抗性俘获",
+      "first_seen_at": "2026-08-26 20:54:53 UTC",
+      "updated_at": "2026-08-26 20:54:53 UTC"
+    }
+  ]
+}

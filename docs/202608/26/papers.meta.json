@@ -1,0 +1,39 @@
+{
+  "label": "2026-08-26",
+  "date": "2026-08-26",
+  "generated_at": "2026-08-26T20:55:06",
+  "count": 2,
+  "papers": [
+    {
+      "paper_id": "202608/26/2608.21107v1-large-language-models-at-the-intersection-of-software-engineering-and-software-securityan-evidence-centered-structured-survey-and-research-agenda",
+      "section": "quick",
+      "title_en": "Large Language Models at the Intersection of Software Engineering and Software Security:An Evidence-Centered Structured Survey and Research Agenda",
+      "authors": "Wei Lin, Tao Zhou, Zhaofei Xie, Changgui Hong",
+      "date": "2026-08-21",
+      "pdf": "https://arxiv.org/pdf/2608.21107v1",
+      "score": "7.0",
+      "evidence": "结构化综述LLM在软件安全中的能力，包括漏洞利用导向验证",
+      "tldr": "大语言模型正从代码补全走向仓库级智能体，但其软件工程与安全证据相互割裂。本综述提出证据中心与保证框架，综合任务、适应机制和评估设计。结果显示执行反馈提升工程任务但未建立安全，静态标签也未建立正确性，并识别多重有效性威胁。研究议程强调联合基准、威胁模型和可重复评估，主张以保证案例而非单一分数评判能力。",
+      "tags": "query:ca",
+      "abstract_en": "Large Language Models (LLMs) are moving from code completion toward repository-scale agents that retrieve context, edit files, execute tools, and participate in security-sensitive workflows. The evidence for these systems, however, remains divided between software engineering evaluations centered on functional task completion and software security evaluations centered on vulnerability detection, secure generation, or exploit-oriented validation. This evidence-centered structured survey synthesizes representative work available through May 31, 2026 across software engineering tasks, software security tasks, adaptation mechanisms, artifact granularity, and evaluation design. In addition to a task taxonomy, we introduce an assurance framework that separates functional correctness, security, operational reliability, evidence provenance, and agent authority. The review shows that execution feedback and repository access can substantially improve engineering task completion, but do not by themselves establish security; conversely, static-analysis labels or vulnerability-classification scores rarely establish deployable correctness. We identify recurring validity threats--weak test oracles, duplicated and temporally leaked data, changing agent harnesses, proxy-only security checks, and under-reported budgets and human intervention--and derive a minimum reporting protocol for cross-study comparison. The resulting research agenda prioritizes jointly secure-and-functional benchmarks, repository-scale threat models, calibrated human oversight, longitudinal maintainability evidence, and reproducible agent evaluation. The central conclusion is that model capability should be judged as an assurance case supported by task-appropriate evidence, rather than by a single benchmark score.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202608/26/2608.22444v1-aligned-alone-misaligned-together-forecasting-adversarial-capture-in-llm-agent-populations",
+      "section": "quick",
+      "title_en": "Aligned Alone, Misaligned Together: Forecasting Adversarial Capture in LLM Agent Populations",
+      "authors": "Isotta Magistrali, Chen Shani",
+      "date": "2026-08-23",
+      "pdf": "https://arxiv.org/pdf/2608.22444v1",
+      "score": "7.0",
+      "evidence": "在安全分诊任务中预测LLM智能体群体的对抗性俘获",
+      "tldr": "现有AI安全评估聚焦单个模型，但语言模型智能体在交互群体中可能被周围个体带偏。本研究在安全分诊任务中注入坚定少数派，发现单个智能体相似判断可导致集体行为大不同，且群体响应函数可提前预测攻击影响。让智能体互见推理只能中和弱攻击、延迟强攻击收敛；移除对手后群体暂时漂回起点，捕获并非不可逆。表明群体行为可预测，孤立对齐不等于群体对齐。",
+      "tags": "query:ca",
+      "abstract_en": "The unit of AI safety evaluation is still the individual model, yet language-model agents are increasingly deployed in interacting populations that read and write one another's decisions. This raises a question no single-agent audit can answer: an agent that is well-calibrated on its own may still be pulled toward a different decision by the agents around it. We study this on a security-triage task, where populations of language-model monitors decide whether to escalate or dismiss alerts, and into which we can inject a committed minority that always pushes one way. We find that two alerts a single agent judges almost identically on its own can drive collective behavior far apart, so auditing any one member need not reveal what the population will do. Yet that collective behavior can be predicted in advance. From a population's benign, adversary-free operation alone, we calibrate a response function that forecasts, before any attack is run, how far a committed minority will later move it. We then ask what shifts the outcome and find that letting agents see each other's reasoning neutralizes a weak attack, while only delaying it against a strong one, turning the question from whether the population converges on the adversaries' choice into when. Finally, we exclude the hypothesis of capture being an irreversible trap: once the committed agents are removed, the population drifts back toward where it began, so capture is a temporary state. Alignment in isolation is not alignment in a population, yet what a population will do under attack can be read in advance, from how it behaves before any adversary arrives.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}
