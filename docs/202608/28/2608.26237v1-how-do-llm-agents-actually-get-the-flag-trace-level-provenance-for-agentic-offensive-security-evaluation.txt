@@ -1,0 +1,307 @@
+Title: How Do LLM Agents Actually Get the Flag? Trace-Level Provenance for Agentic Offensive Security Evaluation
+
+URL Source: https://arxiv.org/pdf/2608.26237v1
+
+Published Time: Fri, 28 Aug 2026 00:05:15 GMT
+
+Number of Pages: 8
+
+Markdown Content:
+# How Do LLM Agents Actually Get the Flag? Trace-Level Provenance for Agentic Offensive Security Evaluation 
+
+Kimberly Milner 1∗, Minghao Shao 1,2* , Nanda Rani 3* , Haoran Xi 1, Venkata Sai Charan Putrevu 5,Meet Udeshi 1, Sandeep K. Shukla 4, Prashanth Krishnamurthy 1, Farshad Khorrami 1
+
+Muhammad Shafique 2 Ramesh Karri 1
+
+> 1
+
+NYU Tandon School of Engineering, 2NYU Abu Dhabi, 3CISPA - Helmholtz Center for Information Security, Saarbrücken 
+
+> 4
+
+International Institute of Information Technology Hyderabad, 5Indian Institute of Technology Tirupati 
+
+Abstract 
+
+Capture-the-Flag (CTF) benchmarks are widely used to assess the offensive security capabilities of autonomous language-model agents. Evaluations rely on shallow binary judgments or aggregate scores, overlooking the agent’s trajectory to the flag. Consequently, actual exploitation is conflated with direct flag exposure, memorized recall, external lookup, guessing, and unsupported claims, potentially overstating the agent’s cybersecurity capability. We introduce ctf-abacus, a trace-based agent auditing framework that reconstructs each run as an evidence-grounded solve profile. By decomposing agent actions into penetration-testing phases and categorical tech-niques, it identifies where exploitation occurs, where the flag first appears, and whether the recovered flag is supported by demonstrated behavior. Aggregating solve profiles across agents yields challenge signatures that reveal whether success was achieved via the intended exploit or via shortcut path-ways. We apply ctf-abacus to 1,435 CTF attempts by six frontier and open-source models on 240 challenges, yielding 2,870 solve profiles under two judge lenses. Trace-verified exploits account for only 62-87% of recovered flags across benchmarks, while shortcut recoveries follow substantially shallower trajectories. These findings shift CTF evaluation from counting recovered flags to verifying demonstrated ex-ploitation and provide a basis for designing benchmarks that better isolate the offensive capabilities. 
+
+Introduction 
+
+Autonomous language-model agents can now perform com-plex offensive-security tasks. Recent systems plan multi-step attacks, interact with software environments, invoke exter-nal tools, and solve Capture-the-Flag (CTF) challenges that previously required experienced human participants (Yang et al. 2023b; Happe and Cito 2023; Fang et al. 2024; Shao et al. 2024). CTF benchmarks have consequently become a central testbed for comparing cyber agents, evaluating plan-ning architectures, and reasoning about their security impli-cations (Sanz-Gómez et al. 2025; Zhuo et al. 2025). Yet most CTF evaluations reduce each run to a single out-come, whether the submitted flag matches the ground truth, treating recovery as evidence of the targeted capability. For modern models, the same flag can arise through different pathways. A model may execute the intended exploit, read 
+
+> ∗
+
+Authors contributed equally to this research. FROM FLAG RECOVERY TO VERIFIED EXPLOITATION    
+
+> 1,435 CTF AGENT TRAJECTORIES
+> GENUINE EXPLOIT 73%
+> UNDEMONSTRATED 14%
+> REASONING-ORIGIN 12%
+> LOOKED-UP 1%
+> ANALYZED BY BENCHMARK AND TECHNIQUE
+> BENCHMARKS
+> 61–87%
+> MODELS
+> 70–77%
+> SET BY THE BENCHMARKS AND MODELS
+> WEB + PWN + CRYPTO + REV + FORENSICS + MISC
+> PASS@ COUNTS ALL FOUR AS SOLVED; ONLY 73% ARE GENUINE EXPLOITS.
+> FLAG RECOVERED
+
+Figure 1: CTF-Abacus reconstructs each run from its execu-tion trace, separating demonstrated exploitation from short-cuts that flag matching counts as solved. an exposed flag, recall a public solution, retrieve a write-up, guess the answer, or assert it without supporting obser-vations. Conventional scores collapse these into one solve, overstating capability and obscuring what the benchmark measures, a risk amplified by contamination and memoriza-tion (Dong et al. 2024; Lee, eun Bae, and Yun 2026). Evaluating agents on unseen challenges and improving benchmark construction reduce these risks (Lee, eun Bae, and Yun 2026; Zhuo et al. 2025; Happe and Cito 2023), but leave a fundamental question: when an agent submits a correct flag, what evidence shows that it actually per-formed the intended exploit? Existing benchmarks verify the answer, but not the execution that produced it. This evi-dence lies in the execution trace. We introduce ctf-abacus, an automated framework that reconstructs each run as an evidence-grounded solve profile : it decomposes agent ac-tions into penetration-testing phases and category-specific security techniques, locates where exploitation occurs and where the flag first appears, and determines whether the re-covered flag is supported by demonstrated behavior. This separates exploitation from shortcuts like memorization and flag lookups. Aggregating profiles across models and cate-gories yields challenge signatures that reveal whether suc-cess depends on the intended capability. We use ctf-abacus not only to audit individual attempts but to study autonomous CTF agents and the benchmarks that assess them: how agents progress through penetration-testing phases, which techniques they employ, and where successful trajectories diverge from demonstrated exploita-arXiv:2608.26237v1 [cs.CR] 26 Aug 2026 tion. The analysis surfaces recurring structures separating genuine exploits from shortcut recoveries showing conven-tionally equivalent challenges can demand different offensive capabilities. ctf-abacus thus turns execution traces into an empirical instrument for studying agent behavior and bench-mark validity. Our contributions are as follows: 
+
+• We introduce an automated trace-based framework with a observability instrument transforming traces into evidence-grounded solve profiles, attributing recovered flags to demonstrated exploitation or alternative pathways. 
+
+• We develop a systematic method for auditing challenge validity by aggregating solve profiles into challenge sig-natures, revealing how strongly success depends on the capability each challenge is intended to measure. 
+
+• We conduct a comprehensive large-scale study of 1,435 attempts, six frontier language models, and 240 challenges from four CTF benchmarks, yielding over 2,870 solve profiles under two independent judges. Trace-verified ex-ploitation validates only 62-87% of recovered flags, show-ing that flag-based scores can obscure substantial differ-ences in agent behavior and challenge validity. 
+
+Related Work 
+
+CTFs as the Unit of Evaluation 
+
+InterCode-CTF introduced the first interactive CTF environ-ment for language agents, comprising 100 picoCTF tasks in a Bash shell. GPT-4 solved 40 tasks but struggled with chal-lenges requiring multi-step investigation (Yang et al. 2023b). Work on competition-grade challenges followed, compar-ing fully automated runs against human-assisted ones (Shao et al. 2024). Related systems moved past puzzle challenges, exploiting live web applications without human guidance (Fang et al. 2024) and producing both attack plans and the shell commands that carry them out (Happe and Cito 2023). Recent environments are much larger. CAIBench spans over 10,000 instances across Jeopardy CTFs, attack-and-defense rounds, cyber ranges, knowledge tests, and privacy tasks, and reports that security knowledge held by a model does not translate into attack or defense ability (Sanz-Gómez et al. 2025). CTF-Dojo packages 658 containerized chal-lenges generated automatically from public artifacts, then trains agents on 486 execution-verified trajectories for gains of up to 11.6% absolute (Zhuo et al. 2025). That last step is where our concern becomes concrete. A trajectory is verified by the flag it produced, so the path taken to that flag is never examined before it becomes a training signal. 
+
+Validity Critiques and Contamination Evidence 
+
+How these agents are scored has already drawn criticism. A systematic review of LLM-driven offensive-security proto-types reports that most publish little beyond success counts, that testbeds and experimental designs differ too widely to support comparison, and that the field needs baselines, richer metrics, and qualitative analysis of agent behavior (Happe and Cito 2025). Contamination research raises the same doubt from the data side: memorized benchmark content inflates measured performance and is readily mistaken for reasoning, yet the detectors built for it read benchmark-level output statistics and return no verdict on an individual solve (Dong et al. 2024). CTFusion quantifies the effect in CTFs, reporting agent performance on the reused NYU CTF Bench (14.4%) well above performance on live competition chal-lenges (6.3%), and showing that adding web search to an agent lifted its score from 12.59% to 24.07% while several of its submitted flags came from public solutions (Lee, eun Bae, and Yun 2026). These results characterize populations of attempts but do not reveal which solves were genuinely earned, a distinction execution traces can establish. 
+
+Behavioral Analysis of Execution Traces 
+
+Closest to our approach is work that inspects agent behavior rather than scores. CyBiasBench records 630 sessions from five agents against three targets under four prompt conditions, and shows that each agent concentrates on a narrow subset of ten attack families no matter how it is prompted (Lim et al. 2026). That analysis concerns preference, meaning which at-tacks an agent reaches for. Ours concerns warrant, meaning whether the actions recorded in a trace support the flag that was submitted. The difference matters because a biased agent can still solve a challenge honestly, and an unbiased one can still submit a recalled flag. To our knowledge, no prior work provides per-attempt evidence that the intended exploitation occurred or aggregates such evidence across models to mea-sure what a benchmark actually tests. 
+
+Methodology 
+
+A recovered flag does not necessarily prove the capability; it may result from exploitation, recall, external lookup, guess-ing, or an unsupported claim (Lee, eun Bae, and Yun 2026). We judge each attempt by its flag provenance π: where it came from and whether it was earned. From the trace we re-construct a solve profile , assign provenance under two model lenses, audit it against evidence, route unresolved cases to human experts, and aggregate profiles into a challenge sig-nature (Figure 2). We discuss each stage below. 
+
+Solve-profile processing. The D-CIPHER (Udeshi et al. 2025) run interleaves a planner with executor sub-agents; we flatten it into a time-ordered sequence T = ( e1, . . . , e n),splicing each executor’s steps in at the planner delegation that spawned them. Each step ei = ( ai, o i) is a tool call ai with an observation window oi; routing-only control operations, acting on no target, are dropped. Reasoning messages are not steps but are for provenance, as a flag may first surface there. Each step then carries a label zi = ( ϕi, τ i): a PTES (The Penetration Testing Execution Standard 2014) phase ϕi and a technique τi from a category-specific standard, OWASP WSTG and the Top-10 for web (OWASP Foundation 2020, 2021); CWE, CAPEC, and MITRE ATT&CK for binary exploitation and reverse engineering (The MITRE Corpo-ration 2024b,a; Strom et al. 2020); NIST for cryptography and forensics (Scarfone et al. 2008; Kent et al. 2006). The registry is open-set: unmatched actions generate candidate techniques, which are added after human verification and alignment with an existing standard. COLLECT THE TRACE     
+
+> KEEP COMMANDS WITH REAL OUTPUTS
+> EXPLORATION CHANNEL
+> $ FINGERPRINT TARGET
+> →WEB SERVICE FOUND $ DELEGATE EXECUTOR
+> DELEGATE
+> EXPLOITATION CHANNEL
+> $ RUN EXPLOIT
+> →TARGET RESPONSE
+> →FLAG{…}
+> NORMALIZE
+> EVIDENCE BEAD
+> ACTION
+> REAL OUTPUT
+> SOURCE
+> ORDER FLAG-SAFE
+> PARSE.PY · SIGNALS.PY
+
+ORDER THE EVIDENCE  
+
+> MERGE CHANNELS, THEN GROUP BY GOAL
+> MERGE CHANNELS GROUP GOALS
+> ORDERED TRACE
+> MAP TARGET
+> recon goal
+> TEST WEAKNESS
+> analysis goal
+> CAPTURE FLAG
+> solve goal
+> EVIDENCE LEDGER
+> ACTION
+> OUTPUT
+> SOURCE
+> OUTCOME
+> SEGMENT.PY
+
+MAP EACH ACTION 
+
+> LABEL WHAT HAPPENED, NOT WHAT WAS CLAIMED
+> LABEL.PY · REGISTRY.PY
+
+VERIFY THE FLAG   
+
+> ASK WHERE IT FIRST APPEARED
+> SOLVE ACT FIRST FLAG SUBMIT
+> WHERE DID THE FLAG COME FROM?
+> TRACE THE FIRST FLAG APPEARANCE
+> OUTPUT + SOLVE ACT
+> GENUINE
+> OUTPUT ONLY
+> UNEARNED
+> EXTERNAL SOURCE
+> LOOKED-UP
+> REASONING ONLY
+> HUMAN REVIEW
+> AUDIT
+> LABELS
+> CONFAB
+> CLAIMS
+> VALIDATE
+> RUN
+> HUMAN ONLY FOR REASONING-ONLY CASES PIVOTS · AUDIT · CONFAB · VALIDATE
+
+BUILD THE PROFILE  
+
+> PACKAGE THE VERIFIED STORY
+> VERIFIED SOLVE
+> TIMELINE PHASE MAP
+> FLAG SOURCE
+> RUN RECORD
+> CHALLENGE SIGNATURE
+> ROLL UP MANY RUNS
+> SCHEMA.PY · ROLLUP.PY
+
+WHY THE VERDICT CAN BE TRUSTED 
+
+EVIDENCE-LINKED  
+
+> ACTION REAL OUTPUT
+
+RULE-BASED FACTS  
+
+> FLAG SOURCE EVENT
+
+INDEPENDENT CHECK  
+
+> LABELER AUDITOR
+
+REPRODUCIBLE         
+
+> TRACE PROMPT TAXONOMY
+> ACTION OUTPUT PTES LABEL FOLLOW THE EVIDENCE DOWN THE PHASE LANE
+> PRE-ENGAGEMENT
+> SET UP TOOLS
+> ACTION + OUTPUT
+> INTELLIGENCE GATHERING
+> INSPECT TARGET
+> WSTG · INFO
+> THREAT MODELING
+> CHOOSE SURFACE
+> PTES · MODEL
+> VULNERABILITY ANALYSIS
+> TEST WEAKNESS
+> WSTG · INPUT →CWE
+> EXPLOITATION DELIVER EXPLOIT
+> CAPEC
+> POST-EXPLOITATION
+> READ OBJECTIVE
+> PTES · OBJECTIVE
+> REPORTING REPORT RESULT
+> TERMINAL EVENT
+> GROUNDED + VERSIONED
+> PTES · WSTG · CWE · CAPEC · NIST
+> LABEL RULES + TAXONOMY VERSIONS
+
+Figure 2: From execution trace to verified solve profile. Multi-agent trajectories are linearized into steps (ai, o i), labeled with penetration-testing phases ϕi and techniques τi, assigned flag provenance π, evidence-audited, and aggregated into challenge signatures. Human review is restricted to reasoning-originated flags classified as recalled, guessed, leaked, or derived .
+
+Flag provenance and validation. Whether a flag appeared is trivial; how it arrived is decisive. We read its first appear-ance f (source σ) and correct submission s deterministically; only the exploitation act ξ, the first step that genuinely ex-ploits the target, is inferred. Lacking reference solutions, ξ
+
+is anchored in demonstrated depth, not a known path, and a single reasoning-aware pass discards test-flag, scaffold, and recalled reads. Provenance π then follows: a target-observed flag is a genuine-solve if ξ preceded it, else an undemon-strated exploit ; a reasoning-only flag is agent-reasoning . We report provenance, not flag presence, as a solve. Because ξ
+
+is inferred, we validate rather than assert it: two independent judges, Claude and GPT, label from the action and obser-vation alone, so running both keeps either from favoring a solver of its own family. A blind, family-matched audit then scores each reconstruction against the trace (0 to 100) on how well its phase, technique, and flag-event tags fit evidence; this fidelity averages 98 .3/100. To validate these labels, security researchers re-judged a 10% sample ( N = 92 ) with π ver-dict and all pivot events hidden, agreeing with the pipeline on 93.5% of genuine solves and 86.7% of undemonstrated exploits. Cases that resist deterministic resolution are human-adjudicated: all 127 reasoning-origin flags (Table 1: Human Refinement ) resolve to derived (115 ), recalled (9), leaked (1), 
+
+guessed (1), or unclear (1). 
+
+Experiment Setup 
+
+Benchmarks Evaluated. We evaluate the agents on four widely used offensive-security benchmarks: Hack The Box (HTB) (Abramovich et al. 2025), InterCode-CTF (Yang et al. 2023a), CTFTiny (Shao et al. 2025), and CyBench (Zhang et al. 2025) with 240 challenges in total. These benchmarks span common CTF categories such as web exploitation, bi-nary exploitation, reverse engineering, cryptography, foren-sics, and miscellaneous security tasks, while differing in challenge construction, execution environment, and interac-tion complexity. Evaluating across known benchmarks tests whether observed solve behaviors and benchmark-level pat-terns persist across diverse settings, strengthening the breadth and generalizability of our analysis. 
+
+Models and Environment Setup. We evaluate six mod-els, Claude Opus 4.8, GPT 5.5, Gemini 3.1 Pro, GLM 5.2, DeepSeek V4 Pro, and Qwen 3.7 Max, selected as among the strongest available at evaluation time, so our findings reflect capable agents rather than a single lineage. Two judges from different families, Claude Opus 4.8 and GPT 5.6 Sol, eval-uate traces, reducing model-specific bias. Each agent runs under the harness’s default configuration; following prior offensive-security evaluations, we cap model-API cost at $3 per attempt, beyond which an attempt counts as failed. 
+
+Evaluation Results 
+
+We evaluate CTF-ABACUS over 1400 D-CIPHER attempts from six models across 240 challenges and four benchmarks. After excluding 47 non-evaluable runs 1,056 flag recoveries are profiled with each evaluable attempt assessed indepen-dently under the Claude and GPT framework lenses. Unless Figure 3: Trajectory geometry across category, benchmark, and model, under both judge lenses. Diagonal, zigzag, and baseline composition of all evaluable runs, cut three ways. Each group shows the Claude lens (C, upper bar) over the GPT lens (G, lower bar). Composition shifts sharply across category and benchmark but barely across model; the two lenses track closely. 
+
+Table 1: Solve-profile notation and flag-provenance rules.                                                                               
+
+> Item Symbol Meaning Trace notation
+> Execution trace T=(e1, . . . , e n)
+> Ordered sequence of nexecution steps. Step ei= ( ai, o i)Agent action aiand corresponding observation oi.Step labels zi= ( ϕi, τ i)PTES phase ϕiand standards-grounded technique τi.
+> PTES depth
+> Phase order 1→5Pre-engagement →Intelligence Gathering
+> →Vulnerability Analysis →Exploitation
+> →Post-Exploitation.
+> Pivotal events
+> Exploitation act ξ†First genuine target exploit at Vulnerability Analysis depth or deeper. First appearance f, σ First flag appearance fand its source σ.Submission sFirst submitted flag, correct or not. Solve profile P(T)P(T) =  (ei, z i)ni=1 , ξ, f, σ, s 
+> Flag provenance π
+> genuine-solve fafter ξFlag observed from the target after demonstrated exploitation. undemonstrated exploit target, no ξTarget flag appears without a demonstrated exploit. looked-up external Flag obtained from an external source. agent-reasoning reasoning Flag appears only in the agent’s reasoning. unsolved no fNo flag appears in the run.
+> Human refinement
+> recalled training Memorized from training data or prior exposure. leaked run context Surfaced from the run context rather than training. guessed guess Produced through a lucky guess. derived reasoning Computed in reasoning without a supporting observation. unclear unresolved Evidence is insufficient to determine the source.
+> †ξis adjudicated by one reasoning-aware pass; f,σ, and sare read directly from the trace. σ∈ { environment ,external ,reasoning }.
+
+stated, results presented use the Claude lens. Recovery means a valid flag appears, whereas execution-backed requires an observed attack. A recovery without observed execution may be derived when its reasoning is human-verified; the re-mainder are unsupported. Verified scores use the execution-backed criterion. We use these traces to assess whether re-covered flags are execution-backed, how verification affects scores, and which behaviors distinguish recovery pathways. 
+
+Anatomy of a Solve Profile CTF trajectories are visualized through their measure of monotonicity , the fraction of PTES 
+
+ϕ transitions that advance the attack towards advanced PTES stages. The value is used to construct geometries with diag-onal (a steady climb, mono ≥ 0.8), zigzag (net progress with backtracking, mono ≥ 0.5), and baseline (no net progress, i.e., a grind). We find geometry ties weakly to the model (Cramér’s V of 0.08/0.10) and about 3× as strongly to cate-gory (0.26/0.27) and benchmark (0.29/0.28), for both lenses (Claude, GPT). Hence we find genuine-exploit π for a solver requires the agent to achieve more advanced PTES ϕ (even with zig-zagging regressive steps), than in simpler challenges where flags can just be read from the environment or asserted flatten trajectories. 
+
+Cyber Taxonomies Aligning every step e to finer grained cybersecurity standardization and techniques τ provides in-sight into agent activity distribution across the solve. (Tab. 2). The trend emerges of solve profiles being heavily front-loaded in PTES ϕ=Intelligence Gathering . The two PTES 
+
+ϕ that bear on genuine capability, Vulnerablity Analysis and Exploitation, strongly constrast in τ profiling. Vulnerability Analysis carries a distinct technique signature as Exploitation 
+
+converges (across every benchmark and model) reduces to authoring and running a solve script (excluding Web, which alone stays domain-specific. Where Vulnerability Analysis fingerprints the domain, Exploitation erases it wherever the flag can be reached by running code. Table 2: Effort and technique diversity by PTES ϕ           
+
+> Phase Steps / # τ(Eff )Dominant technique (share)
+> Reconnaissance 52% / 71 (12) Probe live service (27%) Vulnerability analysis 19% / 126 (42) Category-specific ( ≤18%) Exploitation 15% / 66 (13) Author solve script (40%) Post-exploitation <2% / 12 (2) Read captured flag (80%)
+
+Steps : fraction of agent steps e in ϕi; Eff : effective # τ in ϕi.
+
+Behavioral depth of genuine solves. Genuine solves and shortcut recovery profiles exhibit starkly different geome-tries: genuine solves climb the PTES ϕ to max depth, monotonically or with some zig-zagging. Shortcut recoveries grind, producing a flag without ever exhibiting exploitation traces in tool outputs (Table 3). 
+
+Reaching ϕ=Exploit in CTF Benchmarks Flag recovery ranks benchmarks poorly (Table 4, Fig 4). HTB and CTFTiny lead on genuine share, depth, monotonicity, and reach; Cy-bench is lowest on all four yet highest on τ (effort, not skill); Intercode recovers often but shallowly. Neither τ nor re-covery tracks capability, so decomposing solves gives the Table 3: genuine & ¬ϕ=Exploit Flag recoveries.              
+
+> #τPTES depth monotonicity mreached Exp.
+> Genuine 5.2 4.3 0.80 89% Shortcut 4.3 2.8 0.50 42%
+
+Table 4: Benchmark quality by dimension , median over 6 models. τ techniques; m monotonicity (0–1); d PTES depth (0–5); gen. genuine share of recoveries; r.Exp /rec. /r.Post % of runs reaching Exploitation / recovering / reaching Post-Exploitation                                   
+
+> τmdgen. r.Exp rec. r.Post CTFTiny 6.5 0.75 4.21 86 88 86 40
+> Cybench 9.0 0.50 3.58 62 70 36 16 HTB 5.5 0.79 4.13 81 91 87 22 Intercode 2.5 0.65 3.60 64 64 79 23
+
+yardstick a leaderboard cannot: judge a suite by the rigor of its exploitation, not the flags it yields. 
+
+Technique breadth is not capability. Ordered by median 
+
+τ , capability peaks in the middle, not at the extremes Cy-bench’s widest repertoire ( τ =9 ) solves least (36% recov-ery, 62% genuine), thrashing, not skill; Intercode ( τ =2 .5)recovers often but shallowly. Capability lives at moderate breadth (CTFTiny, HTB), enough technique to carry the exploit, not so much that the agent is lost. 
+
+Discussion and Insights 
+
+No Cheap Proxy We ask whether execution-backed and unsupported flag recoveries can be distinguished without re-constructing the full trace. The direct detector in Figure 5 locates the flag’s first appearance and classifies the produc-ing command using keywords. It achieves an F1 of 0.28 and flags 28.2% of execution-backed recoveries and 29.0% of unsupported recoveries, offering almost no separation. The same action, such as strings ./binary , may reflect legitimate analysis or reveal an exposed flag; its meaning de-pends on the preceding evidence and environment response. Run-level summaries lack context: tool-composition yields 0.491-0.586 AUCs, while the best semantic feature reaches only 0.617. Provenance thus demands ordered rela-tionship between actions and observations, ignored by iso-lated commands and scalar summaries. Motivating CTF-ABACUS’s sequence-level reconstruction. 
+
+Ranking Instability Headline scores credit every recov-ered flag, whereas verified scores require evidence of an executed attack. Re-scoring runs in Figure 6 lowers every model by 17.4-22.6% and reduces the pooled rank correla-tion to 0.60. Benchmark-level correlations range from −0.06 
+
+on HTB to 0.88 on Cybench, showing evidence requirements can alter model ordering variably across benchmarks. This variation is primarily benchmark-dependent. Model identity explains only η2 = 0 .0022 of the run-level variation, falling below its 0.0036 random expectation, whereas bench-mark identity explains η2 = 0 .0369 , approximately seven-teen times its random expectation. The average corrections range from 11.4% on CTFTiny to 29.8 on InterCode. Veri-fied scoring is therefore best framed as benchmark-specific calibration rather than a model-specific penalty. 
+
+Figure 4: Benchmark decomposition Axes: τ techniques; (mono) monotonocity rate, ( depth ) (PTES); ( gen ) genuine solve share; ( rExp ) reach Exploitation; ( rec ) recovery, ( rPost ) reach Post-Exploitation. Color bands shows per-model min-max; no clipping. 
+
+Figure 5: Command- and run-summary features poorly dis-tinguish execution-backed from unsupported flag recoveries. 
+
+Benchmark Inflation Provenance reconstruction of 1,056 recovered flags from Figure 7 attributes 72.9% to executed attacks, 10.9% to human-verified derivations without observ-able execution, and 16.2% to unsupported pathways. Conven-tional scoring treats these outcomes identically despite their different evidential value. Moreover, the unsupported share ranges from 8.6% on CTFTiny to 31.0% on Cybench. Cy-bench combines the lowest headline recovery rate with the largest unsupported share, showing that benchmark difficulty and evidential validity are distinct dimensions. Most unsupported recoveries reflect direct exposure rather than contamination: exposure accounts for 151 cases, com-pared with 17 involving recall or external lookup, an 8.9-fold difference. These pathways require different diagnoses but are indistinguishable in aggregate success rates. Report-ing provenance alongside headline scores therefore enables more meaningful cross-benchmark comparisons and identi-fies tasks that may need adaptation for autonomous solvers. Figure 6: Verification shifts model scores similarly, while the adjustment varies more across benchmarks, making rank changes primarily benchmark-dependent. 
+
+Challenge Signatures A challenge signature records whether recoveries from the same challenge are consistently supported across models. In Figure 8, among the 196 chal-lenges with at least one recovery, the strict execution crite-rion classifies 46.4% as fully supported, 40.3% as mixed, and 13.3% as unsupported. Crediting human-verified derivations reduces the unsupported group to 5.1%, yet 33.2% remain mixed. Cross-model inconsistency therefore cannot be ex-plained solely by requiring observable execution. The distinction is clear in robust_cbc and rev-76 : all six models recover both flags without executing the intended attack, but the former exposes the flag directly whereas the latter supports every recovery through verified derivation. Despite identical terminal scores, the two challenges provide different evidence. Moreover, only five challenges exhibit universal exposure across all models. Validity is therefore better understood as an interaction between challenge and solver than as a fixed binary property of the challenge. 
+
+Behavioural Divergence Figure 9 shows execution-backed and unsupported recoveries follow distinct trajec-tories. Execution-backed runs reach Vulnerability Analysis more often, 46.1% versus 28.0%, and Exploitation 88.7% versus 41.6%, although the latter is partly coupled to the verdict definition. More independently, Reporting appears in only 1.8% of execution-backed recoveries but 24.8% of unsupported recoveries. This reversal persists within chal-lenges, 16 of 20 non-tied comparisons ( p = 0 .012 ), even reporting does not inform the execution-backed label. Technique use reinforces this contrast. 
+
+author_solve_script appears in 35.7% of execution-backed recoveries and 12.2% of unsupported recoveries, 
+
+Figure 7: Recovery provenance varies substantially across benchmarks, with direct flag exposure accounting for far more unsupported recoveries than contamination. 
+
+Figure 8: Solve pathways remain mixed across models even after crediting verified derivations, while identical terminal scores can represent different evidence. whereas flag_submission appears in 1.8% and 23.4%, respectively. Execution-backed runs more often construct and run a solution before capturing the flag; unsupported runs more often proceed to submission or reporting. These are population-level patterns, not reliable per-run detectors: the strongest single feature reaches only 0.617 AUC. The distinguishing evidence lies in the progression from analysis to execution and observation retained by CTF-Abacus. 
+
+Case Studies 
+
+To illustrate why flag recovery alone is insufficient, we ex-amine two trajectories that contain the correct flag and are recorded as successful, despite never demonstrating the in-tended attack against the challenge environment. Figure 10 summarizes the two solve profiles. 
+
+Reasoning-origin recovery. In the InterCode misc chal-lenge msc_7 , the agent, based on a DeepSeek V4 Pro run, identifies that the linked warm binary should reveal the flag Figure 9: Execution-backed and unsupported recoveries fol-low coherent but opposing behavioral patterns, although no single feature reliably identifies an individual pathway. through a help option. However, repeated attempts to down-load the binary fail because the host cannot be resolved. Searches of the local environment find empty files, and no binary is executed. The executor nevertheless states that the challenge is “well-known” and produces the flag from its reasoning. The first flag appearance therefore has reasoning and is not preceded by an exploitation act. 
+
+Externally looked-up recovery. In the Cybench web chal-lenge back_to_the_past , the agent, in a Claude Opus 4.8 run, is likewise unable to reach the target: DNS resolution re-peatedly fails, and no challenge service is found on the local network. It then pivots to the public GitHub repository of the challenge organizers. The retrieved write-up describes the in-tended solution; downloading the exposed .git directory, inspecting the Git history, checking out commit 4ba5380 ,and reading flag.txt ; and directly exposes the correct flag. Although the intended procedure is identified, none of these steps is executed against the target. The two runs show the offensive capability intended by the challenge. These cases show why provenance requires the source of the first flag appearance and the existence of a preceding target-side exploitation act. 
+
+Limitations and Future Work 
+
+On trivial or environmentally suspect challenges, an exploit can read as a shortcut, an ambiguity that even a human re-viewer cannot always resolve and that similarly affects CTF-Abacus. It reflects challenge design rather than the method and does not touch substantive tasks, where the two remain clearly separable. Looking ahead, tool-access records and retrieval provenance could improve trace observability, and learned behavioral models could extend coverage to unseen behaviors; such additions may reduce manual review but 
+
+Figure 10: Trajectories with no demonstrated exploitation cannot eliminate the underlying judgment. We will develop challenge signatures as a benchmark-design aid, ensuring solve rates better reflect intended capabilities. 
+
+Conclusion 
+
+Current CTF benchmarks largely equate flag recovery with successful exploitation, without examining how the flag was obtained. We present a trace-based auditing framework that reconstructs agent trajectories into evidence-grounded solve profiles and distinguishes demonstrated exploitation from alternative pathways. Across our evaluation, only 72.9% of recovered flags were supported by execution in the envi-ronment, while 10.9% were human-verified derivations and 16.2% lacked either form of evidence. Requiring execution-backed evidence reduced model scores by 17.4-22.6%, and 40.3% of challenges showed mixed solve pathways across models. These findings show that identical flag-based scores can reflect substantially different behaviors and that chal-lenge validity often depends on the interaction between the task and the solver. Behavioral evidence should therefore complement outcome-based scoring in future evaluations of autonomous offensive-security agents. References 
+
+Abramovich, T.; Udeshi, M.; Shao, M.; Lieret, K.; Xi, H.; Milner, K.; Jancheska, S.; Yang, J.; Jimenez, C. E.; Khor-rami, F.; Krishnamurthy, P.; Dolan-Gavitt, B.; Shafique, M.; Narasimhan, K. R.; Karri, R.; and Press, O. 2025. EnIGMA: Interactive Tools Substantially Assist LM Agents in Find-ing Security Vulnerabilities. In Forty-second International Conference on Machine Learning .Dong, Y.; Jiang, X.; Liu, H.; Jin, Z.; Gu, B.; Yang, M.; and Li, G. 2024. Generalization or Memorization: Data Con-tamination and Trustworthy Evaluation for Large Language Models. In Findings of the Association for Computational Linguistics: ACL 2024 .Fang, R.; Bindu, R.; Gupta, A.; Zhan, Q.; and Kang, D. 2024. LLM Agents can Autonomously Hack Websites. arXiv:2402.06664. Happe, A.; and Cito, J. 2023. Getting pwn’d by AI: Pene-tration Testing with Large Language Models. In Proceed-ings of the 31st ACM Joint European Software Engineering Conference and Symposium on the Foundations of Software Engineering (ESEC/FSE) , 2082–2086. Happe, A.; and Cito, J. 2025. Benchmarking Practices in LLM-driven Offensive Security: Testbeds, Metrics, and Ex-periment Design. arXiv:2504.10112. Kent, K.; Chevalier, S.; Grance, T.; and Dang, H. 2006. Guide to Integrating Forensic Techniques into Incident Response. Technical Report NIST Special Publication 800-86, National Institute of Standards and Technology. Lee, D.; eun Bae, G.; and Yun, I. 2026. CTFusion: A CTF-Based Benchmark for Evaluating LLM Agents via MCP. arXiv:2605.11504. Lim, T.; Ju, S.; Kim, M.; Kim, H.; and Kim, H. 2026. CyBias-Bench: Benchmarking Bias in LLM Agents for Cyber-Attack Scenarios. arXiv:2605.07830. OWASP Foundation. 2020. OWASP Web Security Test-ing Guide, Version 4.2 (WSTG). https://owasp.org/www-project-web-security-testing-guide/. Accessed: 2026-07-20. OWASP Foundation. 2021. OWASP Top 10:2021. https: //owasp.org/Top10/. Accessed: 2026-07-20. Sanz-Gómez, M.; Mayoral-Vilches, V.; Balassone, F.; Navarrete-Lozano, L. J.; Chavez, C. R. J. V.; and del Mundo de Torres, M. 2025. CAIBench: A Meta-Benchmark for Evaluating Cybersecurity AI Agents. arXiv:2510.24317. Scarfone, K.; Souppaya, M.; Cody, A.; and Orebaugh, A. 2008. Technical Guide to Information Security Testing and Assessment. Technical Report NIST Special Publication 800-115, National Institute of Standards and Technology. Shao, M.; Chen, B.; Jancheska, S.; Dolan-Gavitt, B.; Garg, S.; Karri, R.; and Shafique, M. 2024. An Empirical Eval-uation of LLMs for Solving Offensive Security Challenges. arXiv:2402.11814v1. Shao, M.; Xi, H.; Rani, N.; Udeshi, M.; Putrevu, V. S. C.; Milner, K.; Dolan-Gavitt, B.; Shukla, S. K.; Krishnamurthy, P.; Khorrami, F.; Karri, R.; and Shafique, M. 2025. Towards Effective Offensive Security LLM Agents: Hyperparameter Tuning, LLM as a Judge, and a Lightweight CTF Benchmark. arXiv:2508.05674. Strom, B. E.; Applebaum, A.; Miller, D. P.; Nickels, K. C.; Pennington, A. G.; and Thomas, C. B. 2020. MITRE ATT&CK: Design and Philosophy. Technical Report MTR170202, The MITRE Corporation. https://attack.mitre. org/. The MITRE Corporation. 2024a. CAPEC: Common Attack Pattern Enumeration and Classification. https://capec.mitre. org/. Accessed: 2026-07-24. The MITRE Corporation. 2024b. CWE: Common Weakness Enumeration. https://cwe.mitre.org/. Accessed: 2026-07-24. The Penetration Testing Execution Standard. 2014. The Penetration Testing Execution Standard (PTES). https: //www.pentest-standard.org/. Accessed: 2026-07-20. Udeshi, M.; Shao, M.; Xi, H.; Rani, N.; Milner, K.; Putrevu, V. S. C.; Dolan-Gavitt, B.; Shukla, S. K.; Krishnamurthy, P.; Khorrami, F.; Karri, R.; and Shafique, M. 2025. D-CIPHER: Dynamic Collaborative Intelligent Multi-Agent System with Planner and Heterogeneous Executors for Offensive Security. arXiv:2502.10931. Yang, J.; Prabhakar, A.; Narasimhan, K.; and Yao, S. 2023a. InterCode: Standardizing and Benchmarking Inter-active Coding with Execution Feedback. In Advances in Neural Information Processing Systems (NeurIPS) Datasets and Benchmarks Track .Yang, J.; Prabhakar, A.; Yao, S.; Pei, K.; and Narasimhan, K. R. 2023b. Language Agents as Hackers: Evaluating Cy-bersecurity Skills with Capture the Flag. In Multi-Agent Security Workshop @ NeurIPS .Zhang, A. K.; Perry, N.; Dulepet, R.; Ji, J.; Menders, C.; Lin, J. W.; Jones, E.; Hussein, G.; Liu, S.; Jasper, D.; Pee-tathawatchai, P.; Glenn, A.; Sivashankar, V.; Zamoshchin, D.; Glikbarg, L.; Askaryar, D.; Yang, M.; Zhang, T.; Alluri, R.; Tran, N.; Sangpisit, R.; Yiorkadjis, P.; Osele, K.; Raghu-pathi, G.; Boneh, D.; Ho, D. E.; and Liang, P. 2025. Cybench: A Framework for Evaluating Cybersecurity Capabilities and Risks of Language Models. In International Conference on Learning Representations (ICLR) .Zhuo, T. Y.; Wang, D.; Ding, H.; Kumar, V.; and Wang, Z. 2025. Training Language Model Agents to Find Vulnerabil-ities with CTF-Dojo. arXiv:2508.18370.

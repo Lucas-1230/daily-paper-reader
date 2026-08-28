@@ -1,0 +1,57 @@
+{
+  "date": "20260828",
+  "date_label": "",
+  "generated_at": "2026-08-28 04:03:14 UTC",
+  "recommend_exists": true,
+  "run_count": 1,
+  "papers": [
+    {
+      "paper_id": "2608.26237v1",
+      "route": "202608/28/2608.26237v1-how-do-llm-agents-actually-get-the-flag-trace-level-provenance-for-agentic-offensive-security-evaluation",
+      "title": "How Do LLM Agents Actually Get the Flag? Trace-Level Provenance for Agentic Offensive Security Evaluation",
+      "section": "deep",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "ca"
+        }
+      ],
+      "score": 9.0,
+      "evidence": "评估LLM智能体的攻击性安全能力，探索网络环境中的能力边界。",
+      "first_seen_at": "2026-08-28 04:03:14 UTC",
+      "updated_at": "2026-08-28 04:03:14 UTC"
+    },
+    {
+      "paper_id": "2608.26882v1",
+      "route": "202608/28/2608.26882v1-plcbench-can-autonomous-llm-agents-turn-plc-access-into-sustained-physical-impact",
+      "title": "PLCBench: Can Autonomous LLM Agents Turn PLC Access into Sustained Physical Impact?",
+      "section": "deep",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "ca"
+        }
+      ],
+      "score": 9.0,
+      "evidence": "首个真实PLC硬件在环框架，刻画自主LLM智能体从网络到物理的能力与边界",
+      "first_seen_at": "2026-08-28 04:03:14 UTC",
+      "updated_at": "2026-08-28 04:03:14 UTC"
+    },
+    {
+      "paper_id": "2608.25361v1",
+      "route": "202608/28/2608.25361v1-toward-a-threat-actor-profiling-taxonomy-for-pre-release-risk-management-of-open-weight-frontier-models",
+      "title": "Toward a Threat Actor Profiling Taxonomy for Pre-Release Risk Management of Open-Weight Frontier Models",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "ca"
+        }
+      ],
+      "score": 6.0,
+      "evidence": "用于画像威胁行为者的分类法，为风险管理和智能体建模提供依据",
+      "first_seen_at": "2026-08-28 04:03:14 UTC",
+      "updated_at": "2026-08-28 04:03:14 UTC"
+    }
+  ]
+}

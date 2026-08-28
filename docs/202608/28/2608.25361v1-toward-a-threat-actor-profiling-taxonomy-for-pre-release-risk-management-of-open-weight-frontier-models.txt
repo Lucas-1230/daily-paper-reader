@@ -1,0 +1,779 @@
+Title: Toward a Threat Actor Profiling Taxonomy for Pre-Release Risk Management of Open-Weight Frontier Models
+
+URL Source: https://arxiv.org/pdf/2608.25361v1
+
+Published Time: Thu, 27 Aug 2026 00:37:59 GMT
+
+Number of Pages: 54
+
+Markdown Content:
+# Toward a Threat Actor Profiling Taxonomy for Pre-Release Risk Management of Open-Weight Frontier Models 
+
+Practical Achievement submitted to 
+
+Tsinghua University 
+
+in partial fulfillment of the requirement for the professional degree of 
+
+Master of Global Affairs 
+
+by 
+
+James Q Zhang 
+
+Supervisor: Professor Xue Lan 
+
+This paper was originally submitted as a capstone Practical Achievement for the Master of Global Affairs degree at Schwarzman College, Tsinghua University in June 2026. This version has been lightly edited for upload to arXiv. 
+
+June 2026 arXiv:2608.25361v1 [cs.CY] 26 Aug 2026 Abstract 
+
+Pre-release risk management for frontier AI misuse risks routinely leaves threat actor assumptions implicit, inconsistently specified, or ungrounded. This capstone argues that explicit adversary characterization should be regarded as a prerequisite for evaluations that are interpretable, comparable, and faithful to the risks they target. We propose a six-attribute taxonomy (covering technical sophistication, prior domain knowledge, organizational capacity, operational infrastructure, financial capacity, and time horizon) with empirically grounded tiers derived from existing terrorism, biosecurity, and cyber-security literature. The taxonomy is designed to function as research infrastructure: a common language for pre-specifying adversary assumptions before evaluations are conducted, analogous to pre-analysis plans for randomized controlled trials (RCTs) in medicine and economics. Its application is particularly urgent for open-weight model developers, for whom release decisions are irreversible and must anticipate adversarial reasoning. 
+
+Keywords: frontier AI misuse; risk management; open-weight models; adversary profiling; capability evaluation iContents 
+
+Abstract i
+
+List of Figures . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . iv List of Tables . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . iv 
+
+1 Introduction 1
+
+1.1 Scope . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 31.2 Methodology . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 3
+
+2 Background 5
+
+2.1 The Open-Weight Model Problem . . . . . . . . . . . . . . . . . . . . . 52.2 Current Risk Management Practices . . . . . . . . . . . . . . . . . . . 62.3 Evaluating Frontier AI Misuse Risks . . . . . . . . . . . . . . . . . . . 82.4 How Developers Currently Characterize Threat Actors . . . . . . . . . 10 
+
+3 Related Work 15 
+
+3.1 Analyzing Adversary Behavior . . . . . . . . . . . . . . . . . . . . . . . 15 3.2 Profiling Potential Adversaries . . . . . . . . . . . . . . . . . . . . . . . 16 
+
+4 Standardizing Threat Actor Characterization 18 
+
+4.1 Taxonomy Design Goals . . . . . . . . . . . . . . . . . . . . . . . . . . 19 4.2 Attribute Derivation . . . . . . . . . . . . . . . . . . . . . . . . . . . . 20 
+
+5 Decomposing Threat Actors: An Attribute Taxonomy 22 
+
+5.1 Technical Sophistication . . . . . . . . . . . . . . . . . . . . . . . . . . 22 5.2 Prior Domain Knowledge . . . . . . . . . . . . . . . . . . . . . . . . . . 25 5.3 Organizational Capacity . . . . . . . . . . . . . . . . . . . . . . . . . . 26 5.4 Operational Infrastructure . . . . . . . . . . . . . . . . . . . . . . . . . 28 5.5 Financial Capacity . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 29 5.6 Time Horizon . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 31 5.7 Assessing Taxonomy Quality . . . . . . . . . . . . . . . . . . . . . . . . 33 ii 6 Operationalizing Attribute Analysis 36 
+
+6.1 Building a Complete Threat Actor Profile . . . . . . . . . . . . . . . . 36 6.2 Evaluation Design Considerations . . . . . . . . . . . . . . . . . . . . . 38 6.3 Toward Institutional Practice . . . . . . . . . . . . . . . . . . . . . . . 39 
+
+7 Conclusion 43 
+
+iii List of Figures 
+
+1 Model Access Spectrum . . . . . . . . . . . . . . . . . . . . . . . . . . 52 Threat Actor Characterization Matrix . . . . . . . . . . . . . . . . . . . 23 3 Technical Sophistication Attribute Explainer . . . . . . . . . . . . . . . 24 4 Prior Domain Knowledge Attribute Explainer . . . . . . . . . . . . . . 25 5 Organizational Capacity Attribute Explainer . . . . . . . . . . . . . . . 27 6 Operational Infrastructure Attribute Explainer . . . . . . . . . . . . . . 28 7 Financial Capacity Attribute Explainer . . . . . . . . . . . . . . . . . . 30 8 Time Horizon Attribute Explainer . . . . . . . . . . . . . . . . . . . . . 32 9 Completed Threat Actor Taxonomy Examples . . . . . . . . . . . . . . 37 10 Scheme for Institutional Practice . . . . . . . . . . . . . . . . . . . . . 40 
+
+## List of Tables 
+
+1 Explicit Threat Actor Characterizations in Frontier AI Safety Policies . 10 2 Assessing Objective Ending Conditions . . . . . . . . . . . . . . . . . . 33 3 Assessing Subjective Ending Conditions . . . . . . . . . . . . . . . . . . 34 4 ISO 9001 Auditing v. Proposed Threat Actor Characterization System 42 iv Chapter 1 
+
+# Introduction 
+
+Open-weight AI models, whose development have historically lagged behind their closed counterparts, are rapidly closing the gap. In some domains, open-weight model capabilities seem to already match or surpass those of proprietary models. At its release, Moonshot AI’s Kimi K2.5 (January 2026) achieved state-of-the-art performances for agentic searching and browsing capabilities; DeepSeek’s DeepSeek-V3.2-Speciale (December 2025) scored higher than OpenAI’s GPT-5 and on par with Google’s Gemini-3.0-Pro on many well-known benchmarks testing model reasoning (DeepSeek AI, 2025; Kimi Team, 2026). Had DeepSeek-V3.2-Speciale competed in the 2025 International Mathematical Olympiad (IMO), the most prestigious and challenging international math competition for high school students, it would have received a gold medal – a feat only the top ∼10% of scores achieve (Wolfram Research, Inc., 2018). Troublingly, these capabilities also include those that are dual-use, which can be leveraged for chemical, biological, radiological, nuclear (CBRN) and offensive cyber misuse (Wallace, Watkins, Wang, Chen, & Koch, 2025). As open-weight models continue to improve and even start to set what is considered frontier, such misuse implications grow more profound for how we think and act about the risks of releasing powerful model weights into the world without restriction 1.The future of the open-weight model ecosystem is particularly concerning because once weights are released, they can be used and modified without any authoritative oversight. Although this dynamic brings benefits such as research accessibility and decentralization of power, it also means ceding control: motivated malicious actors can disable external monitoring and filtering safeguards, fine-tune away internal safety behavior, or introduce harmful capabilities – all under a cloak of secrecy (Casper et al., 2026). 
+
+> 1We acknowledge that the open-weight versus closed distinction is reductive. Model access exists on a spectrum, from fully closed APIs to conditionally gated releases to unrestricted weight downloads. Factors like documentation, licensing terms, and safety mitigation further complicate a binary perspective. Nevertheless, the decision of whether to release models weights to the general public remains an ongoing, concrete choice that AI model developers face, and we believe it is worth examining on such terms.
+
+1Chief among these concerns is the offense-defense balance problem in the realm of cybersecurity. The release of open-weight models is often defended on the grounds that broad access can enable better collective defense, as more researchers can audit systems, diversify safety research, and jointly identify vulnerabilities. Yet, it is becoming increasingly unclear whether this argument will stand (John, 2025; Withers, 2025). Attackers just need one successful exploit, while defenders must guard against all possible threat vectors. This asymmetry constrains defenders’ margin for error – and that margin shrinks even further as the reliability deficits of existing AI tools prevent defenders from fully trusting and deploying them in the very systems most likely to be targeted. Early expert polling suggests a growing consensus that the balance may favor offense, at least in the short term (Potter et al., 2025). Because open-weight models are structurally afforded less protection, favor attack-ers in the offense-defense balance, and cannot be recalled, pre-release practices face considerable pressure to get it right. Safety benchmarking via automated assessments, expert red-teaming, and uplift trials has become the dominant procedure for evaluating models before deployment, and it has produced genuine insight into model capabilities (METR, 2026). However, this approach has a critical blind spot. As David Krueger, a professor of machine learning at Mila, has noted in a February 2026 address to the Canadian House of Commons, “[t]he kinds of tests we have can show that an AI system is dangerous. They cannot show that it is safe." Looking ahead, he stresses that “[w]e should also not expect any amount of investment to solve this problem in the foreseeable future" (Krueger, 2026). This sentiment has already reverberated in industry. In the same month as David Krueger’s address, the major AI developer Anthropic acknowledged that they could not confidently rule out whether their newest publicly available model, Claude Opus 4.6, could assist “moderately-resourced state programs" with developing weapons of mass destruction, even after extensive evaluations. They caution: “a clear rule-out of the next capability threshold may soon be difficult or impossible under the current regime" (Anthropic, 2026d). If evaluations are better at raising alarms than providing the assurance needed, how do we know when the risks of releasing models open-weight are too high? Answering that question may require tighter coupling of capability-based evaluations with adversary-focused frameworks, which are well-established in cybersecurity tradition, that seek full understanding of attacker strategies, objectives, and constraints rather than model capabilities in isolation (Kaloudi & Li, 2020; Rodriguez et al., 2025). Existing approaches such as the Cyber Kill Chain (Lockheed Martin, 2025) and the MITRE ATT&CK framework (extended to AI systems through MITRE ATLAS 2) (Strom et al., 
+
+> 2See https://atlas.mitre.org/matrices/ATLAS.
+
+22020) have served as valuable infrastructure for modeling how threat actors operate, but they are organized around observed behavior and built retrospectively. Ex-ante adversary 3 profiling, structured around specific attributes of potential threat actors, could strengthen risk analysis in ways that neither capability evaluations nor post-hoc behavioral taxonomies currently offer. This paper argues that attribute-based adversary profiling should become a standard-ized component of pre-release practice alongside safety benchmarking for open-weight model developers 4. Namely, by employing a bottom-up framework that deconstructs threat actors into various key attributes, researchers can set up evaluations that better align with the risks they are concerned about – and thereby produce risk analyses that are more accurate, clearly scoped, and interoperable across the field. Our contribution is thus twofold: introducing a six-attribute taxonomy to systematize the characterization of potential threat actors, and demonstrating how applying this taxonomy helps developers reason more precisely about risks and design more targeted evaluations. 
+
+## 1.1 Scope 
+
+Our analysis focuses on the two frontier misuse threats most prominently flagged in the literature – particularly. chemical, biological, radiological, nuclear (CBRN) and offensive cyber (Bengio et al., 2026). Broad governance questions, such as staged release policy and determining acceptable risk levels, remain important open questions we leave for future work. This paper instead offers a readily usable taxonomy and its operationalization for pre-release workflows to assist with consequential decisions in AI deployment. 
+
+## 1.2 Methodology 
+
+Synthesizing published research to develop an analytical approach, our research design proceeds in three stages. First, we conduct a literature review of the current state of frontier AI misuse risk management, identifying where both practitioners and researchers have noted gaps. Second, we formulate the threat actor attributes based on existing analysis on cybersecurity and CBRN threats, while making sure they are distinct and independently meaningful (Nickerson, Varshney, & Muntermann, 2013). For each attribute, we distinguish multiple tiers by drawing from well-established theories from terrorism studies and cybersecurity; where literature is sparse, we rely on empirical data sources to ground an attribute’s tier system in observable and verifiable criteria. Lastly,     
+
+> 3For simplicity, we use the term adversary and threat actor interchangeably.
+> 4We frame our suggestion around open-weight models because it presents a particularly severe case, given the irreversibility of weight release and lack of post-deployment safeguards. Ideally, the practice should nonetheless be considered a critical component of any responsible pre-release procedure, regardless of deployment modality.
+
+3we provide recommendations on how each attribute can inform evaluation design and how this taxonomy-based classification system can become live practice. 4Chapter 2 
+
+# Background 
+
+This chapter details the technical, institutional, and conceptual landscape within which our paper intervenes. Section 2.1 foregrounds the concern of increasingly powerful open-weight models, highlighting why they warrant particular attention. Section 2.2 surveys the risk management practices that inform model release deliberations. Section 2.3 gives an overview of how frontier misuse risks are evaluated today. Section 2.4 reviews how major developers already explicitly characterize the threat actors they are concerned about. 
+
+## 2.1 The Open-Weight Model Problem 
+
+The Openness Spectrum. Model access exists on a spectrum, ranging from full closed systems reserved for a company’s internal use through various intermediate points (e.g., hosted access, API access for inference) to fully open releases where model weights, data, and code are all available without restriction. The critical boundary for our paper rests at the point where model weights become publicly available. Figure 1 shows this gradient and marks the transition with a red break. Models whose weights are publicly downloadable exhibit five distinctive properties: broader access, greater customizability, local adaptation and inference ability, inability to rescind model access, inability to monitor or moderate model usage (Kapoor et al., 2024). 
+
+> Figure 1: Models deployed in manners left of the red marker are usually referred to as “closed." Models deployed in formats to the marker’s right, known as open-weight models, carry the irreversibility dilemma. Source: adapted from (Bengio et al., 2026; Bommasani et al., 2023).
+
+This boundary is significant because it marks a major qualitative shift in developers’ 5relationships to their models after release. Releasing with an access level left of the boundary in Figure 1, developers retain a degree of operational control. They can update safety filters, revoke API access, monitor usage patterns, or shut the system down entirely (Anthropic, 2025; Brown et al., 2025; Sharma et al., 2025). Releasing with access levels on the right, none of these interventions exist. Once users download model weights, the model can be copied, modified, fine-tuned, hosted independently, or redistributed in ways beyond the original developers’ visibility, influence, or intent. In this sense, open-weight releases are irreversible, and are what make every pre-release action all the more important. 
+
+Approaching the Frontier Intensifies Judgment Calls. The urgency of the open-release question has heightened because the capability gap between open-weight and frontier closed models has narrowed considerably. The AI governance research institute Epoch AI has estimated the lag to be between six months to a year, a figure that the 2026 International AI Safety Report reiterated (Bengio et al., 2026; Somala & Emberson, 2025). This convergence draws concern because the skills in biology, chemistry, code generation that make frontier models commercially and academically valuable seem to also be the ones that make them dangerous in the wrong hands. When assessing the tamper resistance of their new open-weight model series prior to release in August 2025, OpenAI found their gpt-oss-120b model performed just 1.2 percentage points worse than their frontier closed o3 model on biorisk tacit knowledge and troubleshooting; other leading open-weight models at time, such as DeepSeek’s DeepSeek R1-0528 and Moonshot AI’s Kimi K2, performed comparably. Notably, the best models on this task, which included both open-weight and closed models, scored within five percentage points away from their estimate of human expert performance. The report concluded that releasing gpt-oss could add new biorisk capabilities (Wallace et al., 2025). Governmental bodies have formally acknowledged restricting public frontier open-weight releases as one of the strongest possible safeguards, but no clear escalation mechanisms exist for acting upon it (UK AISI, 2025; US NTIA, 2024). Excluding the competitive and geopolitical pressures that disincentivize restraint from a single developer, acting on this option also requires a degree of evaluative confidence that existing methods have yet to provide (Bengio et al., 2026). 
+
+## 2.2 Current Risk Management Practices 
+
+The 2026 International AI Safety Report, the product of a collaboration spanning more than 100 independent experts and 30 countries, breaks down risk management for general-purpose AI into four components: identification, analysis, mitigation, and 6governance (Bengio et al., 2026). Risk identification entails efforts that detail the nature and scope of potential harms. To accomplish this, companies and research institutions have widely turned towards threat modeling exercises and risk taxonomy development. The former describes the structured process of fleshing out the pathways through which a threat may undergo to realize harm. Among major AI developers, common threat models include their products helping build biological weapons, carry out cyberattacks, and automate AI research itself (Microsoft, 2025; OpenAI, 2025). Building risk taxonomies complements by organizing possible harms into categories – MIT’s AI Risk Repository, which brings together over 1,700 risks across the literature is a prominent example 5. Other ways for identifying risks include consulting with experts and running bounty programs, which are initiatives set up to financially reward external parties helping developers uncover vulnerabilities (Gray Swan Arena, 2025; OpenAI, 2026). Risk analysis involves determining the likelihood and severity of identified harms and whether further action is warranted. The dominant method at this stage is model capability evaluation – systematic testing designed to gauge a model’s ability in performing tasks relevant to a risk domain. To address the harms that could cause mass casualties or large-scale financial damages, many large AI companies have already voluntarily committed to conducting targeted evaluations (METR, 2026). The specifics underlying these assessments vary greatly and are discussed at length in the following section. As an escalation mechanism that complements these risk measurement practices, companies have also begun specifying capability thresholds that, if surpassed, trigger additional scrutiny and safeguarding measures (Anthropic, 2026b; Meta, 2026; METR, 2026). A central concept employed in many analyses is marginal risk, the degree to which introducing a given model increases risks beyond what is already within reach (Kapoor et al., 2024). Interpreting such results can be challenging and misleading, however, as comparisons require shared counterfactual baselines that are often difficult to establish (Bengio et al., 2026). Risk mitigation encompasses the actions that can be taken to bring identified risks down to acceptable levels. Given that no single safeguard has proven sufficient, the prevailing conceptual framework has relied on building defense-in-depth, commonly illustrated as stacked layers of Swiss cheese: while threats can seep through the holes of any one layer, having multiple layers of protection in series make the overall system more robust. The 2026 International AI Safety Report classifies measures into four layers: training interventions, deployment interventions, post-deployment monitoring, and societal resilience (Bengio et al., 2026). At the implementation level, model developers may also look to strengthen the security of model weights against theft, set guidelines 
+
+> 5This repository features three components: a risk database, a casual taxonomy, and a domain taxonomy. See https://airisk.mit.edu/ for more.
+
+7for acceptable use, and impose user screening for access 6 (Nevo et al., 2024). Risk governance connects these previous three components together, holding the overall risk management profile accountable. The primary instruments here are docu-mentation and transparency practices. Model cards 7, usually published alongside a model’s release, have become the main vehicle for disclosing that very model’s capabili-ties, limitations, safety evaluations, and risk mitigation strategies. At the regulatory level, California’s SB 53 law 8 requires frontier developers to proactively share their AI governance and risk mitigation practices; EU’s AI Act similarly imposes documentation and transparency obligations 9. Pertaining to the CBRN and offensive cyber misuse risks that are within the scope of our paper, governmental involvement has thus far largely penetrated at the level of enforcing transparency rather than prescribing specific technical treatments (Bengio et al., 2026). Institutionalized at the AI Seoul Summit in May 2024, frontier safety policies (FSPs) have become a mainstream signal among AI companies for exemplifying responsible risk management (Department for Science, Innovation & Technology, 2024). FSPs detail how companies themselves plan to evaluate, monitor, and mitigate severe AI harms. Structurally, they operate as nested if-then commitments: if a model’s evaluated capabilities cross a defined threshold in a given risk domain, then specific, pre-defined safeguarding measures are triggered in response. For example, crossing a lower priority threshold may result in a company restricting model access to certain, verified users. Crossing a relatively high threshold may mean not releasing a model publicly at all, as was the case with Anthropic’s Mythos model for cybersecurity concerns 10 . In nearly all of the published FSPs 11 , triggers are set for CBRN and offense cyber capabilities (METR, 2026). Despite their growing adoption, the real-world effectiveness of these frameworks remains largely untested, and it is unclear whether such commitments would hold under pressure (Bengio et al., 2026; Wang, Huang, Klyman, & Bommasani, 2025). 
+
+## 2.3 Evaluating Frontier AI Misuse Risks 
+
+Three principal methods are employed in misuse evaluations for CBRN and offensive cyber capabilities: automated assessments, expert red-teaming, and human uplift trials. Each encodes different assumptions and tradeoffs about the threat actor being modeled, with direct implications for what the resulting evidence can and can not plausibly           
+
+> 6For an example, see Claude’s identity verification policy: https://support.claude.com/en/articles/14328960-identity-verification-on-claude
+> 7Example cards for Anthropic’s family of models can be found here: https://www.anthropic.com/system-cards
+> 8See Section 22757.12(a): https://legiscan.com/CA/text/SB53/id/3270002.
+> 9See Article 53: https://artificialintelligenceact.eu/article/53/.
+> 10 See Anthropic’s plans for its restricted Mythos model via Project Glasswing: https://www.anthropic.com/glasswing
+> 11 As of April 21, 2026, based on the research nonprofit METR’s FSP tracker: https://metr.org/fsp.
+
+8support. Such work carries special importance for open-weight models, where the layer of deployment-time safeguards is largely absent and bare weights can be attacked with minimal restriction (Wallace et al., 2025). Automated assessments involve the model answering multiple-choice questions, re-sponding to open-ended prompts, and completing multi-step agentic tasks. They are designed to allow for systematic capability measurement without heavy manual oversight and can be run a scale. Well-known examples include LAB-Bench (bioresearch ability) (Laurent et al., 2024), WMDP (bio-, cyber-, and chemical- security knowledge) (Li et al., 2024), Cybench (cyber-relevant tasks) (A. K. Zhang et al., 2025), and SecureBio VCT (virology protocol troubleshooting) (Götting et al., 2025). In more detail, LAB-Bench tests models on providing literature reviews, interpreting figures, and manipulating DNA sequences using more than 2,400 multiple choices questions. The VCT evaluation presents 322 scenario-based questions developed by PhD-level virologists that test the know-how needed for operating in virology laboratories. Because these evaluations are automated, they afford reproducibility and breadth; however, they are limited in modeling the interactive, iterative nature of real-world misuse processes. Expert red-teaming engages domain experts to simulate adversaries, stress-testing a model to uncover weaknesses and elicit risky capabilities (Bengio et al., 2026; Longpre et al., 2024). The Anthropic Opus 4.6 Model Card 12 and the OpenAI GPT-5 system card  
+
+> 13
+
+describe efforts of this kind. Testers can look to probe how well a model plans new experiments, distinguish between high and low value ideas, or serves as a lab assistant. An emerging belief from Anthropic’s Opus 4.6 red-teaming exercises places it as a research force multiplier incapable of generating truly novel insights. Nevertheless, it is important to note that results from such studies are sensitive to the specific personnel involved and resources provided, making the research design – and, in particular, the threat actor profile calibrated against – especially consequential (Paskov, Wei, et al., 2026). Human uplift trials 14 directly operationalize the concept of marginal uplift. Treat-ment groups with model access are compared against control groups without it, and performance differences are taken as evidence of the model’s contribution to real-world risk (Paskov, Wei, et al., 2026). A representative example comes from a March 2026 collaboration among Scale AI, SecureBio, the University of Oxford, and UC Berkeley, in which novice participants equipped with access to multiple frontier LLMs (such as OpenAI’s o3, Anthropic’s Claude Opus 4, and Google’s Gemini Deep Research) were compared against a similarly novice population restricted to standard internet search on biosecurity knowledge tasks (C. B. C. Zhang et al., 2026). The LLM-assisted group 
+
+> 12 See Sections 8.2.4.6 and 8.2.4.7: https://www-cdn.anthropic.com/6a5fa276ac68b9aeb0c8b6af5fa36326e0e166dd.pdf.
+> 13 See Sections 5.3.3.3 and 5.3.3.4: https://arxiv.org/pdf/2601.03267.
+> 14 This approach draws upon the randomized controlled trial (RCT) methodology well-established in medical and economic research (Paskov, Wei, et al., 2026).
+
+9performed approximately four times more accurately than their control counterparts. Because these studies are structurally configured to measure joint human-AI perfor-mance, uplift trials are increasingly cited in crucial deployment and governance decisions (Bengio et al., 2026). Like those from expert red-teaming exercises, their results are nonetheless sensitive to design choices (e.g., participant population composition, time duration, and task selection) – and it is currently common for stakeholders to make judgment calls without a clear understanding of where a given study’s assumptions fail to generalize (Paskov, Wei, et al., 2026). Ultimately, the evaluation ecosystem remains methodologically immature, as as-sessments are frequently opaque in their implementation. While opacity may reduce infohazard risks, it complicates independent quality verification and the comparability of findings across different efforts (Ho & Berg, 2025). One underexplored opportunity within this landscape is a more systematic, fine-grained manner to characterize potential threat actors – the gap our research seeks to address. Greater specificity in detailing who evaluations are designed to model would render their underlying assumptions more legible, and therefore make scrutiny and cross-system comparisons more meaningful. 
+
+## 2.4 How Developers Currently Characterize Threat Actors 
+
+To take stock of where industry practice currently stands, we survey the twelve frontier model developers that have published FSPs 15 . For each company policy, we extract every instance where it describes the threat actors themselves in context of CBRN and offensive cyber misuse risk. Table 1 presents these characterizations verbatim, sorted alphabetically by developer name and separated by risk domain. Notice the heterogeneity across policies: not only in which dimensions of an actor are highlighted, but also in how concretely – or whether – any actor is described at all.    
+
+> Table 1: Explicit Threat Actor Characterizations in Frontier AI Safety Policies
+> Developer Policy (Date) CBRN Offensive Cyber
+> Amazon (2025) Frontier Model Safety Framework (Feb. 10, 2025) • “. . . a non-subject matter expert. . . ” (2) • “. . . a moderately skilled actor (e.g., an individual with undergraduate level understanding of offensive cyber activities or operations). . . ” (2)
+> Continued on next page
+> 15 As of April 21, 2026.
+
+10 Table 1: Explicit Threat Actor Characterizations in Frontier Model Safety Policies (continued) 
+
+Developer Policy (Date) CBRN Offensive Cyber 
+
+Anthropic (2026a, 2026b) Responsible Scaling Policy (RSP) v3.1 (Apr. 2, 2026) Frontier Compliance Framework (FCF) (Mar. 2026) 
+
+Non-novel: 
+
+• “. . . individuals or groups with basic technical backgrounds (e.g., undergraduate STEM degrees). . . ” (RSP 6; FCF 5) • “. . . individual users and relatively small teams. . . ” (RSP 6) 
+
+Novel: 
+
+• “. . . threat actors (for example, moderately resourced expert-backed teams). . . ” (RSP 7; FCF 5) • “. . . well-resourced and -staffed threat actors. . . ” (RSP 7) • “. . . strongest and most plausible threat actors that are not bound by a credible governance regime. . . ” (RSP 7) N/A Cohere (2025) Secure AI Frontier Model Framework (Feb. 7, 2025) N/A N/A G42 (2025) Frontier AI Safety Framework (Feb. 6, 2025) • “. . . prompt engineering, fine-tuning, and agentic tool usage. . . ” (4–5) • “. . . individual with only introductory biology experience. . . ” (5) • “Even a determined actor. . . ” (8) • “. . . prompt engineering, fine-tuning, and agentic tool usage. . . ” (4–5) • “Even a determined actor. . . ” (8) 
+
+> Continued on next page
+
+11 Table 1: Explicit Threat Actor Characterizations in Frontier Model Safety Policies (continued) 
+
+Developer Policy (Date) CBRN Offensive Cyber 
+
+Google DeepMind (2025) Frontier Safety Framework v3.0 (Sep. 22, 2025) • “. . . low to medium resourced actors. . . ” (10) • “. . . the low to medium resourced actors who would be likely to experience the most CBRN uplift are unlikely to pose a substantial exfiltration threat at the level of RAND OC3 groups.” (10) • “. . . well-resourced state actors.” (10) Magic (2024) AGI Readiness Policy v1.0 (Jul. 2, 2024) • “. . . non-expert malicious actor. . . or an expert. . . ” (5) • “. . . malicious expert actor. . . ” (4) • “. . . a talented Computer Science undergrad level malicious actor spending 3 months and $1m in compute has a substantial chance of breaking critical infrastructure. . . ” (5) Meta (2026) Advanced AI Scaling Framework v2.0 (Apr. 8, 2026) • “. . . low and moderate skill actors” (21) • “Small cells of low or moderate skill actors. . . ” (21) • “. . . high-skilled actors” (21) • “A well-resourced group of high-skilled actors. . . ” (21) • “A group with extensive resources. . . ” (21) • “. . . would take human expert teams one month or more, on average, to find, for significantly less cost and/or time. . . ” (19) 
+
+> Continued on next page
+
+12 Table 1: Explicit Threat Actor Characterizations in Frontier Model Safety Policies (continued) 
+
+Developer Policy (Date) CBRN Offensive Cyber 
+
+Microsoft (2025) Frontier Governance Framework (Feb. 8, 2025) • “. . . an existing expert (PhD level education in related fields). . . ” (11) • “. . . expert’s (PhD level education in related fields) ability . . . ” (11) • “. . . medium-skilled actor’s (e.g., STEM education) ability. . . ” (11) • “. . . expert’s ability . . . ” (11) • “. . . low-skilled actor. . . ” (11) • “. . . ability of a low-skilled actor. . . ” (12) • “. . . low-to-medium skilled actor’s ability. . . ” (12) • “. . . low-skilled actor’s ability . . . ” (12) • “. . . a well-resourced and expert actor. . . ” (12) NAVER (2024) AI Safety Framework (Aug. 7, 2024) N/A N/A Nvidia (2025) Frontier AI Risk Assessment (Feb. 17, 2025) N/A N/A OpenAI (2025) Preparedness Framework v2.0 (Apr. 15, 2025) • “. . . ‘novice’ actors (anyone with a basic relevant technical background). . . ” (5) • “. . . non-state actors. . . ” (5) • “. . . an expert. . . ” (5) • “. . . terrorists. . . ” (16) • “. . . unilateral actors. . . ” (6) • “. . . professional hackers. . . ” (16) xAI (2025) Frontier Artificial Intelligence Framework (Dec. 31, 2025) N/A N/A   
+
+> Note. Developers are listed alphabetically. All quotations are reproduced verbatim from the cited documents and reference pages are noted; ellipses reflect omissions of surrounding context not relevant specifically to the characterization. Within the CBRN and WMD categories, most developers have focused their explicit characterizations on chemical and biological risks; coverage of radiological and nuclear threat actors are more limited in the surveyed policies. Developers listed as “N/A” either do not address threat actors in the relevant domain or discuss CBRN and offensive cyber risks without specifically detailing the threat actors themselves.
+
+13 Some developers sketch relatively detailed profiles – as in case of Magic (2024) that specifies the degree of educational attainment, time horizon, and financial capacity – while others invoke labels such as “low skilled" and “well-resourced" without further elaboration on what those tiers entail. Some policies simply employ categorical distinc-tions (e.g., “terrorists"), and a meaningful subset name only the harm class and leave the actor entirely implicit. As such, across the industry’s current efforts to characterize threat actors, there is variation in both kind and degree that matters for downstream evaluation design. A descriptive persona, however partially, provides a referent against which evaluations can be calibrated; a categorical label or implicit assumption does not. This variance is worth highlighting because the same policies that leave their imagined threat actors underspecified also affirm aspirations toward realism. Anthropic (2026b) writes that they “prefer to focus on. . . what sorts of actors it should address) regarding the risk level from its systems"; Meta (2026) seeks to “model competent, incentivized adversaries whose capabilities reflect the specific deployment context" while taking “into account monetary costs as well as. . . access to compute, restricted materials, or lab facilities"; Microsoft (2025) specifies that “[r]esources applied to elicitation should be extrapolated out to those available to actors"; OpenAI (2025) look “to approximate the high end of expected elicitation by threat actors attempting to misuse the model" and tailor it to “the level of expected access." Realism is an actor-relative property, and the less specified the potential actor, the more the realism standard collapses into a free-floating aspiration rather than a checkable criterion. Linking evaluation design choices back to potential threat actors presupposes that the given characterization is specific enough to support such mapping. For a meaningful portion of the policies surveyed, many important questions remain unanswered. For example, what qualifies an actor to be an expert? What does it mean to be well-resourced? What differentiates medium skill from low skill? And the problem compounds at the mechanistic level of evaluation design: does pass @100 or pass @5 better reflect the time horizon and financial capacity an actor can sustain? Perhaps just as important from Table 1’s content is what it omits. The developers most prominently represented are ones creating closed-weight models. Major open-weight model developers like Minimax or DeepSeek have largely not participated in public threat actor disclosure. Thus, the players with the greatest post-release exposure are also those with the least developed public language, and, maybe, strategy in turn, for characterizing and guarding against the vast array of potential adversaries. 14 Chapter 3 
+
+# Related Work 
+
+Independent researchers have noted substantial gaps within the nascent risk management practices in the AI industry, including the lack of explicit quantitative risk tolerances and incomplete systemic risk identification (Anderson-Samways, Ee, O’Brien, Buhl, & Williams, 2024; Campos et al., 2025; Koessler & Schuett, 2023). Risk identification, as regarded in ISO 31010, encompasses not only detecting what risks exist but also understanding the nature of their sources and the scenarios through which they get realized (ISO/IEC, 2019). This definition situates adversary-focused reasoning as a natural, crucial component of risk identification – one that current AI evaluation frameworks have begun to incorporate, though not yet systematically. Prior work most relevant to this gap comes from two directions: cybersecurity frameworks for analyzing adversary behavior, and scattered efforts for profiling potential adversaries. 
+
+## 3.1 Analyzing Adversary Behavior 
+
+For more than a decade, the cybersecurity field has approached adversary analysis via structured frameworks organizing observable actor behavior. Lockheed Martin’s Cyber Kill Chain decomposes cyberattacks into seven stages: Reconnaissance, Weaponization, Delivery, Exploitation, Installation, Command and Control (C2), and Actions on Objections (Lockheed Martin, 2025). Defense is then framed as the efforts that disrupt an attacker’s progression through that chain. The model is fundamentally behavioral, describing what adversaries do and when, rather than characterizing who they are and what they might have. Derived empirically by cybersecurity experts from years of lessons on the job, the Diamond Model of Intrusion Analysis extends the chain by projecting each intrusion event across four features (adversary, infrastructure, capability, and victim), supporting the relationship mapping necessary to effectively structure knowledge about an attack (Caltagirone, Pendergast, & Betz, 2013). While the adversary appears as one of its four elements, the Diamond Model functions more as an analytic 15 lens than a substantive account of actor analysis; in other words, it clarifies investigation by organizing perspectives rather than laying out possible actor classes. The MITRE ATT&CK is a knowledge base of adversary tactics drawn from real-world incident data, commonly leveraged to emulate threat actors, plan for red teaming, and assess defensive gaps (Strom et al., 2020). As such, ATT&CK is retrospective and observational. MITRE ATLAS 16 extends this structure to the AI domain, cataloging attack patterns for AI-enabled systems. The common thread across these efforts is characterizing actors by what they have done, with defense organized around disrupting the observed pathways of action. While this unit of analysis may be conducive for incident response and post-incident attribution, it is less suited to the pre-release context for novel frontier harms, where the need is to reason prospectively about adversary populations that have not yet acted. 
+
+## 3.2 Profiling Potential Adversaries 
+
+Work that addresses the characteristics of potential threat actors themselves is more scattered, and typically embedded ad hoc within analysis aimed at other ends. The RAND Corporation’s work on model weight security defines five operational capacity tiers to distinguish between adversary groups when assessing the risk of model weight ex-filtration: (1) amateur attempts, (2) professional opportunistic efforts, (3) cyber-crime syndicates and insider threats, (4) standard operations by leading cyber-capable institutions, (5) top-priority operations by the top cyber-capable institutions (Nevo et al., 2024). In describing each of these groups, the report considers operation headcount, domain knowledge, infrastructure, monetary resources, and time horizon. For example, a professional opportunistic effort describes cases where a single individual proficient in information security has a few weeks, a budget up to $10,000, and has personal cyber equipment. The Structured Threat Information Expression (STIX) 2.1 threat actor vocabularies  
+
+> 17
+
+provide a schema for representing threat actors via type, role, and sophistication. The threat actor type spans twelve terms, such as criminal, hacker, and terrorist. The role distinguishes seven functions: agent, director, independent, infrastructure-architect, infrastructure-operator, malware-author, and sponsor. The sophistication gradient features seven levels: none, minimal, intermediate, advanced, expert, innovator, strategic. Despite this object-level attention to detail, these fields are primarily designed to be reserved as metadata labels for threat intelligence sharing rather than as a graded analytical scale for evaluation calibration. The Centre for Long-Term Resilience’s work on assessing AI’s near-term biological misuse impacts deconstructs threat actors along 
+
+> 16 See https://atlas.mitre.org/.
+> 17 See sections 10.23 through 10.25: https://docs.oasis-open.org/cti/stix/v2.1/cs02/stix-v2.1-cs02.html.
+
+16 several dimensions, separating individuals from groups, and scaling each wih respect to their capabilities in AI research, foundational model training, model customization, and biological research (Rose, Moulange, Smith, & Nelson, 2024). These efforts are valuable but remain domain-specific. Taken together, the existing literature occupies two positions. Frameworks for analyzing adversary behavior are well-developed but restrictively retrospective. Work that profiles potential adversaries exists but remains fragmented – distributed across policy documents, biosecurity scholarship, and intelligence taxonomies not designed to interoperate. To the best of our knowledge, there has not been an undertaking to standardize analyzing the adversary landscape in the context of both CBRN and offensive cyber AI misuse risk. We address this by distilling meaningful concerns about threat actors into six attributes organized into a generalizable taxonomy. In doing so, our framework not only provides a common language for different model developers to articulate the threat actors they are concerned about, but also a tool for linking evaluation design to those very concerns – so that results are ultimately more faithful to the target risk profile. 17 Chapter 4 
+
+# Standardizing Threat Actor Characterization 
+
+The preceding chapters have documented two related gaps: evaluation practices that invoke assumptions about threat actors without making them explicit, and a research landscape that lacks common grounding concepts needed to compare experiments conducted by different institutions. At root, both are standardization problems, as capability evaluations do not produce context-free measurements, and treating them as such obscures what their results actually mean 18 . A growing body of practitioner experience and policy analysis has underscored that results are shaped by the implicit assumptions embedded in evaluation design that are often overlooked – which tools are available in a given lab environment, what are the participants’ AI literacy levels, how much time is allotted for a task (Paskov, Wei, et al., 2026; Salaudeen et al., 2025; K. Wei, Guth, Wu, & Paskov, 2025). Recent work from the RAND Corporation on AI-biology evaluations stresses that even the smallest of differences in participant expertise, available resources, and contextual constraints can have large and unexpected impact on observed performance – effects that compound when studies are compared with without shared, understood reference points to pin down those assumptions (Paskov, Lee, Brady, & Worland, 2026). Clear and explicit documentation can help mitigate risks of misinterpretation and overgeneralization; the absence of such pre-commitment has manifested as reporting bias in medicine and economics, fields that have long employed RCT-based methodology (Eble, Boone, & Elbourne, 2016). Joint analyses produced through the U.S.-China Track II Dialogue on AI and 
+
+> 18 The Environmental, Social, and Governance (ESG) domain illustrates the consequences when multiple bodies, without a shared framework, independently select attributes to characterize a complex phenomenon. Berg, Kölbel, and Rigobon (2022) find that across six major rating agencies, ESG ratings differ substantially (correlations range from 0.38 to 0.71), leading to “aggregate confusion." Each rater chose different sets of attributes for assessment, and this kind of scope difference contributes to 38% of the rating divergence. The agencies’ rating methodologies were sufficiently incompatible that the authors had to construct a common taxonomy retroactively to compare them.
+
+18 National Security, from the Brookings Institution’s Foreign Policy Program and Tsinghua University’s Center for International Security and Strategy, perhaps help identify the right unit of analysis for this standardization effort (Chan, O’Hanlon, Qi, & Zheng, 2026). They argue that misuse risk is not a single-dimensional property of a model’s capabilities, but emerges from the interaction of many dimensions, such as an actor’s baseline skills, usable infrastructure, and surrounding governance regimes. Proper attention must therefore be given to this wider contextual risk, not solely capability risk. The implication is that the actor should be the variable that evaluation design must be anchored to, not the model nor the harm category alone. A natural challenge to standardization is that different organizations adopt different threat models, making a shared framework seem overly constraining. However, this objection underestimates a subtle but systemic problem: when capability evaluations are built on divergent adversary assumptions, their results become incomparable in ways that are not always visible. Two labs may appear to be measuring the same risk while actually reasoning from different threat premises. This matters especially for marginal risk assessment, where without some shared adversary baseline, the comparison lacks a stable reference point (Anthropic, 2026d; Wallace et al., 2025). Effectively, each attempt is measuring a delta against a different zero. Crucially, standardizing adversary analysis does not expect nor require agreements about threat models; rather, it surfaces disagreements explicitly, creating the common reference points necessary for risk analyses to be meaningfully compared, aggregated, and acted upon across the field. Two claims follow: evaluation results that do not specify the actor they are calibrated against cannot be reliably interpreted, and without a common framework for specifying that actor, they cannot be compared across experiments either. The rest of this paper describes our attempt to reconcile these issues. 
+
+## 4.1 Taxonomy Design Goals 
+
+The taxonomy is designed to be generalizable (yet still adequately fine-grain and comprehensive), systematic, and operationalizable: • Generalizability ensures that the framework applies across the full range of actors within CBRN and offensive cyber AI misuse risk, without requiring much domain-specific adaptation. Attributes are derived from existing concerns that recur across CBRN and cyber threat analysis. In this way, we preserve cross-domain stability, making the resulting taxonomy useful as a common language across frontier AI misuse evaluations. • Systemacity requires that the taxonomy prompts stakeholders to consider every relevant dimension of an actor, not only the ones that feel most salient to a 19 given evaluation context. A matrix format serves this purpose: by presenting all attributes as explicit fields to be filled in, the structure renders omissions visible rather than implicit. More formally, this could be viewed as a structural analogue to the “pre-analysis plans" utilized as standard practice in many medical and economic journals to combat reporting bias – the framework not only describes what to consider, but also compels a discipline of considering it (Eble et al., 2016). • Operationalizability requires that the framework support concrete evaluation design choices rather than stalling at high-level descriptions. Each attribute is specified in tiers with observable criteria, so that a given actor profile translates into checkable assumptions (e.g., what elicitation methods are realistic, or what time constraints should be imposed on a task). Additionally, the attribute-based modular structure can be particularly fruitful. As attributes can be varied independently while others are held constant, engaging with the taxonomy can surface and accommodate nonobvious edge cases that holistic, top-down characterizations could miss. For instance, a small cell of homegrown extremists might score low on financial capacity and operational infrastructure but high on domain knowledge and task time horizon (Ackerman et al., 2025). 
+
+## 4.2 Attribute Derivation 
+
+To characterize threat actors meaningfully for AI risk evaluations, we distinguish six attributes: technical sophistication, prior domain knowledge, organizational capacity, operational infrastructure, financial capacity, and time horizon. These attributes were not constructed via first principles but distilled through a systematic review of existing CBRN and cyber threat analysis. Namely, we apply Nickerson et al. (2013)’s method for our taxonomy development, which involves determining a meta-characteristic 19 and ending conditions, and iterating between conceptual or empirical derivation approaches until those conditions are satisfied. For the purpose of classifying threat actors in frontier AI misuse, our meta-characteristic is defined as the capacities that would be helpful to adversaries to use and cause harm with AI systems. We follow the eight objective and five subjective ending conditions outlined in Nickerson et al. (2013), which we assess in Section 5.7 after the full taxonomy and derivation details are presented. In determining the high-level attributes, four bodies of work support our conceptual-based approach: RAND’s operational capacity definitions from their paper on securing model weights (Nevo et al., 2024), the biological weapon risk chain highlighted in a separate RAND report on measuring biological capabilities of AI agents (Paskov, Lee, et 
+
+> 19 Defined as “the most comprehensive characteristic that will serve as the basis for the choice of characteristics in the taxonomy" (Nickerson et al., 2013).
+
+20 al., 2026), a US government-adjacent analysis on deterring weapons of mass destruction (WMD) (Powers, 2001), and Lockheed Martin’s Cyber Kill Chain (Lockheed Martin, 2025). While the attributes are not always named consistently across these sources, their underlying themes recur. Technical sophistication emerges across all sources, each of which attends in some form to how well a threat actor understands and can deploy the underlying tools relevant to their objective. Prior domain knowledge comes from the biosecurity and WMD deterrence literature, which assume some baseline understanding of the relevant subject matter as a precondition for operational capability. Organizational capacity is foregrounded in RAND’s operational capacity tiers, which treat group structure and headcount as important variables in assessing adversary capability. Operational infrastructure appears across both the Cyber Killer Chain and the biological weapon risk chain, where access to certain equipment and materials are concerns at various stages. Both financial capacity and time horizon are also addressed in RAND’s operational capacity definitions, where each is rationalized and divided among tiers. 21 Chapter 5 
+
+# Decomposing Threat Actors: An Attribute Taxonomy 
+
+Figure 2 presents the full threat actor characterization matrix. Each row corresponds to one of six attributes, and each column corresponds to a tier within a single attribute, progressing from least to most capable or resourced from left to right. A complete threat actor profile is a filled vector across all six rows: a specific combination of tiers that describes the structural properties of a hypothetical actor without referencing any particular identity or affiliation. It is the combination of all attributes that matters – no single tier on any attribute should determine an overall risk profile. The matrix is designed to make these combinations explicit and comparable across evaluators. In the following sections, we explain each attribute in depth, detailing its relevance to risk assessment and the basis for its tier gradient. Using Nickerson et al. (2013)’s terminology, conceptual approaches were the primary mode for all attributes except financial capacity and time horizon, where empirical approaches were used. 
+
+## 5.1 Technical Sophistication 
+
+The abilities an actor has for interacting with, hosting, extending, or modifying an AI model. 
+
+Why It Matters . Technical sophistication can help approximate both the feasibility and ceiling of misuse. Many high-impact failure modes are not accessible through naïve interaction with a model; they require the ability to systematically probe, adapt, and chain capabilities over time. More technically sophisticated actors can bypass safeguards, integrate models into larger operational pipelines, and extract marginal gains from partial capabilities that less technically capable users would not realize (Rodriguez et al., 2025; B. Wei et al., 2025). As a result, considering technical sophistication helps clarify which risks are likely to manifest under certain conditions versus those contingent on 22 Technical Sophistication 
+
+Basic Intermediate Advanced Expert Pioneer 
+
+Prompts via existing interfaces Deploys & controls own model stack Builds flows & infrastructure around models Redefines what is thought possible Manipulates model weights directly 
+
+# S1 S2 S3 S4 S5
+
+> Prior Domain Knowledge
+
+Uninformed Aware Educated Skilled Authoritative 
+
+Lacking domain-relevant knowledge Knows concepts, can follow protocols Some specific expertise, can plan approach Intuitive mastery, highly innovative Executes and troubleshoots independently 
+
+# P1 P2 P3 P4 P5
+
+> Organizational Capacity
+
+Siloed Group Specialized Structured Institutional 
+
+Single actor or cluster working all functions Few actors under informal leadership Groups with leadership and defined roles Institution with knowledge management Organization with central command 
+
+# C1 C2 C3 C4 C5
+
+> Operational Infrastructure
+
+General Privileged Dedicated Extensive 
+
+Publicly available resources Restricted or institutional access Self-controlled, purpose-built infrastructure Large-scale sustained facilities 
+
+# I1 I2 I3 I4
+
+> Financial Capacity
+
+Minimal Low Moderate High Substantial 
+
+< $1,000 $1,000 - $50K $50K - $1M $10M+ $1M - $10M 
+
+# F1 F2 F3 F4 F5
+
+> Time Horizon
+
+Impulsive Expedient Deliberate Sustained Enduring 
+
+< 24hrs 24hrs - 1w 1w - 1mo 6mo+ 1mo - 6mo 
+
+# T1 T2 T3 T4 T5Figure 2: A six-attribute adversary characterization matrix for frontier AI misuse risk. Each attribute is divided into tiers progressing from least to most capable or resourced. 
+
+23 Figure 3: Technical sophistication tiers, with associated capabilities at each level. Tier labels reflect an actor’s highest available mode of AI interaction, progressing from prompt-based engagement ( S1) through local deployment and infrastructure-building to direct weight manipulation and novel capability development ( S4–S5). Capability subcategories are illustrative rather than exhaustive. Inspired by the OASIS Open STIX 2.1 sophistication vocabulary. 
+
+more advanced actors. 
+
+Reasoning Behind Tiers . The tier structure draws on the technical sophistication model defined in the OASIS Open STIX 2.1 standard. STIX is a standard language for cyber threat intelligence sharing across government and industry, developed under OASIS Open, a prominent non-profit standards body for international policy 20 Its technical sophistication model organizes threat actor capability around a sequence of escalating checkpoints: from using existing tools without understanding them, through setting up custom workflows, to discovering and exploiting unknowns. That progression is preserved here, reframed around AI-specific technical capability and validated against practitioner curricula and academic courses (DeepLearning.AI 21 , DeepWiki 22 , Stanford CS224n 23 ). The resulting tiers (see Figure 3) are roughly cumulative and function as a heuristic rather than a rigid typology. A Basic actor can direct a model with intention through existing interfaces, relying on prompt engineering and elicitation. An Intermediate actor additionally controls their own deployment infrastructure (e.g., running models locally, managing quantization, and optimizing inference) rather than depending on external assistance. An Advanced actor can build novel pipelines and workflows around a model, integrating external tools and APIs, augmenting model knowledge, managing persistent context, and orchestrating multi-step autonomous workflows. An Expert actor can 
+
+> 20 For more information about Oasis Open, see https://www.oasis-open.org/org/.
+> 21 http://DeepLearning.AI
+> 22 https://deepwiki.com/mlabonne/llm-course
+> 23 https://web.stanford.edu/class/cs224n/
+
+24 manipulate the model weights directly, through supervised fine-tuning, reward-based training, abliteration, or pre-training. A Pioneer actor operates at the frontier of what the field considers achievable, unlocking capabilities that are not merely novel applications of existing methods but breakthroughs that expand the boundary of the possible. 
+
+## 5.2 Prior Domain Knowledge 
+
+The extent to which an actor already possesses expertise in a harm-relevant domain (i.e. biological, chemical, radiological, nuclear, or offensive cyber) independent of what AI can provide. 
+
+> Figure 4: Prior domain knowledge tiers, mapped against two theoretical frameworks. Above the tiers, the Dreyfus (2004) Model of skill acquisition and Ouagrham-Gormley (2014)’s novice–sub-expert–expert typology provide theoretical grounding for tier boundaries. Below, each tier is characterized along two knowledge dimensions: explicit knowledge, reflecting codified understanding of domain concepts and techniques, and tacit knowledge, following Collins (2010)’s taxonomy of weak, somatic, and communal forms. Tier labels are domain-agnostic and apply across CBRN and cyber harm categories.
+
+Why It Matters . Prior domain knowledge determines how much of an actor’s capability gap AI must bridge, and therefore how decisively a given model release changes what they can achieve. An actor who already holds deep expertise in a harm-relevant domain requires only marginal assistance from an AI system to execute complex operations. An actor who lacks such expertise may depend on AI assistance to perform tasks that experts would find routine. The actor’s pre-existing competency level also determines the function a model would most effectively serve: collaborator, force multiplier, or knowledge gap filler. Needing to clarify the level and domain of the human’s expertise is a commonly recurring lesson learned by evaluators working in this 25 space (Paskov, Lee, et al., 2026). 24 
+
+Reasoning Behind Tiers . The tier structure (see Figure 4) is anchored in two bodies of work: the Dreyfus (2004) model of skill acquisition, which describes a trajectory from novice through advanced beginner, competent, proficient, and expert; and Collins (2010)’s typology of tacit knowledge, which distinguishes weak, somatic, and communal tacit knowledge as qualitatively distinct forms of expertise that cannot be reduced to explicit, transmittable content. Revill and Jefferson (2013) applies Collins’ framework to biological weapons, and Ouagrham-Gormley (2014) reinforces it, identifying tacit knowledge as a binding constraint on weapons development programs. Ouagrham-Gormley (2014)’s analysis distinguishes three actor categories: novices, who have a generic educational background but no specific or practical expertise; sub-experts, who possess advanced theoretical knowledge and specific disciplinary expertise but lack practical weapons development experience; and experts, who combine advanced theoretical grounding with practical expertise. This is complemented by the Weapons of Mass Destruction Proxy benchmark (WDMP)’s approach to testing for hazardous capabilities; their framework delineates three nested, increasingly hazardous levels of knowledge: general domain knowledge, expert-level disciplinary knowledge, and weapons-specific knowledge (Li et al., 2024). Actors classified as an expert under Ouagrham-Gormley’s typology have deep penetration of the most dangerous level of knowledge. 
+
+## 5.3 Organizational Capacity 
+
+The structure of the human network an actor operates within for coordination, special-ization, and sustainment. 
+
+Why It Matters . The structure of the human network an actor operates within directly conditions what they can attempt and sustain. Asal and Rethemeyer (2008) establish that both organizational size and connectedness are linked to lethality and operational success. A larger and more differentiated organization can specialize labor, sustain operations across failures, accumulate and transmit institutional knowledge, and run parallel workstreams. Such dynamics are unavailable to a single actor or small cluster, regardless of individual technical sophistication. Organizational capacity therefore sets a ceiling on operational ambition that technical factors alone may miss. 
+
+Reasoning Behind Tiers . The tier structure is grounded in Kilberg (2012)’s model of terrorist organization, which defines four structures along three dimensions: leadership, functional differentiation, and central command. Kilberg’s typology was applied to 254 cases drawn from the Global Terrorism Database (1970–2007), giving it 
+
+> 24 See their Section 4.1.4, “Specifying Level and Domain of Human Expertise."
+
+26 Figure 5: Organizational capacity tiers, each adding exactly one structural property to the previous. Arrows indicate the defining addition at each transition: leadership ( C1 → C2), functional differentiation ( C2 → C3), central command ( C3 → C4), and institutional persistence ( C4 → C5). Below the tiers, rough parallels are drawn to established typologies in the terrorism studies literature — Pantucci (2011)’s loner and lone wolf pack for C1,and Kilberg (2012)’s market, all-channel, hub-spoke, and bureaucracy network forms for C2 through C4. C5 has no direct parallel in either typology, reflecting the upper bound of organizational complexity beyond what either framework was designed to capture. 
+
+empirical grounding across a wide range of real-world organizational forms. The resulting structures (market, all-channel, hub-spoke, and bureaucracy) map onto observable variation in how groups divide labor, exercise authority, and persist across time. These four structures are combined with Pantucci (2011)’s decomposition of the solo-actor dimension, distinguishing loners, lone wolves, lone wolf packs, and lone attackers, and the two most relevant spectrums from Borum, Fein, and Vossekuil (2012): loneness (degree of direct assistance from others) and direction (extent of independence and autonomy in decision-making). Together, they generate the five tiers presented in Figure 5. A Siloed actor is an individual or small cluster of two to four people performing all functions, with scope limited to what that individual or cluster can hold. A Group 
+
+consists of roughly four to twelve actors operating under informal leadership, with no functional differentiation, no centralized command, and possibly limited to a single operation. A Specialized structure involves twelve to thirty actors with defined roles and a few coordinating hub individuals, approximating Kilberg (2012)’s hub-spoke model. A 
+
+Structured organization of thirty to one hundred actors adds central command and formal hierarchy, enabling sustained campaigns, recovery from failure, and the beginnings of long-term research and development capacity. An Institutional actor, with one hundred or more members, further adds formal knowledge management, institutional memory decoupled from specific individuals, and the capacity to run multiple workstreams in parallel – the organizational prerequisites for sustained frontier-level R&D. 27 5.4 Operational Infrastructure 
+
+The existing assets (physical and digital) an actor can leverage.       
+
+> Figure 6: Operational infrastructure tiers, organized by three structural breaks: accessibility ( I1→I2), control (I2→I3), and scale ( I3→I4). The control transition is further distinguished by the nature of access (Type 2 infrastructure, accessed via an intermediary, versus Type 1 infrastructure, owned and controlled directly by the actor) following the typology introduced in the Diamond Model of Intrusion Analysis (Caltagirone et al., 2013). Unlike other attributes, operational infrastructure incidentally uses four tiers rather than five.
+
+Why It Matters . Operational infrastructure captures the existing physical and digital assets an actor can leverage, independent of what they could acquire with additional resources. These assets function as enablers that determine which steps of an attack chain are immediately actionable versus which require additional acquisition, a distinction that directly shapes the marginal contribution of AI assistance. Needing to define the resource assumptions is a commonly recurring lesson learned by evaluators working in this space (Paskov, Lee, et al., 2026). 25 
+
+Reasoning Behind Tiers . As shown in Figure 6, the tiers are organized not to catalog every possible type of infrastructure but to identify structural breaks marking capability ceilings imposed by what is physically or technically available to a given actor. The progression is one of layered constraints, each imposing a qualitatively different ceiling: accessibility, then control, then scale. The first and most significant gate is accessibility. A General actor is limited to publicly available resources: consumer devices, public internet, open-source software, freely downloadable datasets, and commercially available compute. The transition to Privileged represents the first major threshold: the ability to access specialized or restricted resources not available to the general public, whether through an institu-
+
+> 25 See their Section 4.1.5, “Defining Resource Assumptions."
+
+28 tional role, insider position, or other means. University and corporate laboratories, administrative privileges on IT systems, regulated materials, proprietary codebases, and institutional compute access all belong to this tier. Once the accessibility threshold is crossed, the binding constraint becomes control. A Dedicated actor does not merely access restricted resources through a third party that retains the authority to revoke that access; they own and operate self-controlled, purpose-built infrastructure, such as private laboratories, custom software toolchains, dedicated compute clusters, air-gapped systems, and established procurement channels. This distinction between privileged access and full control informs the boundary between the Privileged and Dedicated tiers and draws directly on the Diamond Model of Intrusion Analysis from cybersecurity, which distinguishes Type 1 infrastructure (fully owned and controlled by the adversary) from Type 2 infrastructure (used by the adversary but owned by an intermediary) (Caltagirone et al., 2013). Above the control threshold, scale becomes the determinant. An Extensive actor operates large-scale, sustained infrastructure with purpose-specific facilities (e.g., BSL-3 or BSL-4 biological containment, cyber operation centers, frontier-scale compute, sustained supply chains, and manufacturing plants). At this tier, the actor has access to nearly every resource that infrastructure can provide at the individual scale and above, enabling sustained, complex, and parallel operations that lower-tier actors simply cannot run. 
+
+## 5.5 Financial Capacity 
+
+The capital available to an actor for acquiring resources and services relevant to carrying out objectives. 
+
+Why It Matters . Financial capacity is analytically distinct from operational infrastructure. Infrastructure captures what the actor currently controls; financial capacity captures what they can acquire. It models the latitude an actor has to expand their capabilities through purchases (whether of compute, laboratory access, exploits, personnel, or external services) and therefore governs the ceiling of their operational reach beyond their existing baseline. Recent work from the UK AI Security Institute on inference scaling for cyber tasks finds that higher token budgets correlate with higher success rates, highlighting that previous evaluations, by operating under frugally conservative token budgets, have systematically assumed underestimates of model-assisted adversarial capability (UK AISI, 2026). As such, financial capacity shapes what an AI-assisted actor can accomplish in ways that evaluation methodology must explicitly account for. 
+
+Reasoning Behind Tiers . The tier boundaries are derived empirically by identifying 29 Figure 7: Financial capacity tiers, with empirical anchoring and spot-check examples. Above the tiers, real-world operational costs from terrorism and cybercrime incidents ground each tier boundary, ranging from the 2010 British MP stabbing ($75) at F1 to the 1995 Aum Shinrikyo sarin attack ($69 million) at F5. Below, illustrative costs are provided across three categories (CBRN acquisition, cyber operations, and AI-relevant expenditures) to validate tier boundaries against current market prices. All costs are adjusted for inflation to 2026 dollars. 
+
+natural clusters in data on how much threat actors have actually spent on operations, then spot-checked against the costs of AI compute, traditional cyber capabilities, and CBRN-relevant laboratory equipment at each level. The primary empirical source is Oftedal (2015)’s analysis of forty terrorist plots in Western Europe between 1994 and 2013, which finds that nearly all fell in what this framework designates as the 
+
+Low tier or below (see Figure 7). This empirical floor is complemented by data covering the September 11 attacks, and by financial records on Aum Shinrikyo’s sarin synthesis program (Nehorayoff, Ash, & Smith, 2016; Roth, Greenburg, & Wille, 2004). Additional anchors come from our own estimates based on law enforcement disclosures and counterterrorism financing reports for individual incidents found online. The Minimal tier, below one thousand dollars, is calibrated against cases such as the 2010 stabbing of British MP Stephen Timms (approximately at maximum seventy-five dollars) 26 , crude improvised CBRN precursor materials available over the counter for under one hundred dollars 27 , and consumer API access to frontier AI models 28 . The 
+
+Low tier, spanning one thousand to fifty thousand dollars, encompasses incidents such as the 2006 German train bombing attempt and the 2009 Underwear Bomber (Oftedal, 
+
+> 26 For more information about the attack, see https://en.wikipedia.org/wiki/Stabbing_of_Stephen_Timms.
+> 27 See https://www.chemworld.com/Default.asp for an example.
+> 28 For example, Claude Pro and Max subscription tiers are priced at $20 and $100 monthly, respectively as of April 21, 2026. See https://claude.com/pricing.
+
+30 2015), as well as shared commercial laboratory space (Saltzman, 2019), basic malware packages, and substantial API usage at current pricing 29 .The Moderate tier, from fifty thousand to one million dollars, covers the September 11 attacks at roughly nine hundred thousand dollars (inflation-adjusted to 2026), the construction of in-house pathology laboratories (Mitchell, 2023), and the acquisition of a dedicated GPU cluster for open-weight model fine-tuning 30 . The High tier, from one to ten million dollars, corresponds to operations like Conti Group ransomware campaigns (Muncaster, 2022), mobile BSL-3/4 laboratory construction 31 , and large-scale malicious fine-tuning of open-source models (Wallace et al., 2025). The Substantial tier, above ten million dollars, reflects nation-state and near-state-level capabilities: Aum Shinrikyo’s sarin synthesis program at roughly sixty-nine million dollars (inflation-adjusted to 2026) (Nehorayoff et al., 2016), full BSL-4 facility construction (Pulla & Schulson, 2025), and frontier-model pre-training (Patel, Kourabi, Doug, & Knuhtsen, 2025). Since data is relatively sparse at the upper end of the scale, the Substantial tier in particular should be treated as a preliminary attempt, subject to revision as more evidence becomes available. The limited empirical record for high-end operations reflects both the rarity of such activities and the difficulty of reconstructing their financing from available sources. 
+
+## 5.6 Time Horizon 
+
+The duration over which an actor pursues a harmful objective, including preparatory work. 
+
+Why It Matters . Time horizon captures the duration over which an actor pursues a harmful objective, including all preparatory work. A scaling dynamic is at work: extended time allows for iterative refinement, the accumulation of domain knowledge, and the kind of persistent engagement needed to navigate complex multi-step tasks. Longer time horizons also expand the range of operational options available; for example, a patient actor can wait for favorable conditions, conduct reconnaissance, and recover (and learn) from failed attempts in ways that a heavily time-constrained actor cannot. 
+
+Reasoning Behind Tiers . Two empirical sources anchor the tier structure (see Figure 8). For physical and CBRN risks, Smith, Gruenwald, and Damphousse (2017) provide temporal data on terrorist planning cycles drawn from the American Terrorism Study (1980–2016). Of the 1,360 cases in the dataset, 272 contained usable temporal information, and the distribution reveals that planning cycles span a wide range: roughly five percent of cases involved less than one day of planning; one in five planned within             
+
+> 29 For example, Multi-modal Kimi K2.5 output pricing (per million tokens) is $3 as of April 21, 2026. See https://platform.kimi.ai/docs/pricing/chat-k25.
+> 30 Purchasing an NVIDIA H100 (Hopper architecture, 80 GB HBM3 is roughly $40,000: https://intuitionlabs.ai/articles/nvidia-ai-gpu-pricing-guide.
+> 31 See https://qualia-bio.com/blog/mobile-bsl-3-bsl-4-module-labs-a-cost-effective-alternative/ for estimates.
+
+31 Figure 8: Time horizon tiers, with proxy empirical distributions across two harm domains. Tier boundaries are defined by planning and execution duration, ranging from impulsive operations under 24 hours ( T1) to enduring campaigns of six months or more ( T5). Below, bar charts show the approximate distribution of real-world incidents across tiers for CBRN-proximate attacks, drawn from Smith et al.’s (2017) American Terrorism Study quartile data, and for cyber intrusions, drawn from Mandiant’s M-Trends 2026 dwell time data. These distributions are treated as proxies rather than direct measurements, as neither dataset was designed specifically to capture AI-enabled misuse planning horizons. 
+
+ten days; the interquartile range runs from twenty days to approximately ninety-five days; and almost all cases (98%) concluded within three years. Breaking this distribution into quartiles (zero to 20 days, 21 to 95 days, 96 to 285 days, and 286+ days) provides the empirical scaffold for the CBRN-relevant tier boundaries. For cyber risks, Mandiant (2026)’s annual M-Trends report provides a complementary empirical anchor through the concept of dwell time: the number of days an attacker is present in a compromised environment before detection. Based on analysis of approximately five hundred thousand hours of frontline incident investigations conducted by the Mandiant team in collaboration with Google’s Threat Intelligence Group, the global median dwell time in 2025 was fourteen days. Specifically, the distribution shows that about 42% of intrusions had dwell times within one week, 20% between 8 and 30 days, 27% between 31 days and 6 months, 6% greater than 6 months but less than one year, and 6% greater than one year. We acknowledge that these two sources do not measure the same phase of an operation: Smith et al. (2017)’s data tracks pre-incident preparatory activities, while the Mandiant (2026) data captures active intrusion dwell time. The reason for this may be partly inherent to the mode of attack: digital forensics typically begins at the point of initial access, since pre-intrusion phases (reconnaissance, weaponization, infrastructure development) may leave minimal to no traces that can be attributed before 32 an incident is confirmed. Physical terrorism, by contrast, eventually produces court records, surveillance footage, financial transactions, and witness testimony that allow researchers to reconstruct preparation timelines after the fact. Despite this asymmetry, we use both sources as relative proxies to calibrate the tier boundaries, and do not regard them as precise measurements of equivalent phenomena. Additionally, given that current AI tools may meaningfully compress attack timelines by functioning as force multipliers (Anthropic, 2026c), 32 , the tier structure includes granular initial tiers at the sub-day and one-to-seven-day level to capture the potential for condensed timelines in AI-assisted operations. 
+
+## 5.7 Assessing Taxonomy Quality 
+
+Nickerson et al. (2013) note that a useful taxonomy is one that is concise, robust, comprehensive, extendible, and explanatory. These five characteristics constitute the subjective ending conditions in their proposed method for taxonomy development. In our case, the development process proceeded as follows: we first derived the six attributes from a targeted review of CBRN and offensive cyber threat literature (Lockheed Martin, 2025; Nevo et al., 2024; Paskov, Lee, et al., 2026; Powers, 2001) and then went attribute by attribute to distinguish tiers through conceptual or empirical approaches. Finally, we conducted a last iteration reviewing each attribute and its corresponding tier gradient for stability, finding no changes were necessary. The order in which the taxonomy is presented in this paper mirrors this developmental sequence. In Tables 2 and 3 below, we assess the eight objective and five subjective ending conditions to evaluate the proposed taxonomy’s fitness for purpose. For clarity, we note that Nickerson et al. (2013)’s “objects," “dimensions," and “characteristics" correspond in our taxonomy to potential frontier AI misuse threat actors, attributes, and tiers respectively.  
+
+> Table 2: Assessing Objective Ending Conditions
+> Ending Condition Our Assessment
+> All objects or a representative sample of objects have been examined
+> The taxonomy was developed through a full review of CBRN and cyber threat analysis literature such that the attributes derived came from representative real-world considerations. Each attribute was then divided into tiers based on conceptual or empirical approaches of existing theories and studies on adversaries.
+> No object was merged with a similar object or split into multiple objects in the last iteration
+> The final iterations of tier derivation for each attribute produced stable classifications without requiring further consolidation or subdivision of any possible threat actors along that attribute.
+> Continued on next page
+> 32 See their Section 2.2.5.1 on expert red-teaming for biological risks, where experts assessed the model as a useful force multiplier for speed and breadth of research.
+
+33 Table 2: Assessing of Objective Ending Conditions (continued) 
+
+Ending Condition Our Assessment 
+
+At least one object is classified under every characteristic of every dimension 
+
+Each tier across all six attributes is populated by at least one plausible threat actor type, as explained in the figures in the previous sections. 
+
+No new dimensions or characteristics were added in the last iteration 
+
+The six attributes and their respective tiers reached a stable configuration prior to the final iteration, with no additional attributes or tiers needing to be introduced thereafter. 
+
+No dimensions or characteristics were merged or split in the last iteration 
+
+The attribute boundaries and tier gradients remained unchanged in the final iteration. 
+
+Every dimension is unique and not repeated 
+
+Each of the six attributes captures a conceptually distinct aspect of adversary capacity. 
+
+Every characteristic is unique within its dimension 
+
+Within each attribute, tiers are defined by non-overlapping criteria. 
+
+Each cell (combination of characteristics) is unique and is not repeated 
+
+Because each attribute is assessed independently and tier assignments do not constrain one another, every combination of tiers across the six attributes produces a unique profile cell. The matrix structure ensures that no two distinct combinations of tiers can describe the same threat actor.  
+
+> Note. Objective ending conditions per Nickerson et al. (2013) ensure the proposed taxonomy has dimensions with mutually exclusive and collectively exhaustive characteristics. Table 3: Assessing Subjective Ending Conditions
+
+Ending Condition Our Assessment 
+
+Concise The taxonomy contains six dimensions, for a total of 29 tiers across them. The number of dimensions falls within the seven plus or minus two range identified by Miller (1956) as the limit of manageable complexity, and the tier counts within each attribute are similarly bounded, ranging from four to five tiers per attribute. 
+
+Robust The six attributes collectively capture the structural dimensions along which threat actors meaningfully vary in their capacity to cause harm with AI systems, as justified in each of the “Why It Matters” subsections for each attribute. 
+
+Comprehensive The taxonomy classifies the full range of threat actors currently characterized in frontier safety policies and concerns highlighted in relevant CBRN and offensive cyber literature. The lowest and highest tiers of each attribute are left unbounded. 
+
+Extendible New attributes can be added as rows and new tiers can be inserted into existing attributes without disrupting the existing matrix structure. The lowest and highest tiers of each attribute are left unbounded. 
+
+> Continued on next page
+
+34 Table 3: Assessing Subjective Ending Conditions (continued) 
+
+Ending Condition Our Assessment 
+
+Explanatory The taxonomy does not merely catalogue threat actors but illuminates the structural properties that make them more or less capable of causing harm with AI systems, as grounded via our meta-characteristic choice. As Section 6.1 highlights, two actors may appear similar if underspecified but will pose meaningfully different risks — which is precisely why evaluation design must attend to each attribute separately.  
+
+> Note. Subjective ending conditions assessing the proposed taxonomy’s usefulness, following Nickerson et al. (2013).
+
+35 Chapter 6 
+
+# Operationalizing Attribute Analysis 
+
+Chapter 5 established the six attributes and their respective tiers in our proposed taxonomy. This chapter turns to their application, first by showing how the attributes can be combined to create complete and precise threat actor profiles, and then by highlighting evaluation design considerations that follow from each attribute. Finally, we discuss how this taxonomy can be integrated into institutional practice. As such, the following sections demonstrate how the proposed taxonomy moves from theory to action, vagueness to clarity: a populated profile is not an end in itself, but rather a set of constraints that can hold evaluations accountable through explicit, pre-specified design choices. 
+
+## 6.1 Building a Complete Threat Actor Profile 
+
+The taxonomy is most useful when actively populated for a specific adversary of concern rather than left as an abstraction. We present two examples of complete threat actor profiles (one for the CBRN domain and one for offensive cyber) to demonstrate how the matrix can be utilized in practice (see Figure 9). While the examples below specify a single tier per attribute, the taxonomy also supports range specifications. For instance, 
+
+T1 − T3 references threat actors with time horizons of one month or less. This flexibility can be helpful where genuine uncertainty exist about an actor, or when reasoning about a population of different actors. 
+
+Example CBRN Profile: Radicalized Graduate Researcher 
+
+Attribute Vector : [ S2, P3, C1, I2, F1, T4]A radically motivated individual with graduate-level training in microbiology, op-erating alone with access to a shared university laboratory. They are ideologically committed and have been pursuing their objective over several months, but have limited 36 Technical Sophistication     
+
+> Basic Intermediate Advanced Expert Pioneer
+
+S1 S2 S3 S4 S5    
+
+> Prior Domain Knowledge
+> Uninformed Aware Educated Skilled Authoritative
+
+P1 P2 P3 P4 P5    
+
+> Organizational Capacity
+> Siloed Group Specialized Structured Institutional
+
+C1 C2 C3 C4 C5   
+
+> Operational Infrastructure
+> General Privileged Dedicated Extensive
+
+I1 I2 I3 I4    
+
+> Financial Capacity
+> Minimal Low Moderate High Substantial
+
+F1 F2 F3 F4 F5    
+
+> Time Horizon
+> Impulsive Expedient Deliberate Sustained Enduring
+
+T T2 T3 T4 T5    
+
+> Profile 1 – CBRN: Radicalized Graduate Researcher Technical Sophistication
+> Basic Intermediate Advanced Expert Pioneer
+
+S1 S2 S3 S4 S5    
+
+> Prior Domain Knowledge
+> Uninformed Aware Educated Skilled Authoritative
+
+P1 P2 P3 P4 P5    
+
+> Organizational Capacity
+> Siloed Group Specialized Structured Institutional
+
+C1 C2 C3 C4 C5   
+
+> Operational Infrastructure
+> General Privileged Dedicated Extensive
+
+I1 I2 I3 I4    
+
+> Financial Capacity
+> Minimal Low Moderate High Substantial
+
+F1 F2 F3 F4 F5    
+
+> Time Horizon
+> Impulsive Expedient Deliberate Sustained Enduring
+
+T T2 T3 T4 T5
+
+> Profile 2 – Cyber: Small Financially Motivated Criminal Group
+
+Figure 9: Examples of completed threat actor taxonomies. 
+
+financial resources and minimal experience with AI systems beyond the basic consumer interfaces. This profile is notably jagged: time horizon and prior domain knowledge are the actor’s strongest characteristics, while technical sophistication and financial capacity are low. An evaluation implication for such a case could be that AI provides relatively little value as a knowledge gap filler, as they already possess the relevant expertise. A more pertinent question would be whether an AI system provides meaningful assistance as a collaborator or planning aid for someone who generally knows what they want to do but faces logistical and procedural constraints. Perhaps evaluations targeting this profile should therefore prioritize agentic planning tasks over knowledge retrieval benchmark, and use participants with genuine domain expertise (e.g., PhD or postdoctoral fellows) rather than novices (e.g., second-year undergraduates) as a proxy. 
+
+Example Cyber Profile: Small Financially Motivated Criminal Group 
+
+Attribute Vector : [ S3, P2, C2, I3, F3, T2]A small group of five actors motivated by financial gain, operating under informal leadership with access to commercially available exploit tooling and rented infrastructure. They have intermediate technical fluency with AI systems and moderate financial resources, but limited target-specific domain knowledge and no organizational depth beyond their immediate circle. Their time horizon is short, as they optimize for near-term payoff runs than sustained operations. 37 Compared with the first example, jaggedness spans in the opposite direction: technical sophistication and financial capacity are moderate, but domain knowledge is more of a constraint. Perhaps most useful to this group is having AI fill in knowledge gaps, providing target-specific reconnaissance, vulnerability context, and operational detail. Evaluations that target this profile should assess whether the model meaningfully speeds up target research and lowers the expertise threshold for executing specific attack methods. For this specific case, a design choice could be employing multiple, continuous sessions that reflect the group’s capacity for coordinated but time-bound engagement. These two profiles, despite occupying broadly similar positions in terms of overall capability, warrant different evaluation priorities and setups. The first calls for domain sub-expert participants (Ouagrham-Gormley, 2014) and agentic planning tasks; the second calls for multi-session designs and knowledge retrieval benchmarks. A character-ization that described both simply as “moderately capable actors" would collapse and obscure those differences. Hence, these profiles illustrate the taxonomy’s core utility: not describing actors with underspecified, conflated terms, but making the specific combination of constraints and capabilities visible to calibrate evaluation design against. 
+
+## 6.2 Evaluation Design Considerations 
+
+This section does not intend to be exhaustive. For each attribute, we identify an evaluation design consideration that follows directly from engaging in explicit threat actor characterization – intended to exemplify the kinds of questions our proposed taxonomy surfaces. The goal is to open more structured conversations about how threat actor assumptions can be translated into concrete design choices, which we hope future work builds upon to enable a more rigorous evaluation methodology for frontier AI misuse risks. 
+
+Technical Sophistication , Tiered Elicitation Protocols . Evaluations should ex-plicitly match elicitation effort to the technical sophistication tier being modeled. A 
+
+Basic -tier evaluation might test prompt-based jailbreaks, while an Expert -tier evaluation could include fine-tuning, systematic prompt optimization, and scaffold-augmented workflows. A robust practice would be making this mapping explicit and pre-registered rather than ad hoc, rendering the elicitation strategy a documented consequence of the assumed threat actor profile. 
+
+Prior Domain Knowledge , Preprepared Subtask Nudging . Evaluations can opera-tionalize an adversary’s assumed knowledge tier by generating domain-specific subtasks that approximate what the actor already knows, presenting them as contextual nudges so that measurement is not confounded by failure at steps the actor would not actually need AI assistance to complete. Rather than presenting the full task from scratch, this 38 approach may better simulate the interaction dynamic of an actor who brings partial capability and uses the model to address a specific gap. 
+
+Organizational Capacity , Role-differentiated, Sustained Engagement . Organiza-tional capacity implies having some sort of ability to maintain persistent, distributed engagement toward an objective across personnel. Single-session and single-actor eval-uations by design may underrepresent what an organizationally enabled adversary can accomplish. Evaluations seeking to target higher organizational tiers could test under settings of sustained, multi-session engagement with division of labor among participants. 
+
+Operational Infrastructure , Declared Environment Mapping. The environment made available to participants (e.g., software libraries, agent scaffolding, physical laboratory equipment) necessarily make implicit assumptions. We recommend that evaluators explicitly justify how their proxy environment maps onto a corresponding tier here in our taxonomy. Doing so not only helps ground the evaluations’ assumptions in a declared referent, but also make comparison across studies more faithful, where they would otherwise be confounded by unacknowledged differences in environmental configuration. 
+
+Financial Capacity , Budget-calibrated Scoping . Large companies of similar scale to frontier AI companies routinely allocate substantial amounts of money to fortify their cybersecurity posture 33 . A point worth raising is whether capability evaluations for frontier AI misuse risks should be scoped and budgeted with similar seriousness. If the adversaries of concern operate at moderate to high financial capacity tiers, evalu-ations designed under relatively trivial monetary expenditures may be systematically underestimating what those actors can do. 
+
+Time Horizon , Accounting for Warmup Time . At a mechanistic level, the structure of time conducted within an evaluation matters independently of its total duration. Participants are likely unfamiliar with the evaluation environment at the outset, mean-ing the first moments of engagement may be spent orienting rather than executing. Evaluations that allocate insufficient time relative to the time horizon tier being modeled may underestimate the capabilities of real adversaries – not because the model is less capable, but because the study design did not allow participants to reach full operational tempo. 
+
+## 6.3 Toward Institutional Practice 
+
+Section 6.1 provided examples using the proposed taxonomy to construct complete threat actor profiles. This exercise is ideally one component of a broader system           
+
+> 33 In 2021, Microsoft announced a$20 billion, five-year cybersecurity spending commitment: https://finance.yahoo.com/news/microsoft-commits-to-spend-20-billion-on-cybersecurity-213039278.html.
+
+39 of institutionalized practice. In a way, the taxonomy and accompanying concepts introduced in this paper could be viewed as setting the foundation as the ISO 9000:2015 standard sets the foundation for standardizing quality management systems (QMS) 34 .ISO 9000 outlines seven quality management principles 35 and definitions for 138 key terms, all to empower effective implementation of quality management systems and clear interoperability; our taxonomy outlines six adversary-relevant attributes and 29 total tiers to establish clarity in describing potential threat actors for frontier AI misuse risks. In each of their respective domains, ISO 9000 and our taxonomy supply the needed conceptual foundation and universal language for downstream use.  
+
+> Figure 10: The taxonomy integrates into two existing practices: frontier safety policies, where developers describe threat actors, and model cards, where evaluation details are reported. With third-party verification, these characterizations could be logged into a publicly viewable database.
+
+In a minimally intrusive manner, we envision the taxonomy fitting into a two-part structure that has emerged in industrial practice and is now being formalized in frontier AI governance. Firstly, frontier AI companies, within their FSPs 36 , should use all six attributes to detail the threat actors they are concerned about and against which their evaluations are calibrated, as exemplified in Section 6.1. These profiles will serve as the standing policy and can be modified over time. Secondly, in every model/system card 
+
+> 34 The ISO 9000:2015 standard, which we will refer to as ISO 9000 for brevity, is the heart of one of the world’s most widely recognized quality management frameworks, which has been implemented by 1.2+ million organizations spanning 180+ countries (ISO Library, 2015).
+> 35 These are: customer focus, leadership, engagement of people, process approach, improvement, evidence-based decision making, relationship management (ISO Library, 2015).
+> 36 Creating such policies voluntarily saw international traction in May 2024 at the AI Seoul Summit (Department for Science, Innovation & Technology, 2024), and some policymakers are now beginning to mandate it (see California SB-53 §22757.12(a); New York RAISE Act §1421).
+
+40 that accompanies each frontier model release 37 , evaluation descriptions should mention how the study attended to each of the six attributes. For verification purposes, an external independent body could audit frontier AI companies to ensure that (1) taxonomy attributes are sufficiently addressed in both FSP and model card writings and (2) the company conforms to their documented setup. This would be rather similar to the ISO 9000 family system, where organizations seeking ISO 9001 certification for their QMS must go through a third-party audit process (ISOQAR, 2026). Complementing this further to assist decision makers, this external body could simultaneously track and file these studies’ profiles and their subsequent evaluation results into a publicly viewable registry 38 , organized by the taxonomy matrix to indicate which attributes – and at what tiers – have been covered and where gaps remain. This mirrors the logic of pre-analysis plans in medicine and economics, where pre-commitment was introduced precisely because the absence of it produced systematic distortions in reported results; an analogy to this registry for frontier AI capability evaluations could be the American Economic Association (AEA) registry for economic RCTs, where instead threat actor profiles are collected and timestamped before evaluation results are known (Eble et al., 2016). Table 4 summarizes this two-part verification structure alongside the ISO 9001 analogue; Figure 10 displays the overall vision for institutional practice. 
+
+> 37 Per transparency measures, revealing model information on evaluation procedures is also beginning to take regulatory shape (see California SB-53 §22757.12(c); New York RAISE Act §1421; EU AI Act Article 53(1)(a) and Annex XI).
+> 38 Some dual-use information should be redacted, with only appropriate details made publicly available.
+
+41 Table 4: ISO 9001 Auditing v. Proposed Threat Actor Characterization System (TACS) 
+
+Step ISO 9001 (Quality Management) Threat Actor Characterization 
+
+Preparation Prepare a Quality Management System (QMS), including internal audits and management review Prepare a Frontier Safety Policy (FSP), characterizing potential threat actors with all six taxonomy attributes (Optional) A pre-assessment or gap-analysis style visit to check readiness —Stage 1 Audit Document review and readiness check FSP document review, verifying that all six attributes are sufficiently addressed Stage 2 Audit Full certification assessment of how the organization works in practice Per-model evaluation and card review, verifying that evaluation procedures conform to the documented threat actor profiles Ongoing Record Surveillance audits in years one and two of the three-year certification cycle Stage 1 audits repeat with each FSP update, if threat actor characterizations are modified Stage 2 audits repeat with each frontier model release; evaluation setup and results are stored and publicly displayed Periodic Renewal Recertification audit in year three — (see note below)  
+
+> Note. The proposed TACS does not include a pre-assessment or periodic recertification step. The former is likely unnecessary given that FSPs are public documents and readiness can be assessed without a separate visit. The latter is also likely unnecessary because TACS audits are event-driven rather than time-bounded: every qualifying FSP update triggers a Stage 1 audit and every frontier model release triggers a Stage 2 audit, ensuring continuous compliance verification with no gap in which drift can accumulate. ISOQAR (2026) provides the outline of stages for the ISO 9001 audit process.
+
+42 Chapter 7 
+
+# Conclusion 
+
+This paper proposes a six-attribute taxonomy for characterizing threat actors in pre-release risk management of frontier AI models, addressing the absence of a standardized structure for adversary analysis across the field. By decomposing threat actors into technical sophistication, prior domain knowledge, organizational capacity, operational infrastructure, financial capacity, and time horizon, the taxonomy provides a common vocabulary for articulating who an evaluation is calibrated against, and a basis for holding evaluation design accountable to that specification. The core argument is that for capability evaluations to be reliably interpreted, compared, or improved, there must be explicit adversary assumptions, and that those assumptions are currently made inconsistently and often implicitly across organizations. The practical implication is straightforward: before designing an evaluation, developers should populate a threat actor profile using the taxonomy, and treat that profile as a pre-commitment that constrains subsequent design choices. The taxonomy developed here would serve as the structured vocabulary for such a registry’s adversary specification fields. The application of this paper’s proposed approach is particularly urgent for open-weight model developers, who face the most acute pre-release risk management challenge and have, to date, largely not engaged with structured adversary profiling as part of their evaluation practice. Unlike closed API deployments, open-weight releases are irreversible: weights cannot be recalled, safeguards cannot be patched, and usage cannot be monitored. The decision must therefore be made prospectively, which makes the kind of explicit, structured adversary reasoning this taxonomy supports critical. 43 References 
+
+Ackerman, G., Behlendorf, B., Kallenborn, Z., Almakki, S., Clifford, D., LaTourette, J., . . . Wetzel, A. (2025). Biothreat benchmark generation framework for evaluating frontier ai models i: The task-query architecture. arXiv . Retrieved from https://arxiv.org/abs/2512.08130 
+
+Amazon. (2025). Frontier model safety framework. Amazon . Retrieved from https://www.amazon .science/publications/amazons-frontier-model-safety-framework 
+
+Anderson-Samways, B., Ee, S., O’Brien, J., Buhl, M., & Williams, Z. (2024). Responsible scaling: Comparing government guidance and company policy. Institute for AI Policy and Strategy . Re-trieved from https://static1.squarespace.com/static/64edf8e7f2b10d716b5ba0e1/ t/65f19a4a32c41d331ec54b87/1710332491804/Responsible+Scaling_+Comparing+ Government+Guidance+and+Company+Policy+%284%29.pdf 
+
+Anthropic. (2025). Detecting and countering misuse of ai: August 2025. Anthropic . Retrieved from https://www.anthropic.com/news/detecting-countering-misuse-aug-2025 
+
+Anthropic. (2026a). Frontier compliance framework. Anthropic . Retrieved from 
+
+https://trust.anthropic.com/doc/trust?rid=69a61159be46d1990abe8f3a&r= iz673w96495gyjer8h78n 
+
+Anthropic. (2026b). Responsible scaling policy version 3.1. Anthropic . Re-trieved from https://www-cdn.anthropic.com/files/4zrzovbb/website/ bf04581e4f329735fd90634f6a1962c13c0bd351.pdf 
+
+Anthropic. (2026c). System card: Claude mythos preview. anthropic.com . Retrieved from 
+
+https://www-cdn.anthropic.com/08ab9158070959f88f296514c21b7facce6f52bc.pdf 
+
+Anthropic. (2026d). System card: Claude opus 4.6. anthropic.com . Retrieved from https:// www-cdn.anthropic.com/6a5fa276ac68b9aeb0c8b6af5fa36326e0e166dd.pdf 
+
+Asal, V., & Rethemeyer, R. K. (2008). The nature of the beast: Organizational structures and the lethality of terrorist attacks. The University of Chicago Press Journals . Retrieved from https://www.journals.uchicago.edu/doi/abs/10.1017/ S0022381608080419?journalCode=jop 
+
+Bengio, Y., Mindermann, S., Privitera, D., Besiroglu, T., Bommasani, R., Casper, S., . . . Zeng, Y. (2026). International ai safety report. arXiv . Retrieved from https://arxiv.org/abs/ 2501.17805 
+
+Berg, F., Kölbel, J. F., & Rigobon, R. (2022). Aggregate confusion: The divergence of esg ratings. Review of Finance . Retrieved from https://revfin.org/aggregate-confusion -the-divergence-of-esg-ratings/ 
+
+Bommasani, R., Kapoor, S., Klyman, K., Longpre, S., Ramaswami, A., Zhang, D., . . . Liang, P. (2023). Considerations for governing open foundation models. Science . Retrieved from 
+
+https://www.science.org/doi/10.1126/science.adp1848 
+
+44 Borum, R., Fein, R., & Vossekuil, B. (2012). A dimensional approach to analyzing lone offender terrorism. Elsevier . Retrieved from https://pure.lib.usf.edu/ws/portalfiles/portal/ 40769505/fulltext.pdf 
+
+Brown, D., Sabbaghi, M., Sun, L., Robey, A., Pappas, G. J., Wong, E., & Hassani, H. (2025). Benchmarking misuse mitigation against covert adversaries. arXiv . Retrieved from https:// arxiv.org/abs/2506.06414 
+
+Caltagirone, S., Pendergast, A., & Betz, C. (2013). The diamond model of intrusion analysis. Active Response . Retrieved from https://www.activeresponse.org/wp-content/uploads/2013/ 07/diamond.pdf 
+
+Campos, S., Papadatos, H., Roger, F., Touzet, C., Quarks, O., & Murray, M. (2025). A frontier ai risk management framework: Bridging the gap between current ai practices and established risk management. arXiv . Retrieved from https://arxiv.org/pdf/2502.06656 
+
+Casper, S., O’Brien, K., Longpre, S., Seger, E., Klyman, K., Bommasani, R., . . . Hadfield-Menell, D. (2026). Open technical problems in open-weight ai model risk management. OpenReview .Retrieved from https://openreview.net/pdf?id=8QyGLnFkzc 
+
+Chan, K., O’Hanlon, M. E., Qi, H., & Zheng, L. (2026). Ai risks from non-state actors. Brook-ings . Retrieved from https://www.brookings.edu/articles/ai-risks-from-non-state -actors/ 
+
+Cohere. (2025). Secure ai frontier model framework. cohere . Retrieved from https://cohere.com/ security/the-cohere-secure-ai-frontier-model-framework-february-2025.pdf 
+
+Collins, H. (2010). Tacit & explicit knowledge . The University of Chicago Press. DeepSeek AI. (2025). Deepseek-v3.2: Pushing the frontier of open large language models. arXiv .Retrieved from https://arxiv.org/abs/2512.02556 
+
+Department for Science, Innovation & Technology. (2024). Frontier ai safety com-mitments, ai seoul summit 2024. Gov.uk . Retrieved from https://www.gov.uk/ government/publications/frontier-ai-safety-commitments-ai-seoul-summit-2024/ frontier-ai-safety-commitments-ai-seoul-summit-2024 
+
+Dreyfus, S. E. (2004). The five-stage model of adult skill acquisition. Sage Publi-cations . Retrieved from https://www.bumc.bu.edu/facdev-medicine/files/2012/03/ Dreyfus-skill-level.pdf 
+
+Eble, A., Boone, P., & Elbourne, D. (2016). On minimizing the risk of bias in randomized controlled trials in economics. The World Bank Economic Review . Retrieved from https://academic .oup.com/wber/article-abstract/31/3/687/2669701?redirectedFrom=fulltext 
+
+G42. (2025). Frontier ai safety framework. G42 . Retrieved from https://www.g42.ai/ application/files/9517/3882/2182/G42_Frontier_Safety_Framework_Publication _Version.pdf 
+
+Google DeepMind. (2025). Frontier safety framework version 3.0. Google Frontier Safety Framework .Retrieved from https://storage.googleapis.com/deepmind-media/DeepMind.com/ Blog/strengthening-our-frontier-safety-framework/frontier-safety-framework_3 .pdf 
+
+Götting, J., Medeiros, P., Sanders, J. G., Li, N., Phan, L., Elabd, K., . . . Donoughe, S. (2025). Virology capabilities test (vct): A multimodal virology q&a benchmark. arXiv . Retrieved from https://arxiv.org/abs/2504.16137 
+
+Gray Swan Arena. (2025). Uk aisi agent red-teaming challenge. Gray Swan Arena . Re-trieved from https://app.grayswan.ai/arena/challenge/agent-red-teaming/rules# 
+
+45 introduction 
+
+Ho, A., & Berg, A. (2025). Do the biorisk evaluations of ai labs actu-ally measure the risk of developing bioweapons? Epoch AI . Retrieved from https://epoch.ai/gradient-updates/do-the-biorisk-evaluations-of-ai-labs -actually-measure-the-risk-of-developing-bioweapons 
+
+ISO Library. (2015). Iso 9000. ISO Library . Retrieved from https://iso-library.com/standard/ 9000/ 
+
+ISO/IEC. (2019). Risk management – risk assessment techniques. International Electrotech-nical Commission . Retrieved from https://cdn.standards.iteh.ai/samples/20731/ fed109559624438c9350d9b18880016b/IEC-31010-2019.pdf 
+
+ISOQAR. (2026). The iso 9001 audit process explained. ISOQAR . Retrieved from https:// isoqar.com/iso-standards/iso-9001/audit/ 
+
+John, A. (2025). The impact of ai on the cyber offense-defense balance and the character of cyber conflict. arXiv . Retrieved from https://arxiv.org/abs/2504.13371v1 
+
+Kaloudi, N., & Li, J. (2020). The ai-based cyber threat landscape: A survey. ACM Computing Surveys (CSUR) . Retrieved from https://dl.acm.org/doi/10.1145/3372823 
+
+Kapoor, S., Bommasani, R., Klyman, K., Longpre, S., Ramaswami, A., Cihon, P., . . . Narayanan, A. (2024). On the societal impact of open foundation models. arXiv . Retrieved from 
+
+https://arxiv.org/abs/2403.07918 
+
+Kilberg, J. (2012). A basic model explaining terrorist group organizational structure. 
+
+Routledge . Retrieved from https://cat-int.org/wp-content/uploads/2022/04/ Studies-in-Conflict-Terrorism-A-Basic-Model-Explaining-Terrorist-Group -Organizational-Structure-Joshua-Kilberg-Vol.35-Issue-11-2012.pdf 
+
+Kimi Team. (2026). Kimi k2.5: Visual agentic intelligence. arXiv . Retrieved from https:// arxiv.org/abs/2602.02276 
+
+Koessler, L., & Schuett, J. (2023). Risk assessment at agi companies: A review of popular risk assessment techniques from other safety-critical industries. arXiv . Retrieved from 
+
+https://arxiv.org/abs/2307.08823 
+
+Krueger, D. (2026). Standing committee on access to information, privacy and ethics. num-ber 025, 1st session, 45th parliament. Canadian House of Commons, ETHI Committee Meeting . Retrieved from https://www.noscommunes.ca/documentviewer/en/45-1/ETHI/ meeting-25/evidence 
+
+Laurent, J. M., Janizek, J. D., Ruzo, M., Hinks, M. M., Hammerling, M. J., Narayanan, S., . . . Rodriques, S. G. (2024). Lab-bench: Measuring capabilities of language models for biology research. arXiv . Retrieved from https://arxiv.org/abs/2407.10362 
+
+Li, N., Pan, A., Gopal, A., Yue, S., Berrios, D., Gatti, A., . . . Hendrycks, D. (2024). The wmdp benchmark: Measuring and reducing malicious use with unlearning. arXiv . Retrieved from 
+
+https://arxiv.org/abs/2403.03218 
+
+Lockheed Martin. (2025). The cyber kill chain. Lockheed Martin . Retrieved from https:// www.lockheedmartin.com/en-us/capabilities/cyber/cyber-kill-chain.html 
+
+Longpre, S., Kapoor, S., Klyman, K., Ramaswami, A., Bommasani, R., Blili-Hamelin, B., . . . Henderson, P. (2024). A safe harbor for ai evaluation and red teaming. arXiv . Retrieved from https://arxiv.org/abs/2403.04893 
+
+Magic. (2024). Agi readiness policy. Magic . Retrieved from https://magic.dev/agi-readiness -policy 
+
+46 Mandiant. (2026). M-trends 2026 report: Real-world investigations and actionable defense insights. Google Cloud . Retrieved from https://cloud.google.com/security/resources/ m-trends 
+
+Meta. (2026). Advanced ai scaling framework version 2.0. Meta . Retrieved from https:// ai.meta.com/static-resource/Meta_Advanced-AI-Scaling-Framework-v2 
+
+METR. (2026). Common elements of frontier ai safety policies. metr.org . Retrieved from 
+
+https://metr.org/common-elements 
+
+Microsoft. (2025). Frontier governance framework. Microsoft . Retrieved from https:// cdn-dynmedia-1.microsoft.com/is/content/microsoftcorp/microsoft/final/en-us/ microsoft-brand/documents/Microsoft-Frontier-Governance-Framework.pdf 
+
+Miller, G. A. (1956). The magical number seven, plus or minus two: Some limits on our capacity for processing information. Psychological Review . Retrieved from https://psycnet.apa.org/ record/1957-02914-001 
+
+Mitchell, A. (2023). What does it cost to start an in-house pathology lab? Lighthouse Lab Services . Retrieved from https://www.lighthouselabservices.com/what-does-it-cost -to-start-an-in-house-pathology-lab/ 
+
+Muncaster, P. (2022). Conti group spent $6m on salaries, tools and services in a year. Infosecurity Magazine . Retrieved from https://www.infosecurity-magazine.com/news/conti-group -6m-salaries-tools/ 
+
+NAVER. (2024). Ai safety framework. Clova . Retrieved from https://clova.ai/en/tech-blog/ en-navers-ai-safety-framework-asf 
+
+Nehorayoff, A. A., Ash, B., & Smith, D. S. (2016). Aum shinrikyo’s nuclear and chemical weapons development efforts. Journal of Strategic Security . Retrieved from https:// digitalcommons.usf.edu/jss/vol9/iss1/5/ 
+
+Nevo, S., Lahav, D., Karpur, A., Bar-On, Y., Bradley, H. A., & Alstott, J. (2024). Securing ai model weights. Rand Research Reports . Retrieved from https://www.rand.org/pubs/ research_reports/RRA2849-1.html 
+
+Nickerson, R. C., Varshney, U., & Muntermann, J. (2013). A method for taxonomy development and its application in information systems. European Journal of Information Systems . Retrieved from https://www.tandfonline.com/doi/full/10.1057/ejis.2012.26 
+
+Nvidia. (2025). Frontier ai risk assessment. Nvidia . Retrieved from https://images.nvidia.com/ content/pdf/NVIDIA-Frontier-AI-Risk-Assessment.pdf 
+
+Oftedal, E. (2015). The financing of jihadi terrorist cells in europe. Norwegian Defense Re-search Establishment . Retrieved from https://www.ffi.no/en/publications-archive/ the-financing-of-jihadi-terrorist-cells-in-europe# 
+
+OpenAI. (2025). Preparedness framework version 2. OpenAI . Retrieved from https://cdn.openai .com/pdf/18a02b5d-6b67-4cec-ab64-68cdfbddebcd/preparedness-framework-v2.pdf 
+
+OpenAI. (2026). Introducing the openai safety bug bounty program. OpenAI.com . Retrieved from 
+
+https://openai.com/index/safety-bug-bounty/ 
+
+Ouagrham-Gormley, S. B. (2014). Barriers to bioweapons: The challenges of expertise and organization for weapons development . Cornell University Press. Pantucci, R. (2011). A typology of lone wolves: Preliminary analysis of lone islamist terror-ists. The International Centre for the Study of Radicalisation and Political Violence . Re-trieved from https://icsr.info/wp-content/uploads/2011/04/1302002992ICSRPaper _ATypologyofLoneWolves_Pantucci.pdf 
+
+47 Paskov, P., Lee, J., Brady, K., & Worland, A. (2026). Measuring biological capabilities and risks of ai agents. RAND . Retrieved from https://www.rand.org/pubs/perspectives/ PEA4710-1.html 
+
+Paskov, P., Wei, K., Hong, S. Z., Bateyko, D., Roberts-Gaal, X., Ezell, C., . . . Guest, E. (2026). Rcts & human uplift studies: Methodological challenges and practical solutions for frontier ai evaluation. arXiv . Retrieved from https://arxiv.org/abs/2603.11001 
+
+Patel, D., Kourabi, A., Doug, & Knuhtsen, R. (2025). Deepseek debates: Chinese leadership on cost, true training cost, closed model margin impacts. Semianalysis . Retrieved from 
+
+https://newsletter.semianalysis.com/p/deepseek-debates 
+
+Potter, Y., Guo, W., Wang, Z., Shi, T., Zhang, A., Kelley, P. G., . . . Son, D. (2025). Frontier ai’s impact on the cybersecurity landscape. arXiv . Retrieved from https://arxiv.org/abs/ 2504.05408v3 
+
+Powers, M. J. (2001). Deterring terrorism with cbrn weapons: Developing a conceptual framework. 
+
+NCJRS Virtual Library . Retrieved from https://www.ojp.gov/ncjrs/virtual-library/ abstracts/deterring-terrorism-cbrn-weapons-developing-conceptual-framework 
+
+Pulla, P., & Schulson, M. (2025). As biolabs multiply globally, some experts worry about over-sight. Undark . Retrieved from https://undark.org/2025/01/02/unleashed-biosafety -lab-expansion/ 
+
+Revill, J., & Jefferson, C. (2013). Tacit knowledge and the biological weapons regim. Oxford Academic . Retrieved from https://academic.oup.com/spp/article/41/5/597/1636559 ?login=false 
+
+Rodriguez, M., Popa, R. A., Liang, L., Wang, A., Rahtz, M., Kaskasoli, A., . . . Flynn, F. (2025). A framework for evaluating emerging cyberattack capabilities of ai. arXiv . Retrieved from 
+
+http://arxiv.org/abs/2503.11917 
+
+Rose, S., Moulange, R., Smith, J., & Nelson, C. (2024). The near-term im-pact of ai on biological misuse. The Centre for Long-Term Resilience . Re-trieved from https://www.longtermresilience.org/reports/the-near-term-impact -of-ai-on-biological-misuse/ 
+
+Roth, J., Greenburg, D., & Wille, S. (2004). National commission on terrorist attacks upon the united states: Monograph on terrorist financing. CyberCemetery . Retrieved from https:// govinfo.library.unt.edu/911/staff_statements/911_TerrFin_Monograph.pdf 
+
+Salaudeen, O., Reuel, A., Ahmed, A., Bedi, S., Robertson, Z., Sundar, S., . . . Koyejo, S. (2025). Measurement to meaning: A validity-centered framework for ai evaluation. arXiv . Retrieved from https://arxiv.org/abs/2505.10573 
+
+Saltzman, J. (2019). It costs $4,600 a month to rent a lab bench here. for startups, it’s the place to be. Stat . Retrieved from https://www.statnews.com/2019/03/06/labcentral-bench -startups-kendall/ 
+
+Sharma, M., Tong, M., Mu, J., Wei, J., Kruthoff, J., Goodfriend, S., . . . Perez, E. (2025). Constitutional classifiers: Defending against universal jailbreaks across thousands of hours of red teaming. arXiv . Retrieved from https://arxiv.org/abs/2501.18837 
+
+Smith, B. L., Gruenwald, J., & Damphousse, K. R. (2017). Sequencing terrorists’ precursor behav-iors: A crime specific analysis. US Department of Justice: Office of Justice Programs .Retrieved from https://www.ojp.gov/library/publications/sequencing-terrorists -precursor-behaviors-crime-specific-analysis 
+
+Somala, V., & Emberson, L. (2025). Frontier ai performance becomes accessible on consumer 
+
+48 hardware within a year. Epoch AI . Retrieved from https://epoch.ai/data-insights/ consumer-gpu-model-gap 
+
+Strom, B. E., Applebaum, A., Miller, D. P., Nickels, K. C., Pennington, A. G., & Thomas, C. B. (2020). Mitre att&ck: Design and philosophy. The MITRE Corporation . Retrieved from 
+
+https://attack.mitre.org/docs/ATTACK_Design_and_Philosophy_March_2020.pdf 
+
+UK AISI. (2025). Managing risks from increasingly capable open-weight ai systems. UK AI Security Institute . Retrieved from https://www.aisi.gov.uk/blog/managing-risks-from -increasingly-capable-open-weight-ai-systems 
+
+UK AISI. (2026). Evidence for inference scaling in ai cyber tasks: Increased eval-uation budgets reveal higher success rates. UK AI Security Institute . Retrieved from https://www.aisi.gov.uk/blog/evidence-for-inference-scaling-in-ai-cyber -tasks-increased-evaluation-budgets-reveal-higher-success-rates 
+
+US NTIA. (2024). Dual-use foundation models with widely available model weights. National Telecommunications and Information Administration . Retrieved from https://www.ntia .gov/sites/default/files/publications/ntia-ai-open-model-report.pdf 
+
+Wallace, E., Watkins, O., Wang, M., Chen, K., & Koch, C. (2025). Estimating worst-case frontier risks of open-weight llms. arXiv . Retrieved from https://arxiv.org/abs/2508.03153 
+
+Wang, J., Huang, K., Klyman, K., & Bommasani, R. (2025). Do ai companies make good on voluntary commitments to the white house? arXiv . Retrieved from https://arxiv.org/ abs/2508.08345 
+
+Wei, B., Che, Z., Li, N., Sehwag, U. M., Götting, J., Nedungadi, S., . . . Mazeika, M. (2025). Best practices for biorisk evaluations on open-weight bio-foundation models. arXiv . Retrieved from http://arxiv.org/abs/2510.27629 
+
+Wei, K., Guth, S., Wu, G., & Paskov, P. (2025). Methodological challenges in agentic evaluations of ai systems. Workshop on Technical AI Governance (TAIG) at ICML 2025 . Retrieved from https://openreview.net/pdf?id=ZhSKG8IslC 
+
+Withers, C. (2025). Tipping the scales: Emerging ai capabilities and the cyber offense-defense balance. Center for a New American Security . Retrieved from 
+
+https://www.cnas.org/publications/reports/tipping-the-scales?utm_medium= email&utm_campaign=Tipping%20the%20Scales%20September%2023%202025&utm _content=Tipping%20the%20Scales%20September%2023%202025+Preview+CID _1f42ed45c20da6d5279734e1b03159f6&utm_source=Campaign%20Monitor&utm_term= Tipping%20the%20Scales%20Emerging%20AI%20Capabilities%20and%20the%20Cyber% 20Offense-Defense%20Balance 
+
+Wolfram Research, Inc. (2018). How medals are determined. imo.wolfram.com .Retrieved from https://web.archive.org/web/20180101152211/http://imo.wolfram .com/scores/howmedals.html 
+
+xAI. (2025). Frontier artificial intelligence framework. xAI . Retrieved from https://data.x.ai/ 2025-08-20-xai-risk-management-framework.pdf 
+
+Zhang, A. K., Perry, N., Dulepet, R., Ji, J., Menders, C., Lin, J. W., . . . Liang, P. (2025). Cybench: A framework for evaluating cybersecurity capabilities and risks of language models. arXiv .Retrieved from https://arxiv.org/abs/2408.08926 
+
+Zhang, C. B. C., Knight, C. Q., Kruus, N., Hausenloy, J., Medeiros, P., Li, N., . . . Michael, J. (2026). Llm novice uplift on dual-use, in silico biology tasks. arXiv . Retrieved from 
+
+https://arxiv.org/abs/2602.23329 
+
+49

@@ -1,0 +1,54 @@
+{
+  "label": "2026-08-28",
+  "date": "2026-08-28",
+  "generated_at": "2026-08-28T04:03:29",
+  "count": 3,
+  "papers": [
+    {
+      "paper_id": "202608/28/2608.26237v1-how-do-llm-agents-actually-get-the-flag-trace-level-provenance-for-agentic-offensive-security-evaluation",
+      "section": "deep",
+      "title_en": "How Do LLM Agents Actually Get the Flag? Trace-Level Provenance for Agentic Offensive Security Evaluation",
+      "authors": "Kimberly Milner, Minghao Shao, Nanda Rani, Haoran Xi, Venkata Sai Charan Putrevu, Meet Udeshi, Sandeep K. Shukla, Prashanth Krishnamurthy, Farshad Khorrami, Muhammad Shafique, Ramesh Karri",
+      "date": "2026-08-26",
+      "pdf": "https://arxiv.org/pdf/2608.26237v1",
+      "score": "9.0",
+      "evidence": "评估LLM智能体的攻击性安全能力，探索网络环境中的能力边界。",
+      "tldr": "现有CTF基准评估LLM代理攻击性安全能力时，只给二元判定或总分，混淆真实利用与直接flag暴露、记忆、外部查询、猜测捷径，高估能力。本文提出CTF-ABACUS追踪审计框架，将每次运行重建为证据支撑的解决档案，分解渗透阶段和技术，定位利用与flag首次出现。在六个模型于240挑战的1435次尝试上，追踪验证利用仅占恢复flag的62-87%，捷径轨迹更浅。这推动评估从统计flag转向验证实际利用，为设计更能隔离攻击性能力的基准提供基础。",
+      "tags": "query:ca",
+      "abstract_en": "Capture-the-Flag (CTF) benchmarks are widely used to assess the offensive security capabilities of autonomous language-model agents. Evaluations rely on shallow binary judgments or aggregate scores, overlooking the agent's trajectory to the flag. Consequently actual exploitation is conflated with direct flag exposure, memorized recall, external lookup, guessing, and unsupported claims, potentially overstating the agent's cybersecurity capability. We introduce CTF-ABACUS, a trace-based agent auditing framework that reconstructs each run as an evidence-grounded solve profile. By decomposing agent actions into penetration-testing phases and categorical techniques, it identifies where exploitation occurs, where the flag first appears, and whether the recovered flag is supported by demonstrated behavior. Aggregating solve profiles across agents yields challenge signatures that reveal whether success was achieved via the intended exploit or via shortcut pathways. We apply CTF-ABACUS to 1,435 CTF attempts by six frontier and open-source models on 240 challenges, yielding 2,870 solve profiles under two judge lenses. Trace-verified exploits account for only 62-87% of recovered flags across benchmarks, while shortcut recoveries follow substantially shallower trajectories. These findings shift CTF evaluation from counting recovered flags to verifying demonstrated exploitation and provide a basis for designing benchmarks that better isolate the offensive capabilities.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202608/28/2608.26882v1-plcbench-can-autonomous-llm-agents-turn-plc-access-into-sustained-physical-impact",
+      "section": "deep",
+      "title_en": "PLCBench: Can Autonomous LLM Agents Turn PLC Access into Sustained Physical Impact?",
+      "authors": "Yitian Zhou, Jingyu Zheng, Qiliang Jiang, Linkang Du, Haoming Liu, Lichao Wu, Shiyi Zhao, Mengxiang Liu, Ruilong Deng",
+      "date": "2026-08-27",
+      "pdf": "https://arxiv.org/pdf/2608.26882v1",
+      "score": "9.0",
+      "evidence": "首个真实PLC硬件在环框架，刻画自主LLM智能体从网络到物理的能力与边界",
+      "tldr": "工业控制系统依赖PLC连接网络与物理控制，但现有LLM代理攻击评估止于软件利用或写入，无法反映持续物理风险。为此提出PLCBENCH，首个真实PLC硬件在环框架，结合原生交互、商用PLC执行、闭环过程仿真与独立验证。在四个商用PLC与四个闭环工作负载上，跨五个LLM家族240回合中31.3%持续达成物理目标；98回合未通过原生读取，62回合写入后未持续。该工作将故障定位到配置的PLC过程部署，为未来防御评估提供干预点，并开源代码与复现管道。",
+      "tags": "query:ca",
+      "abstract_en": "Industrial control systems (ICSs) rely on programmable logic controllers (PLCs) to connect networked computation with physical control. Tool-using large language model (LLM) agents represent an emerging attack threat: can an autonomous agent convert a network-reachable PLC into sustained adverse physical impact? However, existing evaluations focus on digital tasks or individual stages of PLC testing. In ICSs, evaluations that stop at software exploitation, an accepted write, or tool access may therefore mischaracterize physical risk.   We present PLCBENCH, to our knowledge, the first real-PLC hardware-in-the-loop (HIL) framework for characterizing this cyber-to-physical capability and its boundaries. It combines vendor-native interaction, commercial PLC execution, closed-loop reduced-order process simulation, and independent outcome verification. A deterministic evaluator applies fixed rules to runner, communication, PLC-object, and process records to assign six hidden diagnostic flags, distinguishing usable PLC interaction, process-linked manipulation, and sustained physical impact. We instantiate PLCBENCH on four commercial PLCs crossed with four closed-loop workloads. Across five LLM families and 240 real-PLC episodes, 75 episodes (31.3%) sustain their respective physical objectives. Stagewise results show that 98 episodes stop before a valid native read, whereas 62 reach a process-linked write but do not sustain the final objective. Notably, richer process observation is associated with an increase in conditional objective attainment after a process-linked write from 44.2% to 64.0%. These measurements localize failure in configured PLC-process deployments and identify intervention points for future defense evaluation. To support reproducibility, we release the safely disclosable PLCBENCH code and a software-only reproduction pipeline through the accompanying artifact.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202608/28/2608.25361v1-toward-a-threat-actor-profiling-taxonomy-for-pre-release-risk-management-of-open-weight-frontier-models",
+      "section": "quick",
+      "title_en": "Toward a Threat Actor Profiling Taxonomy for Pre-Release Risk Management of Open-Weight Frontier Models",
+      "authors": "James Zhang",
+      "date": "2026-08-26",
+      "pdf": "https://arxiv.org/pdf/2608.25361v1",
+      "score": "6.0",
+      "evidence": "用于画像威胁行为者的分类法，为风险管理和智能体建模提供依据",
+      "tldr": "当前前沿模型预发布风险评估常将威胁行为者假设隐含或不一致，缺乏明确性。本文提出六属性威胁行为者画像分类法，涵盖技术成熟度、领域知识、组织能力、基础设施、财务能力和时间范围，并基于已有文献划分经验层级。该分类法可作为研究基础设施，支持评估前预先指定对手假设，提升可解释性与可比性。尤其对开源权重模型开发者，有助于在不可逆发布前系统性预期对抗性推理。",
+      "tags": "query:ca",
+      "abstract_en": "Pre-release risk management for frontier AI misuse risks routinely leaves threat actor assumptions implicit, inconsistently specified, or ungrounded. This capstone argues that explicit adversary characterization should be regarded as a prerequisite for evaluations that are interpretable, comparable, and faithful to the risks they target. We propose a six-attribute taxonomy (covering technical sophistication, prior domain knowledge, organizational capacity, operational infrastructure, financial capacity, and time horizon) with empirically grounded tiers derived from existing terrorism, biosecurity, and cybersecurity literature. The taxonomy is designed to function as research infrastructure: a common language for pre-specifying adversary assumptions before evaluations are conducted, analogous to pre-analysis plans for randomized controlled trials (RCTs) in medicine and economics. Its application is particularly urgent for open-weight model developers, for whom release decisions are irreversible and must anticipate adversarial reasoning.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}
