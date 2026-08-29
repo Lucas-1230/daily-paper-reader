@@ -1,0 +1,25 @@
+{
+  "date": "20260829",
+  "date_label": "",
+  "generated_at": "2026-08-29 03:33:34 UTC",
+  "recommend_exists": true,
+  "run_count": 1,
+  "papers": [
+    {
+      "paper_id": "2608.27439v1",
+      "route": "202608/29/2608.27439v1-redevoagent-automatic-red-teaming-agent-with-experience-driven-skill-evolution",
+      "title": "RedEvoAgent: Automatic Red-Teaming Agent with Experience-Driven Skill Evolution",
+      "section": "deep",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "ca"
+        }
+      ],
+      "score": 8.0,
+      "evidence": "自动红队智能体，进化攻击技能，可用于测试LLM网络犯罪能力",
+      "first_seen_at": "2026-08-29 03:33:34 UTC",
+      "updated_at": "2026-08-29 03:33:34 UTC"
+    }
+  ]
+}

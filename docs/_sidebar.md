@@ -1,6 +1,9 @@
 * <a class="dpr-sidebar-root-link" href="#/">首页</a>
 * <a class="dpr-sidebar-root-link dpr-sidebar-noactive-link" href="javascript:void(0)" data-dpr-hash="#/tutorial/README">使用教程</a>
 * Daily Papers
+  * 2026-08-29 <!--dpr-date:20260829-->
+    * 精读区
+      * <a class="dpr-sidebar-item-link dpr-sidebar-item-structured" href="#/202608/29/2608.27439v1-redevoagent-automatic-red-teaming-agent-with-experience-driven-skill-evolution" data-sidebar-item="{&quot;title&quot;: &quot;RedEvoAgent: Automatic Red-Teaming Agent with Experience-Driven Skill Evolution&quot;, &quot;link&quot;: &quot;https://arxiv.org/abs/2608.27439v1-redevoagent-automatic-red-teaming-agent-with-experience-driven-skill-evolution&quot;, &quot;score&quot;: &quot;8.0&quot;, &quot;tags&quot;: [{&quot;kind&quot;: &quot;query&quot;, &quot;label&quot;: &quot;ca&quot;}], &quot;evidence&quot;: &quot;自动红队智能体，进化攻击技能，可用于测试LLM网络犯罪能力&quot;}">RedEvoAgent: Automatic Red-Teaming Agent with Experience-Driven Skill Evolution</a>
   * 2026-08-28 <!--dpr-date:20260828-->
     * 精读区
       * <a class="dpr-sidebar-item-link dpr-sidebar-item-structured" href="#/202608/28/2608.26237v1-how-do-llm-agents-actually-get-the-flag-trace-level-provenance-for-agentic-offensive-security-evaluation" data-sidebar-item="{&quot;title&quot;: &quot;How Do LLM Agents Actually Get the Flag? Trace-Level Provenance for Agentic Offensive Security Evaluation&quot;, &quot;link&quot;: &quot;https://arxiv.org/abs/2608.26237v1-how-do-llm-agents-actually-get-the-flag-trace-level-provenance-for-agentic-offensive-security-evaluation&quot;, &quot;score&quot;: &quot;9.0&quot;, &quot;tags&quot;: [{&quot;kind&quot;: &quot;query&quot;, &quot;label&quot;: &quot;ca&quot;}], &quot;evidence&quot;: &quot;评估LLM智能体的攻击性安全能力，探索网络环境中的能力边界。&quot;}">How Do LLM Agents Actually Get the Flag? Trace-Level Provenance for Agentic Offensive Security Evaluation</a>

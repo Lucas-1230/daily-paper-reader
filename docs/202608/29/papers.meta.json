@@ -1,0 +1,24 @@
+{
+  "label": "2026-08-29",
+  "date": "2026-08-29",
+  "generated_at": "2026-08-29T03:33:50",
+  "count": 1,
+  "papers": [
+    {
+      "paper_id": "202608/29/2608.27439v1-redevoagent-automatic-red-teaming-agent-with-experience-driven-skill-evolution",
+      "section": "deep",
+      "title_en": "RedEvoAgent: Automatic Red-Teaming Agent with Experience-Driven Skill Evolution",
+      "authors": "Junjie Zhang, Hui Liu, Kecheng Chen, Xianbo Mo, Changsheng Chen, Haoliang Li",
+      "date": "2026-08-27",
+      "pdf": "https://arxiv.org/pdf/2608.27439v1",
+      "score": "8.0",
+      "evidence": "自动红队智能体，进化攻击技能，可用于测试LLM网络犯罪能力",
+      "tldr": "LLM智能体在真实执行环境中面临越狱导致有害工具调用和持久状态改变的高风险，现有自动红队方法依赖固定攻击或基于轨迹检索的智能体攻击，存在检索偏差、工具信用不清和上下文开销大等问题。RedEvoAgent将跨案例攻击轨迹提炼为简洁可读的攻击技能，通过工具效能分析与Deciding-Tool Attribution实现技能自适应进化，并用验证棘轮筛选有效更新。实验表明其优于固定与智能体基线，提升工具效率，支持跨模型与环境迁移，为黑盒红队提供高效可解释方案。",
+      "tags": "query:ca",
+      "abstract_en": "LLM-based agents are increasingly deployed in product-level execution harnesses, where jailbreaks can trigger harmful tool use and persistent state changes, creating greater risks than unsafe text generation alone. Existing automatic red-teaming methods often rely on fixed attacks, while recent agentic attackers coordinate multiple jailbreak tools and show stronger potential through trajectory-based retrieval. However, such retrieval can reuse misleading experiences due to retrieval bias and unclear tool credit, and full trajectories add context overhead while reducing interpretability. We propose RedEvoAgent, a black-box red-teaming agent that distills cross-case attack trajectories into a concise, human-readable attack skill. The attack skill adaptively evolves through tool-effectiveness profiling and Deciding-Tool Attribution for skill updates, and a validation ratchet that retains only updates improving validation performance. Experiments on multiple benchmarks, target models, and target execution harnesses show that RedEvoAgent outperforms fixed and agentic baselines, improves tool efficiency, and transfers across attacker models and target execution harnesses.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}
