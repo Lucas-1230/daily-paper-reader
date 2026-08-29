@@ -1,9 +1,9 @@
 {
   "date": "20260829",
   "date_label": "",
-  "generated_at": "2026-08-29 03:33:34 UTC",
+  "generated_at": "2026-08-29 22:41:11 UTC",
   "recommend_exists": true,
-  "run_count": 1,
+  "run_count": 2,
   "papers": [
     {
       "paper_id": "2608.27439v1",
@@ -17,9 +17,41 @@
         }
       ],
       "score": 8.0,
-      "evidence": "自动红队智能体，进化攻击技能，可用于测试LLM网络犯罪能力",
+      "evidence": "对抗性红队智能体测试LLM智能体的有害工具使用",
       "first_seen_at": "2026-08-29 03:33:34 UTC",
-      "updated_at": "2026-08-29 03:33:34 UTC"
+      "updated_at": "2026-08-29 22:41:11 UTC"
+    },
+    {
+      "paper_id": "2608.22512v1",
+      "route": "202608/29/2608.22512v1-hansard-a-reference-architecture-for-forensic-readiness-runtime-witnessing-and-graded-attribution-in-autonomous-multi-agent-ai-systems",
+      "title": "HANSARD: A Reference Architecture for Forensic Readiness, Runtime Witnessing, and Graded Attribution in Autonomous Multi-Agent AI Systems",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "ca"
+        }
+      ],
+      "score": 6.0,
+      "evidence": "涉及多智能体AI入侵行动与归因，属于网络犯罪多智能体主题",
+      "first_seen_at": "2026-08-29 22:41:11 UTC",
+      "updated_at": "2026-08-29 22:41:11 UTC"
+    },
+    {
+      "paper_id": "2608.25667v1",
+      "route": "202608/29/2608.25667v1-ai-slop-and-hallucinations-in-vulnerability-assessment-a-survey-on-reasoning-failures-and-trustworthy-mitigation",
+      "title": "AI Slop and Hallucinations in Vulnerability Assessment: A Survey on Reasoning Failures and Trustworthy Mitigation",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "ca"
+        }
+      ],
+      "score": 6.0,
+      "evidence": "综述大语言模型在漏洞评估中的推理失败与幻觉问题。",
+      "first_seen_at": "2026-08-29 22:41:11 UTC",
+      "updated_at": "2026-08-29 22:41:11 UTC"
     }
   ]
 }

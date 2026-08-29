@@ -1,8 +1,8 @@
 {
   "label": "2026-08-29",
   "date": "2026-08-29",
-  "generated_at": "2026-08-29T03:33:50",
-  "count": 1,
+  "generated_at": "2026-08-29T22:41:24",
+  "count": 3,
   "papers": [
     {
       "paper_id": "202608/29/2608.27439v1-redevoagent-automatic-red-teaming-agent-with-experience-driven-skill-evolution",
@@ -16,6 +16,36 @@
       "tldr": "LLM智能体在真实执行环境中面临越狱导致有害工具调用和持久状态改变的高风险，现有自动红队方法依赖固定攻击或基于轨迹检索的智能体攻击，存在检索偏差、工具信用不清和上下文开销大等问题。RedEvoAgent将跨案例攻击轨迹提炼为简洁可读的攻击技能，通过工具效能分析与Deciding-Tool Attribution实现技能自适应进化，并用验证棘轮筛选有效更新。实验表明其优于固定与智能体基线，提升工具效率，支持跨模型与环境迁移，为黑盒红队提供高效可解释方案。",
       "tags": "query:ca",
       "abstract_en": "LLM-based agents are increasingly deployed in product-level execution harnesses, where jailbreaks can trigger harmful tool use and persistent state changes, creating greater risks than unsafe text generation alone. Existing automatic red-teaming methods often rely on fixed attacks, while recent agentic attackers coordinate multiple jailbreak tools and show stronger potential through trajectory-based retrieval. However, such retrieval can reuse misleading experiences due to retrieval bias and unclear tool credit, and full trajectories add context overhead while reducing interpretability. We propose RedEvoAgent, a black-box red-teaming agent that distills cross-case attack trajectories into a concise, human-readable attack skill. The attack skill adaptively evolves through tool-effectiveness profiling and Deciding-Tool Attribution for skill updates, and a validation ratchet that retains only updates improving validation performance. Experiments on multiple benchmarks, target models, and target execution harnesses show that RedEvoAgent outperforms fixed and agentic baselines, improves tool efficiency, and transfers across attacker models and target execution harnesses.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202608/29/2608.22512v1-hansard-a-reference-architecture-for-forensic-readiness-runtime-witnessing-and-graded-attribution-in-autonomous-multi-agent-ai-systems",
+      "section": "quick",
+      "title_en": "HANSARD: A Reference Architecture for Forensic Readiness, Runtime Witnessing, and Graded Attribution in Autonomous Multi-Agent AI Systems",
+      "authors": "Christos Sardianos, Iliana Pla, Vasilis Efthymiou, Iraklis Varlamis, Thomas Lagkas, Panagiotis Sarigiannidis, Georgios Th. Papadopoulos",
+      "date": "2026-08-23",
+      "pdf": "https://arxiv.org/pdf/2608.22512v1",
+      "score": "6.0",
+      "evidence": "涉及多智能体AI入侵行动与归因，属于网络犯罪多智能体主题",
+      "tldr": "自主多智能体系统在金融、软件供应链等领域引发归因难题，现有取证、因果和审计方法分别存在抽象不当、假设模型或信任自记录等缺陷。HANSARD 将问责制视为生命周期属性，通过操作前封存就绪配置、在五个代理不可达瓶颈点捕获、构建 PROV-DM 对齐因果图并实时门控，以及事件后重放和协同残差度量使归因洗白可见。该方法使遗漏可检测，并将原因、责任与问责分级报告，为多智能体 AI 系统提供可靠的问责基础。",
+      "tags": "query:ca",
+      "abstract_en": "Autonomous multi-agent systems nowadays act in finance, software supply chains, and security operations. Already, the first largely AI-orchestrated intrusion campaigns have been reported. Yet, when such a system causes harm, no method can robustly establish what happened, what caused it, or who is accountable. This is because provenance forensics works at the wrong abstraction, formal causality assumes the causal model, and agent auditing trusts self-recording. The target failure mode is, thus, attribution laundering, i.e., spreading an act across redundant agents until none is a but-for cause. Worse, the record is produced by the suspects, which comprises the assumption adopted throughout this work. Agents may therefore anticipate the investigation and the part of logging infrastructure may itself collude. In this paper, HANSARD is proposed, a reference architecture treating accountability as a life-cycle property. First, a readiness profile sealed before operation bounds what later findings may claim. Second, capturing at five choke points beyond the agents' reach makes omissions detectable, not only tampering. Third, a typed PROV-DM-aligned causal graph accrues as the system runs, and three indicators read it live to gate oversight without adjudicating. Fourth, post-incident replay yields contingent effects under the modified Halpern-Pearl definition, together with a compensation-set size. Finally, a synergy residual measures harm due to the combination rather than to individuals, making laundering visible. Cause, responsibility and accountability are then reported separately, each capped by an evidentiary tier, while a future research agenda is also provided.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202608/29/2608.25667v1-ai-slop-and-hallucinations-in-vulnerability-assessment-a-survey-on-reasoning-failures-and-trustworthy-mitigation",
+      "section": "quick",
+      "title_en": "AI Slop and Hallucinations in Vulnerability Assessment: A Survey on Reasoning Failures and Trustworthy Mitigation",
+      "authors": "Junchen Ding, Jialiang Dong, Yichen Zhu, Yi Liu, Gelei Deng, Willy Susilo, Siqi Ma, Yuekang Li",
+      "date": "2026-08-26",
+      "pdf": "https://arxiv.org/pdf/2608.25667v1",
+      "score": "6.0",
+      "evidence": "综述大语言模型在漏洞评估中的推理失败与幻觉问题。",
+      "tldr": "大语言模型用于漏洞评估引发人工智能垃圾（AI slop）信任危机，幻觉漏洞与错误补丁使人工分诊承受类似拒绝服务攻击的认知负担。本文通过结构化文献综述形式化人工智能垃圾分类，提出演绎覆盖分数度量安全专家因果演绎推理与模型概率生成之间的差距。结果表明思维链提示与工具使用代理可缩小但无法关闭该差距，被动检测与数字水印受熵约束仅能追踪来源而非正确性。进而提出CVE-Bench与Slop-Score两项评估工具，将评估从语言流畅性转向数学可验证性，为可信分诊提供路线图。",
+      "tags": "query:ca",
+      "abstract_en": "The integration of Large Language Models (LLMs) into cybersecurity has transformed vulnerability assessment, but it has also produced a trustworthiness crisis driven by the unchecked proliferation of \"AI slop.\" These artifacts, hallucinated vulnerabilities, plausible but incorrect patches, and semantically repackaged bug reports, impose a cognitive burden on human triage pipelines that mirrors a denial-of-service attack. This paper surveys the empirical evidence, identifies a unifying mechanism, and traces a path toward trustworthy triage. We formalize a taxonomy of AI slop grounded in a structured literature review and dissect its root cause: the gap between the causal deductive reasoning of security experts and the autoregressive probabilistic generation of current LLMs. We operationalize this gap through a measurable proxy, the Deductive Coverage Score, and show that chain-of-thought prompting and tool-using agents narrow but do not close it. We review mitigation strategies and argue that passive detection and watermarking target provenance rather than correctness, facing fundamental entropy constraints. We instead advocate for active neuro-symbolic verification, mapping each pipeline component to prior systems with documented limits on security inputs. Finally, we specify two evaluation instruments, CVE-Bench and Slop-Score, including dataset construction, metric formulas, and anti-gaming provisions. By shifting evaluation from linguistic fluency to mathematical verifiability, this survey provides a roadmap for securing emerging AI-driven triage systems.",
       "source": "arxiv",
       "selection_source": "fresh_fetch"
     }

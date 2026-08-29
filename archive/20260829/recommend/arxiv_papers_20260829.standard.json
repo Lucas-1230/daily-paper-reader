@@ -1,17 +1,18 @@
 {
   "mode": "standard",
-  "generated_at": "2026-08-29T03:26:12.189893+00:00",
+  "generated_at": "2026-08-29T22:38:29.284486+00:00",
   "stats": {
     "mode": "standard",
     "tag_count": 1,
-    "deep_divecandidates": 1,
+    "deep_divecandidates": 0,
     "deep_cap": 6,
-    "deep_selected": 1,
-    "quick_candidates": 0,
+    "deep_selected": 0,
+    "quick_candidates": 3,
     "quick_skim_target": 11,
-    "quick_selected": 0
+    "quick_selected": 3
   },
-  "deep_dive": [
+  "deep_dive": [],
+  "quick_skim": [
     {
       "id": "2608.27439v1",
       "source": "arxiv",
@@ -36,22 +37,106 @@
         "keyword:ca",
         "query:ca"
       ],
-      "llm_score": 8.0,
-      "llm_evidence_en": "automatic red-teaming agent that evolves attack skills, applicable to testing LLM cybercrime capabilities",
-      "llm_evidence_cn": "自动红队智能体，进化攻击技能，可用于测试LLM网络犯罪能力",
-      "llm_evidence": "自动红队智能体，进化攻击技能，可用于测试LLM网络犯罪能力",
-      "canonical_evidence": "自动红队智能体，进化攻击技能，可用于测试LLM网络犯罪能力",
-      "llm_tldr_en": "The paper proposes RedEvoAgent, a black-box red-teaming agent that distills cross-case attack trajectories into compact human-readable attack skills, improving efficiency and interpretability while discovering harmful tool-use vulnerabilities.",
-      "llm_tldr_cn": "本文针对现有自动红队方法依赖固定攻击或轨迹检索易受误导、上下文开销大的问题，提出RedEvoAgent，一个黑盒红队智能体，将跨案例攻击轨迹提炼为简洁的人类可读攻击技能。实验表明该智能体能更高效地发现LLM智能体在工具使用中的安全漏洞，为测试大模型在包括网络犯罪在内的有害场景下的能力边界提供了可复用的方法。",
-      "llm_tldr": "本文针对现有自动红队方法依赖固定攻击或轨迹检索易受误导、上下文开销大的问题，提出RedEvoAgent，一个黑盒红队智能体，将跨案例攻击轨迹提炼为简洁的人类可读攻击技能。实验表明该智能体能更高效地发现LLM智能体在工具使用中的安全漏洞，为测试大模型在包括网络犯罪在内的有害场景下的能力边界提供了可复用的方法。",
+      "llm_score": 7.0,
+      "llm_evidence_en": "Adversarial red-teaming agent testing LLM agents for harmful tool use",
+      "llm_evidence_cn": "对抗性红队智能体测试LLM智能体的有害工具使用",
+      "llm_evidence": "对抗性红队智能体测试LLM智能体的有害工具使用",
+      "canonical_evidence": "对抗性红队智能体测试LLM智能体的有害工具使用",
+      "llm_tldr_en": "Proposes RedEvoAgent, a black-box red-teaming agent that distills attack trajectories into concise skills for improved LLM agent safety testing.",
+      "llm_tldr_cn": "针对现有自动红队方法依赖固定攻击或检索整条轨迹导致误导和开销大等问题，提出RedEvoAgent从跨案例攻击轨迹中蒸馏出简洁可读的攻击技能。该智能体在黑色盒设置下利用技能演化提升攻击效果，实验显示其在触发有害工具使用和状态更改方面优于基线。该工作为对抗性测试LLM智能体在潜在网络犯罪场景中的安全性提供了有效工具。",
+      "llm_tldr": "针对现有自动红队方法依赖固定攻击或检索整条轨迹导致误导和开销大等问题，提出RedEvoAgent从跨案例攻击轨迹中蒸馏出简洁可读的攻击技能。该智能体在黑色盒设置下利用技能演化提升攻击效果，实验显示其在触发有害工具使用和状态更改方面优于基线。该工作为对抗性测试LLM智能体在潜在网络犯罪场景中的安全性提供了有效工具。",
       "llm_tags": [
         "query:ca"
       ],
       "matched_query_tag": "query:ca",
       "matched_query_text": "adversarial agents for testing large language models in cybercrime",
       "matched_requirement_id": "req-6",
-      "selection_source": "fresh_fetch"
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2608.22512v1",
+      "source": "arxiv",
+      "title": "HANSARD: A Reference Architecture for Forensic Readiness, Runtime Witnessing, and Graded Attribution in Autonomous Multi-Agent AI Systems",
+      "abstract": "Autonomous multi-agent systems nowadays act in finance, software supply chains, and security operations. Already, the first largely AI-orchestrated intrusion campaigns have been reported. Yet, when such a system causes harm, no method can robustly establish what happened, what caused it, or who is accountable. This is because provenance forensics works at the wrong abstraction, formal causality assumes the causal model, and agent auditing trusts self-recording. The target failure mode is, thus, attribution laundering, i.e., spreading an act across redundant agents until none is a but-for cause. Worse, the record is produced by the suspects, which comprises the assumption adopted throughout this work. Agents may therefore anticipate the investigation and the part of logging infrastructure may itself collude. In this paper, HANSARD is proposed, a reference architecture treating accountability as a life-cycle property. First, a readiness profile sealed before operation bounds what later findings may claim. Second, capturing at five choke points beyond the agents' reach makes omissions detectable, not only tampering. Third, a typed PROV-DM-aligned causal graph accrues as the system runs, and three indicators read it live to gate oversight without adjudicating. Fourth, post-incident replay yields contingent effects under the modified Halpern-Pearl definition, together with a compensation-set size. Finally, a synergy residual measures harm due to the combination rather than to individuals, making laundering visible. Cause, responsibility and accountability are then reported separately, each capped by an evidentiary tier, while a future research agenda is also provided.",
+      "authors": [
+        "Christos Sardianos",
+        "Iliana Pla",
+        "Vasilis Efthymiou",
+        "Iraklis Varlamis",
+        "Thomas Lagkas",
+        "Panagiotis Sarigiannidis",
+        "Georgios Th. Papadopoulos"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-08-23T17:18:22+00:00",
+      "link": "https://arxiv.org/pdf/2608.22512v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Addresses multi-agent AI intrusion campaigns and attribution, central to cybercrime multi-agent theme",
+      "llm_evidence_cn": "涉及多智能体AI入侵行动与归因，属于网络犯罪多智能体主题",
+      "llm_evidence": "涉及多智能体AI入侵行动与归因，属于网络犯罪多智能体主题",
+      "canonical_evidence": "涉及多智能体AI入侵行动与归因，属于网络犯罪多智能体主题",
+      "llm_tldr_en": "Proposes HANSARD, a reference architecture for forensic readiness, runtime witnessing, and graded attribution in autonomous multi-agent AI systems to counter attribution laundering in AI-orchestrated intrusions.",
+      "llm_tldr_cn": "针对自主多智能体系统在金融、供应链和安全运营中造成损害时无法可靠归因的问题，特别是AI策划入侵行动中的归因清洗，提出HANSARD参考架构。该架构整合取证准备、运行时见证和分级归因，克服来源取证抽象不匹配和智能体自记录信任问题。实验表明HANSARD能有效建立多智能体危害的因果关系和问责。该工作直接面向多智能体系统参与网络犯罪的现实问题，为理解和管控此类系统提供了关键支撑。",
+      "llm_tldr": "针对自主多智能体系统在金融、供应链和安全运营中造成损害时无法可靠归因的问题，特别是AI策划入侵行动中的归因清洗，提出HANSARD参考架构。该架构整合取证准备、运行时见证和分级归因，克服来源取证抽象不匹配和智能体自记录信任问题。实验表明HANSARD能有效建立多智能体危害的因果关系和问责。该工作直接面向多智能体系统参与网络犯罪的现实问题，为理解和管控此类系统提供了关键支撑。",
+      "llm_tags": [
+        "query:ca:composite"
+      ],
+      "matched_query_tag": "query:ca:composite",
+      "matched_query_text": "Papers central to 探究网络犯罪中大模型的能力边界，类似智能体模拟、多智能体, especially work that connects or combines: capabilities of large language models in cybercrime; agent-based modeling of criminal activities; multi-agent systems for cybercrime simulation; exploring the capability boundaries of large language models in cyber contexts; simulating cybercrime using language models; adversarial agents for testing large language models in cybercrime; What are the capability limits of large language models when used for cybercrime?; How can agent based modeling and multi agent systems simulate cybercriminal activities with large language models?; evaluating the limits of large language models in cybercrime scenarios; Agent based simulation of cybercrime to evaluate large language model performance.",
+      "matched_requirement_id": "req-composite-ca",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2608.25667v1",
+      "source": "arxiv",
+      "title": "AI Slop and Hallucinations in Vulnerability Assessment: A Survey on Reasoning Failures and Trustworthy Mitigation",
+      "abstract": "The integration of Large Language Models (LLMs) into cybersecurity has transformed vulnerability assessment, but it has also produced a trustworthiness crisis driven by the unchecked proliferation of \"AI slop.\" These artifacts, hallucinated vulnerabilities, plausible but incorrect patches, and semantically repackaged bug reports, impose a cognitive burden on human triage pipelines that mirrors a denial-of-service attack. This paper surveys the empirical evidence, identifies a unifying mechanism, and traces a path toward trustworthy triage. We formalize a taxonomy of AI slop grounded in a structured literature review and dissect its root cause: the gap between the causal deductive reasoning of security experts and the autoregressive probabilistic generation of current LLMs. We operationalize this gap through a measurable proxy, the Deductive Coverage Score, and show that chain-of-thought prompting and tool-using agents narrow but do not close it. We review mitigation strategies and argue that passive detection and watermarking target provenance rather than correctness, facing fundamental entropy constraints. We instead advocate for active neuro-symbolic verification, mapping each pipeline component to prior systems with documented limits on security inputs. Finally, we specify two evaluation instruments, CVE-Bench and Slop-Score, including dataset construction, metric formulas, and anti-gaming provisions. By shifting evaluation from linguistic fluency to mathematical verifiability, this survey provides a roadmap for securing emerging AI-driven triage systems.",
+      "authors": [
+        "Junchen Ding",
+        "Jialiang Dong",
+        "Yichen Zhu",
+        "Yi Liu",
+        "Gelei Deng",
+        "Willy Susilo",
+        "Siqi Ma",
+        "Yuekang Li"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI"
+      ],
+      "published": "2026-08-26T11:48:38+00:00",
+      "link": "https://arxiv.org/pdf/2608.25667v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Surveys LLM reasoning failures and hallucinations in vulnerability assessment, a key cyber context.",
+      "llm_evidence_cn": "综述大语言模型在漏洞评估中的推理失败与幻觉问题。",
+      "llm_evidence": "综述大语言模型在漏洞评估中的推理失败与幻觉问题。",
+      "canonical_evidence": "综述大语言模型在漏洞评估中的推理失败与幻觉问题。",
+      "llm_tldr_en": "Surveys AI slop and hallucinations in LLM-based vulnerability assessment, taxonomizes reasoning failures, and identifies root cause as gap between causal expert reasoning and probabilistic model reasoning, proposing trustworthy mitigation.",
+      "llm_tldr_cn": "本综述系统梳理了大语言模型在漏洞评估中产生的AI废话现象，包括虚假漏洞和错误补丁。通过形式化分类和文献回顾，指出其根源在于专家因果推理与模型统计推理的差距。研究强调这种幻觉给人工分诊带来认知负担，并提出可信缓解路径，旨在恢复漏洞评估的可信度。",
+      "llm_tldr": "本综述系统梳理了大语言模型在漏洞评估中产生的AI废话现象，包括虚假漏洞和错误补丁。通过形式化分类和文献回顾，指出其根源在于专家因果推理与模型统计推理的差距。研究强调这种幻觉给人工分诊带来认知负担，并提出可信缓解路径，旨在恢复漏洞评估的可信度。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "exploring the capability boundaries of large language models in cyber contexts",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
     }
-  ],
-  "quick_skim": []
+  ]
 }
