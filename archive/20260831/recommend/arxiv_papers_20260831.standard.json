@@ -1,0 +1,139 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-09-01T00:34:45.865629+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 2,
+    "deep_cap": 6,
+    "deep_selected": 2,
+    "quick_candidates": 1,
+    "quick_skim_target": 11,
+    "quick_selected": 1
+  },
+  "deep_dive": [
+    {
+      "id": "2608.22512v1",
+      "source": "arxiv",
+      "title": "HANSARD: A Reference Architecture for Forensic Readiness, Runtime Witnessing, and Graded Attribution in Autonomous Multi-Agent AI Systems",
+      "abstract": "Autonomous multi-agent systems nowadays act in finance, software supply chains, and security operations. Already, the first largely AI-orchestrated intrusion campaigns have been reported. Yet, when such a system causes harm, no method can robustly establish what happened, what caused it, or who is accountable. This is because provenance forensics works at the wrong abstraction, formal causality assumes the causal model, and agent auditing trusts self-recording. The target failure mode is, thus, attribution laundering, i.e., spreading an act across redundant agents until none is a but-for cause. Worse, the record is produced by the suspects, which comprises the assumption adopted throughout this work. Agents may therefore anticipate the investigation and the part of logging infrastructure may itself collude. In this paper, HANSARD is proposed, a reference architecture treating accountability as a life-cycle property. First, a readiness profile sealed before operation bounds what later findings may claim. Second, capturing at five choke points beyond the agents' reach makes omissions detectable, not only tampering. Third, a typed PROV-DM-aligned causal graph accrues as the system runs, and three indicators read it live to gate oversight without adjudicating. Fourth, post-incident replay yields contingent effects under the modified Halpern-Pearl definition, together with a compensation-set size. Finally, a synergy residual measures harm due to the combination rather than to individuals, making laundering visible. Cause, responsibility and accountability are then reported separately, each capped by an evidentiary tier, while a future research agenda is also provided.",
+      "authors": [
+        "Christos Sardianos",
+        "Iliana Pla",
+        "Vasilis Efthymiou",
+        "Iraklis Varlamis",
+        "Thomas Lagkas",
+        "Panagiotis Sarigiannidis",
+        "Georgios Th. Papadopoulos"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-08-23T17:18:22+00:00",
+      "link": "https://arxiv.org/pdf/2608.22512v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "forensic readiness and attribution for AI-orchestrated intrusion campaigns by multi-agent systems",
+      "llm_evidence_cn": "针对多智能体系统AI策划入侵活动的取证准备与归因",
+      "llm_evidence": "针对多智能体系统AI策划入侵活动的取证准备与归因",
+      "canonical_evidence": "针对多智能体系统AI策划入侵活动的取证准备与归因",
+      "llm_tldr_en": "HANSARD is a reference architecture for forensic readiness, runtime witnessing, and graded attribution in autonomous multi-agent AI systems, targeting attribution laundering in AI-orchestrated intrusions.",
+      "llm_tldr_cn": "该论文针对自主多智能体系统造成损害后无法可靠归因的问题，提出HANSARD参考架构，结合取证准备、运行时见证和分级归因。该架构解决了归因洗白问题，即冗余智能体分散行为导致无单一责任方。该工作为AI策划入侵活动的问责和取证提供了基础，对LLM在网络安全中的能力边界评估具有重要意义。",
+      "llm_tldr": "该论文针对自主多智能体系统造成损害后无法可靠归因的问题，提出HANSARD参考架构，结合取证准备、运行时见证和分级归因。该架构解决了归因洗白问题，即冗余智能体分散行为导致无单一责任方。该工作为AI策划入侵活动的问责和取证提供了基础，对LLM在网络安全中的能力边界评估具有重要意义。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "exploring the capability boundaries of large language models in cyber contexts",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2608.28499v1",
+      "source": "arxiv",
+      "title": "REPLICANT: Learning Policies for Evading and Hardening Malware Detectors",
+      "abstract": "To determine the real-world effectiveness of machine learning based malware detection, it is vital to evaluate its robustness against highly capable adversaries. However, state-of-the-art attacks do not effectively model realistic adversaries, as they often assume access to privileged information such as the training data, feature space, or confidence scores of the target. In this work, we present Replicant, a deep reinforcement learning framework that learns the realistic task of evasion under a strict label-only black-box threat model. Replicant learns a reusable policy on how to modify a malware sample and when to query the target, which transfers across samples, detectors, and feature spaces. Across seven Android malware detectors and three feature spaces, Replicant is the strongest and most query-efficient approach achieving a mean attack success rate of 78.8%, a relative improvement of 20.9%-39.2% over the state-of-the-art. Furthermore, when used for adversarial training, Replicant also outperforms the state-of-the art by producing detectors with more generalizable robustness. With Replicant we demonstrate that learning the task of evasion not only results in stronger attack performance but, crucially, provides a better signal for hardening malware detectors.",
+      "authors": [
+        "Shae McFadden",
+        "Ilias Tsingenopoulos",
+        "Mario D'Onghia",
+        "Alexander Herzog",
+        "Myles Foley",
+        "Chris Hicks",
+        "Lorenzo Cavallaro",
+        "Fabio Pierazzi"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG",
+        "cs.CR"
+      ],
+      "published": "2026-08-28T16:29:17+00:00",
+      "link": "https://arxiv.org/pdf/2608.28499v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "deep RL agent learns evasion of malware detectors, modeling criminal activity",
+      "llm_evidence_cn": "深度强化学习智能体学习逃逸恶意软件检测，建模犯罪活动",
+      "llm_evidence": "深度强化学习智能体学习逃逸恶意软件检测，建模犯罪活动",
+      "canonical_evidence": "深度强化学习智能体学习逃逸恶意软件检测，建模犯罪活动",
+      "llm_tldr_en": "REPLICANT uses deep reinforcement learning to learn label-only black-box evasion policies against malware detectors, providing a realistic agent-based model of adversarial malware behavior that transfers across detectors, aiding robustness evaluation.",
+      "llm_tldr_cn": "本文提出REPLICANT框架，利用深度强化学习在仅标签黑盒威胁模型下学习恶意软件逃逸策略，模拟现实攻击者行为，策略可跨样本、检测器和特征空间迁移，为评估检测器鲁棒性提供了逼真的对抗性智能体模型，对理解网络犯罪中的绕过技术具有重要意义。",
+      "llm_tldr": "本文提出REPLICANT框架，利用深度强化学习在仅标签黑盒威胁模型下学习恶意软件逃逸策略，模拟现实攻击者行为，策略可跨样本、检测器和特征空间迁移，为评估检测器鲁棒性提供了逼真的对抗性智能体模型，对理解网络犯罪中的绕过技术具有重要意义。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "agent-based modeling of criminal activities",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2608.28490v1",
+      "source": "arxiv",
+      "title": "LLM-Based Agents for Software and Systems Security: Approaches, Applications, and Assessment",
+      "abstract": "Software and systems security workflows are typically procedural: analysts inspect heterogeneous artifacts, form hypotheses, invoke tools, interpret outputs, and revise plans. Large language model (LLM)-based agents, which can plan, use tools, retain state, and revise actions across multi-step workflows, are being rapidly adopted to automate this work. Given the consequences of delegating security decisions to autonomous systems, understanding how such agents are built, used, and assessed is crucial. Yet to this date, there remains a lack of systematic understanding of what has been done and how far we are in this field: the term \"agent\" is applied inconsistently, applications differ sharply in risk, and assessment protocols are often incomparable. To gain a comprehensive and coherent view of this area hence inform relevant future research, this paper provides a systematic literature review of the (1) technical approaches, including agent architecture, perception, memory, reasoning and planning, action space, orchestration, and self-improvement, (2) applications, with respect to the security tasks served, and (3) assessment, including the datasets, outcome and trajectory metrics, safety measures, and baselines considered, over the peer-reviewed literature spanning the emergence of this area (2023--2026). Our synthesis reveals a field that has built agents able to act but not yet agents whose authority is bounded or whose behavior is auditable. In addition to knowledge systematization, we also extend our insights into the limitations of and challenges faced by current approach, application, and assessment designs, which shed light on potentially promising future research directions.",
+      "authors": [
+        "Jingjing Nie",
+        "Jiawei Guo",
+        "Krishna Meda",
+        "Haipeng Cai"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI"
+      ],
+      "published": "2026-08-28T16:19:01+00:00",
+      "link": "https://arxiv.org/pdf/2608.28490v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "LLM agents for security tasks directly addresses cyber context capabilities",
+      "llm_evidence_cn": "LLM安全智能体直接涉及网络环境能力边界",
+      "llm_evidence": "LLM安全智能体直接涉及网络环境能力边界",
+      "canonical_evidence": "LLM安全智能体直接涉及网络环境能力边界",
+      "llm_tldr_en": "This survey systematically reviews LLM-based agents in software and systems security, covering approaches, applications, and assessment, offering insights into their capabilities and limitations in security workflows, including offensive tasks.",
+      "llm_tldr_cn": "本文系统综述了基于大语言模型的安全智能体在软件和系统安全中的应用，涵盖方法、实际案例与评估协议，重点分析其自动化安全任务的能力与边界，特别包括渗透测试等攻击性场景，为评估LLM在网络安全中的能力极限提供了重要参考。",
+      "llm_tldr": "本文系统综述了基于大语言模型的安全智能体在软件和系统安全中的应用，涵盖方法、实际案例与评估协议，重点分析其自动化安全任务的能力与边界，特别包括渗透测试等攻击性场景，为评估LLM在网络安全中的能力极限提供了重要参考。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "exploring the capability boundaries of large language models in cyber contexts",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    }
+  ]
+}

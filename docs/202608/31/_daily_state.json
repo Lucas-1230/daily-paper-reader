@@ -1,0 +1,57 @@
+{
+  "date": "20260831",
+  "date_label": "",
+  "generated_at": "2026-09-01 00:42:20 UTC",
+  "recommend_exists": true,
+  "run_count": 1,
+  "papers": [
+    {
+      "paper_id": "2608.22512v1",
+      "route": "202608/31/2608.22512v1-hansard-a-reference-architecture-for-forensic-readiness-runtime-witnessing-and-graded-attribution-in-autonomous-multi-agent-ai-systems",
+      "title": "HANSARD: A Reference Architecture for Forensic Readiness, Runtime Witnessing, and Graded Attribution in Autonomous Multi-Agent AI Systems",
+      "section": "deep",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "ca"
+        }
+      ],
+      "score": 8.0,
+      "evidence": "针对多智能体系统AI策划入侵活动的取证准备与归因",
+      "first_seen_at": "2026-09-01 00:42:20 UTC",
+      "updated_at": "2026-09-01 00:42:20 UTC"
+    },
+    {
+      "paper_id": "2608.28499v1",
+      "route": "202608/31/2608.28499v1-replicant-learning-policies-for-evading-and-hardening-malware-detectors",
+      "title": "REPLICANT: Learning Policies for Evading and Hardening Malware Detectors",
+      "section": "deep",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "ca"
+        }
+      ],
+      "score": 8.0,
+      "evidence": "深度强化学习智能体学习逃逸恶意软件检测，建模犯罪活动",
+      "first_seen_at": "2026-09-01 00:42:20 UTC",
+      "updated_at": "2026-09-01 00:42:20 UTC"
+    },
+    {
+      "paper_id": "2608.28490v1",
+      "route": "202608/31/2608.28490v1-llm-based-agents-for-software-and-systems-security-approaches-applications-and-assessment",
+      "title": "LLM-Based Agents for Software and Systems Security: Approaches, Applications, and Assessment",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "ca"
+        }
+      ],
+      "score": 7.0,
+      "evidence": "LLM安全智能体直接涉及网络环境能力边界",
+      "first_seen_at": "2026-09-01 00:42:20 UTC",
+      "updated_at": "2026-09-01 00:42:20 UTC"
+    }
+  ]
+}
