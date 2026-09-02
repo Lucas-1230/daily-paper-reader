@@ -1,0 +1,57 @@
+{
+  "date": "20260902",
+  "date_label": "",
+  "generated_at": "2026-09-02 21:59:49 UTC",
+  "recommend_exists": true,
+  "run_count": 1,
+  "papers": [
+    {
+      "paper_id": "2609.00578v1",
+      "route": "202609/02/2609.00578v1-same-request-different-boundary-evaluating-cybersecurity-assistance-across-conversational-contexts",
+      "title": "Same Request, Different Boundary: Evaluating Cybersecurity Assistance across Conversational Contexts",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "ca"
+        }
+      ],
+      "score": 7.0,
+      "evidence": "包含150个真实网络安全请求并加入对抗性对话情境的基准，评估大模型拒绝、重复与修改行为",
+      "first_seen_at": "2026-09-02 21:59:49 UTC",
+      "updated_at": "2026-09-02 21:59:49 UTC"
+    },
+    {
+      "paper_id": "2609.00487v1",
+      "route": "202609/02/2609.00487v1-evoflint-an-evolutionary-atlas-of-multi-turn-llm-vulnerabilities",
+      "title": "EvoFlint: An Evolutionary Atlas of Multi-Turn LLM Vulnerabilities",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "ca"
+        }
+      ],
+      "score": 6.0,
+      "evidence": "进化质量多样性搜索发现针对大模型的多轮攻击策略",
+      "first_seen_at": "2026-09-02 21:59:49 UTC",
+      "updated_at": "2026-09-02 21:59:49 UTC"
+    },
+    {
+      "paper_id": "2609.01185v1",
+      "route": "202609/02/2609.01185v1-reveree-diagnosing-llm-reverse-engineering-agents",
+      "title": "Reveree: Diagnosing LLM Reverse-Engineering Agents",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "ca"
+        }
+      ],
+      "score": 6.0,
+      "evidence": "评估LLM智能体逆向工程能力的诊断框架，适用于网络安全场景",
+      "first_seen_at": "2026-09-02 21:59:49 UTC",
+      "updated_at": "2026-09-02 21:59:49 UTC"
+    }
+  ]
+}

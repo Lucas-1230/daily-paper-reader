@@ -1,0 +1,143 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-09-02T21:57:49.077153+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 0,
+    "deep_cap": 6,
+    "deep_selected": 0,
+    "quick_candidates": 3,
+    "quick_skim_target": 11,
+    "quick_selected": 3
+  },
+  "deep_dive": [],
+  "quick_skim": [
+    {
+      "id": "2609.00578v1",
+      "source": "arxiv",
+      "title": "Same Request, Different Boundary: Evaluating Cybersecurity Assistance across Conversational Contexts",
+      "abstract": "Large Language Models (LLMs) can solve complex problems, but their misuse in high-risk domains can lead to severe consequences. Model providers therefore restrict assistance for potentially harmful requests. Refusing all cybersecurity requests would therefore harm legitimate users. Providers need a mechanism to block malicious use without denying legitimate assistance to defenders. Existing cybersecurity-specific datasets evaluate this mechanism, but none considers the conversational context of a request. We introduce 3R-Bench (Refusal, Repetition, and Revision), a benchmark of 150 real-world cybersecurity requests augmented with two adversarial conversational settings, and evaluate eight LLMs on it. Prior assistant behavior strongly changes responses to an unchanged request: among 376 available pairs from a 400-pair panel, compliance rises from 62.0% after refused history to 85.1% after accepted history. The opposite pattern appears under dialogue decomposition. In comparison, compliance falls from 501/800 direct responses to 172/800 after dialogue; among 738 pairs returning model-authored text in both conditions, the decrease is 45.1 points. Failure feedback recovers only a small fraction of this loss.",
+      "authors": [
+        "Rui Yang",
+        "Yang Hong",
+        "Yichao Xu",
+        "Zhengyu Liu",
+        "Ziyang Li",
+        "Yinzhi Cao"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI",
+        "cs.CR"
+      ],
+      "published": "2026-09-01T02:16:56+00:00",
+      "link": "https://arxiv.org/pdf/2609.00578v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "benchmark of 150 real-world cybersecurity requests with adversarial conversational settings; evaluates LLM refusal, repetition, revision",
+      "llm_evidence_cn": "包含150个真实网络安全请求并加入对抗性对话情境的基准，评估大模型拒绝、重复与修改行为",
+      "llm_evidence": "包含150个真实网络安全请求并加入对抗性对话情境的基准，评估大模型拒绝、重复与修改行为",
+      "canonical_evidence": "包含150个真实网络安全请求并加入对抗性对话情境的基准，评估大模型拒绝、重复与修改行为",
+      "llm_tldr_en": "The paper introduces 3R-Bench to evaluate how LLMs handle potentially harmful cybersecurity requests across conversational contexts, revealing context-dependent assistance boundaries important for assessing LLM cybercrime capabilities.",
+      "llm_tldr_cn": "针对当前网络安全数据集未考虑对话情境的问题，该文提出3R-Bench，包含150个真实网络安全请求并增设两种对抗性对话设置，评估八个大模型的拒绝、重复与修改三种行为。实验发现不同对话历史显著影响模型对潜在有害请求的回应，边界会随情境变化。该基准为衡量大模型在网络安全乃至网络犯罪相关任务中的能力边界提供了重要工具。",
+      "llm_tldr": "针对当前网络安全数据集未考虑对话情境的问题，该文提出3R-Bench，包含150个真实网络安全请求并增设两种对抗性对话设置，评估八个大模型的拒绝、重复与修改三种行为。实验发现不同对话历史显著影响模型对潜在有害请求的回应，边界会随情境变化。该基准为衡量大模型在网络安全乃至网络犯罪相关任务中的能力边界提供了重要工具。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "capabilities of large language models in cybercrime",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2609.00487v1",
+      "source": "arxiv",
+      "title": "EvoFlint: An Evolutionary Atlas of Multi-Turn LLM Vulnerabilities",
+      "abstract": "Frontier language models that refuse harmful single-turn prompts often comply when the same intent is reached gradually over many turns, making multi-turn attacks one of the least understood failure modes of large language models. Most automated red-teaming methods treat this as a generation problem: produce attacks that break the model. We argue it is better framed as a search problem: discover, organize, and iteratively refine a diverse archive of attack strategies, producing a structured map of how a target model fails rather than a list of one-off successes. We introduce EvoFlint, which applies evolutionary quality-diversity search to multi-turn red-teaming. Attack strategies are phased conversation plans, not raw prompts, and are evolved through LLM-driven mutation and crossover. A Pareto fitness over attack success rate and peak severity preserves selection signal from near-miss attacks. A risk-indexed archive runs novelty search with local competition over strategy description embeddings inside each cell, maintaining diversity without committing to a predefined style taxonomy. A generation-level memory accumulates target-model insights across the population and feeds them back into strategy generation. On the HarmBench-test split, EvoFlint reaches attack success rates of 35.8% on Claude Sonnet 4.6, 59.7% on GPT-5.4, and 94.3% on Qwen3-32B, alongside 98.7% on the older GPT-4o included as a baseline reference. The resulting archive, organized by risk category, exposes for each target which categories of harm its safety training has and has not covered.",
+      "authors": [
+        "Feitong Qiao",
+        "Liren Peng",
+        "Shiming Ren",
+        "Aishwarya Jadhav",
+        "Arghavan Bahadorinejad",
+        "Marinette Chen",
+        "Muhan Zhang",
+        "Abdulaziz Suria",
+        "Gennevi Lu",
+        "Anish Das Sarma"
+      ],
+      "primary_category": "cs.CL",
+      "categories": [
+        "cs.CL",
+        "cs.AI",
+        "cs.CR",
+        "cs.LG"
+      ],
+      "published": "2026-08-31T23:33:33+00:00",
+      "link": "https://arxiv.org/pdf/2609.00487v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "evolutionary quality-diversity search to discover multi-turn attack strategies against LLMs",
+      "llm_evidence_cn": "进化质量多样性搜索发现针对大模型的多轮攻击策略",
+      "llm_evidence": "进化质量多样性搜索发现针对大模型的多轮攻击策略",
+      "canonical_evidence": "进化质量多样性搜索发现针对大模型的多轮攻击策略",
+      "llm_tldr_en": "The paper addresses the limitation that automated red-teaming is treated as generation rather than systematic search. It proposes EvoFlint, applying evolutionary quality-diversity search to discover and refine multi-turn attack strategies, yielding a structured map of model vulnerabilities. This method is directly transferable to adversarial testing of LLMs in cybercrime scenarios.",
+      "llm_tldr_cn": "本文指出当前自动红队测试将攻击发现视为生成问题，忽视了对攻击策略的系统搜索。提出EvoFlint，将进化质量多样性搜索应用于多轮攻击策略的发现与精化，生成目标模型失败的结构化图谱。实验表明该方法能构建多样化的攻击策略档案，避免一次性成功但缺乏系统性的缺陷。这为在网络安全等对抗性场景下评估大模型能力边界提供了可复用的搜索框架。",
+      "llm_tldr": "本文指出当前自动红队测试将攻击发现视为生成问题，忽视了对攻击策略的系统搜索。提出EvoFlint，将进化质量多样性搜索应用于多轮攻击策略的发现与精化，生成目标模型失败的结构化图谱。实验表明该方法能构建多样化的攻击策略档案，避免一次性成功但缺乏系统性的缺陷。这为在网络安全等对抗性场景下评估大模型能力边界提供了可复用的搜索框架。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "adversarial agents for testing large language models in cybercrime",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2609.01185v1",
+      "source": "arxiv",
+      "title": "Reveree: Diagnosing LLM Reverse-Engineering Agents",
+      "abstract": "Reverse engineering (RE) is critical to security tasks such as malware analysis and vulnerability discovery, and large language model (LLM) agents are increasingly able to perform it autonomously. Capture-the-flag (CTF) RE challenges have become the standard proxy for measuring this capability, but evaluation rests on a single criterion: whether the agent captures the flag. This solve rate reveals neither where in the RE process an agent fails nor whether a success reflects analysis of the binary or recall of a public solution. In this paper, we propose Reveree, a diagnostic framework that scores an LLM RE agent's trajectory at three tiers: solve rate, milestone progress through an eight-stage RE schema, and a behavioral profile of its actions. Comprehension stages are scored by an outcome-blinded LLM judge validated against a human expert; all other stages are verified deterministically. Using Reveree, we evaluate nine frontier models and four prompting strategies on 88 picoCTF and NYU-CTF challenges. We find that the base model dominates performance, whereas prompting strategy is a secondary, model-dependent effect. Surprisingly, larger, newer, or costlier models are not reliably stronger. We also find that failures concentrate at the comprehension stages of the RE process, and that extra budget, persistence, or reasoning effort rescues few of them, pointing to a competence limit rather than a resource limit. Regarding memorization, while models reproduce picoCTF flags from challenge descriptions alone, NYU-CTF shows minimal measurable recall, and most solves survive surface perturbation, indicating that genuine analysis coexists with memorization. We release Reveree to the community.",
+      "authors": [
+        "Hadjer Benkraouda",
+        "Hongyu Cai",
+        "Berkay Celik",
+        "Gang Wang"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR"
+      ],
+      "published": "2026-09-01T12:59:51+00:00",
+      "link": "https://arxiv.org/pdf/2609.01185v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Diagnostic framework for evaluating LLM agents on reverse engineering tasks, a security skill relevant to cyber contexts",
+      "llm_evidence_cn": "评估LLM智能体逆向工程能力的诊断框架，适用于网络安全场景",
+      "llm_evidence": "评估LLM智能体逆向工程能力的诊断框架，适用于网络安全场景",
+      "canonical_evidence": "评估LLM智能体逆向工程能力的诊断框架，适用于网络安全场景",
+      "llm_tldr_en": "Proposes Reveree, a framework that scores LLM reverse-engineering agents on solve rate, milestone progress, and behavioral profile to pinpoint failures and distinguish genuine analysis from recall.",
+      "llm_tldr_cn": "现有CTF逆向挑战仅以最终夺旗为指标，无法揭示LLM智能体在逆向过程中的具体失败环节或是否依赖公开解法。本文提出Reveree诊断框架，从解题率、八阶段逆向里程碑进展和行为画像三个层级评估智能体轨迹。实验表明该框架能更精细地定位能力短板，区分真实分析与记忆复现。这为评估大模型在安全任务中的实际能力边界提供了新工具。",
+      "llm_tldr": "现有CTF逆向挑战仅以最终夺旗为指标，无法揭示LLM智能体在逆向过程中的具体失败环节或是否依赖公开解法。本文提出Reveree诊断框架，从解题率、八阶段逆向里程碑进展和行为画像三个层级评估智能体轨迹。实验表明该框架能更精细地定位能力短板，区分真实分析与记忆复现。这为评估大模型在安全任务中的实际能力边界提供了新工具。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "exploring the capability boundaries of large language models in cyber contexts",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}
