@@ -1,0 +1,25 @@
+{
+  "date": "20260903",
+  "date_label": "",
+  "generated_at": "2026-09-03 23:01:30 UTC",
+  "recommend_exists": true,
+  "run_count": 1,
+  "papers": [
+    {
+      "paper_id": "2609.02624v1",
+      "route": "202609/03/2609.02624v1-automated-vulnerability-injection-in-smart-contracts-using-large-language-models",
+      "title": "Automated Vulnerability Injection in Smart Contracts Using Large Language Models",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "ca"
+        }
+      ],
+      "score": 7.0,
+      "evidence": "利用大模型自动向智能合约注入漏洞，展示了大模型生成网络漏洞的能力",
+      "first_seen_at": "2026-09-03 23:01:30 UTC",
+      "updated_at": "2026-09-03 23:01:30 UTC"
+    }
+  ]
+}

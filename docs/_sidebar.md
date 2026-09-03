@@ -1,6 +1,9 @@
 * <a class="dpr-sidebar-root-link" href="#/">首页</a>
 * <a class="dpr-sidebar-root-link dpr-sidebar-noactive-link" href="javascript:void(0)" data-dpr-hash="#/tutorial/README">使用教程</a>
 * Daily Papers
+  * 2026-09-03 <!--dpr-date:20260903-->
+    * 速读区
+      * <a class="dpr-sidebar-item-link dpr-sidebar-item-structured" href="#/202609/03/2609.02624v1-automated-vulnerability-injection-in-smart-contracts-using-large-language-models" data-sidebar-item="{&quot;title&quot;: &quot;Automated Vulnerability Injection in Smart Contracts Using Large Language Models&quot;, &quot;link&quot;: &quot;https://arxiv.org/abs/2609.02624v1-automated-vulnerability-injection-in-smart-contracts-using-large-language-models&quot;, &quot;score&quot;: &quot;7.0&quot;, &quot;tags&quot;: [{&quot;kind&quot;: &quot;query&quot;, &quot;label&quot;: &quot;ca&quot;}], &quot;evidence&quot;: &quot;利用大模型自动向智能合约注入漏洞，展示了大模型生成网络漏洞的能力&quot;}">Automated Vulnerability Injection in Smart Contracts Using Large Language Models</a>
   * 2026-09-02 <!--dpr-date:20260902-->
     * 速读区
       * <a class="dpr-sidebar-item-link dpr-sidebar-item-structured" href="#/202609/02/2609.00578v1-same-request-different-boundary-evaluating-cybersecurity-assistance-across-conversational-contexts" data-sidebar-item="{&quot;title&quot;: &quot;Same Request, Different Boundary: Evaluating Cybersecurity Assistance across Conversational Contexts&quot;, &quot;link&quot;: &quot;https://arxiv.org/abs/2609.00578v1-same-request-different-boundary-evaluating-cybersecurity-assistance-across-conversational-contexts&quot;, &quot;score&quot;: &quot;7.0&quot;, &quot;tags&quot;: [{&quot;kind&quot;: &quot;query&quot;, &quot;label&quot;: &quot;ca&quot;}], &quot;evidence&quot;: &quot;包含150个真实网络安全请求并加入对抗性对话情境的基准，评估大模型拒绝、重复与修改行为&quot;}">Same Request, Different Boundary: Evaluating Cybersecurity Assistance across Conversational Contexts</a>

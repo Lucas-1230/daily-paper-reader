@@ -1,0 +1,24 @@
+{
+  "label": "2026-09-03",
+  "date": "2026-09-03",
+  "generated_at": "2026-09-03T23:01:44",
+  "count": 1,
+  "papers": [
+    {
+      "paper_id": "202609/03/2609.02624v1-automated-vulnerability-injection-in-smart-contracts-using-large-language-models",
+      "section": "quick",
+      "title_en": "Automated Vulnerability Injection in Smart Contracts Using Large Language Models",
+      "authors": "Luca Migliaccio, Roberto Natella, Naghmeh Ivaki, Nuno Laranjeiro, Marco Vieira",
+      "date": "2026-09-02",
+      "pdf": "https://arxiv.org/pdf/2609.02624v1",
+      "score": "7.0",
+      "evidence": "利用大模型自动向智能合约注入漏洞，展示了大模型生成网络漏洞的能力",
+      "tldr": "评估智能合约漏洞检测工具需要带已知真实标签的数据集，但此类数据集稀缺且手工构建成本高。本文提出用大语言模型自动向Solidity合约注入漏洞，并通过编译、执行、业务逻辑和漏洞存在性多步流水线进行验证。在SmartBugs真实合约上生成近1000个候选变体，最终确认32个含漏洞合约，覆盖25种漏洞类型，存活率16.58%。该工作验证了LLM自动注入漏洞的可行性，同时揭示可扩展性与多样性方面的局限。",
+      "tags": "query:ca",
+      "abstract_en": "Assessing vulnerability detection tools for smart contracts requires datasets with known ground truth, yet such datasets are scarce and difficult to build by hand. We propose an approach that uses Large Language Models (LLMs) to automatically inject vulnerabilities into Solidity smart contracts, and demonstrate it in a case study targeting 49 vulnerability types from OpenSCV. Injected contracts are validated through a multi-step pipeline checking compilation, execution, business logic, and the presence of the intended vulnerability. Applied to real-world contracts from SmartBugs, LLMs generate nearly 1,000 candidate variants; after deduplication and validation, 32 confirmed vulnerable contracts spanning 25 vulnerability types survive (a 16.58% survival rate). Surviving contracts concentrate in structurally simpler targets and vulnerability types with localized syntactic patterns. We report practical challenges including LLMs' non-determinism and the difficulty of preserving contract semantics. We then use the validated contracts to assess three static analyzers, revealing complementary and incomplete coverage profiles. Results show that LLM-based vulnerability injection is feasible, while exposing key limitations in scalability and diversity.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}
