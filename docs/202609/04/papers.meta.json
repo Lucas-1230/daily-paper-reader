@@ -1,0 +1,54 @@
+{
+  "label": "2026-09-04",
+  "date": "2026-09-04",
+  "generated_at": "2026-09-04T21:18:30",
+  "count": 3,
+  "papers": [
+    {
+      "paper_id": "202609/04/2608.30207v1-sir-self-improving-red-teaming-for-compute-use-agents",
+      "section": "quick",
+      "title_en": "SIR: Self-improving Red-teaming for Compute Use Agents",
+      "authors": "Chen Xiong, Zhiyuan He, Pin-Yu Chen, Stjepan Picek, Tsung-Yi Ho",
+      "date": "2026-08-31",
+      "pdf": "https://arxiv.org/pdf/2608.30207v1",
+      "score": "7.0",
+      "evidence": "自我改进的红队攻击生成隐蔽间接提示注入以测试计算机使用智能体",
+      "tldr": "计算机使用智能体在操作系统上执行任务时易受间接提示注入攻击，而现有基准采用固定手写注入，可能低估自适应对手的风险。SIR从可复用原则库组合隐蔽注入，并利用迭代反馈诊断失败轨迹，将提炼出的绕过策略命名为新原则并跨任务重用。在三个前沿模型上，该方法使攻击成功率较手写基线大幅提升，例如Claude Opus 4.8从4%升至24%，Gemini 3.5 Flash从0%升至28%，且良性任务仍然完成。此外，针对一个模型发现的策略可无额外反馈迁移到不同架构，凸显了动态红队评估的重要性。",
+      "tags": "query:ca",
+      "abstract_en": "Computer use agents (CUAs) are vision-language models that perceive a screen and act on a real operating system through mouse, keyboard, and terminal, and they are increasingly deployed to automate everyday digital tasks. Because they can be exposed to untrusted content while operating, they are vulnerable to indirect prompt injection (IPI), in which an adversary plants instructions in content the agent will read and redirects it toward actions that violate the user's intent. Existing CUA safety benchmarks evaluate fixed injections written by hand, which may underestimate the risk posed by an adaptive adversary. We present SIR, a black box IPI attack that (i) composes stealthy injections from a small library of reusable principles stated in plain language and (ii) wraps composition in an iterative feedback loop that diagnoses the victim's failed trajectories and distills the bypasses into new, named strategies that are reapplied across tasks. Unlike prior red teaming of web agents, we target CUAs at the operating system level and score attacks with a fully deterministic oracle, using checks on filesystem, service, and permission state rather than an LLM judge. On experiment, we evaluate three frontier CUAs. Composing principles with feedback raises the attack success rate over a baseline written by hand, for example from 4% to 24% on Claude Opus 4.8 and from 0% to 28% on Gemini 3.5 Flash, while the benign task still completes. Principles discovered against one model further transfer to a different architecture with no additional feedback.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202609/04/2609.01023v2-akrasia-stealthy-backdoor-attack-on-reasoning-based-code-llms",
+      "section": "quick",
+      "title_en": "AKRASIA: Stealthy Backdoor Attack on Reasoning-based Code LLMs",
+      "authors": "Chua Jin Chou, Sarang Nambiar, Murali Srinivasan, Ezekiel Soremekun",
+      "date": "2026-09-01",
+      "pdf": "https://arxiv.org/pdf/2609.01023v2",
+      "score": "6.0",
+      "evidence": "针对代码LLM的隐蔽后门攻击导致恶意代码执行",
+      "tldr": "当前推理型代码大模型在代码生成中可能被植入后门，导致恶意代码执行等风险。AKRASIA攻击通过探测受害者模型构建代码级触发器，利用上下文学习进行后门注入，并借助模型不忠实生成看似合理的推理以掩盖痕迹。在4个后门目标、6种推理LLM和3个编码任务上，其平均攻击成功率高达99.34%，同时保持97.23%的良性准确率。该攻击能规避多数自动化防御并在高达80%设置中骗过人类检查，表明亟需针对推理后门的防御机制。",
+      "tags": "query:ca",
+      "abstract_en": "We present AKRASIA, a stealthy, inference-time backdoor attack against reasoning-based Code LLMs. AKRASIA aims to achieve a backdoor target (e.g., malicious code execution) in reasoning LLMs while evading automated defenses and human inspection. To achieve this, AKRASIA probes the victim LLM to construct a code-level backdoor trigger. It then employs in-context learning for backdoor learning, and model unfaithfulness to conceal the backdoor trigger, and generate plausible reasoning. We evaluate AKRASIA using four backdoor targets six (6) reasoning LLMs, three coding tasks/datasets and three defense methods. AKRASIA has up to 99.34% average attack success rate on SOTA LLMs and mantains up to 97.23% average accuracy. AKRASIA evades the SOTA defense, retaining up to 98.82% average ASR in most (14/18) defense settings. It evades human inspection, successfully hiding the backdoor trigger and reasoning steps in up to 80% of settings. Our findings motivate the need to defend LLMs against reasoning backdoors.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202609/04/2609.01167v1-classic-ai-scaffolding-for-llm-social-agents",
+      "section": "quick",
+      "title_en": "Classic AI Scaffolding for LLM Social Agents",
+      "authors": "Anatole Gershman",
+      "date": "2026-09-01",
+      "pdf": "https://arxiv.org/pdf/2609.01167v1",
+      "score": "6.0",
+      "evidence": "用于社交模拟的混合LLM智能体架构，可迁移至犯罪活动智能体建模",
+      "tldr": "大语言模型虽能流畅生成局部社交回合，但仅有下一句生成不足以支撑社会模拟。本文提出 EpisodeSim 混合架构，将经典 AI 的角色、脚本、物质状态、义务和闭合条件等结构表示为自然语言控制状态，由 LLM 调用解释。世界主控维护共享现实、裁决动作并控制情节结束。小规模定性消融表明，LLM 提供局部文本流畅性，持久的经典 AI 脚手架则保证时间上连贯的社会模拟。",
+      "tags": "query:ca",
+      "abstract_en": "Large language models can produce locally plausible social turns, but fluent next-turn generation is not enough for social simulation. Human encounters such as restaurant lunches and hotel check-ins are bounded social episodes with roles, scripts, material state, obligations, commitments, timing, and closure conditions. We present EpisodeSim, a hybrid LLM-agent architecture that represents classic-AI structures as natural-language control state interpreted by LLM calls. A World Master maintains shared reality, constructs scenes, adjudicates proposed actions, tracks effects and obligations, and controls closure. Experiments with small qualitative ablations on two held-out settings support a design claim: LLM fluency supplies local texture, but coherent social simulation benefits from persistent classic-AI-style scaffolding that organizes behavior over time.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}

@@ -1,0 +1,57 @@
+{
+  "date": "20260904",
+  "date_label": "",
+  "generated_at": "2026-09-04 21:18:16 UTC",
+  "recommend_exists": true,
+  "run_count": 1,
+  "papers": [
+    {
+      "paper_id": "2608.30207v1",
+      "route": "202609/04/2608.30207v1-sir-self-improving-red-teaming-for-compute-use-agents",
+      "title": "SIR: Self-improving Red-teaming for Compute Use Agents",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "ca"
+        }
+      ],
+      "score": 7.0,
+      "evidence": "自我改进的红队攻击生成隐蔽间接提示注入以测试计算机使用智能体",
+      "first_seen_at": "2026-09-04 21:18:16 UTC",
+      "updated_at": "2026-09-04 21:18:16 UTC"
+    },
+    {
+      "paper_id": "2609.01023v2",
+      "route": "202609/04/2609.01023v2-akrasia-stealthy-backdoor-attack-on-reasoning-based-code-llms",
+      "title": "AKRASIA: Stealthy Backdoor Attack on Reasoning-based Code LLMs",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "ca"
+        }
+      ],
+      "score": 6.0,
+      "evidence": "针对代码LLM的隐蔽后门攻击导致恶意代码执行",
+      "first_seen_at": "2026-09-04 21:18:16 UTC",
+      "updated_at": "2026-09-04 21:18:16 UTC"
+    },
+    {
+      "paper_id": "2609.01167v1",
+      "route": "202609/04/2609.01167v1-classic-ai-scaffolding-for-llm-social-agents",
+      "title": "Classic AI Scaffolding for LLM Social Agents",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "ca"
+        }
+      ],
+      "score": 6.0,
+      "evidence": "用于社交模拟的混合LLM智能体架构，可迁移至犯罪活动智能体建模",
+      "first_seen_at": "2026-09-04 21:18:16 UTC",
+      "updated_at": "2026-09-04 21:18:16 UTC"
+    }
+  ]
+}
