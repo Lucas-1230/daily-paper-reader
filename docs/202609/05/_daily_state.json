@@ -1,0 +1,25 @@
+{
+  "date": "20260905",
+  "date_label": "",
+  "generated_at": "2026-09-05 21:53:40 UTC",
+  "recommend_exists": true,
+  "run_count": 1,
+  "papers": [
+    {
+      "paper_id": "2608.30041v1",
+      "route": "202609/05/2608.30041v1-reachability-based-capability-confinement-for-llm-agents-under-indirect-prompt-injection",
+      "title": "Reachability-Based Capability Confinement for LLM Agents under Indirect Prompt Injection",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "ca"
+        }
+      ],
+      "score": 6.0,
+      "evidence": "限制间接提示注入后LLM智能体能力的防御机制，与能力边界相关",
+      "first_seen_at": "2026-09-05 21:53:40 UTC",
+      "updated_at": "2026-09-05 21:53:40 UTC"
+    }
+  ]
+}

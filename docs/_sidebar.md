@@ -1,6 +1,9 @@
 * <a class="dpr-sidebar-root-link" href="#/">首页</a>
 * <a class="dpr-sidebar-root-link dpr-sidebar-noactive-link" href="javascript:void(0)" data-dpr-hash="#/tutorial/README">使用教程</a>
 * Daily Papers
+  * 2026-09-05 <!--dpr-date:20260905-->
+    * 速读区
+      * <a class="dpr-sidebar-item-link dpr-sidebar-item-structured" href="#/202609/05/2608.30041v1-reachability-based-capability-confinement-for-llm-agents-under-indirect-prompt-injection" data-sidebar-item="{&quot;title&quot;: &quot;Reachability-Based Capability Confinement for LLM Agents under Indirect Prompt Injection&quot;, &quot;link&quot;: &quot;https://arxiv.org/abs/2608.30041v1-reachability-based-capability-confinement-for-llm-agents-under-indirect-prompt-injection&quot;, &quot;score&quot;: &quot;6.0&quot;, &quot;tags&quot;: [{&quot;kind&quot;: &quot;query&quot;, &quot;label&quot;: &quot;ca&quot;}], &quot;evidence&quot;: &quot;限制间接提示注入后LLM智能体能力的防御机制，与能力边界相关&quot;}">Reachability-Based Capability Confinement for LLM Agents under Indirect Prompt Injection</a>
   * 2026-09-04 <!--dpr-date:20260904-->
     * 速读区
       * <a class="dpr-sidebar-item-link dpr-sidebar-item-structured" href="#/202609/04/2608.30207v1-sir-self-improving-red-teaming-for-compute-use-agents" data-sidebar-item="{&quot;title&quot;: &quot;SIR: Self-improving Red-teaming for Compute Use Agents&quot;, &quot;link&quot;: &quot;https://arxiv.org/abs/2608.30207v1-sir-self-improving-red-teaming-for-compute-use-agents&quot;, &quot;score&quot;: &quot;7.0&quot;, &quot;tags&quot;: [{&quot;kind&quot;: &quot;query&quot;, &quot;label&quot;: &quot;ca&quot;}], &quot;evidence&quot;: &quot;自我改进的红队攻击生成隐蔽间接提示注入以测试计算机使用智能体&quot;}">SIR: Self-improving Red-teaming for Compute Use Agents</a>
