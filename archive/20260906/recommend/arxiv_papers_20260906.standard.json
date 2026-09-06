@@ -1,0 +1,98 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-09-06T22:13:39.522548+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 1,
+    "deep_cap": 6,
+    "deep_selected": 1,
+    "quick_candidates": 1,
+    "quick_skim_target": 11,
+    "quick_selected": 1
+  },
+  "deep_dive": [
+    {
+      "id": "2609.02168v1",
+      "source": "arxiv",
+      "title": "FUSE: An Evaluating Framework for Dangerous Capabilities of LLMs",
+      "abstract": "Fragmented safety evaluation undermines the governance of dangerous AI capabilities. We present a modular framework that evaluates each model through three orthogonal pipelines---Knowledge ($K$), Defense ($D$), and Harm ($H$)---under a unified protocol, aggregating results into a standardized dangerous-capability profile $φ$. Pluggable modules supply scenario seeds, knowledge banks, hazard queries, and judge rubrics, while the core evaluation engine remains unchanged across domains; the CB evaluation is complemented by a cyber pilot demonstrating protocol transfer.   Instantiating the framework with a chemical-biological (CB) module, we evaluate 12 commercial LLMs from four families. Our first contribution is a horizontal comparison of dangerous capability across models and model families: the three dimensions expose sharply divergent profiles---models with comparable knowledge differ in refusal resilience, and strong defenders do not generate less harmful content when they do comply---while family-level patterns further separate Claude, DeepSeek, and GPT models. The second is a temporal analysis of capability evolution: tracking $K$, $D$, and $H$ against model release dates reveals that dangerous capability has not monotonically declined; newer models deepen knowledge while only partially improving defense, showing that scaling and alignment progress do not uniformly translate into safety. Reliability is established via cross-judge consistency (bootstrap $ρ> 0.79$, 4 of 5 judges) and pipeline orthogonality ($K$--$D$--$H$ inter-correlations $ρ\\in [0.32, 0.52]$).",
+      "authors": [
+        "Zhengyi Jin",
+        "Ru Zhang",
+        "Xiao Chen",
+        "Xinbo Liu",
+        "Jiaxuan Lin",
+        "Jia Huang",
+        "Jianyi Liu",
+        "Zhen Yang"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-09-02T06:31:39+00:00",
+      "link": "https://arxiv.org/pdf/2609.02168v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "modular framework evaluating dangerous capabilities of LLMs including cyber pilot",
+      "llm_evidence_cn": "模块化框架评估大模型危险能力，包含网络试点",
+      "llm_evidence": "模块化框架评估大模型危险能力，包含网络试点",
+      "canonical_evidence": "模块化框架评估大模型危险能力，包含网络试点",
+      "llm_tldr_en": "FUSE evaluates LLM dangerous capabilities via Knowledge, Defense, and Harm pipelines; demonstrates protocol transfer with cyber pilot, directly assessing capability boundaries.",
+      "llm_tldr_cn": "针对大模型危险能力评估碎片化问题，FUSE框架通过知识、防御和危害三条正交流水线统一评估，并聚合为标准危险能力画像。该框架已实例化于化学-生物模块，同时通过一个网络试点验证协议可迁移到网络领域。这项工作直接探索了大模型在网络犯罪相关场景中的能力边界。",
+      "llm_tldr": "针对大模型危险能力评估碎片化问题，FUSE框架通过知识、防御和危害三条正交流水线统一评估，并聚合为标准危险能力画像。该框架已实例化于化学-生物模块，同时通过一个网络试点验证协议可迁移到网络领域。这项工作直接探索了大模型在网络犯罪相关场景中的能力边界。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "exploring the capability boundaries of large language models in cyber contexts",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2609.00498v1",
+      "source": "arxiv",
+      "title": "Validity-Aware Jailbreak Evaluation for Large Language Models",
+      "abstract": "Jailbreak robustness has become central to large language model (LLM) safety evaluation, yet prevailing methodologies rely primarily on refusal behavior, semantic resemblance, and intent-matching heuristics that emphasize linguistic plausibility rather than correctness. We identify a key limitation in existing evaluations: many jailbreak intents depend on instructional validity rather than epistemic factuality, allowing realistic-looking responses to be labeled successful despite being factually or procedurally incorrect. To address this gap, we propose Sequential Epistemic and Action-Level Validation (SEAV), a verification-centric jailbreak evaluation framework that decomposes responses into ordered steps and evaluates both validity and correctness. SEAV combines LLM-as-a-judge mechanisms for semantic interpretation with retrieval-grounded verification using external knowledge sources, assessing whether generated content is factually correct, structurally consistent, and operationally capable of advancing harmful objectives. Empirically, SEAV cuts the false-positive rate on SD-A (a curated strategic-dishonesty diagnostic) by 14.9\\,pp vs. the strongest baseline, and reclassifies 22.1\\%--51.0\\% of sampled prior-labeled successes as invalid across three of four public benchmarks. Together, these results show that enforcing correctness substantially reshapes measured robustness: many previously labeled jailbreak successes are reclassified as invalid, and results are stable across the tested search backends and evaluator models. Code and data are available at https://github.com/Ardor-Wu/SEAV.",
+      "authors": [
+        "Qilong Wu",
+        "Sahil Wadhwa",
+        "Pranab Mohanty",
+        "Giri Iyengar",
+        "Varun Chandrasekaran"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-08-31T23:57:53+00:00",
+      "link": "https://arxiv.org/pdf/2609.00498v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "jailbreak evaluation framework for LLM safety limits",
+      "llm_evidence_cn": "越狱评估框架检验LLM安全边界",
+      "llm_evidence": "越狱评估框架检验LLM安全边界",
+      "canonical_evidence": "越狱评估框架检验LLM安全边界",
+      "llm_tldr_en": "Proposes SEAV, a verification-centric jailbreak evaluation framework that decomposes responses into steps to assess validity and correctness.",
+      "llm_tldr_cn": "论文指出当前越狱评估依赖拒绝行为和语义相似度，忽视指令有效性，导致表面合理但错误的响应被误判成功。为此提出顺序认知与动作级验证框架SEAV，将响应分解为有序步骤并评估有效性与正确性。实验表明SEAV能更准确地识别越狱成功，为评估LLM在恶意任务包括网络犯罪场景中的能力边界提供可靠工具。",
+      "llm_tldr": "论文指出当前越狱评估依赖拒绝行为和语义相似度，忽视指令有效性，导致表面合理但错误的响应被误判成功。为此提出顺序认知与动作级验证框架SEAV，将响应分解为有序步骤并评估有效性与正确性。实验表明SEAV能更准确地识别越狱成功，为评估LLM在恶意任务包括网络犯罪场景中的能力边界提供可靠工具。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "evaluating the limits of large language models in cybercrime scenarios",
+      "matched_requirement_id": "req-9",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}

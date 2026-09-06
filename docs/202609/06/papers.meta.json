@@ -1,0 +1,39 @@
+{
+  "label": "2026-09-06",
+  "date": "2026-09-06",
+  "generated_at": "2026-09-06T22:21:52",
+  "count": 2,
+  "papers": [
+    {
+      "paper_id": "202609/06/2609.02168v1-fuse-an-evaluating-framework-for-dangerous-capabilities-of-llms",
+      "section": "deep",
+      "title_en": "FUSE: An Evaluating Framework for Dangerous Capabilities of LLMs",
+      "authors": "Zhengyi Jin, Ru Zhang, Xiao Chen, Xinbo Liu, Jiaxuan Lin, Jia Huang, Jianyi Liu, Zhen Yang",
+      "date": "2026-09-02",
+      "pdf": "https://arxiv.org/pdf/2609.02168v1",
+      "score": "9.0",
+      "evidence": "模块化框架评估大模型危险能力，包含网络试点",
+      "tldr": "碎片化的安全评估难以支撑大模型危险能力的有效治理。FUSE框架通过知识（K）、防御（D）、危害（H）三条正交管道和统一协议评估模型，聚合为标准化危险能力画像φ。对12个商业模型（四个家族）的化学-生物模块测试显示，模型间危险画像差异显著，危险能力随发布时间并未单调下降，新模型知识加深但防御仅部分改善。该框架为跨模型、跨时间、跨领域的安全治理提供了可扩展基准。",
+      "tags": "query:ca",
+      "abstract_en": "Fragmented safety evaluation undermines the governance of dangerous AI capabilities. We present a modular framework that evaluates each model through three orthogonal pipelines---Knowledge ($K$), Defense ($D$), and Harm ($H$)---under a unified protocol, aggregating results into a standardized dangerous-capability profile $φ$. Pluggable modules supply scenario seeds, knowledge banks, hazard queries, and judge rubrics, while the core evaluation engine remains unchanged across domains; the CB evaluation is complemented by a cyber pilot demonstrating protocol transfer.   Instantiating the framework with a chemical-biological (CB) module, we evaluate 12 commercial LLMs from four families. Our first contribution is a horizontal comparison of dangerous capability across models and model families: the three dimensions expose sharply divergent profiles---models with comparable knowledge differ in refusal resilience, and strong defenders do not generate less harmful content when they do comply---while family-level patterns further separate Claude, DeepSeek, and GPT models. The second is a temporal analysis of capability evolution: tracking $K$, $D$, and $H$ against model release dates reveals that dangerous capability has not monotonically declined; newer models deepen knowledge while only partially improving defense, showing that scaling and alignment progress do not uniformly translate into safety. Reliability is established via cross-judge consistency (bootstrap $ρ> 0.79$, 4 of 5 judges) and pipeline orthogonality ($K$--$D$--$H$ inter-correlations $ρ\\in [0.32, 0.52]$).",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202609/06/2609.00498v1-validity-aware-jailbreak-evaluation-for-large-language-models",
+      "section": "quick",
+      "title_en": "Validity-Aware Jailbreak Evaluation for Large Language Models",
+      "authors": "Qilong Wu, Sahil Wadhwa, Pranab Mohanty, Giri Iyengar, Varun Chandrasekaran",
+      "date": "2026-08-31",
+      "pdf": "https://arxiv.org/pdf/2609.00498v1",
+      "score": "6.0",
+      "evidence": "越狱评估框架检验LLM安全边界",
+      "tldr": "现有越狱评估主要依赖拒绝行为、语义相似性和意图匹配，忽视指令有效性和事实正确性，常将逼真但错误的响应误判为成功。本文提出SEAV框架，将响应分解为有序步骤，结合LLM判断与检索验证评估正确性和可操作性。实验表明，SEAV在SD-A上假阳性率降低14.9个百分点，并在四个公共基准中的三个中重新分类22.1%–51.0%的先前成功为无效。结果证明强制正确性校验能显著重塑鲁棒性评估，提升越狱检测的可靠性。",
+      "tags": "query:ca",
+      "abstract_en": "Jailbreak robustness has become central to large language model (LLM) safety evaluation, yet prevailing methodologies rely primarily on refusal behavior, semantic resemblance, and intent-matching heuristics that emphasize linguistic plausibility rather than correctness. We identify a key limitation in existing evaluations: many jailbreak intents depend on instructional validity rather than epistemic factuality, allowing realistic-looking responses to be labeled successful despite being factually or procedurally incorrect. To address this gap, we propose Sequential Epistemic and Action-Level Validation (SEAV), a verification-centric jailbreak evaluation framework that decomposes responses into ordered steps and evaluates both validity and correctness. SEAV combines LLM-as-a-judge mechanisms for semantic interpretation with retrieval-grounded verification using external knowledge sources, assessing whether generated content is factually correct, structurally consistent, and operationally capable of advancing harmful objectives. Empirically, SEAV cuts the false-positive rate on SD-A (a curated strategic-dishonesty diagnostic) by 14.9\\,pp vs. the strongest baseline, and reclassifies 22.1\\%--51.0\\% of sampled prior-labeled successes as invalid across three of four public benchmarks. Together, these results show that enforcing correctness substantially reshapes measured robustness: many previously labeled jailbreak successes are reclassified as invalid, and results are stable across the tested search backends and evaluator models. Code and data are available at https://github.com/Ardor-Wu/SEAV.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}

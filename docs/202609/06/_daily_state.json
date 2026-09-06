@@ -1,0 +1,41 @@
+{
+  "date": "20260906",
+  "date_label": "",
+  "generated_at": "2026-09-06 22:21:40 UTC",
+  "recommend_exists": true,
+  "run_count": 1,
+  "papers": [
+    {
+      "paper_id": "2609.02168v1",
+      "route": "202609/06/2609.02168v1-fuse-an-evaluating-framework-for-dangerous-capabilities-of-llms",
+      "title": "FUSE: An Evaluating Framework for Dangerous Capabilities of LLMs",
+      "section": "deep",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "ca"
+        }
+      ],
+      "score": 9.0,
+      "evidence": "模块化框架评估大模型危险能力，包含网络试点",
+      "first_seen_at": "2026-09-06 22:21:40 UTC",
+      "updated_at": "2026-09-06 22:21:40 UTC"
+    },
+    {
+      "paper_id": "2609.00498v1",
+      "route": "202609/06/2609.00498v1-validity-aware-jailbreak-evaluation-for-large-language-models",
+      "title": "Validity-Aware Jailbreak Evaluation for Large Language Models",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "ca"
+        }
+      ],
+      "score": 6.0,
+      "evidence": "越狱评估框架检验LLM安全边界",
+      "first_seen_at": "2026-09-06 22:21:40 UTC",
+      "updated_at": "2026-09-06 22:21:40 UTC"
+    }
+  ]
+}
