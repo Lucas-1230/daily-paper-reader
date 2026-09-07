@@ -1,0 +1,25 @@
+{
+  "date": "20260907",
+  "date_label": "",
+  "generated_at": "2026-09-07 22:41:27 UTC",
+  "recommend_exists": true,
+  "run_count": 1,
+  "papers": [
+    {
+      "paper_id": "2609.04495v1",
+      "route": "202609/07/2609.04495v1-rethinking-indirect-prompt-injection-as-a-test-time-search-problem",
+      "title": "Rethinking Indirect Prompt Injection as a Test-Time Search Problem",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "ca"
+        }
+      ],
+      "score": 7.0,
+      "evidence": "使用带搜索框架的智能体攻击者进行间接提示注入，对LLM智能体进行对抗测试。",
+      "first_seen_at": "2026-09-07 22:41:27 UTC",
+      "updated_at": "2026-09-07 22:41:27 UTC"
+    }
+  ]
+}

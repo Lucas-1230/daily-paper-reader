@@ -1,0 +1,57 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-09-07T22:39:28.638459+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 0,
+    "deep_cap": 6,
+    "deep_selected": 0,
+    "quick_candidates": 1,
+    "quick_skim_target": 11,
+    "quick_selected": 1
+  },
+  "deep_dive": [],
+  "quick_skim": [
+    {
+      "id": "2609.04495v1",
+      "source": "arxiv",
+      "title": "Rethinking Indirect Prompt Injection as a Test-Time Search Problem",
+      "abstract": "We formulate indirect prompt injection as a test-time search over a task-dependent attack surface induced by the environment, user task, and injection task. To operationalize this formulation, we introduce an agentic attacker with a dedicated search harness that performs environment reconnaissance, structured reasoning over attack strategies, and adaptive evaluation using victim-agent feedback. Across heterogeneous tasks, we find that increasing attacker test-time compute improves vulnerability discovery and exploitation, while ablations show that explicit strategy management is important for avoiding redundant search and sustaining gains at larger budgets. These results suggest that agentic security evaluations should characterize both the attacker's search procedure and compute budget, rather than treating attack success as a budget-independent property of the victim. More broadly, our findings identify the attacker's adaptive search over the system attack surfaces as an important and underexplored security risk for tool-using agents.",
+      "authors": [
+        "Duong M. Nguyen",
+        "Joon Sik Kim",
+        "Blazej Manczak",
+        "Vaikkunth Mugunthan"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI",
+        "cs.CL",
+        "cs.CR"
+      ],
+      "published": "2026-09-03T21:28:37+00:00",
+      "link": "https://arxiv.org/pdf/2609.04495v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Agentic attacker with search harness for indirect prompt injection, adversarial testing of LLM agents.",
+      "llm_evidence_cn": "使用带搜索框架的智能体攻击者进行间接提示注入，对LLM智能体进行对抗测试。",
+      "llm_evidence": "使用带搜索框架的智能体攻击者进行间接提示注入，对LLM智能体进行对抗测试。",
+      "canonical_evidence": "使用带搜索框架的智能体攻击者进行间接提示注入，对LLM智能体进行对抗测试。",
+      "llm_tldr_en": "The paper formulates indirect prompt injection as test-time search and introduces an agentic attacker that performs reconnaissance and adaptive evaluation, showing test-time compute improves vulnerability discovery.",
+      "llm_tldr_cn": "间接提示注入通常被视为静态攻击，但本文将其建模为测试时搜索问题，考虑环境、用户任务和注入任务构成的攻击面。作者提出一个智能体攻击者，配备搜索框架，可进行环境侦察、策略推理和基于受害者反馈的自适应评估。在多个任务上的实验表明，增加攻击者的测试时计算能提升漏洞发现与利用效果。该研究提示安全评估应同时刻画攻击者的搜索能力，为LLM对抗测试提供了新方法。",
+      "llm_tldr": "间接提示注入通常被视为静态攻击，但本文将其建模为测试时搜索问题，考虑环境、用户任务和注入任务构成的攻击面。作者提出一个智能体攻击者，配备搜索框架，可进行环境侦察、策略推理和基于受害者反馈的自适应评估。在多个任务上的实验表明，增加攻击者的测试时计算能提升漏洞发现与利用效果。该研究提示安全评估应同时刻画攻击者的搜索能力，为LLM对抗测试提供了新方法。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "adversarial agents for testing large language models in cybercrime",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    }
+  ]
+}

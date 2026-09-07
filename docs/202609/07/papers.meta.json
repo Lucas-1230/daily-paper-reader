@@ -1,0 +1,24 @@
+{
+  "label": "2026-09-07",
+  "date": "2026-09-07",
+  "generated_at": "2026-09-07T22:41:40",
+  "count": 1,
+  "papers": [
+    {
+      "paper_id": "202609/07/2609.04495v1-rethinking-indirect-prompt-injection-as-a-test-time-search-problem",
+      "section": "quick",
+      "title_en": "Rethinking Indirect Prompt Injection as a Test-Time Search Problem",
+      "authors": "Duong M. Nguyen, Joon Sik Kim, Blazej Manczak, Vaikkunth Mugunthan",
+      "date": "2026-09-03",
+      "pdf": "https://arxiv.org/pdf/2609.04495v1",
+      "score": "7.0",
+      "evidence": "使用带搜索框架的智能体攻击者进行间接提示注入，对LLM智能体进行对抗测试。",
+      "tldr": "间接提示注入可视为在任务相关攻击面上的测试时搜索问题。本文提出配备专用搜索框架的智能攻击者，执行环境侦察、策略推理和基于反馈的自适应评估。实验表明增加攻击者测试时计算可提升漏洞发现与利用，显式策略管理能避免冗余搜索。这表明安全评估需刻画攻击者搜索过程与计算预算，凸显自适应搜索是工具型代理的重要风险。",
+      "tags": "query:ca",
+      "abstract_en": "We formulate indirect prompt injection as a test-time search over a task-dependent attack surface induced by the environment, user task, and injection task. To operationalize this formulation, we introduce an agentic attacker with a dedicated search harness that performs environment reconnaissance, structured reasoning over attack strategies, and adaptive evaluation using victim-agent feedback. Across heterogeneous tasks, we find that increasing attacker test-time compute improves vulnerability discovery and exploitation, while ablations show that explicit strategy management is important for avoiding redundant search and sustaining gains at larger budgets. These results suggest that agentic security evaluations should characterize both the attacker's search procedure and compute budget, rather than treating attack success as a budget-independent property of the victim. More broadly, our findings identify the attacker's adaptive search over the system attack surfaces as an important and underexplored security risk for tool-using agents.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}
