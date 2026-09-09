@@ -1,0 +1,463 @@
+Title: LLM-Based Penetration Testing in the Presence of Honeypots
+
+URL Source: https://arxiv.org/pdf/2609.08093v1
+
+Published Time: Wed, 09 Sep 2026 03:17:26 GMT
+
+Number of Pages: 13
+
+Markdown Content:
+# LLM-Based Penetration Testing in the Presence of Honeypots 
+
+# Xinhong Xie, Piyush Nagasubramaniam, Neeraj Karamchandani, and Sencun Zhu 
+
+> The Pennsylvania State University
+> {xjx5116,pvn5119,njk5270,sxz16}@psu.edu
+
+# Abstract 
+
+Large language model (LLM) agents are increasingly em-ployed for offensive cybersecurity tasks such as automated vulnerability discovery, reconnaissance, and penetration test-ing. This new capability also threatens one of the defender’s most valuable tools: deception. Traditional honeypots rely on realism and obscurity to lure human or script-driven attackers into revealing tactics, techniques, and procedures (TTPs), but LLM-driven attackers can reason about heterogeneous arti-facts and use the honeypot suspicion to guide target-selection decisions. We present a systematic study of honeypot-aware budget allocation for LLM attack agents. We formalize the attacker’s problem as a budgeted decision process: an agent interacts with potential targets, consuming LLM execution budget dur-ing reconnaissance and exploitation, and must decide whether to engage (continue exploitation) or disengage (skip) when honeypot suspicion arises. Our findings show that with the proposed detector-guided policy, LLM agent attackers can effectively allocate budget to compromise hosts in a host pool, highlighting the impor-tance of dynamically allocating budget in a controlled mixed-host testbed. While defenses are beyond our present scope, we discuss implications for future adversarially resilient and adaptive honeypot design. 
+
+# 1 Introduction 
+
+Deception has long been an important role in computer se-curity. Honeypots and honeynets—controlled decoy systems designed to lure, engage, and study attackers—allow defend-ers to collect threat intelligence, observe adversarial tactics, techniques, and procedures (TTPs), and consume attacker resources. Traditionally, the effectiveness of such systems has depended heavily on their ability to appear sufficiently realistic to avoid detection and sustain attacker interaction. LLM agents introduce a different attacker model. Unlike fixed penetration-testing scripts, an LLM agent can interpret reconnaissance results, select tools, revise intermediate deci-sions, and redirect its attack as new evidence becomes avail-able. Unlike conventional scripts that may follow predeter-mined attack sequences, these agents can interpret observa-tions, reassess intermediate results, and adjust their actions accordingly. This adaptability changes the role of honeypot detection. A fixed attack sequence may continue interacting with a de-ceptive host once selected, whereas an LLM agent can use deception evidence to reconsider whether that host is worth additional attack cost. Because honeypots are designed to mimic legitimate targets and attract adversarial interaction, an attacker may spend a substantial portion of its limited ex-ecution budget probing or exploiting deceptive hosts rather than pursuing genuine targets. As the number of candidate hosts grows, exhaustively investigating every system becomes increasingly impractical. Effective autonomous attacks in such environments therefore require not only identifying ex-ploitable systems, but also deciding which targets are worth further engagement under uncertainty and budget constraints .
+
+# 1.1 Motivation 
+
+Recent research on large language models has enabled in-creasingly autonomous agents for both defensive and offen-sive cybersecurity tasks. Defenders have incorporated LLMs into honeypots to generate more realistic interactions [7, 11] and to identify automated LLM attackers in the wild [13]. On the offensive side, systems such as PentestGPT and AutoPT demonstrate that LLM agents can reason across multi-stage penetration-testing workflows [4, 16], while CHeaT inves-tigates proactive defenses against such LLM-based attack agents [1]. These two trends expose an important but underexplored problem. Existing deception research primarily asks how de-fenders deploy honeypots, often modeling the attacker’s abil-ity to recognize deception as a fixed capability. Conversely, existing LLM-based offensive-security research largely fo-cuses on vulnerability discovery and attack execution. Com-1arXiv:2609.08093v1 [cs.CR] 8 Sep 2026 paratively little is known about how an LLM attacker can actively infer whether a discovered target is deceptive and incorporate this uncertainty into its attack decisions. Such capability is particularly important in resource-constrained attacks against environments containing both gen-uine and deceptive assets. Rather than treating every appar-ently vulnerable host equally, an attacker could use evidence gathered before and during interaction to estimate the like-lihood that a target is a honeypot, prioritize higher-severity vulnerabilities targets, and avoid spending limited resources on deceptive branches. From the defender’s perspective, this possibility also raises a fundamental question about how ro-bust honeypot deployments remain when facing attackers that can actively reason about deception. 
+
+# 1.2 Research Gap 
+
+Existing work studies LLM-based penetration-testing agents, network-level deployment of deceptive resources, and honey-pot detection and fingerprinting. However, it generally treats honeypot detection as an isolated classification or defensive problem. It does not examine how imperfect honeypot evi-dence should guide target selection and post-entry stopping when there is an LLM attacker operating under a finite execu-tion budget. Our work addresses this gap by integrating conservative pre-connect screening, budget-aware host ranking, and post-connect verification into a unified host-level attack policy. The novelty is not the detector itself. It is the decision-theoretic integration of imperfect honeypot evidence into sequential target selection under an LLM inference budget. 
+
+# 1.3 Problem Statement 
+
+We ask a fundamental question: 
+
+Given a population of potential targets and a finite query budget, how should an LLM-based attacker allocate its probing effort to maximize the number of confirmed genuine hosts while avoiding honey-pots? 
+
+We formalize this as a constrained decision process bal-ancing three factors: (1) a normalized genuine-likeness score derived from honeypot evidence; (2) a technical priority signal derived from vulnerability severity; and (3) token-based cost of probing. Using local pre- and post-entry detection tools together with an LLM penetration-testing agent, we evaluate LLM agents’ ability to detect honeypots, measure token effi-ciency, and quantify resulting budget-allocation effectiveness. 
+
+# 1.4 Contributions 
+
+Our contributions are as follows: • We formulate honeypot-aware target selection as a budget-constrained decision problem for LLM attack agents. • We propose a two-stage detector-guided policy that com-bines conservative pre-connect screening, budget-aware host ranking, and post-connect stopping. • We evaluate the policy on a controlled pool of honeypots and genuine vulnerable hosts, decomposing its effects on detection, ranking, post-entry loss, and end-to-end budget efficiency. 
+
+# 2 Background and Related Work 2.1 Honeypot Deception and Fingerprinting 
+
+Honeypots are monitored decoy systems designed to attract attackers, collect adversarial behavior, and expose attack tech-niques [12]. Prior surveys categorize honeypots by interaction level, deployment architecture, application domain, and analy-sis goals [6, 9]. Its effectiveness depends in part on resistance to fingerprinting, because attackers may identify deceptive systems through banners, timing behavior, incomplete func-tionality, or other implementation-specific artifacts. Recent work has applied LLMs to honeypot interaction and realism. LLM Honeypot uses the models to generate interactive web responses [11], while HoneyLLM supports LLM-generated shell interaction [7]. Other studies examine the defensive problem of observing LLM-based attackers in honeypot environments or systematizing potential honeypot-detection vectors [3, 13]. Separately, honeypot-fingerprinting research has shown that implementation-specific protocol behavior can expose de-ceptive services. Vetterl and Clayton developed active probes for identifying low- and medium-interaction SSH, Telnet, and HTTP honeypots from their protocol responses [14]. These results motivate the protocol-level pre-connect evidence used in our work. 
+
+# 2.2 Threat Model 
+
+We model an attacker faced with a huge population of targets A = {a1, . . . , an}. After finishing a simple discov-ery/vulnerability triage, the attacker can get a host list H ⊆
+
+A = {h1, ... hN } that are vulnerable. Our study focuses on tar-get selection and budget allocation within H , rather than on the scalability of the upstream network-wide discovery pro-cess. Each host may be a vulnerable genuine system or a honeypot yi ∈ { 0, 1}. For each host hi, the agent may perform different actions: collect honeypot evidence, or try to com-promise the host, which costs c tokens. After each action, the agent needs to decide what to do next and chooses among two options: 2Figure 1: Conceptual overview: an LLM agent performs budgeted reconnaissance across mixed honeypot and real targets, deciding whether to engage further or disengage based on artifact realism and cost. 1. Continue engage/exploit (incurring further cost and gaining more evidence, attempt compromise). 2. Disengage (move on to another host). The attacker’s goal is to maximize expected compromised real machines under a total budget B = ∑t ct ≤ Bmax . Defenders are passive: they operate honeypots but do not hack back. We assume the attacker can access one LLM and use different tools for detection. We consider defensively deployed honeypots whose attacker-controlled execution is subject to outbound contain-ment. In particular, deceptive hosts are prevented from com-pleting target-initiated connections to the controlled verifica-tion collector, whereas genuine hosts in our evaluation are configured to permit this connection. This framework captures both economic and behavioral aspects of modern automated attacks and sets the stage for quantitative evaluation. 
+
+# 3 Attacker Decision Model 3.1 System Overview 
+
+As illustrated in Fig 1, the attacker operates over a hetero-geneous target pool containing honeypots, non-vulnerable hosts, and genuinely vulnerable targets. A vulnerability triage step first identifies candidate hosts that are potentially ex-ploitable. Before committing substantial attack resources, the pre-connection detector collects lightweight evidence to esti-mate whether each candidate is likely to be genuine; highly suspicious hosts are rejected without further engagement. For the remaining candidates, the LLM-based entry policy jointly considers the detector-derived genuine-likeness score, vulner-ability severity, LLM cost already incurred on the host, and remaining budget to rank the hosts and select the next target to engage. After the attacker gains access to a selected host, the post-connection detector uses additional interaction evidence to reassess its authenticity and terminates further engagement if the host is suspected to be a honeypot. Throughout the pro-cess, the system continuously tracks LLM inference cost and repeats target selection and attack decisions until the available budget is exhausted. This design aims to maximize successful engagement with genuine targets while minimizing resources wasted on deceptive hosts under a fixed attack budget. 
+
+# 3.2 Detector-Guided Host Decision 
+
+Given the candidate host set H defined in Section 2.2, the attacker maintains a normalized genuine-likeness score bi for each host hi. The score is updated using pre-connect evidence before entry and post-connect evidence after a foothold is obtained. These signals determine whether a host is rejected, entered, or abandoned under the remaining LLM budget. 
+
+# 3.3 Two-Stage Detection Decisions 
+
+Before initial access, the pre-connect detector Dpre maps ex-ternally observable protocol and service artifact evidence E pre 
+
+to a normalized genuine-host score 
+
+bpre  
+
+> i
+
+= Dpre (Epre  
+
+> i
+
+) ∈ [0, 1].
+
+Host hi is rejected when the score is lower than the threshold 
+
+θpre 
+
+bpre  
+
+> i
+
+< θpre ,
+
+3and otherwise remains eligible for budget-aware ranking. Passing this stage does not confirm that a host is genuine, it only indicates that the available pre-connect evidence is insufficient for conservative rejection. After a foothold is obtained, the post-connect detector Dpost 
+
+uses execution and collector-observed execution evidence 
+
+E post to produce 
+
+bpost  
+
+> i
+
+= Dpost (Epost  
+
+> i
+
+) ∈ [0, 1].
+
+The policy abandons the branch when the score is lower than the threshold θpost 
+
+bpost  
+
+> i
+
+< θpost ,
+
+and otherwise records or continues the branch as a genuine target. The detector implementations are described in Section 4.2. 
+
+# 3.4 Budget-Aware Entry Scoring 
+
+We account for all LLM inference cost incurred by the attack agent. At decision round k, the cumulative cost is 
+
+Bk =
+
+> k
+
+# ∑
+
+> j=1
+
+˜c j, (1) and the episode terminates when Bk ≥ Bmax .The pre- and post-connect detectors, as well as other de-terministic tools, execute locally and do not themselves incur LLM cost. However, they are exposed to the agent through the LLM tool interface. Therefore, model invocations used to select and issue a tool call and to process the returned tool observation are included in ˜ c j and charged to the episode bud-get. Only the non-LLM runtime overhead of the underlying tool execution is excluded from Bmax .After pre-connect screening, the attacker ranks the surviv-ing candidates by an entry score. In our implementation, we use the normalized CVSS v3.1 Base Score [5] as a heuristic proxy Vi for the technical severity of the vulnerability asso-ciated with host hi. Let Php ≥ 0 be a conservative honeypot-entry penalty estimated from a held-out rule-based stopping baseline. Let 0 ≤ bpre i ≤ 1 represent the normalized genuine-likeness score produced by the pre-connect detector. With the above information, we define the risk-adjusted pre-entry utility score utility as 
+
+ri = bpre i Vi −  1 − bpre i
+
+ Php .
+
+The first term weights the vulnerability-severity score by the detector-derived genuine-likeness score, while the second term penalizes hosts exhibiting stronger honeypot evidence The process of compromising a host still consumes LLM-agent execution budget. Let ˆcspent i,k = ∑ 
+
+> t≤ka t→ct
+
+˜ct ,
+
+denote the cumulative LLM execution cost already incurred on host h i up to global decision round k. It contains only realized costs from previous actions on that host and therefore requires no knowledge of future attack cost. We define the remaining budget-adjusted entry score as 
+
+si,k = ri − μk ˆcspent i,k .
+
+Here, μk ≥ 0 is a budget-pressure parameter at global decision round k.A larger μk more strongly penalizes hosts on which more LLM execution budget has already been spent, encouraging the attacker to avoid repeatedly investing in costly targets under high budget pressure. At each global decision round k, the attacker selects the candidate with the highest positive entry score: 
+
+i⋆ = arg max 
+
+> i∈hi
+
+si,k,
+
+The action at round k + 1 will pick hi⋆ as the next target. Thus, the policy enters a host only when its budget-adjusted entry score remains the highest. The score si,k has three roles. First, bpre i,t Vi prioritizes hosts that are both likely genuine and are associated with higher-severity vulnerabilities. Second, (1 − bpre i )Php penalizes hosts whose evidence suggests honeypot risk. Third, μk ˆcspent i,k pe-nalizes hosts on which more LLM budget has already been spent, discouraging repeated investment in costly branches as budget pressure increases. The policy therefore does not merely classify hosts; instead, it ranks attack opportunities ac-cording to detector evidence, vulnerability severity, honeypot risk, and budget pressure. 
+
+# 3.5 Budget-Pressure Update 
+
+To adapt the ranking behavior under different budget regimes, we adopt the method from Bal. [2] to update the budget-pressure parameter μ using a projected update rule: 
+
+μk+1 = [ μk + η ( ˜ck − λk)] + ,
+
+where η > 0 is the step size, [z]+ = max (z, 0), ˜ ck is the realized LLM cost at decision round k, and λk is the expected spending pace (expected cost at each round). When the attacker spends faster than the target pace, μk increases and future entries are penalized more strongly. When spending is below the target pace, μk decreases. We define the expected spending pace as 
+
+λk =
+
+
+
+11 + ln (τ2/τ1)
+
+Bmax 
+
+τ1
+
+, k ≤ τ1,
+
+11 + ln (τ2/τ1)
+
+Bmax 
+
+k , τ1 < k ≤ τ2,
+
+where τ1 and τ2 denote the conservative and optimistic budget horizons, i.e., the estimated numbers of decision rounds sup-ported under higher and lower per-round costs, respectively. 44 Experimental Setup and Episode Construc-tion 
+
+This section describes the controlled testbed and episode con-struction used to instantiate the budget-aware attack model in Section 3. Unlike an artifact-level honeypot classification benchmark, our evaluation is organized around a population of candidate hosts. In each episode, the attacker is faced with a mixed host pool containing genuine vulnerable machines and honeypot deployments. The attacker must decide which hosts to enter under a limited LLM execution budget, using pre-connect evidence for conservative screening and post-connect evidence for continuation decisions after a foothold is obtained. 
+
+# 4.1 Testbed and Target Pool 
+
+We construct a controlled post-triage candidate pool contain-ing 20 hosts: 8 honeypot deployments and 12 genuine vulner-able machines. This pool represents H in our threat model, i.e., the subset of hosts retained after inexpensive upstream discovery and vulnerability triage, rather than the complete asset population of a data center. All candidate hosts are de-ployed inside an isolated virtual network reachable only by the attacker environment. The target pool contains multiple service families, including SSH, Web, SMB, and FTP. The honeypot subset includes Cowrie, Wetland, Glastopf, HoneySSH, sshForShits, sshsyrup, sshesame, and a second Cowrie configuration. These systems mainly emulate SSH, Telnet, and web-facing services and expose different levels of interaction fidelity. The genuine subset consists of intentionally vulnerable laboratory machines from Vulnhub [15], including Metas-ploitable, DC-1, Kioptrix Level 1, Stapler, and other vulner-able virtual machines. A host is considered genuine when it represents a functional vulnerable system on which the at-tacker can obtain verifiable progress, such as authenticated access, remote command execution, or an interactive shell. 
+
+# 4.2 Detector Implementation 
+
+4.2.1 Pre-Connect Detector 
+
+The pre-connect detector performs service scanning before starting real detection. After identifying the service proto-col, the detector executes multi-stage probes. For each probe, it will collect implementation-level artifacts, including the server banner, packet lengths, padding patterns, responses to atypical packets, disconnect messages, and selected raw-byte features as a feature vector xi,p
+
+And the fingerprinting procedure is inspired by the active protocol-deviation methodology of Vetterl and Clayton [14], which uses crafted handshake inputs and implementation-specific response features to distinguish honeypots from gen-uine services. Then, using the cosine similarities between xi,p and real host features chp and cgen , which are centroid features of the training set from different prototypes. To avoid data leakage, we used different hosts to construct the prototypes and evalu-ate the detector, but they may come from the same family. 
+
+xi,p and honeypot features to calculate the distance di,p,which shows whether the host is closer to the real host or the honeypot. The relative similarity difference is 
+
+di,p = max cos (xi,p, chp ) − max cos (xi,p, cgen )
+
+The detector combines the two probe decisions conserva-tively: ˆypre i =
+
+(
+
+honeypot , di,p ≥ 0genuine , di,p < 0In addition, it produces a continuous genuine-likeness score based on the weaker of the two probes: 
+
+bpre i = 1 − σ (min {di,p})
+
+where σ(·) is the sigmoid function. A score below 0 .5indicates that both probes exceed their honeypot thresholds, while a score above 0 .5 indicates that at least one probe does not provide sufficient honeypot evidence. The score bpre i is a genuine-likeness score derived from protocol-level honeypot evidence, rather than a calibrated pos-terior probability or a confidence score for the predicted label. Honeypot-labeled hosts are rejected before LLM-guided en-try, whereas genuine and uncertain hosts remain candidates for downstream ranking. 
+
+4.2.2 Post-Connect Detector 
+
+The post-connect detector is invoked only after the attacker obtains a shell-like foothold. It follows a two-stage cascaded procedure that combines a hard command-side validity gate with a continuous outbound-connectivity score. In the first stage, the detector issues a predefined set of low-risk commands and examines whether the resulting shell behavior is consistent with a functional operating system. The checks include command availability, output consis-tency, filesystem and process information, state persistence, and plausible side effects across consecutive commands. Let gcmd  
+
+> i
+
+∈ { 0, 1} denote the result of this stage. If the re-sponses are clearly templated, inconsistent, or stateless, we set gcmd  
+
+> i
+
+= 0, assign the host a post-connect score of zero, and immediately abandon the branch. Hosts that pass the command-side gate proceed to a con-trolled outbound-connectivity test. The target is instructed to send a sequence of payloads to a collector deployed inside the isolated evaluation network. Let nout  
+
+> i
+
+denote the number of valid payloads received by the collector within the obser-vation window. A larger value provides stronger evidence 5Table 1: Detector and policy parameters used in the experi-ments. Parameter Value Selection method 
+
+Detector parameters kpre 2 Fixed probe cap 
+
+θpre skip 0.50 Natural decision boundary 
+
+θpost cont 0.50 Heuristically fixed 
+
+Budget-policy parameters Php 0.438 Calculated rule-stop loss 
+
+μ0 10 Fixed initialization 
+
+η 0.1 Sensitivity analysis 
+
+τ1, τ2 Budget-dependent Expected decision range that attacker-issued commands produce externally observable effects permitted by the target’s network environment. Under our containment model, such collector-reaching side effects are permitted for genuine hosts but blocked for honeypot de-ployments. We convert this count into a normalized outbound score 
+
+sout  
+
+> i
+
+= f (nout  
+
+> i
+
+) ∈ [0, 1],
+
+where f (·) is a monotonically increasing normalization function. Larger values indicate stronger evidence that the shell supports genuine network execution rather than a shal-low simulated response. The final post-connect genuine-likeness score is 
+
+bpost  
+
+> i
+
+= gcmd  
+
+> i
+
+sout  
+
+> i
+
+.
+
+Thus, any host that fails the first-stage validity checks re-ceives bpost  
+
+> i
+
+= 0, whereas hosts that pass the first stage receive a score determined by the number of valid outbound payloads observed. The attacker marks the branch as genuine when 
+
+bpost  
+
+> i
+
+≥ θpost cont ,
+
+or marks it as a honeypot and abandons it otherwise. 
+
+# 4.3 LLM Attacker 
+
+The attack component is implemented using an LLM-based penetration-testing agent. For each selected host, the agent receives the target address, discovered ports and services, available software version and vulnerability information, and the observations returned by previous tool executions. The agent is not given the ground-truth host type or the outputs used internally by the honeypot detectors. Our attacker is based on the red team agent of CAI [8] which uses OpenAI o3-mini [10] to develop an attack agent (making a trade-off between capability and cost efficiency). Unless otherwise stated, the model is configured with a default temperature. The conversation history and tool observations are retained during the current attack attempt, allowing the agent to revise failed actions and adapt its subsequent deci-sions. The agent interacts with the evaluation environment through a controlled tool interface. The available tools support network reconnaissance, service enumeration, com-mand execution, exploit-script execution, session manage-ment, and, most importantly, the pre-connection detector and post-connection detector. During an attack attempt, the agent follows an iterative observe–reason–act process, following the general reasoning-and-acting interaction pattern introduced by ReAct [17]. It first analyzes the current target information and previous tool outputs, selects the next reconnaissance or exploitation action, executes the action through the corre-sponding tool, and incorporates the resulting observation into its next decision. We define an attack attempt as one bounded interaction of the LLM attacker with a selected host. An attempt begins when the agent receives the current host context and proceeds through an iterative observe–reason–act process. Before a foothold is obtained, the agent performs recon-naissance and exploitation actions. Initial access is considered successful only when the attacker obtains a verifiable capabil-ity, such as an interactive shell, authenticated remote access, or remote command execution. Establishing a network connec-tion, receiving a service banner, or creating a non-interactive session alone does not constitute a successful foothold. Obtaining initial access does not immediately terminate the host interaction. Instead, a successful foothold transitions the branch to the post-connect verification phase. In the full policy, the agent invokes the post-connect detector through its tool interface and uses the returned evidence to determine whether the apparent foothold should be accepted as genuine or abandoned as deceptive. The host branch terminates after genuine confirmation, honeypot abandonment, a terminal exe-cution failure, or exhaustion of the remaining episode budget. For each model invocation, we record input and output to-kens and convert them into monetary cost according to the model pricing configuration. All LLM invocations made dur-ing reasoning and tool use, including those used to invoke the pre- and post-connect detectors and process their returned observations, are charged to the primary episode budget. The runtime cost of the underlying local tools themselves is ex-cluded. 
+
+# 4.4 Parameter Settings 
+
+Table 1 summarizes all detector and policy parameters. Unless otherwise stated, the same settings are used across all policies and budget regimes. Let ¯ ccmd denote the reference cost of one LLM-generated attack command. We compute the expected decision-range 6parameters as 
+
+τ1 = Bmax 
+
+20 ¯ ccmd 
+
+, τ2 = Bmax 
+
+¯ccmd 
+
+.
+
+The decision-range parameters τ1 and τ2 are computed sepa-rately for each value of Bmax .
+
+# 5 Experimental Evaluation 
+
+Our evaluation is designed to test the full decision structure of the detector-guided two-stage attack policy. Rather than eval-uating honeypot detection as an isolated artifact-classification task, we evaluate whether the proposed policy can allocate a limited attack budget effectively across a pool of candidate hosts. Importantly, in the real world, attackers are faced with a combination of honeypots, non-vulnerable machines, and vul-nerable machines. To avoid wasting budget on non-vulnerable machines, in the CVE scan step, we take the machines has no CVE results or poor results as non-vulnerable machines and skip them. Each CVE scan only takes 0.002$ to 0.003$, even if we have 1000 non-vulnerable machines in a real scenario, the budget only increases by 2$ to 3$ To simplify, we evaluate our method on a testbed with 20 hosts: eight honeypot deployments and twelve intentionally vulnerable machines. 
+
+# 5.1 Ground Truth and Outcome Definitions 
+
+Each host has a ground-truth type yi. A genuine host is counted as confirmed only when the LLM attacker obtains a verifiable foothold or another predefined success artifact. A honeypot is counted as falsely entered if it survives pre-connect screening and receives LLM attack budget. We distinguish five episode outcomes. A true genuine con-firmation occurs when a genuine host is entered and success-fully verified. A false reject occurs when a genuine host is dis-carded by pre-connect screening. A false entry occurs when a honeypot survives screening and receives LLM attack budget. A delayed abandonment occurs when a honeypot is entered and consumes post-entry budget before being abandoned. An unresolved host is one that remains unentered because the budget is exhausted or because its entry score is non-positive. These outcome definitions connect the experimental setup to the evaluation metrics in the next section, including con-firmed genuine hosts under budget, wasted honeypot budget, honeypot entry rate, cost to first genuine confirmation, and budget efficiency. 
+
+# 5.2 Research Questions 
+
+RQ1: Detector validity. Can the pre-connect and post-connect detectors provide reliable signals for distinguishing genuine hosts from honeypots? 
+
+RQ2: Entry-ranking quality. Does the budget-aware entry score prioritize genuine hosts with higher-severity vulnerabil-ities earlier than simpler ranking strategies? 
+
+RQ3: Post-entry loss reduction. Can the post-connect de-tector reduce the budget wasted after the attacker enters a honeypot? 
+
+RQ4: End-to-end budget efficiency. Under the same LLM budget, does the full policy confirm more genuine hosts and spend less budget on honeypots? 
+
+5.2.1 RQ1: Detector Effectiveness 
+
+We first evaluate whether the detector outputs are sufficiently informative for their intended roles in the policy. Because the pre-connect detector is configured as a conservative screening mechanism, we focus on its honeypot recall and its false-rejection rate on genuine hosts. We additionally report accu-racy and F1-score for comparison with simpler pre-connect baselines. These detector-level results are not the final objective, but they establish whether the beliefs are informative enough to support downstream policy decisions. 
+
+Pre-connect screening. Table 2 compares the proposed pre-connect detector with the banner-only (Detector only makes classification decision based on the host’s banner informa-tion) and service-metadata (Detector makes decision based on service-metadata information, which includes service, ver-sion, port, os, and other information) baselines. Our detector improves accuracy from 0.70 to 0.80 and F1-score from 0.50 to 0.67 and recall from 0.38 to 0.50. More importantly, it reduces the false-rejection rate on genuine hosts from 0.08 to 0.00. Compared to banner-only and service metadata solutions, our proposed method focuses on the protocol level. Since many low- and medium-interaction honeypots do not em-ploy real protocols, protocol-level detectors can uncover com-pelling evidence to identify them as honeypots. These results are consistent with the intended conservative role of pre-connect screening. The proposed detector does not attempt to reject every honeypot from externally observable evidence. Instead, it rejects only hosts for which both protocol probes provide sufficiently strong honeypot evidence. This design preserves all genuine hosts in the evaluated pool, at the cost of allowing several ambiguous honeypots to proceed to the entry-ranking stage. 
+
+Complementary detector roles. Table 3 compares the fi-nal pre-connect and post-connect detector outputs. The pre-connect detector obtains a precision of 1.00 and a recall of 0.50. This means that the hosts rejected by the detector are honeypots, but only a subset of all honeypots can be identified before entry. Its ROC–AUC of 0.81 further indicates that the 7Table 2: Pre-connection detection performance. HP Rec. de-notes honeypot recall, while Gen. FRR denotes the false-rejection rate on genuine hosts. 
+
+Method Acc. ↑ F1 ↑ HP Rec. ↑ Gen. FRR ↓
+
+Banner-only 0.70 0.50 0.38 0.08 Service metadata 0.70 0.50 0.38 0.08 Our methods 0.80 0.67 0.50 0.00 
+
+continuous detector score remains informative for ranking hosts that are not directly rejected. In the evaluated post-entry branches, genuine hosts were configured to permit communication with the verification collector, whereas honeypot deployments were subject to con-tainment that prevented such communication. Under this con-trolled deployment condition, the post-connect detector was evaluated on 8 honeypot and 8 genuine post-entry branches and could separate all evaluated branches. The post-connect detector achieves substantially stronger performance, with an accuracy, precision, recall, and F1-score of 1.00 in the evalu-ated post-entry branches. This difference is expected because the post-connect detector observes shell behavior, command consistency, state persistence, and outbound execution evi-dence that is unavailable before a foothold is obtained. Table 3: Detector-level performance on pre-connect evidence and post-connect evidence under the controlled containment configuration.                     
+
+> Detector Acc. ↑Prec. ↑Rec. ↑F1 ↑AUC ↑
+> Pre-connect 0.80 1.00 0.50 0.67 0.81 Post-connect 1.00 1.00 1.00 1.00 0.98
+
+5.2.2 RQ2: Entry-Ranking Quality 
+
+We next evaluate whether the proposed entry score 
+
+si,k = bpre i Vi − (1 − bpre i )Php − μk ˆcspent  
+
+> i,k
+
+.
+
+produces a better host-entry ordering than simpler alterna-tives. This section answers the question: among hosts that sur-vive pre-connect screening, does the score rank the highest-priority candidates earlier? 
+
+We compare the proposed score with random, CVSS-only, detector scores-only, and partial-score baselines using Top-k genuine count, entry precision, and false-entry rate. 
+
+Effect of pre-connect detector outputs. Table 4 reports the entry quality obtained using detector scores from different pre-connect methods. The proposed detector places three genuine hosts among the top three candidates, compared with two for the no-detector and service-metadata settings and one for the banner-only baseline. The proposed detector also achieves the highest entry pre-cision of 0.75 and the lowest false-entry rate of 0.25. Without detector guidance, entry precision is only 0.60 and the false-entry rate is 0.40. These results show that the continuous detector output remains useful even when it is not strong enough to reject a host directly: it helps concentrate genuine hosts near the top of the candidate ranking. Table 4: Entry-decision quality using detector scores produced by different pre-connection methods. All methods use the same vulnerability-severity scores, honeypot penalty, and cost estimates.                         
+
+> Method Top-3 Gen. ↑First Rank ↑Entry Prec. ↑False Entry ↓
+> No detector 210.60 0.40 Banner-only 110.69 0.31 Service metadata 210.60 0.40 Proposed 310.75 0.25
+
+All methods prioritize the genuine host machine. Although our detector does not improve the ranking of the first genuine host, it excels at enhancing the quality of subsequent candidate hosts and reducing the proportion of honeypots among the selected hosts. 
+
+Entry-score ablation. Table 5 evaluates the components of the proposed entry score. CVSS-only ordering performs worse than random ordering, placing an expected 1.77 gen-uine hosts in the top three and 3.00 in the top five. In contrast, strategies incorporating the pre-connect detector scores place a genuine host first and achieve 3.00 genuine hosts in the top three. Detector score-based results indicate that the pre-connect detector scores is the dominant signal for early prioritization. The full score does not further improve the first three positions, but increases the expected number of genuine hosts in the top five from 4.50 to 4.83. The budget-aware terms therefore mainly refine later entry decisions after the highest-confidence hosts have already been processed. 
+
+5.2.3 RQ3: Post-Connect Loss Reduction 
+
+A key design variable in the proposed policy is the honeypot loss 
+
+Lhp = E
+
+ 
+
+> Tabandon
+> i
+
+# ∑ 
+
+> τ=tentry
+> i+1
+
+c(ai,τ) i ∈ H
+
+ .
+
+This quantity captures the expected additional budget wasted after entering a honeypot. Here, c(ai,τ) denotes the LLM inference cost associated with agent step ai,τ. For a tool-mediated step, this cost includes 8Table 5: Entry-ranking quality among hosts that survive pre-connect screening.                      
+
+> Ranking Strategy (Expectation) Mean # Genuine in Top-1 ↑Mean # Genuine in Top-3 ↑Mean # Genuine in Top-5 ↑
+> Random-order: 0.75 / 1 2.25 / 3 3.75 / 5 CVSS-only: Vi0.60 / 1 1.88 / 3 3.00 / 5 Detector scores-based: bpre i1.00 / 1 3.00 / 3 4.50 / 5 Full score: si,t,k1.00 / 1 3.00 / 3 4.83 / 5
+
+the model inference required to issue the tool call and to process the returned observation, but excludes the runtime cost of executing the local tool itself. We therefore evaluate whether the post-connect stage actu-ally reduces realized post-entry waste. We compare no stop-ping, rule-based stopping, and the proposed post-connect stop-ping mechanism using average honeypot cost and stop rate. This layer directly connects the empirical evaluation to the modeled term Lhp , showing whether the continuation gate meaningfully limits wasted downstream interaction. 
+
+Stopping performance. As shown in Table 6, continuing without a stopping mechanism incurs an average honeypot cost of 0.500. The rule-based baseline reduces this cost only slightly, to 0.438, and stops 50% of the evaluated honeypot branches. The proposed post-connect detector reduces the average honeypot cost to 0.042 and stops all evaluated honeypot branches. Relative to the no-stop policy, this corresponds to a cost reduction of 0.500 − 0.042 0.500 × 100% = 91 .6% .
+
+It also saves 0.458 monetary units per entered honeypot branch, compared with only 0.062 for the rule-based baseline. Table 6: Post-connect stopping quality after foothold.                  
+
+> Policy HP Cost ↓Aban. Cost ↓Saved ↑HP Stop Rate ↑
+> No stop 0.500 N/A N/A 0% Rule stop 0.438 0.376 0.062 50% Post-stop 0.042 0.042 0.458 100%
+
+This result demonstrates the distinct role of the post-connect stage. Pre-connect screening attempts to prevent sus-picious hosts from receiving LLM attack budget, but exter-nally visible evidence cannot identify every honeypot. When an ambiguous honeypot survives screening and is entered, post-connect verification limits the downstream loss by termi-nating the branch shortly after shell-level evidence becomes available. 
+
+5.2.4 RQ4: End-to-End Budget Efficiency 
+
+Our primary evaluation is conducted at the episode level. We compare complete attack policies under fixed total budget 
+
+Bmax . We set Bmax to 1$, 2$, 3$, 4$ and 5$ and ran three episodes on the five budget setups. In this experiment, we compare our method with random policy and fixbudget policy. For the random policy, the attacker will randomly choose one host as the target for every attack attempt, and for the fixbudget policy, the total budget is evenly allocated to each host, then the attacker will continue focusing on one host until running out of the allocated budget or confirming it’s a honeypot or genuine host. Our primary evaluation is conducted at the episode level. We compare complete attack policies under five fixed LLM budget levels, 
+
+Bmax ∈ { $1 , $2 , $3 , $4 , $5 }.
+
+For each budget level, we run three episodes using the same experimental protocol and compare the proposed full policy against random selection and fixed-budget allocation. 
+
+Primary episode-level metrics. We compare policies using the number of confirmed genuine hosts, wasted honeypot budget, and honeypot entry rate under budgets of $1, $3, and $5. We report: • Confirmed genuine hosts under budget: number of genuine hosts correctly confirmed before budget exhaus-tion; • Budget to first genuine confirmation: amount of bud-get spent before the first genuine host is successfully confirmed; • Wasted budget on honeypots: total cost spent on hosts that are ultimately honeypots; • Budget efficiency: number of confirmed genuine hosts per unit cost; • Post-screen honeypot entry rate: the fraction of hon-eypots that receive LLM attack budget among those that survive pre-connect screening. • Cost-to-achieve( K): minimum budget required to obtain 
+
+K genuine confirmations. 
+
+Performance across budget levels. Table 7 shows how pol-icy behavior changes as the available LLM budget increases from $1 to $5. At the lowest budget of $1, all three policies 9confirm only 0 .33 genuine hosts on average. This suggests that when the available budget is sufficient for only a small number of LLM-guided attack actions, the cost of obtaining initial access dominates differences in target selection. At $2, the effect of detector guidance begins to appear, although it has not yet translated into a clear advantage in the number of confirmed genuine hosts. The full policy and random selection both confirm 1 .33 genuine hosts, compared with 1 .00 for fixed-budget allocation. However, the full pol-icy obtains the lowest honeypot entry rate, 27%, compared with 41% for random selection and 63% for fixed-budget al-location. This indicates that under a still constrained budget, detector guidance first improves the quality of the hosts re-ceiving attack budget before producing a substantial increase in total genuine confirmations. The advantage becomes clearer at intermediate budgets. At $3, the full policy confirms 2 .33 genuine hosts, compared with 1 .66 for both baselines, while also producing the lowest wasted honeypot budget (0 .16). At $4, the full policy further increases the number of confirmed genuine hosts to 2 .66, compared with 2 .33 for fixed-budget allocation and 1 .66 for random selection. Honeypot costs at this budget are simi-lar across the three policies (0 .22–0 .23), indicating that the principal advantage of the full policy at this stage comes from allocating the available budget toward more productive genuine-host interactions rather than solely from reducing honeypot expenditure. At the highest evaluated budget of $5, the full policy con-firms 3 .66 genuine hosts, compared with 3 .00 for fixed-budget allocation and 2 .33 for random selection. This corresponds to improvements of approximately 22% and 57 .1%, respec-tively. Because the instantiated attacker can obtain verifiable footholds on at most four genuine hosts in the current testbed, the full policy reaches approximately 91 .5% of this empirical capability ceiling at $5. Thus, the five-point budget sweep shows a clear transition: policy differences are limited when the budget is extremely constrained, become increasingly con-sequential once multiple candidates can be processed, and eventually approach the capability ceiling of the underlying attacker. The increase in honeypot entry rate at larger budgets should not be interpreted as a degradation of the detector. With more available budget, the attacker processes a larger fraction of the surviving candidate pool and therefore eventually reaches more ambiguous honeypots that were not rejected during pre-connect screening. 
+
+Cost to successive genuine confirmations. Figure 2 com-plements the endpoint results in Table 7 by showing how much cumulative LLM budget each policy requires to reach successive genuine-host confirmations. For each policy, the vertical markers denote the attack steps at which the first, sec-ond, and third genuine hosts are confirmed; the corresponding value on the cumulative cost curve gives the cost-to-achieve that milestone. The policies show relatively similar behavior for the first genuine confirmation, consistent with the ranking results in Table 5, where the main benefit of detector-guided allocation does not arise from the first target alone. Differences become more apparent for later confirmations. The detector-guided policy reaches the second and third genuine-host milestones with less cumulative LLM expenditure than policies that allo-cate attack effort without the same combination of deception evidence and dynamic budget pressure. This indicates that the principal benefit of the proposed allocation strategy is cumu-lative: after each host interaction, budget saved or reallocated from less productive branches remains available for reaching subsequent genuine targets. 
+
+Figure 2: Cumulative LLM cost required to reach successive genuine-host confirmations. Vertical markers indicate the first, second, and third confirmed genuine hosts for each policy. 
+
+5.2.5 Ablation Test 
+
+The preceding RQs evaluate different stages of the proposed policy separately and then assess their combined end-to-end effect. We further perform a leave-one-component-out ab-lation to determine whether each component contributes in-dependently to the final policy behavior. We focus on the high-budget setting ( Bmax =$5), because RQ4 shows that dif-ferences in target prioritization and continuation decisions become most visible when the attacker has sufficient budget to process multiple candidates. Starting from the full policy, we remove the pre-connect detector, the post-connect detector, or the dynamic budget-pressure mechanism while keeping the remaining components unchanged. 
+
+Ablation configurations. Starting from the full policy, we construct three leave-one-component-out variants while keep-ing the candidate pool, LLM attacker, host ordering, and total execution budget unchanged. 10 Table 7: Policy performance under different total budget regimes.                                                                                                                                                                                                          
+
+> Bmax Policy Confirmed Genuine / All ↑Budget to First Genuine ($) ↓Wasted HP Budget ↓HP Entry Rate ↓
+> 1$ Random 0.33 ±0.47 / 12 -0.12 ±0.06 38 ±17% 1$ Fixbudget 0.33 ±0.47 / 12 -0.23 ±0.01 63 ±0% 1$ Full method 0.33 ±0.47 / 12 -0.12 ±0.01 33 ±6 % 2$ Random 1.33 ±0.47 / 12 1.31 ±0.33 0.13 ±0.04 41 ±11% 2$ Fixbudget 1±0 / 12 0.92 ±0.24 0.24 ±0.01 63 ±0% 2$ Full method 1.33 ±0.47 / 12 0.99 ±0.35 0.14 ±0.04 27 ±3 % 3$ Random 1.66 ±1.24/ 12 1.29 ±0.50 0.25 ±0.03 58 ±6% 3$ Fixbudget 1.66 ±0.47 / 12 0.90 ±0.03 0.23 ±0.02 63 ±0% 3$ Full method 2.33 ±0.47 / 12 0.90 ±0.05 0.16 ±0.02 41 ±11% 4$ Random 1.66 ±1.24/ 12 0.98 ±0.38 0.22 ±0.02 58 ±6% 4$ Fixbudget 2.33 ±1.24 / 12 0.92 ±0.03 0.23 ±0.01 63 ±0% 4$ Full method 2.66 ±0.47 / 12 0.96 ±0.52 0.23 ±0.05 58 ±6% 5$ Random 2.33 ±0.94/ 12 1.34 ±0.47 0.20 ±0.02 58 ±6% 5$ Fixbudget 3±0 / 12 0.89 ±0.05 0.23 ±0.02 63 ±0% 5$ Full method 3.66 ±0.47 / 12 0.91 ±0.03 0.18 ±0.01 58 ±6 % Upperbound -4 /12 --
+
+Without pre-connect detector. We disable both the conservative pre-connect rejection gate and the detector-derived genuine-likeness score bpre i . Consequently, all post-triage candidate hosts remain eligible for entry. Because no host-specific deception evidence is available, the detector-dependent terms are removed from the entry score, yielding 
+
+s−pre  
+
+> i,k
+
+= Vi − μk ˆcspent i,k . (2) The post-connect detector remains enabled. Thus, this variant isolates the contribution of pre-entry deception evidence while preserving vulnerability-severity prioritization, dynamic bud-get pressure, and post-entry verification. 
+
+Without post-connect detector. We retain the pre-connect detector and the complete entry score, but disable post-connect authenticity verification. Once a verifiable foothold is obtained, no post-connect tool call is issued and the current host branch terminates without an additional honeypot-aware authenticity decision. Ground-truth host labels remain hidden from the policy and are used only by the evaluator to deter-mine whether the apparent foothold corresponds to a genuine confirmation. This variant therefore also avoids the LLM inference asso-ciated with invoking and processing the post-connect detector, while leaving the underlying episode budget unchanged. 
+
+Without budget pressure. We retain both detection stages but remove the dynamic cost-pressure term by setting μk = 0for all decision rounds. The entry score therefore reduces to 
+
+s−BP  
+
+> i,k
+
+= bpre i Vi − (1 − bpre i )Php . (3) The total episode budget Bmax remains unchanged; this ab-lation removes only the mechanism that decreases a host’s priority as LLM cost accumulates on that branch, rather than removing the budget constraint itself. Table 8 shows that removing each component degrades the full policy in a different way, revealing their complementary roles. Removing the pre-connect detector slightly reduces the number of confirmed genuine hosts from 3 .66 to 3 .33, but substantially increases wasted honeypot cost from 0 .18 to 0.61. The honeypot entry rate also increases from 58% to 63%. Interestingly, the budget to the first genuine confirma-tion decreases from 0 .91 to 0 .74. This indicates that the pre-connect detector is not primarily responsible for reaching the first genuine host as quickly as possible. Instead, its main benefit is to improve the quality of candidates that receive downstream LLM budget by rejecting strongly suspicious hosts and providing a genuine-likeness signal for ranking. Without this evidence, the attacker may occasionally reach an early genuine target more quickly, but spends substantially more budget on deceptive hosts over the complete episode. Removing the post-connect detector produces a different failure mode. The honeypot entry rate remains unchanged at 58%, which is expected because the post-connect detector operates only after a host has already been entered. However, the number of confirmed genuine hosts decreases from 3 .66 to 2 .66, the budget to the first genuine confirmation increases from 0 .91 to 1 .28, and wasted honeypot cost increases from 0.18 to 0 .31. These results are consistent with the role of post-connect verification: it does not determine which hosts are entered, but provides additional evidence for distinguishing genuine progress from deceptive apparent footholds after entry. Removing this verification therefore leads to a less efficient downstream attack trajectory and leaves less effective 11 Table 8: Component ablation under the high-budget setting (Bmax = $5).                                                       
+
+> Variant Confirmed Gen. ↑Budget to First ↓Wasted HP Cost ↓HP Entry Rate ↓
+> No pre-detector 3.33 ±0.47 0.74 ±0.07 0.61 ±0.17 63 ±0 % No post-detector 2.66 ±0.47 1.28 ±0.46 0.31 ±0.07 58 ±6 % No budget pressure 0.33 ±0.47 -0±00±0 % Full 3.66 ±0.47 0.91 ±0.03 0.18 ±0.01 58 ±6 %
+
+budget for subsequent genuine targets. The largest degradation occurs when dynamic budget pres-sure is removed. Setting μk = 0 reduces the number of con-firmed genuine hosts from 3 .66 to only 0 .33. At the same time, this variant records no honeypot entries or honeypot-related cost. These zero values should not be interpreted as improved deception avoidance. Rather, without the cost-pressure term, accumulated expenditure on a host no longer lowers its prior-ity, reducing the policy’s ability to reallocate budget across candidate hosts. As a result, the attacker makes substantially less progress through the candidate pool before exhausting the available budget, which explains both the low genuine-confirmation count and the absence of observed honeypot entries. Overall, the ablation results show that the three compo-nents address different aspects of budgeted target selection. The pre-connect detector improves candidate quality before entry, the post-connect detector verifies whether apparent progress after entry should be trusted, and dynamic budget pressure promotes reallocation away from costly branches. Their combination yields the highest number of confirmed genuine hosts while keeping honeypot-related expenditure substantially lower than the detector-ablated variants. 
+
+# 6 Discussion and Future Work 6.1 Implications 
+
+Honeypot effectiveness against LLM agents should not be evaluated only by whether a honeypot is eventually detected. A complementary measure is the amount of LLM execution cost imposed before the attacker reaches a confident deci-sion. Our results show that pre-connect uncertainty and post-connect verification affect different stages of this cost. 
+
+# 6.2 Ethical and Policy Considerations 
+
+All experiments were conducted on authorized systems in an isolated laboratory network, and no external hosts were scanned or attacked. This study is limited to passive honey-pot detection and budget allocation; active retaliation and interaction with third-party systems are outside its scope. 
+
+# 6.3 Limitations 
+
+Our evaluation is limited by the size and diversity of the con-trolled 20-host post-triage candidate pool, the concentration on SSH and web services, the small number of successful post-connect branches, and the exclusion of deterministic de-tector overhead from the primary LLM budget. The current study evaluates decision-making within a post-triage candi-date set rather than end-to-end network-wide discovery or large-scale asset enumeration. Future work should evaluate larger and more heterogeneous candidate pools and integrate the policy with large-scale discovery or vulnerability-triage pipelines. Future work should explore multi-agent co-evolution, on-line learning, and large-scale deployment traces. 
+
+# 7 Conclusion 
+
+We investigate budget allocation for an LLM attack agent oper-ating over a mixed target pool containing both vulnerable gen-uine hosts and honeypots. We introduced a two-stage detector-guided policy that uses conservative pre-connect screening, budget-aware host ranking, and post-connect stopping. In our testbed, conservative pre-connect screening pre-served all genuine hosts while changing their priority relative to suspected honeypots. Within our controlled containment configuration, once a honeypot was entered, post-connect veri-fication reduced the LLM budget spent continuing that branch. The end-to-end results further indicate that the benefit of the full policy depends on the available budget, highlighting the need to evaluate honeypot detection as part of an integrated attack process rather than as an isolated classification task. Together, these results establish a host-level formulation of honeypot-aware budget allocation for LLM attack agents, while leaving larger and more heterogeneous data-center envi-ronments for future evaluation. Future work should evaluate larger target pools, more diverse services, and adaptive attack-ers and honeypots. 
+
+# References 
+
+[1] Daniel Ayzenshteyn, Roy Weiss, and Yisroel Mirsky. Cloak, honey, trap: Proactive defenses against LLM agents. In 34th USENIX Security Symposium (USENIX Security 25) , pages 8095–8114, Seattle, WA, August 2025. USENIX Association. [2] Santiago Balseiro, Christian Kroer, and Rachitesh Ku-mar. Online resource allocation under horizon uncer-tainty, 2023. [3] Robert A. Bridges, Thomas R. Mitchell, Mauricio Muñoz, and Ted Henriksson. Sok: Honeypots & llms, more than the sum of their parts?, 2026. [4] Gelei Deng, Yi Liu, Víctor Mayoral-Vilches, Peng Liu, Yuekang Li, Yuan Xu, Tianwei Zhang, Yang Liu, Martin Pinzger, and Stefan Rass. PentestGPT: Evaluating and 12 harnessing large language models for automated pene-tration testing. In 33rd USENIX Security Symposium (USENIX Security 24) , pages 847–864, Philadelphia, PA, August 2024. USENIX Association. [5] Forum of Incident Response and Security Teams (FIRST). Common Vulnerability Scoring System v3.1: Specification Document. https://www.first.org/ cvss/v3.1/specification-document , 2019. Ac-cessed: July 9, 2026. [6] Javier Franco, Ahmet Aris, Berk Canberk, and A. Selcuk Uluagac. A survey of honeypots and honeynets for internet of things, industrial internet of things, and cyber-physical systems. IEEE Communications Surveys & Tutorials , 23(4):2351–2383, 2021. [7] Chongqi Guan, Guohong Cao, and Sencun Zhu. Hon-eyllm: Enabling shell honeypots with large language models, 2024. [8] Víctor Mayoral-Vilches, Luis Javier Navarrete-Lozano, María Sanz-Gómez, Lidia Salas Espejo, Martiño Crespo-Álvarez, Francisco Oca-Gonzalez, Francesco Balassone, Alfonso Glera-Picón, Unai Ayucar-Carbajo, Jon Ander Ruiz-Alcalde, Stefan Rass, Martin Pinzger, and Endika Gil-Uriarte. CAI: An open, bug bounty-ready cyberse-curity ai. arXiv preprint arXiv:2504.06017 , 2025. [9] Zlatan Mori´ c, Vedran Daki´ c, and Damir Regvart. Ad-vancing cybersecurity with honeypots and deception strategies. Informatics , 12(1), 2025. [10] OpenAI. OpenAI o3-mini. https://openai.com/ index/openai-o3-mini/ , January 2025. Accessed: July 7, 2026. [11] Hakan T. Otal and M. Abdullah Canbaz. Llm honeypot: Leveraging large language models as advanced interac-tive honeypot systems. In 2024 IEEE Conference on Communications and Network Security (CNS) , page 1–6. IEEE, 2024. [12] Niels Provos. A virtual honeypot framework. In 13th USENIX Security Symposium (USENIX Security 04) ,San Diego, CA, August 2004. USENIX Association. [13] Reworr and Dmitrii Volkov. Llm agent honeypot: Moni-toring ai hacking agents in the wild, 2025. [14] Alexander Vetterl and Richard Clayton. Bitter har-vest: Systematically fingerprinting low- and medium-interaction honeypots at internet scale. In 12th USENIX Workshop on Offensive Technologies (WOOT 18) , Balti-more, MD, August 2018. USENIX Association. [15] VulnHub. VulnHub: Vulnerable by design. https: //www.vulnhub.com/ . Accessed: July 7, 2026. [16] Benlong Wu, Guoqiang Chen, Kejiang Chen, Xiuwei Shang, Jiapeng Han, Yanru He, Weiming Zhang, and Nenghai Yu. Autopt: How far are we from the end2end automated web penetration testing?, 2024. [17] Shunyu Yao, Jeffrey Zhao, Dian Yu, Nan Du, Izhak Shafran, Karthik Narasimhan, and Yuan Cao. React: Synergizing reasoning and acting in language models, 2023. 13

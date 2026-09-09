@@ -1,0 +1,249 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-09-09T22:08:09.249431+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 4,
+    "deep_cap": 6,
+    "deep_selected": 4,
+    "quick_candidates": 2,
+    "quick_skim_target": 11,
+    "quick_selected": 2
+  },
+  "deep_dive": [
+    {
+      "id": "2609.09087v1",
+      "source": "arxiv",
+      "title": "PrivEscalate: Measuring and Augmenting the Threat of LLM-Automated Linux Privilege Escalation",
+      "abstract": "As Large Language Model (LLM) agents increasingly automate offensive operations across the cyber kill chain, their efficacy in complex local post-exploitation tasks remains inadequately quantified. Among these, Linux privilege escalation is a key step between initial access and full system compromise. However, existing evaluations for this task are limited by small sample sizes (fewer than 15 scenarios), lacking the scale to compare model capabilities under executable verification. To address this, we present PrivEscalate, a large-scale benchmark for Linux privilege escalation, comprising 531 Dockerized scenarios spanning 14 sub-categories. We additionally derive 329 parameterized variants to measure sensitivity to environmental distractors.   Evaluating six LLMs across three agent architectures reveals: (i) model capability is heterogeneous across vulnerability classes, with no single model dominating across the high-prevalence classes, motivating multi-dimensional risk assessments; (ii) LLM successes are sensitive to environmental perturbation, so configuration rotation can disrupt some exploit attempts but does not eliminate the measured risk; and (iii) agent architectures can materially change success rates and reorder model rankings, though the magnitude is model-dependent. Leveraging these insights, we develop PrivEscAgent, a domain-specialized wrapper that augments a generic ReAct agent with deterministic enumeration, category matching, and step planning. PrivEscAgent improves over prior Linux privilege-escalation agent baselines without underlying LLM modifications. We release PrivEscalate as an open-source, Dockerized measurement instrument supporting LLM agent evaluation, defensive tool validation, and red-team training.",
+      "authors": [
+        "Yixuan Liu",
+        "Zilong Zhen",
+        "Yin Wu",
+        "Yi Li"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR"
+      ],
+      "published": "2026-09-08T17:34:02+00:00",
+      "link": "https://arxiv.org/pdf/2609.09087v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 10.0,
+      "llm_evidence_en": "LLM agents automate offensive cyber operations, benchmark for privilege escalation",
+      "llm_evidence_cn": "LLM智能体自动化攻击操作，权限提升基准测试",
+      "llm_evidence": "LLM智能体自动化攻击操作，权限提升基准测试",
+      "canonical_evidence": "LLM智能体自动化攻击操作，权限提升基准测试",
+      "llm_tldr_en": "Presents a large-scale benchmark for LLM-automated Linux privilege escalation, quantifying LLM offensive capabilities in cybercrime.",
+      "llm_tldr_cn": "该工作针对LLM智能体在Linux权限提升任务上的能力评估不足，提出包含531个场景的大规模基准，量化了LLM在网络犯罪中的攻击能力。",
+      "llm_tldr": "该工作针对LLM智能体在Linux权限提升任务上的能力评估不足，提出包含531个场景的大规模基准，量化了LLM在网络犯罪中的攻击能力。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "capabilities of large language models in cybercrime",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2609.08093v1",
+      "source": "arxiv",
+      "title": "LLM-Based Penetration Testing in the Presence of Honeypots",
+      "abstract": "Large language model (LLM) agents are increasingly employed for offensive cybersecurity tasks such as automated vulnerability discovery, reconnaissance, and penetration testing. This new capability also threatens one of the defender's most valuable tools: deception. Traditional honeypots rely on realism and obscurity to lure human or script-driven attackers into revealing tactics, techniques, and procedures (TTPs), but LLM-driven attackers can reason about heterogeneous artifacts and use the honeypot suspicion to guide target-selection decisions.   We present a systematic study of honeypot-aware budget allocation for LLM attack agents. We formalize the attacker's problem as a budgeted decision process: an agent interacts with potential targets, consuming LLM execution budget during reconnaissance and exploitation, and must decide whether to (continue exploitation) or (skip) when honeypot suspicion arises.   Our findings show that with the proposed detector-guided policy, LLM agent attackers can effectively allocate budget to compromise hosts in a host pool, highlighting the importance of dynamically allocating budget in a controlled mixed-host testbed. While defenses are beyond our present scope, we discuss implications for future adversarially resilient and adaptive honeypot design.",
+      "authors": [
+        "Xinhong Xie",
+        "Piyush Nagasubramaniam",
+        "Neeraj Karamchandani",
+        "Sencun Zhu"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR"
+      ],
+      "published": "2026-09-08T01:09:03+00:00",
+      "link": "https://arxiv.org/pdf/2609.08093v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "Systematic study of LLM attack agents in offensive penetration testing with honeypots",
+      "llm_evidence_cn": "对蜜罐环境下LLM攻击智能体在渗透测试中的系统研究",
+      "llm_evidence": "对蜜罐环境下LLM攻击智能体在渗透测试中的系统研究",
+      "canonical_evidence": "对蜜罐环境下LLM攻击智能体在渗透测试中的系统研究",
+      "llm_tldr_en": "Studies how LLM-driven attackers reason about honeypots, formalizes budgeted decision process, and evaluates LLM penetration testing capability in deceptive environments.",
+      "llm_tldr_cn": "该工作针对LLM智能体用于攻击性网络安全（如渗透测试）时对传统蜜罐的威胁，系统研究蜜罐感知下的预算分配。将攻击者问题形式化为预算决策过程，智能体与目标交互并消耗LLM执行预算。研究发现LLM攻击者能够推理异构线索并利用蜜罐怀疑指导目标选择，揭示LLM在进攻性网络任务中的能力边界，为防御方理解新型威胁提供依据。",
+      "llm_tldr": "该工作针对LLM智能体用于攻击性网络安全（如渗透测试）时对传统蜜罐的威胁，系统研究蜜罐感知下的预算分配。将攻击者问题形式化为预算决策过程，智能体与目标交互并消耗LLM执行预算。研究发现LLM攻击者能够推理异构线索并利用蜜罐怀疑指导目标选择，揭示LLM在进攻性网络任务中的能力边界，为防御方理解新型威胁提供依据。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "exploring the capability boundaries of large language models in cyber contexts",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2609.07344v1",
+      "source": "arxiv",
+      "title": "Staying on the Attack Path: Structured State for Long-Horizon Automated Penetration Testing",
+      "abstract": "Large language model (LLM) based agents are increasingly applied to cybersecurity tasks such as vulnerability discovery and automated penetration testing. On long-horizon security tasks, however, such agents remain limited by context forgetting and intent drift: early critical facts and causal reasoning chains are lost over extended interactions, and the agent falls into aimless, repetitive exploration. This paper proposes Intentest, an intent-graph-guided automated penetration testing agent that externalizes long-horizon state from the LLM's context window onto a persistent fact-intent directed acyclic graph (DAG), thereby substantially reducing invalid transitions. We evaluate Intentest on automated penetration testing of web applications, a representative long-tail task in cybersecurity. In the DAG, verified network states are stored as immutable fact nodes, and exploration directions are constrained as intent edges bounded by predecessor facts. The system adopts a three-layer architecture, in which the fact-intent mapping layer maintains the global state, the task scheduling and allocation layer ensures execution stability through two-phase degradation recovery and multi-dimensional adaptive load balancing, and the intent retrieval and prediction layer provides tactical priors through a top-down five-stage filtering algorithm. On a benchmark of real CTF challenges covering more than ten vulnerability types across three difficulty levels, Intentest achieves an overall success rate of 88.2% and a success rate of 75.0% on hard tasks, improving over the baseline by approximately 44 and 50 percentage points. Ablation experiments further show that the intent retrieval and prediction reduce the average number of rounds on successful medium and hard tasks by about 33% and 48%, respectively, without changing the set of solvable tasks.",
+      "authors": [
+        "Weizhe Wang",
+        "Yitong Zhang",
+        "Yao Zhang",
+        "Xiaoqiang Di",
+        "Zhigang Li",
+        "Bin Wu",
+        "Guangquan Xu"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI"
+      ],
+      "published": "2026-09-07T11:09:01+00:00",
+      "link": "https://arxiv.org/pdf/2609.07344v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "LLM-based agent for automated penetration testing, directly simulating cyber attacks",
+      "llm_evidence_cn": "基于 LLM 的自动化渗透测试智能体，直接模拟网络攻击",
+      "llm_evidence": "基于 LLM 的自动化渗透测试智能体，直接模拟网络攻击",
+      "canonical_evidence": "基于 LLM 的自动化渗透测试智能体，直接模拟网络攻击",
+      "llm_tldr_en": "Proposes Intentest, an intent-graph-guided LLM agent that externalizes state to a DAG to improve long-horizon automated penetration testing.",
+      "llm_tldr_cn": "针对 LLM 智能体在长时程自动化渗透测试中因上下文遗忘和意图漂移而表现不佳的问题，本文提出 Intentest 智能体。该方法将长期状态从 LLM 上下文窗口外化到持久的事实-意图有向无环图（DAG），从而减少无效转换并维持攻击路径。在 Web 应用渗透测试上的实验表明，Intentest 显著提升了长时程任务的稳定性和效率。该工作直接模拟了网络攻击行为，为评估 LLM 在进攻性安全场景下的能力边界提供了有效工具。",
+      "llm_tldr": "针对 LLM 智能体在长时程自动化渗透测试中因上下文遗忘和意图漂移而表现不佳的问题，本文提出 Intentest 智能体。该方法将长期状态从 LLM 上下文窗口外化到持久的事实-意图有向无环图（DAG），从而减少无效转换并维持攻击路径。在 Web 应用渗透测试上的实验表明，Intentest 显著提升了长时程任务的稳定性和效率。该工作直接模拟了网络攻击行为，为评估 LLM 在进攻性安全场景下的能力边界提供了有效工具。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "exploring the capability boundaries of large language models in cyber contexts",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2609.08418v1",
+      "source": "arxiv",
+      "title": "Feyospace-v1: How the Cyber Mercury Seven Trained Frontier Cyber Models",
+      "abstract": "Training capable cyber agents is often treated primarily as a problem of model scale, yet open-weight post-training is constrained more directly by the cost of executable environments, reliable multi-turn supervision, and access to strong teachers. We present a data-centric framework that addresses these bottlenecks through five complementary systems: Choulea analyzes hidden reasoning signatures, SkyReal reduces teacher-sampling cost, Hongzwang bypasses API restrictions on teacher execution, PSBreakup restores capabilities weakened by model merging, and Kreator converts expert interventions into trainable reasoning. Our data engine constructs resettable coding, vulnerability, CTF, kernel-history, full-exploit, firmware, and device-backed environments. Candidate trajectories are retained only after execution verification and evidence auditing, yielding 164,269 trajectories for long-context supervised fine-tuning. The three checkpoints improve over their starting models by an average of 23.76% on the full CyberGym suite and 10.49% across the pooled CTF suites. As of September 1, 2026, Feyospace-s1 achieves a verified success rate of 63.24% and ranks 10th on the official CyberGym leaderboard, while all three checkpoints rank 1st among models at comparable parameter scales. To our knowledge, this is the first end-to-end demonstration that a seven-person independent team can train open-weight models with leading agentic cyber capability.",
+      "authors": [
+        "Zongjie Li",
+        "Alan Z. W",
+        "John Nicolas J",
+        "Walter H. F",
+        "Scott Donald L",
+        "Gordon Y. P",
+        "Deke X"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-09-08T08:26:43+00:00",
+      "link": "https://arxiv.org/pdf/2609.08418v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Training frontier cyber models with data-centric framework for cyber tasks",
+      "llm_evidence_cn": "训练前沿网络模型的数据为中心框架，面向网络任务",
+      "llm_evidence": "训练前沿网络模型的数据为中心框架，面向网络任务",
+      "canonical_evidence": "训练前沿网络模型的数据为中心框架，面向网络任务",
+      "llm_tldr_en": "Presents a data-centric framework to overcome bottlenecks in training cyber agents, including executable environments and supervision, enabling frontier cyber model development.",
+      "llm_tldr_cn": "本文针对训练网络智能体时执行环境成本高、多轮监督难、教师模型受限等瓶颈，提出数据为中心的框架，包含五个互补系统。该框架构建可重置的编码、漏洞、CTF等环境，将专家干预转化为可训练推理数据。实验表明该方法能有效训练前沿网络模型，为探索网络语境下大模型能力边界提供了关键基础设施。",
+      "llm_tldr": "本文针对训练网络智能体时执行环境成本高、多轮监督难、教师模型受限等瓶颈，提出数据为中心的框架，包含五个互补系统。该框架构建可重置的编码、漏洞、CTF等环境，将专家干预转化为可训练推理数据。实验表明该方法能有效训练前沿网络模型，为探索网络语境下大模型能力边界提供了关键基础设施。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "capabilities of large language models in cybercrime",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2609.04894v1",
+      "source": "arxiv",
+      "title": "From Language Models to World-Acting Systems: Progress and Limits of Agentic AI across Digital, Social, Virtual, and Physical Environments",
+      "abstract": "Large language models become consequential agents when surrounding systems let outputs change external state. Models now call tools, operate interfaces, delegate work, retain state, inhabit generated worlds, and control robots or laboratory equipment. Such advances are often narrated as one march toward autonomy, conflating model competence, system integration, persistence, and safe authority. This critical review synthesizes primary research and official technical specifications available by 31 August 2026. We organize the evidence along delegated authority, temporal persistence, and environmental coupling, while separating model, harness, and environment. Within the evidence examined, action-interface expansion is documented more convincingly than robust completion, recovery, authorization, or independent verification. Model Context Protocol and Agent2Agent improve interoperability but do not establish trustworthy delegation; multi-agent organization adds specialization alongside cost and correlated failure. Persistent simulations and world models support training and planning but do not themselves demonstrate agency; robotics and self-driving laboratories establish bounded feasibility rather than unattended open-world reliability. We propose justified delegation as an analytical and normative heuristic, not an observed law or certified score: expand action scope only where evidence supports provenance, bounded authority, failure detection, safe recovery, and calibrated human control. This framing yields a research agenda for coupled model-harness evaluation, capability-based permissions, durable state, cross-agent accountability, and staged physical validation.",
+      "authors": [
+        "Linsen Zhu",
+        "Mengqing Cai"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI",
+        "cs.LG",
+        "cs.MA"
+      ],
+      "published": "2026-09-04T08:52:28+00:00",
+      "link": "https://arxiv.org/pdf/2609.04894v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "agentic AI limits in digital/social environments, relevant to LLM capability boundaries in cyber contexts",
+      "llm_evidence_cn": "数字/社交环境中智能体AI的局限，与网络语境下LLM能力边界相关",
+      "llm_evidence": "数字/社交环境中智能体AI的局限，与网络语境下LLM能力边界相关",
+      "canonical_evidence": "数字/社交环境中智能体AI的局限，与网络语境下LLM能力边界相关",
+      "llm_tldr_en": "Reviews progress and limits of agentic AI across environments, separating model, harness and environment, enabling understanding of LLM boundaries.",
+      "llm_tldr_cn": "该综述批判性梳理智能体AI的进展与局限，区分模型、框架与环境，为理解LLM在数字环境中的能力边界提供系统视角。",
+      "llm_tldr": "该综述批判性梳理智能体AI的进展与局限，区分模型、框架与环境，为理解LLM在数字环境中的能力边界提供系统视角。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "exploring the capability boundaries of large language models in cyber contexts",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2609.08256v1",
+      "source": "arxiv",
+      "title": "ACEA: An Adversarial Co-Evolution Arena for Head-to-Head Red-Team and Blue-Team LLM Testing",
+      "abstract": "Automated red-team attacks and blue-team defenses for large language models (LLMs) are advancing quickly. However, attackers and defenders are built and tested in isolation, and the resulting scores are hard to trust. To tackle this, we present ACEA (Adversarial Co-Evolution Arena), a platform that connects a pluggable red-team adapter and a pluggable blue-team adapter to a shared target LLM and scores their attack and defense rates with an LLM judge. ACEA contributes four components. First, a pluggable, model-agnostic arena. Any red or blue project connects over a minimal HTTP protocol, which we call the ACEA Standard Adapter Protocol (ASAP). It can be written in any language, and a project that exposes nothing but the protocol is a full participant. Second, an evaluation methodology built for adversarial rounds. Seeding the target with canonical secrets gives verifiable ground truth that separates real leakage from hallucination. We also send each attack to the target even when the defense blocks it, which measures the attack's raw potency independently of whether it was stopped. Together these yield a per-round decomposition of attack strength and defense effectiveness. Third, a real-time, game-style visualization with a detailed end-of-battle report that localizes each failure. The evaluation thus becomes an actionable signal for improving a red or blue project. Fourth, an optional in-context improvement loop that turns each round's outcome into advisory hints for the next. An adapter can then adapt across rounds without keeping state, provided it reads the hints. We describe the design of ACEA and the metrics through which red and blue teams are scored head to head.",
+      "authors": [
+        "Yi Ting Shen",
+        "Kentaroh Toyoda",
+        "Alex Leung"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI"
+      ],
+      "published": "2026-09-08T04:57:58+00:00",
+      "link": "https://arxiv.org/pdf/2609.08256v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "presents a co-evolution arena connecting red-team and blue-team adapters for LLM testing, enabling adversarial agent evaluation that can cover cybercrime scenarios",
+      "llm_evidence_cn": "提出红蓝队适配器协同进化竞技场，支持可覆盖网络犯罪场景的对抗智能体评估",
+      "llm_evidence": "提出红蓝队适配器协同进化竞技场，支持可覆盖网络犯罪场景的对抗智能体评估",
+      "canonical_evidence": "提出红蓝队适配器协同进化竞技场，支持可覆盖网络犯罪场景的对抗智能体评估",
+      "llm_tldr_en": "ACEA enables pluggable red-team and blue-team adapters to test LLMs against adversarial attacks, improving trustworthiness of safety scores.",
+      "llm_tldr_cn": "该文指出红队攻击与蓝队防御常被孤立测试导致LLM安全评分可信度低，提出ACEA平台，通过ASAP协议连接可插拔的红队与蓝队适配器到共享目标LLM并用LLM裁判评分，支持任何语言编写的项目即插即用，实现了对抗性协同进化评估，为网络犯罪等场景的攻防模拟提供了统一测试框架。",
+      "llm_tldr": "该文指出红队攻击与蓝队防御常被孤立测试导致LLM安全评分可信度低，提出ACEA平台，通过ASAP协议连接可插拔的红队与蓝队适配器到共享目标LLM并用LLM裁判评分，支持任何语言编写的项目即插即用，实现了对抗性协同进化评估，为网络犯罪等场景的攻防模拟提供了统一测试框架。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "adversarial agents for testing large language models in cybercrime",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}

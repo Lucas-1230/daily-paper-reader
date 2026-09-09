@@ -1,0 +1,105 @@
+{
+  "date": "20260909",
+  "date_label": "",
+  "generated_at": "2026-09-09 22:17:49 UTC",
+  "recommend_exists": true,
+  "run_count": 1,
+  "papers": [
+    {
+      "paper_id": "2609.09087v1",
+      "route": "202609/09/2609.09087v1-privescalate-measuring-and-augmenting-the-threat-of-llm-automated-linux-privilege-escalation",
+      "title": "PrivEscalate: Measuring and Augmenting the Threat of LLM-Automated Linux Privilege Escalation",
+      "section": "deep",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "ca"
+        }
+      ],
+      "score": 10.0,
+      "evidence": "LLM智能体自动化攻击操作，权限提升基准测试",
+      "first_seen_at": "2026-09-09 22:17:49 UTC",
+      "updated_at": "2026-09-09 22:17:49 UTC"
+    },
+    {
+      "paper_id": "2609.08093v1",
+      "route": "202609/09/2609.08093v1-llm-based-penetration-testing-in-the-presence-of-honeypots",
+      "title": "LLM-Based Penetration Testing in the Presence of Honeypots",
+      "section": "deep",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "ca"
+        }
+      ],
+      "score": 9.0,
+      "evidence": "对蜜罐环境下LLM攻击智能体在渗透测试中的系统研究",
+      "first_seen_at": "2026-09-09 22:17:49 UTC",
+      "updated_at": "2026-09-09 22:17:49 UTC"
+    },
+    {
+      "paper_id": "2609.07344v1",
+      "route": "202609/09/2609.07344v1-staying-on-the-attack-path-structured-state-for-long-horizon-automated-penetration-testing",
+      "title": "Staying on the Attack Path: Structured State for Long-Horizon Automated Penetration Testing",
+      "section": "deep",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "ca"
+        }
+      ],
+      "score": 8.0,
+      "evidence": "基于 LLM 的自动化渗透测试智能体，直接模拟网络攻击",
+      "first_seen_at": "2026-09-09 22:17:49 UTC",
+      "updated_at": "2026-09-09 22:17:49 UTC"
+    },
+    {
+      "paper_id": "2609.08418v1",
+      "route": "202609/09/2609.08418v1-feyospace-v1-how-the-cyber-mercury-seven-trained-frontier-cyber-models",
+      "title": "Feyospace-v1: How the Cyber Mercury Seven Trained Frontier Cyber Models",
+      "section": "deep",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "ca"
+        }
+      ],
+      "score": 8.0,
+      "evidence": "训练前沿网络模型的数据为中心框架，面向网络任务",
+      "first_seen_at": "2026-09-09 22:17:49 UTC",
+      "updated_at": "2026-09-09 22:17:49 UTC"
+    },
+    {
+      "paper_id": "2609.04894v1",
+      "route": "202609/09/2609.04894v1-from-language-models-to-world-acting-systems-progress-and-limits-of-agentic-ai-across-digital-social-virtual-and-physical-environments",
+      "title": "From Language Models to World-Acting Systems: Progress and Limits of Agentic AI across Digital, Social, Virtual, and Physical Environments",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "ca"
+        }
+      ],
+      "score": 6.0,
+      "evidence": "数字/社交环境中智能体AI的局限，与网络语境下LLM能力边界相关",
+      "first_seen_at": "2026-09-09 22:17:49 UTC",
+      "updated_at": "2026-09-09 22:17:49 UTC"
+    },
+    {
+      "paper_id": "2609.08256v1",
+      "route": "202609/09/2609.08256v1-acea-an-adversarial-co-evolution-arena-for-head-to-head-red-team-and-blue-team-llm-testing",
+      "title": "ACEA: An Adversarial Co-Evolution Arena for Head-to-Head Red-Team and Blue-Team LLM Testing",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "ca"
+        }
+      ],
+      "score": 6.0,
+      "evidence": "提出红蓝队适配器协同进化竞技场，支持可覆盖网络犯罪场景的对抗智能体评估",
+      "first_seen_at": "2026-09-09 22:17:49 UTC",
+      "updated_at": "2026-09-09 22:17:49 UTC"
+    }
+  ]
+}
