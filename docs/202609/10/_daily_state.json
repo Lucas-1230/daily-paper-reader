@@ -1,0 +1,73 @@
+{
+  "date": "20260910",
+  "date_label": "",
+  "generated_at": "2026-09-10 21:58:20 UTC",
+  "recommend_exists": true,
+  "run_count": 1,
+  "papers": [
+    {
+      "paper_id": "2609.07582v1",
+      "route": "202609/10/2609.07582v1-benchmarking-llms-for-threat-level-determination",
+      "title": "Benchmarking LLMs for Threat Level Determination",
+      "section": "deep",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "ca"
+        }
+      ],
+      "score": 8.0,
+      "evidence": "对LLM进行网络威胁级别确定基准测试",
+      "first_seen_at": "2026-09-10 21:58:20 UTC",
+      "updated_at": "2026-09-10 21:58:20 UTC"
+    },
+    {
+      "paper_id": "2609.06972v1",
+      "route": "202609/10/2609.06972v1-agentdrift-a-step-labeled-benchmark-of-injection-hijacked-llm-agent-trajectories",
+      "title": "AgentDrift: A Step-Labeled Benchmark of Injection-Hijacked LLM Agent Trajectories",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "ca"
+        }
+      ],
+      "score": 7.0,
+      "evidence": "注入劫持LLM智能体轨迹的步骤级标注基准，直接关联网络犯罪对抗测试",
+      "first_seen_at": "2026-09-10 21:58:20 UTC",
+      "updated_at": "2026-09-10 21:58:20 UTC"
+    },
+    {
+      "paper_id": "2609.09647v1",
+      "route": "202609/10/2609.09647v1-black-box-red-teaming-of-agentic-ai-a-taxonomy-driven-framework-for-automated-risk-discovery",
+      "title": "Black-Box Red Teaming of Agentic AI: A Taxonomy-Driven Framework for Automated Risk Discovery",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "ca"
+        }
+      ],
+      "score": 7.0,
+      "evidence": "对智能体AI进行红队测试以发现风险，可用于测试大模型在对抗性网络场景中的能力",
+      "first_seen_at": "2026-09-10 21:58:20 UTC",
+      "updated_at": "2026-09-10 21:58:20 UTC"
+    },
+    {
+      "paper_id": "2609.08049v1",
+      "route": "202609/10/2609.08049v1-llms-for-social-network-modeling-from-network-generation-to-dynamic-processes",
+      "title": "LLMs for Social Network Modeling: From Network Generation to Dynamic Processes",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "ca"
+        }
+      ],
+      "score": 6.0,
+      "evidence": "关于使用大语言模型建模社交网络和动态过程的综述",
+      "first_seen_at": "2026-09-10 21:58:20 UTC",
+      "updated_at": "2026-09-10 21:58:20 UTC"
+    }
+  ]
+}
