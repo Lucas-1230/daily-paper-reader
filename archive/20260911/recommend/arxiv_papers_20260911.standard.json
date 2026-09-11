@@ -1,0 +1,137 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-09-11T22:10:01.108196+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 1,
+    "deep_cap": 6,
+    "deep_selected": 1,
+    "quick_candidates": 2,
+    "quick_skim_target": 11,
+    "quick_selected": 2
+  },
+  "deep_dive": [
+    {
+      "id": "2609.10780v1",
+      "source": "arxiv",
+      "title": "Big Enough to Break Out: Tracking the Rising Capability of LLM Penetration-Testing Agents",
+      "abstract": "Large language model (LLM) agents are increasingly applied to penetration testing, but we still know little about what they can do or how they fail. We compare two PentestGPT-based systems: a legacy human-in-the-loop system running the open-weight Kimi K2.5, and a newer autonomous system running Claude Opus 4.8. Across three public targets, the autonomous system solves all three, including the two the legacy system never finishes. The legacy result is the more surprising of the two. Even on the machines the legacy system fails to solve, it completes about half the subtasks, while running on ordinary university GPUs with no provider guardrails. We can describe the trend but not explain it, since model, harness, autonomy, and memory architecture all change together. Its direction still points to the next question: what will limit these agents as they take on more complex tasks? The usual answer is long-horizon memory, the loss of access to earlier findings during long attack chains. We test it by adding a coverage-memory layer to both systems, and neither improves outcomes. In the legacy stalled runs we could review, the limiting factor appeared to be planning and commitment rather than lost memory: agents held the evidence for a route forward and never turned it into a concrete exploitation hypothesis, which may suggest that offensive capability will advance with agents' ability to plan rather than with better memory. The same subtask scoring that tracks this capability is available to defenders, who can measure it as it rises instead of waiting to meet it in the field.",
+      "authors": [
+        "Victoria Lovelace",
+        "Cameron Berryman",
+        "Yuhan You",
+        "Suhas Reddy Adavelly",
+        "Joel Sadler",
+        "Daniel Graham"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR"
+      ],
+      "published": "2026-09-09T19:28:22+00:00",
+      "link": "https://arxiv.org/pdf/2609.10780v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "Tracks capability of LLM penetration-testing agents, showing autonomous system solves all three targets",
+      "llm_evidence_cn": "追踪LLM渗透测试智能体的能力，展示自主系统解决所有三个目标",
+      "llm_evidence": "追踪LLM渗透测试智能体的能力，展示自主系统解决所有三个目标",
+      "canonical_evidence": "追踪LLM渗透测试智能体的能力，展示自主系统解决所有三个目标",
+      "llm_tldr_en": "Compares two PentestGPT-based LLM agents on three public targets, finding the autonomous system solves all targets while the legacy system completes about half subtasks. Reveals rising LLM capability in offensive security.",
+      "llm_tldr_cn": "该论文对比了两套基于PentestGPT的LLM渗透测试智能体系统，在三个公开目标上进行测试。结果显示，新型自主系统解决了全部三个目标，而旧版人机协同系统仅完成约一半子任务。论文指出LLM智能体在进攻性安全任务中的能力正在迅速提升，但尚无法解释其趋势归因。这一发现对评估LLM用于网络犯罪场景的潜力具有重要意义。",
+      "llm_tldr": "该论文对比了两套基于PentestGPT的LLM渗透测试智能体系统，在三个公开目标上进行测试。结果显示，新型自主系统解决了全部三个目标，而旧版人机协同系统仅完成约一半子任务。论文指出LLM智能体在进攻性安全任务中的能力正在迅速提升，但尚无法解释其趋势归因。这一发现对评估LLM用于网络犯罪场景的潜力具有重要意义。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "capabilities of large language models in cybercrime",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2609.05774v1",
+      "source": "arxiv",
+      "title": "Inference-Time Graph Engineering for Multi-Agent LLM Workflows",
+      "abstract": "Recent multi-agent LLM systems increasingly rely on graph-structured communication to coordinate specialized agents. We revisit multi-agent orchestration from a graph-engineering perspective: rather than optimizing a static topology, we synthesize a task-conditioned temporal workflow graph that jointly specifies agent connectivity and edge-level communication semantics. We introduce ReActNet, a training-free framework that compiles a query and a set of role-specialized agents into a sequence of directed communication graphs. Each graph snapshot corresponds to one reasoning stage, and each edge carries a natural-language instruction specifying the message that a source agent should provide to a target agent. The compiled temporal graph is then executed through structured message passing: agents update their reasoning states by integrating their previous states with messages from controller-assigned neighbors, and a final aggregator synthesizes the resulting states into the answer. This design separates graph compilation from graph execution, making multi-agent coordination explicit, inspectable, and task-conditioned without requiring reinforcement learning or gradient-based topology optimization. Across knowledge reasoning, mathematical problem solving, code generation, and GAIA-style assistant tasks, ReActNet consistently improves over fixed-topology and learned-topology baselines while maintaining competitive inference cost. These results suggest that effective multi-agent orchestration depends not only on which agents communicate, but also on engineering executable workflow graphs that encode when, why, and how information should flow during reasoning.",
+      "authors": [
+        "Katherine Tieu",
+        "Dongqi Fu",
+        "Yinglong Xia",
+        "Hong Li",
+        "Hong Yan",
+        "Jingrui He"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-09-04T23:32:11+00:00",
+      "link": "https://arxiv.org/pdf/2609.05774v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Proposes ReActNet, a training-free multi-agent LLM orchestration framework with task-conditioned communication graphs, applicable to simulating multi-agent cybercrime scenarios",
+      "llm_evidence_cn": "提出ReActNet，免训练多智能体LLM编排框架，生成任务条件通信图，可用于模拟多智能体网络犯罪场景",
+      "llm_evidence": "提出ReActNet，免训练多智能体LLM编排框架，生成任务条件通信图，可用于模拟多智能体网络犯罪场景",
+      "canonical_evidence": "提出ReActNet，免训练多智能体LLM编排框架，生成任务条件通信图，可用于模拟多智能体网络犯罪场景",
+      "llm_tldr_en": "Introduces ReActNet, a framework that compiles role-specialized agents into temporal directed communication graphs, enabling structured multi-agent LLM workflows. The graph-engineering approach could be adapted for cybercrime simulation.",
+      "llm_tldr_cn": "该论文针对多智能体LLM系统中静态拓扑编排的局限性，提出ReActNet框架。该框架在推理时动态合成任务条件的时间通信图，每个边携带自然语言指令以指导智能体交互。实验表明该方法能有效协调多智能体工作流，其图工程思路可迁移至网络犯罪场景的多智能体模拟，为构建基于LLM的犯罪活动仿真提供通用编排工具。",
+      "llm_tldr": "该论文针对多智能体LLM系统中静态拓扑编排的局限性，提出ReActNet框架。该框架在推理时动态合成任务条件的时间通信图，每个边携带自然语言指令以指导智能体交互。实验表明该方法能有效协调多智能体工作流，其图工程思路可迁移至网络犯罪场景的多智能体模拟，为构建基于LLM的犯罪活动仿真提供通用编排工具。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "multi-agent systems for cybercrime simulation",
+      "matched_requirement_id": "req-3",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2609.08765v1",
+      "source": "arxiv",
+      "title": "Benchmark Scores Are Pipeline-Dependent: A Reliability Audit of Cybersecurity LLM Benchmarks",
+      "abstract": "Large language model (LLM) benchmarks are often treated as fixed datasets with stable scores, yet their outcomes depend on configurable evaluation pipelines. We audit eight cybersecurity benchmarks across 10 proprietary, open-weight, and cybersecurity-specialized LLMs. By modeling benchmarks as measurement pipelines, we identify 15 systematic failure modes and show that a single pipeline choice can change a model's score by more than 80 percentage points and substantially alter model rankings. At the cross-benchmark level, two semantically similar task pairs rank the same models differently because of incompatible evaluation conventions. Under an evaluation harness that standardizes pipeline choices while preserving task semantics, nine of 10 models shift by at least three ranks on at least one benchmark. These results show that cybersecurity LLM benchmark scores are pipeline-dependent and motivate pipeline-aware auditing as a core requirement for reliable model evaluation.",
+      "authors": [
+        "Aymene Berriche",
+        "Cathrine Shalby",
+        "Mohannad Alhanahnah",
+        "Yazan Boshmaf"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI",
+        "cs.CL"
+      ],
+      "published": "2026-09-08T14:01:22+00:00",
+      "link": "https://arxiv.org/pdf/2609.08765v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Audit of cybersecurity LLM benchmarks reveals pipeline-dependent scores, affecting capability evaluation in cyber contexts",
+      "llm_evidence_cn": "审计网络安全LLM基准测试，揭示分数依赖评估管道，影响网络能力评估",
+      "llm_evidence": "审计网络安全LLM基准测试，揭示分数依赖评估管道，影响网络能力评估",
+      "canonical_evidence": "审计网络安全LLM基准测试，揭示分数依赖评估管道，影响网络能力评估",
+      "llm_tldr_en": "The paper audits eight cybersecurity LLM benchmarks, showing that evaluation pipeline choices can change scores by over 80 points, undermining reliability of LLM capability assessment in cyber contexts.",
+      "llm_tldr_cn": "该文针对网络安全领域LLM基准测试的可靠性问题，将基准测试建模为测量管道，分析了10个模型在8个基准上的表现，发现单一管道选择可导致分数变化超过80个百分点，并影响模型排名。作者识别出15种系统性失效模式，并构建了标准化评估框架。这项工作对在网络安全场景中准确评估LLM能力边界具有重要意义，提示现有基准可能无法稳定反映真实能力。",
+      "llm_tldr": "该文针对网络安全领域LLM基准测试的可靠性问题，将基准测试建模为测量管道，分析了10个模型在8个基准上的表现，发现单一管道选择可导致分数变化超过80个百分点，并影响模型排名。作者识别出15种系统性失效模式，并构建了标准化评估框架。这项工作对在网络安全场景中准确评估LLM能力边界具有重要意义，提示现有基准可能无法稳定反映真实能力。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "exploring the capability boundaries of large language models in cyber contexts",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}

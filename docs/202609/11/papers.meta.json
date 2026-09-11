@@ -1,0 +1,54 @@
+{
+  "label": "2026-09-11",
+  "date": "2026-09-11",
+  "generated_at": "2026-09-11T22:16:52",
+  "count": 3,
+  "papers": [
+    {
+      "paper_id": "202609/11/2609.10780v1-big-enough-to-break-out-tracking-the-rising-capability-of-llm-penetration-testing-agents",
+      "section": "deep",
+      "title_en": "Big Enough to Break Out: Tracking the Rising Capability of LLM Penetration-Testing Agents",
+      "authors": "Victoria Lovelace, Cameron Berryman, Yuhan You, Suhas Reddy Adavelly, Joel Sadler, Daniel Graham",
+      "date": "2026-09-09",
+      "pdf": "https://arxiv.org/pdf/2609.10780v1",
+      "score": "9.0",
+      "evidence": "追踪LLM渗透测试智能体的能力，展示自主系统解决所有三个目标",
+      "tldr": "大型语言模型渗透测试代理能力快速提升，但其失败机理与瓶颈尚不清楚。本研究对比了基于Kimi K2.5的人工在环系统与基于Claude Opus 4.8的自主PentestGPT系统，在三个公开目标上测试，并引入覆盖记忆层检验记忆假设。自主系统解决全部三个目标，遗留系统完成约一半子任务却未攻克两个目标；添加记忆层未改善结果，表明规划能力而非记忆是主要限制。该子任务评分方法可供防御者持续监测此类能力演进，提前预警。",
+      "tags": "query:ca",
+      "abstract_en": "Large language model (LLM) agents are increasingly applied to penetration testing, but we still know little about what they can do or how they fail. We compare two PentestGPT-based systems: a legacy human-in-the-loop system running the open-weight Kimi K2.5, and a newer autonomous system running Claude Opus 4.8. Across three public targets, the autonomous system solves all three, including the two the legacy system never finishes. The legacy result is the more surprising of the two. Even on the machines the legacy system fails to solve, it completes about half the subtasks, while running on ordinary university GPUs with no provider guardrails. We can describe the trend but not explain it, since model, harness, autonomy, and memory architecture all change together. Its direction still points to the next question: what will limit these agents as they take on more complex tasks? The usual answer is long-horizon memory, the loss of access to earlier findings during long attack chains. We test it by adding a coverage-memory layer to both systems, and neither improves outcomes. In the legacy stalled runs we could review, the limiting factor appeared to be planning and commitment rather than lost memory: agents held the evidence for a route forward and never turned it into a concrete exploitation hypothesis, which may suggest that offensive capability will advance with agents' ability to plan rather than with better memory. The same subtask scoring that tracks this capability is available to defenders, who can measure it as it rises instead of waiting to meet it in the field.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202609/11/2609.05774v1-inference-time-graph-engineering-for-multi-agent-llm-workflows",
+      "section": "quick",
+      "title_en": "Inference-Time Graph Engineering for Multi-Agent LLM Workflows",
+      "authors": "Katherine Tieu, Dongqi Fu, Yinglong Xia, Hong Li, Hong Yan, Jingrui He",
+      "date": "2026-09-04",
+      "pdf": "https://arxiv.org/pdf/2609.05774v1",
+      "score": "6.0",
+      "evidence": "提出ReActNet，免训练多智能体LLM编排框架，生成任务条件通信图，可用于模拟多智能体网络犯罪场景",
+      "tldr": "多智能体大模型系统通常依赖静态图拓扑进行通信，缺乏任务自适应的时序工作流与通信语义设计。为此，提出免训练框架 ReActNet，将查询与角色智能体编译为阶段化有向通信图序列，每条边携带自然语言消息指令，并将图编译与消息传递执行解耦。在知识推理、数学求解、代码生成及 GAIA 风格任务上，ReActNet 持续超越固定拓扑与学习拓扑基线，且推理成本相当。该工作表明，多智能体协调的关键不仅在于谁与谁通信，更在于显式工程化信息流动的时序、原因与方式。",
+      "tags": "query:ca",
+      "abstract_en": "Recent multi-agent LLM systems increasingly rely on graph-structured communication to coordinate specialized agents. We revisit multi-agent orchestration from a graph-engineering perspective: rather than optimizing a static topology, we synthesize a task-conditioned temporal workflow graph that jointly specifies agent connectivity and edge-level communication semantics. We introduce ReActNet, a training-free framework that compiles a query and a set of role-specialized agents into a sequence of directed communication graphs. Each graph snapshot corresponds to one reasoning stage, and each edge carries a natural-language instruction specifying the message that a source agent should provide to a target agent. The compiled temporal graph is then executed through structured message passing: agents update their reasoning states by integrating their previous states with messages from controller-assigned neighbors, and a final aggregator synthesizes the resulting states into the answer. This design separates graph compilation from graph execution, making multi-agent coordination explicit, inspectable, and task-conditioned without requiring reinforcement learning or gradient-based topology optimization. Across knowledge reasoning, mathematical problem solving, code generation, and GAIA-style assistant tasks, ReActNet consistently improves over fixed-topology and learned-topology baselines while maintaining competitive inference cost. These results suggest that effective multi-agent orchestration depends not only on which agents communicate, but also on engineering executable workflow graphs that encode when, why, and how information should flow during reasoning.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202609/11/2609.08765v1-benchmark-scores-are-pipeline-dependent-a-reliability-audit-of-cybersecurity-llm-benchmarks",
+      "section": "quick",
+      "title_en": "Benchmark Scores Are Pipeline-Dependent: A Reliability Audit of Cybersecurity LLM Benchmarks",
+      "authors": "Aymene Berriche, Cathrine Shalby, Mohannad Alhanahnah, Yazan Boshmaf",
+      "date": "2026-09-08",
+      "pdf": "https://arxiv.org/pdf/2609.08765v1",
+      "score": "6.0",
+      "evidence": "审计网络安全LLM基准测试，揭示分数依赖评估管道，影响网络能力评估",
+      "tldr": "当前LLM基准常被视为固定数据集，但评估分数高度依赖可配置流水线。本文审计8个网络安全基准和10种模型，将基准建模为测量流水线并识别15种系统故障模式。实验显示单个流水线选择可致分数变化超80个百分点，标准化后9/10模型排名至少变动3位。这表明网络安全基准分数具有流水线依赖性，需推动流水线感知审计作为可靠评估的核心要求。",
+      "tags": "query:ca",
+      "abstract_en": "Large language model (LLM) benchmarks are often treated as fixed datasets with stable scores, yet their outcomes depend on configurable evaluation pipelines. We audit eight cybersecurity benchmarks across 10 proprietary, open-weight, and cybersecurity-specialized LLMs. By modeling benchmarks as measurement pipelines, we identify 15 systematic failure modes and show that a single pipeline choice can change a model's score by more than 80 percentage points and substantially alter model rankings. At the cross-benchmark level, two semantically similar task pairs rank the same models differently because of incompatible evaluation conventions. Under an evaluation harness that standardizes pipeline choices while preserving task semantics, nine of 10 models shift by at least three ranks on at least one benchmark. These results show that cybersecurity LLM benchmark scores are pipeline-dependent and motivate pipeline-aware auditing as a core requirement for reliable model evaluation.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}
