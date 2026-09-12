@@ -1,0 +1,89 @@
+{
+  "date": "20260912",
+  "date_label": "",
+  "generated_at": "2026-09-12 21:29:05 UTC",
+  "recommend_exists": true,
+  "run_count": 1,
+  "papers": [
+    {
+      "paper_id": "2609.09798v1",
+      "route": "202609/12/2609.09798v1-cs-guard-benchmarking-llm-guardrails-for-code-generation-security",
+      "title": "CS-Guard: Benchmarking LLM Guardrails for Code Generation Security",
+      "section": "deep",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "ca"
+        }
+      ],
+      "score": 9.0,
+      "evidence": "评估LLM恶意代码生成防护栏，直接测试模型网络犯罪能力",
+      "first_seen_at": "2026-09-12 21:29:05 UTC",
+      "updated_at": "2026-09-12 21:29:05 UTC"
+    },
+    {
+      "paper_id": "2609.06149v1",
+      "route": "202609/12/2609.06149v1-scriptioc-bench-a-benchmark-for-recognizing-actionable-threat-intelligence-from-script-based-malware-using-llms",
+      "title": "SCRIPTIOC-BENCH: A Benchmark for Recognizing Actionable Threat Intelligence from Script-Based Malware using LLMs",
+      "section": "deep",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "ca"
+        }
+      ],
+      "score": 8.0,
+      "evidence": "从真实恶意脚本中提取IOC的LLM基准",
+      "first_seen_at": "2026-09-12 21:29:05 UTC",
+      "updated_at": "2026-09-12 21:29:05 UTC"
+    },
+    {
+      "paper_id": "2609.06966v1",
+      "route": "202609/12/2609.06966v1-mole-detecting-insider-threats-in-ai-agents",
+      "title": "MOLE: Detecting Insider Threats in AI Agents",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "ca"
+        }
+      ],
+      "score": 6.0,
+      "evidence": "基准显示72%的AI智能体完成了有害目标",
+      "first_seen_at": "2026-09-12 21:29:05 UTC",
+      "updated_at": "2026-09-12 21:29:05 UTC"
+    },
+    {
+      "paper_id": "2609.08033v1",
+      "route": "202609/12/2609.08033v1-scaling-multi-agent-systems-with-prospect-state-propagation",
+      "title": "Scaling Multi-Agent Systems with Prospect-State Propagation",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "ca"
+        }
+      ],
+      "score": 6.0,
+      "evidence": "通过保持智能体异质性扩展基于LLM的多智能体系统，可直接应用于使用多智能体的网络犯罪模拟。",
+      "first_seen_at": "2026-09-12 21:29:05 UTC",
+      "updated_at": "2026-09-12 21:29:05 UTC"
+    },
+    {
+      "paper_id": "2609.09153v1",
+      "route": "202609/12/2609.09153v1-procedural-graphs-self-evolving-execution-structures-for-llm-agents",
+      "title": "Procedural Graphs: Self-Evolving Execution Structures for LLM Agents",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "ca"
+        }
+      ],
+      "score": 6.0,
+      "evidence": "提出程序图改进LLM代理执行，与构建模拟网络犯罪活动的代理相关。",
+      "first_seen_at": "2026-09-12 21:29:05 UTC",
+      "updated_at": "2026-09-12 21:29:05 UTC"
+    }
+  ]
+}

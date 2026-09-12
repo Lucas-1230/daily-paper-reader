@@ -1,0 +1,212 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-09-12T21:20:35.095422+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 2,
+    "deep_cap": 6,
+    "deep_selected": 2,
+    "quick_candidates": 3,
+    "quick_skim_target": 11,
+    "quick_selected": 3
+  },
+  "deep_dive": [
+    {
+      "id": "2609.09798v1",
+      "source": "arxiv",
+      "title": "CS-Guard: Benchmarking LLM Guardrails for Code Generation Security",
+      "abstract": "Large language models (LLMs) have been ex- ploited to generate malware, but the effective- ness of guardrails for code generation secu- rity remains unclear. We introduce CS-Guard, the first benchmark to systematically evalu- ate guardrails for code generation security. It covers 1) text-to-code generation with 1000 high-quality malware-generation prompts, 7 jailbreak attacks, and a novel fictional scenario attack (FSA) that embeds malicious intent in a legitimate fictional software-development sce- nario; and 2) code-to-code generation with 331 code prompts spanning code infilling, code completion, and code translation. We empiri- cally evaluate 9 guardrails across seven LLMs. We find that current guardrails perform poorly against malicious code-generation re- quests: for text-to-code, the average attack success rate (ASR) after jailbreaks reaches about 50% for many guardrails; for code-to- code, average ASR approaches 100% on base LLMs and remains high across many guardrails (14.4% to nearly 100%). Our FSA also achieves ASR close to 100% across many guardrails, raising major reliability concerns for real-world software development. To sup- port future research, CS-Guard uses a modular three-layer guardrail taxonomy that lets devel- opers register guardrails for evaluation. We release the benchmark and data to enable fur- ther community evaluation.",
+      "authors": [
+        "Jinyang Li",
+        "Mingyu Guo",
+        "Hung X. Nguyen"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI"
+      ],
+      "published": "2026-09-09T06:50:45+00:00",
+      "link": "https://arxiv.org/pdf/2609.09798v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "Evaluates LLM guardrails against malware code generation, directly testing LLM capabilities in cybercrime.",
+      "llm_evidence_cn": "评估LLM恶意代码生成防护栏，直接测试模型网络犯罪能力",
+      "llm_evidence": "评估LLM恶意代码生成防护栏，直接测试模型网络犯罪能力",
+      "canonical_evidence": "评估LLM恶意代码生成防护栏，直接测试模型网络犯罪能力",
+      "llm_tldr_en": "CS-Guard benchmark evaluates guardrails for LLM code generation security, covering malware prompts and jailbreaks, revealing guardrail weaknesses.",
+      "llm_tldr_cn": "现有防护栏对LLM生成恶意代码的有效性尚不明确，缺乏系统性基准。本文提出CS-Guard，首个针对代码生成安全的防护栏基准，涵盖1000个恶意代码生成提示、7种越狱攻击及虚构场景攻击，并包含代码补全等代码到代码任务。实验评估9种防护栏在7个LLM上的表现，发现当前防护栏在恶意代码生成方面效果不佳。该基准为理解LLM在恶意代码生成上的能力边界提供了重要工具。",
+      "llm_tldr": "现有防护栏对LLM生成恶意代码的有效性尚不明确，缺乏系统性基准。本文提出CS-Guard，首个针对代码生成安全的防护栏基准，涵盖1000个恶意代码生成提示、7种越狱攻击及虚构场景攻击，并包含代码补全等代码到代码任务。实验评估9种防护栏在7个LLM上的表现，发现当前防护栏在恶意代码生成方面效果不佳。该基准为理解LLM在恶意代码生成上的能力边界提供了重要工具。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "capabilities of large language models in cybercrime",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2609.06149v1",
+      "source": "arxiv",
+      "title": "SCRIPTIOC-BENCH: A Benchmark for Recognizing Actionable Threat Intelligence from Script-Based Malware using LLMs",
+      "abstract": "Script-based malware remains a prevalent attack technique. These scripts often contain indicators of compromise (IOCs) that provide actionable threat intelligence. However, statically recovering such indicators is challenging, as relevant values may be dispersed or transformed within code. Although large language models (LLMs) have shown promise in security analysis, their ability to recover IOCs from malicious scripts remains underexplored.   We present SCRIPTIOC-BENCH, a benchmark for measuring static IOC extraction capability on real-world malicious scripts. The benchmark comprises 634 manually verified JavaScript, PowerShell, and VBScript malware samples covering four IOC types (URLs, domains, IP addresses, and filesystem artifacts). We further stratify ground-truth IOCs by recovery level, distinguishing directly exposed indicators from those requiring decoding or reconstruction. Using this benchmark, we evaluate a broad range of proprietary and open-weight LLMs and show that IOC recovery without execution remains challenging across model scales: the strongest model reaches only 65.4 F1. To characterize how recovery fails, we introduce a false-positive taxonomy and use it to compare the error profiles of the evaluated models. We further study two mitigations on a small open-weight model, deterministic string utilities and task-specific adaptation, finding that they provide complementary recovery gains, raise precision, and shift errors toward sample-grounded mismatches.",
+      "authors": [
+        "Hanna Kim",
+        "Jian Cui",
+        "Minkyoo Song",
+        "Hwanjo Heo",
+        "Seungwon Shin",
+        "Kimin Lee",
+        "Xiaojing Liao"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI"
+      ],
+      "published": "2026-09-05T15:47:52+00:00",
+      "link": "https://arxiv.org/pdf/2609.06149v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Benchmark for LLM IOC extraction from real-world malware scripts",
+      "llm_evidence_cn": "从真实恶意脚本中提取IOC的LLM基准",
+      "llm_evidence": "从真实恶意脚本中提取IOC的LLM基准",
+      "canonical_evidence": "从真实恶意脚本中提取IOC的LLM基准",
+      "llm_tldr_en": "Presents SCRIPTIOC-BENCH, a benchmark of 634 verified malicious scripts for measuring LLM static IOC extraction across JavaScript, PowerShell, and VBScript; provides systematic evaluation of LLM capability on cyber threat intelligence.",
+      "llm_tldr_cn": "该文针对LLM从脚本型恶意软件中静态提取失陷指标（IOC）的能力评估不足问题，提出SCRIPTIOC-BENCH基准，包含634个经人工验证的JavaScript、PowerShell和VBScript恶意样本，覆盖URL、域名、IP地址等四类IOC。通过在该基准上测试LLM，系统衡量其在真实威胁情报提取上的表现。该基准为评估大模型在网络安全分析中的能力边界提供了重要工具。",
+      "llm_tldr": "该文针对LLM从脚本型恶意软件中静态提取失陷指标（IOC）的能力评估不足问题，提出SCRIPTIOC-BENCH基准，包含634个经人工验证的JavaScript、PowerShell和VBScript恶意样本，覆盖URL、域名、IP地址等四类IOC。通过在该基准上测试LLM，系统衡量其在真实威胁情报提取上的表现。该基准为评估大模型在网络安全分析中的能力边界提供了重要工具。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "capabilities of large language models in cybercrime",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2609.06966v1",
+      "source": "arxiv",
+      "title": "MOLE: Detecting Insider Threats in AI Agents",
+      "abstract": "Model misalignment, prompt injection, or operator misuse could lead AI agents operating frontier-lab accounts to exfiltrate model weights, poison training data, or weaken release gates. Existing benchmarks do not test whether defenders can detect this activity among routine work under a limited review budget. We introduce MOLE, an open benchmark of 150 AI-operated accounts sharing 9 stateful services over 30 workdays, with 12 threats and 8 corpora from four models totaling roughly 20 billion tokens. Of 39 agent models, 72% complete most assigned harmful objectives and agent refusal does not predict completion. MOLE enables comparison of 40 monitors across corpus generators, observability levels, and threats; even the best evaluated monitor in our single-day audit-event comparison misses nearly half of completed harm. MOLE also enables monitor development: benchmark-guided search improves a mid-tier monitor by 49-64%, while selective use of a stronger monitor improves budget-AUC by 10% over applying it to every account-day at comparable modeled cost.",
+      "authors": [
+        "Aashiq Muhamed",
+        "Virginia Smith"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG",
+        "cs.CL",
+        "cs.CR"
+      ],
+      "published": "2026-09-07T03:04:31+00:00",
+      "link": "https://arxiv.org/pdf/2609.06966v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "benchmark shows 72% of AI agents complete harmful objectives",
+      "llm_evidence_cn": "基准显示72%的AI智能体完成了有害目标",
+      "llm_evidence": "基准显示72%的AI智能体完成了有害目标",
+      "canonical_evidence": "基准显示72%的AI智能体完成了有害目标",
+      "llm_tldr_en": "Introduces MOLE, an open benchmark for detecting insider threats in AI agents, showing 72% of evaluated agents complete harmful objectives like exfiltration and poisoning, and enabling comparison of monitors under limited review budgets.",
+      "llm_tldr_cn": "模型错位或注入攻击可能导致AI智能体窃取权重、投毒数据等恶意行为。本文提出MOLE基准，模拟150个AI操作账户在9个服务上的30天活动，测试12种威胁和8个语料库。实验显示72%的智能体完成了大部分有害目标，且模型拒绝不能预测完成情况，为威胁检测提供了新基准。",
+      "llm_tldr": "模型错位或注入攻击可能导致AI智能体窃取权重、投毒数据等恶意行为。本文提出MOLE基准，模拟150个AI操作账户在9个服务上的30天活动，测试12种威胁和8个语料库。实验显示72%的智能体完成了大部分有害目标，且模型拒绝不能预测完成情况，为威胁检测提供了新基准。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "capabilities of large language models in cybercrime",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2609.08033v1",
+      "source": "arxiv",
+      "title": "Scaling Multi-Agent Systems with Prospect-State Propagation",
+      "abstract": "Current LLM-based multi-agent systems (MAS) periodically compress intermediate states to reduce inference-time token consumption, thereby attempting to incorporate more agents. However, naive scaling strategies face challenges. For example, in economic simulations, large-scale MAS typically discard semantically rich economic states, i.e., agent behavioral trajectories, which are key drivers of macroeconomic fluctuations. In this paper, we reveal a phenomenon in which agent heterogeneity gradually decreases during simulation, and propose Prospect-State Propagation for Multi-Agent Systems (PspMAS). Inspired by prospect theory, PspMAS decouples each agent's micro state into a compact Prospect State and an expressive Semantic State. The former records psychological traces through a lightweight, parallelizable propagator and continuously injects heterogeneity into the system. The latter leverages the strong perception, reasoning, planning, and decision-making abilities of LLMs. These two components work complementarily, providing a scalable LLM-based multi-agent simulation solution.",
+      "authors": [
+        "Zhimei Chen",
+        "Mu Chen",
+        "Fakhri Karray"
+      ],
+      "primary_category": "cs.MA",
+      "categories": [
+        "cs.MA",
+        "cs.CY"
+      ],
+      "published": "2026-09-07T22:30:12+00:00",
+      "link": "https://arxiv.org/pdf/2609.08033v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Scaling LLM-based multi-agent systems by preserving agent heterogeneity, directly applicable to cybercrime simulation using multiple agents.",
+      "llm_evidence_cn": "通过保持智能体异质性扩展基于LLM的多智能体系统，可直接应用于使用多智能体的网络犯罪模拟。",
+      "llm_evidence": "通过保持智能体异质性扩展基于LLM的多智能体系统，可直接应用于使用多智能体的网络犯罪模拟。",
+      "canonical_evidence": "通过保持智能体异质性扩展基于LLM的多智能体系统，可直接应用于使用多智能体的网络犯罪模拟。",
+      "llm_tldr_en": "Proposes Prospect-State Propagation (PspMAS) to scale LLM-based multi-agent systems by decoupling micro states, preserving agent heterogeneity for economic simulations, with potential application to cybercrime simulation.",
+      "llm_tldr_cn": "论文针对大规模LLM多智能体系统中状态压缩导致智能体异质性下降的问题，借鉴前景理论提出前景状态传播方法（PspMAS），将每个智能体的微观状态分解为紧凑前景状态和表达性语义状态。在经济模拟实验中，PspMAS有效保持了智能体行为多样性，同时支持系统规模扩展。该方法为构建大规模多智能体仿真系统，包括网络犯罪模拟，提供了重要的技术支撑。",
+      "llm_tldr": "论文针对大规模LLM多智能体系统中状态压缩导致智能体异质性下降的问题，借鉴前景理论提出前景状态传播方法（PspMAS），将每个智能体的微观状态分解为紧凑前景状态和表达性语义状态。在经济模拟实验中，PspMAS有效保持了智能体行为多样性，同时支持系统规模扩展。该方法为构建大规模多智能体仿真系统，包括网络犯罪模拟，提供了重要的技术支撑。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "multi-agent systems for cybercrime simulation",
+      "matched_requirement_id": "req-3",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2609.09153v1",
+      "source": "arxiv",
+      "title": "Procedural Graphs: Self-Evolving Execution Structures for LLM Agents",
+      "abstract": "Large language models are increasingly deployed as agents that plan over long horizons and act through external tools. Most agents select actions through unconstrained generation over an accumulating history, leaving implicit the procedural knowledge of what to do, in what order, and under which conditions. As trajectories lengthen, agents can lose track of their objectives, invoke tools out of order, and repeat unproductive actions. We introduce the Procedural Graph: just as a knowledge graph organizes factual knowledge into (entity, relation, entity) triplets for what-is questions, a Procedural Graph organizes procedural knowledge into (procedure, relation, procedure) triplets for what-to-do questions. At each decision step, the framework localizes the agent's active node, and a guidance model translates the surrounding subgraph into step-level situational guidance that biases the solver's next action without dictating it. The graph is self-evolving: an LLM refiner contrasts failed trajectories with successful ones and edits the graph's topology and attributes, committing edits that preserve or improve held-out validation performance while retaining rejected ones to discourage repetition. Starting from a minimal skeleton, the loop builds graphs that match or surpass hand-designed ones. It can also repair a flawed expert prior. Across multiple datasets, task types, and LLMs, the Procedural Graph delivers consistent gains over memory-based baselines, and self-evolution further improves performance without manual engineering.",
+      "authors": [
+        "Yuxing Lu",
+        "Yicheng Chen",
+        "Shanchan Wu",
+        "Sercan Ö. Arık"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI",
+        "cs.CL",
+        "cs.MA"
+      ],
+      "published": "2026-09-08T17:59:41+00:00",
+      "link": "https://arxiv.org/pdf/2609.09153v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Proposes procedural graphs to improve LLM agent execution, relevant to building agents for simulating cybercriminal activities.",
+      "llm_evidence_cn": "提出程序图改进LLM代理执行，与构建模拟网络犯罪活动的代理相关。",
+      "llm_evidence": "提出程序图改进LLM代理执行，与构建模拟网络犯罪活动的代理相关。",
+      "canonical_evidence": "提出程序图改进LLM代理执行，与构建模拟网络犯罪活动的代理相关。",
+      "llm_tldr_en": "Introduces Procedural Graphs to organize procedural knowledge for LLM agents, helping them maintain objectives and reduce errors in long-horizon tasks, useful for building reliable agents.",
+      "llm_tldr_cn": "论文针对LLM代理在长程任务中因隐式程序知识而丢失目标、重复无效动作的问题，提出程序图结构，将程序知识表示为(程序,关系,程序)三元组，并在每个决策步骤局部化相关程序。通过实验验证，程序图框架能有效提升代理在复杂任务中的执行稳定性和目标保持能力，为构建可靠的智能体仿真系统提供了方法基础。",
+      "llm_tldr": "论文针对LLM代理在长程任务中因隐式程序知识而丢失目标、重复无效动作的问题，提出程序图结构，将程序知识表示为(程序,关系,程序)三元组，并在每个决策步骤局部化相关程序。通过实验验证，程序图框架能有效提升代理在复杂任务中的执行稳定性和目标保持能力，为构建可靠的智能体仿真系统提供了方法基础。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "How can agent based modeling and multi agent systems simulate cybercriminal activities with large language models?",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}

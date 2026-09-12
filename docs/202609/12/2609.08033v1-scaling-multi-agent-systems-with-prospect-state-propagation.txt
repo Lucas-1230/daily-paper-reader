@@ -1,0 +1,634 @@
+Title: Scaling Multi-Agent Systems with Prospect-State Propagation
+
+URL Source: https://arxiv.org/pdf/2609.08033v1
+
+Published Time: Wed, 09 Sep 2026 03:42:00 GMT
+
+Number of Pages: 11
+
+Markdown Content:
+# Scaling Multi-Agent Systems with Prospect-State Propagation 
+
+Zhimei Chen 1* Mu Chen 2*† Fakhri Karray 2,3 
+
+1Independent Researcher 
+
+2Mohamed bin Zayed University of Artificial Intelligence 
+
+3University of Waterloo 
+
+mu.chen@mbzuai.ac.ae 
+
+Abstract 
+
+Current LLM-based multi-agent systems (MAS) periodically compress intermediate states to reduce inference-time token consump-tion, thereby attempting to incorporate more agents. However, naive scaling strategies face challenges. For example, in economic sim-ulations, large-scale MAS typically discard semantically rich economic states, i.e., agent behavioral trajectories, which are key drivers of macroeconomic fluctuations. In this paper, we reveal a phenomenon in which agent het-erogeneity gradually decreases during simula-tion, and propose Prospect-State Propagation for Multi-Agent Systems ( PspMAS ). Inspired by prospect theory, PspMAS decouples each agent’s micro state into a compact Prospect State and an expressive Semantic State. The former records psychological traces through a lightweight, parallelizable propagator and con-tinuously injects heterogeneity into the system. The latter leverages the strong perception, rea-soning, planning, and decision-making abilities of LLMs. These two components work com-plementarily, providing a scalable LLM-based multi-agent simulation solution. 
+
+1 Introduction 
+
+Humans evaluate potential gains and losses rel-ative to a specific reference point rather than fo-cusing on absolute wealth, ..., is Prospect Theory. – Daniel and Amos (1979) 
+
+From Adam Smith’s “invisible hand” in the 18th century to the behavioral economics revolution of the 20th century, the study of Macroeconomics has increasingly highlighted the importance of mod-eling the complexity of human behavior. Tradi-tional representative-agent models (Kirman, 1992; Blanchard, 2017; Christiano et al., 2005) largely circumvent this difficulty by assuming a “perfect world” populated by a single average consumer 
+
+*Equal contribution. 
+
+†Corresponding author. Cycle 1                  
+
+> Tom ’ssaving is 8k,engineer ,…
+> Sam, …,banker ,salary is 3400, …
+> Lily, …,total debt is 0,…
+> Sara ,…,total debt is 4000
+> Gina ,…,salary 14k, total debt 0
+> GDP
+> UNEMPLOYME NT RATE (%)
+> TIME TIME
+> UNEMPLOYME NT RATE (%)
+> TIME
+> UNEMPLOYME NT RATE (%)
+> TIME
+> GDP
+> t1 TIME
+> S&P 500 INDEX
+> t1 TIME
+> UNEMPLOYMENT RATE (%)
+> t1
+> GDP Expending,unemployment low, …
+
+GDP  S&P 500  Unemployment Rate                                           
+
+> Cycle N Effective Agents 2 Effective Agents 2
+> Tom ’ssaving is 8k,engineer ,…
+> Sam, …,banker ,salary is 3 400, …,
+> Lily, …,total debt is 0,…
+> Sara ,…,total debt is 4000
+> Gina ,…,salary 14k, total debt 0
+> GDP stable,price level moderate, …
+> TIME TIME
+> Effective Agents 5 Effective Agents 5
+> Tom ’ssaving is 8k,engineer ,…
+> Sam, …,banker ,salary is 3400, …
+> Lily, …,total debt is 0,…
+> Sara ,…,total debt is 4000
+> Gina ,…,salary 14k, total debt 0
+> GDP Expending,unemployment low, …
+> Effective Agents 5 Effective Agents 5
+> Tom ’ssaving is 8k,engineer ,…
+> Sam, …,banker ,salary is 3400, …
+> Lily, …,total debt is 20000 ,…,
+> Sara ,…,total debt is 60000
+> Gina ,…,salary 14k, debt is 0
+> Inflation OUT OF COONTROL, …
+> S&P 500 INDEX
+> TIME TIME
+> S&P 500 INDEX TIME
+> UNEMPLOYMENT RATE (%)
+> UNEMPLOYMENT RATE (%)
+> TIME
+> UNEMPLOYMENT RATE (%)
+> TIME
+> GDP
+> TIME TIME
+> GDP
+> TIME
+> GDP
+> TIME
+
+Subprime Mortgage Crisis 
+
+> S&P 500 INDEX
+> TIME TIME
+> S&P 500 INDEX TIME
+> S&P 500 INDEX TIME
+
+PspMAS 
+
+> Effective Agents 5 Effective Agents 5
+
+Figure 1: The top sub-figure shows a traditional multi-agent simulation system. After a long-horizon simulation, at cycle 
+
+N , the heterogeneity of agents decreases, and the macroeco-nomic fluctuations are consequently weakened. The bottom sub-figure shows PspMAS . By preserving heterogeneity, the sharp increase in personal mortgage debt for some agents dominates the description of their micro states, thereby facili-tating the emergence of macroeconomic phenomena (e.g., the subprime mortgage crisis). 
+
+or firm. Such assumptions, however, eliminate distributional heterogeneity and the non-linear ag-gregate fluctuations (Gabaix, 2011) it generates, limiting the ability to replicate typical macroeco-nomic events ( e.g., crises and recessions). Agent-based modeling (ABM) offers a bottom-up solution (Farmer and Foley, 2009; Tesfatsion and Judd, 2006). By simulating the behaviors and interactions of heterogeneous agents, ABM allows stylized facts ( e.g., GDP, inflation) to emerge from the micro level. Rule-based ABMs maintain a large number of agents with their economic mi-crostate ( e.g., income, savings, debt, employment status, wage) that are updated via hand-crafted functions, one representative microstate in the form of key-value pair is ‘agent:1, income:3200, saving:9000, unemployment status:0, ...’ .Such micro states can be batched, parallelized, and vectorized, enabling hardware-efficient simulation. 1arXiv:2609.08033v1 [cs.MA] 7 Sep 2026 However, the pre-defined rules fail to capture real psychological processes, ultimately hindering the replication of key macroeconomic dynamics driven by complex human cognition. Large language models (LLMs) have recently shown remarkable capabilities in natural language understanding (OpenAI, 2023; Liang et al., 2022; Zheng et al., 2023), role-playing (Wang et al., 2024b), and contextual reasoning (Yao et al., 2023; Zhu et al., 2024; Dalal et al., 2024), making them attractive for social simulation (Horton, 2023; Ar-gyle et al., 2023; Li et al., 2024b; Jia et al., 2024; Binz et al., 2025; Wang et al., 2024b; Zou et al., 2025; Li et al., 2023). The microstate of an LLM-based agent is no longer a fixed set of numbers but a rich semantic description, for example: 
+
+‘You’re Tom, an engineer aged 25. Your saving is 8000, your salary is 3200, and total debt is 0, ..., CPI indicates current economy is in a high-inflation cycle. What level of expenditure do you plan for next period?’ 
+
+Such semantic-rich microstates enable sufficient behavioural heterogeneity, which is a key driver of macroeconomic fluctuations. But long descrip-tive profiles of agents during long-horizon simu-lation consume substantial inference-time token budgets, hindering scalability to large agent pop-ulations. Existing multi-agent systems resort to periodic reflection (Park et al., 2023; Shinn et al., 2023), compressing economic histories into high-level summaries. While effective in multi-turn con-versations(Qian et al., 2024; Yang et al., 2024; Wu et al., 2024a; Wang et al., 2023) or code genera-tion tasks, such semantic compression strategies discard the temporal order and intermediate states that are essential for economic decision-making. From the perspective of behavioral economics, hu-man behavior is highly sensitive to early economic fluctuations, and even small changes can exert last-ing influences on subsequent choices. Repeated summarization across simulation cycles tends to decrease the dynamic heterogeneity of agents, lead-ing to behavioral homogenization—a phenomenon called action convergence . As illustrated in the top part of Fig. 1, a traditional system injects rich descriptions into all agents at system initializa-tion, thereby creating a large nominal population of heterogeneous agents. However, as the simula-tion proceeds, the micro states of agents are com-pressed into high-level summaries on a recurring basis. This process gradually removes individual behavioral differences and greatly reduces diversity among agents. Consequently, macroeconomic fluc-tuations that should emerge from heterogeneous local distress become attenuated. In macroeco-nomics, risk signals with genuine predictive value often first appear in the local states of a small sub-set of agents. If state descriptions are dominated by lagging macro variables such as the unemployment rate, these localized abnormalities can be diluted or erased during semantic compression. As a result, most agents are guided toward a homogenized com-mon context in which the economy still appears broadly healthy, suppressing the micro-to-macro propagation through which crises emerge. For ex-ample, in the buildup to the subprime mortgage crisis, early risks were not immediately reflected in aggregate labor-market indicators. Instead, stress first accumulated in agents with average wages but high debt burdens, such as agent Sara shown in the bottom part of Fig. 1. Such agents can trans-mit early default risk and other key local signals that eventually develop into the subprime mortgage crisis. If these loan-related micro states are com-pressed away, the system loses the heterogeneous mechanisms through which localized distress prop-agates into broader macroeconomic fluctuations. Based on the above observations, we pro-pose Prospect-State Propagation for Multi-Agent 
+
+Systems ( PspMAS ). PspMAS decouples each agent’s micro state into two complementary parts: a com-pact Prospect State and an expressive Semantic State . The design of Prospect State is inspired by prospect theory, a classical theory in behavioral eco-nomics for characterizing human decision-making under gains, losses, and uncertainty. It maintains key psychological variables, including reference point, loss aversion, and probability weighting, and updates them through a fast propagator. Prospect State provides the long-term micro-level hetero-geneity necessary for economic emergence. Se-mantic State leverages the perception, reasoning, planning, and decision-making abilities of LLMs to generate human-like actions. By combining these two states, PspMAS avoids relying on long textual state descriptions, making the system easier to scale, while also mitigating the heterogeneity loss caused by long-horizon semantic compression. Our contributions are summarized as follows: • We reveal an inherent heterogeneity-loss problem in MAS for economic simulation, where periodi-cal semantic compression gradually reduces the effective number of behaviorally distinct agents. 2• We incorporate prospect theory, preserving long-term heterogeneity. • We introduce a scalable LLM-based multi-agent simulation solution. 
+
+2 Method 
+
+This section introduces PspMAS , a framework for preserving agent heterogeneity while scaling LLM-based multi-agent systems over long-horizon sim-ulation. The key idea is to decouple each agent’s micro state into two complementary parts: aMarkovian Prospect State updated by a lightweight Prospect-State Propagator, and a Semantic State updated periodically by an LLM. We first provide background on multi-agent systems for macroeco-nomic simulation (Section 2.1), then introduce the simulation loop, including economic state construc-tion, prospect-state propagation, economic state read, and system scaling. Implementation details are given in Section 2.3. 
+
+2.1 Preliminary 
+
+In a Multi-agent Systems (MAS) (Li et al., 2024b; Feng et al., 2025), agents perceive the environ-ment and take actions to achieve goals; their be-havior is not hard-coded but emerges from situ-ated interactions with other agents and the envi-ronment. We consider a MAS for macroeconomic simulation populated by N heterogeneous agents, indexed by I = {1, 2, . . . , N }. The correspond-ing agent set is {Ai}i∈I . Each agent is equipped with LLM-powered perception, reasoning, plan-ning, and decision-making abilities. During simu-lation, agents interact, collectively constructing a macroeconomy, which in turn updates their percep-tions and influences subsequent actions. 
+
+2.2 PspMAS 
+
+Economic State Construction. Micro differ-ences of agents are a key driver of macroeconomic fluctuations. The combination of agents’ micro states and the environment’s macro state consti-tutes the Economic State of the simulation. 
+
+Micro State . Each agent Ai at time t maintains an independent micro state capturing its internal behavioral state and economic history. In tradi-tional rule-based ABMs, the micro state is a fixed-dimensional structured vector (Kuroki et al., 2025). In LLM-based simulations, the micro state typi-cally comprises a compact numerical component and a rich semantic component (Li et al., 2024b). In PspMAS , we write the micro state as 
+
+Mti =  sti, σ ti , e ti
+
+, (1) where sti ∈ P is the Prospect State, σti ∈ M sem 
+
+is the Semantic State, and eti denotes economic bookkeeping variables (e.g., wealth, debt, tax paid, wage, realized consumption, employment status) that are updated by the environment via market clearing. In Particular, the two central branches of 
+
+PspMAS are sti and σti : the former preserves com-pact psychological traces, while the latter supports expressive natural-language reasoning. 
+
+Macro State . The overall condition of the eco-nomic environment at time t is described by a macro state St, typically including price level P t,interest rate rt, unemployment rate ut
+
+> emp
+
+, and total GDP Y t. Formally, St ∈ Y . The macro state re-flects the aggregation of all agents’ actions through market mechanisms, forming a closed feedback loop (Li et al., 2024b; Yang et al., 2026). 
+
+Agent Action . At each time step t, each agent 
+
+Ai selects an action ati from its action space Ai
+
+based on its current micro state Mti and the macro state St. Following macroeconomic simulation lit-erature, the action space includes two fundamental decisions: whether to work ( lti ∈ { 0, 1}) and what fraction of available funds to spend on consumption (pti ∈ [0 , 1] ) (Li et al., 2024b; Feng et al., 2025). The action space can be expressed as 
+
+ati = ( lti , p ti) ∈ Ai = {0, 1} × [0 , 1] . (2) 
+
+Prospect-State Propagation. We incorporate prospect theory (Kahneman and Tversky, 2013) into the micro state to capture bounded rationality in decision-making. The theory highlights three key features: - Reference dependence : decisions are made based on gains and losses relative to a psychological reference point (e.g., initial wealth), rather than absolute wealth. - Loss aversion : losses are felt approximately twice as strongly as equiva-lent gains (i.e., λ ≈ 2.25 ). - Probability weighting :people tend to overweight small probabilities and underweight moderate to high probabilities, lead-ing to distorted subjective probabilities. Based on these insights, we define the Prospect State of agent i at time t as a Prospect-State Vector: 
+
+sti =  λti, γ ti , R ti
+
+ ∈ P ⊂ R3. (3) Here Rti is the dynamic reference point, λti the loss-aversion coefficient, and γti the probability-weighting parameter. Other economic quantities, 3Interaction 
+
+cycle = 1
+
+> Interaction
+
+cycle = 2 
+
+> Interaction
+
+cycle = N 
+
+Economic State Read 
+
+> Semantic State Semantic State
+> Prospect State Prospect State
+> Semantic State Semantic State
+
+Economic State Construction  
+
+> Micro State Micro State Macro State Macro State
+> Semantic State Semantic State
+> Prospect State Prospect State
+
+Prospect State Propagation 
+
+State State  State State State State 
+
+State State  State State  State State 
+
+> Heterogeneity Loss Heterogeneity Loss
+> Heterogeneity Preservation Heterogeneity Preservation
+
+Figure 2: Overview of the major components of PspMAS . PspMAS decouples each agent’s micro state into two complementary branches: a compact Prospect State and an expressive Semantic State. The Prospect State is continuously updated by a lightweight Prospect-State Propagator, preserving psychological traces and injecting long-term heterogeneity into the agent population. The Semantic State is periodically refreshed by the LLM to support perception, reasoning, planning, and human-like decision-making. 
+
+PspMAS preserves heterogeneous micro dynamics while enabling scalable long-horizon macroeconomic simulation. 
+
+such as wealth, income, realized consumption, and unmet demand, are stored as accounting variables or immediate outcomes rather than as dimensions of the Prospect-State Vector. Let oti denote the immediate individual outcome produced by market clearing at time t (e.g., re-alized labor income, realized consumption, sav-ings change, and unmet demand), and let St+1 de-note the realized macro state after clearing. The Prospect State update is Markovian: 
+
+˜st+1  
+
+> i
+
+= Φ( sti, o ti, St+1 ), st+1  
+
+> i
+
+= Π P (˜ st+1  
+
+> i
+
+),
+
+(4) where ΠP projects the updated Prospect-State Vec-tor onto a predefined valid domain P. This projec-tion step, rather than the coefficient ranges alone, keeps the Prospect State bounded throughout long-horizon simulation. The Markovian Prospect-State Propagator Φ con-sists of deterministic, parallelizable lightweight rules: 
+
+˜Rt+1  
+
+> i
+
+= αrW ti + (1 − αr)Rti + βr( ¯Rct − Rti)It
+
+> scl
+
+,
+
+˜λt+1  
+
+> i
+
+= λti + ηλ(¯λt − λti)It 
+
+> crs
+
++ ξti ,
+
+˜γt+1  
+
+> i
+
+= γti + ηγ (1 − γti ) min(1 , E ti /E thr )−ζI t
+
+> shk
+
+,
+
+(5) where W ti is total wealth, ¯Rct the cohort-average reference point, and It
+
+> scl
+
+, It
+
+> crs
+
+, and It 
+
+> shk
+
+are indica-tor flags for social comparison, crisis, and shock, respectively. The variable Eti denotes a recent ex-perience intensity derived from the immediate out-come oti, and Ethr is a normalization threshold. After computing Eq. 5, the projection in Eq. 4 is then applied component-wise to obtain the next Prospect-State Vector, which is denoted by st+1  
+
+> i
+
+.The Semantic State σti is a textual summary of recent events and agent reflections, updated peri-odically (every K steps) by an LLM. The LLM receives the current Prospect State sti, the current accounting variables eti, a short history of the most recent K raw events, and the previous Seman-tic State σt−Ki , then produces a new σti . This branch provides perception, reasoning, and human-like decision-making. The two branches operate in parallel: the Prospect State evolves continu-ously at low cost, preserving long-term path de-pendence; the Semantic State is refreshed on a longer timescale, injecting rich behavioral patterns without prohibitive token costs. 
+
+Economic State Read. After all agents have taken their actions, the environment updates the Economic State via a market clearing function Ψ:
+
+(Mt+1 , St+1 , ot) = Ψ  at, Mt, St, (6) where Mt = ( Mti)i∈I , at = ( ati)i∈I , and ot =(oti)i∈I contains the individual realized outcomes used by the Prospect-State Propagator. In our im-plementation, Ψ aggregates intended consumption and labor supply. If total intended demand exceeds total production, goods are rationed proportionally; individual unmet demand qti is recorded as part of oti and can affect the next Prospect State up-date through the experience intensity Eti . Prices and wages adjust according to the imbalance (e.g., demand > supply → price increase). The govern-ment collects progressive taxes and redistributes 4all revenue equally. Annually, the central bank sets the interest rate using a Taylor rule, and savings earn that interest. This transition closes the loop, feeding macro conditions back into agents’ future states, thus cycling repeatedly. 
+
+System Scaling. PspMAS is designed to scale effi-ciently to large agent populations while preserving behavioral diversity. 
+
+Computational Scalability . The Prospect State is updated through lightweight and highly paralleliz-able propagation rules, avoiding expensive long-context reasoning during most simulation steps. Meanwhile, the Semantic State is refreshed only periodically rather than continuously, substantially reducing the number of costly LLM inference calls while keeping prompts compact over long simu-lation horizons. Since both state-update branches operate independently across agents, the overall system scales efficiently with the number of agents and simulation steps, enabling large-scale macroe-conomic simulations with thousands of agents un-der practical computational budgets. 
+
+Heterogeneity Quantification . To measure whether diversity is maintained at scale, we con-struct three population-level matrices: a Trajectory Matrix, a Prospect Matrix, and a fused Hetero-geneity Matrix. The Trajectory Matrix captures realized behavioral diversity from recent action sequences, while the Prospect Matrix captures la-tent path-dependent psychological diversity from Prospect-State Vectors. The fused matrix combines both views and is used to compute the effective number of distinct behavioral modes. 
+
+Trajectory Matrix. Let 
+
+zti = ( pt−L+1  
+
+> i
+
+, l t−L+1  
+
+> i
+
+, . . . , p ti, l ti ) (7) be the action sequence of agent i over the last L
+
+steps ( L = 12 ). After normalizing zti over agents, we construct the Trajectory Matrix as an RBF simi-larity kernel: 
+
+Ht 
+
+> traj ,ij
+
+= exp − ∥ˆzti − ˆztj ∥22
+
+2τ 2traj 
+
+!
+
+, (8) where ˆzti is the normalized trajectory feature and 
+
+τtraj is a bandwidth parameter. This matrix is large when two agents have similar recent labor and con-sumption trajectories. 
+
+Prospect Matrix. The Prospect Matrix is con-structed from the Prospect-State Vector 
+
+sti = ( λti, γ ti , R ti). (9) After normalizing sti over agents, we define 
+
+Ht 
+
+> pros ,ij
+
+= exp − ∥ˆsti − ˆstj ∥22
+
+2τ 2pros 
+
+!
+
+, (10) where ˆsti is the normalized Prospect-State feature and τpros is a bandwidth parameter. This matrix captures whether two agents have similar path-dependent psychological states, even when their recent actions appear similar. 
+
+Fused Heterogeneity Matrix. We combine the two matrices with a balance coefficient α ∈
+
+[0 , 1] :
+
+Ht 
+
+> fuse
+
+= αH t 
+
+> traj
+
++ (1 − α)Ht
+
+> pros
+
+. (11) Because both Ht 
+
+> traj
+
+and Ht 
+
+> pros
+
+are RBF kernels, the fused matrix is positive semidefinite. Therefore, its spectrum can be used as a stable diversity measure. Let μt
+
+> 1
+
+, μ t
+
+> 2
+
+, . . . , μ tN be the eigenvalues of Ht
+
+> fuse
+
+,and normalize them as 
+
+˜μtk = μtk
+
+PNj=1 μtj
+
+. (12) We define the spectral entropy as 
+
+Et = −
+
+> N
+
+X
+
+> k=1
+
+˜μtk log(˜ μtk + ϵ), (13) and the effective diversity as 
+
+Dt 
+
+> eff
+
+= exp( Et). (14) The normalized diversity is 
+
+Dt 
+
+> norm
+
+= Dt
+
+> eff
+
+N . (15) When agents collapse into highly similar behav-iors and similar Prospect States, Ht 
+
+> fuse
+
+approaches a low-rank matrix and Dt 
+
+> eff
+
+becomes correspond-ingly small. When agents remain behaviorally and psychologically diverse, the effective diversity re-mains high. These metrics are computed periodi-cally and used to assess heterogeneity preservation over long-horizon simulation. 
+
+Long-Horizon Simulation Loop. The simula-tion proceeds over a finite horizon T . The full simulation trajectory is 
+
+τ =  M0, S0, a0, M1, S1, . . . , MT , ST . (16) Algorithm 1 summarizes the entire simulation loop. At each time step, for each agent we op-tionally update the Semantic State every K steps, 5Algorithm 1 Prospect-State Propagation Simula-tion Loop  
+
+> 1:
+
+Input: N agents, horizon T , update interval 
+
+K, initial macro state S0 
+
+> 2:
+
+Initialize micro states {M 0 
+
+> i
+
+}Ni=1 with profiles (basic, economic, psychological)  
+
+> 3:
+
+for t = 0 to T − 1 do  
+
+> 4:
+
+for each agent i in parallel do  
+
+> 5:
+
+if t mod K = 0 then  
+
+> 6:
+
+Update Semantic State σti ←
+
+LLM( sti, e ti, history t−K+1: t, σ t−Ki ) 
+
+> 7:
+
+end if  
+
+> 8:
+
+Generate economic action ati ∼ πθ(· | 
+
+sti, σ ti , e ti, St) 
+
+> 9:
+
+end for  
+
+> 10:
+
+Execute market clearing Ψ: compute St+1 
+
+and record outcomes {oti}Ni=1  
+
+> 11:
+
+for each agent i in parallel do  
+
+> 12:
+
+Update Prospect State st+1  
+
+> i
+
+=ΠP (Φ( sti, o ti, St+1 ))  
+
+> 13:
+
+end for  
+
+> 14:
+
+Construct Ht
+
+> traj
+
+, Ht
+
+> pros
+
+, and 
+
+Ht
+
+> fuse
+
+; compute Et, Dt 
+
+> eff
+
+, and Dt 
+
+> norm
+> 15:
+
+end for 
+
+then call the LLM to generate actions, execute market clearing, and update Prospect States with the Prospect-State Propagator. Heterogeneity is quantified by the spectral entropy Et and effective diversity Dt 
+
+> eff
+
+of the fused Heterogeneity Matrix 
+
+Ht
+
+> fuse
+
+, which combines the Trajectory Matrix and the Prospect Matrix. 
+
+2.3 Implementation Details 
+
+Our implementation uses Qwen3-family mod-els (Bai et al., 2025). The temperature is set to 0.7
+
+for decision calls and 0.2 for summarization. The update interval K is set to 5. The Prospect-State Propagator coefficients are αr = 0 .1, βr = 0 .05 ,
+
+ηλ = 0 .001 , ηγ = 0 .005 , ζ = 0 .1, σλ = 0 .02 . The threshold Ethr = 10 . Unless otherwise specified, each Prospect-State update is projected onto the predefined valid domain P after Eq. 5. For hetero-geneity evaluation, we set the trajectory window to 
+
+L = 12 and use α = 0 .5 in the fused Heterogeneity Matrix unless otherwise specified. 
+
+3 Experiments 
+
+Our experiments answer the following research questions: 
+
+RQ1: Why does increasing the number of agents fail to produce effective scaling in a state-of-the-art LLM-based economic simulation system? 
+
+RQ2: Does the proposed Prospect-State Propaga-tion preserve agent heterogeneity at scale? 
+
+3.1 Experimental Setting 
+
+Simulation Environment . We simulate a closed economy where each agent makes labor supply and consumption decisions at each step. The macro state includes GDP, inflation, and unemployment. 
+
+Baseline Methods . We compare four representa-tive multi-agent architectures: • SaMAS: A situation-aware LLM-driven gener-ative system for economic simulation, used as the strong prior system in our direct compari-son (Chen and Chen, 2026). • S UMMARY SYSTEM : Agents use plain sum-mary: their histories are periodically com-pressed into LLM-generated summaries ( K =5). The summary replaces raw event history in the context window (Park et al., 2023; Qian et al., 2024). • R EFLECTION SYSTEM : Agents use periodic reflection: they maintain a memory stream and generate high-level reflections (“insights”) at regular intervals ( K = 5 ). Reflections are stored alongside recent events (Shinn et al., 2023; Wang et al., 2024a). • PspMAS : Agents maintain a compact Prospect-State Vector sti ∈ R3 updated via deterministic propagator at every step; Semantic State re-freshed every K = 5 steps. 
+
+3.2 RQ1: Scaling Analysis of SaMAS and PspMAS 
+
+We conduct a scaling analysis of PspMAS and SaMAS (Chen and Chen, 2026) using Qwen3-32B (Bai et al., 2025) under the same evaluation protocol, including the same simulation horizon and comparable token budgets. We report results at two agent scales, N = 100 and N = 500 , us-ing Volatility Realism (VR) and normalized fused diversity Dnorm .Table 1 exposes a clear failure of the expected scaling law in SaMAS. A fivefold increase in nom-inal population, from N = 100 to N = 500 , im-proves VR by only 0.2 points ( 81 .8% to 82 .0% ), while Dnorm drops by 9.9 points ( 43 .2% to 33 .3% ). 6Performance therefore does not improve consis-tently with scale: the marginal gain in realism nearly vanishes, while the effective population be-comes substantially more homogeneous. This re-sult shows that nominal agent count is not equiv-alent to effective system scale when repeated se-mantic compression drives behavioral convergence. In contrast, PspMAS increases VR from 82 .9% to 
+
+85 .3% while retaining substantially higher diver-sity ( 61 .9% at N = 100 and 56 .9% at N = 500 ). At N = 500 , it exceeds SaMAS by 3.3 points in VR and 23 .6 points in Dnorm . This contrast indicates that preserving state heterogeneity is a prerequisite for realizing the expected benefits of scaling in MAS. 
+
+3.3 RQ2: Heterogeneity Preservation at Scale 
+
+To quantify whether PspMAS preserves agent het-erogeneity as the system scales, we compute the normalized diversity Dnorm = Deff /N from the fused Heterogeneity Matrix Ht 
+
+> fuse
+
+defined in Sec-tion 2.2. This matrix combines the Trajectory Ma-trix, which measures recent action diversity, and the Prospect Matrix, which measures path-dependent psychological diversity. Higher Dnorm indicates more behaviorally distinct agents. 
+
+Varying agent count. Table 2 shows Dnorm as a function of N . S UMMARY SYSTEM saturates at 
+
+N ≈ 200 , confirming that repeated semantic com-pression homogenizes both recent action trajecto-ries and prospect-state traces regardless of popula-tion size. R EFLECTION SYSTEM shows sublinear scaling. In contrast, PspMAS maintains high fused diversity even at N = 500 , demonstrating stronger heterogeneity scaling. 
+
+Varying model size. Table 3 examines the ef-fect of LLM backbone size on heterogeneity preservation. Scaling from Qwen3-8B to Qwen3-32B increases Dnorm from 32 .1% to 36 .5% for REFLECTION SYSTEM and from 58 .2% to 62 .5% 
+
+for PspMAS .
+
+Varying simulation horizon. Table 4 sum-marizes Dnorm at simulation horizons 50 and 200. SUMMARY SYSTEM degrades rapidly as repeated compression accumulates information loss. REFLECTION SYSTEM shows more grace-ful degradation but still suffers from cumulative drift. PspMAS maintains remarkably stable fused di-versity, indicating that the Prospect-State Propaga-tor preserves both behavioral trajectories and path-dependent prospect-state differences over long hori-zons. 
+
+3.4 Summary of Findings RQ1: Failure of scaling in SOTA MAS: Increas-ing the SaMAS population fivefold, from N = 100 
+
+to N = 500 , improves VR by only 0.2 points while reducing Dnorm from 43 .2% to 33 .3% . In contrast, 
+
+PspMAS improves VR from 82 .9% to 85 .3% while retaining much higher diversity ( 61 .9% to 56 .9% ), showing that heterogeneity enables effective scal-ing. 
+
+RQ2: Heterogeneity preservation at scale: At 
+
+N = 500 , PspMAS maintains Dnorm > 0.56 ,whereas S UMMARY SYSTEM saturates near N =200 (Dnorm ≈ 0.21 ). This advantage persists across LLM sizes and simulation horizons. 
+
+4 Related Work 
+
+Macroeconomic Simulation Traditional macroe-conomic models such as DSGE (Smets and Wouters, 2007; Clarida et al., 1999; Christiano et al., 2005) and VAR (Sims, 1980; Negro et al., 2015) primarily analyze economic fluctuations and policy transmission in a top-down manner through mathematical modeling of the relationship between “representative agents” and macroeconomic vari-ables. Agent-based Modeling adopts a “bottom-up” paradigm for social simulation: by simulating the behaviors and interactions of micro-level individ-uals within a specific environment, it reproduces macroeconomic phenomena, thereby overcoming the limitation of the “representative agent” assump-tion inherent in traditional models (Acemoglu et al., 2012; Poledna et al., 2023; Caiani et al., 2016; Ax-tell, 2001; Geanakoplos et al., 2012; Dawid and Delli Gatti, 2018). In recent years, LLM-driven agents have endowed ABM with scenario-based interaction capabilities, allowing for the simulation of more complex economic behaviors and enabling more sophisticated economic simulations (Yang et al., 2026; Li et al., 2024b; Chen et al., 2024d; Li et al., 2025a; Hagendorff, 2025; Argyle et al., 2025; Jia et al., 2024; Widler et al., 2026). Despite these advances, existing approaches largely rely on periodic semantic summarization or reflection to compress long economic histories, a practice that risks attenuating fine-grained behavioral trajec-tories. This compression, though token-efficient, tends to homogenize agents over time by progres-sively smoothing away their early fluctuations. 7Table 1: Comparisons with the strong baseline SaMAS (Chen and Chen, 2026). 
+
+N System VR (%) ↑ Dnorm (%) 100 SaMAS 81 .8 43 .2
+
+100 PspMAS 82 .9 61 .9
+
+500 SaMAS 82 .0 33 .3
+
+500 PspMAS 85 .3 56 .9    
+
+> Table 2: Normalized fused diversity Dnorm (%) under varying agent count N.
+
+N SUMMARY REFLECTION PspMAS 
+
+20 68 .2 71 .3 73 .8
+
+50 40 .3 55 .6 67 .5
+
+200 21 .2 33 .5 59 .6
+
+500 20 .1 30 .5 56 .5  
+
+> Table 3: Normalized fused diversity Dnorm (%) under different LLM sizes.
+
+Model REFLECTION PspMAS 
+
+Qwen 3 - 8B 32 .1 58 .2
+
+Qwen 3 - 32B 36 .5 62 .5  
+
+> Table 4: Normalized fused diversity Dnorm (%) under different simulation horizons.
+
+Horizon S UMMARY REFLECTION PspMAS 
+
+50 28 .5 42 .5 61 .2
+
+200 18 .5 30 .2 57 .8
+
+LLM-driven Agentic System AI Agent is an au-tonomous system that perceives its environment and takes actions to achieve goals. These actions are not hard-coded but rather emerge from situ-ated interactions, continuously evolving through feedback from interactions with the environment and other agents. This paradigm has achieved no-table success in multi-turn conversation systems (Zheng et al., 2023; Wu et al., 2024a), code genera-tion (Jimenez et al., 2024; Yang et al., 2024), and general-purpose assistant tasks (Wang et al., 2024b; Chen et al., 2024d, 2025, 2024b,c). Furthermore, the same paradigm has advanced social reasoning (Gandhi et al., 2023; Sap et al., 2019; Mankowitz et al., 2023; Zhang et al., 2024), policy optimization (Silver et al., 2017, 2016), and behavioral simula-tion (Chen et al., 2024a; Park et al., 2023; Jia et al., 2024; Li et al., 2024a). This paradigm excels at leveraging LLMs for flexible, context-aware rea-soning, enabling agents to adapt to novel situations without hand-crafted rules. The feedback-driven, interactive design also allows agents to continu-ously refine their strategies, producing emergent behaviors that static models cannot replicate. As individual agent capabilities improve, LLM-driven Multi-agent Systems have come into sharper focus, and recent research has begun to further investi-gate the collective behavior and emergent dynam-ics arising from multi-agent interactions. Recent work demonstrates that LLM-based multi-agent systems can spontaneously form social norms, col-laborative structures, and complex group behav-iors through ongoing interaction (Li et al., 2025b; Schneider et al., 2025; Wu et al., 2024b; Riedl, 2025). Moreover, recent efforts have leveraged these systems for macroeconomic forecasting (Jin et al., 2024; Ansari et al., 2024; Rasul et al., 2023; Garza et al., 2023), revealing intricate emergent macro-level phenomena. 
+
+5 Conclusion 
+
+We present PspMAS , the first macroeconomic simu-lation MAS that incorporates prospect theory into economic state updating. To achieve this, we first decouple each agent’s micro state into two com-plementary components. We then leverage the Prospect State to continuously inject heterogeneity into the system, while using the Semantic State to generate human-like actions. By combining the two, PspMAS not only significantly reduces LLM in-ference token consumption, making effective scal-ing possible, but also achieves strong simulation performance. More broadly, our work provides new insights into addressing the challenges of LLM-driven MAS through classic theories from behav-ioral economics. Future work could extend PspMAS 
+
+to other complex socio-economic domains such as financial market regulation, climate policy negotia-tion, and organizational behavior simulation, where bounded rationality and heterogeneous decision-making play critical roles. 
+
+Limitations 
+
+This study has several limitations. First, the current simulations are still conducted within a simplified closed economy environment, and thus may fail to capture open economy effects, institutional con-straints, or real-world policy frictions. Second, 8decisions based on large language models may in-herit biases from their underlying models; future research should examine robustness across differ-ent model families, prompting strategies, and cali-bration settings. Third, during the training process, large language models absorb cultural, political, and ideological biases from the internet, academic literature, and policy documents. It is currently impossible to completely disentangle these deep-seated value orientations, posing a serious chal-lenge for applications seeking "value-neutral" pol-icy insights in practice. 
+
+References 
+
+Daron Acemoglu, Vasco Carvalho, Asuman Ozdaglar, and Alireza Tahbaz-Salehi. 2012. The network origins of aggregate fluctuations. Econometrica ,80(5):1977–2016. Abdul Fatir Ansari, Lorenzo Stella, Caner Turkmen, Xiyuan Zhang, Pedro Mercado, Huibin Shen, Olek-sandr Shchur, Syama Sundar Rangapuram, Sebas-tian Pineda Arango, Shubham Kapoor, and 1 others. 2024. Chronos: Learning the language of time series. 
+
+arXiv preprint arXiv:2403.07815 .Lisa P. Argyle, Ethan C. Busby, Nancy Fulda, Joshua R. Gubler, Christopher Rytting, and David Wingate. 2023. Out of one, many: Using language models to simulate human samples. Political Analysis .Lisa P. Argyle, Ethan C. Busby, Nancy Fulda, Joshua R. Gubler, Christopher Rytting, and David Wingate. 2025. Position: LLM social simulations are a promis-ing research method. In ICML .Robert Axtell. 2001. Zipf distribution of us firm sizes. 
+
+Science , 293(5536):1818–1820. Jinze Bai, Shuai Bai, Yunfei Chu, and 1 others. 2025. Qwen3: A next-generation large language model. 
+
+arXiv preprint arXiv:2503.12345 .Marcel Binz, Elif Akata, Matthias Bethge, Franziska Brändle, Fred Callaway, Julian Coda-Forno, Peter Dayan, Can Demircan, Maria K Eckstein, Noémi Éltet˝ o, and 1 others. 2025. A foundation model to predict and capture human cognition. Nature ,644(8078):1002–1009. Olivier Blanchard. 2017. Do dsge models have a fu-ture? Policy Brief PB17-11, Peterson Institute for International Economics. Alessandro Caiani, Antoine Godin, Eugenio Caverzasi, Mauro Gallegati, Stephen Kinsella, and Joseph E Stiglitz. 2016. Agent based-stock flow consis-tent macroeconomics: Towards a benchmark model. 
+
+Journal of Economic Dynamics and Control , 69:375– 408. Jiangjie Chen, Xintao Wang, Rui Xu, Siyu Yuan, Yikai Zhang, Wei Shi, Jian Xie, Shuang Li, Ruihan Yang, Tinghui Zhu, and 1 others. 2024a. From persona to personalization: A survey on role-playing language agents. arXiv preprint arXiv:2404.18231 .Mu Chen, Liulei Li, Wenguan Wang, Ruijie Quan, and Yi Yang. 2024b. General and task-oriented video segmentation. In Computer Vision – ECCV 2024 ,pages 72–92. Mu Chen, Liulei Li, Wenguan Wang, and Yi Yang. 2025. DiffVSGG: Diffusion-driven online video scene graph generation. In Proceedings of the IEEE/CVF Conference on Computer Vision and Pat-tern Recognition , pages 29161–29172. Mu Chen, Zhedong Zheng, and Yi Yang. 2024c. PiPa++: Towards unification of domain adaptive semantic segmentation via self-supervised learning. arXiv preprint arXiv:2407.17101 .Weize Chen, Yusheng Su, Jingwei Zuo, Cheng Yang, Chenfei Yuan, Chi-Min Chan, Heyang Yu, Yaxi Lu, Yi-Hsin Hung, Chen Qian, and 1 others. 2024d. Agentverse: Facilitating multi-agent collaboration and exploring emergent behaviors. In ICLR .Zhimei Chen and Mu Chen. 2026. Empowering eco-nomic simulation through situation-aware llm-driven generative system. In ICASSP .Lawrence J. Christiano, Martin Eichenbaum, and Charles L. Evans. 2005. Nominal rigidities and the dynamic effects of a shock to monetary policy. Jour-nal of Political Economy , 113(1):1–45. Richard Clarida, Jordi Gali, and Mark Gertler. 1999. The science of monetary policy: a new keynesian per-spective. Journal of Economic Literature , 37:1661– 1707. Dhairya Dalal, Marco Valentino, Andre Freitas, and Paul Buitelaar. 2024. Inference to the best explana-tion in large language models. In ACL .Herbert Dawid and Domenico Delli Gatti. 2018. Agent-based macroeconomics. In Handbook of Computa-tional Economics , volume 4, pages 63–156. Elsevier. J. Doyne Farmer and Duncan Foley. 2009. The economy needs agent-based modelling. Nature , 460:685–686. Yeqi Feng, Yucheng Lu, Hongyu Su, Yixin Tao, and Tianxing He. 2025. Simcity: Multi-agent urban de-velopment simulation with rich interactions. arXiv preprint arXiv:2510.01297 .Xavier Gabaix. 2011. The granular origins of aggregate fluctuations. Econometrica , 79(3):733–772. Kanishk Gandhi, Jan-Philipp Fränken, Tobias Gersten-berg, and Noah Goodman. 2023. Understanding social reasoning in language models with language models. NeurIPS .
+
+9Azul Garza, Cristian Challu, and Max Mergenthaler-Canseco. 2023. Timegpt-1. arXiv preprint arXiv:2310.03589 .John Geanakoplos, Robert Axtell, Doyne J Farmer, Pe-ter Howitt, Benjamin Conlee, Jonathan Goldstein, Matthew Hendrey, Nathan M Palmer, and Chun-Yi Yang. 2012. Getting at systemic risk via an agent-based model of the housing market. American Eco-nomic Review , 102(3):53–58. Thilo Hagendorff. 2025. Do large language models exhibit spontaneous rational deception? In ACL 2025 Findings .John J. Horton. 2023. Large language models as sim-ulated economic agents: What can we learn from homo silicus? Journal of Economic Behavior & Organization . Forthcoming. Feiran Jia, Ziyu Ye, Shiyang Lai, Kai Shu, Jindong Gu, Adel Bibi, Ziniu Hu, David Jurgens, James Evans, Philip H Torr, and 1 others. 2024. Can large lan-guage model agents simulate human trust behavior? 
+
+NeurIPS .Carlos E Jimenez, John Yang, Alexander Wettig, Shunyu Yao, Kexin Pei, Ofir Press, and Karthik Narasimhan. 2024. Swe-bench: Can language mod-els resolve real-world github issues? In ICLR .Ming Jin, Shiyu Wang, Lintao Ma, Zhixuan Chu, James Zhang, Xiaoming Shi, Pin-Yu Chen, Yuxuan Liang, Yuan-Fang Li, Shirui Pan, and 1 others. 2024. Time-llm: Time series forecasting by reprogramming large language models. In ICLR .Daniel Kahneman and Amos Tversky. 2013. Prospect theory: An analysis of decision under risk. In Hand-book of the fundamentals of financial decision mak-ing: Part I , pages 99–127. World Scientific. Alan P. Kirman. 1992. Whom or what does the repre-sentative individual represent? Journal of Economic Perspectives , 6(2):117–136. So Kuroki, Yingtao Tian, Kou Misaki, Takashi Ikegami, Takuya Akiba, and Yujin Tang. 2025. Reimagin-ing agent-based modeling with large language model agents via shachi. arXiv preprint arXiv:2509.21862 .Guohao Li, Hasan Abed Al Kader Hammoud, Hani Itani, Dmitrii Khizbullin, and Bernard Ghanem. 2023. Camel: Communicative agents for mind exploration of large language model society. In NeurIPS .Junjie Li, Yang Liu, Weiqing Liu, Shikai Fang, Lewen Wang, Chang Xu, and Jiang Bian. 2025a. Mars: A financial market simulation engine powered by generative foundation model. In ICLR .Junkai Li, Yunghwei Lai, Weitao Li, Jingyi Ren, Meng Zhang, Xinhui Kang, Siyu Wang, Peng Li, Ya-Qin Zhang, Weizhi Ma, and 1 others. 2024a. Agent hospi-tal: A simulacrum of hospital with evolvable medical agents. arXiv preprint arXiv:2405.02957 .Nian Li, Chen Gao, Mingyu Li, Yong Li, and Qing-min Liao. 2024b. Econagent: large language model-empowered agents for simulating macroeconomic activities. In ACL .Zhengyang Li, Sawyer Campos, and Nana Wang. 2025b. Language-driven coordination and learning in multi-agent simulation environments. arXiv preprint arXiv:2506.04251 .Percy Liang, Rishi Bommasani, Tony Lee, Dimitris Tsipras, Dilara Soylu, Michihiro Yasunaga, Yian Zhang, Deepak Narayanan, Yuhuai Wu, Ananya Ku-mar, and 1 others. 2022. Holistic evaluation of lan-guage models. arXiv preprint arXiv:2211.09110 .Daniel J Mankowitz, Andrea Michi, Anton Zher-nov, Marco Gelmi, Marco Selvi, Cosmin Padu-raru, Edouard Leurent, Shariq Iqbal, Jean-Baptiste Lespiau, Alex Ahern, and 1 others. 2023. Faster sort-ing algorithms discovered using deep reinforcement learning. Nature , 618(7964):257–263. Marco Del Negro, Marc P. Giannoni, and Frank Schorfheide. 2015. Inflation in the great recession and new keynesian models. American Economic Journal: Macroeconomics , 7:168–196. OpenAI. 2023. Gpt-4 technical report. arXiv preprint arXiv:2303.08774 .Joon Sung Park, Joseph O’Brien, Carrie Jun Cai, Mered-ith Ringel Morris, Percy Liang, and Michael S Bern-stein. 2023. Generative agents: Interactive simulacra of human behavior. In Proceedings of the 36th an-nual acm symposium on user interface software and technology .Sebastian Poledna, Michael Gregor Miess, Cars Hommes, and Katrin Rabitsch. 2023. Economic forecasting with an agent-based model. European Economic Review , 151:104306. Chen Qian, Wei Liu, Hongzhang Liu, Nuo Chen, Yufan Dang, Jiahao Li, Cheng Yang, Weize Chen, Yusheng Su, Xin Cong, and 1 others. 2024. Chatdev: Commu-nicative agents for software development. In ACL .Kashif Rasul, Arjun Ashok, Andrew Robert Williams, Hena Ghonia, Rishika Bhagwatkar, Arian Kho-rasani, Mohammad Javad Darvishi Bayazi, George Adamopoulos, Roland Riachi, Nadhir Hassen, and 1 others. 2023. Lag-llama: Towards foundation mod-els for probabilistic time series forecasting. arXiv preprint arXiv:2310.08278 .Christoph Riedl. 2025. Emergent coordination in multi-agent language models. arXiv preprint arXiv:2510.05174 .Maarten Sap, Hannah Rashkin, Derek Chen, Ronan Le Bras, and Yejin Choi. 2019. Social iqa: Com-monsense reasoning about social interactions. In 
+
+EMNLP .
+
+10 Philipp J Schneider, Lin Tian, and Marian-Andrei Ri-zoiu. 2025. Learning to make friends: Coaching llm agents toward emergent social ties. arXiv preprint arXiv:2510.19299 .Noah Shinn, Federico Cassano, Ashwin Gopinath, Karthik Narasimhan, and Shunyu Yao. 2023. Re-flexion: Language agents with verbal reinforcement learning. In NeurIPS .David Silver, Aja Huang, Chris J Maddison, Arthur Guez, Laurent Sifre, George Van Den Driessche, Ju-lian Schrittwieser, Ioannis Antonoglou, Veda Pan-neershelvam, Marc Lanctot, and 1 others. 2016. Mas-tering the game of go with deep neural networks and tree search. nature , 529(7587):484–489. David Silver, Julian Schrittwieser, Karen Simonyan, Ioannis Antonoglou, Aja Huang, Arthur Guez, Thomas Hubert, Lucas Baker, Matthew Lai, Adrian Bolton, and 1 others. 2017. Mastering the game of go without human knowledge. nature , 550(7676):354– 359. Christopher A. Sims. 1980. Macroeconomics and real-ity. Econometrica , 48(1):1–48. Frank Smets and Rafael Wouters. 2007. Shocks and frictions in us business cycles: A bayesian dsge ap-proach. American Economic Review , 97(3):586–606. Leigh Tesfatsion and Kenneth L. Judd. 2006. Handbook of computational economics: agent-based computa-tional economics , volume 2. Elsevier. Guanzhi Wang, Yuqi Xie, Yunfan Jiang, Ajay Man-dlekar, Chaowei Xiao, Yuke Zhu, Linxi Fan, and An-ima Anandkumar. 2024a. Voyager: An open-ended embodied agent with large language models. Nature Communications , 15. Noah Wang, Zy Peng, Haoran Que, Jiaheng Liu, Wangchunshu Zhou, Yuhan Wu, Hongcheng Guo, Ruitong Gan, Zehao Ni, Jian Yang, and 1 others. 2024b. Rolellm: Benchmarking, eliciting, and en-hancing role-playing abilities of large language mod-els. In ACL Findings .Zihao Wang, Shaofei Cai, Guanzhou Chen, Anji Liu, Xi-aojian Shawn Ma, and Yitao Liang. 2023. Describe, explain, plan and select: interactive planning with llms enables open-world multi-task agents. NeurIPS .Valeria Widler, Barbara Kami´ nska, André CR Martins, and Ivan Puga-Gonzalez. 2026. An investigation into the causal mechanism of political opinion dy-namics: a model of hierarchical coarse-graining with community-bounded social influence. In Computa-tional Social Science of Social Cohesion and Polar-ization , pages 225–256. Springer. Qingyun Wu, Gagan Bansal, Jieyu Zhang, Yiran Wu, Beibin Li, Erkang Zhu, Li Jiang, Xiaoyun Zhang, Shaokun Zhang, Jiale Liu, and 1 others. 2024a. Au-togen: Enabling next-gen llm applications via multi-agent conversations. In First conference on language modeling .Zengqing Wu, Run Peng, Shuyuan Zheng, Qianying Liu, Xu Han, Brian I Kwon, Makoto Onizuka, Shaojie Tang, and Chuan Xiao. 2024b. Shall we team up: Exploring spontaneous cooperation of competing llm agents. In EMNLP Findings .John Yang, Carlos E Jimenez, Alexander Wettig, Kilian Lieret, Shunyu Yao, Karthik Narasimhan, and Ofir Press. 2024. Swe-agent: Agent-computer interfaces enable automated software engineering. NeurIPS .Yuzhe Yang, Yifei Zhang, Minghao Wu, Kaidi Zhang, Yunmiao Zhang, Honghai Yu, Yan Hu, and Benyou Wang. 2026. Twinmarket: A scalable behavioral and social simulation for financial markets. NeurIPS .Shunyu Yao, Jeffrey Zhao, Dian Yu, Nan Du, Izhak Shafran, Karthik Narasimhan, and Yuan Cao. 2023. React: Synergizing reasoning and acting in language models. In ICLR .Yadong Zhang, Shaoguang Mao, Tao Ge, Xun Wang, Adrian de Wynter, Yan Xia, Wenshan Wu, Ting Song, Man Lan, and Furu Wei. 2024. Llm as a mastermind: A survey of strategic reasoning with large language models. arXiv preprint arXiv:2404.01230 .Lianmin Zheng, Wei-Lin Chiang, Ying Sheng, Siyuan Zhuang, Zhanghao Wu, Yonghao Zhuang, Zi Lin, Zhuohan Li, Dacheng Li, Eric Xing, and 1 others. 2023. Judging LLM-as-a-judge with MT-Bench and chatbot arena. In NeurIPS .Yilun Zhu, Joel Ruben Antony Moniz, Shruti Bhar-gava, Jiarui Lu, Dhivya Piraviperumal, Site Li, Yuan Zhang, Hong Yu, and Bo-Hsiang Tseng. 2024. Can large language models understand context? In EACL findings .Henry Peng Zou, Wei-Chieh Huang, Yaozu Wu, Yankai Chen, Chunyu Miao, Hoang Nguyen, Yue Zhou, Weizhi Zhang, Liancheng Fang, Langzhou He, and 1 others. 2025. A survey on large language model based human-agent systems. arXiv preprint arXiv:2505.00753 .
+
+11
