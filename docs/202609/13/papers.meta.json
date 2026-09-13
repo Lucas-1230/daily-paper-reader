@@ -1,0 +1,54 @@
+{
+  "label": "2026-09-13",
+  "date": "2026-09-13",
+  "generated_at": "2026-09-13T21:37:34",
+  "count": 3,
+  "papers": [
+    {
+      "paper_id": "202609/13/2609.09553v1-arbitrary-cipher-attacks-against-large-language-models-do-not-require-fine-tuning",
+      "section": "quick",
+      "title_en": "Arbitrary Cipher Attacks Against Large Language Models Do Not Require Fine-Tuning",
+      "authors": "Thomas Rivasseau",
+      "date": "2026-09-09",
+      "pdf": "https://arxiv.org/pdf/2609.09553v1",
+      "score": "7.0",
+      "evidence": "证明LLM无需微调即可进行基于加密的隐蔽通信",
+      "tldr": "现有 LLM 安全研究关注越狱攻击，其中任意密码攻击以往依赖微调 API。本文发现新一代前沿模型可通过提示和上下文学习直接获得密码通信能力，无需微调。攻击中模型对齐被显著削弱或完全绕过，成功突破 Anthropic、Google、OpenAI 的前沿模型，且加密内容绕过有害分类器。这揭示了商业黑盒 LLM 面临的新攻击向量。",
+      "tags": "query:ca",
+      "abstract_en": "Large language model safety and security research is preoccupied with, among other things, detecting and preventing jailbreak attacks: alignment bypasses that allow an adversarial user to elicit unwanted or harmful outputs from models. Arbitrary cipher, or covert communication, attacks are one such type of jailbreak and have previously been demonstrated against the fine-tuning APIs of commercial models. In these attacks, target models are trained on a corpus of encrypted harmful questions and responses and subsequently respond to harmful requests through the learned encryption scheme. In this paper, we show that newer frontier models do not require fine-tuning to acquire cipher-based communication skills. Instead, they can learn these skills through prompting and, when necessary, through in-context learning. Furthermore, model alignment is significantly weakened or entirely bypassed when communication occurs through the learned cipher. To the best of our knowledge, this constitutes a novel attack vector against commercial black-box large language models. We demonstrate successful jailbreaks against frontier models developed by Anthropic, Google, and OpenAI. Our attack bypasses commercial harmfulness classifiers because harmful content is encrypted and therefore appears as nonsensical text or gibberish.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202609/13/2609.10412v1-towards-scalable-and-cost-efficient-vulnerability-detection-a-study-on-automatic-query-generation",
+      "section": "quick",
+      "title_en": "Towards Scalable and Cost-Efficient Vulnerability Detection: A Study on Automatic Query Generation",
+      "authors": "Ivana Clairine Irsan, Ratnadira Widyasari, Huihui Huang, Ting Zhang, Yue Liu, Ouh Eng Lieh, Shar Lwin Khin, Kang Hong Jin, David Lo",
+      "date": "2026-09-09",
+      "pdf": "https://arxiv.org/pdf/2609.10412v1",
+      "score": "7.0",
+      "evidence": "评估LLM生成CodeQL查询进行漏洞检测的能力，探索网络环境下的LLM能力",
+      "tldr": "手工编写高覆盖率的 CodeQL 查询需要大量专家努力，限制了静态分析在漏洞检测中的可扩展性。本文基于 NVD 漏洞数据，实证评估大语言模型自动生成 CodeQL 查询的能力，并系统比较多种模型架构。结果显示，LLM 生成的查询使平均 F1 分数较基线提升 82%，显著增强检测覆盖与精度。该方案比直接对代码库进行 LLM 扫描更经济可行，为大规模自动化漏洞检测提供了可扩展路径。",
+      "tags": "query:ca",
+      "abstract_en": "Static analysis remains a cornerstone of software security, yet the effectiveness of tools such as CodeQL is often limited by the substantial manual effort required to develop high-coverage query suites. While large language models (LLMs) have emerged as a potential solution for automated code reasoning, their practical utility in generating structured, executable security queries remains underexplored. In this paper, we conduct an empirical study to evaluate the ability of LLMs to synthesize CodeQL queries using vulnerability data from the National Vulnerability Database. Through this investigation, we explore the potential of using LLMs as an automatic CodeQL query generator. Subsequently, we systematically evaluate the performance of various LLM architectures across a diverse set of real-world vulnerabilities, measuring their ability to improve detection coverage and precision. Our findings reveal that LLM-generated queries significantly enhance the baseline CodeQL queries, yielding 82% improvement in average F1-score. Furthermore, we provide a detailed cost- benefit analysis showing that while direct LLM-based scanning of entire repositories is often computationally and financially prohibitive, leveraging LLMs to synthesize CodeQL queries offers a scalable and cost-effective alternative for large-scale vulnerability detection. Our results suggest that LLMs can effectively bridge the gap between unstructured vulnerability reports and formal static analysis specifications, offering a scalable path toward comprehensive automated vulnerability detection.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202609/13/2609.08592v1-a-three-tier-persona-vector-for-controllable-user-simulation-in-agentic-evaluation",
+      "section": "quick",
+      "title_en": "A Three-Tier Persona Vector for Controllable User Simulation in Agentic Evaluation",
+      "authors": "Rahul Khedar, Eshita, Sneha Teja Sree Reddy Thondapu, Mayank Malhotra, Arup Kumar Das, Jitesh Chandra Mishra, Arun Menon, Avinash Karn, Mouli V",
+      "date": "2026-09-08",
+      "pdf": "https://arxiv.org/pdf/2609.08592v1",
+      "score": "6.0",
+      "evidence": "可控人物角色向量技术可适配用于模拟网络犯罪智能体",
+      "tldr": "现有智能体评估依赖扁平角色描述，导致用户输入缺乏多样性。本文提出三层人设向量，涵盖23个维度的分类、连续特质和情境反应情绪，并叠加查询复杂度控制。在8个命名画像、3个生产语料共6.4万余次多轮对话中验证，不同人设导致代理目标达成率相差15.8个百分点，且能复现真实难度分布。该模型完全可复现，为可控用户模拟提供了操作性方案，推动智能体评估更真实。",
+      "tags": "query:ca",
+      "abstract_en": "Evaluating tool-augmented LLM agents requires diverse, realistic user inputs yet most evaluation frameworks use flat role descriptions (\"you are an angry customer\") that produce near-identical conversations regardless of the underlying scenario. In this paper, we propose a three-tier persona vector with 23 operationalized dimensions: 6 categorical demographics (jurisdiction, age, channel, device, language proficiency, time availability), 12 continuous behavioral traits (patience, assertiveness, digital literacy, etc.) sampled with Gaussian noise around curated profile base vectors, and 5 continuous emotional states (frustration, anxiety, trust, confidence, stress) that shift in response to scenario context. Orthogonal to the persona, a 4-level query-complexity overlay controls utterance phrasing from direct to deliberately vague. We evaluate the persona model inside a synthetic data generation pipeline across 64,698 multi-turn conversations spanning 8 named profiles and 3 production corpora. Key findings: (i) a 15.8 percentage-point spread in agent goal-achievement across personas confirms trait vectors produce measurably different user behavior; (ii) the same persona behaves differently across scenarios due to scenario-reactive emotional state shifts, validating the scenario-reactive design; (iii) domain-specific projects show persona sensitivity on booking-flow compliance (~15-20 percentage points gap between tier-aware and pressure-test personas), demonstrating the model faithfully reproduces real-world difficulty distributions; (iv) seven rule-described trait correlations produce auditable co-occurrence patterns without requiring learned covariance matrices. The persona model is fully specified for reproduction.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}

@@ -1,0 +1,141 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-09-13T21:35:42.044152+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 0,
+    "deep_cap": 6,
+    "deep_selected": 0,
+    "quick_candidates": 3,
+    "quick_skim_target": 11,
+    "quick_selected": 3
+  },
+  "deep_dive": [],
+  "quick_skim": [
+    {
+      "id": "2609.09553v1",
+      "source": "arxiv",
+      "title": "Arbitrary Cipher Attacks Against Large Language Models Do Not Require Fine-Tuning",
+      "abstract": "Large language model safety and security research is preoccupied with, among other things, detecting and preventing jailbreak attacks: alignment bypasses that allow an adversarial user to elicit unwanted or harmful outputs from models. Arbitrary cipher, or covert communication, attacks are one such type of jailbreak and have previously been demonstrated against the fine-tuning APIs of commercial models. In these attacks, target models are trained on a corpus of encrypted harmful questions and responses and subsequently respond to harmful requests through the learned encryption scheme. In this paper, we show that newer frontier models do not require fine-tuning to acquire cipher-based communication skills. Instead, they can learn these skills through prompting and, when necessary, through in-context learning. Furthermore, model alignment is significantly weakened or entirely bypassed when communication occurs through the learned cipher. To the best of our knowledge, this constitutes a novel attack vector against commercial black-box large language models. We demonstrate successful jailbreaks against frontier models developed by Anthropic, Google, and OpenAI. Our attack bypasses commercial harmfulness classifiers because harmful content is encrypted and therefore appears as nonsensical text or gibberish.",
+      "authors": [
+        "Thomas Rivasseau"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI"
+      ],
+      "published": "2026-09-09T00:16:53+00:00",
+      "link": "https://arxiv.org/pdf/2609.09553v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "demonstrates LLMs can perform cipher-based covert communication without fine-tuning",
+      "llm_evidence_cn": "证明LLM无需微调即可进行基于加密的隐蔽通信",
+      "llm_evidence": "证明LLM无需微调即可进行基于加密的隐蔽通信",
+      "canonical_evidence": "证明LLM无需微调即可进行基于加密的隐蔽通信",
+      "llm_tldr_en": "Shows frontier LLMs can acquire arbitrary cipher communication skills without fine-tuning, extending jailbreak attack capability.",
+      "llm_tldr_cn": "本文发现前沿大语言模型无需微调即可习得任意密码通信技能，此前此类攻击需通过微调API实现。作者通过实验证明模型能在上下文中学习加密方案并对有害请求作出响应，从而绕过安全对齐。这一发现揭示了LLM在隐蔽通信方面的能力边界，对网络犯罪中的加密通信构成威胁。",
+      "llm_tldr": "本文发现前沿大语言模型无需微调即可习得任意密码通信技能，此前此类攻击需通过微调API实现。作者通过实验证明模型能在上下文中学习加密方案并对有害请求作出响应，从而绕过安全对齐。这一发现揭示了LLM在隐蔽通信方面的能力边界，对网络犯罪中的加密通信构成威胁。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "What are the capability limits of large language models when used for cybercrime?",
+      "matched_requirement_id": "req-7",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2609.08592v1",
+      "source": "arxiv",
+      "title": "A Three-Tier Persona Vector for Controllable User Simulation in Agentic Evaluation",
+      "abstract": "Evaluating tool-augmented LLM agents requires diverse, realistic user inputs yet most evaluation frameworks use flat role descriptions (\"you are an angry customer\") that produce near-identical conversations regardless of the underlying scenario. In this paper, we propose a three-tier persona vector with 23 operationalized dimensions: 6 categorical demographics (jurisdiction, age, channel, device, language proficiency, time availability), 12 continuous behavioral traits (patience, assertiveness, digital literacy, etc.) sampled with Gaussian noise around curated profile base vectors, and 5 continuous emotional states (frustration, anxiety, trust, confidence, stress) that shift in response to scenario context. Orthogonal to the persona, a 4-level query-complexity overlay controls utterance phrasing from direct to deliberately vague. We evaluate the persona model inside a synthetic data generation pipeline across 64,698 multi-turn conversations spanning 8 named profiles and 3 production corpora. Key findings: (i) a 15.8 percentage-point spread in agent goal-achievement across personas confirms trait vectors produce measurably different user behavior; (ii) the same persona behaves differently across scenarios due to scenario-reactive emotional state shifts, validating the scenario-reactive design; (iii) domain-specific projects show persona sensitivity on booking-flow compliance (~15-20 percentage points gap between tier-aware and pressure-test personas), demonstrating the model faithfully reproduces real-world difficulty distributions; (iv) seven rule-described trait correlations produce auditable co-occurrence patterns without requiring learned covariance matrices. The persona model is fully specified for reproduction.",
+      "authors": [
+        "Rahul Khedar",
+        "Eshita",
+        "Sneha Teja Sree Reddy Thondapu",
+        "Mayank Malhotra",
+        "Arup Kumar Das",
+        "Jitesh Chandra Mishra",
+        "Arun Menon",
+        "Avinash Karn",
+        "Mouli V"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI",
+        "cs.CL"
+      ],
+      "published": "2026-09-08T11:28:02+00:00",
+      "link": "https://arxiv.org/pdf/2609.08592v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "persona vector technique for controllable agent simulation could be adapted for cybercriminal agents",
+      "llm_evidence_cn": "可控人物角色向量技术可适配用于模拟网络犯罪智能体",
+      "llm_evidence": "可控人物角色向量技术可适配用于模拟网络犯罪智能体",
+      "canonical_evidence": "可控人物角色向量技术可适配用于模拟网络犯罪智能体",
+      "llm_tldr_en": "A three-tier persona vector with 23 dimensions enables controllable simulation of diverse user behaviors in LLM agent evaluation, which can be adapted to model criminal agents.",
+      "llm_tldr_cn": "现有LLM智能体评估中用户角色描述过于扁平，导致模拟行为高度一致。该文提出三层人物角色向量，涵盖6类人口统计、12种行为特质和5种情感状态，通过高斯噪声采样实现可控且多样化的用户模拟。这种方法可迁移到犯罪智能体建模，为基于大模型的网络犯罪活动仿真提供人物建模基础。",
+      "llm_tldr": "现有LLM智能体评估中用户角色描述过于扁平，导致模拟行为高度一致。该文提出三层人物角色向量，涵盖6类人口统计、12种行为特质和5种情感状态，通过高斯噪声采样实现可控且多样化的用户模拟。这种方法可迁移到犯罪智能体建模，为基于大模型的网络犯罪活动仿真提供人物建模基础。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "How can agent based modeling and multi agent systems simulate cybercriminal activities with large language models?",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2609.10412v1",
+      "source": "arxiv",
+      "title": "Towards Scalable and Cost-Efficient Vulnerability Detection: A Study on Automatic Query Generation",
+      "abstract": "Static analysis remains a cornerstone of software security, yet the effectiveness of tools such as CodeQL is often limited by the substantial manual effort required to develop high-coverage query suites. While large language models (LLMs) have emerged as a potential solution for automated code reasoning, their practical utility in generating structured, executable security queries remains underexplored. In this paper, we conduct an empirical study to evaluate the ability of LLMs to synthesize CodeQL queries using vulnerability data from the National Vulnerability Database. Through this investigation, we explore the potential of using LLMs as an automatic CodeQL query generator. Subsequently, we systematically evaluate the performance of various LLM architectures across a diverse set of real-world vulnerabilities, measuring their ability to improve detection coverage and precision. Our findings reveal that LLM-generated queries significantly enhance the baseline CodeQL queries, yielding 82% improvement in average F1-score. Furthermore, we provide a detailed cost- benefit analysis showing that while direct LLM-based scanning of entire repositories is often computationally and financially prohibitive, leveraging LLMs to synthesize CodeQL queries offers a scalable and cost-effective alternative for large-scale vulnerability detection. Our results suggest that LLMs can effectively bridge the gap between unstructured vulnerability reports and formal static analysis specifications, offering a scalable path toward comprehensive automated vulnerability detection.",
+      "authors": [
+        "Ivana Clairine Irsan",
+        "Ratnadira Widyasari",
+        "Huihui Huang",
+        "Ting Zhang",
+        "Yue Liu",
+        "Ouh Eng Lieh",
+        "Shar Lwin Khin",
+        "Kang Hong Jin",
+        "David Lo"
+      ],
+      "primary_category": "cs.SE",
+      "categories": [
+        "cs.SE",
+        "cs.CR"
+      ],
+      "published": "2026-09-09T16:31:20+00:00",
+      "link": "https://arxiv.org/pdf/2609.10412v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "evaluates LLM ability to generate CodeQL queries for vulnerability detection, exploring LLM capability in cyber context",
+      "llm_evidence_cn": "评估LLM生成CodeQL查询进行漏洞检测的能力，探索网络环境下的LLM能力",
+      "llm_evidence": "评估LLM生成CodeQL查询进行漏洞检测的能力，探索网络环境下的LLM能力",
+      "canonical_evidence": "评估LLM生成CodeQL查询进行漏洞检测的能力，探索网络环境下的LLM能力",
+      "llm_tldr_en": "This paper empirically evaluates LLMs' ability to generate CodeQL queries for vulnerability detection, providing insights into LLM capabilities in a cybersecurity task.",
+      "llm_tldr_cn": "静态分析工具如CodeQL的有效性受限于人工编写查询的工作量。该文使用NVD漏洞数据，实证评估大模型自动合成CodeQL查询的能力，并系统分析其性能与成本。研究显示LLM在生成结构化安全查询方面具有潜力，为探索大模型在网络环境中的能力边界提供了实证参考。",
+      "llm_tldr": "静态分析工具如CodeQL的有效性受限于人工编写查询的工作量。该文使用NVD漏洞数据，实证评估大模型自动合成CodeQL查询的能力，并系统分析其性能与成本。研究显示LLM在生成结构化安全查询方面具有潜力，为探索大模型在网络环境中的能力边界提供了实证参考。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "exploring the capability boundaries of large language models in cyber contexts",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    }
+  ]
+}

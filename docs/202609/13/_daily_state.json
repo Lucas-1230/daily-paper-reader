@@ -1,0 +1,57 @@
+{
+  "date": "20260913",
+  "date_label": "",
+  "generated_at": "2026-09-13 21:37:27 UTC",
+  "recommend_exists": true,
+  "run_count": 1,
+  "papers": [
+    {
+      "paper_id": "2609.09553v1",
+      "route": "202609/13/2609.09553v1-arbitrary-cipher-attacks-against-large-language-models-do-not-require-fine-tuning",
+      "title": "Arbitrary Cipher Attacks Against Large Language Models Do Not Require Fine-Tuning",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "ca"
+        }
+      ],
+      "score": 7.0,
+      "evidence": "证明LLM无需微调即可进行基于加密的隐蔽通信",
+      "first_seen_at": "2026-09-13 21:37:27 UTC",
+      "updated_at": "2026-09-13 21:37:27 UTC"
+    },
+    {
+      "paper_id": "2609.10412v1",
+      "route": "202609/13/2609.10412v1-towards-scalable-and-cost-efficient-vulnerability-detection-a-study-on-automatic-query-generation",
+      "title": "Towards Scalable and Cost-Efficient Vulnerability Detection: A Study on Automatic Query Generation",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "ca"
+        }
+      ],
+      "score": 7.0,
+      "evidence": "评估LLM生成CodeQL查询进行漏洞检测的能力，探索网络环境下的LLM能力",
+      "first_seen_at": "2026-09-13 21:37:27 UTC",
+      "updated_at": "2026-09-13 21:37:27 UTC"
+    },
+    {
+      "paper_id": "2609.08592v1",
+      "route": "202609/13/2609.08592v1-a-three-tier-persona-vector-for-controllable-user-simulation-in-agentic-evaluation",
+      "title": "A Three-Tier Persona Vector for Controllable User Simulation in Agentic Evaluation",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "ca"
+        }
+      ],
+      "score": 6.0,
+      "evidence": "可控人物角色向量技术可适配用于模拟网络犯罪智能体",
+      "first_seen_at": "2026-09-13 21:37:27 UTC",
+      "updated_at": "2026-09-13 21:37:27 UTC"
+    }
+  ]
+}
