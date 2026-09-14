@@ -1,0 +1,24 @@
+{
+  "label": "2026-09-14",
+  "date": "2026-09-14",
+  "generated_at": "2026-09-14T22:18:14",
+  "count": 1,
+  "papers": [
+    {
+      "paper_id": "202609/14/2609.12839v1-evaluating-context-segmentation-in-locally-deployable-slms-for-cybersecurity-ctf-tasks",
+      "section": "deep",
+      "title_en": "Evaluating Context Segmentation in Locally Deployable SLMs for Cybersecurity CTF Tasks",
+      "authors": "Sebastiano Nordio, Michele Lotto",
+      "date": "2026-09-11",
+      "pdf": "https://arxiv.org/pdf/2609.12839v1",
+      "score": "9.0",
+      "evidence": "在网络安全CTF任务上评估SLM，直接探测其进攻性网络安全能力",
+      "tldr": "开源权重SLM本地部署可绕过API护栏，带来网络安全威胁，但在自主执行CTF长时任务时易因上下文膨胀而性能下降。本文提出“上下文分割”两级代理框架，将复杂利用任务拆分为上下文隔离的子问题。在picoCTF数据集上使用内存受限的gemma-4模型评估显示，E4B模型获得有竞争力的奖励，令牌效率优于暴力重试，并额外解决18.52%的标准代理失败任务。该方法为评估和缓解本地SLM网络安全能力提供了高效途径。",
+      "tags": "query:ca",
+      "abstract_en": "The proliferation of highly capable open-weight Small Language Models (SLMs) democratizes access to advanced cybersecurity capabilities, posing a escalating risk as these models can bypass proprietary API guardrails when deployed locally. However, SLMs deployed as autonomous agents often struggle with long-horizon, exploratory tasks like cybersecurity Capture The Flag (CTF) challenges due to context bloat and cognitive degradation from accumulated tool-call outputs. To understand and mitigate this cybersecurity threat, we introduce \\textit{context segmentation}, a two-level agentic framework that divides complex exploitation tasks into manageable, contextually isolated sub-problems. Evaluating on the \\texttt{picoCTF} dataset using memory-constrained \\texttt{gemma-4} models, we demonstrate that for the E4B model, our strategy acts as an intelligent search, achieving competitive rewards with superior token efficiency compared to brute-force retries, and successfully solving 18.52\\% of tasks that standard agentic execution fails to complete. Code is available at https://github.com/9xeb/context-segmentation.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}

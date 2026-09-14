@@ -1,0 +1,53 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-09-14T22:16:36.534954+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 1,
+    "deep_cap": 6,
+    "deep_selected": 1,
+    "quick_candidates": 0,
+    "quick_skim_target": 11,
+    "quick_selected": 0
+  },
+  "deep_dive": [
+    {
+      "id": "2609.12839v1",
+      "source": "arxiv",
+      "title": "Evaluating Context Segmentation in Locally Deployable SLMs for Cybersecurity CTF Tasks",
+      "abstract": "The proliferation of highly capable open-weight Small Language Models (SLMs) democratizes access to advanced cybersecurity capabilities, posing a escalating risk as these models can bypass proprietary API guardrails when deployed locally. However, SLMs deployed as autonomous agents often struggle with long-horizon, exploratory tasks like cybersecurity Capture The Flag (CTF) challenges due to context bloat and cognitive degradation from accumulated tool-call outputs. To understand and mitigate this cybersecurity threat, we introduce \\textit{context segmentation}, a two-level agentic framework that divides complex exploitation tasks into manageable, contextually isolated sub-problems. Evaluating on the \\texttt{picoCTF} dataset using memory-constrained \\texttt{gemma-4} models, we demonstrate that for the E4B model, our strategy acts as an intelligent search, achieving competitive rewards with superior token efficiency compared to brute-force retries, and successfully solving 18.52\\% of tasks that standard agentic execution fails to complete. Code is available at https://github.com/9xeb/context-segmentation.",
+      "authors": [
+        "Sebastiano Nordio",
+        "Michele Lotto"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI"
+      ],
+      "published": "2026-09-11T13:34:48+00:00",
+      "link": "https://arxiv.org/pdf/2609.12839v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "evaluates SLMs on cybersecurity CTF tasks, directly probing their offensive cybersecurity capabilities",
+      "llm_evidence_cn": "在网络安全CTF任务上评估SLM，直接探测其进攻性网络安全能力",
+      "llm_evidence": "在网络安全CTF任务上评估SLM，直接探测其进攻性网络安全能力",
+      "canonical_evidence": "在网络安全CTF任务上评估SLM，直接探测其进攻性网络安全能力",
+      "llm_tldr_en": "Evaluates context segmentation for locally deployable SLMs on CTF tasks, showing improved performance and highlighting the cybersecurity threat from open-weight models.",
+      "llm_tldr_cn": "针对开放权重小语言模型在本地部署时可绕过API护栏但难以处理长期CTF任务的问题，提出上下文分割的两层智能体框架，将复杂利用任务分解为上下文隔离的子问题；在picoCTF数据集上的评估表明该方法能提升SLM的CTF表现，同时揭示此类模型带来的网络安全威胁。",
+      "llm_tldr": "针对开放权重小语言模型在本地部署时可绕过API护栏但难以处理长期CTF任务的问题，提出上下文分割的两层智能体框架，将复杂利用任务分解为上下文隔离的子问题；在picoCTF数据集上的评估表明该方法能提升SLM的CTF表现，同时揭示此类模型带来的网络安全威胁。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "capabilities of large language models in cybercrime",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": []
+}

@@ -1,0 +1,25 @@
+{
+  "date": "20260914",
+  "date_label": "",
+  "generated_at": "2026-09-14 22:18:06 UTC",
+  "recommend_exists": true,
+  "run_count": 1,
+  "papers": [
+    {
+      "paper_id": "2609.12839v1",
+      "route": "202609/14/2609.12839v1-evaluating-context-segmentation-in-locally-deployable-slms-for-cybersecurity-ctf-tasks",
+      "title": "Evaluating Context Segmentation in Locally Deployable SLMs for Cybersecurity CTF Tasks",
+      "section": "deep",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "ca"
+        }
+      ],
+      "score": 9.0,
+      "evidence": "在网络安全CTF任务上评估SLM，直接探测其进攻性网络安全能力",
+      "first_seen_at": "2026-09-14 22:18:06 UTC",
+      "updated_at": "2026-09-14 22:18:06 UTC"
+    }
+  ]
+}

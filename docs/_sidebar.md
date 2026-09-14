@@ -1,6 +1,9 @@
 * <a class="dpr-sidebar-root-link" href="#/">首页</a>
 * <a class="dpr-sidebar-root-link dpr-sidebar-noactive-link" href="javascript:void(0)" data-dpr-hash="#/tutorial/README">使用教程</a>
 * Daily Papers
+  * 2026-09-14 <!--dpr-date:20260914-->
+    * 精读区
+      * <a class="dpr-sidebar-item-link dpr-sidebar-item-structured" href="#/202609/14/2609.12839v1-evaluating-context-segmentation-in-locally-deployable-slms-for-cybersecurity-ctf-tasks" data-sidebar-item="{&quot;title&quot;: &quot;Evaluating Context Segmentation in Locally Deployable SLMs for Cybersecurity CTF Tasks&quot;, &quot;link&quot;: &quot;https://arxiv.org/abs/2609.12839v1-evaluating-context-segmentation-in-locally-deployable-slms-for-cybersecurity-ctf-tasks&quot;, &quot;score&quot;: &quot;9.0&quot;, &quot;tags&quot;: [{&quot;kind&quot;: &quot;query&quot;, &quot;label&quot;: &quot;ca&quot;}], &quot;evidence&quot;: &quot;在网络安全CTF任务上评估SLM，直接探测其进攻性网络安全能力&quot;}">Evaluating Context Segmentation in Locally Deployable SLMs for Cybersecurity CTF Tasks</a>
   * 2026-09-13 <!--dpr-date:20260913-->
     * 速读区
       * <a class="dpr-sidebar-item-link dpr-sidebar-item-structured" href="#/202609/13/2609.09553v1-arbitrary-cipher-attacks-against-large-language-models-do-not-require-fine-tuning" data-sidebar-item="{&quot;title&quot;: &quot;Arbitrary Cipher Attacks Against Large Language Models Do Not Require Fine-Tuning&quot;, &quot;link&quot;: &quot;https://arxiv.org/abs/2609.09553v1-arbitrary-cipher-attacks-against-large-language-models-do-not-require-fine-tuning&quot;, &quot;score&quot;: &quot;7.0&quot;, &quot;tags&quot;: [{&quot;kind&quot;: &quot;query&quot;, &quot;label&quot;: &quot;ca&quot;}], &quot;evidence&quot;: &quot;证明LLM无需微调即可进行基于加密的隐蔽通信&quot;}">Arbitrary Cipher Attacks Against Large Language Models Do Not Require Fine-Tuning</a>
