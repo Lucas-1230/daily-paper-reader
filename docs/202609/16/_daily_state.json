@@ -1,0 +1,41 @@
+{
+  "date": "20260916",
+  "date_label": "",
+  "generated_at": "2026-09-16 21:59:20 UTC",
+  "recommend_exists": true,
+  "run_count": 1,
+  "papers": [
+    {
+      "paper_id": "2609.15383v1",
+      "route": "202609/16/2609.15383v1-divide-consult-conquer-capability-laundering-through-aligned-llms",
+      "title": "Divide, Consult, Conquer: Capability Laundering Through Aligned LLMs",
+      "section": "deep",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "ca"
+        }
+      ],
+      "score": 9.0,
+      "evidence": "评估弱模型借助对齐大模型在CyBench网络任务上的能力提升",
+      "first_seen_at": "2026-09-16 21:59:20 UTC",
+      "updated_at": "2026-09-16 21:59:20 UTC"
+    },
+    {
+      "paper_id": "2609.15523v1",
+      "route": "202609/16/2609.15523v1-automating-attack-graph-construction-for-agentic-pentesting-towards-neuro-symbolic-vulnerability-hunting",
+      "title": "Automating Attack Graph Construction for Agentic Pentesting. Towards Neuro-Symbolic Vulnerability Hunting",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "ca"
+        }
+      ],
+      "score": 6.0,
+      "evidence": "大模型辅助构建智能体渗透测试的逻辑攻击图",
+      "first_seen_at": "2026-09-16 21:59:20 UTC",
+      "updated_at": "2026-09-16 21:59:20 UTC"
+    }
+  ]
+}
