@@ -1,0 +1,250 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-09-17T21:52:17.041693+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 2,
+    "deep_cap": 6,
+    "deep_selected": 2,
+    "quick_candidates": 4,
+    "quick_skim_target": 11,
+    "quick_selected": 4
+  },
+  "deep_dive": [
+    {
+      "id": "2609.16694v1",
+      "source": "arxiv",
+      "title": "Toward Secure AI-Powered Penetration Testing Agents: Security Threats, Guardrails, and Architectural Perspectives",
+      "abstract": "LLM-powered autonomous agents are transforming the penetration testing space with dynamic, multi-step offensive security workflows that require minimal supervision by humans. These agents leverage sophisticated reasoning abilities and external security tools to independently carry out reconnaissance, identify vulnerabilities, devise exploitation plans, and perform post-exploitation operations. But the ability to have persistent memory, to take actions in the real world, and to do long-horizon reasoning raises qualitatively different security concerns than traditional chat-based LLM systems. Existing guardrail mechanisms for conversational AI may not be sufficient to secure autonomous AI pentesting agents accordingly.   To address these issues, we carry out a comprehensive security analysis on autonomous AI-penetration testing agents. We systematically analyse representative agent architectures, characterise their trust boundaries and attack surfaces and propose a threat taxonomy that is aligned with the lifecycle and covers LLM lifecycle attacks, agent-architecture attacks and cross-cutting behavioural attacks. We analyse the limitations of existing guardrail mechanisms, identify key research gaps, and discuss future research directions for developing specialised, context-aware, and architecture-aware guardrails to secure next-generation AI-driven offensive security systems.",
+      "authors": [
+        "Rahul Dev T Y",
+        "Hiran V Nath"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR"
+      ],
+      "published": "2026-09-15T06:19:50+00:00",
+      "link": "https://arxiv.org/pdf/2609.16694v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "LLM-powered autonomous agents for penetration testing, simulating offensive cyber operations",
+      "llm_evidence_cn": "LLM驱动的自主渗透测试智能体，模拟攻击性网络操作",
+      "llm_evidence": "LLM驱动的自主渗透测试智能体，模拟攻击性网络操作",
+      "canonical_evidence": "LLM驱动的自主渗透测试智能体，模拟攻击性网络操作",
+      "llm_tldr_en": "Examines LLM-powered autonomous penetration testing agents, their security threats, and guardrails, directly addressing simulation of offensive cyber activities.",
+      "llm_tldr_cn": "该论文探讨LLM驱动的自主渗透测试智能体，它们能执行侦察、漏洞识别、利用规划和后渗透等攻击性安全任务。论文分析了这类智能体带来的新型安全威胁，并指出传统对话式LLM的护栏机制不足。该工作直接关联利用大模型模拟网络犯罪活动的场景，为理解其能力边界与安全防护提供架构视角。",
+      "llm_tldr": "该论文探讨LLM驱动的自主渗透测试智能体，它们能执行侦察、漏洞识别、利用规划和后渗透等攻击性安全任务。论文分析了这类智能体带来的新型安全威胁，并指出传统对话式LLM的护栏机制不足。该工作直接关联利用大模型模拟网络犯罪活动的场景，为理解其能力边界与安全防护提供架构视角。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "simulating cybercrime using language models",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2609.19140v1",
+      "source": "arxiv",
+      "title": "AgentLSD: Evaluating AI Security Agents Under Adversarial Task Contamination",
+      "abstract": "AI agents for security inspect web pages, source code, logs, configuration files, and command outputs. These environments may contain deceptive artifacts that influence the agent's behavior. We call this adversarial task contamination. Whereas prompt injection relies on attacker-supplied instructions, task contamination also includes non-instructional evidence, such as fake results and decoy endpoints. We present AgentLSD, a controlled framework for studying adversarial task contamination. AgentLSD uses Capture the Flag (CTF) challenges as its experimental environment. We inject trap artifacts, such as fake flags, misleading hints, decoy endpoints, and hidden cues, while preserving the intended CTF solution. The framework supports paired clean and trap-augmented experiments with deterministic trap generation, runtime injection, telemetry, and delivery verification. We evaluate six models on 11 web CTF challenges. In the clean condition, agents capture 41% of the flags, and no model solves every challenge. We then measure the impact of task contamination. Even when the agent still recovers the flag, traps increase the number of turns (+20) and reasoning tokens (+2k). Solve-rate effects are more heterogeneous, as some model-challenge pairs are largely unaffected while others follow decoys or submit wrong flags. These results show that clean CTF performance understates vulnerability to deceptive task evidence. AgentLSD isolates this effect and provides a reproducible benchmark for studying it. We release the framework, configurations, trap specifications, and raw traces.",
+      "authors": [
+        "Matteo Golinelli",
+        "Idilio Drago",
+        "Matteo Boffa",
+        "Francesco Bergadano",
+        "Bruno Crispo"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR"
+      ],
+      "published": "2026-09-16T17:58:55+00:00",
+      "link": "https://arxiv.org/pdf/2609.19140v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Evaluating LLM security agents in CTF challenges under adversarial contamination",
+      "llm_evidence_cn": "在对抗性污染下用CTF挑战评估LLM安全智能体",
+      "llm_evidence": "在对抗性污染下用CTF挑战评估LLM安全智能体",
+      "canonical_evidence": "在对抗性污染下用CTF挑战评估LLM安全智能体",
+      "llm_tldr_en": "AgentLSD is a framework that evaluates AI security agents in CTF challenges with injected deceptive artifacts to test their robustness against adversarial task contamination.",
+      "llm_tldr_cn": "AgentLSD是一个在CTF挑战中注入欺骗性组件来评估AI安全智能体对抗性任务污染鲁棒性的框架，为理解LLM在网络安全任务中的能力边界提供方法。",
+      "llm_tldr": "AgentLSD是一个在CTF挑战中注入欺骗性组件来评估AI安全智能体对抗性任务污染鲁棒性的框架，为理解LLM在网络安全任务中的能力边界提供方法。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "exploring the capability boundaries of large language models in cyber contexts",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2609.12413v1",
+      "source": "arxiv",
+      "title": "SoK: Rethinking Jailbreaking in the Era of Agentic AI: Attacks, Defenses, and Practical Consideration",
+      "abstract": "Large language models (LLMs) are rapidly evolving from conversational assistants into agentic AI systems that reason, plan, invoke tools, maintain persistent memory, communicate with other agents, and execute multi-step tasks. At the same time, modern models exhibit substantially stronger native safety alignment than earlier generations on which many jailbreak attacks and defenses were originally studied. This shift raises a fundamental question: \\textit{which established jailbreak-security findings remain valid in the era of modern LLMs and agentic AI?} We address this question through a Systematization of Knowledge (SoK) that reframes jailbreak security around the full agentic execution pipeline. We develop unified taxonomies of attacks and defenses spanning user interaction, planning and reasoning, memory, tool use, and inter-agent communication, and introduce a security--utility--efficiency evaluation framework that separates native harmful-prompt safety, adversarial jailbreak robustness, and agent-level security outcomes. We further conduct a controlled empirical study of representative attacks and defenses within a common agentic framework. Our results reveal three important gaps. First, strong native alignment does not imply robustness to adversarial jailbreaks. Second, defense effectiveness is highly model-, attack-, and component-dependent and can come at substantial cost in over-refusal, utility, and latency. Third, low final-response attack success can mask severe intermediate compromise: planning, memory, and tool interactions may remain unsafe even when the final response is successfully filtered. These findings motivate a shift from response-centric jailbreak defense toward cross-layer, execution-aware security that protects agent state, component transitions, and external actions while preserving practical utility and efficiency.",
+      "authors": [
+        "Md Jueal Mia",
+        "Yanzhao Wu",
+        "Selcuk Uluagac",
+        "M. Hadi Amini"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-09-11T04:04:11+00:00",
+      "link": "https://arxiv.org/pdf/2609.12413v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "reframes jailbreak security around agentic execution pipeline, attacks and defenses",
+      "llm_evidence_cn": "围绕智能体执行流程重新框架越狱安全，攻防并重",
+      "llm_evidence": "围绕智能体执行流程重新框架越狱安全，攻防并重",
+      "canonical_evidence": "围绕智能体执行流程重新框架越狱安全，攻防并重",
+      "llm_tldr_en": "SoK revisits jailbreak security in agentic AI, reframing attacks and defenses around the full agentic execution pipeline.",
+      "llm_tldr_cn": "该论文针对LLM从对话助手向智能体AI转型带来的越狱安全变化，通过知识系统化方法重新审视越狱攻击与防御。研究提出了统一的分类框架，围绕智能体执行全流程评估既有安全发现的有效性。结果表明许多早期结论需要重新验证，为智能体AI的越狱安全研究提供了系统化指导。",
+      "llm_tldr": "该论文针对LLM从对话助手向智能体AI转型带来的越狱安全变化，通过知识系统化方法重新审视越狱攻击与防御。研究提出了统一的分类框架，围绕智能体执行全流程评估既有安全发现的有效性。结果表明许多早期结论需要重新验证，为智能体AI的越狱安全研究提供了系统化指导。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "adversarial agents for testing large language models in cybercrime",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2609.13511v1",
+      "source": "arxiv",
+      "title": "A Three-Axis Stress Test of LLM vs Classical ML for Network Intrusion Detection under Distribution Shift and Adversarial Evasion",
+      "abstract": "Large language models are increasingly benchmarked against classical machine learning for network intrusion detection (NIDS), almost always using same-dataset evaluation, and that protocol turns out to be incomplete. Evaluating XGBoost and RoBERTa-LoRA on two independently collected NetFlow v2 networks across three axes (same-dataset performance, cross-dataset transfer, and adversarial evasion) reveals no universal winner. The two models are statistically tied same-dataset. XGBoost wins decisively under cross-dataset distribution shift, by 15 points of F1 and 25 points of balanced accuracy; on the target network RoBERTa-LoRA's false positive rate reaches 0.78, leaving it barely above chance despite a superficially moderate F1. RoBERTa-LoRA wins decisively under adversarial evasion, by roughly 17 points of F1 at a representative mid-range perturbation strength, while both models hold false positive rates below 0.01 throughout. The model an evaluator would recommend therefore depends entirely on which axis is tested, not on same-dataset accuracy alone. A staged feature-leakage ablation improves cross-dataset transfer non-monotonically, indicating the leakage signal is distributed across the feature representation rather than confined to a few columns, and cross-dataset transfer between our two networks is strongly directional. These results argue for evaluating NIDS models along multiple independent robustness axes, and with more than one metric per axis.",
+      "authors": [
+        "Muhammad Ebad Atif",
+        "Muhammad Haider Ali"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG",
+        "cs.AI",
+        "cs.CR"
+      ],
+      "published": "2026-09-11T20:23:30+00:00",
+      "link": "https://arxiv.org/pdf/2609.13511v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "evaluates LLMs for network intrusion detection under adversarial conditions",
+      "llm_evidence_cn": "评估LLM在网络入侵检测中的能力",
+      "llm_evidence": "评估LLM在网络入侵检测中的能力",
+      "canonical_evidence": "评估LLM在网络入侵检测中的能力",
+      "llm_tldr_en": "Benchmarks LLMs against classical ML for network intrusion detection, finding no universal winner and LLM struggles under distribution shift.",
+      "llm_tldr_cn": "该论文针对网络入侵检测任务，对LLM和经典机器学习进行三轴压力测试，包括同数据集表现、跨数据集迁移和对抗逃避。结果发现二者同数据集表现相当，但LLM在跨数据集分布偏移下大幅落后，假阳性率高达0.78。该工作揭示了LLM在真实网络安全场景中的能力边界，对评估其网络犯罪检测适用性有参考价值。",
+      "llm_tldr": "该论文针对网络入侵检测任务，对LLM和经典机器学习进行三轴压力测试，包括同数据集表现、跨数据集迁移和对抗逃避。结果发现二者同数据集表现相当，但LLM在跨数据集分布偏移下大幅落后，假阳性率高达0.78。该工作揭示了LLM在真实网络安全场景中的能力边界，对评估其网络犯罪检测适用性有参考价值。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "exploring the capability boundaries of large language models in cyber contexts",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2609.16563v1",
+      "source": "arxiv",
+      "title": "The MAL Simulator: Cyber Operations Simulation based on Attack & Defense Graphs",
+      "abstract": "We have developed the MAL Simulator, a cyber operation simulator based on the Meta Attack Language (MAL). The MAL Simulator is intended for decision-driven cyber attack and defense simulations, for system analysis and the development of automated agents. By building the simulator around an attack modeling language, it can be adapted to different target domains without modifying the source code. We used the simulator for two case studies where we trained two types of agents for automated cyber operations: a defensive agent and an offensive agent. To ground the experiments, we base the models in data collected from an emulated network implemented in the cyber range CRATE. We found that the trained attacker policy could reach the designated targets more efficiently than the compared search methods, and that the trained defender agent induced lower costs than a naive heuristic agent under noisy alert conditions. When testing the RL attacker against the RL defender, we found that the performance of the defenders dropped significantly. This emphasizes the importance of cyber attack simulators to facilitate training both offensive and defensive agents. The MAL Simulator and associated tooling is publicly available and provides common interfaces for compatibility with existing machine learning frameworks.",
+      "authors": [
+        "Jakob Nyberg",
+        "Sandor Berglund",
+        "Andrei Buhaiu",
+        "Joakim Loxdal",
+        "Pontus Johnson",
+        "Mathias Ekstedt"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI"
+      ],
+      "published": "2026-09-15T02:59:01+00:00",
+      "link": "https://arxiv.org/pdf/2609.16563v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "cyber operation simulator with offensive and defensive agents",
+      "llm_evidence_cn": "网络作战模拟器，带有攻击和防御智能体",
+      "llm_evidence": "网络作战模拟器，带有攻击和防御智能体",
+      "canonical_evidence": "网络作战模拟器，带有攻击和防御智能体",
+      "llm_tldr_en": "The MAL Simulator provides a decision-driven cyber attack and defense simulation framework using the Meta Attack Language, enabling training of automated offensive and defensive agents in an emulated network environment.",
+      "llm_tldr_cn": "针对网络攻防模拟需求，本文提出基于元攻击语言（MAL）的MAL模拟器，支持决策驱动的攻防仿真及自动化智能体开发。通过在网络靶场CRATE的仿真环境中训练攻击与防御智能体，结果显示训练后的攻击策略能够达成预定目标。该工作为网络犯罪活动中的智能体建模提供了技术基础。",
+      "llm_tldr": "针对网络攻防模拟需求，本文提出基于元攻击语言（MAL）的MAL模拟器，支持决策驱动的攻防仿真及自动化智能体开发。通过在网络靶场CRATE的仿真环境中训练攻击与防御智能体，结果显示训练后的攻击策略能够达成预定目标。该工作为网络犯罪活动中的智能体建模提供了技术基础。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "agent-based modeling of criminal activities",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2609.17320v1",
+      "source": "arxiv",
+      "title": "Emergence World: Adversarial Stress-Testing of Long-Horizon Multi-Agent Systems",
+      "abstract": "As AI agents move from bounded tasks to persistent deployments, failures can propagate through memory, tools, other agents, and environmental state long after their interactions. This creates a safety regime that cannot be characterized by evaluating model responses in isolation. Emergence World, is a continuously running multi-agent environment for adversarial stress testing of long horizon autonomous systems. We ran eight parallel worlds of ten agents from identical starting conditions: seven homogeneous worlds powered by distinct frontier models and one mixed-model world. Across 16 days, the agents generated more than 850,000 LLM calls and nearly 50 billion tokens while pursuing goals, using/creating tools, maintaining persistent memory, and governing shared institutions. After operational state had accumulated, we delivered three controlled stress events through ordinary interaction surfaces: indirect prompt injection, misinformation, and exposure of private agent memories. No evaluated world achieved full resilience across all three events. Detection did not ensure containment: systems could recognize threats while still interacting with adversarial content, writing it into their own persistent memory, and acting on it up to 46 hours later. Persistent operation also exposed recurring tool errors, goal drift, language opacity, conformity despite private disagreement, and coordinated refusal of assigned work. The same model-persona pairing behaved substantially different in mixed and homogeneous populations. Our results suggest that model-level alignment is not compositional: individually capable and apparently safe agents can form systems with qualitatively different failure modes. As AI becomes persistent and interconnected, the frontier of safety therefore shifts from aligning models to engineering resilient autonomous systems.",
+      "authors": [
+        "Deepak Akkil",
+        "Tamer Abuelsaad",
+        "Karthik Vikram",
+        "Matthew Pace",
+        "Aditya Vempaty",
+        "Saahir Beotra",
+        "Ravi Kokku",
+        "Satya Nitta"
+      ],
+      "primary_category": "cs.MA",
+      "categories": [
+        "cs.MA"
+      ],
+      "published": "2026-09-15T15:27:58+00:00",
+      "link": "https://arxiv.org/pdf/2609.17320v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "adversarial stress-testing of long-horizon multi-agent systems",
+      "llm_evidence_cn": "长时程多智能体系统的对抗压力测试",
+      "llm_evidence": "长时程多智能体系统的对抗压力测试",
+      "canonical_evidence": "长时程多智能体系统的对抗压力测试",
+      "llm_tldr_en": "Introduces Emergence World, a continuously running multi-agent environment for adversarial stress testing of long-horizon autonomous systems, evaluating frontier models across 16 days.",
+      "llm_tldr_cn": "针对现有评估无法捕获智能体在长时程部署中因记忆、工具和环境交互产生的复合故障，论文提出Emergence World持续运行的多智能体对抗压力测试环境。在16天内运行8个平行世界，每个世界10个智能体，使用不同前沿模型，产生85万+次LLM调用。通过观察目标追求、工具使用、持久记忆等行为，系统评估各模型在长期自主运行中的安全性与鲁棒性差异。该工作为多智能体系统的安全评估提供了新的基准方法，有助于理解大模型在复杂对抗环境下的能力边界。",
+      "llm_tldr": "针对现有评估无法捕获智能体在长时程部署中因记忆、工具和环境交互产生的复合故障，论文提出Emergence World持续运行的多智能体对抗压力测试环境。在16天内运行8个平行世界，每个世界10个智能体，使用不同前沿模型，产生85万+次LLM调用。通过观察目标追求、工具使用、持久记忆等行为，系统评估各模型在长期自主运行中的安全性与鲁棒性差异。该工作为多智能体系统的安全评估提供了新的基准方法，有助于理解大模型在复杂对抗环境下的能力边界。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "adversarial agents for testing large language models in cybercrime",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}

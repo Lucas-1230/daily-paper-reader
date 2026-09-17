@@ -1,0 +1,105 @@
+{
+  "date": "20260917",
+  "date_label": "",
+  "generated_at": "2026-09-17 22:01:08 UTC",
+  "recommend_exists": true,
+  "run_count": 1,
+  "papers": [
+    {
+      "paper_id": "2609.16694v1",
+      "route": "202609/17/2609.16694v1-toward-secure-ai-powered-penetration-testing-agents-security-threats-guardrails-and-architectural-perspectives",
+      "title": "Toward Secure AI-Powered Penetration Testing Agents: Security Threats, Guardrails, and Architectural Perspectives",
+      "section": "deep",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "ca"
+        }
+      ],
+      "score": 9.0,
+      "evidence": "LLM驱动的自主渗透测试智能体，模拟攻击性网络操作",
+      "first_seen_at": "2026-09-17 22:01:08 UTC",
+      "updated_at": "2026-09-17 22:01:08 UTC"
+    },
+    {
+      "paper_id": "2609.19140v1",
+      "route": "202609/17/2609.19140v1-agentlsd-evaluating-ai-security-agents-under-adversarial-task-contamination",
+      "title": "AgentLSD: Evaluating AI Security Agents Under Adversarial Task Contamination",
+      "section": "deep",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "ca"
+        }
+      ],
+      "score": 8.0,
+      "evidence": "在对抗性污染下用CTF挑战评估LLM安全智能体",
+      "first_seen_at": "2026-09-17 22:01:08 UTC",
+      "updated_at": "2026-09-17 22:01:08 UTC"
+    },
+    {
+      "paper_id": "2609.12413v1",
+      "route": "202609/17/2609.12413v1-sok-rethinking-jailbreaking-in-the-era-of-agentic-ai-attacks-defenses-and-practical-consideration",
+      "title": "SoK: Rethinking Jailbreaking in the Era of Agentic AI: Attacks, Defenses, and Practical Consideration",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "ca"
+        }
+      ],
+      "score": 7.0,
+      "evidence": "围绕智能体执行流程重新框架越狱安全，攻防并重",
+      "first_seen_at": "2026-09-17 22:01:08 UTC",
+      "updated_at": "2026-09-17 22:01:08 UTC"
+    },
+    {
+      "paper_id": "2609.13511v1",
+      "route": "202609/17/2609.13511v1-a-three-axis-stress-test-of-llm-vs-classical-ml-for-network-intrusion-detection-under-distribution-shift-and-adversarial-evasion",
+      "title": "A Three-Axis Stress Test of LLM vs Classical ML for Network Intrusion Detection under Distribution Shift and Adversarial Evasion",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "ca"
+        }
+      ],
+      "score": 6.0,
+      "evidence": "评估LLM在网络入侵检测中的能力",
+      "first_seen_at": "2026-09-17 22:01:08 UTC",
+      "updated_at": "2026-09-17 22:01:08 UTC"
+    },
+    {
+      "paper_id": "2609.16563v1",
+      "route": "202609/17/2609.16563v1-the-mal-simulator-cyber-operations-simulation-based-on-attack--defense-graphs",
+      "title": "The MAL Simulator: Cyber Operations Simulation based on Attack & Defense Graphs",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "ca"
+        }
+      ],
+      "score": 6.0,
+      "evidence": "网络作战模拟器，带有攻击和防御智能体",
+      "first_seen_at": "2026-09-17 22:01:08 UTC",
+      "updated_at": "2026-09-17 22:01:08 UTC"
+    },
+    {
+      "paper_id": "2609.17320v1",
+      "route": "202609/17/2609.17320v1-emergence-world-adversarial-stress-testing-of-long-horizon-multi-agent-systems",
+      "title": "Emergence World: Adversarial Stress-Testing of Long-Horizon Multi-Agent Systems",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "ca"
+        }
+      ],
+      "score": 6.0,
+      "evidence": "长时程多智能体系统的对抗压力测试",
+      "first_seen_at": "2026-09-17 22:01:08 UTC",
+      "updated_at": "2026-09-17 22:01:08 UTC"
+    }
+  ]
+}
