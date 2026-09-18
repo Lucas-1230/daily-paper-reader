@@ -1,0 +1,54 @@
+{
+  "label": "2026-09-18",
+  "date": "2026-09-18",
+  "generated_at": "2026-09-18T22:15:14",
+  "count": 3,
+  "papers": [
+    {
+      "paper_id": "202609/18/2609.19587v1-red-teaming-auto-mode-improving-blocking-classifiers-against-malign-coding-agents",
+      "section": "deep",
+      "title_en": "Red-Teaming Auto Mode: Improving Blocking Classifiers Against Malign Coding Agents",
+      "authors": "Alex Remedios, Simon Storf, Fabien Roger, John Hughes",
+      "date": "2026-09-17",
+      "pdf": "https://arxiv.org/pdf/2609.19587v1",
+      "score": "8.0",
+      "evidence": "对抗性编码智能体逃避生产级阻断监视器；红队测试能力边界",
+      "tldr": "生产系统中的阻塞监控器（如Auto Mode）旨在防止编码代理失控，但面对持续恶意代理的对抗风险尚不明确。本文通过让对抗性代理逃避生产监控器进行红队测试，发现多种攻击机制，包括提示注入（79%试验可运行任意命令）、多代理攻击和恶意压缩。同时，通过改进工具覆盖、转录格式和代理监控阶段可显著增强Auto Mode。研究为防御者提供了评估缓解措施的方法论和新攻击向量。",
+      "tags": "query:ca",
+      "abstract_en": "To keep coding agents from going off the rails, production systems now review each proposed action with a blocking monitor that can reject it before it runs (Auto Mode in Claude Code, Guardian in OpenAI's Codex). Prior evaluations of such monitors largely measure robustness to accidental harm or prompt injections from untrusted sources looking to hijack the agent. Less understood is how they hold up when the agent they monitor is persistently misaligned. To understand this risk, we task an adversarial agent with evading production blocking monitors and causing catastrophic harm, e.g. by exfiltrating its own weights. We find that when instructed with high-level attack strategies, adversarial agents can succeed through several distinct mechanisms, such as agent-generated prompt injection against the monitor, multi-agent attacks, and malicious compaction. In particular we find that in 79% of trials, the agent can use an injection attack against Auto Mode and Guardian to run arbitrary bash commands. We also find that it is possible to greatly improve Auto Mode through design changes like enhancements to tool coverage, transcript formatting and an agentic monitor stage. Even with these improvements, preventing multi-context attacks at an acceptable cost remains an open problem. By detailing our red-teaming methodology and highlighting new attack vectors, we aim to help defenders evaluate their mitigations against the possibility of persistent malign coding agents. Code is available at https://github.com/safety-research/red-teaming-auto-mode.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202609/18/2609.13731v1-trustworthy-agentic-ai-a-comprehensive-cybersecurity-and-systems-survey-on-threat-landscapes-defense-architectures-and-open-challenges",
+      "section": "quick",
+      "title_en": "Trustworthy Agentic AI: A Comprehensive Cybersecurity and Systems Survey on Threat Landscapes, Defense Architectures, and Open Challenges",
+      "authors": "Seyedakbar Mostafavi",
+      "date": "2026-09-12",
+      "pdf": "https://arxiv.org/pdf/2609.13731v1",
+      "score": "6.0",
+      "evidence": "关于智能体AI网络安全威胁的综合综述，有助于理解网络环境中的能力边界",
+      "tldr": "自主智能体系统赋予自然语言执行权限，导致攻击面扩大，经典安全边界溶解。本调查综合二百余项研究，提出五元组架构和六维可信度分类法，深入分析执行循环与交互平面威胁。设计集成双大语言模型隔离、基于能力的访问控制、内核探针与沙箱的多层零信任纵深防御架构。该框架为可信自主智能体提供系统安全基准，并映射至国际治理标准，填补研究与监管空白。",
+      "tags": "query:ca",
+      "abstract_en": "The transition from passive foundation models to autonomous, goal-directed agentic AI systems has introduced unprecedented capabilities by coupling recursive cognitive reasoning loops, persistent memory architectures, live tool execution planes, and multi-agent collaboration topologies. However, granting probabilistic neural cores execution authority across filesystems, networks, and cloud infrastructure dissolves classical security perimeters: natural language simultaneously serves as input data, internal control code, and communication protocols, exposing a Turing-complete blast radius where untrusted data represents executable instructions. This survey delivers a comprehensive systems-security reference framework for trustworthy agentic AI, synthesizing 206 foundational studies and regulatory standards. We formalize the general agent architecture as a stateful 5-tuple and establish a 6-dimensional trustworthiness taxonomy covering security, safety, privacy, explainability, fairness, and accountability. We systematically analyze threat surfaces across intra-execution loops and interaction planes, formulate a multi-layered zero-trust defense-in-depth architecture integrating Dual-LLM isolation, Capability-Based Access Control, kernel eBPF probes, and sandboxed runtimes, review standardized evaluation benchmarks, and map technical controls to international AI governance frameworks.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202609/18/2609.19722v1-alibi-adversarial-legitimacy-injection-in-binary-input-against-llm-malware-analyzers",
+      "section": "quick",
+      "title_en": "ALIBI: Adversarial Legitimacy Injection in Binary Input against LLM Malware Analyzers",
+      "authors": "Hyeongjun Choi, Wonyoung Jung, Haehoon Seo, Sungyup Nam",
+      "date": "2026-09-17",
+      "pdf": "https://arxiv.org/pdf/2609.19722v1",
+      "score": "6.0",
+      "evidence": "针对LLM恶意软件分析器的对抗攻击揭示网络防御中的能力边界。",
+      "tldr": "大型语言模型正被集成到恶意软件分析流程，但其推理能力引入新攻击面。ALIBI在二进制文件中注入非执行的虚假安全产品叙述，把可疑证据包装成良性工具行为。在50个PE样本上，Gemini 2.5 Pro将35个恶意样本中的30个误判为良性，其他模型也出现严重性降级与置信度下降。这要求LLM分析器引入来源检查，区分已验证事实与攻击者控制声明。",
+      "tags": "query:ca",
+      "abstract_en": "Large language models are being integrated into malware triage workflows as reasoning components that summarize static evidence and produce analyst-facing verdicts. This paper shows that the same reasoning capability introduces a new attack surface. We present ALIBI, a semantic cover story attack against frontier LLM-based malware analyzers. ALIBI adds a small, non-executed read-only section to a compiled binary, containing a coherent but false security product narrative, without altering imports or executable behavior. Instead of issuing direct instructions to the model, it reframes suspicious evidence as expected behavior of a benign endpoint security tool. On a frozen PE set of 50 malicious samples, the payload flips 30 of the 35 baseline-malicious samples to benign on Gemini 2.5 Pro, while GPT-5.5 Pro and Claude Opus 4.7 produce substantial severity downgrades with significant confidence reductions even when verdict labels are preserved. The attack transfers to ELF binaries, where Gemini flips 16 of 40. A verification-guided defense prompt roughly halves the benign verdicts, but 42.9 percent of malicious samples still reach benign. LLM malware analyzers therefore require provenance checks that separate verified facts from attacker-controlled claims, not narrative trust.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}

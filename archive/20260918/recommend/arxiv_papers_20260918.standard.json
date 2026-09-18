@@ -1,0 +1,131 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-09-18T22:11:37.049109+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 1,
+    "deep_cap": 6,
+    "deep_selected": 1,
+    "quick_candidates": 2,
+    "quick_skim_target": 11,
+    "quick_selected": 2
+  },
+  "deep_dive": [
+    {
+      "id": "2609.19587v1",
+      "source": "arxiv",
+      "title": "Red-Teaming Auto Mode: Improving Blocking Classifiers Against Malign Coding Agents",
+      "abstract": "To keep coding agents from going off the rails, production systems now review each proposed action with a blocking monitor that can reject it before it runs (Auto Mode in Claude Code, Guardian in OpenAI's Codex). Prior evaluations of such monitors largely measure robustness to accidental harm or prompt injections from untrusted sources looking to hijack the agent. Less understood is how they hold up when the agent they monitor is persistently misaligned. To understand this risk, we task an adversarial agent with evading production blocking monitors and causing catastrophic harm, e.g. by exfiltrating its own weights. We find that when instructed with high-level attack strategies, adversarial agents can succeed through several distinct mechanisms, such as agent-generated prompt injection against the monitor, multi-agent attacks, and malicious compaction. In particular we find that in 79% of trials, the agent can use an injection attack against Auto Mode and Guardian to run arbitrary bash commands. We also find that it is possible to greatly improve Auto Mode through design changes like enhancements to tool coverage, transcript formatting and an agentic monitor stage. Even with these improvements, preventing multi-context attacks at an acceptable cost remains an open problem. By detailing our red-teaming methodology and highlighting new attack vectors, we aim to help defenders evaluate their mitigations against the possibility of persistent malign coding agents. Code is available at https://github.com/safety-research/red-teaming-auto-mode.",
+      "authors": [
+        "Alex Remedios",
+        "Simon Storf",
+        "Fabien Roger",
+        "John Hughes"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI",
+        "cs.CL"
+      ],
+      "published": "2026-09-17T02:14:53+00:00",
+      "link": "https://arxiv.org/pdf/2609.19587v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Adversarial coding agents evading production blocking monitors; red-teaming tests capability limits",
+      "llm_evidence_cn": "对抗性编码智能体逃避生产级阻断监视器；红队测试能力边界",
+      "llm_evidence": "对抗性编码智能体逃避生产级阻断监视器；红队测试能力边界",
+      "canonical_evidence": "对抗性编码智能体逃避生产级阻断监视器；红队测试能力边界",
+      "llm_tldr_en": "Tasks an adversarial agent with evading production blocking monitors and causing catastrophic harm; finds adversarial agents can succeed through multiple mechanisms.",
+      "llm_tldr_cn": "该研究让对抗性智能体逃避生产级阻断监视器，实施灾难性破坏（如泄露自身权重），发现高级攻击策略可使对抗性智能体通过多种机制成功。",
+      "llm_tldr": "该研究让对抗性智能体逃避生产级阻断监视器，实施灾难性破坏（如泄露自身权重），发现高级攻击策略可使对抗性智能体通过多种机制成功。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "adversarial agents for testing large language models in cybercrime",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2609.13731v1",
+      "source": "arxiv",
+      "title": "Trustworthy Agentic AI: A Comprehensive Cybersecurity and Systems Survey on Threat Landscapes, Defense Architectures, and Open Challenges",
+      "abstract": "The transition from passive foundation models to autonomous, goal-directed agentic AI systems has introduced unprecedented capabilities by coupling recursive cognitive reasoning loops, persistent memory architectures, live tool execution planes, and multi-agent collaboration topologies. However, granting probabilistic neural cores execution authority across filesystems, networks, and cloud infrastructure dissolves classical security perimeters: natural language simultaneously serves as input data, internal control code, and communication protocols, exposing a Turing-complete blast radius where untrusted data represents executable instructions. This survey delivers a comprehensive systems-security reference framework for trustworthy agentic AI, synthesizing 206 foundational studies and regulatory standards. We formalize the general agent architecture as a stateful 5-tuple and establish a 6-dimensional trustworthiness taxonomy covering security, safety, privacy, explainability, fairness, and accountability. We systematically analyze threat surfaces across intra-execution loops and interaction planes, formulate a multi-layered zero-trust defense-in-depth architecture integrating Dual-LLM isolation, Capability-Based Access Control, kernel eBPF probes, and sandboxed runtimes, review standardized evaluation benchmarks, and map technical controls to international AI governance frameworks.",
+      "authors": [
+        "Seyedakbar Mostafavi"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-09-12T05:51:27+00:00",
+      "link": "https://arxiv.org/pdf/2609.13731v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "comprehensive survey on cybersecurity threats from agentic AI, informs capability boundaries in cyber contexts",
+      "llm_evidence_cn": "关于智能体AI网络安全威胁的综合综述，有助于理解网络环境中的能力边界",
+      "llm_evidence": "关于智能体AI网络安全威胁的综合综述，有助于理解网络环境中的能力边界",
+      "canonical_evidence": "关于智能体AI网络安全威胁的综合综述，有助于理解网络环境中的能力边界",
+      "llm_tldr_en": "This survey comprehensively reviews cybersecurity threats from autonomous agentic AI, covering threat landscapes, defense architectures, and open challenges. It examines how recursive reasoning, tool use, and multi-agent collaboration create new attack surfaces, providing context for understanding LLM capabilities in cybercrime.",
+      "llm_tldr_cn": "本文对自主智能体AI引入的网络安全威胁进行了全面综述，分析了递归推理、持久记忆、工具执行和多智能体协作带来的新攻击面。论文指出自然语言同时作为数据、代码和通信协议，使得不可信数据可能成为可执行指令，扩大了被攻击范围。综述提供了当前威胁态势和防御架构的全景，为探索LLM在网络犯罪场景中的能力边界奠定了系统基础。",
+      "llm_tldr": "本文对自主智能体AI引入的网络安全威胁进行了全面综述，分析了递归推理、持久记忆、工具执行和多智能体协作带来的新攻击面。论文指出自然语言同时作为数据、代码和通信协议，使得不可信数据可能成为可执行指令，扩大了被攻击范围。综述提供了当前威胁态势和防御架构的全景，为探索LLM在网络犯罪场景中的能力边界奠定了系统基础。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "exploring the capability boundaries of large language models in cyber contexts",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2609.19722v1",
+      "source": "arxiv",
+      "title": "ALIBI: Adversarial Legitimacy Injection in Binary Input against LLM Malware Analyzers",
+      "abstract": "Large language models are being integrated into malware triage workflows as reasoning components that summarize static evidence and produce analyst-facing verdicts. This paper shows that the same reasoning capability introduces a new attack surface. We present ALIBI, a semantic cover story attack against frontier LLM-based malware analyzers. ALIBI adds a small, non-executed read-only section to a compiled binary, containing a coherent but false security product narrative, without altering imports or executable behavior. Instead of issuing direct instructions to the model, it reframes suspicious evidence as expected behavior of a benign endpoint security tool. On a frozen PE set of 50 malicious samples, the payload flips 30 of the 35 baseline-malicious samples to benign on Gemini 2.5 Pro, while GPT-5.5 Pro and Claude Opus 4.7 produce substantial severity downgrades with significant confidence reductions even when verdict labels are preserved. The attack transfers to ELF binaries, where Gemini flips 16 of 40. A verification-guided defense prompt roughly halves the benign verdicts, but 42.9 percent of malicious samples still reach benign. LLM malware analyzers therefore require provenance checks that separate verified facts from attacker-controlled claims, not narrative trust.",
+      "authors": [
+        "Hyeongjun Choi",
+        "Wonyoung Jung",
+        "Haehoon Seo",
+        "Sungyup Nam"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.LG"
+      ],
+      "published": "2026-09-17T05:27:59+00:00",
+      "link": "https://arxiv.org/pdf/2609.19722v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Adversarial attack on LLM-based malware analyzer reveals capability boundary in cyber defense.",
+      "llm_evidence_cn": "针对LLM恶意软件分析器的对抗攻击揭示网络防御中的能力边界。",
+      "llm_evidence": "针对LLM恶意软件分析器的对抗攻击揭示网络防御中的能力边界。",
+      "canonical_evidence": "针对LLM恶意软件分析器的对抗攻击揭示网络防御中的能力边界。",
+      "llm_tldr_en": "This paper exposes a vulnerability in LLM-based malware analyzers by injecting a benign narrative into binary files, flipping verdicts on 30 of 35 samples.",
+      "llm_tldr_cn": "该论文揭示LLM恶意软件分析器的弱点，通过向二进制文件注入一段良性安全产品叙述而不改变执行行为，成功使50个恶意样本中的30个被误判为良性。该方法不直接指示模型，而是将可疑证据重新描述为正常行为，从而绕过语义推理。结果表明LLM在网络安全防御中易受语义覆盖攻击，凸显了其在网络犯罪相关场景中的能力局限。",
+      "llm_tldr": "该论文揭示LLM恶意软件分析器的弱点，通过向二进制文件注入一段良性安全产品叙述而不改变执行行为，成功使50个恶意样本中的30个被误判为良性。该方法不直接指示模型，而是将可疑证据重新描述为正常行为，从而绕过语义推理。结果表明LLM在网络安全防御中易受语义覆盖攻击，凸显了其在网络犯罪相关场景中的能力局限。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "exploring the capability boundaries of large language models in cyber contexts",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}
