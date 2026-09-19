@@ -1,0 +1,215 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-09-19T21:22:13.536050+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 1,
+    "deep_cap": 6,
+    "deep_selected": 1,
+    "quick_candidates": 4,
+    "quick_skim_target": 11,
+    "quick_selected": 4
+  },
+  "deep_dive": [
+    {
+      "id": "2609.16541v1",
+      "source": "arxiv",
+      "title": "A Cyber Range Evaluation of Autonomous Network Incident Response Agents",
+      "abstract": "We test the performance of agents for automated network intrusion response in a cyber range intended for human operator training. The range implements an emulated networking environment with a variable network topology, red-team emulation and simulated user agents. The goal of the defensive agents is to prevent hosts in the network from being accessed by the red-team agent, while minimizing the availability costs induced from defensive measures. Alerts are generated using a SIEM platform and mapped to a data modeling language used by the agents. We test a combination of heuristic agents and policies learned using reinforcement learning. The learned policies are optimized to minimize the combined cost using a cyber attack simulator modeling the network. We found that the reinforcement learning agents were overall more efficient at defending the system than the heuristic policy, and that the performance depends highly on the policy of the adversary in combination with the simulated users.",
+      "authors": [
+        "Jakob Nyberg",
+        "Teodor Sommestad",
+        "Andrei Buhaiu",
+        "Joakim Loxdal",
+        "Pontus Johnson",
+        "Mathias Ekstedt"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI"
+      ],
+      "published": "2026-09-15T02:36:15+00:00",
+      "link": "https://arxiv.org/pdf/2609.16541v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Cyber range with red-team emulation and multi-agent simulation of intrusion response",
+      "llm_evidence_cn": "网络靶场红队仿真与多智能体入侵响应模拟",
+      "llm_evidence": "网络靶场红队仿真与多智能体入侵响应模拟",
+      "canonical_evidence": "网络靶场红队仿真与多智能体入侵响应模拟",
+      "llm_tldr_en": "The paper evaluates autonomous network incident response agents in a cyber range with red-team emulation and simulated users, comparing heuristic and learned policies to minimize host compromise and availability costs.",
+      "llm_tldr_cn": "该论文在网络靶场中评估自主网络事件响应智能体的性能，该靶场具备可变网络拓扑、红队仿真和模拟用户智能体。防御智能体的目标是在最小化可用性成本的同时阻止红队访问主机。采用启发式方法和强化学习策略进行对比测试，并使用SIEM告警映射到数据建模语言。结果表明该仿真环境能够有效测试不同防御策略，为网络安全智能体的评估提供了实验平台。",
+      "llm_tldr": "该论文在网络靶场中评估自主网络事件响应智能体的性能，该靶场具备可变网络拓扑、红队仿真和模拟用户智能体。防御智能体的目标是在最小化可用性成本的同时阻止红队访问主机。采用启发式方法和强化学习策略进行对比测试，并使用SIEM告警映射到数据建模语言。结果表明该仿真环境能够有效测试不同防御策略，为网络安全智能体的评估提供了实验平台。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "multi-agent systems for cybercrime simulation",
+      "matched_requirement_id": "req-3",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2609.18496v1",
+      "source": "arxiv",
+      "title": "MiST: Mid-Training LLMs for Cybersecurity",
+      "abstract": "Cybersecurity combines high-stakes analysis with complex technical language, making it an impactful and challenging domain for LLMs. We present MiST (Mid-trained Security Transformer), a suite of 8B and 32B models that achieve strong performance on public cybersecurity benchmarks. We use mid-training as an intermediate adaptation stage between general pre-training and cybersecurity training. Rather than performing continual pre-training over large volumes of raw domain text, we curate a compact, expert-vetted seed corpus, and transform it into high-quality domain-specific synthetic training data. The final MiST checkpoints improve mean cybersecurity accuracy by +13.1 and +8.6 absolute percentage points over the corresponding Qwen baselines for 8B and 32B, respectively, corresponding to relative gains of +27.0% and +15.8%. Ablation results further show that these cybersecurity gains arise in the mid-training and supervised fine-tuning stages through a combination of the synthetic data generation flows. Furthermore, we show that MiST provides a stronger initialization for downstream task-specific fine-tuning adaptation and reinforcement learning.",
+      "authors": [
+        "Oded Ovadia",
+        "Elad Ben Zaken",
+        "Elad Guttman",
+        "Orly Moreno Kadosh"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI"
+      ],
+      "published": "2026-09-16T11:33:12+00:00",
+      "link": "https://arxiv.org/pdf/2609.18496v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "mid-training LLMs specifically for cybersecurity, directly improving capability in cyber contexts",
+      "llm_evidence_cn": "专为网络安全进行中间训练，直接提升网络环境下的能力",
+      "llm_evidence": "专为网络安全进行中间训练，直接提升网络环境下的能力",
+      "canonical_evidence": "专为网络安全进行中间训练，直接提升网络环境下的能力",
+      "llm_tldr_en": "The paper presents MiST, a suite of 8B and 32B LLMs mid-trained on curated cybersecurity data, achieving strong performance on public benchmarks. This directly enhances LLM capabilities in cyber contexts, relevant to evaluating and improving performance in cybersecurity tasks.",
+      "llm_tldr_cn": "该论文针对大语言模型在网络安全领域表现不足的问题，提出中间训练方法，利用专家审核的种子语料生成高质量合成数据训练MiST模型。在公开基准上，MiST显著提升网络安全准确率，为网络环境下的LLM能力建设提供了有效路径。",
+      "llm_tldr": "该论文针对大语言模型在网络安全领域表现不足的问题，提出中间训练方法，利用专家审核的种子语料生成高质量合成数据训练MiST模型。在公开基准上，MiST显著提升网络安全准确率，为网络环境下的LLM能力建设提供了有效路径。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "exploring the capability boundaries of large language models in cyber contexts",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2609.12681v1",
+      "source": "arxiv",
+      "title": "Bridging the First-Hour Gap: Evaluating AI Reliability and Benchmarking Deficiencies in Cyber Incident Response for Law Enforcement",
+      "abstract": "The actions of frontline law enforcement officers in the initial hour of a cyber incident play a vital role in determining the ultimate success of an investigation. The minor mistakes they commit might result in irreversible critical impacts. The integrity of the investigation can be compromised, and the prosecution of cyber criminals can be hindered due to minor mistakes that happen in the initial hour. These are mainly because of the volatile nature of digital artifacts that might lead to procedural errors and evidence attrition. This paper provides a systematic survey of decision-support architectures designed to assist first responders of a cybercrime, categorizing them into playbooks, Large Language Models (LLMs), Retrieval-Augmented Generation (RAG) frameworks, and Agentic AI systems. The survey critically considers the constraints of limited technical proficiency and inconsistent forensic infrastructure in a practical scenario. Our analysis identifies RAG-based systems as a relatively viable intermediate solution due to their natural language adaptability. However, significant risk factors like prompt sensitivity and the potential for confident hallucinations in legal contexts pose a major challenge. Furthermore, we review current benchmarks in cybersecurity and demonstrate that they are not sufficient to capture the specific safety and legal requirements of law enforcement, focusing on the initial hour of the cybercrime. We conclude by arguing for the necessity of a new evaluation benchmark focused on naive query robustness and evidence preservation, so as to ensure that AI-driven guidance aligns with the mandatory demands of judicial proceedings.",
+      "authors": [
+        "Roshin Sleeba C",
+        "Hiran V Nath"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR"
+      ],
+      "published": "2026-09-11T10:25:28+00:00",
+      "link": "https://arxiv.org/pdf/2609.12681v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "AI reliability in cybercrime incident response for law enforcement",
+      "llm_evidence_cn": "执法网络犯罪事件响应中AI可靠性",
+      "llm_evidence": "执法网络犯罪事件响应中AI可靠性",
+      "canonical_evidence": "执法网络犯罪事件响应中AI可靠性",
+      "llm_tldr_en": "Surveys decision-support architectures for first responders of cybercrime, evaluating AI reliability and benchmarking gaps in the critical first hour.",
+      "llm_tldr_cn": "该论文关注执法人员在网络事件发生最初一小时内的行动对调查成败的关键影响，系统梳理了面向网络犯罪第一响应者的决策支持架构，包括行动手册等。研究评估了 AI 在这些架构中的可靠性及现有基准的不足，为提升网络犯罪调查中 AI 能力提供了依据。",
+      "llm_tldr": "该论文关注执法人员在网络事件发生最初一小时内的行动对调查成败的关键影响，系统梳理了面向网络犯罪第一响应者的决策支持架构，包括行动手册等。研究评估了 AI 在这些架构中的可靠性及现有基准的不足，为提升网络犯罪调查中 AI 能力提供了依据。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "capabilities of large language models in cybercrime",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2609.19789v1",
+      "source": "arxiv",
+      "title": "Contagion on the Trading Floor: How Adversarial Signals Spread in Multi-Agent Trading Systems",
+      "abstract": "Multi-agent trading systems built on large language models (LLMs) are beginning to appear in quantitative finance, yet their robustness to adversarial inputs is largely unknown. We study the vulnerability of LLM trading stacks to black-box, input-only attacks that enter solely via admissible social-media feeds. We introduce the Generic Multi-Agent Trading System (GMATS), a framework that captures modern multiagent trading architectures and instantiate a class of black-box poisoning attackers that treat an LLM as a post generator and inject budget-constrained, plausibly benign social-media content into the analyst's evidence stream. We define contagion metrics that trace how adversarial content propagates through the stack, including belief-shift scores at analyst and coordinator layers and attack-clean deltas on standard backtest metrics. Experiments on a safe offline benchmark with historical market and social data show that even simple input-only attackers can materially degrade risk-return profiles, sharply reducing Sharpe ratios. At the same time, we find that suitably designed multi-agent topologies and coordinator prompts can dampen adversarial shocks and improve average robustness under identical poisoning budgets.",
+      "authors": [
+        "Qi Rong Sua",
+        "Junhao Dong",
+        "Nguyen Duc Thai",
+        "Yuqing Wen",
+        "Cheston Tan",
+        "Yew-Soon Ong"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-09-17T06:54:59+00:00",
+      "link": "https://arxiv.org/pdf/2609.19789v1",
+      "tags": [
+        "keyword:ca"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Adversarial attacks on LLM-based multi-agent trading systems",
+      "llm_evidence_cn": "对基于大模型的多智能体交易系统的对抗性攻击",
+      "llm_evidence": "对基于大模型的多智能体交易系统的对抗性攻击",
+      "canonical_evidence": "对基于大模型的多智能体交易系统的对抗性攻击",
+      "llm_tldr_en": "The paper studies adversarial input attacks on LLM-based multi-agent trading systems, introducing GMATS framework and black-box poisoning attackers, and defines contagion metrics.",
+      "llm_tldr_cn": "本文研究基于大模型的多智能体交易系统对对抗输入的鲁棒性。作者提出通用多智能体交易系统框架GMATS，并实例化一类黑盒投毒攻击者，通过社交媒体注入貌似无害的内容。定义传染指标追踪对抗内容在系统内的传播。实验表明此类攻击能有效影响交易决策，揭示了多智能体LLM系统的脆弱性。",
+      "llm_tldr": "本文研究基于大模型的多智能体交易系统对对抗输入的鲁棒性。作者提出通用多智能体交易系统框架GMATS，并实例化一类黑盒投毒攻击者，通过社交媒体注入貌似无害的内容。定义传染指标追踪对抗内容在系统内的传播。实验表明此类攻击能有效影响交易决策，揭示了多智能体LLM系统的脆弱性。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "adversarial agents for testing large language models in cybercrime",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2609.19965v1",
+      "source": "arxiv",
+      "title": "Before the Arrest: Benchmarking LLMs on Criminal Profiling from Incomplete Evidence",
+      "abstract": "Large Language Models (LLMs) are increasingly applied to legal and criminal justice tasks, yet existing work focuses almost exclusively on post-arrest scenarios where the suspect's identity is already known, leaving the critical pre-arrest challenge of inferring suspect characteristics from incomplete evidence largely unexplored. To fill this gap, we introduce the Profiling, Investigation, and Judgment (PIJ), comprising 2,500 real homicide cases from five countries. PIJ evaluates LLMs across three tasks that span the entire criminal investigation pipeline: criminal profiling, which requires abductive reasoning to infer suspect attributes from fragmentary scene evidence, crime process reconstruction, which tests structured information extraction, and sentence prediction, which demands legal deductive reasoning. We evaluate 9 powerful LLMs and find that performance degrades systematically as tasks shift from explicit fact extraction to implicit reasoning over unknown suspect profiles. Categories requiring inferential reasoning, such as motivation and victim-offender relationships, remain the primary bottlenecks. Further analysis reveals substantial gaps between LLMs and human experts, along with pervasive biases in gender, age, and motive attribution. Our findings indicate that pre-arrest inference from incomplete evidence remains an open challenge.",
+      "authors": [
+        "Yutong Yao",
+        "Yanjie Cao",
+        "Guanhua Chen",
+        "Xu Yang",
+        "Junchao Wu",
+        "Zeyu Wu",
+        "Lidia S. Chao",
+        "Derek F. Wong"
+      ],
+      "primary_category": "cs.CL",
+      "categories": [
+        "cs.CL",
+        "cs.CY"
+      ],
+      "published": "2026-09-17T09:38:22+00:00",
+      "link": "https://arxiv.org/pdf/2609.19965v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "benchmarks LLMs on criminal profiling, evaluating capabilities in criminal investigation relevant to LLM limits in crime contexts",
+      "llm_evidence_cn": "基准测试LLM在犯罪画像上的表现，评估其在犯罪调查中的能力与局限",
+      "llm_evidence": "基准测试LLM在犯罪画像上的表现，评估其在犯罪调查中的能力与局限",
+      "canonical_evidence": "基准测试LLM在犯罪画像上的表现，评估其在犯罪调查中的能力与局限",
+      "llm_tldr_en": "The paper introduces PIJ, a benchmark of 2,500 real homicide cases, to evaluate LLMs on criminal profiling, crime reconstruction, and judgment. This assesses LLM capabilities in criminal investigation, providing insights relevant to evaluating LLM limits in crime-related tasks.",
+      "llm_tldr_cn": "该论文针对大语言模型在逮捕前犯罪侦查中能力未知的问题，构建了包含2500个真实谋杀案件的PIJ基准，评估犯罪画像、过程重建和审判任务。结果表明LLM在此类任务中有一定推理能力但存在局限，为理解LLM在犯罪场景中的能力边界提供了依据。",
+      "llm_tldr": "该论文针对大语言模型在逮捕前犯罪侦查中能力未知的问题，构建了包含2500个真实谋杀案件的PIJ基准，评估犯罪画像、过程重建和审判任务。结果表明LLM在此类任务中有一定推理能力但存在局限，为理解LLM在犯罪场景中的能力边界提供了依据。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "What are the capability limits of large language models when used for cybercrime?",
+      "matched_requirement_id": "req-7",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}

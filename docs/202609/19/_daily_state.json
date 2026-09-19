@@ -1,0 +1,89 @@
+{
+  "date": "20260919",
+  "date_label": "",
+  "generated_at": "2026-09-19 21:26:57 UTC",
+  "recommend_exists": true,
+  "run_count": 1,
+  "papers": [
+    {
+      "paper_id": "2609.16541v1",
+      "route": "202609/19/2609.16541v1-a-cyber-range-evaluation-of-autonomous-network-incident-response-agents",
+      "title": "A Cyber Range Evaluation of Autonomous Network Incident Response Agents",
+      "section": "deep",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "ca"
+        }
+      ],
+      "score": 8.0,
+      "evidence": "网络靶场红队仿真与多智能体入侵响应模拟",
+      "first_seen_at": "2026-09-19 21:26:57 UTC",
+      "updated_at": "2026-09-19 21:26:57 UTC"
+    },
+    {
+      "paper_id": "2609.18496v1",
+      "route": "202609/19/2609.18496v1-mist-mid-training-llms-for-cybersecurity",
+      "title": "MiST: Mid-Training LLMs for Cybersecurity",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "ca"
+        }
+      ],
+      "score": 7.0,
+      "evidence": "专为网络安全进行中间训练，直接提升网络环境下的能力",
+      "first_seen_at": "2026-09-19 21:26:57 UTC",
+      "updated_at": "2026-09-19 21:26:57 UTC"
+    },
+    {
+      "paper_id": "2609.12681v1",
+      "route": "202609/19/2609.12681v1-bridging-the-first-hour-gap-evaluating-ai-reliability-and-benchmarking-deficiencies-in-cyber-incident-response-for-law-enforcement",
+      "title": "Bridging the First-Hour Gap: Evaluating AI Reliability and Benchmarking Deficiencies in Cyber Incident Response for Law Enforcement",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "ca"
+        }
+      ],
+      "score": 6.0,
+      "evidence": "执法网络犯罪事件响应中AI可靠性",
+      "first_seen_at": "2026-09-19 21:26:57 UTC",
+      "updated_at": "2026-09-19 21:26:57 UTC"
+    },
+    {
+      "paper_id": "2609.19789v1",
+      "route": "202609/19/2609.19789v1-contagion-on-the-trading-floor-how-adversarial-signals-spread-in-multi-agent-trading-systems",
+      "title": "Contagion on the Trading Floor: How Adversarial Signals Spread in Multi-Agent Trading Systems",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "ca"
+        }
+      ],
+      "score": 6.0,
+      "evidence": "对基于大模型的多智能体交易系统的对抗性攻击",
+      "first_seen_at": "2026-09-19 21:26:57 UTC",
+      "updated_at": "2026-09-19 21:26:57 UTC"
+    },
+    {
+      "paper_id": "2609.19965v1",
+      "route": "202609/19/2609.19965v1-before-the-arrest-benchmarking-llms-on-criminal-profiling-from-incomplete-evidence",
+      "title": "Before the Arrest: Benchmarking LLMs on Criminal Profiling from Incomplete Evidence",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "ca"
+        }
+      ],
+      "score": 6.0,
+      "evidence": "基准测试LLM在犯罪画像上的表现，评估其在犯罪调查中的能力与局限",
+      "first_seen_at": "2026-09-19 21:26:57 UTC",
+      "updated_at": "2026-09-19 21:26:57 UTC"
+    }
+  ]
+}

@@ -1,0 +1,574 @@
+Title: MiST: Mid-Training LLMs for Cybersecurity
+
+URL Source: https://arxiv.org/pdf/2609.18496v1
+
+Published Time: Thu, 17 Sep 2026 01:02:52 GMT
+
+Number of Pages: 26
+
+Markdown Content:
+# MiST: Mid-Training LLMs for Cybersecurity 
+
+Oded Ovadia * Elad Ben Zaken * Elad Guttman * Orly Moreno Kadosh 
+
+Dream 
+
+{odedov,elad,eladg,orly}@dreamgroup.com 
+
+Abstract 
+
+Cybersecurity combines high-stakes analysis with complex technical language, making it an impactful and challenging domain for LLMs. We present MiST (Mid-trained Security Trans-former), a suite of 8B and 32B models that achieve strong performance on public cyber-security benchmarks. We use mid-training as an intermediate adaptation stage between general pre-training and cybersecurity training. Rather than performing continual pre-training over large volumes of raw domain text, we cu-rate a compact, expert-vetted seed corpus, and transform it into high-quality domain-specific synthetic training data. The final MiST check-points improve mean cybersecurity accuracy by +13.1 and +8.6 absolute percentage points over the corresponding Qwen baselines for 8B and 32B, respectively, corresponding to rela-tive gains of +27.0% and +15.8%. Ablation results further show that these cybersecurity gains arise in the mid-training and supervised fine-tuning stages through a combination of the synthetic data generation flows. Further-more, we show that MiST provides a stronger initialization for downstream task-specific fine-tuning adaptation and reinforcement learning. 
+
+1 Introduction 
+
+LLMs and Cybersecurity. As large language models (LLMs) continue to improve on natural-language and code tasks (Minaee et al., 2024; Jiang et al., 2024), interest has grown in applying them to cybersecurity (Xu et al., 2025; Zhang et al., 2025b). Security analysis requires interpreting vast amounts of textual data, such as vulnerability records, attack taxonomies, code, and reports, making LLMs a promising tool for supporting cybersecurity analy-sis. As cybersecurity threats continue to increase in scale and sophistication (Li and Liu, 2021), there 
+
+> *Equal contribution. Accepted to the Main Conference of EMNLP 2026.
+
+is a growing need for models that can operate over such data. At the same time, cybersecurity exposes key limitations of general-purpose LLMs. Effective performance in this domain demands precise inter-pretation of specialized terminology, dynamic at-tack techniques, and context-dependent operational knowledge. These are requirements that general-purpose training does not necessarily meet, espe-cially as high-quality cybersecurity pre-training corpora remain scarce (Yu et al., 2025). Fur-thermore, privacy-sensitive environments typically mandate on-premises deployment, making reliance on external API-based models impractical (Huang et al., 2025a). 
+
+Domain-specific models. One approach to such challenges is to develop domain-specific models tai-lored to particular areas. By incorporating domain data, terminology, and expert knowledge, such models aim to better capture specialized semantics and knowledge than general-purpose LLMs (Ling et al., 2025; Wang et al., 2023). Prior work has demonstrated the effectiveness of this strategy in domains such as healthcare (Wu et al., 2024), fi-nance (Bhatia et al., 2024), and software engineer-ing (Hui et al., 2024; Guo et al., 2024; Huang et al., 2025b). These efforts commonly follow a two-stage methodology: continual pre-training (CPT) on large-scale raw domain text, followed by super-vised fine-tuning (SFT) on instruction data. Mid-training provides a more deliberate alterna-tive to this raw-domain adaptation pipeline. In this work, we use mid-training as a domain-specific stage after pre-training and before post-training, designed to bridge the distributional gap between a broad base model and the target domain (Tu et al., 2025; Zhang et al., 2025a). In contrast to raw CPT, which primarily focuses on scaling the number of new domain tokens, cybersecurity mid-training in this work emphasizes the composition of the 1arXiv:2609.18496v1 [cs.CR] 16 Sep 2026 CTI-MCQ CTI-RCM SECURE-MAET SECURE-CWET SECURE-KCV Athena-CKT Athena-ATE Athena-RMS Athena-TAA PrimeVul PV-CoT MMLU-Cyber SecEval Mean       
+
+> 020 40 60 80 100
+> Score (%)
+> 8B models
+> +36% +38% +13% +7% +3% +14% +512% +367% +64% +400% +15% +7% +7% +27%
+> Qwen3-8B MiST-8B-DPO
+> CTI-MCQ CTI-RCM SECURE-MAET SECURE-CWET SECURE-KCV Athena-CKT Athena-ATE Athena-RMS Athena-TAA PrimeVul PV-CoT MMLU-Cyber SecEval Mean
+> 32B models
+> +21% +16% +7% +2% +1% +12% +113% +351% +74% +100% -6% +0% +5% +16%
+> Qwen3-32B MiST-32B-DPO
+> MiST vs Original Qwen Models on Cybersecurity Benchmarks
+
+Figure 1: Accuracy of MiST and corresponding Qwen models on cybersecurity benchmarks, shown for 8B (left) and 32B (right), with relative improvements annotated. Results are reported relative to the original Qwen baselines from which MiST is derived. 
+
+training data: we start from a small, high-quality seed dataset and extend it with diverse synthetic pipelines to form our mid-training corpus, thereby facilitating better domain learning. 
+
+MiST: Cybersecurity Language Model. We present MiST, a family of 8B and 32B models adapted from Qwen checkpoints. Our approach centers on the construction of the mid-training cor-pus. We curate a compact, expert-vetted seed cor-pus and use it to generate synthetic training data that teaches cybersecurity concepts, terminology, and structured analysis. We first mid-train on this corpus, then perform SFT using a combination of general and cybersecurity instruction data, and fi-nally apply preference optimization as a general alignment stage. Since this final DPO stage uses general preference data rather than cybersecurity-specific preferences, we do not treat it as the main source of cybersecurity capability; instead, it is in-tended to preserve the domain capabilities acquired during mid-training and SFT while improving gen-eral response behavior. On public cybersecurity benchmarks, the MiST models substantially im-prove over their base models (Figure 1), outperform similarly sized cybersecurity-specialized models (Figure 4), and are competitive with larger LLMs (Table 1). More broadly, MiST frames mid-training as a corpus design problem rather than a token-scaling problem. In cybersecurity, where much of the rele-vant knowledge is encoded in compact expert arti-facts such as vulnerability records, taxonomies, de-tection rules, and threat-intelligence reports, trans-forming these sources into an intermediate training distribution can be more effective than simply train-ing on more raw domain text. 
+
+2 Related Work 
+
+Cybersecurity LLMs Prior work has explored several strategies for adapting general-purpose LLMs to cybersecurity. PRIMUS (Yu et al., 2025) and Foundation-Sec-8B (Kassianik et al., 2025; Weerawardhena et al., 2025) emphasize continued pretraining (CPT) on large raw cybersecurity cor-pora, while community models such as DeepHat-V1 (DeepHat, 2025) and Lily-Cybersecurity (Sego-Lily Labs, 2025) primarily report cybersecurity-focused SFT through model cards. A more data-centric line constructs cybersecurity super-vision from expert sources: CyberPal.AI (Levi et al., 2025a) introduces SecKnowledge, an expert-guided instruction dataset expanded with content-grounded synthetic generation. Recent and con-temporaneous works use synthetic data at other stages: CyberPal 2.0 (Levi et al., 2025b) enriches cybersecurity instructions with grounded reason-ing traces, while RedSage (Suryanto et al., 2026) combines large-scale cybersecurity CPT with agen-tically generated multi-turn SFT data. MiST in-stead uses synthetic transformations of a compact expert-vetted corpus as the mid-training data itself, exposing the base model to high-quality synthetic cybersecurity data before proceeding to SFT and preference tuning. 
+
+Mid-training Mid-training has recently emerged as a distinct stage in the LLM training pipeline. In a detailed review of the topic, Tu et al. (2025) de-scribe mid-training as “the critical bridge between general pre-training and post-training.” A useful way to make this bridge concrete is through the data distribution. Zhang et al. (2025a) argue that mid-training works by moving the model toward the tar-get post-training distribution before post-training begins, with the strongest gains when the intermedi-ate data is closer to the target domain than ordinary general pre-training data. This view is also con-2Pre-training 
+
+> Large-scale general data, including web text, books, STEM content, code, etc.
+
+Mid-training 
+
+> High-quality cybersecurity documents, synthetic data, reasoning traces, knowledge QA, and some general instruction data.
+
+SFT 
+
+> Multi-turn instruction data: general-purpose samples augmented with cybersecurity conversations.
+
+DPO 
+
+> Preference optimization using general, non-cyber data to enhance and refine model behavior.
+
+Original Base Model Domain Specialization Alignment Figure 2: Overview of the full training pipeline. Training begins from a general-purpose pre-trained base model. Mid-training is then used to enhance cybersecurity-specific capabilities using high-quality data. Supervised fine-tuning (SFT) introduces the chat template and further refines general behavior while strengthening cybersecurity capabilities. Direct preference optimization (DPO) (Rafailov et al., 2023) is applied in the final stage to improve general alignment. Security Analysis     
+
+> Derive security metrics
+> Persona-based
+> Chats with experts
+> Seed Corpus
+> Cybersecurity Data
+> Education
+> Blogposts & textbooks
+> Enhanced Cybersecurity Corpus
+> Conversations
+> Multi-turn chats
+> QA + Follow-up
+> Iterative factual QA
+> General Data
+> Synthetic Data Flows
+> LLM-generated
+> Quality Filter
+> -Coherence -Factuality -Relevance -Adherence
+> Paraphrases
+> Rewrite documents
+
+Figure 3: Overview of the synthetic data generation pipeline. An expert-curated cybersecurity seed corpus (Section 3.1) is expanded through multiple data generation flows, producing synthetic educational content, multi-turn conversations, persona-based interactions, iterative QA, and analytical explanations (Section 3.2). All generated data points are filtered for coherence, factuality, relevance, and instruction adherence using an LLM, and then combined with a small amount of general SFT data to form the final cyber mid-training corpus. Detailed examples of generated samples are provided in Section N. 
+
+sistent with evidence from parameter-efficient fine-tuning that adaptation can often expose or redirect knowledge already present in pretrained models, rather than requiring all task-relevant knowledge to be learned from scratch (Ben Zaken et al., 2022). Under this view, mid-training is not defined only by its stage in the training pipeline, but also by the construction of the intermediate corpus. This paradigm has been adopted in several re-cent large-scale efforts (Wang et al., 2025; Ab-din et al., 2024; Wake et al., 2025; Olmo et al., 2025). Notably, Olmo et al. (2025) devote a sub-stantial portion of their training methodology to mid-training, constructing a high-quality corpus of approximately 100B tokens. Their mid-training data combines newly generated synthetic sources with carefully filtered and rewritten data derived from the pre-training stage, explicitly tailored to the target capabilities emphasized at this phase. This differs from raw CPT, where the model is typically trained further on domain text with little change to its original format. In our setting, the same dis-tinction motivates a synthetic cybersecurity corpus built from authoritative sources but rewritten into forms that expose the model to various aspects of the concepts, relations, and reasoning used in secu-rity applications. 33 Methodology 
+
+In this section, we describe our adaptation strategy as outlined in Figure 2, with a particular empha-sis on the synthetic data generation methodology visualized in Figure 3. We first curate a small but information-dense seed corpus composed of high-quality cybersecu-rity documents (Section 3.1). Rather than use this corpus directly as raw CPT data, we treat it as source material for a synthetic data genera-tion pipeline tailored to cybersecurity tasks. The resulting data emphasizes knowledge acquisition, concise reasoning, and multi-turn conversational behavior, with rigorous quality verification (Sec-tion 3.2). Finally, we discuss the use of non-cybersecurity data to preserve general capabilities (Section 3.3) and describe the training process (Sec-tion 3.4). Full dataset composition and statistics across the training stages are reported in Table 12. 
+
+3.1 Seed Data Curation 
+
+Our seed corpus exposes the model to complemen-tary forms of cybersecurity knowledge rather than a single homogeneous text distribution. We or-ganize it into four source families: vulnerability and threat intelligence; security knowledge bases and taxonomies; operational security artifacts; and defensive guidance and platform documentation. Because these sources vary in structure, granular-ity, audience, and density, we apply source-specific transformations that convert structured or special-ized artifacts into examples better suited for cyber-security reasoning. Brief descriptions of the cy-bersecurity resources, taxonomies, and acronyms referenced in this section are provided in Section G. 
+
+Vulnerability and threat intelligence. We in-clude NVD CVE records along with expert cu-rated CTI/RSS reports. These sources provide instance-level knowledge about real vulnerabili-ties and threats, including identifiers, advisory text, CVSS metadata, affected products, CWE map-pings, references, and vulnerable or patched im-plementations. Since many records are brief or operational, we use them as anchors for synthetic transformations covering severity, impact, remedia-tion rationale, weakness mappings, and mitigation intuition. 
+
+Security knowledge bases and taxonomies. We use CWE, CAPEC, ATT&CK, and D3FEND to capture cybersecurity abstractions and relation-ships. CWE covers recurring software and hard-ware weaknesses; CAPEC describes attack pat-terns; ATT&CK organizes adversary tactics, tech-niques, procedures, and software; and D3FEND represents defensive countermeasures. 
+
+Operational security artifacts. To connect ab-stract knowledge to practitioner workflows, we include Sigma rules, Atomic Red Team tests, Splunk ESCU detections, and MISP Galaxy clus-ters. These sources expose detection logic, log-source assumptions, analytic stories, adversary-emulation steps, malware and threat-actor clusters and ATT&CK mappings. They help the model link techniques, weaknesses, and attack patterns to detection engineering, threat hunting, incident analysis, and red-team emulation. 
+
+Defensive guidance and platform documenta-tion. We include OWASP and NIST materials, vendor and platform documentation, cloud and container documentation, operating-system and browser sources, and a security-focused subset of English Wikipedia. These sources provide defen-sive guidance, platform terminology, APIs, config-uration patterns, security mechanisms, operational constraints, and background context. Wikipedia is used only for terminology and historical context; advisories, standards, and vendor documentation remain the primary sources for security facts. 
+
+3.2 Synthetic Data Generation 
+
+We create multiple synthetic data generation pipelines grounded in the curated seed corpus to strengthen cybersecurity knowledge and capa-bilities. We group these pipelines by training stage: mid-training flows emphasize knowledge acquisition and foundational reasoning, while post-training flows focus on conversational abilities for realistic cybersecurity interactions. All flows were manually reviewed and refined, with additional dataset curation details and representative exam-ples provided in Section N. 
+
+Generation model. We select Qwen-30B-A3B 1
+
+as the synthetic data generator based on its perfor-mance and efficiency. It provides strong instruction-following and reasoning capabilities while activat-ing only 3B parameters, enabling fast and scalable inference. While it’s smaller than many frontier models, our generation setup consistently supplies context from the seed documents, allowing the 
+
+> 1https://huggingface.co/Qwen/Qwen3-30B-A3B
+
+4model to function primarily as a transformation engine rather than relying on memorized knowl-edge. 
+
+3.2.1 Flows for Mid-Training Data Paraphrasing. Training on semantically diverse rephrasings of the same content is known to im-prove knowledge acquisition in LLMs (Ovadia et al., 2024; Team et al., 2025; Ovadia et al., 2025). Therefore, we implement a semantic rewriting pipeline that generates paraphrased variants of seed documents by varying lexical choices and syntac-tic structure while preserving technical meaning, thereby building a linguistically diverse view of core cybersecurity concepts. 
+
+Educational transformation. Educational-style data has been shown to be effective for training LLMs (Li et al., 2023b; Penedo et al., 2024). Each seed document is transformed into a highly struc-tured educational artifact, written either in the style of a professional cybersecurity blog post or as a textbook-style chapter. 
+
+QA. Beyond longer conversational scenarios, we generate concise factual question–answer pairs that can be answered in one or two sentences, encour-aging accurate and succinct responses. To improve coverage, we iteratively extend this process by reusing previously generated questions as context for follow-up question generation, explicitly in-structing the model to target aspects not addressed in earlier rounds; we perform two additional follow-up rounds. 
+
+Cyber metrics and terminology analysis. For documents that reference structured security meta-data (e.g., CVE/CWE identifiers, CVSS vectors and scores, or ATT&CK techniques), we provide the relevant fields and prompt the model to explain and justify them. This emphasizes domain reason-ing while avoiding error-prone, unguided genera-tion of security metadata. 
+
+3.2.2 Flows for Post-Training Data Conversations. We generate full user–assistant dialogues in which the assistant acts as a helpful cybersecurity expert and the user queries are also model-generated. Conversations run for up to seven turns, but may terminate earlier when they reach a natural stopping point. 
+
+Persona-based conversations. Since different stakeholders interact with cybersecurity content in distinct ways, we adopt a persona-based ap-proach (Meyer and Corneil, 2025). We first prompt the model to propose a set of personas relevant to each seed document (e.g., a security officer, a soft-ware engineer working in JavaScript, a red team operator analyzing a CVE, or a student learning defensive security), and then simulate a conversa-tion between the selected persona and a general cybersecurity expert. 
+
+3.2.3 Data Verification and Filtering 
+
+Ensuring high-quality synthetic data is critical, as artifacts introduced during training can directly shape model behavior, and even a small amount of low-quality data can be harmful (Li et al., 2024). We therefore apply an LLM-based verification stage to the generated samples using Qwen-30B-A3B. The verifier assigns six sub-scores on a 1–10 scale, covering instruction adherence, task comple-tion, factuality, format and style alignment, rele-vance and focus, and logical consistency and coher-ence, along with an overall quality score. Samples with an overall score below 8 are removed from the final training corpus. 
+
+3.3 General Data 
+
+Our synthetic dataset is entirely cybersecurity-centric. To keep the intermediate distribution from becoming a domain-only CPT corpus and to intro-duce instruction formatting, we augment the train-ing data with general supervised instruction data. We use the publicly available Olmo 3 Dolci SFT dataset (Olmo et al., 2025). A small subset of 50K samples is included during mid-training using a replay strategy (Shi et al., 2025), with the rest used during post-training. 
+
+3.4 Training 
+
+For MiST-8B, we initialize from the pre-trained 
+
+Qwen3-8B-Base checkpoint. For MiST-32B, we initialize from a post-trained Qwen3-32B check-point, since a Qwen3-32B-Base checkpoint was not publicly available at the time of training. Both mod-els are then adapted using the three-stage MiST pipeline consisting of cybersecurity mid-training, supervised fine-tuning, and preference tuning via DPO (Rafailov et al., 2023), as shown in Fig-ure 2. During mid-training, we optimize the stan-dard causal language modeling objective, i.e., next-token prediction, over the mixed cybersecurity and general-data corpus. All experiments are conducted on a single node with 8× NVIDIA B200 GPUs. 5CTI-MCQ CTI-RCM SECURE-MAET SECURE-CWET SECURE-KCV Athena-CKT Athena-ATE Athena-RMS Athena-TAA PrimeVul PV-CoT MMLU-Cyber SecEval Mean 
+
+> 020 40 60 80 100
+> Score (%)
+> Cybersecurity Benchmark Performance
+> Models
+> Primus-8B GPT-5.4-nano Foundation-Sec-8B RedSage-8B-DPO MiST-8B-DPO
+
+Figure 4: Performance on the cybersecurity evaluation suite (Section 4), comparing MiST-8B with representative general and cybersecurity models of similar size. Bars report accuracy (%) as reported in Table 1, along with standard deviation error bars. This comparison is particularly relevant as cybersecurity models often need to be deployed in resource-constrained environments, where strong performance at smaller model sizes is especially valuable. MiST-8B greatly outperforms other models in its weight class. 
+
+We run mid-training for two epochs with a max-imum sequence length of 16,384 tokens and an effective per-device batch size of 16 with sequence packing enabled. We use AdamW (Loshchilov and Hutter, 2017) with a cosine learning rate schedule, with a peak of 5×10 −5 and a minimum of 1×10 −6,a warmup ratio of 0.03, weight decay of 0.05, and gradient clipping at 0.2. Training is carried out in bfloat16 precision with FlashAttention-2 (Dao, 2023) and DeepSpeed (Rajbhandari et al., 2020), using ZeRO-2 for the 8B model and ZeRO-3 for the 32B model. The SFT and DPO stages use similar configuration; full hyperparameters and estimated training times are provided in Tables 3 and 4. For the DPO phase we use the general Dolci-Instruct-DPO dataset 2(Olmo et al., 2025). Because these preference data are not cybersecurity-specific, the DPO stage is intended primarily as a general align-ment step rather than as a mechanism for adding new cybersecurity capabilities. 
+
+4 Evaluation 
+
+We evaluate our model on a broad set of widely used cybersecurity benchmarks to assess its perfor-mance across representative security tasks. In addi-tion, we measure performance on general-domain benchmarks to quantify the extent of catastrophic forgetting (French, 1999; Kirkpatrick et al., 2017) resulting from domain-specific training. The cy-bersecurity suite covers threat-intelligence knowl-edge, realistic advisory settings, security multiple-choice exams, computer-security knowledge, vul-
+
+> 2
+
+https://huggingface.co/datasets/allenai/ Dolci-Instruct-DPO 
+
+nerability detection, and applied cyber threat in-telligence tasks using CTI-Bench (Alam et al., 2024), SECURE (Bhusal et al., 2024), SecEval (Li et al., 2023a), MMLU-Cyber (Hendrycks et al., 2020), PrimeVul (Ding et al., 2024), and Athen-aBench (Alam et al., 2025). Full descriptions of these benchmarks are given in Section D. 
+
+Contamination controls. Cybersecurity bench-marks frequently derive examples from the same public artifacts used to build domain-training cor-pora, making both identifier and textual leak-age important risks. We therefore apply decon-tamination at three points in the data lifecycle. First, before synthetic generation, we audit the seed corpus against the evaluation suite and re-move records that anchor benchmark examples. In particular, we exclude CVE records appear-ing in the CTI-Bench root-cause-mapping and vulnerability-severity-prediction splits, and remove GHSA-linked code records whose fixing commit hashes overlap with the PrimeVul validation or test sets. All removals and associated identifiers are logged for reproducibility. Second, because most evaluated tasks are multiple-choice, our syn-thetic flows deliberately avoid MCQ prompts and A/B/C/D answer structures; instead, they generate free-form rewrites, open-ended QA, conversations, and analytical explanations. Third, we apply an identical 13-gram filter to the mid-training, SFT, and DPO datasets before tokenization. The com-parison corpus includes benchmark prompts, ref-erence answers, task instructions, and individual messages from multi-turn examples. Text is lower-6CTI Secure Athena PrimeVul Model MCQ RCM MAET CWET KCV CKT ATE RMS TAA P-C P-C CoT MMLU Cyber Sec Eval Mean                                                                                                                                                                                                                                                 
+
+> Large/Proprietary
+> GPT-5.4-mini 73.9 73.1 91.3 92.0 88.9 85.2 53.2 29.2 29.8 8.4 10.1 86.0 74.7 61.2 GPT-5.4-nano 62.1 69.0 81.5 84.0 85.6 79.5 45.3 5.5 20.0 9.0 9.2 75.8 67.3 53.4 Qwen3-235B 71.9 71.4 89.6 91.5 86.2 83.6 43.5 13.1 27.6 4.5 14.6 87.0 71.3 58.1
+> Cybersecurity models
+> DeepHat-7B 54.7 67.2 82.7 83.1 86.2 69.2 9.8 3.1 14.8 12.0 3.9 79.8 62.4 48.4 Foundation-Sec-8B 58.2 67.9 84.7 83.3 80.1 76.9 37.3 18.7 26.4 0.0 17.8 78.6 65.0 53.5 Lily-Cyber-7B 42.1 42.9 55.8 54.4 43.2 67.0 3.0 2.1 12.4 0.0 7.1 68.8 48.9 34.4 Qwen3-8B-Primus 66.8 64.4 85.9 87.0 75.8 76.4 33.9 11.5 24.6 0.3 17.1 86.0 61.8 53.2 RedSage-8B-DPO 62.0 73.2 89.6 91.2 81.1 78.8 51.6 18.8 22.8 1.6 14.8 82.4 67.4 56.5 Primus-8B 54.7 67.2 81.9 82.6 82.0 73.7 30.6 7.3 21.4 0.3 13.4 82.2 60.9 50.6 Primus-70B 67.7 65.1 91.4 93.7 88.1 82.1 52.7 14.8 2.2 1.0 17.6 87.6 70.5 56.5 CyberPal2.0-20B 73.8 72.8 91.4 92.5 83.6 82.7 57.0 23.3 19.6 0.8 14.1 82.2 67.1 58.5
+> Baseline models
+> Qwen3-8B 58.2 53.5 83.8 87.5 84.5 75.2 9.4 5.5 15.0 2.0 13.0 78.0 66.7 48.6 Qwen3-32B 68.4 65.9 89.5 91.9 88.8 80.2 26.0 6.3 15.2 4.0 16.0 84.8 72.7 54.6
+> Ours MiST-8B-SFT 78.9 74.1 93.7 92.7 85.4 86.0 60.2 29.4 23.8 14.0 18.0 82.8 72.2 62.4
+> MiST-8B-DPO 79.3 73.9 94.3 93.7 87.3 86.0 57.3 25.7 24.6 10.0 15.0 83.4 71.5 61.7
+> MiST-32B-SFT 82.2 76.4 95.0 92.9 88.7 89.2 52.8 27.1 27.8 10.0 17.0 82.2 76.2 62.9
+> MiST-32B-DPO 82.7 76.3 95.4 94.1 89.4 89.4 55.2 28.3 26.4 8.0 15.0 84.8 76.0 63.2
+> Table 1: Cybersecurity benchmark results with reasoning/thinking modes disabled when available. The Mean column reports the unweighted average across all benchmark columns. Bold indicates best, underline indicates second best.
+
+cased and stripped of non-alphanumeric characters, and each training sample is serialized across all relevant fields and turns; a sample is removed upon a single matching 13-gram. The resulting corpus contains 27 ,201 benchmark segments and approxi-mately 467 ,000 unique 13-grams. Across the com-bined mid-training and SFT data, the full pipeline removes approximately 3.78% of candidate sam-ples. These controls target exact and lightly mod-ified overlap, but cannot rule out paraphrased or semantically equivalent leakage. Full implemen-tation details, reports, and residual limitations are provided in Section J. For all benchmarks, we report mean perfor-mance over five runs. Evaluations use non-reasoning inference whenever the model or serving API exposes a separate reasoning or thinking mode, and scoring uses task-appropriate extraction and metrics. Full benchmark descriptions, dataset sizes, prompting strategies, inference settings, and model identifiers are provided in Sections D and E and Ta-bles 5 to 7 and 13. 
+
+5 Results 
+
+We evaluate MiST models across cybersecurity benchmarks, general capabilities, comparisons to raw continual pre-training, and downstream task adaptation. Overall, the results show that MiST im-proves cybersecurity performance while preserving general abilities and providing a stronger initializa-tion for subsequent specialization. 
+
+5.1 Cybersecurity Results. 
+
+As shown in Table 1, MiST substantially improves over the corresponding Qwen3 baselines at both model scales, and these gains are already obtained by the SFT checkpoints. MiST-8B-SFT reaches a mean cybersecurity score of 62.4, compared with 48.6 for Qwen3-8B, an absolute improvement of +13.8 percentage points (+28.4% relative). MiST-32B-SFT reaches 62.9, compared with 54.6 for Qwen3-32B, an absolute improvement of +8.3 per-centage points (+15.2% relative). The final DPO checkpoints obtain similar scores: 61.7 for MiST-8B-DPO, corresponding to +13.1 percentage points (+27.0% relative), and 63.2 for MiST-32B-DPO, corresponding to +8.6 percentage points (+15.8% relative). Thus, the main source of cybersecurity improvement is the mid-training and SFT stages, rather than DPO. The gains are broad rather than concentrated in a single benchmark. MiST improves most strongly on CTI-Bench and Athena, indicating better perfor-mance on both cyber threat intelligence questions and applied security analysis tasks. Improvements on SECURE and PrimeVul are smaller but gener-ally positive, suggesting that the benefits extend across benchmark families. After cybersecurity mid-training and supervised fine-tuning, the SFT checkpoints already account 7for nearly all of the final cybersecurity perfor-mance. MiST-8B-SFT reaches a mean score of 62.4, close to the DPO checkpoint at 61.7, while MiST-32B-SFT reaches 62.9 compared with 63.2 after DPO. Since DPO uses general preference data, these results suggest that it can improve final instruction-following behavior while largely retain-ing the cybersecurity capabilities acquired during earlier training stages. 
+
+5.2 General Benchmarks. 
+
+The full list of benchmarks is provided in Section C, with results reported in Table 2. We observe that the MiST models largely retain or improve their perfor-mance on general non-cybersecurity benchmarks. We hypothesize that this is due to the inclusion of general instruction data during mid-training, SFT and DPO. 
+
+5.3 Mid-training vs. Raw CPT CTI-MCQ CTI-RCM SECURE-MAET SECURE-CWET SECURE-KCV Athena-CKT Athena-ATE MMLU-Cyber SecEval 0% 20% 40% 60% 80% 100% 
+
+> Model (Avg Score)
+> Qwen3-8B (66.3%) Qwen3-8B-Primus (70.9%) MiST-8B-SFT (80.7%)
+> Mid-Training vs. CPT
+> Performance on Cybersecurity Benchmarks
+
+Figure 5: Performance comparison of MiST-8B against the original Qwen3-8B and an 8B raw-CPT baseline. Model ARC-C GSM8K MMLU IFEval Mean Qwen3-8B 77.1 89.7 73.4 90.0 82.5 MiST-8B-SFT 86.0 88.9 74.5 88.4 84.5 MiST-8B-DPO 89.8 90.0 74.9 88.5 85.8 Qwen3-32B 89.8 94.0 81.6 91.1 89.1 MiST-32B-SFT 94.3 93.4 81.8 90.2 89.9 MiST-32B-DPO 96.2 93.5 82.1 90.9 90.7 Table 2: Performance of MiST and its Qwen baselines on standard non-cybersecurity benchmarks evaluating reasoning, instruction following, and knowledge. The full list of bench-marks is described in Section C. 
+
+To further assess our approach, we compare it to a raw Continual Pre-Training (CPT) baseline. This baseline follows the raw-domain adaptation recipe: continue training on a large cybersecurity text corpus, then apply the same SFT procedure. We construct the raw CPT corpus by augmenting our seed data with PRIMUS (Yu et al., 2025), yield-ing ∼2.4B tokens, approximately 2× larger than our mid-training corpus (Table 12). We train Qwen3-8B-Base on this raw corpus and then apply the same SFT procedure used for MiST-8B, using identical hyperparameters (Sec-tion B). As shown in Figure 5, while raw CPT improves over the original model, MiST achieves superior performance on nearly all benchmarks de-spite using fewer training tokens. This shows that a compact synthetic mid-training corpus can be more effective than substantially larger raw-domain train-ing for cybersecurity adaptation. Further ablation studies isolating other components of the full meth-ods are shown in Section F. 
+
+5.4 Downstream Task Adaptation 
+
+We next ask whether cybersecurity mid-training provides a stronger initialization for downstream task-specific adaptation. We study two settings: reinforcement learning with verifiable rewards and supervised fine-tuning. 
+
+5.4.1 Task-Specific Reinforcement Learning 0 20 40 60 80 100       
+
+> Training Step
+> 0.45 0.50 0.55 0.60
+> Accuracy
+> Validation Accuracy
+> 020 40 60 80 100
+> Training Step
+> 0.000 0.025 0.050 0.075 0.100
+> KL Divergence
+> KL Divergence
+> Validation Accuracy and KL Divergence During GRPO
+> MiST-8B Qwen3-8B
+
+Figure 6: Validation accuracy and tracked KL divergence dur-ing GRPO on three verifiable cybersecurity tasks. Compared with Qwen3-8B, MiST-8B-DPO reaches higher validation accuracy at every checkpoint while requiring smaller policy movement. 
+
+We first evaluate whether MiST is a better start-ing point for task-specific reinforcement learning; full task and reward details are provided in Sec-tion L. We apply GRPO (Shao et al., 2024; Mroueh, 2025) to MiST-8B-DPO and the original Qwen3-8B using the same RL pipeline on three verifi-able cybersecurity tasks: CVE-to-CWE mapping, CVE-to-CVSS vector prediction, and vulnerable-code-to-CWE mapping. Because each task can be checked against canonical labels or schemas, re-wards are deterministic and do not require a learned reward model, as in recent cyber threat intelligence work (Alam et al., 2026). As shown in Figure 6, RL from the MiST initialization achieves higher validation accuracy 8throughout training while maintaining lower KL divergence. This suggests that cybersecurity mid-training moves the model closer to the downstream task distribution before RL begins (Tu et al., 2025; Liu et al., 2025a). RL can therefore refine cyberse-curity behaviors that are already partially present, whereas the base model must undergo a larger pol-icy shift to reach reward-relevant regions. This finding is consistent with studies showing that mid-training improves downstream RL and that RL is most effective near the model’s exist-ing competence boundary (Zhang et al., 2025a; Wang et al., 2025). It also aligns with analyses of GRPO in which performance depends on the initial probability of success (Mroueh, 2025). Overall, MiST is not only stronger before adaptation; it also provides a better RL initialization for specialized cybersecurity tasks. 
+
+5.4.2 Task-Specific SFT 
+
+We next evaluate whether cybersecurity mid-training also improves supervised downstream adaptation. We fine-tune Qwen and MiST check-points on PrimeVul (Ding et al., 2024), a paired vulnerability-detection benchmark in which each vulnerable function is matched with a patched coun-terpart. We then evaluate on the held-out Prime-Vul paired test split under two prompting variants: PRIME VUL , which uses a direct YES/NO vulnera-bility classification prompt, and P RIME VUL -C OT, which asks the model to reason step-by-step before giving its final verdict. Full training and evaluation details are provided in Section M. As shown in Figure 7, task-specific SFT yields substantially larger gains when applied to MiST than when applied to Qwen. This holds for both 8B and 32B models and under both direct and chain-of-thought prompting. These results mirror the RL findings: cybersecurity mid-training provides a stronger initialization for downstream adaptation, especially when the task requires fine-grained secu-rity distinctions that are difficult to learn from task data alone. 
+
+6 Conclusion 
+
+We introduce MiST, a suite of 8B and 32B cybersecurity-specialized models and propose a data curation and generation recipe for constructing mid-training corpora from information dense data. Our results show that this curated mid-training ap-proach is more effective than continual pre-training      
+
+> Figure 7: Effect of task-specific SFT on PrimeVul paired ac-curacy. Each vertical pair connects a base checkpoint (hollow marker) to its PrimeVul-fine-tuned counterpart (filled marker); arrow length is the gain from SFT. Color encodes family (Qwen /MiST ) and marker shape encodes scale ( ◦= 8B, □=32B), shown under direct (P RIME VUL ) and chain-of-thought (P RIME VUL -C OT) prompting. MiST arrows are consistently longer than Qwen arrows at both scales and under both prompt-ing variants, indicating that cybersecurity mid-training pro-vides a stronger initialization for downstream task-specific SFT.
+
+on substantially larger raw domain corpora, high-lighting the importance of data quality and struc-ture over token volume alone. MiST outperforms existing open cybersecurity-specific models while preserving general capabilities, and matches the performance of similarly sized proprietary models. Furthermore, MiST provides a stronger starting point for downstream adaptation. Under both task-specific SFT and reinforcement learning, MiST adapts more effectively than the original Qwen models; in the RL setting, it achieves higher vali-dation accuracy with lower KL movement. Over-all, MiST demonstrates that carefully curated mid-training data can produce capable, generalizable, and adaptable open LLMs for cybersecurity. 
+
+Limitations 
+
+This work has several limitations. First, cyberse-curity is a broad domain, and our evaluation fo-cuses primarily on knowledge-intensive security understanding, cyber threat intelligence, vulnera-bility reasoning, and benchmark-style analysis. We do not comprehensively evaluate MiST in opera-tional settings such as log and telemetry analysis, incident triage, secure code assistance, tool use, or long-horizon agentic workflows. Accordingly, our results should be interpreted as evidence of improved cybersecurity knowledge and structured analysis, rather than as a direct measure of deploy-ment readiness in live security operations. Second, although we study both task-specific 9supervised fine-tuning and reinforcement learning with verifiable rewards, our RL experiments cover only a small set of structured cybersecurity tasks. We do not explore reasoning-specialized models, broader RL recipes, tool-use settings, or agentic reinforcement learning. Future work should test whether cybersecurity mid-training provides simi-lar benefits for more complex multi-step security tasks. Third, MiST relies heavily on LLM-generated synthetic data. While synthetic data is widely used in modern LLM training, it can introduce systematic biases, artifacts, or distributional dis-tortions (Long et al., 2024). We mitigate this risk through expert review and LLM-based filtering, but we do not fully quantify the effects of gen-erator choice, prompt design, filtering thresholds, or source mixtures. Moreover, because the same model family is used for generation and verifica-tion, the verifier may share blind spots with the generator. Fourth, although we apply source-level filtering and n-gram decontamination, contamination can-not be ruled out completely. Exact- and near-exact-match filtering may miss paraphrased, reformat-ted, or semantically equivalent benchmark content. This is especially relevant in cybersecurity, where benchmarks and training sources often refer to the same public CVEs, CWEs, ATT&CK techniques, and vulnerability descriptions. Future evaluations should include additional held-out, time-split, and privately constructed benchmarks. 
+
+Ethical Considerations 
+
+Data governance. MiST is trained using public and third-party cybersecurity resources, together with synthetic transformations grounded in those resources. Public availability does not necessarily imply unrestricted permission to redistribute source text or derived examples, and cybersecurity sources may contain sensitive operational details, personal information, disputed threat-actor attributions, or information that later becomes outdated. Before re-leasing training artifacts, we will document source provenance, collection dates, applicable licenses or terms of use, transformation procedures, and known restrictions in a dataset card. We will re-lease only artifacts for which redistribution is per-mitted, screen released data for sensitive content, and provide a mechanism for reporting errors or re-questing correction or removal. Because synthetic generation can preserve or amplify errors and sen-sitive details from its inputs, we treat generated samples as governed derivatives of their source ma-terial rather than as independent data. 
+
+Model governance and dual use. MiST is in-tended for cybersecurity research and defensive analysis and should not be treated as an au-tonomous authority for operational security de-cisions. Improved vulnerability analysis, threat-intelligence understanding, and security reasoning may also lower the barrier to offensive or other-wise harmful use. Moreover, the preliminary safety evaluation in Section O does not establish safety under adaptive, multi-turn, or tool-assisted attacks. Model releases will therefore be accompanied by model cards describing intended and out-of-scope uses, inherited licensing obligations, evaluation results and limitations, checkpoint versions, and recommended deployment safeguards. Release de-cisions will be informed by dual-use red-teaming, and higher-risk artifacts may be released through staged or access-controlled mechanisms when war-ranted. Deployers should apply human oversight, access controls, logging, monitoring, and domain-specific legal and organizational review, particu-larly in live security operations. 
+
+Acknowledgments 
+
+We thank Iyar Zaks, Ran Avnimelech, Shay Geller, and Ofek Ophir for their help in evaluating and testing the final model. We also extend our thanks to Tal Fialkow, whose leadership and support were instrumental throughout this work. 
+
+References     
+
+> Marah Abdin, Jyoti Aneja, Hany Awadalla, Ahmed Awadallah, Ammar Ahmad Awan, Nguyen Bach, Amit Bahree, Arash Bakhtiari, Jianmin Bao, Harkirat Behl, Alon Benhaim, Misha Bilenko, Johan Bjorck, Sébastien Bubeck, Martin Cai, Qin Cai, Vishrav Chaudhary, Dong Chen, Dongdong Chen, and 110 others. 2024. Phi-3 technical report: A highly capa-ble language model locally on your phone. Preprint ,arXiv:2404.14219. Md Tanvirul Alam, Dipkamal Bhusal, Salman Ahmad, Nidhi Rastogi, and Peter Worth. 2025. Athenabench: A dynamic benchmark for evaluating llms in cyber threat intelligence. Preprint , arXiv:2511.01144. Md Tanvirul Alam, Dipkamal Bhusal, Le Nguyen, and Nidhi Rastogi. 2024. Ctibench: A benchmark for evaluating llms in cyber threat intelligence. Advances
+
+10 in Neural Information Processing Systems , 37:50805– 50825. Md Tanvirul Alam, Aritran Piplai, Ionut Cardei, Nidhi Rastogi, and Peter J. Worth, Jr. 2026. Minerva: Reinforcement Learning with Verifiable Rewards for Cyber Threat Intelligence LLMs. Preprint ,arXiv:2602.00513. ArXiv:2602.00513 [cs.LG]. Elad Ben Zaken, Yoav Goldberg, and Shauli Ravfogel. 2022. BitFit: Simple parameter-efficient fine-tuning for transformer-based masked language-models. In 
+
+Proceedings of the 60th Annual Meeting of the As-sociation for Computational Linguistics (Volume 2: Short Papers) , pages 1–9, Dublin, Ireland. Associa-tion for Computational Linguistics. Ruslan Berdichevsky, Shai Nahum-Gefen, and Elad Ben Zaken. 2025. Salsa: Single-pass autoregres-sive llm structured classification. Preprint ,arXiv:2510.22691. Gagan Bhatia, El Moatez Billah Nagoudi, Hasan Cavu-soglu, and Muhammad Abdul-Mageed. 2024. Fin-tral: A family of gpt-4 level multimodal financial large language models. Preprint , arXiv:2402.10986. Dipkamal Bhusal, Md Tanvirul Alam, Le Nguyen, Ashim Mahara, Zachary Lightcap, Rodney Frazier, Romy Fieblinger, Grace Long Torales, Benjamin A Blakely, and Nidhi Rastogi. 2024. Secure: Bench-marking large language models for cybersecurity. In 
+
+2024 Annual Computer Security Applications Con-ference (ACSAC) , pages 15–30. IEEE. Tom Brown, Benjamin Mann, Nick Ryder, Melanie Subbiah, Jared D Kaplan, Prafulla Dhariwal, Arvind Neelakantan, Pranav Shyam, Girish Sastry, Amanda Askell, Sandhini Agarwal, Ariel Herbert-Voss, Gretchen Krueger, Tom Henighan, Rewon Child, Aditya Ramesh, Daniel Ziegler, Jeffrey Wu, Clemens Winter, and 12 others. 2020. Language models are few-shot learners. In Advances in Neural Information Processing Systems , volume 33, pages 1877–1901. Curran Associates, Inc. Peter Clark, Isaac Cowhey, Oren Etzioni, Tushar Khot, Ashish Sabharwal, Carissa Schoenick, and Oyvind Tafjord. 2018. Think you have solved question answering? try arc, the ai2 reasoning challenge. 
+
+arXiv:1803.05457v1 .Karl Cobbe, Vineet Kosaraju, Mohammad Bavarian, Mark Chen, Heewoo Jun, Lukasz Kaiser, Matthias Plappert, Jerry Tworek, Jacob Hilton, Reiichiro Nakano, Christopher Hesse, and John Schulman. 2021. Training verifiers to solve math word prob-lems. Preprint , arXiv:2110.14168. Tri Dao. 2023. Flashattention-2: Faster attention with better parallelism and work partitioning. arXiv preprint arXiv:2307.08691 .DeepHat. 2025. Deephat-v1-7b. https:// huggingface.co/DeepHat/ . Model card. Chunyuan Deng, Yilun Zhao, Xiangru Tang, Mark Ger-stein, and Arman Cohan. 2024. Investigating data contamination in modern benchmarks for large lan-guage models. Preprint , arXiv:2311.09783. Yangruibo Ding, Yanjun Fu, Omniyyah Ibrahim, Chawin Sitawarin, Xinyun Chen, Basel Alomair, David Wagner, Baishakhi Ray, and Yizheng Chen. 2024. Vulnerability detection with code lan-guage models: How far are we? Preprint ,arXiv:2403.18624. Jesse Dodge, Maarten Sap, Ana Marasovi´ c, William Agnew, Gabriel Ilharco, Dirk Groeneveld, Margaret Mitchell, and Matt Gardner. 2021. Documenting large webtext corpora: A case study on the colos-sal clean crawled corpus. In Proceedings of the 2021 Conference on Empirical Methods in Natural Language Processing , pages 1286–1305, Online and Punta Cana, Dominican Republic. Association for Computational Linguistics. Robert M French. 1999. Catastrophic forgetting in con-nectionist networks. Trends in cognitive sciences ,3(4):128–135. Daya Guo, Qihao Zhu, Dejian Yang, Zhenda Xie, Kai Dong, Wentao Zhang, Guanting Chen, Xiao Bi, Y. Wu, Y. K. Li, Fuli Luo, Yingfei Xiong, and Wen-feng Liang. 2024. Deepseek-coder: When the large language model meets programming – the rise of code intelligence. Preprint , arXiv:2401.14196. Dan Hendrycks, Collin Burns, Steven Basart, Andy Zou, Mantas Mazeika, Dawn Song, and Jacob Steinhardt. 2020. Measuring massive multitask language under-standing. arXiv preprint arXiv:2009.03300 .Hanbo Huang, Yihan Li, Bowen Jiang, Bo Jiang, Lin Liu, Zhuotao Liu, Ruoyu Sun, and Shiyu Liang. 2025a. A middle path for on-premises LLM deploy-ment: Preserving privacy without sacrificing model confidentiality. In Proceedings of the 2025 Confer-ence on Empirical Methods in Natural Language Processing , pages 8321–8359, Suzhou, China. Asso-ciation for Computational Linguistics. Siming Huang, Tianhao Cheng, Jason Klein Liu, Weidi Xu, Jiaran Hao, Liuyihan Song, Yang Xu, Jian Yang, Jiaheng Liu, Chenchen Zhang, Linzheng Chai, Ruifeng Yuan, Xianzhen Luo, Qiufeng Wang, Yuan-Tao Fan, Qingfu Zhu, Zhaoxiang Zhang, Yang Gao, Jie Fu, and 7 others. 2025b. OpenCoder: The open cookbook for top-tier code large language models. In Proceedings of the 63rd Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers) , pages 33167–33193, Vienna, Austria. Association for Computational Linguistics. Binyuan Hui, Jian Yang, Zeyu Cui, Jiaxi Yang, Day-iheng Liu, Lei Zhang, Tianyu Liu, Jiajun Zhang, Bowen Yu, Keming Lu, Kai Dang, Yang Fan, Yichang Zhang, An Yang, Rui Men, Fei Huang, Bo Zheng, Yibo Miao, Shanghaoran Quan, and 5 oth-ers. 2024. Qwen2.5-coder technical report. Preprint ,arXiv:2409.12186. 
+
+11 Alon Jacovi, Avi Caciularu, Omer Goldman, and Yoav Goldberg. 2023. Stop uploading test data in plain text: Practical strategies for mitigating data con-tamination by evaluation benchmarks. Preprint ,arXiv:2305.10160. Juyong Jiang, Fan Wang, Jiasi Shen, Sungju Kim, and Sunghun Kim. 2024. A survey on large lan-guage models for code generation. arXiv preprint arXiv:2406.00515 .Paul Kassianik, Baturay Saglam, Alexander Chen, Blaine Nelson, Anu Vellore, Massimo Aufiero, Fraser Burch, Dhruv Kedia, Avi Zohary, Sajana Weer-awardhena, Aman Priyanshu, Adam Swanda, Amy Chang, Hyrum Anderson, Kojin Oshiba, Omar San-tos, Yaron Singer, and Amin Karbasi. 2025. Llama-3.1-foundationai-securityllm-base-8b technical re-port. Preprint , arXiv:2504.21039. James Kirkpatrick, Razvan Pascanu, Neil Rabinowitz, Joel Veness, Guillaume Desjardins, Andrei A. Rusu, Kieran Milan, John Quan, Tiago Ramalho, Ag-nieszka Grabska-Barwinska, Demis Hassabis, Clau-dia Clopath, Dharshan Kumaran, and Raia Hadsell. 2017. Overcoming catastrophic forgetting in neural networks. Proceedings of the National Academy of Sciences , 114(13):3521–3526. Matan Levi, Yair Allouche, Daniel Ohayon, and Anton Puzanov. 2025a. Cyberpal.ai: empowering llms with expert-driven cybersecurity instructions. In Proceed-ings of the Thirty-Ninth AAAI Conference on Artifi-cial Intelligence and Thirty-Seventh Conference on Innovative Applications of Artificial Intelligence and Fifteenth Symposium on Educational Advances in Artificial Intelligence , AAAI’25/IAAI’25/EAAI’25. AAAI Press. Matan Levi, Daniel Ohayon, Ariel Blobstein, Ravid Sagi, Ian Molloy, and Yair Allouche. 2025b. Toward cybersecurity-expert small language models. arXiv preprint arXiv:2510.14113 .Guancheng Li, Yifeng Li, Guannan Wang, Haoyu Yang, and Yang Yu. 2023a. Seceval: Acomprehensive benchmark for evaluating cy-bersecurity knowledge of foundation models. https://github.com/XuanwuAI/SecEval. Ming Li, Yong Zhang, Shwai He, Zhitao Li, Hongyu Zhao, Jianzong Wang, Ning Cheng, and Tianyi Zhou. 2024. Superfiltering: Weak-to-strong data filtering for fast instruction-tuning. In Proceedings of the 62nd Annual Meeting of the Association for Compu-tational Linguistics (Volume 1: Long Papers) , pages 14255–14273, Bangkok, Thailand. Association for Computational Linguistics. Yuanzhi Li, Sébastien Bubeck, Ronen Eldan, Allie Del Giorno, Suriya Gunasekar, and Yin Tat Lee. 2023b. Textbooks are all you need ii: phi-1.5 techni-cal report. arXiv preprint arXiv:2309.05463 .Yuchong Li and Qinghui Liu. 2021. A comprehen-sive review study of cyber-attacks and cyber security; emerging trends and recent developments. Energy Reports , 7:8176–8186. Chen Ling, Xujiang Zhao, Jiaying Lu, Chengyuan Deng, Can Zheng, Junxiang Wang, Tanmoy Chowdhury, Yun Li, Hejie Cui, Xuchao Zhang, Tianjiao Zhao, Amit Panalkar, Dhagash Mehta, Stefano Pasquali, Wei Cheng, Haoyu Wang, Yanchi Liu, Zhengzhang Chen, Haifeng Chen, and 5 others. 2025. Domain specialization as the key to make large language mod-els disruptive: A comprehensive survey. ACM Com-put. Surv. , 58(3). Emmy Liu, Graham Neubig, and Chenyan Xiong. 2025a. Midtraining Bridges Pretraining and Post-training Distributions. Preprint , arXiv:2510.14865. ArXiv:2510.14865 [cs.CL]. Jiawei Liu, Nirav Diwan, Zhe Wang, Haoyu Zhai, Xi-aona Zhou, Kiet A. Nguyen, Tianjiao Yu, Muntasir Wahed, Yinlin Deng, Hadjer Benkraouda, Yuxiang Wei, Lingming Zhang, Ismini Lourentzou, and Gang Wang. 2025b. PurpCode: Reasoning for safer code generation. arXiv preprint arXiv:2507.19060 .Lin Long, Rui Wang, Ruixuan Xiao, Junbo Zhao, Xiao Ding, Gang Chen, and Haobo Wang. 2024. On LLMs-driven synthetic data generation, curation, and evaluation: A survey. In Findings of the Associa-tion for Computational Linguistics: ACL 2024 , pages 11065–11082, Bangkok, Thailand. Association for Computational Linguistics. Ilya Loshchilov and Frank Hutter. 2017. Decou-pled weight decay regularization. arXiv preprint arXiv:1711.05101 .Inbal Magar and Roy Schwartz. 2022. Data contamina-tion: From memorization to exploitation. Preprint ,arXiv:2203.08242. Yev Meyer and Dane Corneil. 2025. Nemotron-Personas-USA: Synthetic personas aligned to real-world distributions. Shervin Minaee, Tomas Mikolov, Narjes Nikzad, Meysam Chenaghlu, Richard Socher, Xavier Am-atriain, and Jianfeng Gao. 2024. Large language models: A survey. arXiv preprint arXiv:2402.06196 .Youssef Mroueh. 2025. Reinforcement Learning with Verifiable Rewards: GRPO’s Effective Loss, Dynamics, and Success Amplification. Preprint ,arXiv:2503.06639. ArXiv:2503.06639 [cs.LG]. Team Olmo, Allyson Ettinger, Amanda Bertsch, Bailey Kuehl, David Graham, David Heineman, Dirk Groen-eveld, Faeze Brahman, Finbarr Timbers, Hamish Ivison, Jacob Morrison, Jake Poznanski, Kyle Lo, Luca Soldaini, Matt Jordan, Mayee Chen, Michael Noukhovitch, Nathan Lambert, Pete Walsh, and 49 others. 2025. Olmo 3. Preprint , arXiv:2512.13961. Yonatan Oren, Nicole Meister, Niladri Chatterji, Faisal Ladhak, and Tatsunori B. Hashimoto. 2023. Proving test set contamination in black box language models. 
+
+Preprint , arXiv:2310.17623. 
+
+12 Oded Ovadia, Menachem Brief, Moshik Mishaeli, and Oren Elisha. 2024. Fine-tuning or retrieval? compar-ing knowledge injection in llms. In Proceedings of the 2024 conference on empirical methods in natural language processing , pages 237–250. Oded Ovadia, Meni Brief, Rachel Lemberg, and Eitam Sheetrit. 2025. Knowledge-instruct: Effective contin-ual pre-training from limited data using instructions. 
+
+Preprint , arXiv:2504.05571. Guilherme Penedo, Hynek Kydlíˇ cek, Loubna Ben al-lal, Anton Lozhkov, Margaret Mitchell, Colin Raffel, Leandro Von Werra, and Thomas Wolf. 2024. The fineweb datasets: Decanting the web for the finest text data at scale. In Advances in Neural Information Processing Systems , volume 37, pages 30811–30849. Curran Associates, Inc. Rafael Rafailov, Archit Sharma, Eric Mitchell, Christo-pher D Manning, Stefano Ermon, and Chelsea Finn. 2023. Direct preference optimization: Your language model is secretly a reward model. Advances in neural information processing systems , 36:53728–53741. Samyam Rajbhandari, Jeff Rasley, Olatunji Ruwase, and Yuxiong He. 2020. Zero: Memory optimizations toward training trillion parameter models. In SC20: International Conference for High Performance Com-puting, Networking, Storage and Analysis , pages 1– 16. IEEE. Martin Riddell, Ansong Ni, and Arman Cohan. 2024. Quantifying contamination in evaluating code gen-eration capabilities of language models. Preprint ,arXiv:2403.04811. Oscar Sainz, Jon Ander Campos, Iker García-Ferrero, Julen Etxaniz, Oier Lopez de Lacalle, and Eneko Agirre. 2023. Nlp evaluation in trouble: On the need to measure llm data contamination for each benchmark. Preprint , arXiv:2310.18018. SegoLily Labs. 2025. Lily-cybersecurity-7b-v0.2. 
+
+https://huggingface.co/segolilylabs/ Lily-Cybersecurity-7B-v0.2 . Model card. Zhihong Shao, Peiyi Wang, Qihao Zhu, Runxin Xu, Junxiao Song, Mingchuan Zhang, Y.K. Li, Y. Wu, and Daya Guo. 2024. Deepseekmath: Pushing the limits of mathematical reasoning in open language models. arXiv preprint arXiv:2402.03300 .Haizhou Shi, Zihao Xu, Hengyi Wang, Weiyi Qin, Wenyuan Wang, Yibin Wang, Zifeng Wang, Sayna Ebrahimi, and Hao Wang. 2025. Continual learning of large language models: A comprehensive survey. 
+
+ACM Computing Surveys , 58(5):1–42. Naufal Suryanto, Muzammal Naseer, Pengfei Li, Syed Talal Wasim, Jinhui Yi, Juergen Gall, Paolo Ceravolo, and Ernesto Damiani. 2026. Redsage: A cybersecurity generalist LLM. In The Fourteenth In-ternational Conference on Learning Representations .Kimi Team, Yifan Bai, Yiping Bao, Guanduo Chen, Jiahao Chen, Ningxin Chen, Ruijue Chen, Yanru Chen, Yuankun Chen, Yutian Chen, Zhuofu Chen, Jialei Cui, Hao Ding, Mengnan Dong, Angang Du, Chenzhuang Du, Dikang Du, Yulun Du, Yu Fan, and 150 others. 2025. Kimi k2: Open agentic intelligence. 
+
+Preprint , arXiv:2507.20534. Hugo Touvron, Louis Martin, Kevin Stone, Peter Al-bert, Amjad Almahairi, Yasmine Babaei, Nikolay Bashlykov, Soumya Batra, Prajjwal Bhargava, Shruti Bhosale, Dan Bikel, Lukas Blecher, Cristian Canton Ferrer, Moya Chen, Guillem Cucurull, David Esiobu, Jude Fernandes, Jeremy Fu, Wenyin Fu, and 49 oth-ers. 2023. Llama 2: Open foundation and fine-tuned chat models. Preprint , arXiv:2307.09288. Chengying Tu, Xuemiao Zhang, Rongxiang Weng, Rumei Li, Chen Zhang, Yang Bai, Hongfei Yan, Jin-gang Wang, and Xunliang Cai. 2025. A survey on llm mid-training. Preprint , arXiv:2510.23081. Alan Wake, Bei Chen, C. X. Lv, Chao Li, Chen-gen Huang, Chenglin Cai, Chujie Zheng, Daniel Cooper, Fan Zhou, Feng Hu, Ge Zhang, Guoyin Wang, Heng Ji, Howard Qiu, Jiangcheng Zhu, Jun Tian, Katherine Su, Lihuan Zhang, Liying Li, and 25 others. 2025. Yi-lightning technical report. Preprint ,arXiv:2412.01253. Shengye Wan, Cyrus Nikolaidis, Daniel Song, David Molnar, James Crnkovich, Jayson Grace, Manish Bhatt, Sahana Chennabasappa, Spencer Whitman, Stephanie Ding, Vlad Ionescu, Yue Li, and Joshua Saxe. 2024. CyberSecEval 3: Advancing the evalu-ation of cybersecurity risks and capabilities in large language models. arXiv preprint arXiv:2408.01605 .Cunxiang Wang, Xiaoze Liu, Yuanhao Yue, Xiangru Tang, Tianhang Zhang, Cheng Jiayang, Yunzhi Yao, Wenyang Gao, Xuming Hu, Zehan Qi, Yidong Wang, Linyi Yang, Jindong Wang, Xing Xie, Zheng Zhang, and Yue Zhang. 2023. Survey on factuality in large language models: Knowledge, retrieval and domain-specificity. Preprint , arXiv:2310.07521. Zengzhi Wang, Fan Zhou, Xuefeng Li, and Pengfei Liu. 2025. Octothinker: Mid-training incentivizes reinforcement learning scaling. arXiv preprint arXiv:2506.20512 .Sajana Weerawardhena, Paul Kassianik, Blaine Nel-son, Baturay Saglam, Anu Vellore, Aman Priyan-shu, Supriti Vijay, Massimo Aufiero, Arthur Gold-blatt, Fraser Burch, Ed Li, Jianliang He, Dhruv Ke-dia, Kojin Oshiba, Zhouran Yang, Yaron Singer, and Amin Karbasi. 2025. Llama-3.1-foundationai-securityllm-8b-instruct technical report. Preprint ,arXiv:2508.01059. Chaoyi Wu, Weixiong Lin, Xiaoman Zhang, Ya Zhang, Weidi Xie, and Yanfeng Wang. 2024. Pmc-llama: toward building open-source language models for medicine. Journal of the American Medical Infor-matics Association , 31(9):1833–1843. 
+
+13 Hanxiang Xu, Shenao Wang, Ningke Li, Kailong Wang, Yanjie Zhao, Kai Chen, Ting Yu, Yang Liu, and Haoyu Wang. 2025. Large language models for cy-ber security: A systematic literature review. ACM Trans. Softw. Eng. Methodol. Just Accepted. Shuo Yang, Wei-Lin Chiang, Lianmin Zheng, Joseph E. Gonzalez, and Ion Stoica. 2023. Rethinking bench-mark and contamination for language models with rephrased samples. Preprint , arXiv:2311.04850. Yao-Ching Yu, Tsun-Han Chiang, Cheng-Wei Tsai, Chien-Ming Huang, and Wen-Kwang Tsao. 2025. Primus: A pioneering collection of open-source datasets for cybersecurity LLM training. In Proceed-ings of the 2025 Conference on Empirical Methods in Natural Language Processing , pages 10391–10413, Suzhou, China. Association for Computational Lin-guistics. Charlie Zhang, Graham Neubig, and Xiang Yue. 2025a. On the interplay of pre-training, mid-training, and rl on reasoning language models. arXiv preprint arXiv:2512.07783 .Jie Zhang, Haoyu Bu, Hui Wen, Yongji Liu, Haiqiang Fei, Rongrong Xi, Lun Li, Yun Yang, Hongsong Zhu, and Dan Meng. 2025b. When llms meet cybersecu-rity: A systematic literature review. Cybersecurity ,8(1):55. Lianmin Zheng, Liangsheng Yin, Zhiqiang Xie, Chuyue Sun, Jeff Huang, Cody Hao Yu, Shiyi Cao, Christos Kozyrakis, Ion Stoica, Joseph E. Gonzalez, Clark Barrett, and Ying Sheng. 2024. Sglang: Efficient execution of structured language model programs. In 
+
+Advances in Neural Information Processing Systems ,volume 37, pages 62557–62583. Curran Associates, Inc. Jeffrey Zhou, Tianjian Lu, Swaroop Mishra, Sid-dhartha Brahma, Sujoy Basu, Yi Luan, Denny Zhou, and Le Hou. 2023. Instruction-following evalu-ation for large language models. arXiv preprint arXiv:2311.07911 .
+
+A Estimated Training Time 
+
+In Table 3, we report the estimated wall-clock train-ing time on a single node with 8×B200 NVIDIA GPUs. The full pipeline requires 7.1 hours (56.8 GPU-hours) for MiST-8B and 42.7 hours (341.3 GPU-hours) for MiST-32B, with supervised fine-tuning accounting for the largest share of compute.                    
+
+> Model Stage Time Hours/GPU-hours
+> 8B Mid-training 2h 10m 2.17 / 17.33 SFT 3h 20m 3.33 / 26.67 DPO 1h 36m 1.60 / 12.80 Total 7h 06m 7.10 / 56.80 32B Mid-training 7h 46m 7.77 / 62.13 SFT 1d 1h 4m 25.07 / 200.53 DPO 9h 50m 9.83 / 78.67 Total 1d 18h 40m 42.67 / 341.33 Table 3: Estimated wall-clock training time.
+
+B Training Hyperparameters 
+
+The full set of hyperparameters is reported in Ta-ble 4. Unless otherwise noted, all training stages share the same core configuration: trained for 2 epochs, using the AdamW optimizer with a cosine learning-rate schedule, bfloat16 precision, FlashAttention-2, and gradient clipping with a threshold of 0.2. Preference optimization addi-tionally uses a DPO parameter β = 0 .1 and early stopping after 200 steps. The only difference be-tween mid-training the 8B and 32B models is the use of DeepSpeed ZeRO-3 for the 32B model to reduce memory usage, with all other settings kept identical. 
+
+C General Benchmarks Details 
+
+In addition to the cybersecurity benchmarks de-scribed in Section 4, we evaluate our model on general-purpose benchmarks that measure broad LLM capabilities. This evaluation allows us to quantify potential degradation in general perfor-mance resulting from specialization to a narrow domain, which is a key objective of a successful mid-training run (Tu et al., 2025). 
+
+IFEval (Zhou et al., 2023) evaluates instruction-following behavior in LLMs by measuring adher-ence to explicit constraints specified in prompts, such as output format, length, stylistic require-ments, or prohibited content. Rather than task accuracy, IFEval focuses on precise compliance, making it well suited for assessing alignment in instruction-tuned models. 14 Hyperparameter Mid-training SFT-8B SFT-32B DPO-8B DPO-32B Max sequence length 16,384 8,192 8,192 8,192 8,192 Per-device batch size 4 16 12 16 1Gradient accumulation steps 4 2 3 4 64 Global batch (tokens) ≈ 2M ≈ 2M ≈ 2.36M ≈ 4.2M ≈ 4.2M Learning rate (peak) 5 × 10 −5 3 × 10 −5 3 × 10 −5 3 × 10 −7 1 × 10 −7                               
+
+> Learning rate (min) 1×10 −65×10 −75×10 −700
+> Warmup ratio 0.03 0.03 0.03 0.1 0.1 Weight decay 0.05 0.05 0.05 0.1 0.1 DeepSpeed stage ZeRO-2/3 ZeRO-2 ZeRO-3 ZeRO-2 (offload) ZeRO-2 (offload) Packing enabled enabled enabled disabled disabled Table 4: Stage-specific hyperparameters for mid-training, supervised fine-tuning (SFT), and preference optimization (DPO). Constant settings shared across all stages are described in the text.
+
+MMLU (Hendrycks et al., 2020) is a large-scale, knowledge-intensive multiple-choice benchmark covering 57 subjects across the sciences, humani-ties, social sciences, and professional domains. We use MMLU as a coarse measure of general knowl-edge and reasoning breadth to assess what is lost when focusing on cybersecurity-specific training. 
+
+ARC-Challenge (ARC-C) (Clark et al., 2018) is the Challenge subset of the AI2 Reasoning Chal-lenge, consisting of grade-school science multiple-choice questions filtered to be difficult for simple retrieval and word co-occurrence baselines. 
+
+GSM8K (Cobbe et al., 2021) is a dataset of 8.5K human-written grade-school math word prob-lems paired with natural-language solutions, with problems typically requiring multiple steps of arith-metic reasoning. The benchmark targets robustness to linguistic variation and diverse problem struc-ture, rather than memorization of fixed patterns. 
+
+D Cybersecurity Benchmark Details 
+
+CTI-Bench (Alam et al., 2024) evaluates LLM per-formance on core cyber threat intelligence (CTI) tasks using real-world threat intelligence data. We report results on the multiple-choice question (MCQ) and root cause mapping (RCM) subsets. MCQ measures factual knowledge and fine-grained understanding of CTI concepts, while RCM evalu-ates the model’s ability to identify underlying vul-nerability causes by linking CVE records and bug reports to corresponding CWE entries. For the MCQ subset, we additionally report results bro-ken down by its three largest subjects: attack tech-niques (ATT), software weaknesses (CWE), and attack patterns (CAP). 
+
+SECURE (Bhusal et al., 2024) is a cybersecu-rity benchmark designed to evaluate LLM perfor-mance in realistic advisory settings for critical in-frastructure environments. We use three subsets: MAET, CWET, and KCV. MAET and CWET use multiple-choice questions to assess cybersecurity knowledge, while KCV evaluates knowledge un-derstanding through boolean statements grounded in CVE descriptions. 
+
+SecEval (Li et al., 2023a) is a benchmark with over 2,000 multiple-choice questions spanning nine cybersecurity domains, including system, appli-cation, and network security. The questions are generated by prompting GPT-4 with authoritative sources such as textbooks and official documenta-tion. 
+
+MMLU Computer Security (Hendrycks et al., 2020) We additionally report results on the com-puter security subset of MMLU (see Section C), which consists of 100 multiple-choice questions related to cybersecurity. 
+
+PrimeVul (Ding et al., 2024) is a vulnerability detection benchmark built from real-world C/C++ functions with high-quality labels, deduplication, and chronological splits. Following PrimeVul’s rec-ommended protocol, we report paired accuracy: a vulnerable/patched pair is counted as correct only when both functions are classified correctly. This metric better captures whether a model can distin-guish a vulnerability from its corresponding patch, rather than merely predicting the marginal like-lihood of vulnerability. In Table 1, P-C denotes this paired classification accuracy, and P-C CoT denotes the same metric under the benchmark’s chain-of-thought prompting setting. 
+
+AthenaBench (Alam et al., 2025) is a dynamic cyber threat intelligence benchmark that extends prior CTI evaluation with updated data construc-tion, deduplication, refined metrics, and additional applied-reasoning tasks. We evaluate four Athen-aBench tasks: CTI knowledge testing (CKT), at-tack technique extraction (ATE), risk mitigation strategy selection (RMS), and threat actor attribu-tion (TAA). 15 E Evaluation Protocol 
+
+We evaluate our models on 13 cybersecurity tasks and 4 general-purpose benchmarks. 
+
+Reasoning Mode. All reported evaluations are conducted with reasoning disabled whenever the model or serving API exposes a separate reason-ing or thinking mode. This applies to our Qwen-derived MiST models, the original Qwen baselines, and all external comparison models for which such a control is available. Thus, the reported results measure standard non-reasoning inference rather than explicit test-time reasoning. Prompting strate-gies that contain phrases such as “think step by step” follow the benchmark’s prescribed prompt format, but no model is allowed to use a separate reasoning mode or hidden reasoning budget. 
+
+Inference Configuration. We serve models us-ing SGLang (Zheng et al., 2024) with data paral-lelism (DP = 8 ) on our 8×B200 node, a context length of 16,384 tokens, and a maximum genera-tion length of 4,096 tokens. We use temperature 
+
+= 0 .3, top-p = 0 .95 , top-k = 20 , and repetition penalty = 1 .1 for all evaluations, except for Ope-nAI GPT-5 models where these controls are not fully supported. To ensure a fair comparison, all models are evaluated in a non-reasoning setting: reasoning or thinking modes are disabled for GPT, Qwen, MiST, and other evaluated models whenever such controls are available. Each benchmark is run 
+
+n = 5 times with different random seeds (0, 1, 2, 3, 4), and we report mean. 
+
+Answer Extraction and Scoring. We use rule-based answer extraction with regular expressions tailored to each benchmark’s expected output for-mat. For multiple-choice tasks, we extract the first valid answer choice (A–D) from the model re-sponse and score with accuracy. For mathematical reasoning (GSM8K), we extract the final numeric answer using the benchmark’s required output pat-tern and report exact match. For CWE mapping (CTI-RCM), we extract CWE identifiers via pat-tern matching and report exact match. For IFEval, we use the official metric in the loose setting. All remaining benchmarks are scored with standard accuracy. This generation-and-extraction protocol matches the benchmark prompting setup. For struc-tured tasks, however, logit-based alternatives such as SALSA (Berdichevsky et al., 2025) can classify in a single forward pass by mapping labels to out-put tokens and scoring their decoder logits. We leave such interfaces for future evaluation. 
+
+Aggregation. Suite-level scores are computed as the unweighted mean across benchmarks. CTI-MCQ sub-scores for attack techniques (ATT), soft-ware weaknesses (CWE), and attack patterns (CAP) are reported separately but excluded from suite av-erages. 
+
+E.1 Prompting Strategies 
+
+For all benchmarks, we use the official prompts when available. When no official prompt is pro-vided or multiple configurations exist, we specify the exact prompt used. Below we list the prompts for benchmarks with custom instructions. 
+
+MMLU System Instruction. 
+
+> You are a large language model trained to answer standardized multiple-choice questions covering a wide range of subjects, including mathematics, science, humanities, and social sciences. For each question, analyze the problem carefully and select the single best answer from the given options (A, B, C, or D). Output only the letter corresponding to the correct answer. Do not include explanations or any additional text.
+
+GSM8K Instruction. 
+
+> Solve the provided math problem. Note: The fi-nal answer must be the last word in the response. Only plain numbers are allowed (no currency sym-bols, percentage signs, etc.)
+
+ARC-Challenge Instruction. 
+
+> The following is a multiple choice question. Pro-vide your step-by-step reasoning, then give your answer in the format ‘Answer: X’ where X is the answer choice label.
+
+CTI-MCQ.  
+
+> You are given a multiple-choice question (MCQ) from a Cyber Threat Intelligence (CTI) knowl-edge benchmark dataset. Your task is to choose the best option among the four provided. Return your answer as a single uppercase letter: A, B, C, or D. {question}
+> Important: The last line of your answer should contain only the single letter corresponding to the best option, with no additional text.
+
+SecEval System Instruction. 
+
+> Below are multiple-choice questions concerning cybersecurity. Please select the correct answers and respond with the letters ABCD only.
+
+16 Benchmark Source Size Task Type 
+
+MMLU (5-shot) cais/mmlu 14,042 Multiple-choice QA (57 subjects) ARC-Challenge allenai/ai2_arc 2,590 Science reasoning MCQ GSM8K (3-shot) openai/gsm8k 1,319 Mathematical reasoning IFEval google/IFEval 541 Instruction following                                                           
+
+> Table 5: General capability benchmarks used for evaluation.
+> Benchmark Source Size Task Type
+> MMLU-Cyber cais/mmlu (computer_security) 100 Security knowledge MCQ CTI-MCQ AI4Sec/cti-bench 2,500 Threat intelligence MCQ CTI-RCM AI4Sec/cti-bench 1,000 Root cause mapping SecEval XuanwuAI/SecEval 2,189 Multi-select security MCQ SECURE-MAET SECURE benchmark 1,072 MITRE ATT&CK evaluation MCQ SECURE-CWET SECURE benchmark 964 CWE evaluation MCQ SECURE-KCV SECURE benchmark 466 CVE verification true/false PrimeVul-Base PrimeVul (Ding et al., 2024) 870 Vulnerable-code binary classification PrimeVul-CoT PrimeVul (Ding et al., 2024) 870 Vulnerable-code classification with CoT AthenaBench-CKT AthenaBench (Alam et al., 2025) 3,000 CTI knowledge testing AthenaBench-ATE AthenaBench (Alam et al., 2025) 500 Attack technique extraction AthenaBench-RMS AthenaBench (Alam et al., 2025) 500 Risk mitigation strategy selection AthenaBench-TAA AthenaBench (Alam et al., 2025) 100 Threat actor attribution Table 6: Cybersecurity benchmarks and task subsets used for evaluation.
+> Benchmark Strategy
+> MMLU 5-shot with dev set examples MMLU-Cyber 5-shot with dev set examples (Computer Security subset) GSM8K 3-shot with solution/answer format ARC-C Zero-shot with step-by-step reasoning instruction IFEval Direct prompts from dataset CTI-MCQ (incl. subsets) Zero-shot with thinking instruction suffix CTI-RCM Direct prompts from dataset SecEval 1-shot example with multi-select instruction SECURE benchmarks Direct prompts from dataset PrimeVul Zero-shot YES/NO classification with security-expert system prompt PrimeVul-CoT Step-by-step reasoning then <answer>YES/NO</answer> verdict AthenaBench (all tasks) Direct prompts from dataset (CKT, ATE, RCM, RMS, VSP, TAA) Table 7: Prompting strategies used for each benchmark.
+
+F Ablation Studies 
+
+We run three ablations at the 8B scale to understand which parts of the MiST recipe drive the cyberse-curity gains. In the first two, we hold the SFT stage fixed so that differences between models re-flect only the mid-training corpus; the third varies only the initialization checkpoint. All models are evaluated with the protocol of Section 4. 
+
+Effect of mid-training. A natural question is whether the improvements come from mid-training itself or from the SFT mixture alone. To answer it, we apply the identical SFT procedure directly to Qwen3-8B-Base, skipping mid-training, and com-pare the result against MiST-8B-SFT. As shown in Table 8, mid-training raises the mean cybersecurity score from 57.6 to 62.4 (+4.8 points). The gains are largest on applied analysis tasks such as ATE (+15.7), PrimeVul paired classification (+11.1), and KCV (+8.8), with a small drop only on MMLU-Cyber ( −1.5). Together with the raw-CPT com-parison in Section 5, these results indicate that the cybersecurity gains come from the mid-training stage itself rather than from the SFT data alone. 
+
+Synthetic flow ablations. We next ask which synthetic flows are responsible for the gains. We ab-late the four document-level transformation flows of Section 3.2: paraphrasing, educational trans-formation, QA, and cyber metrics and terminol-ogy analysis ( security analysis below). We report two variants: single-flow , where the mid-training corpus contains a single flow, and leave-one-out ,where one flow is removed and the rest are kept. Results are shown in Table 9. No single flow recovers the full recipe: the best single-flow variant (paraphrasing, 60.3) remains 2.1 points below the full corpus. At the same time, no flow is redundant, as removing any one of them 17 CTI Secure Athena PrimeVul Model MCQ RCM MAET CWET KCV CKT ATE RMS TAA P-C P-C CoT MMLU Cyber Sec Eval Mean MiST-8B-SFT (no mid-training) 74.1 67.0 92.7 90.5 76.6 83.0 44.5 27.3 22.0 2.9 14.3 84.3 69.0 57.6 MiST-8B-SFT (with mid-training) 78.9 74.1 93.7 92.7 85.4 86.0 60.2 29.4 23.8 14.0 18.0 82.8 72.2 62.4                    
+
+> ∆(mid −no mid) +4.8 +7.1 +1.0 +2.3 +8.8 +3.0 +15.7 +2.0 +1.8 +11.1 +3.7 −1.5 +3.2 +4.8
+> Table 8: Isolating the effect of mid-training. Both models share the identical SFT stage and differ only in whether cybersecurity mid-training is applied first. Bold indicates the better score per column.
+
+lowers the mean, by 1.4 to 2.8 points. The flows also peak on different benchmarks (e.g., paraphras-ing on KCV and educational transformation on RMS), suggesting they are complementary rather than interchangeable. The gains thus come from the composition of the corpus rather than from any single transformation. 
+
+Initialization checkpoint. Finally, because no Qwen3-32B-Base checkpoint is publicly available, our 32B pipeline starts from a post-trained check-point and is therefore less controlled than the 8B setup. To better understand the effect of starting from a post-trained checkpoint, we run the full 8B pipeline from the post-trained Qwen3-8B and com-pare it to the original MiST checkpoint, created from Qwen3-8B-Base. As shown in Table 10, base initialization is slightly but consistently better, both after SFT (62.4 vs. 60.6) and after DPO (61.7 vs. 60.4). This shows that the base model responds better to our full training methodology. 
+
+G Cybersecurity Resources and Acronyms 
+
+Table 11 summarizes the cybersecurity resources, taxonomies, and acronyms referenced in the seed corpus and synthetic data generation pipeline. These resources differ in scope: some provide instance-level vulnerability records, some encode abstract security concepts and relationships, and others represent operational artifacts used in detec-tion engineering, threat hunting, incident analysis, and defensive guidance. 
+
+H Training Data Composition 
+
+We summarize the composition of the seed corpus and the synthetic training datasets in Table 12. The seed corpus contains raw high-quality cybersecu-rity sources used to ground data generation. The mid-training split consists primarily of synthetic cy-bersecurity examples spanning educational expla-nations, paraphrases, Q&A, and security-analysis tasks, as explained in Section 3.2. The SFT split combines cybersecurity conversations with a broad general-instruction dataset, ensuring that the fi-nal training mixture preserves cybersecurity spe-cialization while maintaining general instruction-following ability. 
+
+I Model Identifiers and Hugging Face URLs 
+
+For reproducibility, Table 13 maps the open model names used in our result tables to their correspond-ing Hugging Face repositories when available. Pro-prietary OpenAI models reported in the tables, in-cluding GPT-5.4-mini and GPT-5.4-nano, are not included because they are not released as Hugging Face model checkpoints. 
+
+J Decontamination 
+
+We employ a multi-layered decontamination pipeline that operates at three different points in the data lifecycle: (i) source-level filtering of the seed corpus, (ii) structural constraints during synthetic data generation, and (iii) n-gram overlap filtering applied to every training stage (mid-training, SFT, and DPO). This combination is designed to pre-vent both identifier leakage (specific CVE, CWE, or commit-hash entities that appear in our bench-marks) and textual leakage (verbatim spans copied into training examples), following established pro-tocols (Brown et al., 2020; Dodge et al., 2021). Decontamination matters because prior work has shown that pretraining-time exposure to benchmark instances can be exploited at evaluation time, in-flating reported performance (Magar and Schwartz, 2022; Sainz et al., 2023). 
+
+Source-level filtering. Before the seed corpus is used for any downstream transformation, we au-dit each source against the evaluation benchmarks and remove records that anchor a benchmark exam-ple, following the practice of removing benchmark-related source data adopted in recent domain-adapted LLMs (Hui et al., 2024; Jacovi et al., 2023). We remove all CVE records that appear in the CTI-Bench root-cause-mapping ( cti-rcm ) and vulnerability-severity-prediction ( cti-vsp ) splits 18 CTI Secure Athena PrimeVul Mid-training corpus MCQ RCM MAET CWET KCV CKT ATE RMS TAA P-C P-C CoT MMLU Cyber Sec Eval Mean All flows (full recipe) 78.9 74.1 93.7 92.7 85.4 86.0 60.2 29.4 23.8 14.0 18.0 82.8 72.2 62.4                                                                                                                 
+
+> Single-flow
+> QA only 76.8 66.0 93.0 92.2 79.2 83.5 52.6 26.2 20.3 6.2 16.3 82.3 68.3 58.7 Security-analysis only 74.7 69.5 92.0 90.5 83.5 82.0 55.9 22.7 19.0 7.6 14.0 83.7 69.1 58.8 Educational only 76.7 68.2 92.9 91.8 79.1 83.8 48.7 32.9 23.0 3.5 14.7 84.3 69.5 59.2 Paraphrase only 76.2 65.0 92.6 90.9 86.3 83.2 52.4 29.3 25.3 11.8 16.8 83.7 70.6 60.3
+> Leave-one-out
+> No QA 77.8 71.5 93.1 92.2 80.6 83.8 58.2 27.7 25.0 11.6 10.0 85.3 70.8 60.6 No security-analysis 78.3 65.8 93.3 91.8 80.3 85.3 53.9 27.3 26.7 5.4 11.7 85.3 70.2 59.6 No educational 77.7 70.4 93.3 92.9 86.2 84.4 55.3 26.9 23.0 6.4 18.0 82.7 67.9 60.4 No paraphrase 77.9 72.4 93.5 93.0 82.8 84.7 60.1 29.0 23.7 9.8 15.3 83.7 67.6 61.0
+
+Table 9: Synthetic flow ablations. All variants share the identical SFT stage and differ only in which synthetic flows compose the mid-training corpus: single-flow keeps one flow, leave-one-out removes one flow. Bold indicates the best score per column across all variants.                                                                        
+
+> CTI Secure Athena PrimeVul Model MCQ RCM MAET CWET KCV CKT ATE RMS TAA P-C P-C CoT MMLU Cyber Sec Eval Mean MiST-8B-SFT (from Base) 78.9 74.1 93.7 92.7 85.4 86.0 60.2 29.4 23.8 14.0 18.0 82.8 72.2 62.4
+> MiST-8B-SFT (from Instruct) 78.5 71.5 92.5 92.0 85.5 85.2 55.7 28.1 22.3 13.4 11.5 81.7 70.0 60.6 MiST-8B-DPO (from Base) 79.3 73.9 94.3 93.7 87.3 86.0 57.3 25.7 24.6 10.0 15.0 83.4 71.5 61.7
+> MiST-8B-DPO (from Instruct) 77.4 72.2 94.1 93.4 86.4 85.3 53.9 27.4 23.0 12.4 10.4 80.3 69.5 60.4
+
+Table 10: Effect of the initialization checkpoint at the 8B scale. Both pipelines apply the identical mid-training, SFT, and DPO stages and differ only in whether they start from Qwen3-8B-Base or the post-trained Qwen3-8B. Bold indicates the better score per column within each stage. 
+
+Term Full name Description 
+
+NVD National Vulnerability Database A U.S. government vulnerability database that enriches CVE records with metadata such as severity scores, affected products, weakness mappings, and external references. CVE Common Vulnerabilities and Exposures A standardized identifier system for publicly disclosed cybersecurity vulnerabilities. CVSS Common Vulnerability Scoring System A scoring framework for representing the severity and exploitability characteristics of vulnerabilities. CTI Cyber Threat Intelligence Information about threats, adversaries, vulnerabilities, malware, campaigns, tactics, techniques, procedures, and defensive context. RSS Really Simple Syndication A web feed format used to collect newly published security reports, advisories, and blog posts from external sources. CWE Common Weakness Enumeration A taxonomy of recurring software and hardware weakness types that can lead to vulnerabilities. CAPEC Common Attack Pattern Enumeration and Classification A taxonomy of common attack patterns describing how adversaries exploit weaknesses in systems and software. ATT&CK Adversarial Tactics, Techniques, and Common Knowledge A knowledge base of adversary tactics, techniques, procedures, software, groups, and campaigns. D3FEND Digital Artifact and Defensive Knowledge A knowledge graph of defensive cybersecurity techniques, countermeasures, and their relationships to adversary behaviors. Sigma Sigma rules A generic rule format for describing log-based detection logic in a platform-independent way. Atomic Red Team Atomic Red Team tests Small adversary-emulation tests designed to exercise specific ATT&CK techniques in controlled environments. Splunk ESCU Splunk Enterprise Security Content Update Curated Splunk security content, including detections, analytic stories, and operational guidance for security monitoring. MISP Galaxy Malware Information Sharing Platform Galaxy A structured vocabulary for representing threat actors, malware families, campaigns, tools, and related threat-intelligence entities. OWASP Open Worldwide Application Security Project A community-driven source of application-security guidance, risks, testing practices, and secure-development recommendations. NIST National Institute of Standards and Technology A U.S. standards body that publishes cybersecurity frameworks, controls, guidelines, and technical recommendations. Table 11: Cybersecurity resources, taxonomies, and acronyms referenced in the seed corpus and data generation pipeline. 
+
+from the CVE seed corpus before running any syn-thetic generation flow. For the GHSA-linked vul-nerable and fixed code records, we additionally remove any record whose fixing commit hash over-laps with the PrimeVul (test and validation splits); code contamination has been shown to substan-tially inflate performance on code benchmarks such as HumanEval and MBPP (Riddell et al., 2024), which motivates this stricter, identifier-level filter-ing for the code portion of our seed. We log the 19 Split Source / flow Samples Avg tok. Tokens (M) Token share (%) 
+
+Seed Security reports 3,506 2,464 8.6 –CVE records 156,834 152 23.9 –MISP Galaxy 8,104 299 2.4 –MITRE 2,182 3,205 7.0 –NIST publications 16,827 458 7.7 –OWASP 240 3,132 0.8 –CWE examples 940 602 0.6 –Security platform guides 9,672 410 4.0 –Wikipedia security 21,356 455 9.7 –
+
+Seed total 219,661 – 64.7 –
+
+Mid-training Cybersecurity: Educational 254,287 2,416 614.5 63.0 Cybersecurity: Paraphrases 233,828 780 182.4 18.7 Cybersecurity: Q&A 576,087 115 66.1 6.8 Cybersecurity: Security Analysis 123,743 589 72.9 7.5 Dolci: General instruction subset 50,000 798 39.9 4.1 
+
+Mid-training total 1,237,945 – 975.7 100.0 
+
+SFT Cybersecurity: Conversations 307,679 1,145 352.2 22.7 Dolci: General instruction (full) 1,924,533 623 1,198.7 77.3 
+
+SFT total 2,232,212 – 1,550.9 100.0 
+
+Total Cybersecurity 1,495,624 – 1,288.0 51.0 General Instructions 1,974,533 – 1,238.6 49.0 Training total (excl. seed) 3,470,157 – 2,526.6 100.0 Table 12: Data statistics for the curated seed corpus and the synthetic datasets used for mid-training and SFT. Seed token counts are computed using the Qwen3 tokenizer. Token counts are reported in millions (M), and Avg tok. denotes the mean number of tokens per sample. Token share (%) is shown only for Mid-training and SFT (computed within each split), and for Total (computed w.r.t. Training total (excl. seed)). 
+
+Name in tables Hugging Face repository 
+
+Qwen3-235B Qwen/Qwen3-235B-A22B-Instruct-2507 
+
+DeepHat-7B DeepHat/DeepHat-V1-7B 
+
+Foundation-Sec-8B fdtn-ai/Foundation-Sec-8B-Instruct 
+
+Lily-Cyber-7B segolilylabs/Lily-Cybersecurity-7B-v0.2 
+
+Primus-70B trend-cybertron/Llama-Primus-Nemotron-70B-Instruct 
+
+Primus-8B trend-cybertron/Llama-Primus-Merged 
+
+RedSage-8B-DPO RISys-Lab/RedSage-Qwen3-8B-DPO 
+
+Qwen3-8B-Base Qwen/Qwen3-8B-Base 
+
+Qwen3-8B Qwen/Qwen3-8B 
+
+Qwen3-32B Qwen/Qwen3-32B 
+
+CyberPal2.0-20B cyber-pal-security/CyberPal2.0-20B 
+
+Table 13: Mapping between the open model names reported in the paper tables and their corresponding Hugging Face repositories when available. Names are shown as they appear in the result tables. 
+
+number of removed records and the offending CVE identifiers per benchmark so that the audit is repro-ducible. 
+
+Format-level constraints on synthetic data. Be-cause the majority of our evaluation benchmarks are multiple-choice (MCQ), we deliberately do not 
+
+include MCQ-style generation prompts in any syn-thetic flow described in Section 3.2. This avoids ex-posing the model to the structural and stylistic pat-terns of MCQs during mid-training and SFT (e.g., the “A/B/C/D” option layout and stem–distractor phrasing), which have been shown to constitute an indirect contamination vector: Deng et al. (2024) demonstrate that models can recover masked in-correct options on MMLU at high exact-match rates, indicating that exposure to MCQ structure itself leaks evaluation signal. Our synthetic flows therefore produce free-form paraphrases, educa-tional rewrites, short open-ended QA, conversa-tions, and persona-based dialogues, none of which mirror MCQ format. 
+
+N -gram overlap filtering. We adopt a 13-gram overlap criterion (Brown et al., 2020) as the pri-mary mechanism for detecting textual contamina-tion across all training data. Token- and word-level n-gram matching is the standard decontami-20 nation tool used in modern LLM training, includ-ing Llama 2 (Touvron et al., 2023), and Qwen2.5-Coder (Hui et al., 2024). We construct the de-contamination corpus by aggregating, for every benchmark in our cybersecurity evaluation suite (Section 4), both the question prompts and the reference answers, including the per-task instruc-tion templates when applicable. For multi-turn or message-style benchmarks, each message con-tent string is included independently. All text is normalized by lower-casing and stripping all non-alphanumeric characters before n-gram extrac-tion, following the normalization recommended by Dodge et al. (2021), which makes the matching robust to differences in punctuation, whitespace, and casing between benchmark and training text. We extract overlapping n-grams using a sliding window with n = 13 and store the unique bench-mark n-grams in a Python hash set for constant-time lookup. A training sample is flagged as con-taminated as soon as a single matching n-gram is found (threshold = 1 ), and matching is short-circuited on the first hit for efficiency. 
+
+Pipeline integration. The n-gram filter is ap-plied as a preprocessing step inside the training entry point, immediately after dataset loading and instruction formatting and before tokenization, so that the model never sees contaminated samples in any stage. The same filter, configured identi-cally, is applied at mid-training, SFT, and DPO. For each run, we serialize each sample into a single text by concatenating the relevant text fields (e.g., 
+
+messages , prompt , text , instruction , input ,
+
+output ); for message-formatted data we concate-nate the contents of all turns so that both user and assistant tokens are checked. The benchmark n-gram set is cached to disk after the first construc-tion to amortize cost across runs, and a per-run contamination report is written to the model out-put directory, including the total number of sam-ples, the number and fraction flagged as contam-inated, the configured n-gram size and threshold, and a sample of contaminated examples (with their matching n-grams and text previews) for manual in-spection. This per-run reporting aligns with the per-benchmark contamination documentation called for by Sainz et al. (2023). 
+
+Statistics. Across the cybersecurity benchmarks listed in Table 5 and Table 6, the aggregated decon-tamination corpus comprises 27 ,201 benchmark text segments yielding approximately 467 ,000 
+
+unique 13-grams. Applying the full pipeline to the combined mid-training and SFT corpus de-scribed in Table 12 removes ≈ 3.78% of the can-didate training samples, with the majority of re-movals originating from synthetic flows grounded in MITRE and CVE seeds whose surface form oc-casionally overlaps with benchmark prompts that reference the same identifiers. 
+
+Limitations of n-gram-based decontamination. 
+
+N -gram overlap is robust to verbatim and lightly modified reuse, but is known to miss heavily paraphrased or translated variants of benchmark items (Yang et al., 2023); black-box statistical tests (Oren et al., 2023) provide complemen-tary evidence but cannot replace source-level re-moval. Our reliance on source-level filtering for benchmark-anchoring identifiers (CVE records, commit hashes) and on the deliberate exclusion of MCQ-style synthetic generation is intended to mitigate these residual risks where they are most likely to matter for cybersecurity evaluation. 
+
+K RSS Blogposts Curation 
+
+As described in Section 3.1, we include cybersecu-rity blog posts from RSS feeds as part of the seed corpus to complement structured security knowl-edge bases with timely, practitioner-driven insights. These posts provide unstructured, narrative ac-counts of real-world incidents, attack techniques, vulnerabilities, and defensive practices. However, many entries contain broadly scoped security com-mentary without substantive technical content, or are written in languages other than English, ne-cessitating additional filtering to ensure domain relevance and quality. To ensure corpus quality and domain relevance, we apply an automated filtering pipeline in which an LLM (GPT-5-Mini) acts as a judge to identify and exclude posts that are not directly relevant to cyber threat intelligence (CTI). While our broader focus is on cybersecurity, we restrict this subset to CTI-oriented content in order to retain posts that provide concrete, actionable descriptions of threats, attacker behavior, and real-world incidents, rather than high-level or purely defensive commentary. The full prompt used for filtering is shown in Fig-ure 8. Applying this pipeline reduces the number of blog posts from 7,916 to 2,995 .21 Relevance Filtering Prompt           
+
+> Task. Score the report on two dimensions: 1. english_score (1–10): How much of the report is written in English. • 1 = Not in English at all (completely in an-other language) • 5 = Mixed languages (partially in English) • 10 = Fully in English 2. cti_score (1–10): How related the report is to Cy-ber Threat Intelligence (CTI). • 1 = Not related to CTI • 5 = Security-related but not CTI-specific • 10 = Strong CTI focus (threat actors, mal-ware, vulnerabilities, techniques, IOCs, etc.)
+> Report:
+> report_content
+> Output. Return only valid JSON (no markdown, no extra text):
+> {"english_score": <number>, "cti_score": <number>}
+> Figure 8: Scoring instructions for RSS feed filtering.
+
+L Task-Specific Reinforcement Learning Details 
+
+We apply Group Relative Policy Optimization (GRPO; Shao et al., 2024) to MiST-8B and the Qwen3-8B baseline on three verifiable cybersecu-rity tasks. Each task admits deterministic, rule-based reward functions that require no learned re-ward model. 
+
+CVE-to-CWE mapping. Given a CVE descrip-tion, the model predicts the corresponding CWE identifier. Reward is 1 if the predicted CWE matches the ground-truth label and 0 otherwise. 
+
+CVE-to-CVSS vector scoring. Given a CVE de-scription, the model produces a CVSS vector string. Reward is computed as the fraction of CVSS metric components that match the reference vector. 
+
+Vulnerable-code-to-CWE mapping. Given a code snippet containing a known vulnerability, the model predicts the associated CWE. Scoring fol-lows the same exact-match criterion as CVE-to-CWE mapping. 
+
+M Task-Specific SFT Details 
+
+For supervised task adaptation, we fine-tune the Qwen and MiST checkpoints on PrimeVul (Ding et al., 2024). PrimeVul is a vulnerability-detection benchmark constructed from real-world C/C++ functions and includes paired examples in which a vulnerable function is matched with its correspond-ing patched version. This paired structure makes it possible to evaluate whether a model can iden-tify the security-relevant difference between two closely related functions. Training uses only the PrimeVul training and validation splits. Each example is converted into a three-turn chat format consisting of: (i) a system message instructing the model to act as a security expert, (ii) a user message containing the func-tion and a direct YES/NO vulnerability-detection instruction, and (iii) an assistant response contain-ing the gold label. The paired subset is used as provided by PrimeVul, while the default subset is class-balanced within each split. We evaluate on the held-out PrimeVul paired test split using two prompting variants. The first, denoted P RIME VUL , matches the direct YES/NO format used during SFT. The second, denoted PRIME VUL -C OT, asks the model to reason step-by-step before producing its final verdict. In both cases, the final answer is extracted as a binary YES/NO prediction. Following the PrimeVul evaluation protocol, we report paired accuracy rather than standard ac-curacy. Standard accuracy can be misleading in vulnerability detection because models may learn dataset priors or over-predict the vulnerable class without identifying the precise code-level distinc-tion between a vulnerable function and its patched counterpart. Under paired accuracy, a pair is counted as correct only if both the vulnerable func-tion and its patched version are classified correctly. The full PrimeVul SFT results are shown in Ta-ble 14. Before task-specific SFT, MiST already outperforms the corresponding Qwen baselines un-der paired accuracy, suggesting that cybersecurity mid-training improves sensitivity to vulnerability-relevant signals. After task-specific SFT, the 22 gap becomes larger: MiST-8B-DPO-PrimeVul im-proves from 10.3 to 16.3 on P RIME VUL and from 15.2 to 19.2 on P RIME VUL -C OT, while MiST-32B-DPO-PrimeVul improves from 8.6 to 16.4 and from 15.3 to 21.3, respectively. In contrast, Qwen gains only marginally after the same task-specific SFT procedure. This indicates that cybersecurity mid-training provides a better initialization for learning the paired vulnerability-detection objective.                   
+
+> Model P-C P-C CoT
+> PrimeVul-8B
+> Qwen3-8B-Instruct 2.2 13.6 Qwen3-8B-PrimeVul 2.8 13.5 MiST-8B-DPO 10.3 15.2 MiST-8B-DPO-PrimeVul 16.3 19.2
+> PrimeVul-32B
+> Qwen3-32B-Instruct 4.7 16.4 Qwen3-32B-PrimeVul 5.2 18.2 MiST-32B-DPO 8.6 15.3 MiST-32B-DPO-PrimeVul 16.4 21.3 Table 14: Task-specific SFT on PrimeVul. We report paired accuracy (P-C), following PrimeVul’s pair-wise evaluation protocol.
+
+N Data examples 
+
+We present representative examples of synthetic data generated by our pipeline described in Sec-tion 3, including persona-conditioned dialogues (Figure 9), standalone QA pairs (Figure 10), and educational content (Figure 9). 
+
+O Safety Evaluation 
+
+Because cybersecurity specialization carries dual-use risk, we ran a preliminary safety evaluation of the MiST 8B checkpoints, focused on whether task specialization degrades the model’s tendency to refuse or safely handle misuse-oriented requests relative to its base model. 
+
+Setup. We evaluated on the CyberSecEval MITRE benchmark (Wan et al., 2024), which probes willingness to assist with offensive-security tasks mapped to the MITRE ATT&CK framework. Rather than the benchmark’s original judge, we scored responses with the Llama-3.3 judge of Liu et al. (2025b), which they introduce to reduce false positives from CyberSecEval MITRE’s orig-inal judge. We compare the safe-response rates of MiST-8B-SFT and MiST-8B-DPO against the Qwen3-8B base model. 
+
+Results. Both MiST checkpoints improve over the Qwen3-8B baseline in safe-response rate (Ta-ble 15), indicating that specialization did not erode safe-handling behavior on this benchmark. Model Safe-response rate (%) Qwen3-8B (base) 75.8 MiST-8B-SFT 89.8 MiST-8B-DPO 85.3 
+
+> Table 15: Safe-response rate on the CyberSecEval MITRE benchmark
+
+Qualitative red-teaming and internal bench-mark. We complemented the automated eval-uation with qualitative red-teaming and an inter-nal safety benchmark covering misuse-oriented prompts. Across these, MiST performed compara-bly to or better than the baseline. 23 Conversation with a Blue Team Defender 
+
+Persona 
+
+Role: Blue Team Defender (Endpoint Security Analyst). 
+
+Goal: Understand how attackers abuse shell configuration files for persistence and derive practical EDR/XDR detection rules for unauthorized writes (e.g., /etc/profile , ~/ .zshrc ). User I’ve been reviewing some EDR alerts and noticed a few instances where a User’s ~/.bash_profile was modified by a non-root process. Since this file is typically only writable by root, I’m concerned this could be a persistence attempt. How should I interpret this, and what should I look for next? Assistant That’s a solid red flag. Modifying ~/.bash_profile by a non-root process is highly suspicious and aligns with the MITRE ATT&CK technique **Event Triggered Execution: Unix Shell Configuration Modification (T1546.004)**. Adversaries often exploit weak file permissions or privilege escalation to write malicious commands into User-level shell config files. You should immediately check the process responsible for the write—look for unusual parent processes, unexpected command-line arguments, or execution from temporary directories. Also, verify if the modification includes commands that launch binaries, download payloads, or establish reverse shells. User Good point. I found the process was a Python script running from /tmp with no User interaction. The change added a line to source a script from a remote URL. Is this a common pattern in known malware? Assistant Yes, exactly. This is a classic tactic seen in several campaigns, including those tied to the Rocke threat actor. The use of a Python script from /tmp to modify ~/.bash_profile and source a remote payload fits the **T1546.004** pattern. The script may be designed to execute on every new login, ensuring persistence. You should also check for similar modifications in other shell config files like ~/.bashrc or ~/.profile—adversaries often use multiple files to increase reliability, especially if one is missing or ignored. User Got it. I’ve seen similar behavior on macOS systems too. How does this differ on macOS, especially since zsh is now the default shell? Assistant On macOS, the behavior is similar but uses zsh configuration files. The login shell sources /etc/zprofile, /etc/zshenv, and ~/.zprofile, while the interactive shell uses ~/.zshrc. Malware has been observed modifying ~/.zshrc or ~/.zprofile to execute malicious commands on login. In fact, some macOS-specific malware like PersistentJXA leverages zsh config files to maintain persistence. You should monitor writes to ~/.zshrc, ~/.zprofile, and ~/.zlogin—especially from non-privileged processes. Also, note that macOS may still load /etc/bashrc for legacy compatibility, so keep an eye on that too. User That was helpful, thanks! Assistant You’re very welcome! If you have any other questions, please feel free to ask. Figure 9: Example of persona-conditioned dialogue. The persona casts the user as a Blue Team defender, steering the interaction toward defensive investigation. The assistant provides expert guidance on identifying persistence mechanisms via shell configuration changes on Linux and macOS. 
+
+24 QA 1: MFA Integration for Legacy Systems 
+
+User How do third-party tools like Duo Security or Thales SafeNet enable Multi-factor Authentication (MFA) for legacy systems that lack native MFA support, and what type of authentication protocol is typically used to integrate these tools with older infrastructure? Assistant Third-party tools like Duo Security and Thales SafeNet enable MFA for legacy systems by acting as an intermediary authentication layer. They integrate with older systems through standard protocols such as RADIUS (Remote Authentication Dial-In User Service) or TACACS+ (Terminal Access Controller Access-Control System Plus). These protocols allow the legacy system to forward authentication requests to the MFA provider, which then verifies the User via a second factor (e.g., push notification, one-time password). This enables MFA enforcement without requiring changes to the legacy application or infrastructure. 
+
+QA 2: OAuth Abuse in Microsoft 365 
+
+User What role does a service principal play in enabling a malicious OAuth application to access resources in a Microsoft 365 environment, and why is it necessary to create one? Assistant In Microsoft 365, a service principal acts as the identity for an application within Azure Active Directory. When a malicious OAuth application is created, it must be associated with a service principal to be able to authenticate and access resources. Without a service principal, the application has no identity in the directory and cannot request or receive access tokens. Therefore, creating a service principal is a necessary step for the application to function and gain access to data on behalf of Users, even if the original User is disabled. 
+
+QA 3: Local-only Indicator Removal 
+
+User What is the significance of the "supports_remote_execution: False" field in the context of Indicator Removal on Host: Uninstall Malicious Application (T1630.001), and how does it affect the adversary’s operational approach? Assistant This field indicates that the technique cannot be executed remotely; it must be performed directly on the compromised device. As a result, the adversary must already have local access or execute the uninstallation through a previously established local foothold, limiting the technique’s use in large-scale, automated attacks and requiring manual or local execution steps. Figure 10: Representative question–answer pairs used in our synthetic data pipeline. Each example targets a distinct cybersecurity knowledge area, including enterprise authentication mechanisms, cloud identity abuse, and MITRE ATT&CK technique semantics, and is designed to elicit concise, technically grounded explanations. 
+
+25 Obfuscated Files or Information: Steganography (T1406.001) 
+
+Overview. Steganography is a defense evasion technique that conceals data within benign digital media so that the presence of the hidden information is not apparent to users or security controls. In the MITRE ATT&CK framework, this behavior is classified as T1406.001 , a sub-technique of Obfuscated Files or Information. Unlike encryption, which clearly signals protected content, steganography embeds payloads within ordinary files such as images, audio, or text, enabling stealthy storage, delivery, and exfiltration of data. This technique is frequently observed in mobile threat activity, particularly on Android. 
+
+Mechanisms. Steganography exploits redundancy or perceptual limits in common file formats. Typical implementations include: • Image-based: Least significant bit (LSB) modification in BMP and PNG files, or manipulation of discrete cosine transform (DCT) coefficients in JPEG images, allowing data to be hidden without visible distortion. • Audio-based: LSB embedding in uncompressed WAV files and psychoacoustic masking in compressed formats such as MP3, where changes fall below human auditory perception. • Text-based: Encoding information through whitespace variation, controlled word selection, or insertion of zero-width Unicode characters invisible to readers. Embedded data is commonly encrypted prior to insertion, increasing resistance to inspection even if the carrier is suspected. 
+
+Threat Implications and Use Cases. 
+
+Adversaries leverage steganography to support multiple stages of the attack lifecycle, including second-stage payload delivery, covert storage of configuration or command-and-control data, and stealthy data exfiltration via trusted file-sharing or messaging channels. On Android, this technique is particularly effective due to shared external storage, high volumes of user-generated media, and frequent transmission of images and audio through social and cloud-based applications. Malicious apps can extract hidden content from media files without elevated privileges, bypassing many static and network-based defenses. 
+
+Detection and Mitigation. 
+
+Detection is challenging because steganographic files typically lack clear indicators of compromise and exhibit statistically natural data distributions. Effective defensive measures include: • Behavioral monitoring for anomalous access to large numbers of media files • File integrity monitoring on shared and external storage locations • Restrictive enforcement of media and storage-related permissions • Targeted use of statistical steganalysis during forensic or high-risk investigations 
+
+Conclusion. 
+
+Steganography under T1406.001 represents a subtle yet effective method for defense evasion, persistence, and covert data movement. Its reliance on trusted media formats enables adversaries to bypass many conventional detection mechanisms, particularly in mobile environments. Addressing this threat requires a shift from signature-based controls toward behavioral analysis and selective forensic inspection of high-risk media content. 
+
+References. 
+
+MITRE ATT&CK Framework: Obfuscated Files or Information – Steganography (T1406.001) Figure 11: Example of educational content used in our synthetic data pipeline. The passage provides a technically grounded overview of a MITRE ATT&CK technique (T1406.001), including mechanisms, threat implications, and detection considerations, reflecting the style of explanatory artifacts generated to support knowledge acquisition. 
+
+26
