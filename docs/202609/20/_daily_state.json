@@ -1,0 +1,25 @@
+{
+  "date": "20260920",
+  "date_label": "",
+  "generated_at": "2026-09-20 22:06:18 UTC",
+  "recommend_exists": true,
+  "run_count": 1,
+  "papers": [
+    {
+      "paper_id": "2609.15963v1",
+      "route": "202609/20/2609.15963v1-adversarial-testing-of-automated-program-repair-agents-for-security-vulnerabilities",
+      "title": "Adversarial Testing of Automated Program Repair Agents for Security Vulnerabilities",
+      "section": "deep",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "ca"
+        }
+      ],
+      "score": 8.0,
+      "evidence": "对基于LLM的自动程序修复智能体进行安全漏洞对抗测试",
+      "first_seen_at": "2026-09-20 22:06:18 UTC",
+      "updated_at": "2026-09-20 22:06:18 UTC"
+    }
+  ]
+}

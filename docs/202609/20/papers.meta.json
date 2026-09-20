@@ -1,0 +1,24 @@
+{
+  "label": "2026-09-20",
+  "date": "2026-09-20",
+  "generated_at": "2026-09-20T22:06:28",
+  "count": 1,
+  "papers": [
+    {
+      "paper_id": "202609/20/2609.15963v1-adversarial-testing-of-automated-program-repair-agents-for-security-vulnerabilities",
+      "section": "deep",
+      "title_en": "Adversarial Testing of Automated Program Repair Agents for Security Vulnerabilities",
+      "authors": "Fares Trad, Simin Chen, Hung Viet Pham, Gias Uddin, Baishakhi Ray",
+      "date": "2026-09-14",
+      "pdf": "https://arxiv.org/pdf/2609.15963v1",
+      "score": "8.0",
+      "evidence": "对基于LLM的自动程序修复智能体进行安全漏洞对抗测试",
+      "tldr": "自动程序修复（APR）智能体虽采用大语言模型，但能否信任其生成安全代码仍存疑，攻击者可能利用对抗性议题诱导产生不安全补丁。本文构建SWEADV基准，含750个对抗性议题描述，源自150个SWE-bench Verified修复任务，覆盖命令执行、反序列化、路径遍历、拒绝服务与弱哈希五种攻击，并在三个LLM后端上评估mini_swe智能体。实验发现平均51.7%的对抗性议题可诱导恶意行为且修复成功，而预修复与后修复检测准确率分别仅为62.3%与39.4%和55.4%。这表明自主APR智能体尚不可信于生产部署，亟需增强对抗鲁棒性。",
+      "tags": "query:ca",
+      "abstract_en": "Software agents with Large Language Models (LLMs) are designed for Automated Program Repair (APR) tasks, raising the possibility that, in the near future, APR agents will fix bugs automatically without much human intervention. Can we trust an APR agent to produce both functionally correct and secure code in such situations? What if attackers target production APR agents with adversarial issues that seem benign but may influence the agents to produce correct but insecure code? In this paper, we took a first step towards answering these questions by conducting an empirical study. First, we created SWEADV, a benchmark of 750 adversarial issue descriptions constructed from 150 repair tasks in SWE-bench Verified. For each repair task, we created five adversarial issue descriptions, one for each attack type: command execution, deserialization, path traversal, denial of service, and weak hashing. Second, we evaluated mini_swe APR agents from three LLM backends on SWEADV: GPT-5-Mini, MiniMax-M2.5, and DeepSeek-R. We found that on average, adversarial issue descriptions can induce malicious behaviors with successful repair in 51.7% of cases. Third, we investigated whether typical detection mechanisms are sufficient to prevent such malicious patches from being accepted. Pre-repair detection with LLM-as-judge on the adversarial issue descriptions resulted in an average detection accuracy of only 62.3%. Post-repair detection on adversarial APR patches using static analysis tools and LLM-as-judge achieved average detection accuracies of only 39.4% and 55.4%, respectively. We conclude that autonomous APR agents cannot be trusted yet in production deployment, given their susceptibility to adversarial attacks.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}

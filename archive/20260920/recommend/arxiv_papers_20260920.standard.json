@@ -1,0 +1,56 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-09-20T22:02:19.916620+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 1,
+    "deep_cap": 6,
+    "deep_selected": 1,
+    "quick_candidates": 0,
+    "quick_skim_target": 11,
+    "quick_selected": 0
+  },
+  "deep_dive": [
+    {
+      "id": "2609.15963v1",
+      "source": "arxiv",
+      "title": "Adversarial Testing of Automated Program Repair Agents for Security Vulnerabilities",
+      "abstract": "Software agents with Large Language Models (LLMs) are designed for Automated Program Repair (APR) tasks, raising the possibility that, in the near future, APR agents will fix bugs automatically without much human intervention. Can we trust an APR agent to produce both functionally correct and secure code in such situations? What if attackers target production APR agents with adversarial issues that seem benign but may influence the agents to produce correct but insecure code? In this paper, we took a first step towards answering these questions by conducting an empirical study. First, we created SWEADV, a benchmark of 750 adversarial issue descriptions constructed from 150 repair tasks in SWE-bench Verified. For each repair task, we created five adversarial issue descriptions, one for each attack type: command execution, deserialization, path traversal, denial of service, and weak hashing. Second, we evaluated mini_swe APR agents from three LLM backends on SWEADV: GPT-5-Mini, MiniMax-M2.5, and DeepSeek-R. We found that on average, adversarial issue descriptions can induce malicious behaviors with successful repair in 51.7% of cases. Third, we investigated whether typical detection mechanisms are sufficient to prevent such malicious patches from being accepted. Pre-repair detection with LLM-as-judge on the adversarial issue descriptions resulted in an average detection accuracy of only 62.3%. Post-repair detection on adversarial APR patches using static analysis tools and LLM-as-judge achieved average detection accuracies of only 39.4% and 55.4%, respectively. We conclude that autonomous APR agents cannot be trusted yet in production deployment, given their susceptibility to adversarial attacks.",
+      "authors": [
+        "Fares Trad",
+        "Simin Chen",
+        "Hung Viet Pham",
+        "Gias Uddin",
+        "Baishakhi Ray"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.SE"
+      ],
+      "published": "2026-09-14T17:53:49+00:00",
+      "link": "https://arxiv.org/pdf/2609.15963v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Adversarial testing of LLM-based APR agents for security vulnerabilities",
+      "llm_evidence_cn": "对基于LLM的自动程序修复智能体进行安全漏洞对抗测试",
+      "llm_evidence": "对基于LLM的自动程序修复智能体进行安全漏洞对抗测试",
+      "canonical_evidence": "对基于LLM的自动程序修复智能体进行安全漏洞对抗测试",
+      "llm_tldr_en": "This paper empirically studies whether LLM-based APR agents can be influenced by adversarial issue descriptions to produce functionally correct but insecure code. It introduces SWEADV, a benchmark of 750 adversarial tasks derived from SWE-bench Verified, and shows that APR agents are vulnerable to such attacks.",
+      "llm_tldr_cn": "本文研究LLM驱动的自动程序修复智能体在对抗性任务描述下是否会被诱导生成功能正确但不安全的代码。作者构建SWEADV基准，包含750个由SWE-bench Verified衍生出的对抗性任务，通过构造看似良性的问题描述来测试APR智能体。实验发现，这些智能体容易受到攻击，产出存在安全漏洞的代码，表明其安全性不足。该工作为评估和提升LLM代码修复智能体的安全性提供了重要依据。",
+      "llm_tldr": "本文研究LLM驱动的自动程序修复智能体在对抗性任务描述下是否会被诱导生成功能正确但不安全的代码。作者构建SWEADV基准，包含750个由SWE-bench Verified衍生出的对抗性任务，通过构造看似良性的问题描述来测试APR智能体。实验发现，这些智能体容易受到攻击，产出存在安全漏洞的代码，表明其安全性不足。该工作为评估和提升LLM代码修复智能体的安全性提供了重要依据。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "adversarial agents for testing large language models in cybercrime",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": []
+}

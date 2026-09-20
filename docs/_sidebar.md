@@ -1,6 +1,9 @@
 * <a class="dpr-sidebar-root-link" href="#/">首页</a>
 * <a class="dpr-sidebar-root-link dpr-sidebar-noactive-link" href="javascript:void(0)" data-dpr-hash="#/tutorial/README">使用教程</a>
 * Daily Papers
+  * 2026-09-20 <!--dpr-date:20260920-->
+    * 精读区
+      * <a class="dpr-sidebar-item-link dpr-sidebar-item-structured" href="#/202609/20/2609.15963v1-adversarial-testing-of-automated-program-repair-agents-for-security-vulnerabilities" data-sidebar-item="{&quot;title&quot;: &quot;Adversarial Testing of Automated Program Repair Agents for Security Vulnerabilities&quot;, &quot;link&quot;: &quot;https://arxiv.org/abs/2609.15963v1-adversarial-testing-of-automated-program-repair-agents-for-security-vulnerabilities&quot;, &quot;score&quot;: &quot;8.0&quot;, &quot;tags&quot;: [{&quot;kind&quot;: &quot;query&quot;, &quot;label&quot;: &quot;ca&quot;}], &quot;evidence&quot;: &quot;对基于LLM的自动程序修复智能体进行安全漏洞对抗测试&quot;}">Adversarial Testing of Automated Program Repair Agents for Security Vulnerabilities</a>
   * 2026-09-19 <!--dpr-date:20260919-->
     * 精读区
       * <a class="dpr-sidebar-item-link dpr-sidebar-item-structured" href="#/202609/19/2609.16541v1-a-cyber-range-evaluation-of-autonomous-network-incident-response-agents" data-sidebar-item="{&quot;title&quot;: &quot;A Cyber Range Evaluation of Autonomous Network Incident Response Agents&quot;, &quot;link&quot;: &quot;https://arxiv.org/abs/2609.16541v1-a-cyber-range-evaluation-of-autonomous-network-incident-response-agents&quot;, &quot;score&quot;: &quot;8.0&quot;, &quot;tags&quot;: [{&quot;kind&quot;: &quot;query&quot;, &quot;label&quot;: &quot;ca&quot;}], &quot;evidence&quot;: &quot;网络靶场红队仿真与多智能体入侵响应模拟&quot;}">A Cyber Range Evaluation of Autonomous Network Incident Response Agents</a>
