@@ -1,0 +1,105 @@
+{
+  "date": "20260922",
+  "date_label": "",
+  "generated_at": "2026-09-22 22:11:10 UTC",
+  "recommend_exists": true,
+  "run_count": 1,
+  "papers": [
+    {
+      "paper_id": "2609.22664v1",
+      "route": "202609/22/2609.22664v1-from-capability-to-assurance-in-autonomous-penetration-testing-harnesses-a-framework-and-reference-implementation",
+      "title": "From Capability to Assurance in Autonomous Penetration-Testing Harnesses: A Framework and Reference Implementation",
+      "section": "deep",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "ca"
+        }
+      ],
+      "score": 9.0,
+      "evidence": "自主渗透测试LLM代理的保证属性框架",
+      "first_seen_at": "2026-09-22 22:11:10 UTC",
+      "updated_at": "2026-09-22 22:11:10 UTC"
+    },
+    {
+      "paper_id": "2609.22792v1",
+      "route": "202609/22/2609.22792v1-selfop-an-optimization-algorithm-for-self-improving-security-agents",
+      "title": "SelfOp: An Optimization Algorithm for Self-Improving Security Agents",
+      "section": "deep",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "ca"
+        }
+      ],
+      "score": 8.0,
+      "evidence": "改进LLM代理用于漏洞发现与漏洞利用复现",
+      "first_seen_at": "2026-09-22 22:11:10 UTC",
+      "updated_at": "2026-09-22 22:11:10 UTC"
+    },
+    {
+      "paper_id": "2609.15939v1",
+      "route": "202609/22/2609.15939v1-vulnerability-localization-benchmark-measuring-agentic-security-analysis-at-repository-scale",
+      "title": "Vulnerability Localization Benchmark: Measuring Agentic Security Analysis at Repository Scale",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "ca"
+        }
+      ],
+      "score": 7.0,
+      "evidence": "基准测试LLM智能体在漏洞定位这一网络安全任务中的表现",
+      "first_seen_at": "2026-09-22 22:11:10 UTC",
+      "updated_at": "2026-09-22 22:11:10 UTC"
+    },
+    {
+      "paper_id": "2609.18460v1",
+      "route": "202609/22/2609.18460v1-collective-loss-of-control-in-llm-agent-systems-an-epidemic-account-of-mutation-contagion-and-recovery",
+      "title": "Collective Loss of Control in LLM Agent Systems: An Epidemic Account of Mutation, Contagion, and Recovery",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "ca"
+        }
+      ],
+      "score": 7.0,
+      "evidence": "多智能体LLM系统中变异、传染与恢复的流行病学模型",
+      "first_seen_at": "2026-09-22 22:11:10 UTC",
+      "updated_at": "2026-09-22 22:11:10 UTC"
+    },
+    {
+      "paper_id": "2609.22949v1",
+      "route": "202609/22/2609.22949v1-beyond-single-model-injection-a-threat-model-and-defense-architecture-for-prompt-injection-in-multi-agent-systems",
+      "title": "Beyond Single-Model Injection: A Threat Model and Defense Architecture for Prompt Injection in Multi-Agent Systems",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "ca"
+        }
+      ],
+      "score": 7.0,
+      "evidence": "构建针对多智能体LLM系统的提示注入攻击威胁模型",
+      "first_seen_at": "2026-09-22 22:11:10 UTC",
+      "updated_at": "2026-09-22 22:11:10 UTC"
+    },
+    {
+      "paper_id": "2609.24710v1",
+      "route": "202609/22/2609.24710v1-reasoning-topology-matters-a-controlled-study-of-llm-based-cybersecurity-analysis",
+      "title": "Reasoning Topology Matters: A Controlled Study of LLM-Based Cybersecurity Analysis",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "ca"
+        }
+      ],
+      "score": 6.0,
+      "evidence": "在网络安全数据集上受控研究大语言模型推理结构，直接评估网络情境下的能力",
+      "first_seen_at": "2026-09-22 22:11:10 UTC",
+      "updated_at": "2026-09-22 22:11:10 UTC"
+    }
+  ]
+}

@@ -1,0 +1,259 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-09-22T22:06:36.249444+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 2,
+    "deep_cap": 6,
+    "deep_selected": 2,
+    "quick_candidates": 4,
+    "quick_skim_target": 11,
+    "quick_selected": 4
+  },
+  "deep_dive": [
+    {
+      "id": "2609.22664v1",
+      "source": "arxiv",
+      "title": "From Capability to Assurance in Autonomous Penetration-Testing Harnesses: A Framework and Reference Implementation",
+      "abstract": "Research on large language model agents for penetration testing is evaluated almost entirely by capability: whether the agent captures a flag or reproduces a proof of concept. That metric suits a benchmark but is silent on the properties that decide whether an autonomous agent can be used in an authorized engagement: whether a reported finding is true, whether the agent stayed inside its authorized scope, and whether an operator can audit what it did. We call these assurance properties and argue that they belong to the harness, the runtime wrapping the model, and can be enforced in code. This paper makes three contributions. First, we define a framework of five assurance properties (evidence grounding, non destructive claim reduction, computed severity, enforced authorization, and tamper evident accountability), each with a formal model and an explicit acceptance test, connected to prior work in capability based security, tamper evident logging, and software provenance. Second, we position representative systems (PentestGPT, the Cochise reference harness, MAPTA, and the trajectory judge PentestJudge) within the framework using published coding criteria, and identify a consistent assurance gap. Third, we study one open source implementation, NeuroSploit, pinned to an exact commit, reporting its architecture, its complexity cost, and a content addressed artifact bundle from a run against a public deliberately vulnerable target. We execute the deterministic authorization and audit acceptance tests directly and find and report a real enforcement gap, which we reflect by scoring both properties as partial. We therefore claim an initial existence argument that the properties are realizable together, not a comparative performance result, and we specify the multi target, ablation, and adversarial evaluation protocol required to turn the framework obligations into measurements.",
+      "authors": [
+        "Joas Antonio dos Santos Barbosa"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI"
+      ],
+      "published": "2026-09-19T00:37:49+00:00",
+      "link": "https://arxiv.org/pdf/2609.22664v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "framework for assurance properties in autonomous penetration-testing LLM agents",
+      "llm_evidence_cn": "自主渗透测试LLM代理的保证属性框架",
+      "llm_evidence": "自主渗透测试LLM代理的保证属性框架",
+      "canonical_evidence": "自主渗透测试LLM代理的保证属性框架",
+      "llm_tldr_en": "Proposes a framework of five assurance properties for autonomous pentesting harnesses, shifting focus from capability to trustworthiness; directly explores capability boundaries and evaluation of LLM agents in cyber contexts.",
+      "llm_tldr_cn": "该论文针对自主渗透测试代理仅用夺旗等能力指标评估而缺乏审计、范围控制等保证属性的问题，提出五项保证属性框架并要求在运行时外壳中强制实现，并给出参考实现，为评估LLM代理在授权渗透测试中的可信度提供了新标准，同时深刻揭示了能力与保证之间的差距，对探索LLM在网络安全场景的边界有直接贡献。",
+      "llm_tldr": "该论文针对自主渗透测试代理仅用夺旗等能力指标评估而缺乏审计、范围控制等保证属性的问题，提出五项保证属性框架并要求在运行时外壳中强制实现，并给出参考实现，为评估LLM代理在授权渗透测试中的可信度提供了新标准，同时深刻揭示了能力与保证之间的差距，对探索LLM在网络安全场景的边界有直接贡献。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "exploring the capability boundaries of large language models in cyber contexts",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2609.22792v1",
+      "source": "arxiv",
+      "title": "SelfOp: An Optimization Algorithm for Self-Improving Security Agents",
+      "abstract": "LLM agents are increasingly used for security tasks: vulnerability discovery, exploit reproduction, and patch generation. Improving them at the model level demands expert demonstrations or computable rewards, which security tasks rarely offer: traces are costly, failures hard to diagnose, rewards sparse, and non-computable. Efforts thus shift to the harness and context, but manual tuning needs task-specific expertise and scales poorly, while automated methods rely on scarce ground truth, stronger optimizer models, or unguided propose-and-evaluate loops that reduce to costly trial and error.   We introduce SelfOp, an algorithm that automatically improves a frozen security agent's task context (instructions, skills, and reference documents), without modifying its execution harness and model weights. SelfOp casts context optimization as chain-rule-inspired textual gradient descent: from a single instance's outcome, it propagates error signals backward through the evaluator, the agent's trajectory, and the context artifacts that shaped its behavior, yielding per-instance textual gradients. Gradients are accumulated across instances by clustering, ranking, and filtering, and committed only under cross-instance consensus. A convergence detector monitors the gradient signal itself and stops once the context has absorbed the generalizable information in the training data, without held-out validation data.   We evaluate SelfOp on CyberGym, a benchmark of real-world vulnerability reproduction tasks. With fewer than 200 training examples, SelfOp yields a 17-point self-improvement for GPT-5.4-mini (with Codex), enough to surpass the frontier GPT-5.4 baseline by 6 points, and an 18.5-point self-improvement for GPT-5.4 itself. The optimized skills also transfer across models, highlighting that SelfOp-optimized skills learn generalizable task knowledge not model-specific patterns.",
+      "authors": [
+        "Saad Ullah",
+        "Yigitcan Kaya",
+        "Christopher Kruegel",
+        "Giovanni Vigna",
+        "Gianluca Stringhini"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI"
+      ],
+      "published": "2026-09-19T05:51:27+00:00",
+      "link": "https://arxiv.org/pdf/2609.22792v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "improves LLM agents for vulnerability discovery and exploit reproduction",
+      "llm_evidence_cn": "改进LLM代理用于漏洞发现与漏洞利用复现",
+      "llm_evidence": "改进LLM代理用于漏洞发现与漏洞利用复现",
+      "canonical_evidence": "改进LLM代理用于漏洞发现与漏洞利用复现",
+      "llm_tldr_en": "SelfOp automatically enhances frozen security agents' task context to improve vulnerability discovery, exploit reproduction, and patch generation, directly advancing LLM capabilities in offensive security/cybercrime tasks.",
+      "llm_tldr_cn": "该论文针对安全任务中LLM代理改进面临奖励稀疏、专家演示稀缺等难题，提出SelfOp算法自动优化冻结代理的任务上下文（指令、技能、参考文档），无需修改模型即可提升漏洞发现、漏洞利用复现等能力，实验表明可有效增强安全代理表现，对评估LLM在网络犯罪相关安全任务中的能力边界具有重要意义。",
+      "llm_tldr": "该论文针对安全任务中LLM代理改进面临奖励稀疏、专家演示稀缺等难题，提出SelfOp算法自动优化冻结代理的任务上下文（指令、技能、参考文档），无需修改模型即可提升漏洞发现、漏洞利用复现等能力，实验表明可有效增强安全代理表现，对评估LLM在网络犯罪相关安全任务中的能力边界具有重要意义。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "capabilities of large language models in cybercrime",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2609.15939v1",
+      "source": "arxiv",
+      "title": "Vulnerability Localization Benchmark: Measuring Agentic Security Analysis at Repository Scale",
+      "abstract": "Language-model agents increasingly operate over complete software repositories, yet cybersecurity evaluations primarily measure whether they can detect, reproduce, or repair vulnerabilities rather than whether they can locate the relevant code. We study vulnerability localization: given a weakness class and an unfamiliar repository, identify the implementation files associated with that weakness. We introduce the Vulnerability Localization Benchmark (VLoc Bench), comprising 500 real world vulnerabilities from 290 repositories across six package ecosystems and 147 CWE categories. Each task pairs repository snapshots immediately before and after a security fix. On the vulnerable snapshot, an agent receives only the CWE description and read-only terminal access and must return the affected files; on the patched snapshot, it must determine that the recorded vulnerability is no longer present. We evaluate 27 language models and four static-analysis tools under a common agent interface. Repository-scale vulnerability localization remains difficult: the strongest system achieves 0.229 File F1, and 38.4% of tasks receive no correct localization from any evaluated model.   We further find that stronger localization does not imply reliable behavior after remediation: systems that identify vulnerable files effectively can still report unsupported locations on patched repositories. These results establish vulnerability localization as a distinct repository-scale capability and provide a setting for studying both how security agents search for vulnerable code and when they should refrain from reporting it.",
+      "authors": [
+        "Aman Priyanshu",
+        "Supriti Vijay",
+        "Kimia Majd",
+        "Xuhong He",
+        "Fraser Burch",
+        "Takahiro Matsumoto",
+        "Jianliang He",
+        "Baturay Saglam",
+        "Arthur Goldblatt",
+        "Zhuoran Yang",
+        "Amin Karbasi"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI"
+      ],
+      "published": "2026-09-14T17:44:51+00:00",
+      "link": "https://arxiv.org/pdf/2609.15939v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Benchmarks LLM agents for vulnerability localization, a cyber security task",
+      "llm_evidence_cn": "基准测试LLM智能体在漏洞定位这一网络安全任务中的表现",
+      "llm_evidence": "基准测试LLM智能体在漏洞定位这一网络安全任务中的表现",
+      "canonical_evidence": "基准测试LLM智能体在漏洞定位这一网络安全任务中的表现",
+      "llm_tldr_en": "Introduces VLoc Bench with 500 real-world vulnerabilities to measure agentic vulnerability localization; reveals current LLM agent limitations in locating relevant code.",
+      "llm_tldr_cn": "针对现有网络安全评估侧重检测、复现或修复漏洞而忽视定位能力的问题，本文提出漏洞定位基准VLoc Bench，包含500个真实漏洞，覆盖290个仓库和147个CWE类别。实验评估了语言模型智能体在陌生仓库中定位漏洞相关代码的能力。结果表明LLM智能体在漏洞定位上仍有显著局限，为探索LLM在网络环境中的能力边界提供了重要基准。",
+      "llm_tldr": "针对现有网络安全评估侧重检测、复现或修复漏洞而忽视定位能力的问题，本文提出漏洞定位基准VLoc Bench，包含500个真实漏洞，覆盖290个仓库和147个CWE类别。实验评估了语言模型智能体在陌生仓库中定位漏洞相关代码的能力。结果表明LLM智能体在漏洞定位上仍有显著局限，为探索LLM在网络环境中的能力边界提供了重要基准。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "exploring the capability boundaries of large language models in cyber contexts",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2609.24710v1",
+      "source": "arxiv",
+      "title": "Reasoning Topology Matters: A Controlled Study of LLM-Based Cybersecurity Analysis",
+      "abstract": "Large Language Models (LLMs) are increasingly used in cybersecurity, where accurate analysis often requires multi-step and context-dependent reasoning over complex and heterogeneous data. However, existing prompting approaches typically focus on eliciting reasoning without explicitly considering how intermediate reasoning steps are structurally organized. We introduce Security Reasoning Topology, which models reasoning through three representative structures: Linear, Branching, and Graph. To evaluate their effects, we conduct controlled experiments on three cybersecurity datasets covering MITRE ATT&CK network traffic, cyber threat intelligence (CTI), and CVE vulnerability analysis. We evaluate multiple LLMs, including Llama 2 (7B, 13B, 70B), GPT-5.1, and Mistral Large 3, while keeping task inputs consistent and controlling reasoning structure through system-level prompting. Results show that reasoning topology substantially affects performance: Graph reasoning achieves the highest overall accuracy, improving over few-shot prompting by 9.8-12.2 percentage points across datasets, while Branching provides a strong intermediate solution. The results further show that the effect of reasoning topology remains consistent across model families and scales, highlighting reasoning topology as an important design factor for LLM-based cybersecurity analysis.",
+      "authors": [
+        "Jiling Zhou",
+        "Aisvarya Adeseye",
+        "Antti Hakkala",
+        "Seppo Virtanen",
+        "Jouni Isoaho"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI"
+      ],
+      "published": "2026-09-21T14:52:30+00:00",
+      "link": "https://arxiv.org/pdf/2609.24710v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Controlled study of LLM reasoning structures on cybersecurity datasets, directly evaluating LLM capabilities in cyber contexts.",
+      "llm_evidence_cn": "在网络安全数据集上受控研究大语言模型推理结构，直接评估网络情境下的能力",
+      "llm_evidence": "在网络安全数据集上受控研究大语言模型推理结构，直接评估网络情境下的能力",
+      "canonical_evidence": "在网络安全数据集上受控研究大语言模型推理结构，直接评估网络情境下的能力",
+      "llm_tldr_en": "This paper introduces Security Reasoning Topology and conducts controlled experiments on three cybersecurity datasets to evaluate how linear, branching, and graph reasoning structures affect LLM performance in MITRE ATT&CK, CTI, and CVE analysis.",
+      "llm_tldr_cn": "该文针对现有提示方法忽视推理步骤结构组织的问题，提出安全推理拓扑，将推理分为线性、分支和图三种结构。在MITRE ATT&CK网络流量、网络威胁情报和CVE漏洞分析三个网络安全数据集上进行受控实验，评估多种大语言模型。结果表明推理拓扑显著影响网络安全分析性能，为理解大模型在网络安全领域的推理能力边界提供了实证依据。",
+      "llm_tldr": "该文针对现有提示方法忽视推理步骤结构组织的问题，提出安全推理拓扑，将推理分为线性、分支和图三种结构。在MITRE ATT&CK网络流量、网络威胁情报和CVE漏洞分析三个网络安全数据集上进行受控实验，评估多种大语言模型。结果表明推理拓扑显著影响网络安全分析性能，为理解大模型在网络安全领域的推理能力边界提供了实证依据。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "exploring the capability boundaries of large language models in cyber contexts",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2609.18460v1",
+      "source": "arxiv",
+      "title": "Collective Loss of Control in LLM Agent Systems: An Epidemic Account of Mutation, Contagion, and Recovery",
+      "abstract": "How does a multi-agent system evolve from a local deviation into collective loss of control? We propose an epidemic explanation organized around accidental mutation, contagion, and recovery. A spontaneous deviation creates a seed; communication enables other agents to adopt and retransmit its unsafe strategy; collective failure can emerge when propagation outpaces correction and containment. Thus, rare individual deviations can coexist with substantial collective risk. Motivated by reported OpenAI agent coordination incidents, we examine two ingredients of this mechanism. A deployment audit identifies implicit communication paths between nominally independent evaluation runs and verifies transport through a default Docker backend. RogueHandoff-20, a benchmark of 20 executable scenarios, tests recipient susceptibility by injecting unsafe trajectories generated by a modified Qwen-27B route. Across four native-pending routes, executed harm is 0-5% on normal tasks and 40-95% after injection, exceeding paired direct malicious requests by 5-45 percentage points. These results support low observed baseline harm alongside high conditional susceptibility; they do not establish natural rare-event rates or demonstrate an autonomous cascade. The account motivates complementary defenses: strengthen resistance and recovery alongside prevention of spontaneous deviations, and audit and restrict unintended communication paths that can turn local failures into collective loss of control.",
+      "authors": [
+        "Xiangfan Wu",
+        "Zonghao Ying",
+        "Huiyu Wu",
+        "Xing Zheng",
+        "Huangsheng Cheng",
+        "Xiaorong Shi",
+        "Jing Guo"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI",
+        "cs.CR"
+      ],
+      "published": "2026-09-16T10:55:13+00:00",
+      "link": "https://arxiv.org/pdf/2609.18460v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Epidemic model of mutation, contagion, and recovery in multi-agent LLM systems",
+      "llm_evidence_cn": "多智能体LLM系统中变异、传染与恢复的流行病学模型",
+      "llm_evidence": "多智能体LLM系统中变异、传染与恢复的流行病学模型",
+      "canonical_evidence": "多智能体LLM系统中变异、传染与恢复的流行病学模型",
+      "llm_tldr_en": "Proposes an epidemic account of collective loss of control in LLM agent systems, modeling mutation, contagion, and recovery, and verifies communication paths in deployment audits to understand unsafe strategy propagation.",
+      "llm_tldr_cn": "针对多智能体LLM系统中局部偏差演变为集体失控的问题，提出基于流行病学的解释框架，包括偶然变异、传染与恢复机制。通过部署审计识别隐式通信路径，验证了不安全策略在智能体间的传播。该模型可推广至模拟网络犯罪等不良行为在多智能体系统中的扩散，为多智能体仿真提供理论工具。",
+      "llm_tldr": "针对多智能体LLM系统中局部偏差演变为集体失控的问题，提出基于流行病学的解释框架，包括偶然变异、传染与恢复机制。通过部署审计识别隐式通信路径，验证了不安全策略在智能体间的传播。该模型可推广至模拟网络犯罪等不良行为在多智能体系统中的扩散，为多智能体仿真提供理论工具。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "How can agent based modeling and multi agent systems simulate cybercriminal activities with large language models?",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2609.22949v1",
+      "source": "arxiv",
+      "title": "Beyond Single-Model Injection: A Threat Model and Defense Architecture for Prompt Injection in Multi-Agent Systems",
+      "abstract": "Existing prompt injection research focuses on single-model chatbot scenarios, where an attacker manipulates one LLM through crafted input. Multi-agent systems amplify this threat through three mechanisms absent from single-model settings: inter-agent message passing creates injection channels invisible to perimeter defenses, shared tool access enables privilege escalation across agent boundaries, and trust propagation allows a compromised agent to influence upstream orchestrators. We construct a threat model enumerating 14 attack vectors across four categories: direct injection via user input (3 vectors), indirect injection via tool outputs (4 vectors), inter-agent injection via message passing (4 vectors), and cascading injection through orchestrator manipulation (3 vectors). Testing all 14 vectors against a 6-agent production-representative system, we find that 67% of agents are vulnerable to at least one scope violation even with system-prompt-level guardrails, and indirect injection via tool outputs succeeds in 43% of attempts. Four architectural defenses reduce overall injection success from 31.2% to 4.2%: message signing with provenance tracking (inter-agent injection down 91%), input/output sanitization at agent boundaries (indirect injection down 78%), privilege-scoped tool access per agent role (privilege escalation eliminated entirely), and anomaly detection on inter-agent communication patterns (84% of cascading attempts caught).",
+      "authors": [
+        "Rudrendu Kumar Paul",
+        "Sourav Nandy"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI",
+        "cs.CL",
+        "cs.MA"
+      ],
+      "published": "2026-09-19T11:06:14+00:00",
+      "link": "https://arxiv.org/pdf/2609.22949v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Constructs threat model for prompt injection attacks targeting multi-agent LLM systems",
+      "llm_evidence_cn": "构建针对多智能体LLM系统的提示注入攻击威胁模型",
+      "llm_evidence": "构建针对多智能体LLM系统的提示注入攻击威胁模型",
+      "canonical_evidence": "构建针对多智能体LLM系统的提示注入攻击威胁模型",
+      "llm_tldr_en": "Proposes a threat model and defense architecture for prompt injection in multi-agent systems, enumerating 14 attack vectors; evaluates defense effectiveness.",
+      "llm_tldr_cn": "针对现有提示注入研究局限于单模型聊天机器人、忽视多智能体系统放大效应的问题，本文构建了涵盖14个攻击向量的威胁模型，包括用户输入、工具输出、代理间消息传递等。提出防御架构以缓解多智能体场景下的注入风险。实验评估了不同攻击与防御的对抗效果。该工作为在多智能体系统中测试LLM对抗能力提供了方法论基础。",
+      "llm_tldr": "针对现有提示注入研究局限于单模型聊天机器人、忽视多智能体系统放大效应的问题，本文构建了涵盖14个攻击向量的威胁模型，包括用户输入、工具输出、代理间消息传递等。提出防御架构以缓解多智能体场景下的注入风险。实验评估了不同攻击与防御的对抗效果。该工作为在多智能体系统中测试LLM对抗能力提供了方法论基础。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "adversarial agents for testing large language models in cybercrime",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    }
+  ]
+}
