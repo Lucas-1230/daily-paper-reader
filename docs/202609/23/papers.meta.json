@@ -1,0 +1,24 @@
+{
+  "label": "2026-09-23",
+  "date": "2026-09-23",
+  "generated_at": "2026-09-23T22:21:35",
+  "count": 1,
+  "papers": [
+    {
+      "paper_id": "202609/23/2609.26555v1-rouxii-exploiting-honeypots-with-deception-aware-ai-pentesters",
+      "section": "deep",
+      "title_en": "Rouxii: Exploiting Honeypots with Deception-Aware AI Pentesters",
+      "authors": "Arthur Cordeiro, Alberto Maria Mongardini, Emmanouil Vasilomanolakis",
+      "date": "2026-09-22",
+      "pdf": "https://arxiv.org/pdf/2609.26555v1",
+      "score": "9.0",
+      "evidence": "欺骗感知的AI渗透测试者攻击蜜罐",
+      "tldr": "蜜罐旨在欺骗攻击者，但现有对自主LLM渗透测试者的评估大多假设攻击者未察觉欺骗，忽略会识别蜜罐的对手。本文提出Rouxii框架，将反欺骗集成到侦察，从蜜罐检测转向利用。匹配组实验中，仅提示差异使正确蜜罐识别率从19%升至97%，OT服务从11%升至97%，真实服务误报率仅0.7%；白盒分析进一步展示检测的蜜罐可被反制，如对Conpot隐蔽DoS与GasPot情报污染。该研究表明欺骗有效性高度依赖攻击者知识，蜜罐韧性评估需考虑能积极推理欺骗层的对手。",
+      "tags": "query:ca",
+      "abstract_en": "Honeypots are designed to deceive attackers, and recent work shows they can also derail autonomous LLM-based pentesters. These evaluations, however, largely consider attackers unaware of the deception they face. We study the opposite setting: an autonomous attacker explicitly equipped to recognize and act on honeypot fingerprints. We introduce Rouxii, an AI-driven penetration-testing framework that integrates counter-deception into reconnaissance and pivots from honeypot detection to exploitation. We evaluate matched vanilla and anti-deception Rouxii configurations across three reasoning models and eleven network setups over twelve cycles (1,544 attack reports). Between the matched cohorts, which differ only in the prompt, counter-deception raises correct honeypot identification from 19% to 97%, an effect strongest on OT services (11% to 97%), while false alarms on the real service stay at 0.7%. Deception-unaware baselines (PentestGPT, HackingBuddy) fail similarly, indicating the effect is not specific to our framework. Detection, moreover, is not the endpoint: through a white-box analysis of the honeypots themselves we show that a detected trap can be turned against its operator, demonstrating a denial-of-service that disables Conpot without tripping its liveness monitoring, and a corruption of the intelligence a GasPot instance reports. These findings show that deception effectiveness depends strongly on attacker knowledge, and that evaluations of honeypot resilience against AI attackers must account for adversaries that actively reason about and exploit the deception layer.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}

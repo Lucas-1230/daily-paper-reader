@@ -1,0 +1,53 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-09-23T22:19:00.515211+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 1,
+    "deep_cap": 6,
+    "deep_selected": 1,
+    "quick_candidates": 0,
+    "quick_skim_target": 11,
+    "quick_selected": 0
+  },
+  "deep_dive": [
+    {
+      "id": "2609.26555v1",
+      "source": "arxiv",
+      "title": "Rouxii: Exploiting Honeypots with Deception-Aware AI Pentesters",
+      "abstract": "Honeypots are designed to deceive attackers, and recent work shows they can also derail autonomous LLM-based pentesters. These evaluations, however, largely consider attackers unaware of the deception they face. We study the opposite setting: an autonomous attacker explicitly equipped to recognize and act on honeypot fingerprints. We introduce Rouxii, an AI-driven penetration-testing framework that integrates counter-deception into reconnaissance and pivots from honeypot detection to exploitation. We evaluate matched vanilla and anti-deception Rouxii configurations across three reasoning models and eleven network setups over twelve cycles (1,544 attack reports). Between the matched cohorts, which differ only in the prompt, counter-deception raises correct honeypot identification from 19% to 97%, an effect strongest on OT services (11% to 97%), while false alarms on the real service stay at 0.7%. Deception-unaware baselines (PentestGPT, HackingBuddy) fail similarly, indicating the effect is not specific to our framework. Detection, moreover, is not the endpoint: through a white-box analysis of the honeypots themselves we show that a detected trap can be turned against its operator, demonstrating a denial-of-service that disables Conpot without tripping its liveness monitoring, and a corruption of the intelligence a GasPot instance reports. These findings show that deception effectiveness depends strongly on attacker knowledge, and that evaluations of honeypot resilience against AI attackers must account for adversaries that actively reason about and exploit the deception layer.",
+      "authors": [
+        "Arthur Cordeiro",
+        "Alberto Maria Mongardini",
+        "Emmanouil Vasilomanolakis"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR"
+      ],
+      "published": "2026-09-22T15:10:20+00:00",
+      "link": "https://arxiv.org/pdf/2609.26555v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "deception-aware AI pentesters exploiting honeypots",
+      "llm_evidence_cn": "欺骗感知的AI渗透测试者攻击蜜罐",
+      "llm_evidence": "欺骗感知的AI渗透测试者攻击蜜罐",
+      "canonical_evidence": "欺骗感知的AI渗透测试者攻击蜜罐",
+      "llm_tldr_en": "Studies autonomous LLM-based pentesters equipped with counter-deception to detect and exploit honeypots; introduces Rouxii framework, evaluates across 3 reasoning models and 11 network setups, showing counter-deception improves honeypot detection accuracy.",
+      "llm_tldr_cn": "针对现有LLM渗透测试者易被蜜罐欺骗的问题，提出Rouxii框架，将反欺骗能力集成到侦察阶段，从蜜罐检测转向利用。在三种推理模型和十一种网络设置上的实验表明，与仅提示不同的对照相比，反欺骗提升了蜜罐正确识别率，证明LLM攻击者能够学习识别和利用欺骗环境。该工作推进了对LLM在对抗性网络环境中能力边界的理解，为自主网络攻防测试提供了新视角。",
+      "llm_tldr": "针对现有LLM渗透测试者易被蜜罐欺骗的问题，提出Rouxii框架，将反欺骗能力集成到侦察阶段，从蜜罐检测转向利用。在三种推理模型和十一种网络设置上的实验表明，与仅提示不同的对照相比，反欺骗提升了蜜罐正确识别率，证明LLM攻击者能够学习识别和利用欺骗环境。该工作推进了对LLM在对抗性网络环境中能力边界的理解，为自主网络攻防测试提供了新视角。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "adversarial agents for testing large language models in cybercrime",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": []
+}
