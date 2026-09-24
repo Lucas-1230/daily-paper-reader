@@ -1,0 +1,24 @@
+{
+  "label": "2026-09-24",
+  "date": "2026-09-24",
+  "generated_at": "2026-09-24T22:44:53",
+  "count": 1,
+  "papers": [
+    {
+      "paper_id": "202609/24/2609.27336v1-cart-closed-loop-adaptive-red-teaming-for-large-language-models",
+      "section": "deep",
+      "title_en": "CART: Closed-Loop Adaptive Red Teaming for Large Language Models",
+      "authors": "Dongdong Zhang, Tengchao Lv, Yilin Jia, Yuzhong Zhao, Yupan Huang, Wenshan Wu, Xiangyang Zhou, Shaohan Huang, Nan Yang, Li Dong, Lei Cui, Furu Wei",
+      "date": "2026-09-23",
+      "pdf": "https://arxiv.org/pdf/2609.27336v1",
+      "score": "9.0",
+      "evidence": "闭环自适应红队框架测试大模型能力和风险",
+      "tldr": "自动化红队通常重放固定提示，只能测量已知风险，无法从测试中发现的失败里学习。CART闭环自适应红队框架利用每次测试结果指导后续探测，从广泛风险覆盖出发跟踪新出现的弱点，并保持新探针的多样性。在Frontier、JAH、Agentic三个评估集上，CART比静态种子重放发现更多失败和更高的平均风险，且这些增益延伸到工具介导的agent测试。该框架通过分离挑战者、目标与裁判角色并记录证据来源，将红队从一次性清单转变为持续、自适应且可审计的弱点搜索。",
+      "tags": "query:ca",
+      "abstract_en": "Automated red teaming often replays a fixed set of prompts, which measures known risks but cannot learn from failures found during testing. We present CART (Closed-Loop Adaptive Red Teaming), a framework that uses each result to guide what it tests next. CART begins with broad risk coverage, follows weaknesses that emerge, keeps new probes diverse, and records the evidence and source of every finding. It separates the Challenger that creates tests, the Target being tested, which may be a text-only model or a bounded tool-using agent, and the Judge that evaluates the results, allowing these roles to be studied independently. Across three evaluation families (Frontier, JAH, and Agentic), CART discovers more failures and higher average risk than static seed replay for every Target with an available baseline. The gains extend to tool-mediated agent tests, suggesting that contextual adaptation can reveal weaknesses that direct prompt replay does not exercise. These results describe what the test policies discover, not how often failures occur in real deployments. We also find that Challenger-Judge choices affect the evidence uncovered, highlighting the need for role separation and independent review. Overall, CART turns red teaming from a one-time checklist into a continuous, adaptive, and auditable search for model and agent weaknesses.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}

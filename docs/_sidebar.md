@@ -1,6 +1,9 @@
 * <a class="dpr-sidebar-root-link" href="#/">首页</a>
 * <a class="dpr-sidebar-root-link dpr-sidebar-noactive-link" href="javascript:void(0)" data-dpr-hash="#/tutorial/README">使用教程</a>
 * Daily Papers
+  * 2026-09-24 <!--dpr-date:20260924-->
+    * 精读区
+      * <a class="dpr-sidebar-item-link dpr-sidebar-item-structured" href="#/202609/24/2609.27336v1-cart-closed-loop-adaptive-red-teaming-for-large-language-models" data-sidebar-item="{&quot;title&quot;: &quot;CART: Closed-Loop Adaptive Red Teaming for Large Language Models&quot;, &quot;link&quot;: &quot;https://arxiv.org/abs/2609.27336v1-cart-closed-loop-adaptive-red-teaming-for-large-language-models&quot;, &quot;score&quot;: &quot;9.0&quot;, &quot;tags&quot;: [{&quot;kind&quot;: &quot;query&quot;, &quot;label&quot;: &quot;ca&quot;}], &quot;evidence&quot;: &quot;闭环自适应红队框架测试大模型能力和风险&quot;}">CART: Closed-Loop Adaptive Red Teaming for Large Language Models</a>
   * 2026-09-23 <!--dpr-date:20260923-->
     * 精读区
       * <a class="dpr-sidebar-item-link dpr-sidebar-item-structured" href="#/202609/23/2609.26555v1-rouxii-exploiting-honeypots-with-deception-aware-ai-pentesters" data-sidebar-item="{&quot;title&quot;: &quot;Rouxii: Exploiting Honeypots with Deception-Aware AI Pentesters&quot;, &quot;link&quot;: &quot;https://arxiv.org/abs/2609.26555v1-rouxii-exploiting-honeypots-with-deception-aware-ai-pentesters&quot;, &quot;score&quot;: &quot;9.0&quot;, &quot;tags&quot;: [{&quot;kind&quot;: &quot;query&quot;, &quot;label&quot;: &quot;ca&quot;}], &quot;evidence&quot;: &quot;欺骗感知的AI渗透测试者攻击蜜罐&quot;}">Rouxii: Exploiting Honeypots with Deception-Aware AI Pentesters</a>

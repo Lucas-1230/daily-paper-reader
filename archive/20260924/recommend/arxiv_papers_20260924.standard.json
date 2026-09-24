@@ -1,0 +1,62 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-09-24T22:39:22.415532+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 1,
+    "deep_cap": 6,
+    "deep_selected": 1,
+    "quick_candidates": 0,
+    "quick_skim_target": 11,
+    "quick_selected": 0
+  },
+  "deep_dive": [
+    {
+      "id": "2609.27336v1",
+      "source": "arxiv",
+      "title": "CART: Closed-Loop Adaptive Red Teaming for Large Language Models",
+      "abstract": "Automated red teaming often replays a fixed set of prompts, which measures known risks but cannot learn from failures found during testing. We present CART (Closed-Loop Adaptive Red Teaming), a framework that uses each result to guide what it tests next. CART begins with broad risk coverage, follows weaknesses that emerge, keeps new probes diverse, and records the evidence and source of every finding. It separates the Challenger that creates tests, the Target being tested, which may be a text-only model or a bounded tool-using agent, and the Judge that evaluates the results, allowing these roles to be studied independently. Across three evaluation families (Frontier, JAH, and Agentic), CART discovers more failures and higher average risk than static seed replay for every Target with an available baseline. The gains extend to tool-mediated agent tests, suggesting that contextual adaptation can reveal weaknesses that direct prompt replay does not exercise. These results describe what the test policies discover, not how often failures occur in real deployments. We also find that Challenger-Judge choices affect the evidence uncovered, highlighting the need for role separation and independent review. Overall, CART turns red teaming from a one-time checklist into a continuous, adaptive, and auditable search for model and agent weaknesses.",
+      "authors": [
+        "Dongdong Zhang",
+        "Tengchao Lv",
+        "Yilin Jia",
+        "Yuzhong Zhao",
+        "Yupan Huang",
+        "Wenshan Wu",
+        "Xiangyang Zhou",
+        "Shaohan Huang",
+        "Nan Yang",
+        "Li Dong",
+        "Lei Cui",
+        "Furu Wei"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-09-23T04:16:46+00:00",
+      "link": "https://arxiv.org/pdf/2609.27336v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "Closed-loop adaptive red teaming framework to test LLM limits and risks",
+      "llm_evidence_cn": "闭环自适应红队框架测试大模型能力和风险",
+      "llm_evidence": "闭环自适应红队框架测试大模型能力和风险",
+      "canonical_evidence": "闭环自适应红队框架测试大模型能力和风险",
+      "llm_tldr_en": "CART is a framework that adapts red teaming prompts based on previous results, discovering more failures and higher risk than static testing.",
+      "llm_tldr_cn": "针对传统红队测试固定提示集无法从失败中学习的问题，提出闭环自适应红队框架CART。CART根据每次测试结果调整后续测试内容，兼顾风险覆盖、弱点跟踪和多样性。在多个评估家族上，CART比静态重复提示发现更多失败和更高平均风险。该框架为评估大模型风险和边界提供了灵活工具。",
+      "llm_tldr": "针对传统红队测试固定提示集无法从失败中学习的问题，提出闭环自适应红队框架CART。CART根据每次测试结果调整后续测试内容，兼顾风险覆盖、弱点跟踪和多样性。在多个评估家族上，CART比静态重复提示发现更多失败和更高平均风险。该框架为评估大模型风险和边界提供了灵活工具。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "adversarial agents for testing large language models in cybercrime",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": []
+}

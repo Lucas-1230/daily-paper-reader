@@ -41,7 +41,7 @@
 <section class="dpr-home-dashboard-card dpr-home-report-card">
   <div class="dpr-home-dashboard-header">
     <div>
-      <span class="dpr-home-dashboard-kicker">2026-09-23</span>
+      <span class="dpr-home-dashboard-kicker">2026-09-24</span>
       <h3 class="dpr-home-dashboard-title">今日汇总</h3>
     </div>
     <strong class="dpr-home-dashboard-count">共 1 篇</strong>
@@ -51,7 +51,7 @@
     <div class="dpr-home-dashboard-stat"><dt>精读</dt><dd>1</dd></div>
     <div class="dpr-home-dashboard-stat"><dt>速读</dt><dd>0</dd></div>
   </dl>
-  <p class="dpr-home-dashboard-body">最近更新：2026-09-23 22:21:22 UTC<br>状态：成功</p>
+  <p class="dpr-home-dashboard-body">最近更新：2026-09-24 22:44:41 UTC<br>状态：成功</p>
 </section>
 <section class="dpr-home-dashboard-card dpr-home-brief-card">
   <div class="dpr-home-dashboard-header">
@@ -62,9 +62,9 @@
     <strong class="dpr-home-dashboard-count">AI</strong>
   </div>
   <div class="dpr-home-dashboard-body">
-<p>今日精读一篇9.0分论文《Rouxii: Exploiting Honeypots with Deception-Aware AI Pentesters》，聚焦欺骗感知AI渗透测试者如何利用蜜罐。</p>
-<p>最值得看的方向：AI攻击者与蜜罐欺骗的对抗，以及具备欺骗感知的自动化渗透可能削弱传统蜜罐防御。</p>
-<p>下步建议：关注AI驱动的攻防演练，及时评估并升级蜜罐与欺骗防御策略。</p>
+<p>今日共生成 1 篇推荐（精读 1 篇，速读 0 篇）</p>
+<p>精读：《CART: Closed-Loop Adaptive Red Teaming for Large Language Models》（9.0/10）</p>
+<p>这些结果覆盖了当下较热的方向，建议先看精读区论文的关键问题与方法。</p>
   </div>
 </section>
 <section class="dpr-home-dashboard-card dpr-home-deep-card">
@@ -76,7 +76,7 @@
     <strong class="dpr-home-dashboard-count">1 篇</strong>
   </div>
   <div class="dpr-home-dashboard-body">
-<ul class="dpr-home-dashboard-paper-list"><li><span class="dpr-home-dashboard-paper-title" title="Rouxii: Exploiting Honeypots with Deception-Aware AI Pentesters">Rouxii: Exploiting Honeypots with Deception-Aware AI Pentesters</span></li></ul>
+<ul class="dpr-home-dashboard-paper-list"><li><span class="dpr-home-dashboard-paper-title" title="CART: Closed-Loop Adaptive Red Teaming for Large Language Models">CART: Closed-Loop Adaptive Red Teaming for Large Language Models</span></li></ul>
   </div>
   <div class="dpr-home-dashboard-tags"><span class="dpr-home-dashboard-tag">ca <strong>1</strong></span></div>
 </section>

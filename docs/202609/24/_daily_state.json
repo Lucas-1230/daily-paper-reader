@@ -1,0 +1,25 @@
+{
+  "date": "20260924",
+  "date_label": "",
+  "generated_at": "2026-09-24 22:44:41 UTC",
+  "recommend_exists": true,
+  "run_count": 1,
+  "papers": [
+    {
+      "paper_id": "2609.27336v1",
+      "route": "202609/24/2609.27336v1-cart-closed-loop-adaptive-red-teaming-for-large-language-models",
+      "title": "CART: Closed-Loop Adaptive Red Teaming for Large Language Models",
+      "section": "deep",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "ca"
+        }
+      ],
+      "score": 9.0,
+      "evidence": "闭环自适应红队框架测试大模型能力和风险",
+      "first_seen_at": "2026-09-24 22:44:41 UTC",
+      "updated_at": "2026-09-24 22:44:41 UTC"
+    }
+  ]
+}
