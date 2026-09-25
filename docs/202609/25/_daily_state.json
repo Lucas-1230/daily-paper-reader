@@ -1,0 +1,89 @@
+{
+  "date": "20260925",
+  "date_label": "",
+  "generated_at": "2026-09-25 22:24:24 UTC",
+  "recommend_exists": true,
+  "run_count": 1,
+  "papers": [
+    {
+      "paper_id": "2609.28572v1",
+      "route": "202609/25/2609.28572v1-where-cyber-agents-struggle-bottleneck-analysis-of-multi-stage-llm-agents",
+      "title": "Where Cyber Agents Struggle: Bottleneck Analysis of Multi-Stage LLM Agents",
+      "section": "deep",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "ca"
+        }
+      ],
+      "score": 10.0,
+      "evidence": "对多阶段LLM网络攻击智能体的诊断研究，直接评估能力局限和瓶颈",
+      "first_seen_at": "2026-09-25 22:24:24 UTC",
+      "updated_at": "2026-09-25 22:24:24 UTC"
+    },
+    {
+      "paper_id": "2609.28900v1",
+      "route": "202609/25/2609.28900v1-codetta-high-capacity-keyless-and-undetectable-multi-agent-collusion",
+      "title": "Codetta: High-Capacity, Keyless, and Undetectable Multi-Agent Collusion",
+      "section": "deep",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "ca"
+        }
+      ],
+      "score": 8.0,
+      "evidence": "开发不可检测的多智能体LLM共谋协议",
+      "first_seen_at": "2026-09-25 22:24:24 UTC",
+      "updated_at": "2026-09-25 22:24:24 UTC"
+    },
+    {
+      "paper_id": "2609.29808v1",
+      "route": "202609/25/2609.29808v1-hard-stop-kernel-level-preemption-and-containment-for-rogue-agentic-execution",
+      "title": "Hard Stop: Kernel-Level Preemption and Containment for Rogue Agentic Execution",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "ca"
+        }
+      ],
+      "score": 7.0,
+      "evidence": "描述了恶意LLM智能体执行多阶段网络入侵，展示了其攻击能力。",
+      "first_seen_at": "2026-09-25 22:24:24 UTC",
+      "updated_at": "2026-09-25 22:24:24 UTC"
+    },
+    {
+      "paper_id": "2609.19759v1",
+      "route": "202609/25/2609.19759v1-rethinking-multi-agent-collaboration-when-more-is-less",
+      "title": "Rethinking Multi-Agent Collaboration: When More Is Less",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "ca"
+        }
+      ],
+      "score": 6.0,
+      "evidence": "分析多智能体协作的能力边界，为网络犯罪模拟中的多智能体系统设计提供依据",
+      "first_seen_at": "2026-09-25 22:24:24 UTC",
+      "updated_at": "2026-09-25 22:24:24 UTC"
+    },
+    {
+      "paper_id": "2609.28940v1",
+      "route": "202609/25/2609.28940v1-calibrated-decision-models-for-autonomous-penetration-testing-harnesses-jev-and-laya-as-system-one-decision-layers-for-llm-driven-pentest-agents",
+      "title": "Calibrated Decision Models for Autonomous Penetration-Testing Harnesses: JEV and Laya as System One Decision Layers for LLM-Driven Pentest Agents",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "ca"
+        }
+      ],
+      "score": 6.0,
+      "evidence": "LLM驱动的渗透测试智能体与决策模型，属于网络场景",
+      "first_seen_at": "2026-09-25 22:24:24 UTC",
+      "updated_at": "2026-09-25 22:24:24 UTC"
+    }
+  ]
+}
