@@ -1,0 +1,95 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-09-26T22:20:25.042031+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 0,
+    "deep_cap": 6,
+    "deep_selected": 0,
+    "quick_candidates": 2,
+    "quick_skim_target": 11,
+    "quick_selected": 2
+  },
+  "deep_dive": [],
+  "quick_skim": [
+    {
+      "id": "2609.24662v1",
+      "source": "arxiv",
+      "title": "DUMA-Bench: A Dual-Control Multi-Agent Benchmark for Evaluating LLM Agent Security",
+      "abstract": "LLM-based agents increasingly operate in environments where they interact with users, tools, and external systems. Yet most security evaluations assume passive users and static control, ignoring the interactive dynamics that shape real agent behavior. We introduce \\textbf{DUMA-Bench}, a benchmark and evaluation protocol for measuring agent security under \\emph{dual-control} interaction, where both the agent and the user can influence the shared environment state. DUMA-Bench extends $τ^2$-bench ~\\cite{barres2025tau} with adversarial environments covering eight vulnerability classes, including RAG poisoning, cross-agent manipulation, and unsafe output handling. We evaluate \\textbf{14 models from five model families} (OpenAI, Anthropic, DeepSeek, Qwen, and Z.ai) across eight domains and multiple user-behavior regimes. Across our experiments, introducing dual-control interaction increases the attack success rate from \\textbf{26.9\\%} to \\textbf{41.1\\%}. These results show that agent security is not solely a property of the model but emerges from the interaction between the model, the user, and the environment. DUMA-Bench provides a missing evaluation layer for studying security in realistic agent deployments.",
+      "authors": [
+        "Ivan Aleksandrov",
+        "German Kochnev",
+        "Sabrina Sadiekh",
+        "Yaroslav Rogoza"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-09-21T14:28:05+00:00",
+      "link": "https://arxiv.org/pdf/2609.24662v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "benchmark for evaluating LLM agent security under adversarial interactions",
+      "llm_evidence_cn": "评估 LLM 智能体安全性的基准，涵盖对抗性交互",
+      "llm_evidence": "评估 LLM 智能体安全性的基准，涵盖对抗性交互",
+      "canonical_evidence": "评估 LLM 智能体安全性的基准，涵盖对抗性交互",
+      "llm_tldr_en": "The paper introduces DUMA-Bench, a dual-control benchmark for evaluating LLM agent security in interactive environments with eight vulnerability classes, and evaluates 14 models across five families.",
+      "llm_tldr_cn": "该论文针对现有 LLM 智能体安全评估忽略用户与智能体交互动态的问题，提出 DUMA-Bench 基准，在双控交互环境下覆盖八类漏洞（如 RAG 投毒、跨智能体操纵等）。通过对五个模型家族 14 个模型的评估，该基准揭示了 LLM 智能体在对抗环境中安全性的差异。这项工作为探索大模型在网络环境中的能力边界提供了标准化测试平台。",
+      "llm_tldr": "该论文针对现有 LLM 智能体安全评估忽略用户与智能体交互动态的问题，提出 DUMA-Bench 基准，在双控交互环境下覆盖八类漏洞（如 RAG 投毒、跨智能体操纵等）。通过对五个模型家族 14 个模型的评估，该基准揭示了 LLM 智能体在对抗环境中安全性的差异。这项工作为探索大模型在网络环境中的能力边界提供了标准化测试平台。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "exploring the capability boundaries of large language models in cyber contexts",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2609.21340v1",
+      "source": "arxiv",
+      "title": "Conformal Privacy Auditing: Calibrated Re-identification Attacks with Statistical Guarantees",
+      "abstract": "Empirical identity leakage from released text is increasingly driven by attackers that combine large language models (LLMs) with auxiliary knowledge to link documents to individuals. Existing audits typically report success rates for specific attack pipelines but lack finite-sample statistical guarantees, while training-time protections such as differential privacy are difficult to translate into release-time decisions for individual natural-language documents. We introduce Conformal Privacy Auditing(CPA), a distribution-free calibration framework that provides a statistical certificate of re-identification risk for each released document against LLM-empowered adversaries. CPA outputs a conformal ambiguity set of candidate identities that is guaranteed to contain the true identity with user-chosen confidence under exchangeability, together with an interpretable leakage proxy derived from set size. CPA supports both logit-access and sampling-only attackers, enabling audits of open-source models and proprietary API models in a unified framework. Across multiple release benchmarks and attacker configurations, CPA achieves calibrated coverage and reveals sharp shifts in certified identifiability as auxiliary knowledge, LLM augmentation, and release mechanisms vary, providing a statistically grounded basis for reporting and comparing release-time linkage risk across attacker configurations, datasets, and release mechanisms alike.",
+      "authors": [
+        "Shuo Huang",
+        "Gholamreza Haffari",
+        "Xingliang Yuan",
+        "Ting Yu",
+        "Lizhen Qu"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.CL"
+      ],
+      "published": "2026-09-18T05:49:54+00:00",
+      "link": "https://arxiv.org/pdf/2609.21340v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "LLM-empowered adversaries for re-identification attacks",
+      "llm_evidence_cn": "利用大语言模型进行重识别攻击的对手",
+      "llm_evidence": "利用大语言模型进行重识别攻击的对手",
+      "canonical_evidence": "利用大语言模型进行重识别攻击的对手",
+      "llm_tldr_en": "Introduces Conformal Privacy Auditing, a framework that provides statistical guarantees for re-identification risks against LLM-empowered adversaries.",
+      "llm_tldr_cn": "该论文针对现有隐私审计缺乏统计保证的问题，提出共形隐私审计框架CPA，利用大语言模型驱动的对手进行重识别攻击，并为每个文档提供校准的风险证书。实验表明该方法能有效量化身份泄露风险。这项工作为评估LLM在网络犯罪中的攻击能力提供了一种可靠工具。",
+      "llm_tldr": "该论文针对现有隐私审计缺乏统计保证的问题，提出共形隐私审计框架CPA，利用大语言模型驱动的对手进行重识别攻击，并为每个文档提供校准的风险证书。实验表明该方法能有效量化身份泄露风险。这项工作为评估LLM在网络犯罪中的攻击能力提供了一种可靠工具。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "capabilities of large language models in cybercrime",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}

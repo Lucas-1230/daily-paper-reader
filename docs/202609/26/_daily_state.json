@@ -1,0 +1,41 @@
+{
+  "date": "20260926",
+  "date_label": "",
+  "generated_at": "2026-09-26 22:21:51 UTC",
+  "recommend_exists": true,
+  "run_count": 1,
+  "papers": [
+    {
+      "paper_id": "2609.24662v1",
+      "route": "202609/26/2609.24662v1-duma-bench-a-dual-control-multi-agent-benchmark-for-evaluating-llm-agent-security",
+      "title": "DUMA-Bench: A Dual-Control Multi-Agent Benchmark for Evaluating LLM Agent Security",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "ca"
+        }
+      ],
+      "score": 7.0,
+      "evidence": "评估 LLM 智能体安全性的基准，涵盖对抗性交互",
+      "first_seen_at": "2026-09-26 22:21:51 UTC",
+      "updated_at": "2026-09-26 22:21:51 UTC"
+    },
+    {
+      "paper_id": "2609.21340v1",
+      "route": "202609/26/2609.21340v1-conformal-privacy-auditing-calibrated-re-identification-attacks-with-statistical-guarantees",
+      "title": "Conformal Privacy Auditing: Calibrated Re-identification Attacks with Statistical Guarantees",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "ca"
+        }
+      ],
+      "score": 6.0,
+      "evidence": "利用大语言模型进行重识别攻击的对手",
+      "first_seen_at": "2026-09-26 22:21:51 UTC",
+      "updated_at": "2026-09-26 22:21:51 UTC"
+    }
+  ]
+}

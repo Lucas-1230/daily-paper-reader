@@ -41,17 +41,17 @@
 <section class="dpr-home-dashboard-card dpr-home-report-card">
   <div class="dpr-home-dashboard-header">
     <div>
-      <span class="dpr-home-dashboard-kicker">2026-09-25</span>
+      <span class="dpr-home-dashboard-kicker">2026-09-26</span>
       <h3 class="dpr-home-dashboard-title">今日汇总</h3>
     </div>
-    <strong class="dpr-home-dashboard-count">共 5 篇</strong>
+    <strong class="dpr-home-dashboard-count">共 2 篇</strong>
   </div>
   <dl class="dpr-home-dashboard-stats">
     <div class="dpr-home-dashboard-stat"><dt>累计更新</dt><dd>1 次</dd></div>
-    <div class="dpr-home-dashboard-stat"><dt>精读</dt><dd>2</dd></div>
-    <div class="dpr-home-dashboard-stat"><dt>速读</dt><dd>3</dd></div>
+    <div class="dpr-home-dashboard-stat"><dt>精读</dt><dd>0</dd></div>
+    <div class="dpr-home-dashboard-stat"><dt>速读</dt><dd>2</dd></div>
   </dl>
-  <p class="dpr-home-dashboard-body">最近更新：2026-09-25 22:24:24 UTC<br>状态：成功</p>
+  <p class="dpr-home-dashboard-body">最近更新：2026-09-26 22:21:51 UTC<br>状态：成功</p>
 </section>
 <section class="dpr-home-dashboard-card dpr-home-brief-card">
   <div class="dpr-home-dashboard-header">
@@ -62,10 +62,9 @@
     <strong class="dpr-home-dashboard-count">AI</strong>
   </div>
   <div class="dpr-home-dashboard-body">
-<p>今日共生成 5 篇推荐（精读 2 篇，速读 3 篇）</p>
-<p>精读：《Where Cyber Agents Struggle: Bottleneck Analysis of Multi-Stage LLM Agents》（10.0/10）, 《Codetta: High-Capacity, Keyless, and Undetectable Multi-Agent Collusion》（8.0/10）</p>
-<p>速读：《Hard Stop: Kernel-Level Preemption and Containment for Rogue Agentic Execution》（7.0/10）, 《Rethinking Multi-Agent Collaboration: When More Is Less》（6.0/10）, 《Calibrated Decision Models for Autonomous Penetration-Testing Harnesses: JEV and Laya as System One Decision Layers for LLM-Driven Pentest Agents》（6.0/10）</p>
-<p>这些结果覆盖了当下较热的方向，建议先看精读区论文的关键问题与方法。</p>
+<p>今日速读两篇论文，聚焦 LLM 智能体安全测评与隐私审计，追问“AI 有多可信”。</p>
+<p>最值得关注：DUMA-Bench 多智能体安全基准，以及带统计保证的合规隐私再识别攻击。</p>
+<p>下步建议：普通读者可从“智能体安全测试”和“隐私合规验证”两个方向跟进，判断自己的 AI 应用是否需要这类审查。</p>
   </div>
 </section>
 <section class="dpr-home-dashboard-card dpr-home-deep-card">
@@ -74,12 +73,12 @@
       <span class="dpr-home-dashboard-kicker">今日累计</span>
       <h3 class="dpr-home-dashboard-title">精读推荐</h3>
     </div>
-    <strong class="dpr-home-dashboard-count">2 篇</strong>
+    <strong class="dpr-home-dashboard-count">0 篇</strong>
   </div>
   <div class="dpr-home-dashboard-body">
-<ul class="dpr-home-dashboard-paper-list"><li><span class="dpr-home-dashboard-paper-title" title="Where Cyber Agents Struggle: Bottleneck Analysis of Multi-Stage LLM Agents">Where Cyber Agents Struggle: Bottleneck Analysis of Multi-Stage LLM Agents</span></li><li><span class="dpr-home-dashboard-paper-title" title="Codetta: High-Capacity, Keyless, and Undetectable Multi-Agent Collusion">Codetta: High-Capacity, Keyless, and Undetectable Multi-Agent Collusion</span></li></ul>
+<p class="dpr-home-dashboard-empty">今日暂无推荐。</p>
   </div>
-  <div class="dpr-home-dashboard-tags"><span class="dpr-home-dashboard-tag">ca <strong>2</strong></span></div>
+
 </section>
 <section class="dpr-home-dashboard-card dpr-home-skim-card">
   <div class="dpr-home-dashboard-header">
@@ -87,12 +86,12 @@
       <span class="dpr-home-dashboard-kicker">今日累计</span>
       <h3 class="dpr-home-dashboard-title">速读推荐</h3>
     </div>
-    <strong class="dpr-home-dashboard-count">3 篇</strong>
+    <strong class="dpr-home-dashboard-count">2 篇</strong>
   </div>
   <div class="dpr-home-dashboard-body">
-<ul class="dpr-home-dashboard-paper-list"><li><span class="dpr-home-dashboard-paper-title" title="Hard Stop: Kernel-Level Preemption and Containment for Rogue Agentic Execution">Hard Stop: Kernel-Level Preemption and Containment for Rogue Agentic Execution</span></li><li><span class="dpr-home-dashboard-paper-title" title="Rethinking Multi-Agent Collaboration: When More Is Less">Rethinking Multi-Agent Collaboration: When More Is Less</span></li><li><span class="dpr-home-dashboard-paper-title" title="Calibrated Decision Models for Autonomous Penetration-Testing Harnesses: JEV and Laya as System One Decision Layers for LLM-Driven Pentest Agents">Calibrated Decision Models for Autonomous Penetration-Testing Harnesses: JEV and Laya as System One Decision Layers for LLM-Driven Pentest Agents</span></li></ul>
+<ul class="dpr-home-dashboard-paper-list"><li><span class="dpr-home-dashboard-paper-title" title="DUMA-Bench: A Dual-Control Multi-Agent Benchmark for Evaluating LLM Agent Security">DUMA-Bench: A Dual-Control Multi-Agent Benchmark for Evaluating LLM Agent Security</span></li><li><span class="dpr-home-dashboard-paper-title" title="Conformal Privacy Auditing: Calibrated Re-identification Attacks with Statistical Guarantees">Conformal Privacy Auditing: Calibrated Re-identification Attacks with Statistical Guarantees</span></li></ul>
   </div>
-  <div class="dpr-home-dashboard-tags"><span class="dpr-home-dashboard-tag">ca <strong>3</strong></span></div>
+  <div class="dpr-home-dashboard-tags"><span class="dpr-home-dashboard-tag">ca <strong>2</strong></span></div>
 </section>
 </div>
 
