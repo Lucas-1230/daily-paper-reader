@@ -41,17 +41,17 @@
 <section class="dpr-home-dashboard-card dpr-home-report-card">
   <div class="dpr-home-dashboard-header">
     <div>
-      <span class="dpr-home-dashboard-kicker">2026-09-26</span>
+      <span class="dpr-home-dashboard-kicker">2026-09-27</span>
       <h3 class="dpr-home-dashboard-title">今日汇总</h3>
     </div>
-    <strong class="dpr-home-dashboard-count">共 2 篇</strong>
+    <strong class="dpr-home-dashboard-count">共 1 篇</strong>
   </div>
   <dl class="dpr-home-dashboard-stats">
     <div class="dpr-home-dashboard-stat"><dt>累计更新</dt><dd>1 次</dd></div>
     <div class="dpr-home-dashboard-stat"><dt>精读</dt><dd>0</dd></div>
-    <div class="dpr-home-dashboard-stat"><dt>速读</dt><dd>2</dd></div>
+    <div class="dpr-home-dashboard-stat"><dt>速读</dt><dd>1</dd></div>
   </dl>
-  <p class="dpr-home-dashboard-body">最近更新：2026-09-26 22:21:51 UTC<br>状态：成功</p>
+  <p class="dpr-home-dashboard-body">最近更新：2026-09-27 21:51:45 UTC<br>状态：成功</p>
 </section>
 <section class="dpr-home-dashboard-card dpr-home-brief-card">
   <div class="dpr-home-dashboard-header">
@@ -62,9 +62,9 @@
     <strong class="dpr-home-dashboard-count">AI</strong>
   </div>
   <div class="dpr-home-dashboard-body">
-<p>今日速读两篇论文，聚焦 LLM 智能体安全测评与隐私审计，追问“AI 有多可信”。</p>
-<p>最值得关注：DUMA-Bench 多智能体安全基准，以及带统计保证的合规隐私再识别攻击。</p>
-<p>下步建议：普通读者可从“智能体安全测试”和“隐私合规验证”两个方向跟进，判断自己的 AI 应用是否需要这类审查。</p>
+<p>今日速读了一篇关于计算机使用智能体评估的论文《OSWorld-Pro》，核心是提出“过程评估”思路。</p>
+<p>最值得关注的方向是：评估 AI 操作电脑时，不应只看最终任务是否完成，还要考察其操作步骤是否合理。</p>
+<p>普通读者可理解为给 AI 助手“看操作过程”而非只看结果，后续可关注这类方法如何帮我们选出更可靠、更透明的智能体。</p>
   </div>
 </section>
 <section class="dpr-home-dashboard-card dpr-home-deep-card">
@@ -86,12 +86,12 @@
       <span class="dpr-home-dashboard-kicker">今日累计</span>
       <h3 class="dpr-home-dashboard-title">速读推荐</h3>
     </div>
-    <strong class="dpr-home-dashboard-count">2 篇</strong>
+    <strong class="dpr-home-dashboard-count">1 篇</strong>
   </div>
   <div class="dpr-home-dashboard-body">
-<ul class="dpr-home-dashboard-paper-list"><li><span class="dpr-home-dashboard-paper-title" title="DUMA-Bench: A Dual-Control Multi-Agent Benchmark for Evaluating LLM Agent Security">DUMA-Bench: A Dual-Control Multi-Agent Benchmark for Evaluating LLM Agent Security</span></li><li><span class="dpr-home-dashboard-paper-title" title="Conformal Privacy Auditing: Calibrated Re-identification Attacks with Statistical Guarantees">Conformal Privacy Auditing: Calibrated Re-identification Attacks with Statistical Guarantees</span></li></ul>
+<ul class="dpr-home-dashboard-paper-list"><li><span class="dpr-home-dashboard-paper-title" title="OSWorld-Pro: Process-based Evaluation for Computer Use Agents">OSWorld-Pro: Process-based Evaluation for Computer Use Agents</span></li></ul>
   </div>
-  <div class="dpr-home-dashboard-tags"><span class="dpr-home-dashboard-tag">ca <strong>2</strong></span></div>
+  <div class="dpr-home-dashboard-tags"><span class="dpr-home-dashboard-tag">ca <strong>1</strong></span></div>
 </section>
 </div>
 

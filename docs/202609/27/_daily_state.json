@@ -1,0 +1,25 @@
+{
+  "date": "20260927",
+  "date_label": "",
+  "generated_at": "2026-09-27 21:51:45 UTC",
+  "recommend_exists": true,
+  "run_count": 1,
+  "papers": [
+    {
+      "paper_id": "2609.24890v1",
+      "route": "202609/27/2609.24890v1-osworld-pro-process-based-evaluation-for-computer-use-agents",
+      "title": "OSWorld-Pro: Process-based Evaluation for Computer Use Agents",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "ca"
+        }
+      ],
+      "score": 6.0,
+      "evidence": "基于子目标标注的计算机使用智能体过程化评估",
+      "first_seen_at": "2026-09-27 21:51:45 UTC",
+      "updated_at": "2026-09-27 21:51:45 UTC"
+    }
+  ]
+}

@@ -1,6 +1,9 @@
 * <a class="dpr-sidebar-root-link" href="#/">首页</a>
 * <a class="dpr-sidebar-root-link dpr-sidebar-noactive-link" href="javascript:void(0)" data-dpr-hash="#/tutorial/README">使用教程</a>
 * Daily Papers
+  * 2026-09-27 <!--dpr-date:20260927-->
+    * 速读区
+      * <a class="dpr-sidebar-item-link dpr-sidebar-item-structured" href="#/202609/27/2609.24890v1-osworld-pro-process-based-evaluation-for-computer-use-agents" data-sidebar-item="{&quot;title&quot;: &quot;OSWorld-Pro: Process-based Evaluation for Computer Use Agents&quot;, &quot;link&quot;: &quot;https://arxiv.org/abs/2609.24890v1-osworld-pro-process-based-evaluation-for-computer-use-agents&quot;, &quot;score&quot;: &quot;6.0&quot;, &quot;tags&quot;: [{&quot;kind&quot;: &quot;query&quot;, &quot;label&quot;: &quot;ca&quot;}], &quot;evidence&quot;: &quot;基于子目标标注的计算机使用智能体过程化评估&quot;}">OSWorld-Pro: Process-based Evaluation for Computer Use Agents</a>
   * 2026-09-26 <!--dpr-date:20260926-->
     * 速读区
       * <a class="dpr-sidebar-item-link dpr-sidebar-item-structured" href="#/202609/26/2609.24662v1-duma-bench-a-dual-control-multi-agent-benchmark-for-evaluating-llm-agent-security" data-sidebar-item="{&quot;title&quot;: &quot;DUMA-Bench: A Dual-Control Multi-Agent Benchmark for Evaluating LLM Agent Security&quot;, &quot;link&quot;: &quot;https://arxiv.org/abs/2609.24662v1-duma-bench-a-dual-control-multi-agent-benchmark-for-evaluating-llm-agent-security&quot;, &quot;score&quot;: &quot;7.0&quot;, &quot;tags&quot;: [{&quot;kind&quot;: &quot;query&quot;, &quot;label&quot;: &quot;ca&quot;}], &quot;evidence&quot;: &quot;评估 LLM 智能体安全性的基准，涵盖对抗性交互&quot;}">DUMA-Bench: A Dual-Control Multi-Agent Benchmark for Evaluating LLM Agent Security</a>

@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-09-26T22:20:25.042820+00:00",
-  "updated_date": "20260926",
+  "generated_at": "2026-09-27T21:49:55.552297+00:00",
+  "updated_date": "20260927",
   "carryover_days": 9,
   "tag_states": {
     "ca": {
-      "updated_date": "20260926",
+      "updated_date": "20260927",
       "carryover_days": 9,
       "items": []
     }
