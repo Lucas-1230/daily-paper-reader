@@ -1,0 +1,39 @@
+{
+  "label": "2026-09-29",
+  "date": "2026-09-29",
+  "generated_at": "2026-09-29T00:30:56",
+  "count": 2,
+  "papers": [
+    {
+      "paper_id": "202609/29/2609.31318v1-agentxploit-autonomous-repository-to-runtime-red-teaming-for-ai-agents",
+      "section": "deep",
+      "title_en": "AgentXploit: Autonomous Repository-to-Runtime Red-Teaming for AI Agents",
+      "authors": "Weida Liang, Shi Qiu, Zhun Wang, Simon Sure, Xiaoyuan Liu, Tianneng Shi, Zhaorun Chen, Wenbo Guo, Dawn Song",
+      "date": "2026-09-25",
+      "pdf": "https://arxiv.org/pdf/2609.31318v1",
+      "score": "8.0",
+      "evidence": "对抗性智能体自主发现并利用AI智能体系统中的漏洞。",
+      "tldr": "AI代理结合语言模型与外部工具，可修改文件、调用API或执行代码，安全审计面临对抗性内容影响工具使用及软件漏洞风险。AgentXploit采用双角色审计系统设计，Analyzer追踪攻击者输入到敏感操作记录候选路径，Exploiter在运行时将其转化为具体攻击并利用反馈修正。在72个漏洞基准上端到端成功率达59.3%，超过Codex的38.4%；在AgentDojo上Exploiter成功率达79.2%。该工作揭示了仓库攻击路径发现与运行时利用是代理安全审计的两大独立关键挑战。",
+      "tags": "query:ca",
+      "abstract_en": "AI agents combine language models with external data and tools that can modify files, call APIs, or execute code. Security failures can arise when adversarial content changes an agent's tool use or when the surrounding software contains vulnerabilities such as path traversal or command injection. We study authorized white-box pre-deployment auditing, where the auditor has access to the target repository and a controlled runtime, but successful attacks must still act through the task-defined attacker interface and be confirmed by an external verifier. We present AgentXploit, a two-role auditing system that separates repository-level attack-path discovery from runtime exploitation. The Analyzer Agent traces attacker-controlled inputs to sensitive operations and records code-supported candidate attack paths; the Exploiter Agent turns these paths into concrete attacks and revises them using runtime feedback. We also introduce AgentXploit-Bench, containing 72 reproducible vulnerabilities across 12 open-source AI-agent systems and frameworks. Across three runs, AgentXploit reaches 59.3% end-to-end success, compared with 38.4% for Codex. Under a token-budget-matched comparison, Codex reaches 46.3%. On AgentDojo, where injection points are provided, the Exploiter Agent reaches 79.2% attack success versus 52.7% for AgentVigil. These results highlight repository discovery and runtime exploitation as distinct challenges in end-to-end agent security auditing.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202609/29/2609.27428v2-a-bulletproof-business-towards-detecting-infrastructure-as-a-service-offerings-on-telegram",
+      "section": "quick",
+      "title_en": "A Bulletproof Business? Towards Detecting Infrastructure-as-a-Service Offerings on Telegram",
+      "authors": "Roy Ricaldi, Kristiyan Kyurkchiev, Irdin Pekaric",
+      "date": "2026-09-23",
+      "pdf": "https://arxiv.org/pdf/2609.27428v2",
+      "score": "6.0",
+      "evidence": "检测网络犯罪基础设施即服务广告，使用LLM基线",
+      "tldr": "网络犯罪运营日益依赖Telegram等平台租用托管、代理和VPN等基础设施，形成地下IaaS市场。本文提出涵盖六类服务和三项信任属性的分类法，并评估关键词、TF-IDF及大语言模型基线。选用TF-IDF流水线处理167个Telegram社区111万余条消息，识别出18.57%为基础设施广告，高度集中于单一社区，其中37.66%宣称防弹属性。该工作量化了广告规模、组成与集中度，为监测和调查优先级提供依据。",
+      "tags": "query:ca",
+      "abstract_en": "Cybercriminal operations increasingly depend on reusable digital infrastructure---including hosting, proxies, and virtual private networks (VPNs)---rented through Cybercrime-as-a-Service markets and advertised on platforms such as Telegram. We present a taxonomy for identifying Telegram messages advertising cybercriminal Infrastructure-as-a-Service (IaaS). The taxonomy comprises six service categories across compute, network, and communication infrastructure, together with three trust attributes: Bulletproof, Payment Security, and Transparency. Using 261 human-annotated messages, we evaluate keyword-based and TF--IDF classifiers and examine prompt-based large language models as exploratory baselines. We select a TF--IDF pipeline and apply it to 1,116,071 messages from 167 cybercrime-related Telegram communities. The pipeline assigns at least one infrastructure category to 207,244 messages (18.57%) spanning 113 communities. Classified advertising is highly concentrated: a single community accounts for 50.3% of infrastructure-positive messages, while the trust-attribute classifiers identify Bulletproof claims in 37.66% of those messages. These findings characterize the scale, composition, and concentration of infrastructure advertising on Telegram and can inform the prioritization of communities and actors for monitoring and investigation.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}

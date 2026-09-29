@@ -1,0 +1,41 @@
+{
+  "date": "20260929",
+  "date_label": "",
+  "generated_at": "2026-09-29 00:30:48 UTC",
+  "recommend_exists": true,
+  "run_count": 1,
+  "papers": [
+    {
+      "paper_id": "2609.31318v1",
+      "route": "202609/29/2609.31318v1-agentxploit-autonomous-repository-to-runtime-red-teaming-for-ai-agents",
+      "title": "AgentXploit: Autonomous Repository-to-Runtime Red-Teaming for AI Agents",
+      "section": "deep",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "ca"
+        }
+      ],
+      "score": 8.0,
+      "evidence": "对抗性智能体自主发现并利用AI智能体系统中的漏洞。",
+      "first_seen_at": "2026-09-29 00:30:48 UTC",
+      "updated_at": "2026-09-29 00:30:48 UTC"
+    },
+    {
+      "paper_id": "2609.27428v2",
+      "route": "202609/29/2609.27428v2-a-bulletproof-business-towards-detecting-infrastructure-as-a-service-offerings-on-telegram",
+      "title": "A Bulletproof Business? Towards Detecting Infrastructure-as-a-Service Offerings on Telegram",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "ca"
+        }
+      ],
+      "score": 6.0,
+      "evidence": "检测网络犯罪基础设施即服务广告，使用LLM基线",
+      "first_seen_at": "2026-09-29 00:30:48 UTC",
+      "updated_at": "2026-09-29 00:30:48 UTC"
+    }
+  ]
+}

@@ -1,0 +1,406 @@
+Title: A Bulletproof Business? Towards Detecting Infrastructure-as-a-Service Offerings on Telegram
+
+URL Source: https://arxiv.org/pdf/2609.27428v2
+
+Published Time: Fri, 25 Sep 2026 00:33:47 GMT
+
+Number of Pages: 11
+
+Markdown Content:
+# A Bulletproof Business? Towards Detecting Infrastructure-as-a-Service Offerings on Telegram 
+
+# Roy Ricaldi 
+
+Eindhoven University of Technology Eindhoven, The Netherlands r.j.ricaldi.saavedra@tue.nl 
+
+# Kristiyan Kyurkchiev 
+
+Eindhoven University of Technology Eindhoven, The Netherlands k.kyurkchiev@student.tue.nl 
+
+# Irdin Pekaric 
+
+University of Liechtenstein Vaduz, Liechtenstein irdin.pekaric@uni.li 
+
+## Abstract 
+
+Cybercriminal operations increasingly rely on reusable digital in-frastructure – such as hosting, proxies and VPNs — rented through Cybercrime-as-a-Service markets and advertised on platforms in-cluding Telegram. We develop a taxonomy for labeling Telegram messages that advertise cybercriminal Infrastructure-as-a-Service organized into compute, network and communication dimensions including three trust attributes: Bulletproof, Payment Security and Transparency. We compare keyword-based, TF-IDF and prompt-based LLM classifiers and apply the selected TF-IDF classifier to 1,116,071 messages from 167 cybercriminal communities. The classi-fier assigns at least one infrastructure category to 207,244 messages (18.57%) across 113 communities. Advertising is highly concen-trated: one community accounts for 50.3% of classified infrastruc-ture messages, while Bulletproof claims appear in 37.66%. These results identify high-volume communities and advertising identities as priorities for monitoring, investigation and potential disruption. 
+
+## CCS Concepts 
+
+• Security and privacy → Social network security and privacy .
+
+## Keywords 
+
+Cybercrime-as-a-Service, Telegram, underground markets, digital infrastructure, bulletproof hosting 
+
+## 1 Introduction 
+
+Cybercrime does not run on malicious software alone. For example, phishing depends — beside malicious software — on reusable digi-tal infrastructure such as hosting, virtual private servers, remote desktop access, proxies, VPNs and mail-sending systems. These resources provide computing capacity, connectivity, anonymity and communication capabilities that can be rented through Cybercrime-as-a-Service markets [1, 27]. Because the same infrastructure may support multiple customers and criminal operations, its disruption can have broader impacts [6, 8, 23, 28]. Telegram has become an important venue for advertising such services. Its pseudonymous accounts, large communities, bot sup-port and limited moderation attract actors involved in malware 
+
+> Permission to make digital or hard copies of all or part of this work for personal or classroom use is granted without fee provided that copies are not made or distributed for profit or commercial advantage and that copies bear this notice and the full citation on the first page. Copyrights for components of this work owned by others than the author(s) must be honored. Abstracting with credit is permitted. To copy otherwise, or republish, to post on servers or to redistribute to lists, requires prior specific permission and/or a fee. Request permissions from permissions@acm.org.
+> TAKEDOWN ’26, The Hague, The Netherlands
+> © 2026 Copyright held by the owner/author(s). Publication rights licensed to ACM. ACM ISBN 978-1-4503-XXXX-X/26/11 https://doi.org/10.1145/nnnnnnn.nnnnnnn
+
+distribution, fraud, stolen-data sales and other illicit activities [25]. However, Telegram messages are less structured than conventional marketplace listings. Advertisements, conversations, forwarded posts and trust claims appear in the same message streams, while vendors bundle several services in a single offer. Prior work has developed detailed Cybercrime-as-a-Service tax-onomies using forum data [1], examined infrastructure as a target for cybercrime disruption [4, 15, 26] or analyzed trust signals used by Telegram vendors [22]. However, prior approaches do not dis-tinguish between the specific infrastructure services advertised on Telegram. They also overlook bulletproof claims via which vendors market resistance to abuse complaints, suspension or takedown. We address this gap by developing a Telegram-specific taxonomy and detection pipeline for cybercriminal Infrastructure-as-a-Service offerings. Our results show how large-scale message classification can support the prioritization of communities and service categories for further investigation and potential takedown efforts. 
+
+Contributions. We make the following contributions: 
+
+• A Telegram-specific taxonomy and detection pipeline for cybercriminal digital infrastructure (RQ1): We organize six service categories into three capability-based families: Compute ,
+
+Network and Communication Infrastructure . In addition, we in-corporate three trust attributes, including Bulletproof , which cap-tures vendors’ claims of resilience to abuse complaints. 
+
+• A large-scale prevalence measurement with takedown im-plications and data access to support research (RQ2): We apply the best-performing classifier to 1,116,071 Telegram mes-sages across 167 cybercriminal communities, where we show that 
+
+≈ 19% of messages advertise at least one infrastructure category and that advertising activity is highly concentrated – a single group accounts for over half of all classified infrastructure mes-sages – providing a data-driven basis for prioritizing monitoring and takedown efforts. 
+
+• An empirically-grounded roadmap for extending the tax-onomy : We identify specific infrastructure families in the lit-erature and during annotation, such as certificate, storage and command-and-control infrastructure that current data cannot yet support, but that future annotation efforts with a larger dataset should target and take into consideration. We release our resources to support research transparency [17] and software sustainability [29]: https://github.com/irdin-pekaric/ TAKEDOWN2026. 
+
+## 2 Background and Related Work 
+
+Cybercrime-as-a-Service. Cybercrime increasingly depends on specialized, reusable resources that are rented rather than developed by individual offenders — a model termed Cybercrime-as-a-Service arXiv:2609.27428v2 [cs.CR] 24 Sep 2026 TAKEDOWN ’26, November 15–19, 2026, The Hague, The Netherlands Ricaldi et al. 
+
+(CaaS) that lowers the barrier to participation [1] and creates shared dependencies across otherwise unrelated actors [9]. Shared services such as hosting, remote access, proxies, VPNs and mail-sending are reused across operations, which makes their providers potentially valuable targets for disruption [6, 13, 16]. In this regard, Akyazi et al. [1] develop a taxonomy of CaaS advertisements and compare supervised methods for classifying them, but their analysis is based on forum data and not on Telegram data. 
+
+Cybercrime on Telegram. Telegram’s low barriers to entry, large channels and instant messaging have made it a prominent venue for cybercrime advertising [20, 21]. Unlike conventional fo-rums, however, its chronological and unstructured message streams combine advertisements, conversations, forwarded posts and other content, making individual offerings more difficult to identify [11]. TeleHunt classifies communities into cybercriminal market seg-ments, including Digital Infrastructure [21], and DarkGram classi-fies channels into activity categories [24]; however, neither distin-guishes the individual infrastructure services advertised in those categories. Automated classification at finer granularity remains dif-ficult regardless: Hughes et al. [11] identify unreliable ground truth and rapidly-evolving, community-specific terminology as persistent obstacles in cybercrime community research. These challenges mo-tivate our comparison of multiple detection approaches instead of assuming that a method developed for forums or broader Telegram categories transfers directly to infrastructure advertisements. 
+
+Trust Signaling in Underground Markets. On forums, Hughes et al. [10] show that argot itself functions as a trust signal. They apply signalling theory, where they find argot use is negatively cor-related with reputation and helps newcomers overcome the “cold start” problem of building trust without an existing feedback his-tory. Closest to our work, Ricaldi et al. [22] identify 11 trust signals across six segments of Telegram’s cybercrime economy, covering reputation, payment security, moderation and transparency and scale their framework using a fine-tuned LLM classifier. They find that the Infrastructure segment has the highest average exposure to trust signals, driven mainly by payment security and transparency. Their framework, however, does not capture “bulletproof” claims through which infrastructure vendors advertise resistance to abuse complaints, service suspension and takedowns. 
+
+Research Gap. Prior work either classifies Telegram commu-nities broadly [21, 24], classifies CaaS offerings in more detail but on forum data [1], examines shared infrastructure and disruption without a Telegram-specific measurement method [6, 16] or maps trust signaling across Telegram without modeling infrastructure-specific claims such as bulletproofness [22]. No prior work jointly identifies specific infrastructure services advertised on Telegram, detects them at scale and examines how their distribution and as-sociated trust signals can inform disruption priorities. Hence, our work is guided by the following RQs: 
+
+• RQ1: What types of Infrastructure-as-a-Service are advertised on Telegram, and how can they be reliably categorized and auto-matically detected? 
+
+• RQ2: How are these Infrastructure-as-a-Service offerings and trust signals distributed and concentrated across Telegram ven-dors and communities, and what do these patterns imply for disruption prioritization? 
+
+## 3 Methodology 
+
+We define the study scope and dataset (§3.1), then develop and vali-date the infrastructure and trust-signal taxonomy (§3.2). Next, we compare, implement and validate automated multi-label detection approaches (§3.3), while considering ethical considerations (§3.4). 
+
+## 3.1 Scope and Data 
+
+We define digital infrastructure as reusable technical resources that provide computing, remote access, routing, anonymity or message-delivery capabilities for cybercriminal operations . The data set we use is drawn from [22] and it contains 1,116,071 messages from 167 Telegram groups and channels, spanning January 2023–March 2025 with per-message metadata: the originating Telegram group or channel and sending user, and a market segment label for the group 1. The source study [22] seeded 30 communities from three cybercrime forums and Telegram keyword searches, then expanded the collection by following group and channel handles or links mentioned in messages, and collected their messages using an au-tomated tool. This process includes private Telegram communities which do not have public handles and can only be joined by clicking on a private link circulated by the administrators. We use “com-munity” to refer collectively to a Telegram group or channel. The IaaS taxonomy is developed using a subset of the dataset, which includes only communities focused on digital infrastructure. This subset contains 209,803 messages from 11 Telegram communities and 5,030 unique users. These messages form the corpus used to iteratively develop and validate the proposed taxonomy. Details on how Ricaldi et al. collected and curated this dataset can be found in App. A.1. 
+
+## 3.2 Taxonomy Development 
+
+Infrastructure Taxonomy. Following practices from prior work on cybersecurity data labeling [5], four independent coders anno-tate the types of offerings in the data using a stratified 2 sample of 500 messages from the subset. Coders derive an initial taxonomy of 12 families and 48 subcategories (App. B). They scope the taxon-omy down to categories substantively relevant to their definition of digital infrastructure. Coders organize the remaining categories by the operational capability that the infrastructure provides to a buyer. In parallel, trust signals in the message offerings are an-notated to understand how vendors support the trade of digital infrastructure on Telegram. Lastly, 300 messages are coded using the working taxonomy of infrastructure types and trust signals to verify its stability, with no new categories arising in the process. 
+
+Taxonomy Validation. After stabilizing the taxonomy, two coders independently annotated (multi-labeled) a stratified 3 sample of 250 messages from the subset focusing on infrastructure categories and three trust signals. Cohen’s kappa was high for five of six infrastructure categories ( 𝜅 = 0.74–0 .98), with Proxy the exception at moderate agreement ( 𝜅 = 0.58), and for all three trust attributes  
+
+> 1Ricaldi et al. identify six market segments in the Telegram cybercrime economy: Cyberattacks, Fraud, Digital Infrastructure, Personal Data, Piracy and Tutorials.
+> 2The sample is stratified by community to ensure representation from all 11 communi-ties, preventing domination by the largest communities.
+> 3Messages were selected via category-relevant keywords of each infrastructure type. A Bulletproof Business? Towards Detecting Infrastructure-as-a-Service Offerings on Telegram TAKEDOWN ’26, November 15–19, 2026, The Hague, The Netherlands
+
+Table 1: Infrastructure classification on the held-out test split. Precision and recall are micro-averaged; Exact denotes exact-match accuracy.                
+
+> Approach Micro-F1 Macro-F1 Prec. Rec. Exact Keyword 0.847 0.759 0.746 0.979 0.652 TF-IDF + LR 0.898 0.716 0.880 0.917 0.803
+
+(𝜅 = 0.64–0 .90); overall agreement was strong (macro 𝜅 = 0.81, micro 𝜅 = 0.86). Full results appear in App. C.1 (Tab. 7). 
+
+## 3.3 Model Implementation 
+
+We formulate infrastructure detection as multi-label text classifica-tion. The 250-message taxonomy-validation sample was adjudicated by two annotators and supplemented with 11 jointly annotated proxy messages, yielding 261 labeled messages. We compared a keyword dictionary and TF-IDF with logistic regression using a fixed 75%/25% training/test split, fitting both approaches only on the training partition. We also explored prompt-based classification us-ing locally deployable, open-weight LLMs, motivated by prior work on NLP-based detection and LLMs in cybersecurity [3, 19]. Tab. 1 summarizes the lightweight classifier comparison. TF-IDF achieved higher micro-F1, precision and exact-match accuracy, whereas the keyword approach achieved higher macro-F1 and recall. We se-lected TF-IDF to prioritize aggregate precision and micro-F1. 
+
+3.3.1 TF-IDF with Logistic Regression Model. For the selected TF-IDF approach, messages were normalized and represented using word-level unigrams and bigrams. The vectorizer retained at most 20,000 features, excluded terms occurring in more than 98% of the training messages, and applied sublinear term-frequency scaling. One binary logistic-regression classifier was trained per label us-ing a one-vs-rest strategy, balanced class weights, the liblinear 
+
+solver, and 𝐶 = 2.0. Separate models for infrastructure categories and trust attributes were trained using a human-annotated set of 261 messages from a sample stratified by community of the 11 Digital Infrastructure Telegram communities in our subset (§3.1). Labels were assigned independently by the model using a proba-bility threshold of 0.5 4, allowing a message to receive zero, one, or multiple labels. This model was applied to all 1,116,071 messages. The implementation details may be found in App. D. 
+
+3.3.2 Model Validation. We independently checked infrastructure predictions on 200 additional messages: 100 predicted-positive mes-sages from communities outside the training domain, 50 predicted-positive messages from the training domain, and 50 predicted-negative messages. Precision for detecting any infrastructure offer-ing was 78% outside the training domain and 84% within it. Human annotation identified infrastructure in 5 of the 50 predicted-negative messages; this is the observed miss share among sampled nega-tive predictions, not an estimate of population recall. A separate 100-message sample, stratified by predicted trust attributes, yielded 
+
+> 4A threshold of 0.5 was used for all labels, following the standard decision rule for logistic regression. We did not tune thresholds to avoid introducing additional model-specific optimization.
+
+pooled Cohen’s 𝜅 = 0.615. Payment Security was less reliable (pre-cision = 0.343) than Bulletproof (0 .769) and Transparency (0 .833). These checks support exploratory analysis while identifying uncer-tainty in category- and attribute-specific estimates. 
+
+## 3.4 Ethical Considerations 
+
+We reuse the dataset from [22] under an agreement permitting scientific research, without interacting with community members or collecting additional Telegram data. Our unit of analysis is the advertised infrastructure , not personal data: the taxonomy and code-book (see App. C) target technical categories such as hosting and tunnels, and we do not analyze or report on the content of stolen data, victims or other non-infrastructure offers that may appear in the same channels. We publish only aggregate, category- and group-level statistics and anonymize advertising identities. We assess the risk of operational uplift as limited because the released taxonomy and keywords describe terminology already used openly in vendor advertisements. Their disclosure primarily supports replication and independent evaluation of the measurement method [7]. 
+
+## 4 Results 
+
+We present the resulting infrastructure and trust-signal taxonomy (§4.1), then examine the prevalence and concentration of infras-tructure advertising across messages, advertising identities and communities (§4.2–§4.4). Finally, we analyze how trust signaling varies across infrastructure categories and how advertising volume and specialization reveal different priorities for further investiga-tion and disruption (§4.5–§4.6). 
+
+## 4.1 A Taxonomy of Infrastructure-as-a-Service Offerings on Telegram (RQ1) 
+
+Tab. 2 presents six infrastructure categories organized into Com-pute, Network and Communication Infrastructure, alongside three non-exclusive trust attributes. Infrastructure labels identify the advertised capability, whereas trust attributes describe claims in-tended to establish credibility. Messages may receive multiple labels, but Hosting is assigned alongside a specific product only when gen-eral hosting is explicitly offered. Communication Infrastructure currently contains Mail infrastructure; additional communication services can be incorporated when sufficient examples support reli-able annotation. The full codebook in App. C provides operational definitions and boundary rules. 
+
+## 4.2 Infrastructure Prevalence (RQ2) 
+
+Applying the TF-IDF classifier to all 1,116,071 messages, 207,244 messages (18.57%) were classified into at least one infrastructure category. Classified messages received 1.95 categories on average, indicating frequent predicted co-occurrence, which may reflect bundled offerings or classification errors. Tab. 3 reports category prevalence at both message and group level. Message-level prevalence is dominated by Mail infrastructure, which appears in 167,888 messages, corresponding to 15.04% of the full corpus and 81.01% of classified infrastructure messages. Hosting services follow with 123,767 messages, representing 11.09% of the full corpus and 59.72% of classified infrastructure messages. RDP appears in 77,911 messages, corresponding to 6.98% and 37.59%, TAKEDOWN ’26, November 15–19, 2026, The Hague, The Netherlands Ricaldi et al. 
+
+Table 2: Taxonomy of infrastructure and trust. 
+
+(a) Infrastructure categories Code Category Definition 
+
+Compute Infrastructure 
+
+1.1 Hosting General-purpose hosting, cloud, or dedicated server infrastructure (not specific like below). 1.2 VPS Virtual private servers or virtual machines, sold as a distinct product. 1.3 RDP Access to a Windows machine via Remote Desktop Protocol, sold as a ready-to-use login. 
+
+Network Infrastructure 
+
+2.1 Proxy services IP-routing infrastructure that masks, rotates, or geo-graphically targets a connection’s origin, per request. 2.2 VPN and tunnels Infrastructure routing a user’s traffic through an in-termediary connection for a session. 
+
+Communication Infrastructure 
+
+3.1 Mail in-fras. Infrastructure for sending, relaying, or managing out-bound email at volume. 
+
+(b) Trust attributes Attribute Definition 
+
+Bulletproof A claim of resilience to abuse complaints, law-enforcement action, or takedowns. Payment security A claim of reduced transaction risk, via escrow, crypto payment, or digital wallets. Transparency A claim of service accountability, via guaranteed sup-port, proof of delivery, or warranties. 0% 20% 40% 60% 80% 100% 
+
+> Cumulative share of infrastructure-active groups (ranked from highest to lowest volume)
+> 0% 20% 40% 60% 80% 100%
+> Cumulative share of classified infrastructure messages
+> Top group alone: 50% of classified messages
+> Concentration of infrastructure advertising across groups (cumulative concentration curve) Gini = 0.97
+> Perfect equality Cumulative concentration curve
+
+Figure 1: Concentration of infrastructure advertising across Telegram groups. 
+
+respectively. VPS, Proxy services and VPN/tunneling are less com-mon, accounting for 2.12%, 0.66%, and 0.36% of the full corpus. The ordering differs at the community level. VPN/tunneling ap-pears in 83 communities, followed by RDP in 67, Proxy services in 42 and VPS in 37. In contrast, Hosting services and Mail infrastructure appear in only 21 and 27 communities, respectively. High-volume categories are therefore concentrated in relatively few communities, while some lower-volume categories have broader reach 5.
+
+## 4.3 Advertising-Identity Concentration (RQ2) 
+
+We measure activity by advertising identity: the sending user_id 
+
+for 98.09% of classified messages and the originating channel iden-tity for the remaining 1.91%. These identities do not necessarily correspond to distinct providers or individuals. Among 207,244 classified messages, we identify 2,010 distinct advertising identities. Concentration at the vendor level is high (Gini = 0.884) but less extreme than at the community level (Gini = 0.97): the top vendor accounts for 3.43% of classified messages, the top 10 for 18.23%, and the top 50 for 48.16%. Among vendors with at least five classified messages (n = 997), 79.04% advertise more than one category (mean = 2.15), while their dominant category accounts for 64.32% of messages on average. VPS is the most common dominant category (31.3% of vendors) despite ranking fourth by message volume (Tab. 3), followed by Mail (25.9%), Hosting (19.8%) and RDP (15.9%). Most vendors (87.51%) advertise in a single community; 12.49% span multiple (up to five), including half of the ten highest-volume vendors, meaning that these sellers would not be fully disrupted by action against a single community. Trust signaling scales with vendor volume: Bulletproof use rises from 1.2% (lowest-volume quartile) to 26.2% (highest, 𝜌 = 0.448), and Transparency shows a similar gradient (1.4%–21.5%, 𝜌 = 0.401). Payment Security is only weakly volume-linked ( 𝜌 = 0.111), peak-ing among mid-volume vendors (28.2%). 
+
+## 4.4 Community-Level Concentration (RQ2) 
+
+Infrastructure-related messages appear in 113 of 167 communi-ties (67.66%). However, the activity is highly uneven. The median infrastructure-active community contains only 11 classified mes-sages, compared with a mean of 1,834.02, and only five communities contain more than 5,000. The highest-volume community accounts for 104,320 of 207,244 classified infrastructure messages (50.3%). 6
+
+As shown in Fig. 1, the resulting Gini coefficient of 0.97 indicates ex-treme concentration, where a small number of communities account for most observed advertising activity. This shows that monitoring or disrupting a limited number of high-volume communities could affect a disproportionate share of observed advertising. 
+
+## 4.5 Trust Signaling Varies Across Categories 
+
+Tab. 4 reports the prevalence of the three trust attributes. Bullet-proof is the most common trust signal that appears in 78,052 mes-sages, corresponding to 37.66% of classified infrastructure messages. Transparency appears in 67,684 messages or 32.66%, while Payment Security is less common, appearing in 15,310 messages or 7.39%. Fig. 2 shows that the distribution of trust attributes differs largely across infrastructure categories. Bulletproof is most prevalent in Hosting services (62.3% of classified messages), followed by RDP 
+
+> 5Community is counted when it has at least one message assigned to a category. Thus, breadth estimates for rare annotated categories should be interpreted cautiously.
+> 6We profile this community’s vendor composition as a case study in App. F.1.
+
+A Bulletproof Business? Towards Detecting Infrastructure-as-a-Service Offerings on Telegram TAKEDOWN ’26, November 15–19, 2026, The Hague, The Netherlands 
+
+Table 3: Predicted infrastructure-category prevalence at message and community level. 
+
+Code Category Msgs %All %Infra Communities %AllComms %InfraComms Avg/Comms Med/Comms 3.1 Mail infrastructure 167,888 15.04% 81.01% 27 16.17% 23.89% 6218.07 20.0 1.1 Hosting services 123,767 11.09% 59.72% 21 12.57% 18.58% 5893.67 13.0 1.3 RDP 77,911 6.98% 37.59% 67 40.12% 59.29% 1162.85 4.0 1.2 VPS 23,699 2.12% 11.44% 37 22.16% 32.74% 640.51 3.0 2.1 Proxy services 7,412 0.66% 3.58% 42 25.15% 37.17% 176.48 3.5 2.2 VPN and tunnels 3,963 0.36% 1.91% 83 49.70% 73.45% 47.75 5.0 
+
+Note: “All groups” is the share of all Telegram groups containing at least one message from the category. “Infra. groups” is the share among groups with at least one predicted infrastructure message. Average and median values are calculated only over groups where the category appears. 
+
+Table 4: Predicted trust-attribute prevalence at message and group level. 
+
+Attribute Msgs %All %Infra Comms %AllC %InfC Bulletproof 78,052 6.99% 37.66% 16 9.58% 14.16% Transparency 67,684 6.06% 32.66% 15 8.98% 13.27% Payment sec. 15,310 1.37% 7.39% 21 12.57% 18.58% Bulletproof Transparency Payment security 3.1 Mail infra. (n=167,888) 1.1 Hosting (n=123,767) 1.3 RDP (n=77,911) 1.2 VPS (n=23,699) 2.1 Proxy (n=7,412) 2.2 VPN/tunnel (n=3,963) 46.1 34.3 0.0 62.3 35.2 0.0 54.4 18.7 12.4 2.8 7.3 53.4 0.3 52.0 1.0 0.0 3.8 0.0 
+
+> How infrastructure categories market trust (row-normalized: % of each category's own messages)
+> 010 20 30 40 50 60
+> % of category's messages carrying this trust signal
+
+Figure 2: Predicted trust attributes within classified infras-tructure categories. 
+
+at 54.4% and Mail infrastructure at 46.1%. These results indicate that claims of resilience to complaints and service disruption are commonly associated with the highest-volume infrastructure cate-gories. Furthermore, Payment Security is most strongly associated with VPS (53.4% of VPS messages). It also appears in 12.4% of RDP messages but stays marginal in the other categories. Transparency is most prevalent in Proxy services (52.0% of classified Proxy mes-sages), followed by Hosting services at 35.2% and Mail infrastructure at 34.3%. These predicted associations suggest category-specific trust signaling, although Payment Security estimates require par-ticular caution because of low validation precision. 10 0 10 1 10 2 10 3 10 4 10 5
+
+> Classified infrastructure messages in group (log scale)
+> 010 20 30 40 50 60
+> Infrastructure share of group's own traffic (%)
+> G002 G004 G005 G006 G013 G003 G001 G009 G007 G011
+> Volume vs. intensity of infrastructure advertising, by group Market segment
+> Cyberattacks Digital Infrastructure Digital piracy Fraud tools Personal data Tutorials
+> Group size (total messages)
+> 50 500 2,000 20,000 200,000
+
+Figure 3: Infrastructure advertising volume and specializa-tion across Telegram groups (at least 50 messages). 
+
+## 4.6 Volume and Specialization Indicate Different Disruption Targets 
+
+Fig. 3 contrasts classified infrastructure-message volume with in-frastructure intensity, defined as the share of a community’s mes-sages classified as infrastructure. G002 combines high volume with high intensity (approximately 58%), whereas G006 has substantial volume but only 8% intensity. G013 exceeds approximately 50% intensity at lower volume. Volume therefore identifies major adver-tising venues, while intensity identifies specialized communities. These complementary measures support investigation prioritiza-tion; they do not establish the impact of a takedown. 
+
+## 5 Discussion 
+
+We discuss findings on monitoring and disruption prioritization (§5.1), limitations (§5.2) and avenues for future research (§5.3). 
+
+## 5.1 Implications for Monitoring and Takedown Prioritization 
+
+Vendor Diversification. Cybercriminal infrastructure advertising on Telegram is driven by a broad vendor base: even the most active seller accounts for only 3.43% of classified messages, and the ma-jority of active vendors (79.04%) advertise multiple infrastructure categories rather than a single service. This suggests that disruption TAKEDOWN ’26, November 15–19, 2026, The Hague, The Netherlands Ricaldi et al. 
+
+efforts targeting a vendor’s primary offering (e.g., VPS or Mail) may not fully remove the capacity to supply adjacent services. 
+
+Targeting Trust Signals. Bulletproof claims are concentrated in Hosting services, RDP and Mail infrastructure, which extends prior findings that Infrastructure is Telegram’s most trust-rich market segment [22]. Because bulletproof marketing presents resistance to complaints and takedowns, interventions and public commu-nication could reduce advertising visibility and perceived seller credibility. However, our data captures advertised claims rather than the actual resilience of the underlying infrastructure. 
+
+Community-Level Concentration. Infrastructure advertising is highly concentrated, one community accounts for 50.3% of all classified infrastructure messages and the distribution has a Gini coefficient of 0.97. Monitoring or disrupting a limited number of high-volume communities could affect a disproportionate share of observed advertising. However, volume alone does not capture specialization, as large general-purpose communities may contain significant infrastructure content. On the other hand, smaller com-munities may devote their activity to infrastructure advertising. 
+
+Volume, Breadth, and Specialization. Hosting and Mail infras-tructure dominate by message volume but appear in relatively few communities, whereas VPN/tunneling and Proxy services have lower volume but broader reach. Communities ranking highly in both volume and infrastructure intensity should be candidates for further investigation, consistent with evidence favoring human-centered integration of AI-driven cyber threat intelligence [12]. Still, removing Telegram communities would primarily disrupt visibility, customer acquisition and trust formation rather than eliminating the underlying infrastructure (advertisers may migrate to other communities or platforms). Our outputs identify candidates for investigation and do not es-tablish infrastructure ownership. Such prioritization should support evidence-based analyst reasoning, since correct triage decisions need not imply correct explanations [14]. Following manual re-view, advertised domains or endpoints could be examined using passive DNS, TLS certificates and service metadata. Prior work demonstrates how DNS-derived infrastructure features can inform malicious-domain reputation [2]. Such corroboration could reveal technical relationships, but shared hosting or certificates alone would not establish common control. 
+
+## 5.2 Limitations 
+
+Scope and Measurement. Our results cover only the six infrastruc-ture categories included in the final codebook; excluded, merged or sparsely represented categories are therefore absent from the reported statistics. The classifier was trained with a human anno-tated sample of messages extracted from 11 Digital Infrastructure communities and then applied to 167 communities across several market segments, which may introduce domain shift. Moreover, our findings reflect classifier predictions rather than complete man-ual annotation. Estimates for rare categories are less certain, and category co-occurrence is difficult to distinguish from classifier-induced correlation given overlapping terminology (e.g., shared hosting/SMTP vocabulary); further manual validation is therefore needed to determine the extent to which the observed overlap repre-sents genuine service bundling. Community-level results aggregate message predictions; we did not independently evaluate a classifier assigning infrastructure categories directly to communities. 
+
+Generalizability. The dataset contains communities discovered through three cybercrime forums, Telegram keyword searches, and link or handle snowballing. It may not represent closed, vetted, unlinked, or otherwise unobserved communities. The findings may also not generalize to other platforms or later periods, as cyber-criminal terminology, service offerings and community structures evolve over time. Finally, our analysis measures advertising activity at the community level and not unique providers or underlying in-frastructure ownership (one provider may advertise across several communities, while one community may contain multiple unrelated vendors). 
+
+## 5.3 Future Work 
+
+Future work should extend independent validation across commu-nities and time periods, refine weakly performing labels, and add infrastructure categories when sufficient examples become avail-able. Another direction is to investigate whether classified offerings can enrich fragment-based attack models [18], connecting adver-tised infrastructure capabilities to potential attack steps. Within the existing January 2023–March 2025 corpus, monthly analysis could examine changes in trust signals within each infrastructure category while accounting for changing community coverage. De-ployment would require periodic annotation of recent messages to assess drift and guide codebook revision and retraining. The present study measures aggregate historical advertising patterns; it does not forecast future offerings or evaluate adaptation to drift. 
+
+## 6 Conclusion 
+
+This study provides a scalable method for characterizing cybercrim-inal Infrastructure-as-a-Service advertising on Telegram. We devel-oped a taxonomy of six infrastructure categories and three trust attributes and applied a TF–IDF classification pipeline to 1,116,071 messages from 167 cybercrime-related communities. The pipeline assigned at least one infrastructure category to 207,244 messages (18.57%) across 113 communities. Advertising was widespread yet highly concentrated: one community accounted for 50.3% of clas-sified infrastructure messages, while Bulletproof claims appeared in 37.66% of infrastructure-positive messages. This concentration provides practical starting points for monitoring and investigation. However, the pipeline should support triage rather than be treated as ground truth; establishing offering legitimacy or intervention plans requires manual review and additional evidence. 
+
+## Acknowledgments 
+
+We thank Jeroen Oerlemans, Denis Stavinschi, and Jorrit Hofma for their contributions to classifier testing and model development. We are grateful to Tina Marjanov and Jack Hughes of the Cambridge Cybercrime Centre for their assistance with data collection. We also thank Sam Baggen for data management and Jai Wientjes for her input throughout the development of the project; both are members of the Threat Analysis Group at Eindhoven University of Technol-ogy. This work was supported in part by Hilti. This publication is part of the INTERSECT project (Grant No. NWA.1162.18.301), funded by the Dutch Research Council (NWO). A Bulletproof Business? Towards Detecting Infrastructure-as-a-Service Offerings on Telegram TAKEDOWN ’26, November 15–19, 2026, The Hague, The Netherlands 
+
+## References 
+
+[1] U. Akyazi, M. J. G. van Eeten, and C. Hernández Gañán. 2021. Measuring Cyber-crime as a Service (CaaS) Offerings in a Cybercrime Forum. In Workshop on the Economics of Information Security (WEIS) .[2] Manos Antonakakis, Roberto Perdisci, David Dagon, Wenke Lee, and Nick Feam-ster. 2010. Building a Dynamic Reputation System for DNS. In 19th USENIX Security Symposium (USENIX Security 10) . USENIX Association, Washington, DC. https://www.usenix.org/conference/usenixsecurity10/building-dynamic-reputation-system-dns [3] Jonas Ave, Irdin Pekaric, Matthias Frohner, and Giovanni Apruzzese. 2026. " bot lane noob" Towards Deployment of NLP-based Toxicity Detectors in Video Games. arXiv preprint arXiv:2604.10175 (2026). [4] Xander Bouwman, Aksel Ethembabaoglu, Bart Hermans, Carlos Gañán, and Michel van Eeten. 2025. Can IOCs Impose Cost? The Effects of Publishing Threat Intelligence on Adversary Behavior. In Proceedings of the 2025 ACM SIGSAC Conference on Computer and Communications Security . 663–677. [5] Tobias Braun, Irdin Pekaric, and Giovanni Apruzzese. 2024. Understanding the process of data labeling in cybersecurity. In Proceedings of the 39th ACM/SIGAPP Symposium on Applied Computing . 1596–1605. [6] B. Collier, R. Clayton, A. Hutchings, and D. R. Thomas. 2021. Cybercrime is (Often) Boring: Infrastructure and Alienation in a Deviant Subculture. The British Journal of Criminology 61, 5 (2021), 1407–1423. [7] D. Dittrich and E. Kenneally. 2012. The Menlo Report: Ethical Principles Guiding Information and Communication Technology Research . Technical Report. U.S. Department of Homeland Security. [8] Dimitrios Georgoulias, Jens Myrup Pedersen, Morten Falch, and Emmanouil Vasilomanolakis. 2023. Botnet business models, takedown attempts, and the darkweb market: A survey. Comput. Surveys 55, 11 (2023), 1–39. [9] KTDY Huang, DWEBC GrierD, Thomas J Holt, Christopher Kruegel, Damon Mc-Coy, Stefan Savage, and Giovanni Vigna. 2015. Framing dependencies introduced by underground commoditization. In Workshop on the Economics of Information Security .[10] Jack Hughes, Andrew Caines, and Alice Hutchings. 2023. Argot as a Trust Signal: Slang, Jargon & Reputation on a Large Cybercrime Forum. In 22nd Workshop on the Economics of Information Security (WEIS) . 1–11. [11] J. Hughes, S. Pastrana, A. Hutchings, S. Afroz, S. Samtani, W. Li, and E. San-tana Marin. 2024. The Art of Cybercrime Community Research. Comput. Surveys 
+
+56, 6 (2024), 1–26. Article 155. [12] Emir Karaosman, Advije Rizvani, and Irdin Pekaric. 2026. Security barriers to trustworthy AI-Driven cyber threat intelligence in finance: evidence from practi-tioners. In Proceedings of the Sixteenth ACM Conference on Data and Application Security and Privacy . 297–308. [13] V. Kropotov, R. McArdle, and F. Yarochkin. 2020. The Hacker Infrastructure and Underground Hosting: Services Used by Criminals . Technical Report. Trend Micro Research. [14] Jessica Moosmann, Irdin Pekaric, and Giovanni Apruzzese. 2026. Can SOC Operators Explain their Decisions while Triaging Alarms? A Real-World Study. 
+
+arXiv preprint arXiv:2604.22001 (2026). doi:10.48550/arXiv.2604.22001 [15] Giovane CM Moura, Thomas Daniels, Maarten Bosteels, Sebastian Castro, Moritz Müller, Thymen Wabeke, Thijs van Den Hout, Maciej Korczyński, and Georgios Smaragdakis. 2024. Characterizing and mitigating phishing attacks at cctld scale. In Proceedings of the 2024 on ACM SIGSAC Conference on Computer and Communications Security . 2147–2161. [16] A. Noroozian, J. Koenders, E. van Veldhuizen, C. H. Gañán, S. Alrwais, D. McCoy, and M. van Eeten. 2019. Platforms in Everything: Analyzing Ground-Truth Data on the Anatomy and Economics of Bullet-Proof Hosting. In 28th USENIX Security Symposium . USENIX Association, 1341–1356. [17] Irdin Pekaric and Giovanni Apruzzese. 2025. “We provide our resources in a dedicated repository”: Surveying the Transparency of HICSS Publications. In 
+
+Proceedings of the 58th Hawaii International Conference on System Sciences (HICSS) .doi:10.24251/HICSS.2025.881 [18] Irdin Pekaric, Markus Frick, Jubril Gbolahan Adigun, Raffaela Groner, Thomas Witte, Alexander Raschke, Michael Felderer, and Matthias Tichy. 2024. Stream-lining Attack Tree Generation: A Fragment-Based Approach. In Proceedings of the 57th Hawaii International Conference on System Sciences (HICSS) . 7447–7456. https://arxiv.org/abs/2310.00654 [19] Irdin Pekaric, Philipp Zech, and Tom Mattson. 2026. LLMs in Cybersecurity: Friend or Foe in the Human Decision Loop?. In Proc. Hawaii International Con-ference on System Sciences (HICSS) .[20] R. Ricaldi, L. Allodi, J. Wientjes, and A. Radu. 2025. Where is Dmitry Going? Framing “Migratory” Decisions in the Criminal Underground. 29th International Workshop on Security Protocols. [21] R. Ricaldi, V. Asanache, and L. Allodi. 2026. TeleHunt: A Framework and Tool for Efficient Cybercriminal Community Discovery on Telegram. 21st International Conference on Availability, Reliability and Security Workshops (IWCC). [22] R. Ricaldi, T. Marjanov, L. Allodi, and A. Hutchings. 2025. Uncovering the Trust Signals Supporting Telegram’s Cybercrime Economy. In APWG Symposium on Electronic Crime Research (eCrime) . 1–17. [23] Roy Ricaldi, Maximilian Schafer, Philipp Zech, Luca Allodi, Raffaela Groner, and Irdin Pekaric. 2026. Topical Shifts in the Dark Web: A Longitudinal Analysis of Content from the Cybercrime Ecosystem. 2026 IEEE European Symposium on Security and Privacy Workshops (EuroS&PW) (2026). [24] S. S. Roy, E. Pourabbas Vafa, K. Khanmohammadi, and S. Nilizadeh. 2025. Dark-Gram: A Large-Scale Analysis of Cybercriminal Activity Channels on Telegram. In 34th USENIX Security Symposium . USENIX Association, 4839–4858. [25] Saskia Laura Schröer, Noe Canevascini, Irdin Pekaric, Philine Widmer, and Pavel Laskov. 2025. The dark side of the web: Towards understanding various data sources in cyber threat intelligence. In 2025 IEEE European Symposium on Security and Privacy Workshops (EuroS&PW) . IEEE, 79–89. [26] Saidu Sokoto, Leonhard Balduf, Dennis Trautwein, Yiluo Wei, Gareth Tyson, Igna-cio Castro, Onur Ascigil, George Pavlou, Maciej Korczyński, Björn Scheuermann, et al. 2024. Guardians of the galaxy: Content moderation in the {InterPlanetary }
+
+file system. In 33rd USENIX Security Symposium (USENIX Security 24) . 1507–1524. [27] Rolf Van Wegberg, Samaneh Tajalizadehkhoob, Kyle Soska, Ugur Akyazi, Car-los Hernandez Ganan, Bram Klievink, Nicolas Christin, and Michel Van Eeten. 2018. Plug and prey? measuring the commoditization of cybercrime via online anonymous markets. In 27th USENIX security symposium (USENIX security 18) .1009–1026. [28] Anh V Vu, Ben Collier, Daniel R Thomas, John Kristoff, Richard Clayton, and Alice Hutchings. 2025. Assessing the Aftermath: the Effects of a Global Takedown against {DDoS-for-hire } Services. In 34th USENIX Security Symposium (USENIX Security 25) . 3595–3612. [29] Philipp Zech and Irdin Pekaric. 2026. Sustaining Research Software: A Fitness Function Approach. In Proc. Hawaii International Conference on System Sciences (HICSS) .
+
+## A Data and Code Availability 
+
+The code, data and documents used for the labeling and testing the tool is available at: project repository. Because source messages may contain sensitive identifiers, the message-level dataset is not publicly released; a de-identified labeled version may be shared for research under the source-data agreement upon reasonable request. 
+
+## A.1 Dataset Provenance 
+
+The dataset was originally collected by Ricaldi et al. [22] to map market segments and trust signals in cybercriminal Telegram com-munities. Their framework identifies six market segments and 11 trust signals. All labels were produced through iterative qualita-tive coding to saturation drawing various samples of 500 messages from the dataset, then scaled with a DeepSeek-V3 classifier (market-segment F1 =0.87, 𝜅 = 0.84; trust-signal F1 =0.94, 𝜅 = 0.76); see [22] for the full annotation and validation procedure. Our subset corre-sponds to their Infrastructure market segment (209,803 messages, 11 communities), used for taxonomy development and annotation; the full collection is used only for large-scale classification. 
+
+## B Initial Taxonomy 
+
+Tab. 5 lists the full initial taxonomy (12 families, 48 subcategories, plus two catch-all labels) used for exploratory annotation before scoping down to the working taxonomy. 
+
+## B.1 Excluded Categories 
+
+We excluded several categories treated as infrastructure in prior CaaS taxonomies: C2/botnet and DDoS/booter infrastructure [6, 16], as well as anti-detection/CAPTCHA-solving and account/SMS-verification services [1]. Exploratory annotation yielded insufficient examples to support reliable coding, so we leave their inclusion to future work using broader data. TAKEDOWN ’26, November 15–19, 2026, The Hague, The Netherlands Ricaldi et al. 
+
+Table 5: Initial cybercrime infrastructure taxonomy used for exploratory annotation.                   
+
+> Family Subcategories 1. Hosting, Compute, and Storage Infrastructure 1.1 Bulletproof Hosting; 1.2 General Hosting/VPS/Dedi-cated Servers; 1.3 Compromised Hosting; 1.4 File, Paste, and Object Storage. 2. Network Access, Proxy, and Relay Infrastructure 2.1 Proxy; 2.2 Remote Access; 2.3 Relay and Anonymiza-tion; 2.4 Compromised Network-Device. 3. Command, Control, and Botnet Infrastructure 3.1 Botnet; 3.2 Malware C2; 3.3 Remote Access Malware; 3.4 C2 Resilience. 4. Traffic Delivery and Redirection Infrastructure 4.1 Traffic Redirection; 4.2 Traffic Acquisition; 4.3 Cloak-ing and Filtering; 4.4 Landing-Page. 5. Payload, Malware, and Exploit Delivery Infras-tructure 5.1 Payload Delivery; 5.2 Malware-Spreading; 5.3 Exploit; 5.4 Exploit-Kit/Package. 6. Attack-Traffic Infras-tructure 6.1 DDoS/Attack-Traffic; 6.2 Amplification and Reflec-tion; 6.3 Stress-Testing. 7. Abuse-Enablement and Anti-Detection Infrastruc-ture 7.1 Obfuscation/Anti-Detection; 7.2 Security-Checking; 7.3 CAPTCHA-Solving; 7.4 Anti-Fraud Bypass; 7.5 Reputation/Warm-Up. 8. Identity, Account, Phone, and Verification Infrastructure 8.1 Phone/SMS/OTP Verification; 8.2 Account-Creation; 8.3 Identity/KYC-Support; 8.4 Credential and Session. 9. Spam, Phishing, and Messaging-Abuse Infras-tructure 9.1 Spam/Email-Abuse; 9.2 Phishing; 9.3 Messaging-App Abuse; 9.4 Notification-Abuse. 10. Marketplace, Platform, and Service-Operation In-frastructure 10.1 Marketplace/Criminal Platform; 10.2 Tool-Pool/Shared Tooling; 10.3 Payment and Escrow; 10.4 Reputation and Access-Control. 11. Vulnerability, Scan-ning, and Security-Testing Infrastructure 11.1 Vulnerability-Discovery; 11.2 Exploit-Validation; 11.3 Credential/Access-Checking; 11.4 Defensive Security-Checking. 12. Social-Platform Telegram-Specific Infras-tructure 12.1 Payment-Bot; 12.2 Content-Access Bot; 12.3 Follow-to-Access Bot; 12.4 Operational Bot. 13–14. Other labels 13. I do not know; 14. Spam/Nonsensical.
+
+## B.2 Trust Attributes 
+
+Annotators found three trust-related attributes that describe how vendors signal trust: Payment Security, Transparency, and Bul-letproof. Payment Security combines the Escrow, Digital Wallets, Cryptocurrency and Automation signals from [22], while Trans-parency combines Proof of Delivery, Customer Support, Free Sam-ples and Warranty. They additionally introduce Bulletproof as a new trust signal, absent from their general-purpose framework, to capture marketing that emphasizes resilience to abuse complaints and takedowns. 
+
+## C Codebook 
+
+Tab. 6 gives the operational definitions used for manual annotation 7
+
+and to build the classifiers, corresponding to the final taxonomy in Tab. 2. 
+
+## C.1 Inter-Annotator Agreement 
+
+Tab. 7 reports Cohen’s kappa by category and attribute, computed before adjudication (Section 3). 
+
+## D Detection Methods Comparison 
+
+This appendix supplements Section 3.3 with the classification prompt, implementation details and additional evaluation results. The six infrastructure categories were treated as a multi-label task, while 
+
+> 7All example messages are paraphrased to reduce traceability.
+
+Bulletproof, Payment Security and Transparency were treated as separate binary targets. 
+
+## D.1 Methodology for Detection Methods 
+
+Evaluation setup. The keyword and TF-IDF approaches used a fixed 75%-25% train-test split. Both were trained only on the training split and evaluated on the same held-out messages. For the infrastructure-category task, we report micro-F1, macro-F1, micro-precision, micro-recall, sample-averaged Jaccard similarity, and exact-match accuracy. Micro-averaged metrics measure aggregate performance across all labels, whereas macro-F1 gives equal weight to each label and is therefore more sensitive to performance on infrequent categories. Exact match requires the complete predicted label set for a message to equal its ground-truth label set. The three trust attributes were evaluated independently using precision, recall, F1, and accuracy. 
+
+Keyword dictionary. Messages were normalized by converting text to lowercase, removing URLs and unsupported characters, and collapsing repeated whitespace. For each infrastructure category, the dictionary combined manually selected seed terms, category-specific expressions from the annotated Keywords field of the ground-truth messages in the training set, and discriminative unigrams and bigrams learned exclusively from that training set. Candidate n-grams were extracted using a maximum vocabulary of 4,000 fea-tures. Up to 20 learned terms were retained per label when their nor-malized occurrence rate in positive examples was at least 1.5 times that in negative examples. Stopwords and short non-informative terms were removed. The resulting terms were converted into label-specific regular expressions, and every label with a matching ex-pression was assigned. Trust attributes were processed the same way, using separate dictionaries. 
+
+TF-IDF with logistic regression. Messages were normalized using the same procedure and represented with word-level TF-IDF fea-tures (unigrams and bigrams, maximum 20,000 features, min_df=1 ,
+
+max_df=0.98 , sublinear term-frequency scaling). The six infras-tructure categories were encoded as independent binary targets and classified using one-vs-rest logistic regression with balanced class weights, 𝐶 = 2.0, the liblinear solver, a maximum of 2,000 iterations, and random seed 42. A separate vectorizer and classifier set was trained for the three trust attributes. A label was assigned when its predicted probability was at least 0.5. 
+
+Prompt-based LLM classification. We evaluated three locally de-ployable, open-weight models – Mistral-Nemo-12B, DeepSeek-R1-Distill-Qwen-14B, and Qwen2.5-14B – rather than a frontier model, since our goal was a reproducible pipeline under modest compute rather than an upper bound on LLM classification performance. Each model received one Telegram message together with the tax-onomy definitions, category boundaries, and multi-label decision rules, and was instructed to return all applicable labels in a fixed JSON object, or an empty list if none applied. Messages were pro-cessed independently, without information from previously classi-fied messages. The complete prompt is provided in the repository. A Bulletproof Business? Towards Detecting Infrastructure-as-a-Service Offerings on Telegram TAKEDOWN ’26, November 15–19, 2026, The Hague, The Netherlands 
+
+Table 6: Codebook for the final cybercriminal digital infrastructure taxonomy. 
+
+Code Category Operational definition Example message excerpt Keyword(s) 
+
+1. Compute Infrastructure 
+
+1.1 Hosting General-purpose hosting, cloud, or dedicated/bare-metal server infrastructure capable of hosting scam pages, panels, bots, or malware. Assign 1.1 together with a more specific category (1.2, 1.3, 2.1, 2.2, or 3.1) only when general hosting is explicitly offered in addition to that product; if the message offers only a VPS, RDP, proxy, VPN, or mail-sending product, assign that specific category alone. “cpanel hosting: bulletproof and se-cure for sensitive projects” Hosting, dedicated server, cloud server, cPanel/WHM, bulletproof hosting, off-shore hosting 1.2 Virtual pri-vate server (VPS) Virtual private servers or virtual machines sold as a distinct product, typically specifying resources (RAM, vCPU, disk) or OS/root access. Assign alongside 1.1 if general hosting is also explicitly offered, and alongside 1.3 if Remote Desktop access to the VPS is also explicitly offered. “wts rdp/vps/servers – ram 4gb vcpu 2, $4/month; ram 8gb vcpu 4, $7/month” VPS, VDS, VM, KVM/OpenVZ, vCPU/RAM 1.3 Remote desktop protocol (RDP) Access to a remote Windows (or Windows-compatible) machine via Remote Desktop Protocol, marketed as a ready-to-use login rather than a general server. Assign regard-less of whether the underlying machine is also sold as hosting or a VPS (assign 1.1/1.2 too if explicitly offered). “stable 8gb usa rdp and whm avail-able” RDP, Windows RDP, Re-mote Desktop, admin RDP 
+
+2. Network Infrastructure 
+
+2.1 Proxy ser-vices Intermediary IP-routing infrastructure that masks, rotates, or geographically selects the apparent origin of a connection on a per-request or per-IP basis. Assign 2.2 separately if VPN/tunneling is also explicitly offered. “proxy and sop group chat – join fast, stay tuned!” Proxy, residential proxy, ro-tating IP, IP pool 2.2 VPN and tunneling Infrastructure that routes some or all of a user’s traffic through an intermediary con-nection for the duration of a session, rather than rotating per request as a proxy does. Assign 2.1 separately if proxy/SOCKS services are also explicitly offered. “check out your country tweak, download our latest vpn – new servers, fixed bugs, optimized apk” VPN, tunnel, SSH tunnel, port forwarding 
+
+3. Communication Infrastructure 
+
+3.1 Mail infrastruc-ture Infrastructure for sending, relaying, or managing outbound email at volume (SMTP access, mail relays, mailer software, or bulk/campaign delivery platforms), regardless of the email’s purpose. Do not assign for offers of email/phone lead lists or stolen credentials that do not include mail-sending infrastructure itself. “smtp stock on sale: rackspace, bul-letproof, sendinblue, aws ses, all regions available” SMTP, mailer, mail relay, in-boxing 
+
+Trust attributes (not mutually exclusive): 
+
+– Bulletproof An explicit marketing claim that a service will keep operating despite abuse complaints, law-enforcement requests, or takedown/suspension attempts. Coded per message, independent of which infrastructure category is advertised. “senders/mailers/cpanels/ valida-tor/rdp/smtps – bulletproof host-ing, hitting inbox” Bulletproof, no logs, off-shore – Payment security A claim or mechanism that reduces transaction risk for buyer or seller, most commonly escrow, but also cryptocurrency payment, digital-wallet options, or automated/instant payment processing. Coded per message, independent of infrastructure category. “i accept any crypto – escrow ac-cepted” Escrow, crypto payment, digital wallet – Transparency A claim signaling accountability or reliability of service, such as guaranteed customer support, proof of service or delivery, or warranties. Coded per message, independent of infrastructure category. “24/7 customer support – 1 month guaranteed” Customer support, guaran-tee, proof of delivery, war-ranty 
+
+Table 7: Inter-annotator agreement by category and attribute (250-message taxonomy validation sample). 
+
+Category/Attribute Kappa Acc. Prec. Rec. F1 Disagr. 1.1 Hosting services 0.744 0.872 0.798 0.934 0.861 32 1.2 VPS 0.937 0.984 0.921 0.972 0.946 41.3 RDP 0.983 0.992 0.980 1.000 0.990 22.1 Proxy services 0.576 0.972 0.417 1.000 0.588 72.2 VPN and tunneling 0.823 0.936 0.773 0.981 0.864 16 3.1 Mail infrastructure 0.936 0.968 0.941 1.000 0.970 8Bulletproof 0.895 0.948 0.939 0.947 0.943 13 Payment security 0.786 0.960 0.724 0.913 0.808 10 Transparency 0.644 0.824 0.913 0.700 0.792 44 Macro avg. 0.814 0.940 0.823 0.939 0.862 –Micro avg. 0.859 0.940 – – 0.902 –
+
+Results. The main-text comparison in Tab. 1 shows that TF-IDF achieves higher micro-F1 and precision, whereas the keyword ap-proach achieves higher macro-F1 and recall. This trade-off indicates that stronger aggregate performance does not imply uniformly bet-ter performance across categories. The exploratory zero-shot LLM evaluation yielded micro-F1 scores of 0.401 for Mistral-Nemo-12B, 
+
+Table 8: LLM performance on 261 human-annotated mes-sages. 
+
+Model Mi-P Mi-R Mi-F1 Ma-P Ma-R Ma-F1 Jac. EM Mistral-NeMo 0.494 0.337 0.401 0.272 0.281 0.272 0.267 0.027 DeepSeek-R1 0.438 0.238 0.309 0.351 0.163 0.214 0.164 0.000 Qwen2.5 0.413 0.210 0.278 0.398 0.143 0.195 0.147 0.027 0.309 for DeepSeek-R1-Distill-Qwen-14B and 0.278 for Qwen2.5-14B. These results characterize the evaluated models and prompting setup rather than LLM classification performance in general. 
+
+Trust-attribute evaluation. We apply the same three-way com-parison to the three trust attributes using the ground truth in Sec-tion 3.2. This is deliberately lighter-weight than [22]’s approach of fine-tuning a large model (DeepSeek-V3) for trust-signal labeling: repeating that process at 1.1M-message scale, and again each time the signal set changes – as it does here with the addition of Bul-letproof – is costly in both compute and annotation time, and not sustainable as the taxonomy is extended. A lightweight classifier is far cheaper to (re-)train as the taxonomy evolves. TAKEDOWN ’26, November 15–19, 2026, The Hague, The Netherlands Ricaldi et al. 
+
+## E Classifier Validation with Independent Human Annotation 
+
+To complement the inter-annotator agreement reported in Tab. 7, which measures agreement between coders on a 250-message set, we additionally validated the trained classifier’s predictions against independent human annotation on 200 further messages not in-cluded in the taxonomy validation set, annotated by a human an-notator using the same codebook (App. C). Three subsets were con-structed: (i) a domain-transfer sample (n=100) drawn from commu-nities outside the 11 used for taxonomy development and training, restricted to messages the classifier predicted as infrastructure, to assess precision under domain shift; (ii) a predicted-infrastructure sample (n=50) from the training domain, also restricted to positive predictions, to estimate in-domain precision; and (iii) a predicted-non-infrastructure sample (n=50) to assess the frequency of missed positives among sampled predicted-negative messages. The support (n) in Tab. 9 and 10 is the number of positive messages assess the frequency of missed positives among sampled predicted-negative messagesannotated for that category. 
+
+## E.1 Domain-Transfer Validation (Precision Under Domain Shift) 
+
+Because every message in this sample was predicted positive by the classifier, only Precision is an interpretable summary of the overall Infrastructure label (marked †); Recall and Accuracy are fixed by construction. Precision on the overall Infrastructure label was 78.0%. Category-level agreement ranged from fair (Hosting, 
+
+𝜅 = 0.307) to substantial (Mail, 𝜅 = 0.678; VPS, 𝜅 = 0.677); VPN had no positive examples in this sample and Proxy had only one. 
+
+Table 9: Domain-transfer validation: classifier vs. human annotation by category (n=100). 
+
+Category 𝜅 Prec. Rec. F1 Support Infrastructure † – 0.780 – – 78 Hosting 0.307 0.412 0.808 0.545 26 VPS 0.677 0.636 0.875 0.737 16 RDP 0.529 0.574 0.900 0.701 30 VPN – – – – 0Proxy 1.000 1.000 1.000 1.000 1Mail 0.678 0.803 0.983 0.884 58        
+
+> †All messages in this sample were predicted positive; only Precision is interpretable. Multi-label (pooled): Cohen’s 𝜅 =0.653 , Micro F1 =0.743 , Macro F1 =0.645 , Exact Match Accuracy =0.310 .
+
+## E.2 Predicted-Infrastructure Validation (In-Domain Precision) 
+
+The same overall-label caveat applies here. Precision on the overall Infrastructure label was 84.0%. Mail ( 𝜅 = 0.831) and Hosting ( 𝜅 =
+
+0.647) showed the strongest agreement; RDP was weakest ( 𝜅 =
+
+0.323), the inverse of its domain-transfer ranking. 
+
+Table 10: Predicted-infrastructure validation: classifier vs. human annotation by category (n=50). 
+
+Category 𝜅 Prec. Rec. F1 Support Infrastructure † – 0.840 – – 42 Hosting 0.647 0.724 0.955 0.824 22 VPS 0.638 0.500 1.000 0.667 3RDP 0.323 0.316 0.857 0.462 7VPN 0.000 0.000 0.000 0.000 0Proxy – – – – 0Mail 0.831 0.925 1.000 0.961 37        
+
+> †All messages in this sample were predicted positive; only Precision is interpretable. Multi-label (pooled): Cohen’s 𝜅 =0.743 , Micro F1 =0.812 , Macro F1 =0.485 , Exact Match Accuracy =0.560 .
+
+Table 11: Trust-attribute validation: classifier vs. human an-notation (n=100). 
+
+Attribute 𝜅 Prec. Rec. F1 Support Bulletproof 0.762 0.769 1.000 0.870 40 Payment security 0.342 0.343 0.800 0.480 15 Transparency 0.640 0.833 0.800 0.816 50   
+
+> Multi-label (pooled): Cohen’s 𝜅 = 0.615, Micro F1 = 0.767, Macro F1 = 0.722, Exact Match Accuracy = 0.510.
+
+## E.3 Missed Infrastructure Among Predicted-Negative Messages 
+
+Since every message in this sample was predicted negative on all six categories, the informative statistics are the raw miss counts. Of 50 messages the classifier predicted as non-infrastructure, human annotation identified 5 (10.0%) containing at least one infrastruc-ture category. Across the 300 individual category decisions (50 messages × 6 categories), 295 (98.3%, Hamming Accuracy) matched; 45 of 50 messages (90.0%, Exact Match Accuracy) matched on all six categories. 
+
+## E.4 Trust-Attribute Validation 
+
+We extended this validation to the three trust attributes, apply-ing the same logic to a separate sample of 100 unique messages, stratified across the classifier’s predicted-positive pool for each attribute (Bulletproof, Payment security, Transparency) to ensure adequate support for Payment security, the rarest of the three, and independently annotated using the same codebook. Tab. 11 shows the results of this validation process. Pooled agreement was substantial ( 𝜅 = 0.615). Bulletproof and Transparency showed substantial agreement ( 𝜅 = 0.762 and 0.640); Payment security showed only fair agreement ( 𝜅 = 0.342), driven by low precision on the smallest support of the three (n = 15). 
+
+## F Group-Level Infrastructure Prevalence 
+
+Tab. 12 summarizes infrastructure activity at the Telegram group level. Predicted infrastructure activity was present in 113 of the 167 Telegram groups, corresponding to 67.66% of all groups. These infrastructure-active groups contain 99.03% of all messages in the dataset. However, the difference between the average and median A Bulletproof Business? Towards Detecting Infrastructure-as-a-Service Offerings on Telegram TAKEDOWN ’26, November 15–19, 2026, The Hague, The Netherlands 
+
+Table 12: Group-level overview of predicted infrastructure-related messages.          
+
+> Metric Value
+> Total number of groups 167 Groups with at least one infrastructure message 113 (67.66%) Total number of messages 1,116,071 Infrastructure messages 207,244 (18.57%) Average infrastructure messages per infrastructure-active group 1,834 Median infrastructure messages per infrastructure-active group 11 Maximum infrastructure messages in one group 104,320 Maximum infrastructure share in one group 58.49%
+
+Table 13: Top 10 vendors in the highest-volume community. 
+
+Vendor Msgs. in comm. % of comm.’s msgs. Comm. active in V1 5,451 5.23% 1V2 3,611 3.46% 2V3 3,525 3.38% 1V4 2,830 2.71% 3V5 2,564 2.46% 1V6 2,226 2.13% 1V7 2,218 2.13% 1V8 2,175 2.08% 2V9 2,134 2.05% 1V10 1,799 1.72% 1
+
+number of infrastructure messages per infrastructure-active group indicates that activity is highly unevenly distributed. Of the 207,244 messages assigned at least one infrastructure category, 69.1% received multiple labels (mean: 1.95 categories), consistent with bundled advertising. Activity was highly uneven across communities: 82 of the 113 infrastructure-active communi-ties (72.6%) contained fewer than 50 classified messages, whereas only five contained at least 5,000. Thus, infrastructure advertising was broadly present but concentrated by volume in a small number of communities. 
+
+## F.1 Case Study: Vendor Composition of the Highest-Volume Community 
+
+The highest-volume community (§4.4) accounts for 50.34% of all classified infrastructure messages (104,320 of 207,244) and hosts 562 distinct vendors. Its within-community vendor Gini coefficient (0.809) is lower than the overall vendor-level Gini across all com-munities (0.884, §4.3), reinforcing that this community’s dominance reflects a broad vendor base rather than one or two sellers driv-ing its volume: the top 10 vendors jointly account for 13.77% of all classified infrastructure messages platform-wide (27.35% of the community), and the top 50 for 32.31% platform-wide (64.18% of the community). Tab. 13 lists the ten most active vendors in this community, anonymized as V1–V10. Most advertise Mail infrastructure along-side Hosting and/or VPS. Two of the five most active vendors are also active in additional communities, meaning disruption of this community alone would not remove them from the ecosystem.

@@ -1,0 +1,98 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-09-29T00:26:44.032278+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 1,
+    "deep_cap": 6,
+    "deep_selected": 1,
+    "quick_candidates": 1,
+    "quick_skim_target": 11,
+    "quick_selected": 1
+  },
+  "deep_dive": [
+    {
+      "id": "2609.31318v1",
+      "source": "arxiv",
+      "title": "AgentXploit: Autonomous Repository-to-Runtime Red-Teaming for AI Agents",
+      "abstract": "AI agents combine language models with external data and tools that can modify files, call APIs, or execute code. Security failures can arise when adversarial content changes an agent's tool use or when the surrounding software contains vulnerabilities such as path traversal or command injection. We study authorized white-box pre-deployment auditing, where the auditor has access to the target repository and a controlled runtime, but successful attacks must still act through the task-defined attacker interface and be confirmed by an external verifier. We present AgentXploit, a two-role auditing system that separates repository-level attack-path discovery from runtime exploitation. The Analyzer Agent traces attacker-controlled inputs to sensitive operations and records code-supported candidate attack paths; the Exploiter Agent turns these paths into concrete attacks and revises them using runtime feedback. We also introduce AgentXploit-Bench, containing 72 reproducible vulnerabilities across 12 open-source AI-agent systems and frameworks. Across three runs, AgentXploit reaches 59.3% end-to-end success, compared with 38.4% for Codex. Under a token-budget-matched comparison, Codex reaches 46.3%. On AgentDojo, where injection points are provided, the Exploiter Agent reaches 79.2% attack success versus 52.7% for AgentVigil. These results highlight repository discovery and runtime exploitation as distinct challenges in end-to-end agent security auditing.",
+      "authors": [
+        "Weida Liang",
+        "Shi Qiu",
+        "Zhun Wang",
+        "Simon Sure",
+        "Xiaoyuan Liu",
+        "Tianneng Shi",
+        "Zhaorun Chen",
+        "Wenbo Guo",
+        "Dawn Song"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI"
+      ],
+      "published": "2026-09-25T14:26:04+00:00",
+      "link": "https://arxiv.org/pdf/2609.31318v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Adversarial agent autonomously discovers and exploits vulnerabilities in AI agent systems.",
+      "llm_evidence_cn": "对抗性智能体自主发现并利用AI智能体系统中的漏洞。",
+      "llm_evidence": "对抗性智能体自主发现并利用AI智能体系统中的漏洞。",
+      "canonical_evidence": "对抗性智能体自主发现并利用AI智能体系统中的漏洞。",
+      "llm_tldr_en": "AgentXploit uses a two-role auditing system where an Analyzer and Exploiter agent autonomously find and exploit security flaws in AI agents, advancing adversarial testing for LLM-based systems.",
+      "llm_tldr_cn": "该论文提出AgentXploit，一种两角色审计系统，将攻击路径发现与运行时利用分离，通过分析者与利用者智能体在授权环境下自主发现并利用AI智能体的安全漏洞，为测试LLM驱动系统在对抗性场景下的安全性提供了自动化工具。",
+      "llm_tldr": "该论文提出AgentXploit，一种两角色审计系统，将攻击路径发现与运行时利用分离，通过分析者与利用者智能体在授权环境下自主发现并利用AI智能体的安全漏洞，为测试LLM驱动系统在对抗性场景下的安全性提供了自动化工具。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "adversarial agents for testing large language models in cybercrime",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2609.27428v2",
+      "source": "arxiv",
+      "title": "A Bulletproof Business? Towards Detecting Infrastructure-as-a-Service Offerings on Telegram",
+      "abstract": "Cybercriminal operations increasingly depend on reusable digital infrastructure---including hosting, proxies, and virtual private networks (VPNs)---rented through Cybercrime-as-a-Service markets and advertised on platforms such as Telegram. We present a taxonomy for identifying Telegram messages advertising cybercriminal Infrastructure-as-a-Service (IaaS). The taxonomy comprises six service categories across compute, network, and communication infrastructure, together with three trust attributes: Bulletproof, Payment Security, and Transparency. Using 261 human-annotated messages, we evaluate keyword-based and TF--IDF classifiers and examine prompt-based large language models as exploratory baselines. We select a TF--IDF pipeline and apply it to 1,116,071 messages from 167 cybercrime-related Telegram communities. The pipeline assigns at least one infrastructure category to 207,244 messages (18.57%) spanning 113 communities. Classified advertising is highly concentrated: a single community accounts for 50.3% of infrastructure-positive messages, while the trust-attribute classifiers identify Bulletproof claims in 37.66% of those messages. These findings characterize the scale, composition, and concentration of infrastructure advertising on Telegram and can inform the prioritization of communities and actors for monitoring and investigation.",
+      "authors": [
+        "Roy Ricaldi",
+        "Kristiyan Kyurkchiev",
+        "Irdin Pekaric"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR"
+      ],
+      "published": "2026-09-23T06:46:46+00:00",
+      "link": "https://arxiv.org/pdf/2609.27428v2",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "detects cybercriminal infrastructure-as-a-service offerings, uses LLM baselines",
+      "llm_evidence_cn": "检测网络犯罪基础设施即服务广告，使用LLM基线",
+      "llm_evidence": "检测网络犯罪基础设施即服务广告，使用LLM基线",
+      "canonical_evidence": "检测网络犯罪基础设施即服务广告，使用LLM基线",
+      "llm_tldr_en": "The paper develops a taxonomy for identifying Telegram messages advertising cybercriminal Infrastructure-as-a-Service, evaluating keyword, TF-IDF, and prompt-based LLM classifiers, and selects a TF-IDF pipeline, showing LLMs' role in cybercrime detection.",
+      "llm_tldr_cn": "该论文针对网络犯罪运营日益依赖可复用数字基础设施并通过Telegram广告租赁的问题，提出六类服务分类法和三个信任属性（防弹、支付安全、透明度）的标注体系。在261个人工标注消息上评估关键词、TF-IDF和基于提示的大语言模型分类器，最终选定TF-IDF管道。研究展示了大语言模型在检测网络犯罪基础设施广告中的能力与局限，为网络犯罪生态分析提供了方法。",
+      "llm_tldr": "该论文针对网络犯罪运营日益依赖可复用数字基础设施并通过Telegram广告租赁的问题，提出六类服务分类法和三个信任属性（防弹、支付安全、透明度）的标注体系。在261个人工标注消息上评估关键词、TF-IDF和基于提示的大语言模型分类器，最终选定TF-IDF管道。研究展示了大语言模型在检测网络犯罪基础设施广告中的能力与局限，为网络犯罪生态分析提供了方法。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "capabilities of large language models in cybercrime",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}
