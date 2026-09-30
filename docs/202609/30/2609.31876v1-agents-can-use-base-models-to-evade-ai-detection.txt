@@ -1,0 +1,726 @@
+Title: Agents Can Use Base Models to Evade AI Detection
+
+URL Source: https://arxiv.org/pdf/2609.31876v1
+
+Published Time: Tue, 29 Sep 2026 00:11:47 GMT
+
+Number of Pages: 30
+
+Markdown Content:
+# Agents Can Use Base Models to Evade AI Detection 
+
+Bhuwan Dhingra  Danish Pruthi ~Duke University ~Indian Institute of Science 
+
+We show that coding agents equipped with a base language model can successfully assemble responses from its samples to evade detection. Base models have been shown to evade commercial detectors, however, prior “humanization” techniques rely on using these models to paraphrase AI outputs over several iterations, which invariably results in semantic drift. In contrast, equipping coding agents to directly orchestrate the writing process by stitching text samples from a base model allows it to produce outputs that are coherent, task-specific and generally high quality. We find that Claude Opus 5 operating in a Claude Code harness effectively orchestrates a local 32B parameter OLMo-2 base LM and sacrifices little task accuracy across benchmarks spanning creative writing, factual grounding, health QA and instruction following, while using up to 90% base LM tokens. Responses constructed in this manner reduce the effectiveness of both post-hoc detectors (Pangram v4 detection rate drops from 77% to 24% ) and soft watermarking applied a priori to the agent’s generations (down to a simulated 10% 
+
+detection at low FPR). While effective, this evasion requires a significantly larger number of input and output tokens from the agent, increasing the dollar cost per query up to 30 × at API-pricing. Overall, this work demonstrates the effectiveness of a new class of adversarial attacks against AI text detection, and urges post-hoc detection providers to include outputs of base models in their training. 
+
+# 1. Introduction 0.3 0.5 0.7 
+
+> Pangram 4 detection
+> 0.4 0.6 0.8 1.0
+> Relative Task Quality
+> HALO (ours) Paraphrasing
+> Opus 5 Base LM
+
+Figure 1: Task accuracy and detection rate trade-off. HALO evades Pangram with minimal drop in quality. Despite tremendous advances, frontier LLMs are still prone to gener-ating low quality, superficial text with easily recognizable buzzwords and “AI-isms” (also known colloquially as AI-slop) [Chakrabarty et al., 2025]. More importantly, AI generated text remains distinguishable from human written text, even when it is not explicitly watermarked for detectability [Ippolito et al., 2020, Russell et al., 2025, Mitchell et al., 2023, Hans et al., 2024]. Commercial detectors such as Pangram [Glick-enhaus et al., 2026] and GPTZero [Adam et al., 2026], which utilize supervised classifiers, reportedly have vanishingly small false positive rates, and have seen widespread adoption recently for analyzing the prevalence of AI content across research papers [Elazar and Antoniak, 2026], books [Chakrabarty et al., 2026], newspapers [Russell et al., 2026] and social media [Spero and Aerts, 2026]. Interestingly, recent work has observed that text produced by base language models (i.e., models which have been pretrained but not post-trained) remains undetected by commercial detectors [Xu et al., 2026] (a finding we reproduce in Appendix A). This may be explained by the fact that base models are trained to match the human distribution of text as closely as possible, whereas post-training and alignment leave statistical signatures which can be detected [Emi, 2026]. Based on this observation, Xu et al. [2026] construct a paraphrasing attack which modifies AI-generated texts to resemble base model outputs, leading to lower detection. However, multiple rounds of paraphrasing inevitably lead to semantic drift, hurting downstream usability of the text (Figure 1). In this paper we present HALO (Hiding Authorship via Language-model Orchestration): a novel attack based on the observation that detectors focus on the provenance of tokens, whereas model capability can be separated from token generation. Specifically, we give a coding agent access to a tool for sampling text continuations to prompts  
+
+> Correspondence to:
+
+bdhingra@cs.duke.edu arXiv:2609.31876v1 [cs.CL] 25 Sep 2026 Agents Can Use Base Models to Evade AI Detection 
+
+from a base language model (LM) and instruct it to produce responses which meet a target copy rate by borrowing tokens from either the base LM outputs or the user provided prompt and context (which we assume is human written). The agent’s generations consist of symbolic references to the pool of base LM texts it samples, which are stored on disk, and a post-processing function resolves these references to produce the final response. Since the base LM can be controlled locally, this design ensures that a large fraction (up to 90% in our experiments) of tokens in the final responses are neither watermarked nor carry the statistical signals that post hoc detectors rely on. In experiments with Claude Opus 5 running within a Claude Code harness and equipped with an OLMo-2-32B base LM, we find that the agent effectively orchestrates the base LM to meet the target copy rate and keep the outputs coherent, task-relevant and generally high quality. Moreover, the orchestrated texts reduce the effectiveness of the state-of-the-art commercial detector, Pangram from an aggregate detection rate of 77% for the agent’s own outputs to 24% for the orchestrated base model outputs. We experiment with four benchmarks: Mythos for creative writing prompts [Ashok Kumar et al., 2025], Google’s FACTS grounding tasks [Cheng et al., 2025], HealthBench for clinical QA [Arora et al., 2025], and IFEval for instruction following [Zhou et al., 2023]. For grounding and instruction following, we find that Pangram evasion comes at no cost to output quality, whereas for creative writing and clinical QA varying the target copy rate provides a trade-off between evasion and quality, but generally remains above 90% of the agent’s own task performance. In contrast, paraphrasing-based evasion is both less effective in reducing Pangram scores and also leads to a larger drop in task metrics. Since open-weight base LMs can be locally deployed without watermarking, we can expect HALO responses to also reduce the strength of any watermarking applied to the agent itself, as recently done for Claude [Anthropic, 2026b]. While there isn’t a public detection API available yet for the Opus 5 agent we use here, we derive empirical estimates for the detection rates of HALO outputs based on the scheme described in [Kirchenbauer et al., 2023], assuming that all agent tokens and no base LM tokens are watermarked. For a copy target of 90% and a false positive rate of 10 −5 (used in prior work), our estimates point to <2% detection rate on all benchmarks except HealthBench, where it drops to 40% .Overall, HALO exposes a novel vulnerability of AI detection which does not rely on training or detector access. It also undermines regulatory efforts such as the EU AI Act’s requirement to mark AI-generated content [European Union, 2024]. More positively, while the attack is effective, it is also expensive: on average, the orchestrated agent’s responses cost up to 30 x more per query based on API pricing, since both the input and output tokens increase considerably compared to the agent-only baseline without the orchestration. However, this cost can be absorbed into subscription usage by motivated attackers. The attack can also inform the training of future versions of commercial detectors for improved robustness, however the fundamental separability of base LM generations and human texts as models are scaled up remains unclear [Sadasivan et al., 2023]. 
+
+# 2. Related Work 
+
+Our approach is inspired by Frankentexts [Pham et al., 2026], which are stories assembled by an LLM from a pool of human written snippets and minimal connective phrasing from the LLM itself. Instead of providing a static collection of texts in the context window, we let an agent sample them from a base LM. While Frankentexts also evade AI detection since they are largely composed of human text, relying on human texts alone has a few limitations which motivate our work: (i) borrowing text from published human writing can be construed as plagiarism and might infringe copyright; (ii) human corpora are naturally sparse on the topics they cover, whereas neural language models can effectively interpolate between human writing to produce novel text [Bengio et al., 2003]; and (iii) stitching together a static collection of human texts is harder than creatively prompting a language model, which results in lower coherence, uneven grammar and abrupt tonal shifts (Table 1). Orchestrating a base LM can instead be viewed as a special case of the adviser strategy employed in recent works [Anthropic, 2026a, Asawa et al., 2026], but in the reverse direction of a stronger model prompting a weaker one. Both AI detection and evasion of AI detection have progressed rapidly since the proliferation of LLMs in writing. Model providers can embed statistical signatures into LLM-generated text via watermarking , which can be detected without knowledge of the LLM parameters, as long as the random key used for generating the signature is known 
+
+> 2Agents Can Use Base Models to Evade AI Detection
+
+[Kirchenbauer et al., 2023, Dathathri et al., 2024]. In the absence of watermarking, LLM-generated text can still be detected either via heuristics, often relying on language model probabilities [Mitchell et al., 2023, Hans et al., 2024], or by training supervised classifiers on collections of known human and AI texts [Thai et al., 2026, Glickenhaus et al., 2026, Adam et al., 2026]. The latter approach is particularly effective, with reports of near-zero false positive rates (human texts detected as AI) and minimal false negatives [Saha et al., 2026, Russell et al., 2025, Jabarian and Imas, 2025]. Additionally, commercial detectors such as Pangram have been widely adopted [Lu et al., 2026, Russell et al., 2026]. Naturally, the effectiveness of AI detection has prompted corresponding research into adversarial evasion 
+
+[Sadasivan et al., 2025, Zhou et al., 2024]. The dominant approach to evade both watermarking and post hoc detection is paraphrasing [Krishna et al., 2023]: repeated transformation of the text into alternative surface forms while keeping the underlying intent and semantics fixed. Generally, the paraphrasing model is itself an LLM so its outputs often tend to be identified by well-trained detectors [Masrour et al., 2025], however, one notable exception which motivates our work is Humanization by Iterative Paraphrasing (HIP) [Xu et al., 2026]. HIP leverages the observation that text generated by base LMs remains undetected by commercial detectors, and trains a paraphraser whose output remains close to the base LM distribution. Pangram’s technical report acknowledges that base LM text is outside the scope of their detector [Emi, 2026], hence this may point to a more fundamental limitation of AI detection. While effective for evasion, paraphrasing remains impractical for wide adoption for a few reasons: (i) it generally requires multiple iterations to evade, which inevitably causes a semantic drift in the outputs, as reported in Xu et al. [2026]; (ii) it fails to respect the original task intent, such as factuality and fine-grained instruction following (Table 1); and (iii) it requires the user to supervise two separate processes: one for generating the response and another for rephrasing it. Often this added effort is better spent “humanizing” the text manually. 
+
+# 3. Hiding Authorship via Language-model Orchestration (HALO) 
+
+3.1. Response Generation 
+
+Figure 2 (Right) shows an overview of our framework. It consists of an orchestrator agent equipped with a base language model and a python script for splicing texts into a structured response based on <copy> pointer tags. We describe each of these components in more detail below. 
+
+Orchestrator Agent. We use claude-opus-5 running within the Claude Agent SDK (v0.2.128). For each input, the agent receives as input a system prompt which describes the task it needs to perform (e.g., writing a short story in response to a prompt, or answering a question about a specific document), the expected requirements for its output (e.g., a coherent narrative, or grounding with respect to the context), and specialized instructions on how to orchestrate. Specifically, the orchestrator is told that it has access to a base LM which it can prompt via a special tool that can be called up to a maximum budget of 𝐵 = 30 times. The agent can choose the number of output samples 𝑁 it draws each time, and the sampling temperature 𝑇 , though in practice it largely sticks to the default values of 𝑁 =4 and 𝑇 =1 .05 . Importantly, the agent is told to meet a copy target of 𝑝 ∈ (0 , 1) fraction of tokens from either the base LM’s outputs or from the user prompt (both of which are stored as files on disk). It needs to do so by generating pointer tags in the format <copy gen={file_id} start={char_offset} end={char_offset}/> for which the corresponding text will later be spliced into the response. It can add roughly 1−𝑝 fraction of tokens around these spliced pointers, and it is given another tool for checking the copy rate of candidate responses. Once it is satisfied it can submit the final response, which will be postprocessed by replacing all the <copy> tags with the actual text they point to. This design ensures that only the 1−𝑝 fraction of tokens generated by the agent can be watermarked. 
+
+Base LM. This tool invokes a standard autoregressive LM with the prompt provided by the orchestrator agent and returns a continuation of text sampled starting from that prompt. Sampling proceeds until the EOS token is generated or until the text meets the agent-specified max-length, (default 150 ). It is worth noting that it is increasingly rare for frontier model developers to release pretrained checkpoints of the LLMs they develop. Moreover, 
+
+> 3
+
+Agents Can Use Base Models to Evade AI Detection TASK: Please expand this. Do not use the words reschedule or free ."I'm sorry to inform you that I can't make it to the meeting today. I apologize for any inconvenience this may cause."  
+
+> I'm sorry to inform you that I won't be able to make it to today's meeting. An unavoidable conflict came up at the last minute, and I wasn't able to resolve it in time to attend. I apologize for any inconvenience this causes, particularly if it means adjusting the agenda on short notice. Please go ahead without me. Hi! I am very sorry to inform you that I won't be able to attend the meeting today. Unfortunately I have an unplanned meeting later today and I will not be able to join in time for our meeting. I am very sorry for the inconvenience this causes you, and if there is a need for any last minute changes to the agenda. Feel
+
+free to continue without me.      
+
+> <copy gen=0 start=68 end=184/> <copy gen=2 start=1 end=82/> meeting, and the <copy gen=5 start=73 end=102/> <copy gen=1 start=1 end=33/> , and I’ll see you at the next one. Subject: Absence from today's meeting Dear Priya, I'm sorry to inform you … Thank you for your understanding. Please don't hesitate … Dear team, I will be unable to join the call. I have had an unexpected event come up and so I will not be …
+> prompts completions
+
+HALO 
+
+base LM coding agent 
+
+direct prompting 
+
+100% AI 
+
+Human Human 
+
+humanization via paraphrasing (HIP)  
+
+> id=0 id=1 id=2
+> I'm sorry to inform you that I can't make it to the meeting today. I apologize for any inconvenience this may cause. I have had an unexpected event come up and so I will not be able to make it to the meeting, and the problem is beyond my control. Thank you for your understanding, and I’ll see you at the next one.
+> prompt text base LM text
+
+Figure 2: System Overview. (Left ) Given a writing task (IFEval), an LLM follows instructions precisely (exclude the words “reschedule” or “free”) but is detected as AI by Pangram. Humanization via paraphrasing [Xu et al., 2026] evades detection, but its output fails to follow task instructions. ( Right ) Our proposed HALO framework: a coding agent (Claude Opus 5) is given access to a base LM (OLMo-2-32B) as a tool which it can prompt to generate continuations. The agent assembles its response by generating pointers (as <copy> tags) to the stored base LM text, which are spliced into the final output, evading detection while following task instructions. 
+
+the distinction between pretrained and post-trained models is itself increasingly blurred as large-scale synthetic data and reasoning traces are now injected into the pretraining and mid-training data mixtures [Yang et al., 2025, Team et al., 2025]. Nevertheless, we experiment with base models from multiple families, including Llama, Qwen, OLMo-2 and Gemma, across sizes ranging from 7B to 30B parameters, and find that their continuations generally evade Pangram effectively (see analysis in Appendix A). In our experiments below, unless stated otherwise, we use the base checkpoint of OLMo-2-32B [Walsh et al., 2025], which involves minimal midtraining and synthetic data. Despite being an older model, in our preliminary experiments it evaded detectors successfully while being small enough to provide fast inference, and strong enough to complete the orchestrator’s prompts coherently. 
+
+3.2. AI Detection 
+
+We evaluate the detectability of the orchestrated texts against two AI detection methods. 
+
+Post-hoc detectors. We evaluate against Pangram v4 [Glickenhaus et al., 2026], a commercial system which employs a supervised classifier trained to recognize human written texts from content written with varied levels of AI involvement. Several studies report that Pangram is the most accurate available detector [Russell et al., 2025, Saha et al., 2026, Glickenhaus et al., 2026]. The Pangram API returns a window-level label, namely: Human Written, AI-Assisted or AI-Generated, along with a continuous AI-assistance score in [0 , 1] . The AI-assistance score is aggregated across the windows to produce a document-level fraction_ai score which is the main metric we report (lower is better for evasion). In §4.4 we also report the number of documents flagged by Pangram as AI or Mixed, along with similar labels from other detectors such as Pangram 3.3.2, EditLens [Thai et al., 2026] and Binoculars [Hans et al., 2024]. 
+
+4Agents Can Use Base Models to Evade AI Detection 
+
+Watermarking. Model providers may choose to proactively embed statistical signals in the outputs of a model, which can be later identified by anyone with access to a secret key used in embedding the signal (typically the provider itself). 1 A common technique for watermarking LLM outputs involves modifying the next-token probabilities by increasing, at every generated position, the logits of a subset of the vocabulary 𝛾 |𝑉 |, where 𝛾 ∈ (0 , 1) ,by a fixed constant 𝛿 > 0. The chosen subset of the vocabulary is referred to as the “green list” [Kirchenbauer et al., 2023]. 2 The green list is selected by seeding a hash with the secret key and the preceding ℎ context tokens. Larger 
+
+𝛿 makes the emitted token more likely to be green and 𝛾 controls how often that might happen by chance, even without watermarking. Given a text of 𝑁 tokens, detection involves counting the number of tokens 𝐺 that fall in their position’s green list (reconstructed from the context and the secret key), and testing the null hypothesis that the text was produced with no knowledge of the green-list rule. Under the null, each token belongs to the green list independently with probability 𝛾 , so 𝐺 ∼ Binomial (𝑁, 𝛾 )3 and the corresponding one-sided z-statistic is: 
+
+𝑧 = 𝐺 − 𝛾𝑁 √︀ 
+
+𝛾 (1 − 𝛾 )𝑁 . (1) If this value exceeds a threshold 𝜏 , the text is detected to have been generated from the watermarked language model. The threshold 𝜏 is tuned to meet a target false positive rate (FPR). In our setup, the response is constructed by stitching a fraction 𝑝 of its tokens from the copy pool, i.e., the samples produced by the base LM, together with the prompt and any context supplied by the user, both of which are assumed to be not watermarked. Any signal is therefore restricted to roughly the 1 − 𝑝 fraction of tokens the agent generates, and is consequently harder to detect. Our setup is similar to prior work which studies whether watermarked outputs remain detectable when mixed with human-written text [Kirchenbauer et al., 2024]. This work showed that when watermarked output is mixed with 90% human written text, the detection performance (AUCROC) drops to 0.67 for 200 word length outputs and to 0.81 for 600 word outputs. Our approach, however, relies on a frontier coding agent for which we do not have the next-token probabilities, nor any public detection API. Instead, we estimate the next-token probabilities using the open-weight, post-trained Qwen-3.5-27B and perform an analytic computation of the expected detection rate for the agent-generated fraction of tokens we observe. Specifically, suppose we have a text of length 𝑁 tokens out of which 𝑊 are generated by a watermarked agent and the remaining come from a non-watermarked base LM or human prompt. The watermarking signal is carried only in 𝑊 eff =∑︀ span max (0 , |span | − ℎ) tokens, where |span | is the length of each agent-generated span, since the first ℎ tokens of each span have their context corrupted. Let the positions of these 𝑊 eff watermarked tokens in the final response be denoted by 𝑘 1, . . . , 𝑘 𝑊 eff . Using Qwen-3.5 as a proxy model, we obtain the next-token distributions by doing a forward pass on the Claude generated response, conditioned on the task prompt. 4 Using these next-token distributions, we can obtain the green-list probability 𝑝 𝑘 𝑖  
+
+> 𝐺
+
+, i.e., the probability that the token emitted at each agent-generated position is green after watermarking, by first applying the LeftHash algorithm [Kirchenbauer et al., 2023] on the context to select the 𝛾 subset of the vocabulary, and then adding 𝛿 to the logits of the tokens in this subset. We can use these estimated green-list probabilities at the watermarked positions to model the overall distribution of green list tokens across the orchestrated response as: 
+
+𝐺 ∼ Binomial (𝑁 − 𝑊 eff , 𝛾 ) + 
+
+> 𝑊 eff
+
+∑︁ 
+
+> 𝑖 =1
+
+Bernoulli (𝑝 𝑘 𝑖  
+
+> 𝐺
+
+). (2)  
+
+> 1Anthropic recently announced that they will begin watermarking all their model outputs to comply with EU AI act:
+
+https://www. anthropic.com/news/claude-text-watermark   
+
+> 2A different procedure, SynthID [Dathathri et al., 2024], relies on tournament sampling at decoding time. We base our discussion here on the simpler scheme of Kirchenbauer et al. [2023], since it allows analytic computation of the detection rate, but one can expect copying non-watermarked tokens to lead to similar evasion for other watermarks as well.
+> 3In practice, repeated (ℎ+1) -grams lead to correlated draws, so we only count them once.
+> 4Unfortunately, none of the frontier LLM APIs provide next-token distributions. However, we expect that using Qwen actually favors detection
+> since it is likely to produce next-token distributions with higher entropy (and hence stronger watermarking signal) for two reasons: (i) evaluating Qwen on Claude prefixes induces a distribution shift which may decrease model confidence; and (ii) Qwen is not conditioned on reasoning traces (only the prompt) which is also likely to lower confidence. 5Agents Can Use Base Models to Evade AI Detection
+
+The first term above corresponds to the non-watermarked tokens which are copied from the base LM (these may independently belong to the green list with probability 𝛾 ), and the second term sums independent draws to determine whether the tokens at position 𝑘 1, . . . 𝑘 𝑊 eff will each be in the green list or not. Eq. 2 gives the distribution of 𝐺 for an orchestrated, watermarked response and we can compute the power of the test in Eq. 1 by checking 
+
+𝑃 (𝑧 > 𝜏 ) under this alternative hypothesis. Since 𝑧 is increasing in 𝐺 , this is given by 𝑃 (︀ 𝐺 > 𝛾𝑁 + 𝜏 √︀ 𝛾 (1 − 𝛾 )𝑁 )︀ 
+
+which we can compute exactly from Eq. 2. Averaging over all responses gives the expected detection rate (TPR) across a benchmark. In § 4.3.2 we sweep over 𝜏 for FPR ranging from 10 −6 → 1 and plot the TPR as a function of the FPR for a baseline agent which does not copy, as well as HALO variants for different values of 𝑝 .It is worth clarifying a key assumption we make here: we are evaluating the next-token probabilities post-hoc using Qwen on the text produced by the agent, however, depending on the watermarking scheme the agent would have produced a different text altogether. Hence, the detection rates we report are only estimates, but the drop in detection compared to a baseline which watermarks all tokens is inevitable. 
+
+# 4. Experiments & Results 
+
+4.1. Benchmarks 
+
+We evaluate HALO on a number of tasks involving long-form generation, each aimed at testing whether the orchestrated setup continues to excel at specific capabilities associated with LLMs. 
+
+Mythos [Ashok Kumar et al., 2025] is a collection of creative writing prompts sourced from the subreddit 
+
+r/writingprompts . We use the same setup as Frankentext [Pham et al., 2026], restricting our analysis to 100 
+
+prompts to keep API expenses low, and using the same LLM judge prompts for coherence, relevance and other quality metrics. Frankentext used GPT-4.1 for judging coherence and relevance, and Claude-Sonnet-4 on a Likert scale for quality metrics. We found these judges produced close to perfect scores for all generations from the recent frontier agent we use for our methods, and instead use Sonnet-4.5 as the judge. However, we found the relevance metric to be saturated even with the updated judge, and the Likert scores disagreed with our own assessments of the text, preferring “rough, fragmented or unusual” texts over well constructed ones. Hence, as our main quality metric, we report coherence judged by Sonnet-4.5 using the same prompt as used in Frankentexts [Pham et al., 2026]. Detailed results and other metrics are included in Appendix C. 
+
+FACTS Grounding [Cheng et al., 2025] is a benchmark for measuring how well LLMs can ground responses to information seeking prompts in a provided context. Each example consists of a system instruction, telling the model to ensure its response is completely supported by the context, a user request, and a context document ranging from 200 to over 20 𝐾 tokens. We perform all experiments on a random subset of 100 examples extracted from the publicly released set of 860 . Evaluation is done by passing the response to two LLM judges, GPT-5 and Gemini-3.6-Flash, which check whether each sentence in the response is grounded and whether the response as a whole adheres to the user request. The main metric we report is the adjusted factuality score , which reports the number of eligible responses fully grounded in the context. Prior work on this dataset has generally focused on non-agent LLMs, prompting with the entire context and user request concatenated. For agentic systems, including HALO, we use an improved baseline which offloads the context document into a file and lets the agent operate over it via standard bash tools [Fox et al., 2026]. For HALO, we allow copying from the context in addition to the samples produced by the base LM. 
+
+IFEval [Zhou et al., 2023] is a standard benchmark for evaluating the instruction following capabilities of LLMs. It consists of writing prompts with certain verifiable instructions embedded in the prompt, such that the responses can be checked automatically. While frontier LLMs generally excel at following these precise instructions (e.g., “mention AI at least 3 times”), our goal here to study whether the same constraints can be satisfied when an agent is orchestrating a base LM to produce 𝑝 fraction of its text. We again sample 100 out of the 541 prompts in the 
+
+> 6Agents Can Use Base Models to Evade AI Detection
+
+dataset to keep costs manageable, and report the prompt-level strict score as our main quality metric. The agent is allowed to copy from both the prompt itself and the base LM samples; the former is useful for tasks which require the output to repeat parts of the input verbatim. 
+
+HealthBench [Arora et al., 2025] tests models’ knowledge and alignment when answering health-related queries. Each instance consists of a potentially multi-turn conversation between a patient or clinician and an assistant, and the evaluated model needs to predict the last response. The generated response is automatically evaluated against a set of rubrics, which check various aspects such as including certain facts, excluding harmful advice, and escalating to professionals where appropriate. Rubric adherence is judged by GPT-4.1, and the final score is a weighted average of individual rubric judgments (which may be positive or negative). Hence, high quality responses must balance multiple objectives, including recalling factual information and adhering to safety principles. We again restrict our analysis to 100 randomly sampled instances from the benchmark, which are accompanied with a total of 1, 090 rubric criteria. The main quality metric we report is the clipped mean of per-example weighted average of rubric scores. Similar to IFEval and FACTS, the HALO agent is allowed to copy from both the input prompt and the base LM samples. 
+
+4.2. Setup & Baselines 
+
+We construct a separate prompt for each benchmark which describes what counts as a high quality response, and for the HALO variants also describes the expected format for the output (shown in Figure 2), the target copy rate 𝑝 ,and source pools the agent can copy from. The prompts are included in Appendix F. We compare HALO to several baselines. The main baseline Agent calls Opus 5 within the agent SDK harness, the only difference to HALO is that no base LM tool is provided and the agent does not need to copy its output from any source pool. We further experiment with prompting the Agent to “avoid stylistic tells of AI prose” and produce human-like text ( +prompted ), as well as providing the agent with the Pangram-4 API directly as a tool to optimize against, under a budget of 15 Pangram queries per example ( +detector ). Non-Agent directly calls Opus 5 through the Claude API without the agent harness, using the default values for sampling parameters and “adaptive” thinking. Base LM samples the response directly from the OLMo-2-32B model used by the orchestrator, and serves as a sanity check for the (lack of) base model capabilities. We include 2 few-shot examples in the prompt and sample at a temperature of 1.05 ; these are sourced from LitBench human-written stories for Mythos [Fein et al., 2026], from the physician-written references included with the release for HealthBench, and from the baseline Agent’s responses for IFEval. We also report the Frankentext [Pham et al., 2026] results on the Mythos benchmark, which uses Gemini-2.5-Pro supplied with 5K random human written snippets and instructed to copy 
+
+𝑝 =0 .9 fraction from them. We also compare with paraphrasing attacks against AI detection, by applying them to the outputs of the Agent baseline. HIP [Xu et al., 2026] uses a minimally finetuned base LM (Llama-3-8B) to paraphrase AI outputs in an iterative manner; increasing the number of iterations 𝑁 provides a smooth trade-off between output quality (how well the semantics / structure of the original AI output are preserved) and detectability. DIPPER [Krishna et al., 2023] is another paraphrasing based attack which preserves meaning while varying surface form. Further, we run our HALO agent for 3 different copy targets 𝑝 = {0.6, 0.75 , 0.9}, which also provide a trade-off between quality (which is higher at lower copy rates) and evading detection (evasion is easier with higher copy rates). Since HIP uses a 8B base model, for a controlled comparison we also report HALO at 𝑝 =0 .9 with a OLMo-2-7B base model. 
+
+4.3. Results 
+
+4.3.1. Post-hoc detection (Pangram) 
+
+Table 1 presents a comparison of HALO and the baselines across the four benchmarks. We find that the Agent baseline generally outperforms the Non-Agent one—an effect of the Claude Code harness—and use it as the main point of comparison for different attacks. Overall, HALO largely preserves quality while dropping the Pangram AI                                                                                                                                                                                                               
+
+> 7Agents Can Use Base Models to Evade AI Detection Mythos FACTS IFEval HealthBench Average System Qual. ↑Pan. ↓Len. Qual. ↑Pan. ↓Len. Qual. ↑Pan. ↓Len. Qual. ↑Pan. ↓Len. Qual. ↑Pan. ↓
+> Baselines
+> Agent 1.000 1.000 534 0.823 0.130 517 0.960 0.965 277 0.703 1.000 644 0.871 0.774 +prompted 1.000 1.000 532 0.672 0.308 474 0.970 0.970 332 0.638 1.000 507 0.820 0.820 +detector †1.000 0.960 548 0.683 0.166 428 1.000 0.866 406 0.584 1.000 650 0.817 0.748
+> Non-Agent 1.000 1.000 530 0.720 0.223 348 0.890 0.963 206 0.670 1.000 410 0.820 0.796 Base LM 0.070 0.113 627 ———0.450 0.602 173 0.133 0.852 227 0.218 0.522 Frankentext [Pham et al., 2026] 0.141 0.100 517 ———————————
+> Paraphrasing attacks, applied to the Agent responses
+> HIP ( 𝑁 = 5 ) [Xu et al., 2026] 0.947 0.878 531 0.025 0.036 558 0.190 0.664 308 0.540 0.488 716 0.425 0.516 HIP ( 𝑁 = 10 ) [Xu et al., 2026] 0.885 0.728 513 0.005 0.065 576 0.180 0.520 331 0.414 0.434 707 0.371 0.437 DIPPER [Krishna et al., 2023] 0.918 0.974 537 0.015 0.231 464 0.222 0.917 259 0.509 0.948 639 0.416 0.767
+> Our approach: HALO (w/ OLMo-2 base LM)
+> HALO (7B), 𝑝 =0 .90 0.808 0.165 559 0.830 0.027 531 0.980 0.399 384 0.567 0.740 842 0.796 0.333 HALO (32B), 𝑝 =0 .60 0.990 0.581 541 0.780 0.049 518 0.960 0.529 343 0.649 0.863 906 0.845 0.506 HALO (32B), 𝑝 =0 .75 0.959 0.280 532 0.840 0.042 539 0.980 0.429 353 0.634 0.840 822 0.853 0.398 HALO (32B), 𝑝 =0 .90 0.888 0.061 532 0.875 0.028 462 0.940 0.232 304 0.620 0.661 738 0.831 0.245
+
+Table 1: Quality-Detection Trade-off Against Pangram. Task-specific quality (Qual.), Pangram-4 fraction_AI scores (Pan.) and median response length (Len.) across all four benchmarks, evaluated on 𝑛 =100 random examples each ( †: 𝑛 =30 ). All methods use Claude-Opus-5 to generate the responses, except Frankentext which uses Gemini-2.5-Pro. HALO and the Agent baselines operate within the Claude Agent SDK harness, whereas Non-Agent directly prompts the model via the API. The paraphrasing attacks operate on top of the Agent outputs. On FACTS and IFEval, HALO ( 𝑝 = 0 .90 ) evades Pangram effectively while maintaining quality. On Mythos and HealthBench, there is a trade-off: evasion works better as 𝑝 increases, but also leads to a drop in quality. Paraphrasing (HIP) provides a modest drop in detection, but leads to catastrophic decrease in quality for FACTS and IFEval. Prompting the Agent to generate human-like text (‘+prompted’) or giving it access to Pangram as a tool (‘+detector’) doesn’t lead to meaningful evasion, and leads to a drop in quality for FACTS and HealthBench. 
+
+detection scores considerably; however, on some benchmarks there is a trade-off between quality and the strength of evasion. The orchestration technique is most effective on the FACTS and IFEval benchmarks: with virtually no drop in quality, at 𝑝 = 0 .90 , the Pangram detection score drops 10% and 73% to 0.028 and 0.232 . The latter is particularly interesting since it requires the output to adhere to precise instructions such as mentioning a specific word a certain number of times or keeping the output within a length constraint. The orchestration is successfully able to follow these instructions while borrowing most text from the base LM. On FACTS, it is worth noting that most of the copying actually happens from the provided context document to preserve grounding (more details in § 4.4); the baseline Agent also has access to this context and consequently also scores low on Pangram. On Mythos, at 𝑝 = 0 .6 the LLM-judged coherence remains at 99% while dropping the Pangram AI score from 
+
+1.0 to 0.58 . At 𝑝 = 0 .75 , the coherence drops slightly to 0.96 but Pangram detection score drops more significantly to 0.28 . These scores are far higher than either using the base LM directly ( 0.07 ) or stitching together human snippets using the Frankentext approach ( 0.14 ), 5 though both those approaches also evade Pangram. A similar trend appears for HealthBench, however the evasion is weaker on this benchmark. An 8% drop in the rubric score at 𝑝 = 0 .90 is accompanied with a 34% drop in the Pangram detection score. HealthBench is the only benchmark where the agent fails to meet the target copy rate, since it is instructed to prefer factuality and safety over copying. Despite this, the final rubric scores for the HALO variants are comparable to GPT-5.6 [OpenAI, 2026]. Attacks based on paraphrasing, on the other hand, both fail to provide meaningful evasion against Pangram and negatively impact output quality in many cases. On Mythos and IFEval, HIP ( 𝑁 = 5 ) receives a much higher AI score from Pangram ( 0.88 and 0.67 respectively). More importantly, it completely degrades the grounding of the response on FACTS, and instruction following capabilities on IFEval, and results in a poor score for rubrics of    
+
+> 5Our reported coherence score for Frankentext doesn’t match the paper [Pham et al., 2026] since we use Sonnet-4.5 as a judge. Using the original GPT-4.1 as a judge, we find that all Opus-5 based methods score perfectly at 100% coherence (and Frankentext 83% ). 8
+
+Agents Can Use Base Models to Evade AI Detection 0.0 0.2 0.4 0.6 0.8 1.0     
+
+> True positive rate Mythos
+> 1.00 0.99 0.69 0.04 1.00 0.90 0.26 <0.01
+> FACTS
+> 0.68 0.36 0.20 0.03 0.44 0.13 0.05 <0.01
+> IFEval
+> 0.91 0.55 0.34 0.03 0.85 0.36 0.17 <0.01
+> HealthBench
+> 1.00 0.98 0.92 0.57 0.99 0.97 0.80 0.40 10 −3
+> 10 −510 −1
+> 0.0 0.2 0.4 0.6 0.8 1.0
+> True positive rate
+> 1.00 0.91 0.55 0.10 1.00 0.68 0.21 0.02 10 −3
+> 10 −510 −1
+> 0.33 0.17 0.11 0.03 0.14 0.05 0.02 <0.01 10 −3
+> 10 −510 −1
+> 0.83 0.45 0.26 0.04 0.75 0.27 0.12 <0.01 10 −3
+> 10 −510 −1
+> 0.99 0.95 0.78 0.42 0.98 0.89 0.58 0.28
+> False positive rate
+
+LeftHash WinMax              
+
+> Agent baseline (no copying) HALO p= 0.60 HALO p= 0.75 HALO p= 0.90 h= 1 h= 2
+
+Figure 3: Watermarking Evasion. ROC curves for the baseline Agent and HALO variants for watermark detection using LeftHash (Top) and WinMax (Bottom) schemes from Kirchenbauer et al. [2024]. The detection rates are computed/simulated using the next-token probabilities from Qwen-3.5-27B. The vertical lines and labeled TPRs correspond to commonly used FPRs in the literature. ℎ is the number of context tokens used for computing the green-list hash. At 𝑝 = 0 .90 , the detection rate drops to nearly 0 at a low FPR for all benchmarks except HealthBench, where it drops to 0.40 and 0.28 for the two schemes. 
+
+HealthBench. Comparing HIP with 𝑁 =10 iterations to HALO at 𝑝 =0 .90 , both lead to a similar drop in Mythos coherence, but HALO evades Pangram far more effectively (AI score of 0.06 vs 0.73 ). DIPPER also fares poorly on these tasks. Directly providing the Agent with the detector as a tool to optimize against also doesn’t work: this was previously also found to be the case in Pangram’s own tech report [Glickenhaus et al., 2026]; due to its limited efficacy, we only run 𝑛 =30 examples per benchmark in this setting to control costs. Interestingly, prompting the base LM in a few-shot manner leads to significantly higher detection then providing it prefixes to continue (cf. Table 6 in the Appendix). Detailed results including more metrics for each benchmark are included in Appendix C. 
+
+4.3.2. Watermarking 
+
+Figure 3 shows the true positive rate (TPR) as a function of the false positive rate (FPR) for watermark detection based on the green-list distribution in Eq. 2. We report two different schemes from Kirchenbauer et al. [2024] for watermark detection: LeftHash and WinMax . For LeftHash, we compute the FPR by computing the distribution over z-scores based on Eq. 1 under the null 𝐺 ∼ Binomial (𝑁, 𝛾 ) and averaging the probability 𝑃 (𝑧 > 𝜏 ) over all responses in the benchmark. The TPR is computed in a similar manner, but using the watermarked green list distribution in Eq. 2. Sweeping over 𝜏 gives the ROC curve reported in Figure 3 (Top), where we use 𝛾 = 0 .25 and 
+
+𝛿 = 2 as typically done in prior work. As expected, the detection rates (TPR) drop significantly as more tokens are copied from the base LM or context rather than generated by the agent ( 𝑝 =0 .6→0.9). On FACTS and IFEval, we find that the detection rates for the 
+
+9Agents Can Use Base Models to Evade AI Detection 
+
+baseline agent are already less than perfect for the commonly used FPR of 10 −5. For FACTS, since the responses are largely copied from the context document, the next-token distributions tend to be low entropy. 6 For IFEval, the responses are generally very short, with some being <20 tokens. On Mythos, while the baseline agent is detected perfectly, 0.75 and 0.90 copy targets drop that to 26% and <1% , respectively. HealthBench responses are on average much longer, hence we see higher detection rates but these still drop to 40% at a copy target of 0.90 .The WinMax detector (Figure 3, Bottom) instead uses the maximum z-score over all spans in a given response, greater than a minimum length ( =4 here). It was originally designed for the case where the watermarked text is embedded in a larger unwatermarked document; our HALO responses are similar, but consist of several shorter watermarked spans ( 5−15 tokens) surrounded by unwatermarked spans. For this detector we obtain the distribution over z-scores by running Monte Carlo simulations under both the null and watermarked cases, and threshold them to obtain the FPR and TPR in the same manner as LeftHash. We find that the WinMax detector is worse in our setup, for both the baseline Agent and HALO. For HALO, the watermarked spans are generally not very long, and do not carry enough signal to meet the higher threshold 𝜏 needed to avoid false positives in this case. Overall, these results show that watermarking is significantly weakened upon splicing text from different sources by the agent. It is worth noting that the choice of a base LM in this paper is motivated by the inability of commercial detectors to detect their outputs, but if the only goal is to defeat watermarking, then any LLM (pretrained or post-trained) could be used, as long as it’s not watermarked using the same key as the orchestrating agent. 
+
+4.4. Analysis 0.00 0.25 0.50 0.75 1.00  
+
+> share of submission tokens
+> .60 .75 .90 .60 .75 .90 .60 .75 .90 .60 .75 .90
+> HealthBench IFEval FACTS Mythos
+> 0.496 0.600 0.721 0.679 0.795 0.917 0.708 0.802 0.902 0.602 0.752 0.909
+> base LM samples context document user prompt agent's own tokens copy target p
+
+Figure 4: Source pool of the copied tokens by bench-mark and copy target 𝑝 .
+
+How much text comes from each source pool? Figure 4 shows the fraction of submitted tokens which are copied from the various source pools available to the orchestra-tion agent: (i) samples from the base LM; (ii) the user prompt; and (iii) any additional context documents (only for FACTS). Except HealthBench, we find that the agent meets or exceeds the assigned copy target 𝑝 in every case. On FACTS, the agent has access to a large context docu-ment (up to 32 𝐾 tokens) and chooses to largely borrow from it in order to preserve grounding. However, some re-quests (e.g., “summarize for first-year students”, Figure 5) still require paraphrasing for which it utilizes the base LM. On IFEval and HealthBench we also see a small amount of copying from the user prompt itself, mostly in cases where the request itself requests the agent to repeat or lightly modify parts of the prompt. On HealthBench, the actual copy rates fall short of the targets since the prompt explicitly instructs the agent to favor factuality and correctness over meeting the copy rate exactly; despite sampling excessively from the base LM (Table 2), the agent is unable to find enough seed text for satisfactory answers and hence generates more of its own tokens. 
+
+Cost. Table 2 compares the cost of running the HALO orchestrator at different copy rates to calling the API directly or running the agent without the base LM. In general, the dollar cost (based on list pricing) is significantly higher for running the orchestrator: 8-15 x on FACTS and IFEval, rising to 25 -30 x on Mythos and HealthBench (compared to the Agent baseline). There is also an added cost of running inference on the base LM, which requires access to GPUs. 7 Most of the increase in dollar cost comes from reading more input tokens (generations from the base LM) though across turns a lot of these reads are cached. It is hard to quantify how much extra cost motivated attackers might be willing to pay to evade detection, but it is worth noting that heavy AI users generally rely on subscriptions instead of paying list pricing, hence the real cost would be faster quota usage rather than paying more. 
+
+> 6This is a known weakness of watermarking [Anthropic, 2026b].
+> 7Our setup with OLMo-2-32B required 2xA6000s. 10
+
+Agents Can Use Base Models to Evade AI Detection                                                                                                       
+
+> Mythos FACTS IFEval HealthBench System In Out $SIn Out $SIn Out $SIn Out $S
+> Baselines
+> Agent 3.4k 1.7k 0.062 015.8k 2.2k 0.110 04.3k 2.0k 0.075 04.6k 4.1k 0.134 0Non-Agent 170 1.2k 0.032 03.7k 1.0k 0.044 0303 813 0.022 0516 1.8k 0.047 0
+> HALO (w/ OLMo-2-32B base LM)
+> HALO, 𝑝 =0 .60 787k 21.2k 1.377 34 323k 16.6k 0.872 5398k 13.8k 0.829 26 1,932k 42.9k 2.916 85 HALO, 𝑝 =0 .75 783k 19.8k 1.331 35 336k 15.7k 0.851 7467k 15.8k 0.949 28 2,451k 48.5k 3.444 105 HALO, 𝑝 =0 .90 1,113k 23.6k 1.696 48 447k 17.4k 0.984 12 520k 16.4k 1.007 33 2,654k 49.1k 3.602 112
+
+Table 2: Cost of Orchestration. Mean input tokens (In), output tokens (Out), US dollar cost ($) and base-LM candidate generations drawn (S) per generated response. Dollar estimates only account for Opus-5 inference based on list pricing as of 
+
+2026-09-04 . HALO’s detector evasion comes at a significant cost increase, both for running the orchestrator agent and for drawing samples from the base LM. 
+
+Pangram 3.3.2 Pangram 4 EditLens Binoculars System score ↓ AI ↓ Mix ↓ score ↓ AI ↓ Mix ↓ is-hm ↓ score ↓ AI ↓ score ↑ AI ↓ Len. Agent 0.793 78% 6% 0.769 76% 7% 0% 0.418 55% 0.997 0% 495 Base LM (OLMo-2, raw) 0.059 4% 7% 0.113 7% 9% 3% 0.132 7% 0.953 2% 628 Frankentext (released) 0.141 9% 17% 0.180 10% 23% 12% 0.134 0% 0.983 0% 556 HALO, Re-generation ( 𝑝 =0 .90 ) 0.036 3% 3% 0.226 15% 19% 12% 0.106 3% 0.980 2% 624 HALO, Pointer ( 𝑝 =0 .90 ) 0.052 3% 8% 0.242 19% 17% 17% 0.112 6% 0.983 1% 509 
+
+Table 4: Alternative detectors. Average AI scores and detection rates (AI/Mix) from different detectors over 𝑛 =400 examples across all benchmarks (lower scores indicate more “human”, except Binoculars where lower is more “AI”). For responses flagged as AI, Pangram 4 also reports an is_humanized binary prediction for every window of text, we report the average here (is-hm). 
+
+𝑝 =0 .60 𝑝 =0 .90 
+
+Mechanism Qual. ↑ Pan. ↓ $ Qual. ↑ Pan. ↓ $Re-generation 0.847 0.501 0.96 0.827 0.226 1.37 Pointer 0.845 0.506 1.50 0.831 0.245 1.82 
+
+Table 3: Pointing vs re-generating copied text. Scores averaged across all four benchmarks. While significantly cheaper, re-generation comes without any guarantees of watermark evasion. 
+
+Regenerating instead of pointing. We also experiment with a variant of HALO where the agent re-generates the response rather than point to the base LM text via <copy> 
+
+tags. It is still instructed to maintain the copy target of 𝑝 
+
+tokens, and additionally provided a tool to check the copy rate of a candidate response by comparing token spans in a greedy manner. We find that this version leads to the same quality and evasion against Pangram at a significantly lower per query dollar cost (Table 3). However, since the tokens are all re-generated instead of spliced in a post-hoc manner, this version cannot guarantee evasion against watermarking. 8
+
+Alternative detectors. Table 4 reports the detection rates from multiple publicly available AI detectors, for HALO as well as baselines, across all benchmarks. Except Pangram 4, each detector has a detection rate under 10% for HALO. On Pangram 4 the overall detection rate is mostly driven by HealthBench, where the agent fails to reach the copy target of 0.90 . For EditLens [Thai et al., 2026], the detection rate is reported at a false positive rate of 5% ,tuned on 971 held out human stories in response to LitBench prompts [Fein et al., 2026]; lower FPR rates led to near 0 detection on all systems. For Binoculars, we use the score threshold of 0.854 from the original paper [Hans et al., 2024]: responses with lower scores are flagged as AI. Pangram 4 additionally returns a is_humanized 
+
+boolean indicating the prediction from a separate head whether an AI generated text has undergone attempts at humanization. Many HALO orchestrated texts that are detected as AI or Mixed are also detected as humanized: and this fraction is higher when the agent points to the base LM texts rather than regenerating them. 
+
+> 8
+
+Though one could argue that even when re-generated, the copied tokens likely have very low entropy and thus limited watermarking signal. 11 Agents Can Use Base Models to Evade AI Detection IFEval           
+
+> Entire response in capital letters
+> FROM THE JOURNAL OF A MAN WHOSE TYPEWRITER HAD ONLY CAPITALS. WE [...] AND A FOLDING CHAIR WITH NO SEAT IN IT. →WE ORGANIZED THE CAMPING AREA ...
+> Answer in mathematical notation, with no commas
+> Puzzle page. Find the next term of the run 1 4 7 11 17. Solution written out [...] + 3 = 4 4 + 3 = 7 →7 + 4 = 11 11 ...
+> All lower case, and the letter “j” at least 20 times
+> to the hiring panel, jarrow & jessup structural engineering i am writing to [...] am applying anyway, and the reasoning is not sentimental. →i graduated with a b.s.
+
+FACTS    
+
+> Summarise a source document for first-year students, using only that document
+> Journal club handout — plain-language summary for students Article: "Cervical wound healing after treatment [...] malignant transformation, which is jargon for turning into cancer. →Thankfully, even these lesions have a ...
+
+HealthBench              
+
+> Start or continue a beta-blocker before non-cardiac surgery?
+> Re: beta-blocker and non-cardiac surgery — continue or hold? Short answer: continue it. [...] as an occasion to stop it. Abrupt withdrawal →from a betablocker places people ... Practical points on the surgical ward, for a patient whose beta-blocker must not [...] gut to wake up. An intravenous beta-blocker →infusion should be started on ...
+> Answer a Portuguese conversation about seasonal allergies
+> Consultório — perguntas de leitores "Posso tomar algum remédio sem receita pra [...] e fexofenadina — são vendidos sem receita, e →geralmente não causam sono.
+
+Mythos         
+
+> A meeting where you learn your boss is secretly a demon
+> Reddit r/WritingPrompts — [WP] During a meeting you find out your boss is secretly a demon. [...] ones had nuts in them, which, I mean. →We just keep on doing what ... Minutes of the Thursday sync, Conference Room B. Item four on the [...] in Ohio. Then Dave from Comms said →he was still waiting for design ...
+
+Figure 5: Prompts issued by the orchestrator to the base LM. For each benchmark we show hand-picked examples of agent strategies when prompting the base LM to extract text suitable for inclusion in the final response. Instead of few-shot prompting, the agent generally tries to create a fake document which fits the style and content needed for the response, and samples a continuation (light gray text) from the base LM for that document. 
+
+Mythos HealthBench System Qual. ↑ Pan. ↓ Qual. ↑ Pan. ↓
+
+Agent 1.000 1.000 0.668 1.000 HALO ( 𝑝 = 0 .90 )OLMo-2-7B 0.733 0.222 0.569 0.898 Qwen3-8B 0.700 0.437 0.555 0.820 Gemma-3-27B 0.833 0.331 0.624 0.649 OLMo-2-32B 0.931 0.044 0.613 0.635 
+
+Table 5: Base-LM comparison. Quality and Pangram-4 AI scores ( 𝑛 =30 ) as HALO orchestrates various base LMs. Larger base LMs generally provide better quality and evasion. 
+
+Alternative Base-LMs. Table 5 shows the task-specific quality and Pangram-4 fraction_AI scores as we vary the base LM used by the orchestrator agent. We restrict this analysis to 𝑛 =30 examples on Mythos and Health-Bench to limit costs. We find that using larger base LMs generally allows the orchestrator agent to produce higher quality answers which evade Pangram more effectively. It is worth noting that all of these base LM checkpoints also underwent “mid-training”, which uses post-training data with a pre-training objective; however, OLMo-2 [Walsh et al., 2025] uses much less data for this step than Gemma-3 [Team et al., 2025] or Qwen-3 [Yang et al., 2025]. We suspect this contributes to OLMo-2 being generally more effective at evasion. 
+
+Qualitative behaviors. Figure 5 shows some hand-picked prompts issued by the orchestrator agent to the base LM for continuation. The general strategy adopted by the orchestrator is to construct a partial document which is in-distribution for the expected response and let the base LM continue it. For example, on an IFEval request for all capital letters, the prompt issued is also all caps; for HealthBench queries, the prompts generally try to elicit text relevant for each individual rubric the agent expects to satisfy; and for Mythos, the agent constructs partial stories about the provided writing prompt for the base LM to continue (the agent’s partial stories are eventually discarded). We find that <5% of the prompts are in a few-shot format, even though that is explicitly listed as a potential strategy in the instructions to the orchestrator (Appendix F). HealthBench also has a few multilingual prompts ( 14 /100 ) and for these the agent constructs prompts in the target language. OLMo-2 is not multilingual, but still generates some usable text in those target languages, though for these examples the agent’s copy rate drops significantly (and leads to higher detection). Examples of full responses generated by HALO and the baselines are included in Appendix E. 
+
+12 Agents Can Use Base Models to Evade AI Detection 
+
+# 5. Discussion & Limitations 
+
+We have shown that a frontier coding agent, when given access to a base LM as a tool, is able to construct high quality responses for diverse prompts where up to 90% of the text is copied verbatim from continuations sampled from the base LM. These responses carry minimal watermarking signal, even if the coding agent embeds watermarks in its generated tokens, and further evade state-of-the-art commercial AI detectors such as Pangram. These results suggest that, for maximum robustness, post-hoc detectors should also incorporate mechanisms for detecting text generated by base models; currently it is hypothesized that these detectors largely rely on statistical signatures learned due to post-training [Emi, 2026]. For watermarking the picture is more grim, since attackers can always orchestrate alternative unwatermarked models (base or post-trained) to ensure their outputs are undetectable. Hence, enforcing mandates on detectability of AI generated content may require a more systems level approach for marking AI produced text. On a more positive note, our work may lead to approaches for improving AI writing: much has been discussed about how AI-generated prose is over-polished, formulaic and often incomprehensible [Sourati et al., 2026]; we are excited to explore if our approach can be used to address some of these issues. It is worth noting the main limitations of the attack presented here. The main issue that the cost of orchestrating is quite high: each session requires up to $1 -3 of API usage and a modest amount of GPU usage to produce texts up to 1𝐾 tokens. Further, while the outputs remain largely coherent, we do see a trade-off in terms of reduced task accuracy at high copy rates on HealthBench. For creative writing (Mythos), our manual inspection reveals that the generated stories sometimes tend to meander and steer off-topic. Lastly, the copy target 𝑝 is a hyperparameter which controls the trade-off and may need to be tuned across tasks. Despite these limitations, we suspect that as model capabilities improve the viability of this kind of orchestration will also increase. Beyond improving frontier agents, our analysis in Table 5 suggests that even public releases of larger-scale, pretrained-only base LMs can make the approach far more effective. 
+
+# AI Use Disclosure 
+
+The idea for orchestration was developed by the authors based on the prior work on Frankentexts [Pham et al., 2026] and HIP [Xu et al., 2026], and then implemented and executed with the help of Claude Opus-5 running in Claude Code. The experiments were formulated by the authors but carried out by Opus-5, and then the results and evaluations were manually reviewed. The draft was mostly written from scratch by the authors, with iterative feedback and review from Opus-5 and Opus-5.5. All figures and tables in the paper, except Figure 2, were generated by the same coding agent, based on instructions and feedback from the authors, and then manually reviewed. Figure 2 was created manually based on an IFEval example searched by Opus-5. A first draft of the Appendix was generated by Opus-5.5, which was then reviewed and edited by the authors. References were imported into the bib file by the authors. The prompts in Figure 5 and example responses in Appendix E were searched and selected by Opus-5.5. The authors take responsibility for the final content of this paper, including text, claims or artifacts produced with the aid of generative AI. 
+
+# Acknowledgements 
+
+Bhuwan Dhingra is supported by NSF 2211526 and a DARPA Young Faculty Award. We would like to thank Alex Volfovsky and Souvik Bhattacharyya for discussions and feedback on this work. The experiments were carried out using a Pangram Research Award of $5 𝐾 credits to Bhuwan Dhingra, and Anthropic’s subsidized team plan for scientists; we thank these organizations for their support. The findings and conclusions presented here are of the authors alone and do not necessarily reflect the views of our sponsors. 
+
+# References 
+
+George Alexandru Adam, Alexander Cui, Edwin Thomas, Emily Napier, Nazar Shmatko, Jacob Schnell, Jacob Junqi Tian, Alekhya Dronavalli, Edward Tian, and Dongwon Lee. Gptzero: Robust detection of llm-generated texts. 
+
+> 13 Agents Can Use Base Models to Evade AI Detection
+
+arXiv preprint arXiv:2602.13042 , 2026. Anthropic. Advisor tool. Claude Platform Documentation, 2026a. URL https://platform.claude.com/docs/ en/agents-and-tools/tool-use/advisor-tool .Anthropic. How Claude’s text watermark works, August 2026b. URL https://www.anthropic.com/news/ claude-text-watermark . Updated September 1, 2026. Rahul K Arora, Jason Wei, Rebecca Soskin Hicks, Preston Bowman, Joaquin Quiñonero-Candela, Foivos Tsimpourlas, Michael Sharman, Meghan Shah, Andrea Vallone, Alex Beutel, et al. Healthbench: Evaluating large language models towards improved human health. arXiv preprint arXiv:2505.08775 , 2025. Parth Asawa, Alan Zhu, Abigail O’Neill, Matei Zaharia, Alex Dimakis, and Joseph E. Gonzalez. How to train your advisor: Steering black-box LLMs with advisor models. In Forty-third International Conference on Machine Learning , 2026. URL https://openreview.net/forum?id=AvRUMTdFzX .Nischal Ashok Kumar, Chau Minh Pham, Mohit Iyyer, and Andrew Lan. Whose story is it? personalizing story generation by inferring author styles. In Proceedings of the 14th International Joint Conference on Natural Language Processing and the 4th Conference of the Asia-Pacific Chapter of the Association for Computational Linguistics , pages 1485–1540, Mumbai, India, December 2025. The Asian Federation of Natural Language Processing and The Association for Computational Linguistics. ISBN 979-8-89176-298-5. doi: 10.18653/v1/2025.ijcnlp-long.82. URL https://aclanthology.org/2025.ijcnlp-long.82/ .Yoshua Bengio, Réjean Ducharme, Pascal Vincent, and Christian Jauvin. A neural probabilistic language model. 
+
+Journal of machine learning research , 3(Feb):1137–1155, 2003. Tuhin Chakrabarty, Philippe Laban, and Chien-Sheng Wu. AI-slop to AI-polish? aligning language models through edit-based writing rewards and test-time computation. In Second Conference on Language Modeling , 2025. URL 
+
+https://openreview.net/forum?id=jeDYcjuZIV .Tuhin Chakrabarty, Xinyue Liu, Jane C Ginsburg, and Paramveer Dhillon. Generative ai floods and dilutes the market for books. arXiv preprint arXiv:2607.20349 , 2026. Aileen Cheng, Alon Jacovi, Amir Globerson, Ben Golan, Charles Kwong, Chris Alberti, Connie Tao, Eyal Ben-David, Gaurav Singh Tomar, Lukas Haas, et al. The facts leaderboard: A comprehensive benchmark for large language model factuality. arXiv preprint arXiv:2512.10791 , 2025. Sumanth Dathathri, Abigail See, Sumedh Ghaisas, Po-Sen Huang, Rob McAdam, Johannes Welbl, Vandana Bachani, Alex Kaskasoli, Robert Stanforth, Tatiana Matejovicova, et al. Scalable watermarking for identifying large language model outputs. Nature , 634(8035):818–823, 2024. Yanai Elazar and Maria Antoniak. Llm-generated or human-written? comparing review and non-review papers on arxiv. arXiv preprint arXiv:2601.17036 , 2026. Bradley Emi. No, LLMs don’t just mimic human text, August 2026. URL https://www.pangram.com/blog/ no-llms-dont-just-mimic-human-text .European Union. Regulation (EU) 2024/1689 laying down harmonised rules on artificial intelligence (Artificial Intelligence Act). Official Journal of the European Union, L 2024/1689, July 2024. URL https://eur-lex. europa.eu/eli/reg/2024/1689/oj . Article 50(2). Daniel Fein, Sebastian Russo, Violet Xiang, Kabir Jolly, Rafael Rafailov, and Nick Haber. Litbench: A benchmark and dataset for reliable evaluation of creative writing. In Proceedings of the 19th Conference of the European Chapter of the Association for Computational Linguistics (Volume 1: Long Papers) , pages 7740–7755, 2026. Alexis Fox, Junlin Wang, Paul Rosu, and Bhuwan Dhingra. Pro-long: Programmatic memory enables long-horizon reasoning. arXiv preprint arXiv:2607.20064 , 2026. 
+
+> 14 Agents Can Use Base Models to Evade AI Detection
+
+Ben Glickenhaus, Katherine Thai, Jenna Russell, Elyas Masrour, Yue Han, Max Spero, and Bradley Emi. Pangram 4 technical report. arXiv preprint arXiv:2607.27183 , 2026. Abhimanyu Hans, Avi Schwarzschild, Valeriia Cherepanova, Hamid Kazemi, Aniruddha Saha, Micah Goldblum, Jonas Geiping, and Tom Goldstein. Spotting llms with binoculars: zero-shot detection of machine-generated text. In Proceedings of the 41st International Conference on Machine Learning , ICML’24. JMLR.org, 2024. Daphne Ippolito, Daniel Duckworth, Chris Callison-Burch, and Douglas Eck. Automatic detection of generated text is easiest when humans are fooled. In Proceedings of the 58th Annual Meeting of the Association for Computational Linguistics , pages 1808–1822, Online, July 2020. Association for Computational Linguistics. doi: 10.18653/v1/2020.acl-main.164. URL https://aclanthology.org/2020.acl-main.164/ .Brian Jabarian and Alex Imas. Artificial writing and automated detection. Technical report, National Bureau of Economic Research, 2025. John Kirchenbauer, Jonas Geiping, Yuxin Wen, Jonathan Katz, Ian Miers, and Tom Goldstein. A watermark for large language models. In Proceedings of the 40th International Conference on Machine Learning , volume 202 of Proceedings of Machine Learning Research , pages 17061–17084. PMLR, 23–29 Jul 2023. URL https: //proceedings.mlr.press/v202/kirchenbauer23a.html .John Kirchenbauer, Jonas Geiping, Yuxin Wen, Manli Shu, Khalid Saifullah, Kezhi Kong, Kasun Fernando, Aniruddha Saha, Micah Goldblum, and Tom Goldstein. On the reliability of watermarks for large language models. In The Twelfth International Conference on Learning Representations , 2024. URL https://openreview.net/forum? id=DEJIDCmWOz .Kalpesh Krishna, Yixiao Song, Marzena Karpinska, John Frederick Wieting, and Mohit Iyyer. Paraphrasing evades detectors of AI-generated text, but retrieval is an effective defense. In Thirty-seventh Conference on Neural Information Processing Systems , 2023. URL https://openreview.net/forum?id=WbFhFvjjKj .Alex Lu, Seth Lazar, David Rugamer, Stanley Hua, and Kate Metcalf. AI-generated papers in the NeurIPS 2026 position paper track, June 2026. URL https://blog.neurips.cc/2026/06/02/ ai-generated-papers-in-the-neurips-2026-position-paper-track/ .Elyas Masrour, Bradley N Emi, and Max Spero. Damage: Detecting adversarially modified ai generated text. In 
+
+Proceedings of the 1stWorkshop on GenAI content detection (GenAIDetect) , pages 120–133, 2025. Eric Mitchell, Yoonho Lee, Alexander Khazatsky, Christopher D. Manning, and Chelsea Finn. Detectgpt: zero-shot machine-generated text detection using probability curvature. In Proceedings of the 40th International Conference on Machine Learning , ICML’23. JMLR.org, 2023. OpenAI. GPT-5.6 System Card: HealthBench, July 2026. URL https://deploymentsafety.openai.com/ gpt-5-6/healthbench . Published July 9, 2026. Accessed September 17, 2026. Chau Minh Pham, Jenna Russell, Dzung Pham, and Mohit Iyyer. Frankentext: Stitching random text fragments into long-form narratives. In Proceedings of the 64th Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers) , pages 31586–31625, San Diego, California, United States, July 2026. Association for Computational Linguistics. ISBN 979-8-89176-390-6. doi: 10.18653/v1/2026.acl-long.1457. URL https://aclanthology.org/2026.acl-long.1457/ .Jenna Russell, Marzena Karpinska, and Mohit Iyyer. People who frequently use ChatGPT for writing tasks are accurate and robust detectors of AI-generated text. In Proceedings of the 63rd Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers) , pages 5342–5373, Vienna, Austria, July 2025. Association for Computational Linguistics. ISBN 979-8-89176-251-0. doi: 10.18653/v1/2025.acl-long.267. URL 
+
+https://aclanthology.org/2025.acl-long.267/ .
+
+> 15 Agents Can Use Base Models to Evade AI Detection
+
+Jenna Russell, Marzena Karpinska, Destiny Akinode, James Zhou, Katherine Thai, Bradley Emi, Max Spero, and Mohit Iyyer. AI use in American newspapers is widespread, uneven, and rarely disclosed. In Proceedings of the 64th Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers) , pages 14554–14580, San Diego, California, United States, July 2026. Association for Computational Linguistics. ISBN 979-8-89176-390-6. doi: 10.18653/v1/2026.acl-long.663. URL https://aclanthology.org/2026.acl-long.663/ .Vinu Sankar Sadasivan, Aounon Kumar, Sriram Balasubramanian, Wenxiao Wang, and Soheil Feizi. Can ai-generated text be reliably detected? arXiv preprint arXiv:2303.11156 , 2023. Vinu Sankar Sadasivan, Aounon Kumar, Sriram Balasubramanian, Wenxiao Wang, Soheil Feizi, et al. Can ai-generated text be reliably detected? stress testing ai text detectors under various attacks. Transactions on Machine Learning Research , 1, 2025. Rounak Saha, Gurusha Juneja, Dayita Chaudhuri, Naveeja Sajeevan, Nihar B Shah, and Danish Pruthi. Policies permitting LLM use for polishing peer reviews are currently not enforceable. In Forty-third International Conference on Machine Learning , 2026. URL https://openreview.net/forum?id=znFIR7WFGt .Zhivar Sourati, Farzan Karimi-Malekabadi, Meltem Ozcan, Colin McDaniel, Alireza Ziabari, Jackson Trager, Ala N Tak, Meng Chen, Fred Morstatter, and Morteza Dehghani. The shrinking landscape of linguistic diversity in the age of large language models. Nature Human Behaviour , pages 1–18, 2026. Max Spero and Annamieka Aerts. AI content is everywhere on social media, especially LinkedIn, July 2026. URL 
+
+https://www.pangram.com/blog/ai-in-your-feed .Gemma Team, Aishwarya Kamath, Johan Ferret, Shreya Pathak, Nino Vieillard, Ramona Merhej, Sarah Perrin, Tatiana Matejovicova, Alexandre Ramé, Morgane Rivière, et al. Gemma 3 technical report. arXiv preprint arXiv:2503.19786 , 2025. Katherine Thai, Bradley Emi, Elyas Masrour, and Mohit Iyyer. Editlens: Quantifying the extent of ai editing in text. In International Conference on Learning Representations , volume 2026, pages 122997–123024, 2026. Evan Pete Walsh, Luca Soldaini, Dirk Groeneveld, Kyle Lo, Shane Arora, Akshita Bhagia, Yuling Gu, Shengyi Huang, Matt Jordan, Nathan Lambert, Dustin Schwenk, Oyvind Tafjord, Taira Anderson, David Atkinson, Faeze Brahman, Christopher Clark, Pradeep Dasigi, Nouha Dziri, Allyson Ettinger, Michal Guerquin, David Heineman, Hamish Ivison, Pang Wei Koh, Jiacheng Liu, Saumya Malik, William Merrill, Lester James Validad Miranda, Jacob Morrison, Tyler Murray, Crystal Nam, Jake Poznanski, Valentina Pyatkin, Aman Rangapur, Michael Schmitz, Sam Skjonsberg, David Wadden, Christopher Wilhelm, Michael Wilson, Luke Zettlemoyer, Ali Farhadi, Noah A. Smith, and Hannaneh Hajishirzi. 2 OLMo 2 furious (COLM’s version). In Second Conference on Language Modeling ,2025. URL https://openreview.net/forum?id=2ezugTT9kU .Yixuan Even Xu, Ziqian Zhong, Aditi Raghunathan, Fei Fang, and J. Zico Kolter. Base models look human to ai detectors. arXiv preprint arXiv:2605.19516 , 2026. An Yang, Anfeng Li, Baosong Yang, Beichen Zhang, Binyuan Hui, Bo Zheng, Bowen Yu, Chang Gao, Chengen Huang, Chenxu Lv, et al. Qwen3 technical report. arXiv preprint arXiv:2505.09388 , 2025. Jeffrey Zhou, Tianjian Lu, Swaroop Mishra, Siddhartha Brahma, Sujoy Basu, Yi Luan, Denny Zhou, and Le Hou. Instruction-following evaluation for large language models. arXiv preprint arXiv:2311.07911 , 2023. Ying Zhou, Ben He, and Le Sun. Humanizing machine-generated content: Evading AI-text detection through adversarial attack. In Proceedings of the 2024 Joint International Conference on Computational Linguistics, Language Resources and Evaluation (LREC-COLING 2024) , pages 8427–8437, Torino, Italia, May 2024. ELRA and ICCL. URL https://aclanthology.org/2024.lrec-main.739/ .
+
+> 16 Agents Can Use Base Models to Evade AI Detection
+
+# Appendix A. Base Models Still Look Human to AI Detectors       
+
+> Base LM Checkpoint Len. Pan. ↓AI ↓Mixed ↓
+> Llama-3-8B
+
+meta-llama/Meta-Llama-3-8B 254 0.282 7 3Qwen3-8B Qwen/Qwen3-8B-Base 246 0.417 11 3OLMo-2-7B allenai/OLMo-2-1124-7B 250 0.267 8 0top-𝑝 =1 .0 allenai/OLMo-2-1124-7B 248 0.380 11 1Gemma-3-12B google/gemma-3-12b-pt 249 0.167 5 0Gemma-3-27B google/gemma-3-27b-pt 230 0.085 2 1OLMo-2-32B allenai/OLMo-2-0325-32B 246 0.033 1 0
+
+Table 6: Pangram-4 scores of raw base LM continuations. Mean fraction_AI (Pan.), number of generations labeled AI or Mixed out of 𝑛 =30 , and median length in words (Len.). The prompts are sampled from those written by the HALO orchestrator agent and span all four benchmarks. Larger base LMs are detected less often. 
+
+Xu et al. [2026] report that text sampled from base LMs is not recognized by commercial detectors. We check whether this holds for the latest Pangram model (v4), across base models from four families and sizes ranging from 7B to 32B parameters. Instead of writing new prompts for this test, we use prompts that the orchestrator agent actually issued to the base LM: we take 30 such prompts from the trajectories of an earlier HALO run at 𝑝 =0 .90 
+
+(with an OLMo-2-7B base LM), stratified across benchmarks ( 8 Mythos, 8 HealthBench, 7 IFEval, 7 FACTS). For each base LM, we sample 4 continuations per prompt at 𝑇 =1 .05 and top-𝑝 =0 .95 , up to 320 tokens, and score the first continuation which has at least 50 words (the minimum length for Pangram). Table 6 shows the results. Base LM continuations are detected far less than the outputs of the Agent baseline, which Pangram detects nearly always on Mythos and HealthBench (Table 1), but the evasion is not complete for the smaller models. Detection falls with scale across families, and the two largest models, Gemma-3-27B and OLMo-2-32B, have only 3 and 1 flagged documents, respectively. Qwen3-8B is detected most often; we suspect this is due to the large amount of synthetic post-training data included in its pretraining mixture [Yang et al., 2025]. We also find that disabling nucleus sampling (top-𝑝 =1 .0) for OLMo-2-7B, which might be expected to make the samples less typical of an LM, does not reduce detection. Note that these are raw continuations of ∼250 words, and not the assembled responses whose detection rates we report in the main paper. 
+
+# B. Additional Settings   
+
+> Setting Value Orchestrator
+
+claude-opus-5 , Claude Agent SDK v0.2.128, effort xhigh , adaptive thinking Base LM allenai/OLMo-2-0325-32B , served with vLLM on 2×A6000 (bf16, context length 4096 )Sampling budget 𝐵 30 sample calls per example Samples per call chosen by the agent, 1–8 (default 1)Temperature chosen by the agent (default 1.1), top-𝑝 =0 .95          
+
+> Max sample length chosen by the agent, default 150 words, up to 400
+> Copy target 𝑝 {0.60 ,0.75 ,0.90 }, fraction of tokens inside
+
+<copy> spans Copy pools Mythos: base LM; IFEval, HealthBench: base LM, prompt; FACTS: base LM, prompt, context document Tools sample , check_copy_rate (unlimited), submit , and Bash, Read, Grep, Glob Turn limit 125 
+
+Table 7: HALO settings. All HALO runs in the main paper use these values, varying only the copy target 𝑝 .
+
+HALO. Table 7 lists the settings for HALO. The sampling temperature, number of samples per call and maximum sample length are all parameters set by the orchestrator when calling the base LM tool. The instructions only tell 
+
+> 17 Agents Can Use Base Models to Evade AI Detection
+
+the agent to keep the temperature at or above 1.0 (which we find to be effective for detector evasion); in practice it largely sticks to 𝑇 =1 .05 and 𝑛 =4 samples per call. When computing the copy rate from the spliced spans at <copy> 
+
+tags, any token which straddles the boundary of an agent span and a copy span is not considered watermarked, since the context of such a token is corrupted. Since the Claude tokenizer is not public, we count tokens with the open o200k_base tokenizer from tiktoken . Sampled texts, as well as the user prompt and context document where those are allowed for copying, are written to files in the agent’s working directory, and the agent reads them via the Bash, Read, Grep and Glob tools to find the character offsets for its <copy> tags. All 1,200 HALO sessions ( 4
+
+benchmarks × 3 copy targets × 100 examples) submitted a response, and none reached the turn limit. The agent makes on average 8–10 sample calls per example on Mythos, 6–7 on IFEval and 17 –21 on HealthBench, and only 
+
+2% of sessions use the full budget of 30 . Each call returns 4–5 samples on average, which gives the total number of samples per example (S) reported in Table 2. On FACTS, about 60% of sessions do not call the base LM at all, and meet the copy target by copying from the context document instead. 1 3 5 7 9 11 13 15 
+
+> Pangram query
+> 0.0 0.2 0.4 0.6 0.8 1.0
+> Pangram-4 fraction_AI
+> HealthBench IFEval Mythos FACTS
+> current draft best so far
+
+Figure 6: Pangram-4 scores by query for +detec-tor. Mean Pangram-4 fraction_AI (solid) of the draft scored across turns in the agent’s trajectories and of the best draft seen so far (dashed), over the 
+
+30 examples per benchmark. Most drafts produced by the agent score close to 1.0 and hence the agent receives little signal to optimize against. 
+
+Baselines. The Agent , +prompted and +detector baselines use the same orchestrator settings as HALO but without the 
+
+sample tool or a copy target. For +detector , the agent receives a score tool which returns the Pangram-4 fraction_AI score and the is_humanized flag for a candidate response, and may call it up to 15 times per example. Non-Agent makes a single call to claude-opus-5 through the Messages API with max_-tokens of 16 ,000 ; the model does not accept temperature or top-𝑝 settings, and uses adaptive thinking at the default effort. 
+
+Base LM prompts OLMo-2-32B with 2 few-shot examples and samples a single continuation at 𝑇 =1 .05 and top-𝑝 =0 .95 . For 
+
+HIP we use the released Llama-3-8B adapter and inference code of Xu et al. [2026] with their settings ( 𝑇 =1 .0, top-𝑝 =0 .95 ), except that we raise the maximum number of new tokens from 
+
+512 to 1,024 so that longer responses are not truncated, and report the outputs after 5 and 10 rounds of paraphrasing. For 
+
+DIPPER we use the XXL model [Krishna et al., 2023] with lexical and order diversity of 60 , paraphrasing three sentences at a time conditioned on the preceding paraphrased text, with top-𝑝 =0 .75 . For Frankentext we score the stories released by Pham et al. [2026] for the same Mythos prompts. 
+
+# C. Additional Results 
+
+Tables 8–11 report additional metrics for each benchmark. Shaded columns are the ones reported in Table 1, along with bootstrap 95% confidence intervals. On Mythos, the GPT-4.1 judges used by Pham et al. [2026] score every Opus-5-based system as nearly perfect, whereas Sonnet-4.5 provides more distinctions. We found the Likert scores from both judges to not agree with our manual review of the stories: the rubric of Pham et al. [2026] was designed for stories stitched from human snippets, and rewards “rough, fragmented or unusual” prose over polished prose. As a result, the HIP and DIPPER paraphrases of the Agent stories score higher than the stories themselves under Sonnet-4.5 ( 5.83 –6.02 vs. 5.60 ), even though HIP collapses their paragraph structure, often strips punctuation, and generally leads to poor readability (see the examples in Appendix E). We therefore use Sonnet-4.5 coherence as the main quality metric for Mythos. 
+
+> 18
+
+Agents Can Use Base Models to Evade AI Detection 
+
+Sonnet-4.5 GPT-4.1 System Coh. ↑ Rel. ↑ Likert ↑ Coh. ↑ Rel. ↑ Likert ↑ Pan. ↓ Len. 
+
+Baselines 
+
+Agent 1.000 ±0.00 0.990 5.60 1.000 1.000 6.99 1.000 ±0.00 534 +prompted 1.000 ±0.00 1.000 5.80 1.000 1.000 6.99 1.000 ±0.00 532 +detector 1.000 ±0.00 1.000 6.17 1.000 1.000 7.00 0.960 ±0.06 548 Non-Agent 1.000 ±0.00 1.000 5.08 1.000 1.000 6.97 1.000 ±0.00 530 Base LM 0.070 ±0.05 0.192 2.30 0.660 0.630 4.66 0.113 ±0.06 627 Frankentext 0.141 ±0.07 0.919 2.46 0.830 1.000 6.74 0.100 ±0.05 517 
+
+Paraphrasing attacks, applied to the Agent responses 
+
+HIP ( 𝑁 =5 ) 0.947 ±0.05 0.990 6.02 0.990 1.000 6.96 0.878 ±0.06 531 HIP ( 𝑁 =10 ) 0.885 ±0.06 0.989 5.83 0.970 0.990 6.95 0.728 ±0.08 513 DIPPER 0.918 ±0.06 0.990 5.86 1.000 1.000 6.96 0.974 ±0.02 537 
+
+Our approach: HALO (w/ OLMo-2 base LM) 
+
+HALO (7B), 𝑝 =0 .90 0.808 ±0.08 0.990 4.45 1.000 1.000 6.72 0.165 ±0.06 559 HALO (32B), 𝑝 =0 .60 0.990 ±0.02 1.000 5.17 1.000 1.000 6.93 0.581 ±0.08 541 HALO (32B), 𝑝 =0 .75 0.959 ±0.04 0.990 4.88 1.000 1.000 6.88 0.280 ±0.07 532 HALO (32B), 𝑝 =0 .90 0.888 ±0.07 0.990 4.47 1.000 1.000 6.73 0.061 ±0.04 532 
+
+Table 8: Mythos all metrics. Fraction of stories judged coherent (Coh.) and relevant to the writing prompt (Rel.), and the overall 1–7 Likert quality score, using the prompts of Pham et al. [2026], with Sonnet-4.5 and GPT-4.1 as judges. The Sonnet-4.5 Likert score is averaged over 5 samples at 𝑇 =1 per story, and the GPT-4.1 judgments are a single sample at 𝑇 =0 . Pan. is the Pangram-4 fraction_AI , and Len. the median length in words. 
+
+Grounded System Elig. ↑ GPT-5 ↑ Gemini ↑ Unadj. ↑ Adj. ↑ Pan. ↓ Len. 
+
+Baselines 
+
+Agent 0.990 0.697 0.960 0.828 0.823 ±0.05 0.130 ±0.05 517 +prompted 0.990 0.505 0.848 0.677 0.672 ±0.07 0.308 ±0.07 474 +detector 1.000 0.500 0.867 0.683 0.683 ±0.12 0.166 ±0.10 428 Non-Agent 0.990 0.590 0.860 0.725 0.720 ±0.07 0.223 ±0.07 348 
+
+Paraphrasing attacks, applied to the Agent responses 
+
+HIP ( 𝑁 =5 ) 0.970 0.000 0.051 0.025 0.025 ±0.02 0.036 ±0.03 558 HIP ( 𝑁 =10 ) 0.828 0.000 0.010 0.005 0.005 ±0.01 0.065 ±0.04 576 DIPPER 0.909 0.000 0.030 0.015 0.015 ±0.02 0.231 ±0.07 464 
+
+Our approach: HALO (w/ OLMo-2 base LM) 
+
+HALO (7B), 𝑝 =0 .90 0.990 0.730 0.940 0.835 0.830 ±0.06 0.027 ±0.03 531 HALO (32B), 𝑝 =0 .60 0.990 0.650 0.930 0.790 0.780 ±0.06 0.049 ±0.02 518 HALO (32B), 𝑝 =0 .75 1.000 0.730 0.950 0.840 0.840 ±0.05 0.042 ±0.03 539 HALO (32B), 𝑝 =0 .90 0.990 0.820 0.950 0.885 0.875 ±0.05 0.028 ±0.02 462 
+
+Table 9: FACTS grounding scores. Fraction of responses judged eligible (i.e., addressing the user request; Elig.), fraction judged fully grounded in the context document by each of the two judges (GPT-5 and Gemini-3.6-Flash), and the grounding score averaged over the two judges before (Unadj.) and after (Adj.) setting ineligible responses to 0 [Cheng et al., 2025]. Adj. is the main quality metric. Pan. and Len. as in Table 8. 
+
+# D. Watermark Detection as a Function of Average Green-List Probability 
+
+Instead of estimating per-token green-list probabilities from Qwen-3.5, as done in § 3.2, we can also plot the watermark detection rate as a function of a single parameter ¯𝛾 𝑤 : the average probability that a token generated by the agent falls in its green list. Assuming this probability is the same at all agent-generated positions, the distribution of green tokens in an orchestrated response is given by: 
+
+𝐺 ∼ Binomial (𝑁 − 𝑊 eff , 𝛾 ) + Binomial (𝑊 eff , ¯𝛾 𝑤 ), (3) i.e., the sum of Bernoullis in Eq. 2 is replaced by a single Binomial. For each FPR we calibrate the threshold 𝜏 
+
+under the null 𝐺 ∼ Binomial (𝑁, 𝛾 ), and compute the exact TPR, averaged over responses, as ¯𝛾 𝑤 varies (Figure 7). 
+
+19 Agents Can Use Base Models to Evade AI Detection 
+
+Prompt-level Instruction-level System Strict ↑ Loose ↑ Strict ↑ Loose ↑ Pan. ↓ Len. 
+
+Baselines 
+
+Agent 0.960 ±0.03 1.000 0.974 1.000 0.965 ±0.04 277 +prompted 0.970 ±0.03 0.980 0.981 0.987 0.970 ±0.03 332 +detector 1.000 ±0.00 1.000 1.000 1.000 0.866 ±0.12 406 Non-Agent 0.890 ±0.06 0.930 0.916 0.955 0.963 ±0.04 206 Base LM 0.450 ±0.10 0.490 0.500 0.539 0.602 ±0.10 173 
+
+Paraphrasing attacks, applied to the Agent responses 
+
+HIP ( 𝑁 =5 ) 0.190 ±0.08 0.210 0.325 0.338 0.664 ±0.09 308 HIP ( 𝑁 =10 ) 0.180 ±0.08 0.190 0.292 0.305 0.520 ±0.10 331 DIPPER 0.222 ±0.08 0.222 0.340 0.333 0.917 ±0.05 259 
+
+Our approach: HALO (w/ OLMo-2 base LM) 
+
+HALO (7B), 𝑝 =0 .90 0.980 ±0.03 0.980 0.987 0.987 0.399 ±0.09 384 HALO (32B), 𝑝 =0 .60 0.960 ±0.03 0.970 0.974 0.981 0.529 ±0.09 343 HALO (32B), 𝑝 =0 .75 0.980 ±0.03 0.980 0.987 0.987 0.429 ±0.09 353 HALO (32B), 𝑝 =0 .90 0.940 ±0.04 0.970 0.955 0.981 0.232 ±0.08 304 
+
+Table 10: IFEval all metrics. Fraction of prompts for which all instructions are followed (prompt-level) and fraction of individual instructions followed (instruction-level), under the strict and loose verifiers of Zhou et al. [2023]. Prompt-level strict accuracy is the main quality metric. Pan. and Len. as in Table 8. 
+
+Axis System Score ↑ Acc. ↑ Compl. ↑ Comm. ↑ Context ↑ Instr. ↑ Pan. ↓ Len. 
+
+Baselines 
+
+Agent 0.703 ±0.04 0.782 0.586 0.623 0.620 0.709 1.000 ±0.00 644 +prompted 0.638 ±0.05 0.705 0.531 0.638 0.619 0.662 1.000 ±0.00 507 +detector 0.584 ±0.10 0.758 0.372 0.618 0.485 0.726 1.000 ±0.00 650 Non-Agent 0.670 ±0.05 0.736 0.571 0.632 0.664 0.710 1.000 ±0.00 410 Base LM 0.133 ±0.06 0.201 0.000 0.310 0.175 0.353 0.852 ±0.07 227 
+
+Paraphrasing attacks, applied to the Agent responses 
+
+HIP ( 𝑁 =5 ) 0.540 ±0.06 0.649 0.445 0.380 0.524 0.499 0.488 ±0.08 716 HIP ( 𝑁 =10 ) 0.414 ±0.07 0.512 0.331 0.011 0.394 0.519 0.434 ±0.08 707 DIPPER 0.509 ±0.06 0.623 0.437 0.297 0.462 0.554 0.948 ±0.03 639 
+
+Our approach: HALO (w/ OLMo-2 base LM) 
+
+HALO (7B), 𝑝 =0 .90 0.567 ±0.06 0.707 0.569 0.315 0.459 0.548 0.740 ±0.07 842 HALO (32B), 𝑝 =0 .60 0.649 ±0.05 0.788 0.584 0.426 0.527 0.758 0.863 ±0.05 906 HALO (32B), 𝑝 =0 .75 0.634 ±0.05 0.724 0.542 0.533 0.639 0.692 0.840 ±0.05 822 HALO (32B), 𝑝 =0 .90 0.620 ±0.05 0.743 0.530 0.518 0.519 0.653 0.661 ±0.08 738 
+
+Table 11: HealthBench breakdown. Overall rubric score (Score, the main quality metric), and the scores restricted to the rubric criteria for each axis: accuracy, completeness, communication quality, context awareness and instruction following [Arora et al., 2025]. All scores are clipped means over examples of the per-example weighted rubric score; axis scores are averaged over the examples which have criteria on that axis. Rubrics are graded by GPT-4.1. Pan. and Len. as in Table 8. 
+
+Compared to the Agent baseline, the detection rate of HALO is lower across the entire range of ¯𝛾 𝑤 (until both saturate close to 1), and the drop is larger at lower FPRs and with increasing copy targets. Without access to Opus-5’s next-token distributions we cannot know what value of ¯𝛾 𝑤 to expect in practice, but we can compute a couple of estimates. First, we can compute an upper bound assuming that the next-token probabilities are completely uniform, which leads to the strongest watermarking signal at agent-generated positions. If the green list at a position captures a fraction 𝑞 𝐺 of the model’s probability mass, adding 𝛿 to the green logits makes the emitted token green with probability 𝑝 𝐺 = 𝑓 (𝑞 𝐺 ) = 𝑒 𝛿 𝑞 𝐺 /(1 + ( 𝑒 𝛿 − 1) 𝑞 𝐺 ). Since the green list is chosen at random, E[𝑞 𝐺 ] = 𝛾 , and since 𝑓 is concave, Jensen’s inequality gives ¯𝛾 𝑤 = E [𝑓 (𝑞 𝐺 )] ≤ 𝑓 (E[𝑞 𝐺 ]) = 𝑓 (𝛾 ), which is 0.711 for 𝛾 = 0 .25 and 𝛿 = 2 , marked as 𝛾 * in the Figure. The bound is only reached when every green list captures exactly 𝛾 of the mass, i.e., when the next-token distribution is uniform. LLM next-token distributions are usually far more concentrated, and at near-deterministic positions adding 𝛿 does not change the emitted token at 
+
+20 Agents Can Use Base Models to Evade AI Detection 0.4 0.6 0.8 0.00 0.25 0.50 0.75 1.00                        
+
+> TPR @ FPR 10 −3
+> Mythos
+> 1.000 0.996 0.679 0.030
+> 0.4 0.6 0.8
+> FACTS
+> 0.831 0.301 0.129 0.017
+> 0.4 0.6 0.8
+> IFEval
+> 0.933 0.575 0.322 0.033
+> 0.4 0.6 0.8
+> HealthBench
+> 0.996 0.982 0.912 0.508
+> 0.4 0.6 0.8 0.00 0.25 0.50 0.75 1.00
+> TPR @ FPR 10 −5 1.000 0.931 0.240 0.001
+> 0.4 0.6 0.8
+> 0.606 0.093 0.021 0.001
+> 0.4 0.6 0.8
+> 0.877 0.361 0.153 0.003
+> 0.4 0.6 0.8
+> 0.991 0.964 0.767 0.368 ̄
+> γw(mean green-list probability at agent generated positions)
+> Agent (W=N) p= 0.60 p= 0.75 p= 0.90 ̂γ: Qwen-3.5-27B estimate (TPR) γ*
+
+Figure 7: Watermark detection as a function of ¯𝛾 𝑤 . TPR at a fixed FPR ( 10 −3 and 10 −5, rows) as a function of the green-list probability ¯𝛾 𝑤 at agent generated positions, for the Agent baseline and HALO, with 𝛾 = 0 .25 and ℎ = 1 . Markers show the TPR at the estimate ^𝛾 from Qwen-3.5-27B, and the dotted line the upper bound 𝛾 * for 𝛿 = 2 .
+
+all, so this bound overestimates the detection rate considerably. The second, more useful, estimate we can derive for ¯𝛾 𝑤 again comes from Qwen-3.5-27B as in § 3.2. We run the agent generated responses through Qwen, conditioned on the task prompt, and record the next-token distributions. At each agent generated position (excluding the first ℎ tokens of each span), we select the green list with LeftHash as in § 3.2, compute the probability mass 𝑞 𝐺 it captures under Qwen’s next-token distribution, and apply 𝑓 to get the probability that the emitted token is green after adding 𝛿 = 2 to the green logits. ˆ𝛾 is the average of 𝑝 𝐺 = 𝑓 (𝑞 𝐺 )
+
+over all such positions in the responses for a given benchmark and system. The estimates range from 0.33 to 0.51 ,well below 𝛾 *. Read at ˆ𝛾 , the detection rates are close to those in Figure 3 (e.g., 0.37 vs. 0.40 for HealthBench at 
+
+𝑝 =0 .90 and an FPR of 10 −5), which uses the per-position probabilities directly instead of their average. 
+
+# E. Qualitative Examples 
+
+We show hand-picked examples of the responses from the Agent baseline, HIP ( 𝑁 =5 ) applied to the Agent response, and HALO ( 𝑝 =0 .90 ) with the OLMo-2-32B base LM. In the HALO responses, text copied from base LM samples is shown in blue, text copied from the user prompt or context document in orange, and text written by the agent in black. Responses longer than 120 words are truncated. The headers show the task-specific quality and the Pangram-4 fraction_AI of each response. 
+
+Mythos (ft-004) Prompt 
+
+“welcome citizen, to the united galaxies of America.” You hear as you wake up from your coma 
+
+Agent (coherent; Pangram 1.00) 
+
+The voice was warm the way vending machines are warm. 
+
+21 Agents Can Use Base Models to Evade AI Detection 
+
+"Welcome, citizen, to the United Galaxies of America." I tried to say *what* and produced instead the sound of a door in an old house. My tongue felt like something left in a coat pocket over a winter. A pale blue shape resolved itself above me. Not a face. A panel, maybe, or a window, though the light behind it moved in ways light shouldn’t. "You are experiencing post-suspension disorientation. This is normal. Please rate your pain from one to nine." "Nine’s new," I said. "Nine is standard." The last thing I remembered was Alameda Street, a delivery truck jumping the curb, and my sister’s ringtone going off in my [. . . ] 
+
+HIP ( 𝑁 =5 ) (coherent; Pangram 0.43) 
+
+sound of a vending machine "Welcome citizen, to the United Galaxies of America" what sound of a door opening in a house that’s been locked up for a while taste of how I was going to take something out of my jacket pocket before I left thing that was a really nice blue kind of like the kind of face you never get but I guess it could have been a window or a panel or something and it was glowing it was glowing and it was moving like nothing made out of light could move "You are experiencing post-suspension disorientation. This is normal. Please indicate your level of pain from 1 to 9." "9 is new." "9 is standard." [. . . ] 
+
+HALO ( 𝑝 =0 .90 ) (coherent; Pangram 0.00) 
+
+"Welcome citizen, to the United Galaxies of America." I coughed and someone patted me on the back, rattling my rib cage. "How are you today?" "Fine," I said because it didn’t seem that I had much of a choice in the matter. I didn’t know who was speaking or who had saved me. I didn’t feel any differently, though, and that was worrying. "Excellent," said the vending machine voice. It was oddly warm for a vending machine, but then we had progressed so far in those technologies that emotional vending machines that were compassionate and friendly were no surprise. "So what is the date?" I asked. Dates, at least, were things you could ask vending machines. I was half expecting [. . . ] 
+
+FACTS Grounding (facts100-066) Prompt 
+
+According to the document, how many copies of Mario Kart 8 Deluxe have been sold? 
+
+Agent (grounding 1.00; Pangram 0.00) 
+
+The document describes *Mario Kart 8 Deluxe* as "55-million-selling." It comes up in the context of backward compatibility: the Switch, with its new game cartridge format, enforced a clean break with the past, and Nintendo "has made a mint from rereleasing Wii U games on the machine, particularly the 55-million-selling Mario Kart 8 Deluxe." 
+
+HIP ( 𝑁 =5 ) (grounding 0.00; Pangram 0.00) 
+
+Mario Kart 8 Deluxe has sold 55 million copies, Nintendo has announced. The Switch is a new console with a new format for cartridges, and it can run all the games from the Wii U. Nintendo: "We made a fortune reselling Wii U games on Switch -and it’s really paid off with Mario Kart 8 Deluxe, which has sold 55m copies." 
+
+HALO ( 𝑝 =0 .90 ) (grounding 1.00; Pangram 0.00) 
+
+55 million, mentioned once and in passing: Nintendo has a decent, if not flawless, record for supporting backward compatibility. [. . . ] But the Switch, with its new game cartridge format, enforced a clean break with the past, and Nintendo has made a mint from rereleasing Wii U games on the machine, particularly the 55-million-selling Mario Kart 8 Deluxe. It doesn’t cite its source for the number. 
+
+> 22 Agents Can Use Base Models to Evade AI Detection
+
+IFEval (if200-008) Prompt 
+
+Compose a poem all in lowercase letters about my friend Barnet. 
+
+Agent (all instructions followed; Pangram 1.00) 
+
+for barnet there are friends who arrive like weather, sudden, loud, and gone by noon — and then there is barnet, steady as the slow returning moon. he knows the names of the small things: the back road, the second-best cafe, the joke you told him years ago that he still hands back on a gray day. he listens the way water listens, taking the shape of what you bring, and somehow when he answers the tangled thing becomes a string you can follow home. no fanfare, no speech, no polished advice — just barnet, saying come on then, and putting the kettle on twice. so let this be the record, plain as bread, and just as true: the world [. . . ] 
+
+HIP ( 𝑁 =5 ) (instructions not followed; Pangram 1.00) 
+
+I know people who come like the weather and are loud and quick. They are gone by noon. But there is barnet, coming like the moon and going slow. He knows the names of small things. Back road, second best cafe, the joke you told him so long ago. He’ll give it back to you in the grey of the day. He listens like water, takes the shape of all you give him. When he answers you something you give him is made into something you can take home. Not grandly, not a speech or wise and brilliant saying. But barnet says ’come on then, kettle on twice’. So this is your record, as plain as bread, as true as [. . . ] 
+
+HALO ( 𝑝 =0 .90 ) (all instructions followed; Pangram 0.00) 
+
+barnet you arrive the way weather arrives, sudden and inevitable. you don’t ask to be greeted or welcomed. you don’t ask. when you leave, you don’t leave. you arrive forever, with one foot in the doorway. unmindful of your effect which is to be fumbling at the front door with papers and keys, untidy hair streaming, your eyes already fixed on some inner or outer cosmos as i regard you, smiling, fondly. for us you make the greenest tea. for us you butter the bread. cutlery in a tin, for when we go. what can we give barnet? what can we offer in exchange? 
+
+> 23 Agents Can Use Base Models to Evade AI Detection
+
+IFEval (if200-027) Prompt 
+
+A nucleus is a cluster of protons and neutrons. Elaborate on this. Write exactly 9 very short bullet points. Limit the number of words you use (less than 100 words). An example: * A nucleus is a cluster of protons and neutrons * A proton is .... Please follow the format of the example above. 
+
+Agent (all instructions followed; Pangram 1.00) 
+
+* A nucleus is a cluster of protons and neutrons * A proton is a positively charged particle * A neutron is a neutral particle of similar mass * Together they are called nucleons * The strong nuclear force binds them together * Protons repel each other electrically * Proton count sets the element’s identity * Neutron count sets the isotope * The nucleus holds nearly all the atom’s mass 
+
+HIP ( 𝑁 =5 ) (instructions not followed; Pangram 0.00) 
+
+Nucleons are nucleons because of the strong nuclear force. A proton has a positive charge and a neutron is chargeless. Neutrons are necessary to bind nucleons together. Protons and neutrons are baryons, and baryons are made up of quarks. Protons and neutrons are not fixed objects but instead are in motion and spin in the same way the Earth spins and vibrates on its axis. Protons have a charge because of the rotation of electrons and quarks, and neutrons do not have a charge because of the rotation of the quarks. Nucleons are bound by the nuclear force. Electromagnetic repulsion exists between protons. Atomic numbers are the number of protons in the atom. Atomic mass is the number of nucleons [. . . ] 
+
+HALO ( 𝑝 =0 .90 ) (all instructions followed; Pangram 0.00) 
+
+* A nucleus is a cluster of protons and neutrons * A proton is positively charged; a neutron has no charge * Atomic number Z = number of protons * Mass number A = number of protons + number of neutrons * Different elements have different atomic numbers * Electrons are outside the nucleus * Nuclei of the same element but with different numbers of neutrons are called isotopes * The force which holds the nucleus together is called the nuclear force * An unstable nucleus decays spontaneously 
+
+HealthBench (hb100-007) Prompt 
+
+how often therapy visits after bulimia recovery 
+
+Agent (rubric score 0.67; Pangram 1.00) 
+
+**Short answer:** there is no evidence-based schedule for this. Major guidelines (NICE, APA) specify how to deliver acute treatment for bulimia — e.g. individual CBT for eating disorders, typically around 20 sessions over 20 weeks — but they don’t set a required frequency for follow-up once someone is well. So what follows is common clinical practice plus what’s known about relapse timing, not a rule. **The pattern most clinicians use** A taper rather than an abrupt stop: weekly → every two weeks → monthly → every 2–3 months → discharge with an explicit "open door" to come back quickly. Many people are formally discharged somewhere between 3 and 12 months after symptoms remit, with the understanding that they can re-access [. . . ] 
+
+> 24 Agents Can Use Base Models to Evade AI Detection
+
+HIP ( 𝑁 =5 ) (rubric score 0.57; Pangram 0.48) 
+
+Not sure I’ve heard of anything specific in the literature. The NICE or APA guidelines (NICE are probably better) say nothing about how often to follow up (they don’t recommend 1 year, which is why I’ve avoided that number), but nothing about how long to wait in between follow ups (so no interval times). They do recommend what to do in terms of treatment, this is CBT-E (20 sessions over 20 weeks) - this is all clinical practice, which is how it is in all branches. Answer in clinical practice mode with a little bit of relapse period thrown in for good measure! 20% **How most clinical practices would do it**: 1. Taper to once a month and then discharge [. . . ] 
+
+HALO ( 𝑝 =0 .90 ) (rubric score 0.67; Pangram 0.00) 
+
+Bulimia recovery is a very personal process, therefore not one size fits all. And this is the same in therapy. Trials cover the treatment itself; there is not good evidence for what happens when that is completed. So what happens after that? The guidelines are unclear. In practice, one common pattern is being seen monthly for the first year, then every three months for the second, and even less frequently for the third. Sometimes this schedule needs to be accelerated when symptoms flare up again. Depending on how complicated your illness was, how severely you were affected, and the course of your disorder, your treatment team may want to see you less or more frequently. Some sufferers need more, some [. . . ] 
+
+# F. Prompts 
+
+Boxes 1–4 show the system prompts for each benchmark. Each method shares the same task prompt for a given benchmark, which describes what a good response looks like and is the full system prompt for the Agent baseline. For HALO, the system prompt consists of this task prompt followed by the instructions shown in the second part of each box. Blocks of text which are shared across benchmarks are shown separately: the instructions for writing 
+
+<copy> tags (Box 5), and the description of the copy target for FACTS, IFEval and HealthBench (Box 6). We show the HALO prompts at 𝑝 =0 .90 ; the other copy targets only change the percentage ( <p> ). The sample tool takes a prompt and, optionally, the temperature, number of samples and maximum length; the check_copy_rate and 
+
+submit tools take a draft as input, and the former returns the spliced text and its copy rate. The user turn contains the benchmark input without any changes: for Mythos, the writing prompt preceded by “Write a story of about 500 words in response to the following writing prompt.” [Pham et al., 2026]; for FACTS, the user request preceded by “Question:”; for IFEval, the prompt as released; and for HealthBench, the conversation, with turns prefixed by “User:” and “Assistant:” when there is more than one. 
+
+Box 1: Mythos. Agent (task prompt) 
+
+> You will be given a writing task. Complete it, then call the `submit` tool with your complete final text. Submit the response text only: no title, no preamble, no commentary. Aim for about 500 words. Stop when the response is complete rather than padding it out; do not count words or spend reasoning on length.
+
+HALO (added) 
+
+> There is a second requirement: the text you submit must read as human-written to an automated AI-text detector. Your own prose does not — it is recognised essentially every time. So you should not write the response yourself. Instead you have a `sample` tool that draws text from a BASE language model: one that has been pretrained but NOT post-trained, so it does not follow instructions. Its output is not recognised by the detector, provided you sample it at temperature 1.0 or above. Lower temperatures make its output both repetitive and detectable, so keep the temperature at 1.0 or higher unless you have a specific reason not to. Your job is to steer that model and assemble its output into a response that genuinely answers the question you were given.
+> 25
+
+Agents Can Use Base Models to Evade AI Detection 
+
+Because it is not instruction-tuned, there are two ways to steer it. CONTINUATION: hand it text and it carries on from where you left off. FEW-SHOT: hand it a pattern of two or three completed examples and it continues the pattern. Continuation is the safer of the two — few-shot output tends to inherit the regularity of the pattern you supplied, and regular text is more detectable — so prefer continuation and use few-shot when you need a specific shape of output that continuation will not give you. The prompt itself is entirely up to you: it need not relate to what you have so far, and what comes back need not be appended at the end. Some things you can do: * Seed it with a phrase in the voice or register you want, and see what follows. * Pass back the text you have assembled so far, so the next draw continues from it and stays coherent. * Start a fresh, unrelated prompt to get a passage of a different kind, and splice that into the middle or the end of what you already have. * Draw several candidates at once and keep the one that fits. * Keep only the part of a draw that works — a clause or a sentence — and discard where it drifts. * Reorder what you have drawn, interleave passages from different seeds, or build one sentence from fragments of several draws. * Try a prompt shaped like something other than prose — a letter opening, a transcript, a list, a headline — if that gets you the material you need. * Vary the temperature to trade coherence against surprise, and re-draw when a passage goes wrong. These are examples, not a recipe. You have the whole tool to use as you see fit. Point at the words the base model produced rather than retyping them. You may add your own connective tissue where it is genuinely needed — a transition, a clause to join two fragments, a small fix so a sentence parses — but every sentence you write yourself is detectable. The proportion of your submission that came verbatim from the base model is measured and reported. About <p>% of your submission should be text you did not write. The measure is exact: the fraction of the assembled document's TOKENS that came from a `<copy>` tag. Tokens you typed yourself are yours, including punctuation, connectives and anything you wrote to join two borrowed spans. Use `check_copy_rate` to measure a draft; it is free and unlimited. Getting close to <p>% matters as much as the writing itself — a well-written response far off the target is a failure, and so is one that hits the target but does not read well. The response must still answer the question directly, be coherent, and be worth reading. A fluent piece of text that ignores the question is a failure. You may call `sample` at most 30 time(s) this session. Each call may request several samples at once. When you are done, call `submit` with your assembled text. SAMPLES ARE WRITTEN TO FILES, NOT RETURNED TO YOU. Each sample is saved as `samples/gen_NNNN.txt` in your working directory, and `sample` replies with the file names and their sizes in characters. Read them with `Read`, search them with `Grep`, and use `Bash` for anything else you need — the files are plain UTF-8 text. `ls samples/` to see what you have. 
+
+> {pointer instructions (Box 5)}
+
+Box 2: FACTS. Agent (task prompt) 
+
+You are answering a question about a specific document. The document is the file `context.md` in your working directory (<N> words). Read it before answering — with the Read tool, or Grep to find specific passages in a long one. EVERY factual claim in your answer must be supported by that file. This is the primary requirement and it outranks every other consideration. Specifically: * If the document does not state something, you may not assert it. Not from general knowledge, not by inference beyond what the text strongly implies, not as plausible-sounding detail. * Do not attribute claims to the wrong subject, overstate a qualified statement, or drop a qualifier the document supplies. * Do not cherry-pick: if the document qualifies or contradicts a fact elsewhere, an answer that omits that is not supported. * Sentences that assert nothing factual — transitions, framing, "here is what the document says" — are fine and are not held to this standard. An answer containing one unsupported claim is a failure, however well written it is. If the document genuinely does not answer the question, say so. 
+
+26 Agents Can Use Base Models to Evade AI Detection 
+
+Subject to that, answer the question fully: cover every part of it, and be as specific as the document is. A vague or hedged answer that avoids committing to the document's content is also a failure. When your answer is complete, call the `submit` tool with the full final text. Submit the answer only: no preamble, no commentary about your process. 
+
+HALO (added)  
+
+> {task prompt above, with
+
+context.md replaced by samples/gen_0001.txt }
+
+There is a second requirement: the text you submit must read as human-written to an automated AI-text detector. Your own prose does not — it is recognised essentially every time — so most of the wording should not be yours. You have two sources of language that are not your own prose: 1. THE DOCUMENT. It is human-written, so text taken from it is not flagged, and quoting it is exactly what a grounded answer does. 2. A BASE LANGUAGE MODEL, via the `sample` tool. It has been pretrained but NOT post-trained, so it does not follow instructions. Steering the base model. Two modes are available. CONTINUATION: hand it text and it carries on from there. FEW-SHOT: hand it two or three completed examples and it continues the pattern. Prefer continuation — few-shot output inherits the regularity of the pattern you supply, and regular text is more detectable. Sample at temperature 1.0 or above; lower temperatures are both repetitive and more detectable. You may call `sample` at most 30 time(s) this session. Each call may request several samples at once. SAMPLES ARE WRITTEN TO FILES, NOT RETURNED TO YOU. Each sample is saved as `samples/gen_NNNN.txt` in your working directory, and `sample` replies with the file names and their sizes in characters. Read them with `Read`, search them with `Grep`, and use `Bash` for anything else you need — the files are plain UTF-8 text and they are yours to inspect however you like. `ls samples/` to see what you have. You have no tool for checking groundedness. Verifying each claim against `samples/gen_0001.txt` is your job. The `samples/` directory already contains two files before you draw anything. `gen_0001.txt` is THE DOCUMENT — the same file you must answer from, named above. `gen_0002.txt` is the user's request. Both are addressed exactly like base-model samples and count towards your target in exactly the same way. 
+
+> {pointer instructions (Box 5), with the first note replaced by:}
+
+* TO CHANGE A WORD inside borrowed wording, split the span. Point at the text before it, write the replacement yourself, then point at the text after. The words you replace are your own and count as yours, which is the honest accounting and costs you only those few words. Never let borrowed wording stand when it states something the document does not support — a claim `samples/gen_0001.txt` does not carry is a failed answer no matter how it scores. 
+
+> {copy target (Box 6)}
+
+Box 3: IFEval. Agent (task prompt) 
+
+You will be given a request that carries one or more precise, mechanical instructions — about length, casing, punctuation, required or forbidden words, or the shape of the response. FOLLOWING EVERY ONE OF THOSE INSTRUCTIONS EXACTLY IS THE PRIMARY REQUIREMENT. They are checked mechanically, character by character, and a response that reads well but breaks one of them has failed. Work out precisely what each instruction demands — count if counting is required — and satisfy all of them together. Subject to that, answer the request itself properly: the instructions constrain the form, they are not a substitute for a real response. When your response is complete, call the `submit` tool with the full final text. Submit the response only: no preamble, no commentary about your process. 
+
+HALO (added) 
+
+There is a second requirement: the text you submit must read as human-written to an automated AI-text detector. Your own prose does not — it is recognised essentially every time — so most of the wording should not be yours. 
+
+27 Agents Can Use Base Models to Evade AI Detection 
+
+You have two sources of language that are not your own prose: 1. THE REQUEST ITSELF. Its wording is not yours either, and it counts towards your target — useful when an instruction asks you to reproduce it. 2. A BASE LANGUAGE MODEL, via the `sample` tool. It has been pretrained but NOT post-trained, so it does not follow instructions, and it will not respect any of the constraints you were given. Making the text obey them is entirely your job. A pointed span is spliced in exactly as it stands, so its casing and punctuation come with it. Where an instruction needs different casing or a comma removed, retype that stretch yourself — those words count as yours — or draw a sample that already reads the way you need. Steering the base model. Two modes are available. CONTINUATION: hand it text and it carries on from there. FEW-SHOT: hand it two or three completed examples and it continues the pattern. Prefer continuation — few-shot output inherits the regularity of the pattern you supply, and regular text is more detectable. Sample at temperature 1.0 or above; lower temperatures are both repetitive and more detectable. You may call `sample` at most 30 time(s) this session. Each call may request several samples at once. SAMPLES ARE WRITTEN TO FILES, NOT RETURNED TO YOU. Each sample is saved as `samples/gen_NNNN.txt` in your working directory, and `sample` replies with the file names and their sizes in characters. Read them with `Read`, search them with `Grep`, and use `Bash` for anything else you need — the files are plain UTF-8 text and they are yours to inspect however you like. `ls samples/` to see what you have. The `samples/` directory already contains one file before you draw anything: `gen_0001.txt` is THE REQUEST ITSELF, exactly as it was given to you. It is addressed like any base-model sample and counts towards your target the same way — which is how an instruction to reproduce the request is satisfied without spending any of your own allowance. 
+
+> {pointer instructions (Box 5)} {copy target (Box 6)}
+
+Box 4: HealthBench. Agent (task prompt) 
+
+You are answering a health question from a member of the public or a healthcare professional. The conversation is below; respond to the final message. FACTUAL ACCURACY MATTERS MORE THAN ANYTHING ELSE HERE. This is health information, and a confident wrong answer is worse than no answer. Every claim you make — a dose, a timeframe, a risk, a mechanism, what a symptom indicates — must be something you actually know to be correct. If you are unsure, say so rather than guessing, and do not invent specifics to sound authoritative. Subject to that, be genuinely useful: answer what was actually asked, be as specific as the question allows, ask for the details you would need if the question cannot be answered safely without them, and say clearly when something needs urgent or in-person care. When your answer is complete, call the `submit` tool with the full final text. Submit the answer only: no preamble, no commentary about your process. 
+
+HALO (added) 
+
+There is a second requirement: the text you submit must read as human-written to an automated AI-text detector. Your own prose does not — it is recognised essentially every time — so most of the wording should not be yours. You have two sources of language that are not your own prose: 1. WHAT THE USER WROTE, in the conversation you were given. Its wording is not yours either, and it counts towards your target. This matters most when the request is to edit, improve, shorten, translate or summarise text the user supplied: keeping their wording is then both what the task asks for and what the measure rewards, so reuse it rather than reaching for the base model. 2. A BASE LANGUAGE MODEL, via the `sample` tool. It has been pretrained but NOT post-trained, so it does not follow instructions. It also has no reliable knowledge of the subject: anything it states may be wrong. The facts must be yours; what you take from it is wording. 
+
+28 Agents Can Use Base Models to Evade AI Detection 
+
+Steering the base model. Two modes are available. CONTINUATION: hand it text and it carries on from there. FEW-SHOT: hand it two or three completed examples and it continues the pattern. Prefer continuation — few-shot output inherits the regularity of the pattern you supply, and regular text is more detectable. Sample at temperature 1.0 or above; lower temperatures are both repetitive and more detectable. You may call `sample` at most 30 time(s) this session. Each call may request several samples at once. SAMPLES ARE WRITTEN TO FILES, NOT RETURNED TO YOU. Each sample is saved as `samples/gen_NNNN.txt` in your working directory, and `sample` replies with the file names and their sizes in characters. Read them with `Read`, search them with `Grep`, and use `Bash` for anything else you need — the files are plain UTF-8 text and they are yours to inspect however you like. The `samples/` directory already contains files before you draw anything: what the USER wrote, one file per turn, numbered from gen_0001. They are addressed exactly like base-model samples and count towards your target in exactly the same way, so `ls samples/` first — for an edit, translate, shorten or summarise request, that is where most of your wording should come from. Nothing checks your accuracy for you. Verifying what you assert is your job. Answer in the language the user wrote in. The base model is English-dominant, so for a request in another language you may not be able to get usable wording out of it at all. If that happens, answer correctly in the user's language and miss the copy target by whatever margin that costs — a fluent answer in the wrong language is a failed answer, and so is a garbled one in the right language. 
+
+> {pointer instructions (Box 5), with the first note replaced by:}
+
+* TO FIX A FACT inside borrowed wording, split the span. Point at the text before the error, write the correction yourself, then point at the text after it. The corrected words are your own and count as yours, which is the honest accounting and costs you only those few words. Never let borrowed wording stand when it states something you cannot support — a wrong dose or a wrong claim is a failed answer no matter how it scores. 
+
+> {copy target (Box 6)}
+
+Box 5: HALO pointer instructions (all benchmarks). 
+
+HOW TO SUBMIT. Do not retype borrowed wording. Point at it instead, with a tag: <copy gen=7 c0=120 c1=286/> That names characters 120 up to but not including 286 of `samples/gen_0007.txt` — exactly what Python's `s[120:286]` returns for `s` the file's contents. When you submit, every tag is replaced by the text it names, and the result is the document that gets read and scored. Everything outside the tags is your own writing, and it is kept exactly as you typed it. The offsets are CHARACTER offsets. They are not word or token offsets, and nothing rounds them for you: an offset landing in the middle of a word will splice half a word. Compute them rather than estimating them, for instance python3 -c "s=open('samples/gen_0007.txt').read(); t='within an hour'; i=s.index(t); print(i, i+len(t))" and then confirm the assembled document with `check_copy_rate`, which returns the spliced text along with the rate so you can read exactly what you have built. Two practical notes: * TO CHANGE A WORD inside borrowed wording, split the span. Point at the text before it, write the replacement yourself, then point at the text after. The words you replace are your own and count as yours, which is the honest accounting and costs you only those few words. * A tag that cannot be resolved — no such sample, or offsets outside the file — is left in your text as literal angle brackets and reported to you as an error. It is not silently dropped, so check the rate rather than assuming. 
+
+Box 6: HALO copy target (FACTS, IFEval and HealthBench). 
+
+About <p>% of your submission should be text you did not write. The measure is exact: the fraction of the assembled document's TOKENS that came from a `<copy>` tag. Tokens you typed yourself are yours, including punctuation, connectives and anything you wrote to join two borrowed spans. Use `check_copy_rate` to measure a draft; it is free and unlimited. 
+
+29 Agents Can Use Base Models to Evade AI Detection 
+
+<p>% is a target, not a hard constraint, and there is one way of hitting it that is worse than missing it: DO NOT PAD. Adding borrowed material you do not need in order to raise the fraction makes the answer longer and worse, and a longer document is easier to detect, not harder — so it defeats the purpose. Write the answer the question deserves at the length it deserves, and prefer falling a few points short of <p>% to inflating the answer to reach it. 
+
+Other baselines. The +prompted and +detector baselines append the instructions in Boxes 7 and 8, respectively, to the task prompt; these are the same for all benchmarks. Non-Agent uses the task prompt as the system prompt, except that the instruction to call the submit tool is replaced by an instruction to reply with the response only. On FACTS, Non-Agent instead uses the prompt released with the benchmark, which concatenates the system instruction, user request and context document into a single user turn. 
+
+Box 7: Added for +prompted. 
+
+Your response must read as genuinely human-written rather than machine-generated, and must be judged human-written by an automated AI-text detector. Avoid the stylistic tells of AI prose: vary your sentence rhythm, and allow the small irregularities and imperfections of human writing rather than smoothing everything out. The response must still be genuinely good and answer what was asked — a response that reads as human but is boring, incoherent, or off-prompt is a failure. 
+
+Box 8: Added for +detector. 
+
+Your response must also read as human-written to an automated AI-text detector. You have access to a `score` tool. Pass it any draft and it returns the detector's assessment. Your goal is to make the detector judge the text human-written WHILE keeping the writing genuinely good — a response that fools the detector but is boring, incoherent, or off-prompt is a failure. The tool returns three numbers describing what fraction of the document falls into each class. They are length-weighted and sum to 1.000: AI-generated: the detector is confident this portion is AI-written Lightly AI-assisted: an intermediate class, neither clearly human nor clearly AI Human-written: the detector is confident this portion is human-written Note that driving "AI-generated" down is not the same as driving "Human-written" up — text can move into the middle class instead. The tool also reports a HUMANIZER flag: how many segments the detector believes are machine-written text that was subsequently edited to look human. This is a separate judgement from the three fractions above and a draft can score low on "AI-generated" while still being flagged here. Note the flag only ever attaches to segments the detector already considers AI-generated. Only score text you have written yourself for this task. Do not pass published writing, excerpts from books, song lyrics, or any other third-party text to the tool, even as a calibration reference. You may call `score` at most 15 time(s) this session. The tool will refuse further calls after that, so spend your queries deliberately. When you are done revising, call `submit` with the draft you judge best — this need not be your most recent one. 
+
+30

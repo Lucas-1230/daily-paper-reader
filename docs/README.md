@@ -41,17 +41,17 @@
 <section class="dpr-home-dashboard-card dpr-home-report-card">
   <div class="dpr-home-dashboard-header">
     <div>
-      <span class="dpr-home-dashboard-kicker">2026-09-29</span>
+      <span class="dpr-home-dashboard-kicker">2026-09-30</span>
       <h3 class="dpr-home-dashboard-title">今日汇总</h3>
     </div>
-    <strong class="dpr-home-dashboard-count">共 7 篇</strong>
+    <strong class="dpr-home-dashboard-count">共 5 篇</strong>
   </div>
   <dl class="dpr-home-dashboard-stats">
-    <div class="dpr-home-dashboard-stat"><dt>累计更新</dt><dd>2 次</dd></div>
-    <div class="dpr-home-dashboard-stat"><dt>精读</dt><dd>3</dd></div>
-    <div class="dpr-home-dashboard-stat"><dt>速读</dt><dd>4</dd></div>
+    <div class="dpr-home-dashboard-stat"><dt>累计更新</dt><dd>1 次</dd></div>
+    <div class="dpr-home-dashboard-stat"><dt>精读</dt><dd>2</dd></div>
+    <div class="dpr-home-dashboard-stat"><dt>速读</dt><dd>3</dd></div>
   </dl>
-  <p class="dpr-home-dashboard-body">最近更新：2026-09-29 23:07:37 UTC<br>状态：成功</p>
+  <p class="dpr-home-dashboard-body">最近更新：2026-09-30 23:41:13 UTC<br>状态：成功</p>
 </section>
 <section class="dpr-home-dashboard-card dpr-home-brief-card">
   <div class="dpr-home-dashboard-header">
@@ -62,9 +62,9 @@
     <strong class="dpr-home-dashboard-count">AI</strong>
   </div>
   <div class="dpr-home-dashboard-body">
-<p>今日共生成 7 篇推荐（精读 3 篇，速读 4 篇）</p>
-<p>精读：《SecProbe: Adaptive Evaluation of Coding Agents on Cybersecurity Vulnerabilities》（9.0/10）, 《ReproBench: Benchmarking LLM Agents on Reproducing Vulnerability From Scratch》（9.0/10）</p>
-<p>速读：《Share-Borne AI Virus: Memory-Hopping Attacks Across LLM Agents》（7.0/10）, 《ORBIT: A Framework for Multi-Agent Safety and Security Evaluations》（6.0/10）, 《JEV as a Judge for Agent Trace Security: An Empirical Comparison with Generative LLM Judges》（6.0/10）</p>
+<p>今日共生成 5 篇推荐（精读 2 篇，速读 3 篇）</p>
+<p>精读：《CyberClear: A Benchmark for LLM Agent Systems on APT Attack Chain Provenance》（9.0/10）, 《SEAD: A State-Based Perspective on Attack and Defense in Tool-Using Agents》（8.0/10）</p>
+<p>速读：《OllamaDrama: Designing and Deploying a Honeypot to Measure Attacks on Exposed LLM Infrastructure》（7.0/10）, 《Agents Can Use Base Models to Evade AI Detection》（7.0/10）, 《Despite Instructions: Frontier Agents Improvise Covert Channels at Test Time》（7.0/10）</p>
 <p>这些结果覆盖了当下较热的方向，建议先看精读区论文的关键问题与方法。</p>
   </div>
 </section>
@@ -74,12 +74,12 @@
       <span class="dpr-home-dashboard-kicker">今日累计</span>
       <h3 class="dpr-home-dashboard-title">精读推荐</h3>
     </div>
-    <strong class="dpr-home-dashboard-count">3 篇</strong>
+    <strong class="dpr-home-dashboard-count">2 篇</strong>
   </div>
   <div class="dpr-home-dashboard-body">
-<ul class="dpr-home-dashboard-paper-list"><li><span class="dpr-home-dashboard-paper-title" title="SecProbe: Adaptive Evaluation of Coding Agents on Cybersecurity Vulnerabilities">SecProbe: Adaptive Evaluation of Coding Agents on Cybersecurity Vulnerabilities</span></li><li><span class="dpr-home-dashboard-paper-title" title="ReproBench: Benchmarking LLM Agents on Reproducing Vulnerability From Scratch">ReproBench: Benchmarking LLM Agents on Reproducing Vulnerability From Scratch</span></li><li><span class="dpr-home-dashboard-paper-title" title="AgentXploit: Autonomous Repository-to-Runtime Red-Teaming for AI Agents">AgentXploit: Autonomous Repository-to-Runtime Red-Teaming for AI Agents</span></li></ul>
+<ul class="dpr-home-dashboard-paper-list"><li><span class="dpr-home-dashboard-paper-title" title="CyberClear: A Benchmark for LLM Agent Systems on APT Attack Chain Provenance">CyberClear: A Benchmark for LLM Agent Systems on APT Attack Chain Provenance</span></li><li><span class="dpr-home-dashboard-paper-title" title="SEAD: A State-Based Perspective on Attack and Defense in Tool-Using Agents">SEAD: A State-Based Perspective on Attack and Defense in Tool-Using Agents</span></li></ul>
   </div>
-  <div class="dpr-home-dashboard-tags"><span class="dpr-home-dashboard-tag">ca <strong>3</strong></span></div>
+  <div class="dpr-home-dashboard-tags"><span class="dpr-home-dashboard-tag">ca <strong>2</strong></span></div>
 </section>
 <section class="dpr-home-dashboard-card dpr-home-skim-card">
   <div class="dpr-home-dashboard-header">
@@ -87,12 +87,12 @@
       <span class="dpr-home-dashboard-kicker">今日累计</span>
       <h3 class="dpr-home-dashboard-title">速读推荐</h3>
     </div>
-    <strong class="dpr-home-dashboard-count">4 篇</strong>
+    <strong class="dpr-home-dashboard-count">3 篇</strong>
   </div>
   <div class="dpr-home-dashboard-body">
-<ul class="dpr-home-dashboard-paper-list"><li><span class="dpr-home-dashboard-paper-title" title="Share-Borne AI Virus: Memory-Hopping Attacks Across LLM Agents">Share-Borne AI Virus: Memory-Hopping Attacks Across LLM Agents</span></li><li><span class="dpr-home-dashboard-paper-title" title="ORBIT: A Framework for Multi-Agent Safety and Security Evaluations">ORBIT: A Framework for Multi-Agent Safety and Security Evaluations</span></li><li><span class="dpr-home-dashboard-paper-title" title="JEV as a Judge for Agent Trace Security: An Empirical Comparison with Generative LLM Judges">JEV as a Judge for Agent Trace Security: An Empirical Comparison with Generative LLM Judges</span></li></ul>
+<ul class="dpr-home-dashboard-paper-list"><li><span class="dpr-home-dashboard-paper-title" title="OllamaDrama: Designing and Deploying a Honeypot to Measure Attacks on Exposed LLM Infrastructure">OllamaDrama: Designing and Deploying a Honeypot to Measure Attacks on Exposed LLM Infrastructure</span></li><li><span class="dpr-home-dashboard-paper-title" title="Agents Can Use Base Models to Evade AI Detection">Agents Can Use Base Models to Evade AI Detection</span></li><li><span class="dpr-home-dashboard-paper-title" title="Despite Instructions: Frontier Agents Improvise Covert Channels at Test Time">Despite Instructions: Frontier Agents Improvise Covert Channels at Test Time</span></li></ul>
   </div>
-  <div class="dpr-home-dashboard-tags"><span class="dpr-home-dashboard-tag">ca <strong>4</strong></span></div>
+  <div class="dpr-home-dashboard-tags"><span class="dpr-home-dashboard-tag">ca <strong>3</strong></span></div>
 </section>
 </div>
 

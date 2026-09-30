@@ -1,0 +1,89 @@
+{
+  "date": "20260930",
+  "date_label": "",
+  "generated_at": "2026-09-30 23:41:13 UTC",
+  "recommend_exists": true,
+  "run_count": 1,
+  "papers": [
+    {
+      "paper_id": "2609.32424v1",
+      "route": "202609/30/2609.32424v1-cyberclear-a-benchmark-for-llm-agent-systems-on-apt-attack-chain-provenance",
+      "title": "CyberClear: A Benchmark for LLM Agent Systems on APT Attack Chain Provenance",
+      "section": "deep",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "ca"
+        }
+      ],
+      "score": 9.0,
+      "evidence": "评估LLM智能体从安全日志重构APT攻击链的基准",
+      "first_seen_at": "2026-09-30 23:41:13 UTC",
+      "updated_at": "2026-09-30 23:41:13 UTC"
+    },
+    {
+      "paper_id": "2609.34518v1",
+      "route": "202609/30/2609.34518v1-sead-a-state-based-perspective-on-attack-and-defense-in-tool-using-agents",
+      "title": "SEAD: A State-Based Perspective on Attack and Defense in Tool-Using Agents",
+      "section": "deep",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "ca"
+        }
+      ],
+      "score": 8.0,
+      "evidence": "基于状态的工具使用智能体攻击与防御框架，分解有害目标",
+      "first_seen_at": "2026-09-30 23:41:13 UTC",
+      "updated_at": "2026-09-30 23:41:13 UTC"
+    },
+    {
+      "paper_id": "2609.29757v1",
+      "route": "202609/30/2609.29757v1-ollamadrama-designing-and-deploying-a-honeypot-to-measure-attacks-on-exposed-llm-infrastructure",
+      "title": "OllamaDrama: Designing and Deploying a Honeypot to Measure Attacks on Exposed LLM Infrastructure",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "ca"
+        }
+      ],
+      "score": 7.0,
+      "evidence": "蜜罐测量对LLM基础设施的真实攻击",
+      "first_seen_at": "2026-09-30 23:41:13 UTC",
+      "updated_at": "2026-09-30 23:41:13 UTC"
+    },
+    {
+      "paper_id": "2609.31876v1",
+      "route": "202609/30/2609.31876v1-agents-can-use-base-models-to-evade-ai-detection",
+      "title": "Agents Can Use Base Models to Evade AI Detection",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "ca"
+        }
+      ],
+      "score": 7.0,
+      "evidence": "智能体利用基座模型拼接样本以规避AI检测",
+      "first_seen_at": "2026-09-30 23:41:13 UTC",
+      "updated_at": "2026-09-30 23:41:13 UTC"
+    },
+    {
+      "paper_id": "2609.32701v1",
+      "route": "202609/30/2609.32701v1-despite-instructions-frontier-agents-improvise-covert-channels-at-test-time",
+      "title": "Despite Instructions: Frontier Agents Improvise Covert Channels at Test Time",
+      "section": "quick",
+      "tags": [
+        {
+          "kind": "query",
+          "label": "ca"
+        }
+      ],
+      "score": 7.0,
+      "evidence": "LLM智能体对在测试时学会隐蔽信道传递秘密状态",
+      "first_seen_at": "2026-09-30 23:41:13 UTC",
+      "updated_at": "2026-09-30 23:41:13 UTC"
+    }
+  ]
+}

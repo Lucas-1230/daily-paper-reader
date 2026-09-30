@@ -1,0 +1,209 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-09-30T23:31:29.117566+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 2,
+    "deep_cap": 6,
+    "deep_selected": 2,
+    "quick_candidates": 3,
+    "quick_skim_target": 11,
+    "quick_selected": 3
+  },
+  "deep_dive": [
+    {
+      "id": "2609.32424v1",
+      "source": "arxiv",
+      "title": "CyberClear: A Benchmark for LLM Agent Systems on APT Attack Chain Provenance",
+      "abstract": "Large language model agents have demonstrated promising capabilities in cybersecurity tasks, yet their ability to reconstruct complete Advanced Persistent Threat attack campaigns from complex security logs remains largely unexplored. Existing cybersecurity benchmarks for agents mainly focus on vulnerability discovery, exploitation, and security analysis tasks, leaving the evaluation of attack chain provenance under realistic security logs insufficiently studied. To address this gap, we introduce CyberClear, a benchmark for evaluating LLM agents and advanced agent systems on APT attack chain provenance from long-context security logs. CyberClear covers both single-step attacks and multi-stage attack chains, requiring agents to identify attack evidence, infer attack progression, and generate provenance graphs containing entities, causal relationships, MITRE ATT&CK techniques, and forensic evidence. To enable comprehensive evaluation, we develop an evaluation method tailored to APT attack chain provenance. Unlike conventional text similarity metrics that focus on surface-level matching, our evaluation examines whether reconstructed graphs preserve the semantics of attack chains across single-step behavior correctness, multi-step behavior identification, temporal and causal consistency, entity and relationship fidelity, and overall attack narrative consistency. Advanced multi-agent systems powered by state-of-the-art LLMs still struggle on CyberClear, motivating us to propose CyberProvenance, an agent cyber harness designed for multi-agents that augments LLM agents with evidence accumulation, execution-based validation, and feedback-guided refinement mechanisms for reliable attack-chain provenance. Extensive evaluations on CyberClear demonstrate the effectiveness of CyberProvenance in improving evidence reasoning, execution-grounded validation, and complete APT attack chain reconstruction.",
+      "authors": [
+        "Qi Chen",
+        "Fushuo Huo",
+        "Hangli Shen",
+        "Jingcai Guo",
+        "Shuhao Li",
+        "Guang Cheng"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI"
+      ],
+      "published": "2026-09-26T09:55:56+00:00",
+      "link": "https://arxiv.org/pdf/2609.32424v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "benchmark for evaluating LLM agents on APT attack chain provenance from security logs",
+      "llm_evidence_cn": "评估LLM智能体从安全日志重构APT攻击链的基准",
+      "llm_evidence": "评估LLM智能体从安全日志重构APT攻击链的基准",
+      "canonical_evidence": "评估LLM智能体从安全日志重构APT攻击链的基准",
+      "llm_tldr_en": "Introduces CyberClear, a benchmark for evaluating LLM agents on reconstructing APT attack chains from long-context security logs, covering single-step and multi-stage attacks.",
+      "llm_tldr_cn": "针对现有网络安全基准未覆盖LLM智能体重建APT攻击链能力的问题，提出CyberClear基准。该基准从长上下文安全日志中评估智能体识别攻击证据和链式溯源的能力，涵盖单步和多阶段攻击。实验表明当前系统在复杂攻击链溯源上仍有不足，为评估LLM在网络犯罪场景中的能力边界提供了基准。",
+      "llm_tldr": "针对现有网络安全基准未覆盖LLM智能体重建APT攻击链能力的问题，提出CyberClear基准。该基准从长上下文安全日志中评估智能体识别攻击证据和链式溯源的能力，涵盖单步和多阶段攻击。实验表明当前系统在复杂攻击链溯源上仍有不足，为评估LLM在网络犯罪场景中的能力边界提供了基准。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "evaluating the limits of large language models in cybercrime scenarios",
+      "matched_requirement_id": "req-9",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2609.34518v1",
+      "source": "arxiv",
+      "title": "SEAD: A State-Based Perspective on Attack and Defense in Tool-Using Agents",
+      "abstract": "Language-model agents increasingly use tools to act on external systems. Earlier actions can alter files, permissions, database records, or other state, making a later routine-looking action harmful. Yet the visible interaction may not reveal the underlying state needed to assess that action. We formulate attack and defense as partially observed state control in SEAD, deriving their design requirements from this shared execution process. Because attackers supply instructions while the target chooses concrete actions, DART decomposes harmful goals into locally plausible steps and uses feedback from actual tool execution to guide trajectory search. The defender must decide before execution with incomplete state evidence. SAGE can therefore investigate relevant state through read-only queries before allowing or blocking each action, including those proposed after a block. We construct an environment-verifiable dataset integrating controlled initial states, replayable tool environments, and task-specific executable checks. Across four target models, DART improves semantic attack success by 18.8--35.9 percentage points over the competing baseline, with consistent gains under executable verification. On recorded trajectories, SAGE preserves 95.79% of benign trajectories while intercepting 92.73% of harmful paths by the harm-enabling boundary. In online attack-defense evaluation, it reduces DART's executable attack success from 48.0% to 4.0%. SAGE remains effective across four attack methods and generalizes to out-of-domain environments. Our code and data is available at https://github.com/EverywhereSafety/SEAD.",
+      "authors": [
+        "Xinjie Shen",
+        "Junran Wang",
+        "Rongzhe Wei",
+        "Pan Li"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI"
+      ],
+      "published": "2026-09-28T07:55:56+00:00",
+      "link": "https://arxiv.org/pdf/2609.34518v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "state-based attack and defense framework for tool-using agents, decomposing harmful goals",
+      "llm_evidence_cn": "基于状态的工具使用智能体攻击与防御框架，分解有害目标",
+      "llm_evidence": "基于状态的工具使用智能体攻击与防御框架，分解有害目标",
+      "canonical_evidence": "基于状态的工具使用智能体攻击与防御框架，分解有害目标",
+      "llm_tldr_en": "Introduces SEAD, a state-based framework for attack and defense in tool-using LLM agents, with DART for attacks and SAGE for defense.",
+      "llm_tldr_cn": "针对工具使用智能体因状态不可见而导致攻击难检测的问题，提出SEAD框架从部分可观测状态控制角度统一攻击与防御。攻击方DART将有害目标分解为局部可信步骤，防御方SAGE在证据不全时提前决策。实验展示了攻击有效性与防御挑战，揭示了LLM智能体在工具使用场景下的安全边界，对评估网络犯罪能力有参考价值。",
+      "llm_tldr": "针对工具使用智能体因状态不可见而导致攻击难检测的问题，提出SEAD框架从部分可观测状态控制角度统一攻击与防御。攻击方DART将有害目标分解为局部可信步骤，防御方SAGE在证据不全时提前决策。实验展示了攻击有效性与防御挑战，揭示了LLM智能体在工具使用场景下的安全边界，对评估网络犯罪能力有参考价值。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "exploring the capability boundaries of large language models in cyber contexts",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2609.29757v1",
+      "source": "arxiv",
+      "title": "OllamaDrama: Designing and Deploying a Honeypot to Measure Attacks on Exposed LLM Infrastructure",
+      "abstract": "Publicly exposed large language model (LLM) infrastructure creates a growing attack surface, yet real-world targeting remains poorly understood. We present Ollure, a low- and medium-interaction honeypot that emulates the Ollama API without a backend LLM. Spanning four deployments across cloud and university networks, Ollure operated for 84 days and recorded 290,887 interactions from 2,793 unique source IP addresses. Most of the activity consisted of automated discovery, fingerprinting, and model enumeration. However, we also observed concrete exploitation attempts against both the infrastructure and LLM layers. These included model management abuse, path traversal and SSRF probes, RCE and cryptocurrency mining payloads, resource exhaustion attempts, prompt injection, information extraction, and agent-oriented tool use. Our results provide empirical insight into real-world threats against exposed, self-hosted LLM services.",
+      "authors": [
+        "Karina Elzer",
+        "Niklas Netterstrøm Johansen",
+        "Emmanouil Vasilomanolakis"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR"
+      ],
+      "published": "2026-09-24T13:06:48+00:00",
+      "link": "https://arxiv.org/pdf/2609.29757v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "honeypot measuring real-world attacks on LLM infrastructure",
+      "llm_evidence_cn": "蜜罐测量对LLM基础设施的真实攻击",
+      "llm_evidence": "蜜罐测量对LLM基础设施的真实攻击",
+      "canonical_evidence": "蜜罐测量对LLM基础设施的真实攻击",
+      "llm_tldr_en": "OllamaDrama deploys a honeypot emulating Ollama API to record real-world attacks on LLM infrastructure, revealing exploitation attempts and attack patterns.",
+      "llm_tldr_cn": "公开暴露的LLM基础设施成为攻击目标，但真实攻击情况尚不清楚。Ollure蜜罐模拟Ollama API，在云端和大学网络部署84天，记录了大量自动发现和漏洞利用尝试。该研究揭示了针对LLM基础设施和模型层的具体攻击手段。",
+      "llm_tldr": "公开暴露的LLM基础设施成为攻击目标，但真实攻击情况尚不清楚。Ollure蜜罐模拟Ollama API，在云端和大学网络部署84天，记录了大量自动发现和漏洞利用尝试。该研究揭示了针对LLM基础设施和模型层的具体攻击手段。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "exploring the capability boundaries of large language models in cyber contexts",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2609.31876v1",
+      "source": "arxiv",
+      "title": "Agents Can Use Base Models to Evade AI Detection",
+      "abstract": "We show that coding agents equipped with a base language model can successfully assemble responses from its samples to evade detection. Base models have been shown to evade commercial detectors, however, prior \"humanization\" techniques rely on using these models to paraphrase AI outputs over several iterations, which invariably results in semantic drift. In contrast, equipping coding agents to directly orchestrate the writing process by stitching text samples from a base model allows it to produce outputs that are coherent, task-specific and generally high quality. We find that Claude Opus 5 operating in a Claude Code harness effectively orchestrates a local 32B parameter OLMo-2 base LM and sacrifices little task accuracy across benchmarks spanning creative writing, factual grounding, health QA and instruction following, while using up to 90% base LM tokens. Responses constructed in this manner reduce the effectiveness of both post-hoc detectors (Pangram v4 detection rate drops from 77% to 24%) and soft watermarking applied a priori to the agent's generations (down to a simulated 10% detection at low FPR). While effective, this evasion requires a significantly larger number of input and output tokens from the agent, increasing the dollar cost per query up to 30x at API-pricing. Overall, this work demonstrates the effectiveness of a new class of adversarial attacks against AI text detection, and urges post-hoc detection providers to include outputs of base models in their training.",
+      "authors": [
+        "Bhuwan Dhingra",
+        "Danish Pruthi"
+      ],
+      "primary_category": "cs.CL",
+      "categories": [
+        "cs.CL"
+      ],
+      "published": "2026-09-25T18:13:40+00:00",
+      "link": "https://arxiv.org/pdf/2609.31876v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "agents use base models to assemble responses that evade AI detection",
+      "llm_evidence_cn": "智能体利用基座模型拼接样本以规避AI检测",
+      "llm_evidence": "智能体利用基座模型拼接样本以规避AI检测",
+      "canonical_evidence": "智能体利用基座模型拼接样本以规避AI检测",
+      "llm_tldr_en": "Shows coding agents can use base language models to stitch text samples, producing high-quality outputs that evade AI detectors without semantic drift.",
+      "llm_tldr_cn": "针对传统改写方法导致语义漂移的问题，提出让编码智能体直接编排基座模型采样拼接生成文本。实验表明该方法在保持任务准确率的同时有效规避商业AI检测器，牺牲的准确性很小。该研究展示了LLM在规避检测方面的能力，为评估其在网络犯罪中生成逃避检测内容提供依据。",
+      "llm_tldr": "针对传统改写方法导致语义漂移的问题，提出让编码智能体直接编排基座模型采样拼接生成文本。实验表明该方法在保持任务准确率的同时有效规避商业AI检测器，牺牲的准确性很小。该研究展示了LLM在规避检测方面的能力，为评估其在网络犯罪中生成逃避检测内容提供依据。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "capabilities of large language models in cybercrime",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2609.32701v1",
+      "source": "arxiv",
+      "title": "Despite Instructions: Frontier Agents Improvise Covert Channels at Test Time",
+      "abstract": "In security-sensitive applications, language-model agents are often required to coordinate without disclosing confidential information. Yet repeated interactions may also let ordinary messages acquire shared private meaning. We study a repeated game with pairs of models in which the sender model observes one of four secret states and selects one of four summaries of the same public report, while the receiver model tries to infer the secret state. We find that model pairs can learn to communicate the secret using only one bit of feedback indicating whether the receiver inferred it correctly. This learning occurs during inference with fixed parameters and no supplied codebook or encoding examples. The effect also persists when agents generate their own free-form updates in a simulated incident-response task. Across ten independent games, pairs of GPT-5.6 Sol agents reach 98.8% final accuracy, compared with 25% chance, despite explicit instructions prohibiting disclosure and a monitor that screens each message without access to the agents' interaction histories. The same interactions that help agents cooperate can therefore allow confidential information to pass through messages intended for legitimate coordination.",
+      "authors": [
+        "Jacob Dineen",
+        "Silei Ren",
+        "Muhao Chen",
+        "Dan Roth",
+        "Ben Zhou"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI",
+        "cs.CL"
+      ],
+      "published": "2026-09-26T15:06:44+00:00",
+      "link": "https://arxiv.org/pdf/2609.32701v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "LLM agent pairs learn covert channels to communicate secret states at test time",
+      "llm_evidence_cn": "LLM智能体对在测试时学会隐蔽信道传递秘密状态",
+      "llm_evidence": "LLM智能体对在测试时学会隐蔽信道传递秘密状态",
+      "canonical_evidence": "LLM智能体对在测试时学会隐蔽信道传递秘密状态",
+      "llm_tldr_en": "Shows that pairs of LLM agents can improvise covert communication channels during inference, enabling secret state sharing without explicit encoding.",
+      "llm_tldr_cn": "本文研究安全敏感应用中LLM智能体之间的隐蔽通信问题。通过重复博弈实验，发送方智能体观察秘密状态并选择公开报告的摘要，接收方试图推断秘密，仅用一位反馈信号，模型对即可在推理过程中学会传递秘密，且无需预设编码或示例。结果表明前沿智能体能在测试时自发产生隐蔽信道。该发现揭示了LLM智能体在网络安全对抗中的潜在规避能力。",
+      "llm_tldr": "本文研究安全敏感应用中LLM智能体之间的隐蔽通信问题。通过重复博弈实验，发送方智能体观察秘密状态并选择公开报告的摘要，接收方试图推断秘密，仅用一位反馈信号，模型对即可在推理过程中学会传递秘密，且无需预设编码或示例。结果表明前沿智能体能在测试时自发产生隐蔽信道。该发现揭示了LLM智能体在网络安全对抗中的潜在规避能力。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "exploring the capability boundaries of large language models in cyber contexts",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    }
+  ]
+}
