@@ -1,0 +1,102 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-10-01T23:14:14.036720+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 0,
+    "deep_cap": 6,
+    "deep_selected": 0,
+    "quick_candidates": 2,
+    "quick_skim_target": 11,
+    "quick_selected": 2
+  },
+  "deep_dive": [],
+  "quick_skim": [
+    {
+      "id": "2609.35414v1",
+      "source": "arxiv",
+      "title": "AI-Based Vulnerability Assessment Capability and Cyber Attack Graph Analysis",
+      "abstract": "Cyber threats targeting mission-critical infrastructure are becoming more sophisticated while the barrier to launching attacks continues to fall. Traditional point solutions like antivirus and firewalls are reactive and fail to address the combinatorial complexity of modern attack surfaces. This paper presents an investigation combining two complementary methodologies: Lockheed Martin's Vortex/Crow framework, which applies multi-agent reinforcement learning (MARL) over industry-standard cyber knowledge graph to identify and prioritize attack vectors and TTPs (tactics, techniques, and procedures); and Aalto's probabilistic attack graph model that combines network topology and its vulnerabilities to compute system-level risk metrics. The 2015 Ukraine Power Grid cyberattack serves as a well-documented validation scenario. Applied independently to the same operational technology (OT) network topology, both methodologies converge on the same attack vectors and exploit sequences as those documented in the incident record, thus providing mutual cross-validation. Attack graph analyses using node-level elimination experiments identify industrial control systems (ICS) as the most critical enablers of attack propagation, representing high-priority targets for defensive hardening. Comparison of CVSS (v2.0) and IronMiner vulnerability scoring yields in general consistent results, with IronMiner providing more actionable differentiation at network periphery nodes. The layered methodology of baseline assessment and node-level elimination proves to be scalable to large enterprise networks, thus offering defenders a structured, AI-enabled path to prioritize mitigation under realistic time and resource constraints.",
+      "authors": [
+        "Joni Herttuainen",
+        "Kirsi Hellsten",
+        "Vesa Kuikka",
+        "Ambrose Kam",
+        "Arlanda Johnson",
+        "David Welsh",
+        "Kimmo K. Kaski"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR"
+      ],
+      "published": "2026-09-28T15:29:22+00:00",
+      "link": "https://arxiv.org/pdf/2609.35414v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "multi-agent reinforcement learning over cyber knowledge graph for attack vector identification",
+      "llm_evidence_cn": "基于网络知识图谱的多智能体强化学习识别攻击向量",
+      "llm_evidence": "基于网络知识图谱的多智能体强化学习识别攻击向量",
+      "canonical_evidence": "基于网络知识图谱的多智能体强化学习识别攻击向量",
+      "llm_tldr_en": "Combines MARL over cyber knowledge graph and probabilistic attack graph to assess cyber risks; provides agent-based modeling of cyber threat behavior, relevant to simulating criminal cyber activities.",
+      "llm_tldr_cn": "针对传统防护工具无法应对现代攻击面的组合复杂性问题，论文结合Lockheed Martin的Vortex/Crow框架（基于多智能体强化学习在网络安全知识图谱上识别攻击向量和TTP）与Aalto的概率攻击图模型。该方法利用多智能体系统对网络攻击行为进行建模和风险评估，为模拟网络犯罪活动和评估系统漏洞提供了有效的计算手段。",
+      "llm_tldr": "针对传统防护工具无法应对现代攻击面的组合复杂性问题，论文结合Lockheed Martin的Vortex/Crow框架（基于多智能体强化学习在网络安全知识图谱上识别攻击向量和TTP）与Aalto的概率攻击图模型。该方法利用多智能体系统对网络攻击行为进行建模和风险评估，为模拟网络犯罪活动和评估系统漏洞提供了有效的计算手段。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "agent-based modeling of criminal activities",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2609.31318v1",
+      "source": "arxiv",
+      "title": "AgentXploit: Autonomous Repository-to-Runtime Red-Teaming for AI Agents",
+      "abstract": "AI agents combine language models with external data and tools that can modify files, call APIs, or execute code. Security failures can arise when adversarial content changes an agent's tool use or when the surrounding software contains vulnerabilities such as path traversal or command injection. We study authorized white-box pre-deployment auditing, where the auditor has access to the target repository and a controlled runtime, but successful attacks must still act through the task-defined attacker interface and be confirmed by an external verifier. We present AgentXploit, a two-role auditing system that separates repository-level attack-path discovery from runtime exploitation. The Analyzer Agent traces attacker-controlled inputs to sensitive operations and records code-supported candidate attack paths; the Exploiter Agent turns these paths into concrete attacks and revises them using runtime feedback. We also introduce AgentXploit-Bench, containing 72 reproducible vulnerabilities across 12 open-source AI-agent systems and frameworks. Across three runs, AgentXploit reaches 59.3% end-to-end success, compared with 38.4% for Codex. Under a token-budget-matched comparison, Codex reaches 46.3%. On AgentDojo, where injection points are provided, the Exploiter Agent reaches 79.2% attack success versus 52.7% for AgentVigil. These results highlight repository discovery and runtime exploitation as distinct challenges in end-to-end agent security auditing.",
+      "authors": [
+        "Weida Liang",
+        "Shi Qiu",
+        "Zhun Wang",
+        "Simon Sure",
+        "Xiaoyuan Liu",
+        "Tianneng Shi",
+        "Zhaorun Chen",
+        "Wenbo Guo",
+        "Dawn Song"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI"
+      ],
+      "published": "2026-09-25T14:26:04+00:00",
+      "link": "https://arxiv.org/pdf/2609.31318v1",
+      "tags": [
+        "keyword:ca",
+        "query:ca"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "autonomous red-teaming of AI agents via two-role auditing system",
+      "llm_evidence_cn": "双角色审计系统对AI智能体进行自主红队测试",
+      "llm_evidence": "双角色审计系统对AI智能体进行自主红队测试",
+      "canonical_evidence": "双角色审计系统对AI智能体进行自主红队测试",
+      "llm_tldr_en": "AgentXploit is a two-role auditing system that autonomously discovers and exploits vulnerabilities in AI agents by tracing attacker-controlled inputs and performing runtime exploitation. It targets tool-using LLM agents, offering a method for adversarial testing in cyber contexts.",
+      "llm_tldr_cn": "针对AI智能体在工具使用中可能被对抗性内容操纵或软件漏洞利用的安全问题，论文提出AgentXploit双角色审计系统，分离仓库级攻击路径发现与运行时利用。分析器智能体追踪攻击者可控输入，利用器在受控环境中确认漏洞。实验表明该系统能有效审计预部署智能体，为测试大模型在对抗性网络环境中的能力边界提供了方法。",
+      "llm_tldr": "针对AI智能体在工具使用中可能被对抗性内容操纵或软件漏洞利用的安全问题，论文提出AgentXploit双角色审计系统，分离仓库级攻击路径发现与运行时利用。分析器智能体追踪攻击者可控输入，利用器在受控环境中确认漏洞。实验表明该系统能有效审计预部署智能体，为测试大模型在对抗性网络环境中的能力边界提供了方法。",
+      "llm_tags": [
+        "query:ca"
+      ],
+      "matched_query_tag": "query:ca",
+      "matched_query_text": "adversarial agents for testing large language models in cybercrime",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}
